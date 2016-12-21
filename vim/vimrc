@@ -120,6 +120,8 @@ set splitright
 " Remove `O` and `o` Delay
 set timeout timeoutlen=1000 ttimeoutlen=100
 
+au BufNewFile,BufRead *.es6 set filetype=es6
+
 highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
@@ -132,12 +134,15 @@ noremap <Right> <Nop>
 " ================================================
 " Snippets
 " ================================================
-let g:UltiSnipsSnippetsDir = '~/.vim/my/UltiSnips'
+set runtimepath+=~/.vim/my-snippets/
+let g:UltiSnipsSnippetsDir = '~/.vim/my_snippets/'
+let g:UltiSnipsSnippetDirectories = ['my_snippets']
 let g:UltiSnipsEditSplit = 'vertical'
 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsListSnippets='<C-tab>'
 
 " let g:SuperTabDefaultCompletionType    = '<C-n>'
 " let g:SuperTabCrMapping                = 0
@@ -358,8 +363,8 @@ autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
 " let g:templates_directory =
 
 if $AOL == 'true'
-  let g:username = 'afaryna'
-  let g:email = 'adam.faryna@teamaol.com'
+  let g:username = $USERNAME
+  let g:email = $EMAIL
   let g:templates_directory = '~/.vim/templates/aol/'
   let g:templates_user_variables = []
 end

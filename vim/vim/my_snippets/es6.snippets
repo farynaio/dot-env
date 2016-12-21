@@ -1,0 +1,45 @@
+extends javascript
+
+snippet class "class ..."
+class ${1:name} {
+	constructor(){}
+	$0
+}
+endsnippet
+
+snippet eclass "export class ..." b
+export class $1 {
+	constructor(){}
+	$0
+};
+endsnippet
+
+snippet "e(xport|xp|x)?" "export" br
+export ${1:default };
+endsnippet
+
+snippet md "module.exports = ..." b
+module.exports = $0;
+endsnippet
+
+snippet ie "Import file then export" b
+import ${1} from '${2:./}${3:$1}';
+endsnippet
+
+snippet "c(onst)?" "const" br
+const ${1} = ${2:'$1'};
+endsnippet
+
+snippet "l(et)?" "let" br
+let ${1} = ${2:'$1'};
+endsnippet
+
+snippet => "Arrow function"
+const ${1:name} = (${1:args}) => {
+	$0
+};
+endsnippet
+
+snippet => "Inline arrow function" A
+(${1:args}) => $0;
+endsnippet
