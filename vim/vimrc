@@ -1,0 +1,399 @@
+call plug#begin('~/.vim/plugged')
+
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'scrooloose/syntastic'
+" Plug 'ternjs/tern_for_vim'
+" Plug 'bling/vim-airline'
+" Plug 'ervandew/supertab'
+" Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+" Plug 'mattn/emmet-vim'
+Plug 'mhartington/vim-typings'
+" Plug 'Shougo/unite.vim'
+Plug 'jason0x43/vim-js-indent'
+Plug 'maksimr/vim-jsbeautify'
+" Plug 'https://github.com/xolox/vim-easytags.git'
+" Plug 'https://github.com/vim-scripts/YankRing.vim.git'
+Plug 'craigemery/vim-autotag'
+Plug 'git://github.com/majutsushi/tagbar'
+Plug 'https://github.com/xolox/vim-misc.git'
+" Plug 'https://github.com/xolox/vim-session.git'
+" Plug 'https://github.com/yegappan/greplace.git'
+Plug 'airblade/vim-gitgutter'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'https://github.com/Quramy/tsuquyomi.git'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'https://github.com/HerringtonDarkholme/yats.vim.git'
+Plug 'https://github.com/Olical/vim-enmasse.git'
+" Plug 'https://github.com/vim-scripts/cscope.vim'
+Plug 'https://github.com/vim-scripts/PreserveNoEOL'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'git://github.com/aperezdc/vim-template.git'
+Plug 'git://github.com/Townk/vim-autoclose'
+Plug 'tomtom/tcomment_vim'
+" Plug 'git://github.com/tpope/vim-cucumber.git'
+" Plug 'git://github.com/tpope/vim-fugitive.git'
+Plug 'git://github.com/tpope/vim-surround.git'
+Plug 'git://github.com/nathanaelkane/vim-indent-guides.git'
+Plug 'flazz/vim-colorschemes'
+Plug 'https://github.com/mileszs/ack.vim.git'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'othree/jsdoc-syntax.vim'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'itspriddle/vim-jquery'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/jspc.vim'
+Plug 'moll/vim-node'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'sheerun/vim-polyglot'
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Add plugins to &runtimepath
+call plug#end()
+
+" ================================================
+" Programming Support
+" ================================================
+let g:polyglot_disabled = []
+
+let g:syntastic_javascript_checkers = ['eslint']
+" Override eslint with local version where necessary.
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+  let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+  let g:syntastic_javascript_eslint_exec = local_eslint
+endif
+
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" ================================================
+" General
+" ================================================
+set nocompatible
+filetype plugin on
+filetype plugin indent on
+set encoding=utf-8
+set spelllang=en_gb
+set number
+set ruler
+set mouse=a
+set ignorecase
+colorscheme gruvbox
+" set termguicolors
+" colorscheme darkblue
+set tabstop=2
+set shiftwidth=2
+"filetype plugin indent on
+set expandtab
+" copy to system clipboard
+set clipboard+=unnamed
+" Hide Vim Intro
+set shortmess+=I
+" Hightlight Current Line
+set cursorline
+" Redraw ONLY When Need To
+set lazyredraw
+" Enable Magic for Regular Expression
+set magic
+" Treat Long Lines as Break Lines
+set ai " auto indent
+set si " smart indent
+set shell=sh
+set relativenumber
+" set smartcase
+set noswapfile
+set backspace=2
+syntax enable
+set foldmethod=syntax
+set omnifunc=syntaxcomplete#Complete
+set hlsearch
+set incsearch
+set wildmenu
+set guioptions-=r
+set guioptions-=L
+set guicursor=n-v-c:blinkon0
+let mapleader = ","
+set splitright
+" Remove `O` and `o` Delay
+set timeout timeoutlen=1000 ttimeoutlen=100
+
+highlight OverLength  ctermfg=white guibg=#592929
+match OverLength /\%100v.\+/
+set colorcolumn=100
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" ================================================
+" Snippets
+" ================================================
+let g:UltiSnipsSnippetsDir = '~/.vim/my/UltiSnips'
+let g:UltiSnipsEditSplit = 'vertical'
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" let g:SuperTabDefaultCompletionType    = '<C-n>'
+" let g:SuperTabCrMapping                = 0
+" let g:UltiSnipsExpandTrigger           = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+" let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+
+" ================================================
+" General Mapings
+" ================================================
+" Fix indentation
+noremap <leader><F7> mzgg=G`z
+" Copy to clipboard
+vnoremap <leader><C-c> :w !pbcopy<CR><CR>
+" Paste from clipboard
+noremap <leader><C-v> :r !pbpaste<CR><CR>
+" vnoremap <C-c> :w !pbcopy<CR><CR>
+" noremap <C-v> :r !pbpaste<CR><CR>
+nnoremap j gj
+nnoremap k gk
+
+" Quick Toggle Background BEtween Dark & Light
+nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
+
+" ================================================
+" Sessions
+" ================================================
+if has('gui_running')
+  set background=dark
+  " let g:session_autosave = 'yes'
+  " let g:session_autoload = 'yes'
+else
+  " let g:session_autosave = 'no'
+endif
+
+" ================================================
+" EditorConfig
+" ================================================
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
+
+" ================================================
+" Tagbar
+" ================================================
+noremap <leader>tb :TagbarToggle<CR>
+" ================================================
+" NERDTree
+" ================================================
+let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags']
+let NERDTreeWinSize = 50
+
+noremap <leader><F2> :NERDTreeFind<CR>
+noremap <leader>kb :NERDTreeToggle<CR>
+
+" ================================================
+" Fuzz Search - find any phrase in all files
+" ================================================
+" com! Fuzz :call Fuzz()
+nnoremap <leader>fz :call Fuzz()
+
+fun! Fuzz()
+  let l:phrase = input('What phrase?')
+  exe ":Ack " . l:phrase
+endfun
+
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+  let g:ag_working_path_mode="r"
+endif
+
+" ================================================
+" CSCOPE - ctags alternative
+" ================================================
+" if has("cscope")
+"   nnoremap <leader>fz :tab :call cscope#findInteractive(expand('<cword>'))<CR>
+"   nnoremap <leader>l :call ToggleLocationList()<CR>
+"   set csprg=/usr/local/bin/cscope
+"   set csto=0
+"   set cst
+"   set nocsverb
+"
+"   if filereadable("cscope.out")
+"     cs add cscope.out
+"   endif
+"   set csverb
+" endif
+
+" ================================================
+" CTRLP - find particular file
+" ================================================
+let g:ctrlp_use_caching = 1
+let g:ctrlp_regexp = 1
+let g:ctrlp_by_filename = 1
+let g:ctrlp_mruf_max = 25
+let g:ctrlp_tilde_homedir = 1
+let g:ctrlp_mruf_relative = 1
+let g:ctrlp_types = ['fil', 'mru', 'buf']
+let g:ctrlp_mruf_case_sensitive = 1
+let g:ctrlp_mruf_save_on_update = 1
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]((\.(git|hg|svn))|node_modules|cscope.*|build.*)',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'
+      \ }
+
+" Search by ctags
+nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>r :CtrlP<CR>
+nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>l :CtrlPMRU<CR>
+" nnoremap <leader>q :CtrlPQuickFix<CR>
+
+fun! HTMLOpenFunc(action, line)
+  if a:action =~ '^[tx]$' && fnamemodify(a:line, ':e') =~? '^html\?$'
+    " Get the filename
+    let filename = fnameescape(fnamemodify(a:line, ':p'))
+
+    " Close CtrlP
+    call ctrlp#exit()
+
+    " Open the file
+    if has('mac')
+      silent! execute '!open' filename
+    else " is Linux
+      silent! execute '!xdg-open' filename
+    endif
+  elseif a:action == 'x' && fnamemodify(a:line, ':e') !~? '^html\?$'
+    " Not a HTML file, simulate pressing <c-o> again and wait for new input
+    call feedkeys("\<c-o>")
+
+  else
+    " Use CtrlP's default file opening function
+    call call('ctrlp#acceptfile', [a:action, a:line])
+  endif
+endfun
+
+let g:ctrlp_open_func = {'files': 'HTMLOpenFunc'}
+
+" ================================================
+" vim-jsbeautify
+" ================================================
+autocmd FileType javascript noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
+autocmd FileType json noremap <buffer> <leader><c-f> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
+autocmd FileType html noremap <buffer> <leader><c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
+
+" ================================================
+" Templating
+" ================================================
+" fun! InsertFileManifest(file)
+"   if empty(glob(a:file))
+"     let cwd = fnamemodify(getcwd(), ':t')
+"     let filename = "~/.vim/signatures/" . cwd . ".txt"
+"
+"     if !empty(glob(filename))
+"       exe "-1r " . filename
+"       call EvalTemplateVariables()
+"     endif
+"   endif
+" endfun
+
+" fun! EvalTemplateVariables()
+"   if line("$") > 20
+"     let l = 20
+"   else
+"     let l = line("$")
+"   endif
+"   exe "1," . l . "g/<copy-date>/s/<copy-date>/" . strftime("%Y")
+" endfun
+
+" fun! MyComment()
+"   let l:winview = winsaveview()
+"   :go1
+"   tcomment#Comment()
+"   " call winrestview(l:winview)
+"   " let @q ='msgggcc\`s'
+"   " @q
+" endfun
+
+" autocmd BufFilePre,BufWritePre * ks|call InsertFileManifest(expand('<afile>'))|'s
+
+" fun! ApplySkeletonDevs()
+"   let cwd = fnamemodify(getcwd(), ':t')
+"   let skeletons_path = "~/.vim/skeletons/"
+"   let filename = skeletons_path . cwd
+"   if !empty(glob(filename))
+"     let g:templates_directory = filename
+"
+"     " let skeletons = system("ls " . filename)
+"     "
+"     " for s:item in split(skeletons)
+"     "   " echo "autocmd BufNewFile *." . substitute(s:item,'.*\.', '', '') .	"0r skeletons_path" . s:item
+"     "   let file_ext = substitute(s:item,'.*\.', '.', '')
+"     "   let file_skeleton = join([skeletons_path, s:item])
+"     "   let skeleton_ext = substitute(s:item, '.*\.', '.', '')
+"     "   " autocmd BufNewFile file_ext	0r file_skeleton
+"     "   echo '_' . s:item . '_ file_ext: ' . file_ext . ' skeleton:ext: ' . skeleton_ext
+"     "   autocmd BufNewFile *.*	0r call InsertFile(expand('%'), file_skeleton, skeleton_ext)
+"     " endfor
+"
+"     " autocmd BufNewFile  *.c	0r ~/vim/skeleton.c
+"     " exe "-1r " . filename
+"     " call EvalTemplateVariables()
+"   endif
+" endfun
+
+" fun! InsertFile(file, skeleton, skeleton_ext)
+"   echo '_a:file' . a:file . '_'
+"   let file_ext = substitute(a:file, '.*\.', '.', '')
+"   if file_ext == a:skeleton_ext
+"     :read a:skeleton
+"   endif
+" endfun
+
+" let g:templates_directory =
+
+if $AOL == 'true'
+  let g:username = 'afaryna'
+  let g:email = 'adam.faryna@teamaol.com'
+  let g:templates_directory = '~/.vim/templates/aol/'
+  let g:templates_user_variables = []
+end
+
+let g:templates_no_autocmd = 0
+
+if !g:templates_no_autocmd
+  augroup Templating
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call <SID>TLoad()
+  augroup END
+endif
+" call ApplySkeletonDevs()
+" autocmd VimEnter * call ApplySkeletonDevs()
+
+fun! GetCurrentContent()
+  let l:content = getline(0,line("$"))
+  let l:result = 0
+  for l:temp in l:content
+    if strlen(l:temp) > 0
+      let l:result = 1
+      break
+    endif
+  endfor
+  if l:result == 0
+    let l:extension = expand("%:c")
+    exe 'Template .' . l:extension
+  endif
+endfunction
+autocmd BufEnter * call GetCurrentContent()
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+fun! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfun
