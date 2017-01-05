@@ -1,5 +1,11 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'ap/vim-css-color'
+" Plug 'skammer/vim-css-color'
+Plug 'godlygeek/tabular'
+" Plug 'flowtype/vim-flow'
+" Plug 'vim-scripts/Conque-Shell'
+Plug 'alvan/vim-closetag'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'scrooloose/syntastic'
 " Plug 'ternjs/tern_for_vim'
@@ -81,9 +87,6 @@ set number
 set ruler
 set mouse=a
 set ignorecase
-colorscheme gruvbox
-" set termguicolors
-" colorscheme darkblue
 set tabstop=2
 set shiftwidth=2
 "filetype plugin indent on
@@ -119,6 +122,7 @@ let mapleader = ","
 set splitright
 " Remove `O` and `o` Delay
 set timeout timeoutlen=1000 ttimeoutlen=100
+set nopaste
 
 au BufNewFile,BufRead *.es6 set filetype=es6
 
@@ -126,10 +130,22 @@ highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+" noremap <Up> <Nop>
+" noremap <Down> <Nop>
+" noremap <Left> <Nop>
+" noremap <Right> <Nop>
+
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+" Search for phrase mached in Visual Mode with //
+vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'")
+
+" goto first editable window
+au VimEnter * :exe "winc l"
+
+nnoremap <leader>* *<C-O>:%s///gn<CR>
 
 " ================================================
 " Snippets
@@ -153,7 +169,7 @@ let g:UltiSnipsListSnippets='<C-tab>'
 " let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
 " ================================================
-" General Mapings
+" General Mapings & Ab
 " ================================================
 " Fix indentation
 noremap <leader><F7> mzgg=G`z
@@ -169,14 +185,22 @@ nnoremap k gk
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 
+autocmd BufRead,BufNewFile *.jsx,*.tsx :ia <buffer> </ </<C-X><C-O>>
+
 " ================================================
 " Sessions
 " ================================================
 if has('gui_running')
   set background=dark
+  colorscheme gruvbox
+  " colorscheme monokai
+  " set termguicolors
+  " " colorscheme darkblue
   " let g:session_autosave = 'yes'
   " let g:session_autoload = 'yes'
 else
+  " colorscheme phd
+  colorscheme monokai
   " let g:session_autosave = 'no'
 endif
 
@@ -193,21 +217,51 @@ noremap <leader>tb :TagbarToggle<CR>
 " ================================================
 " NERDTree
 " ================================================
-let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags']
+let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store']
 let NERDTreeWinSize = 50
+let NERDTreeShowHidden = 1
 
 noremap <leader><F2> :NERDTreeFind<CR>
 noremap <leader>kb :NERDTreeToggle<CR>
 
 " ================================================
+" Session
+" ================================================
+function! SaveSess()
+  let filename = getcwd() . '/Session.vim'
+  if filereadable(filename)
+    execute 'mksession! ' . getcwd() . '/Session.vim'
+  endif
+endfunction
+
+function! RestoreSession()
+  let filename = getcwd() . '/Session.vim'
+  if filereadable(filename)
+    execute 'so ' . filename
+  endif
+endfunction
+
+" autocmd VimLeave * call SaveSess()
+" autocmd VimEnter * call RestoreSession()
+
+" ================================================
 " Fuzz Search - find any phrase in all files
 " ================================================
 " com! Fuzz :call Fuzz()
-nnoremap <leader>fz :call Fuzz()
+nnoremap <leader>f :call Fuzz()<CR>
 
 fun! Fuzz()
-  let l:phrase = input('What phrase?')
-  exe ":Ack " . l:phrase
+  let l:phrase = input('What pattern? ')
+  if empty(l:phrase)
+    return
+  endif
+
+  let l:folder = input('What folder? ')
+  if empty(l:folder)
+    return
+  endif
+
+  exe ":LAck --smart-case " . l:phrase . "  " . l:folder
 endfun
 
 if executable('ag')
@@ -233,6 +287,29 @@ endif
 " endif
 
 " ================================================
+" Tabularize
+" ================================================
+if exists(":Tabularize")
+  nnoremap <leader>a= :Tabularize /=<CR>
+  vnoremap <leader>a= :Tabularize /=<CR>
+  nnoremap <leader>a: :Tabularize /:\zs<CR>
+  vnoremap <leader>a: :Tabularize /:\zs<CR>
+
+  " tabularize on every | char
+  inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+  function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+      let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+      let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+      Tabularize/|/l1
+      normal! 0
+      call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+  endfunction
+endif
+
+" ================================================
 " CTRLP - find particular file
 " ================================================
 let g:ctrlp_use_caching = 1
@@ -245,7 +322,7 @@ let g:ctrlp_types = ['fil', 'mru', 'buf']
 let g:ctrlp_mruf_case_sensitive = 1
 let g:ctrlp_mruf_save_on_update = 1
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]((\.(git|hg|svn))|node_modules|cscope.*|build.*)',
+      \ 'dir':  '\v[\/]((\.(git|hg|svn))|node_modules|cscope.*|build.*|dist.*)',
       \ 'file': '\v\.(exe|so|dll)$',
       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'
       \ }
@@ -286,11 +363,23 @@ let g:ctrlp_open_func = {'files': 'HTMLOpenFunc'}
 " ================================================
 " vim-jsbeautify
 " ================================================
-autocmd FileType javascript noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
-autocmd FileType json noremap <buffer> <leader><c-f> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
-autocmd FileType html noremap <buffer> <leader><c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
+
+augroup Beautify
+  autocmd!
+  autocmd FileType typescript noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
+  autocmd FileType html noremap <buffer> <leader><c-f> :call RangeHtmlBeautify()<cr>
+  autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
+  autocmd FileType javascript noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
+  autocmd FileType jsx noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
+  autocmd FileType javascript.jsx noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
+  autocmd FileType json noremap <buffer> <leader><c-f> :call RangeJsonBeautify()<cr>
+augroup end
+
+augroup Search
+  autocmd!
+  autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
+  autocmd FileType typescript nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
+augroup end
 
 " ================================================
 " Templating
@@ -361,12 +450,15 @@ autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
 " endfun
 
 " let g:templates_directory =
+let g:username = $USERNAME
+let g:email = $EMAIL
+let g:license = 'Proprietary'
+let g:templates_user_variables = []
 
 if $AOL == 'true'
-  let g:username = $USERNAME
-  let g:email = $EMAIL
   let g:templates_directory = '~/.vim/templates/aol/'
-  let g:templates_user_variables = []
+else
+  let g:templates_directory = '~/.vim/templates/private/'
 end
 
 let g:templates_no_autocmd = 0

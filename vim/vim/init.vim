@@ -1,0 +1,1 @@
+/Users/devil/.vimrc
