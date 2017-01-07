@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug 'vim-scripts/ConflictMotions'
 Plug 'ap/vim-css-color'
 " Plug 'skammer/vim-css-color'
 Plug 'godlygeek/tabular'
@@ -137,6 +138,9 @@ set colorcolumn=100
 " noremap <Left> <Nop>
 " noremap <Right> <Nop>
 
+" Remove ex mode
+nnoremap Q <nop>
+
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " Search for phrase mached in Visual Mode with //
@@ -145,7 +149,16 @@ vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'")
 " goto first editable window
 au VimEnter * :exe "winc l"
 
+" Count occourences of selected text.
 nnoremap <leader>* *<C-O>:%s///gn<CR>
+
+" ================================================
+" Diff
+" ================================================
+set diffopt+=iwhite
+
+command! Mdiffthis nnoremap <buffer> ] ]c|nnoremap <buffer> [ [c|diffthis
+command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
 " ================================================
 " Snippets
