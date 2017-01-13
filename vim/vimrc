@@ -208,6 +208,9 @@ autocmd BufRead,BufNewFile *.jsx,*.tsx :ia <buffer> </ </<C-X><C-O>>
 if has('gui_running')
   set background=dark
   colorscheme gruvbox
+
+  " Fullscreen mode
+  set lines=9999 columns=9999
   " colorscheme monokai
   " set termguicolors
   " " colorscheme darkblue
