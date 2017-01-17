@@ -13,6 +13,7 @@ Plug 'alvan/vim-closetag'
 " Plug 'scrooloose/syntastic'
 " Plug 'ternjs/tern_for_vim'
 " Plug 'bling/vim-airline'
+Plug 'osyo-manga/vim-anzu'
 " Plug 'ervandew/supertab'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
@@ -142,6 +143,14 @@ set colorcolumn=100
 
 " Remove ex mode
 nnoremap Q <nop>
+
+" Show search occourences count in statusbar
+set statusline=%{anzu#search_status()}
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
