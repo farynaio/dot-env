@@ -147,17 +147,29 @@ set colorcolumn=100
 nnoremap Q <nop>
 
 " Show search occourences count in statusbar
-set statusline=%{anzu#search_status()}
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" set statusline=%{anzu#search_status()}
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+" nmap * <Plug>(anzu-star-with-echo)
+" nmap # <Plug>(anzu-sharp-with-echo)
+" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
+" ================================================
+" Select Mode
+" ================================================
+" nnoremap § *``gn<C-g>
+" inoremap § <C-o>gn<C-g>
+" snoremap <expr> . @.
+
+" ================================================
+" Search & Replace
+" ================================================
 " Search for phrase mached in Visual Mode with //
-vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'")
+" vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'")
+" nnoremap * /\<cword
+" command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
 " goto first editable window
 au VimEnter * :exe "winc l"
