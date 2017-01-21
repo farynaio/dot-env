@@ -212,13 +212,18 @@ let g:UltiSnipsListSnippets='<C-tab>'
 " Fix indentation
 noremap <leader><F7> mzgg=G`z
 " Copy to clipboard
-vnoremap <leader><C-c> :w !pbcopy<CR><CR>
+" vnoremap <leader><C-c> :w !pbcopy<CR><CR>
 " Paste from clipboard
-noremap <leader><C-v> :r !pbpaste<CR><CR>
+" noremap <leader><C-v> :r !pbpaste<CR><CR>
 " vnoremap <C-c> :w !pbcopy<CR><CR>
 " noremap <C-v> :r !pbpaste<CR><CR>
 nnoremap j gj
 nnoremap k gk
+
+noremap <Up> gk
+noremap <Down> gj
+ounmap <Up>
+ounmap <Down>
 
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
