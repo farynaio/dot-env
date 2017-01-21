@@ -109,7 +109,7 @@ set magic
 set ai " auto indent
 set si " smart indent
 set shell=sh
-set relativenumber
+" set relativenumber
 " set smartcase
 set noswapfile
 set backspace=2
