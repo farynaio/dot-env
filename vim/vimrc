@@ -268,12 +268,12 @@ noremap <leader>kb :NERDTreeToggle<CR>
 " ================================================
 " Session
 " ================================================
-function! SaveSess()
-  let filename = getcwd() . '/Session.vim'
-  if filereadable(filename)
-    execute 'mksession! ' . getcwd() . '/Session.vim'
-  endif
-endfunction
+" function! SaveSess()
+"   let filename = getcwd() . '/Session.vim'
+"   if filereadable(filename)
+"     execute 'mksession! ' . getcwd() . '/Session.vim'
+"   endif
+" endfunction
 
 function! RestoreSession()
   let filename = getcwd() . '/Session.vim'
@@ -283,7 +283,12 @@ function! RestoreSession()
 endfunction
 
 " autocmd VimLeave * call SaveSess()
-" autocmd VimEnter * call RestoreSession()
+autocmd VimEnter * call RestoreSession()
+
+" ================================================
+" Git - Fugitive
+" ================================================
+autocmd QuickFixCmdPost *grep* cwindow
 
 " ================================================
 " Fuzz Search - find any phrase in all files
