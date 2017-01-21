@@ -389,8 +389,8 @@ fun! HTMLOpenFunc(action, line)
     call ctrlp#exit()
 
     " Open the file
-    if has('mac')
-      silent! execute '!open' filename
+  if has('mac')
+    silent! execute '!open' filename
     else " is Linux
       silent! execute '!xdg-open' filename
     endif
