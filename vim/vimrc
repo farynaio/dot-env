@@ -236,7 +236,8 @@ autocmd BufRead,BufNewFile *.jsx,*.tsx :ia <buffer> </ </<C-X><C-O>>
 " ================================================
 if has('gui_running')
   set background=dark
-  colorscheme gruvbox
+  " colorscheme gruvbox
+  colorscheme monokai
 " znake, zmrok, wolfpack,
   " Fullscreen mode
   set lines=9999 columns=9999
