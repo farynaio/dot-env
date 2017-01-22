@@ -129,6 +129,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 " Remove `O` and `o` Delay
 set timeout timeoutlen=1000 ttimeoutlen=100
 set nopaste
+set visualbell
 
 au BufNewFile,BufRead *.es6 set filetype=es6
 
