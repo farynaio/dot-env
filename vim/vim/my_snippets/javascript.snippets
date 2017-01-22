@@ -3,7 +3,13 @@ console.log('${1:variable}: ' + $1);
 endsnippet
 
 snippet todo "// TODO ..."
-// TODO(${1:`echo $EMAIL`}) $0
+// TODO(`echo $EMAIL`) $0
+endsnippet
+
+snippet { "position in new anonim object def"
+{
+$0
+
 endsnippet
 
 snippet req "const nameCamelCase = require(name)" b
@@ -32,7 +38,7 @@ snippet md "module.exports = ..." b
 module.exports = $0;
 endsnippet
 
-snippet ie "Import file then export" b
+snippet ie "Import from" b
 import {${1}} from '${2:./}${3:$1}';
 endsnippet
 
@@ -44,7 +50,13 @@ snippet "l(et)?" "let" br
 let ${1} = $0;
 endsnippet
 
-snippet => "Arrow function"
+snippet => "Inline arrow function"
+() => {
+$0
+}
+endsnippet
+
+snippet c=> "Arrow function"
 const ${1:name} = (${2}) => {
 	$0
 };
@@ -54,9 +66,5 @@ snippet e=> "Exported arrow function"
 export const ${1:name} = (${2}) => {
 	$0
 };
-endsnippet
-
-snippet =>> "Inline arrow function" A
-(${1}) => $0;
 endsnippet
 
