@@ -226,6 +226,14 @@ noremap <Down> gj
 ounmap <Up>
 ounmap <Down>
 
+" easier cycling and delete buffers in current window
+nnoremap gb :bn<CR>
+nnoremap gB :bp<CR>
+nnoremap <LEADER>gd mm :bd<CR>
+
+" Goto local definition and add mark to starting line
+nnoremap gd mm gd
+
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 
