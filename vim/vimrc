@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-speeddating'
 " Plug 'vim-scripts/ConflictMotions'
@@ -173,10 +174,13 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 " command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
 " goto first editable window
-au VimEnter * :exe "winc l"
+" au VimEnter * :exe "winc l"
 
 " Count occourences of selected text.
 nnoremap <leader>* *<C-O>:%s///gn<CR>
+
+" Remove empty lines
+command! MremoveEmptyLines g/^\s*$/d
 
 " ================================================
 " Diff
@@ -228,11 +232,13 @@ ounmap <Down>
 
 " easier cycling and delete buffers in current window
 nnoremap gb :bn<CR>
-nnoremap gB :bp<CR>
+nnoremap gp :bp<CR>
 nnoremap <LEADER>gd mm :bd<CR>
 
 " Goto local definition and add mark to starting line
 nnoremap gd mm gd
+" nnoremap gg mm gg
+" nnoremap G mm G
 
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
@@ -273,12 +279,24 @@ noremap <leader>tb :TagbarToggle<CR>
 " ================================================
 " NERDTree
 " ================================================
-let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store']
+let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git']
 let NERDTreeWinSize = 50
 let NERDTreeShowHidden = 1
 
 noremap <leader><F2> :NERDTreeFind<CR>
 noremap <leader>kb :NERDTreeToggle<CR>
+
+" ================================================
+" Git - gutter
+" ================================================
+set updatetime=250
+command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
+
+function SetGitGutterBase(...)
+  let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
+  echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
+  GitGutter
+endfunction
 
 " ================================================
 " Session
