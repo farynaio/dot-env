@@ -3,7 +3,7 @@ console.log('${1:variable}: ' + $1);
 endsnippet
 
 snippet todo "// TODO ..."
-// TODO(`echo $EMAIL`) $0
+// TODO(`echo $EMAIL`) $0 ${1:implement}
 endsnippet
 
 snippet { "position in new anonim object def"
@@ -16,11 +16,19 @@ snippet req "const nameCamelCase = require(name)" b
 const ${1} = require('${0:$1}');
 endsnippet
 
-snippet class "class ..."
-class ${1:name} {
-	constructor(){}
-	$0
+snippet class "Component class ..."
+import React, { Component } from 'react';
+import style from './style';
+
+class ${1:name} extends Component {
+	render() {
+		return (
+			$0
+		);
+	};
 }
+
+export default $1;
 endsnippet
 
 snippet eclass "export class ..." b
@@ -68,3 +76,32 @@ export const ${1:name} = (${2}) => {
 };
 endsnippet
 
+snippet style "create react-native style template"
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+	${1:container}: {
+		$0
+	}
+});
+endsnippet
+
+snippet index "generate index.js boilerplate"
+import ${1} from './$1';
+$0
+export default $1;
+endsnippet
+
+snippet sless "create react-native stateless template"
+import React from 'react';
+import { View } from 'react-native';
+import style from './style';
+
+const ${1:name} = ({ ${2:props} }) => (
+	<View style={style.container}>
+	$0
+	</View>
+);
+
+export default $1;
+endsnippet
