@@ -91,6 +91,7 @@ set spelllang=en
 set number
 set ruler
 set mouse=a
+set mousemodel=popup
 set ignorecase
 set tabstop=2
 set shiftwidth=2
