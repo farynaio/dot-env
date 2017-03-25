@@ -210,6 +210,11 @@ let g:UltiSnipsListSnippets='<C-tab>'
 " let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 " let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 " let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_definition_split = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:tsuquyomi_javascript_support = 1
+autocmd FileType typescript setlocal completeopt+=preview
 
 " ================================================
 " General Mapings & Ab
