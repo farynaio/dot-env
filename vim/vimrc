@@ -471,6 +471,11 @@ augroup Search
   autocmd FileType typescript nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
 augroup end
 
+augroup Autocompletion
+  autocmd!
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup end
+
 " ================================================
 " Templating
 " ================================================
