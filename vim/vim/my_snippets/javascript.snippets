@@ -76,7 +76,15 @@ export const ${1:name} = (${2}) => {
 };
 endsnippet
 
-snippet style "create react-native style template"
+snippet style "create react style template"
+const style = {
+	$0
+};
+
+export default style;
+endsnippet
+
+snippet nstyle "create react-native style template"
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -92,9 +100,22 @@ $0
 export default $1;
 endsnippet
 
-snippet sless "create react-native stateless template"
+snippet nsless "create react-native stateless template"
 import React from 'react';
 import { View } from 'react-native';
+import style from './style';
+
+const ${1:name} = ({ ${2:props} }) => (
+	<View style={style.container}>
+	$0
+	</View>
+);
+
+export default $1;
+endsnippet
+
+snippet sless "create react stateless template"
+import * as React from 'react';
 import style from './style';
 
 const ${1:name} = ({ ${2:props} }) => (
