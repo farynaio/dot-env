@@ -4,17 +4,4 @@
  *
  * Distributed under terms of the %LICENSE% license.
  */
-import React, { Component } from 'react'
 
-export class %FILE% extends Component {
-  constructor(props: any) {
-    super(props)
-
-  }
-
-  render() {
-    return (
-      %HERE%
-    )
-  }
-}
