@@ -87,7 +87,7 @@ set nocompatible
 filetype plugin on
 filetype plugin indent on
 set encoding=utf-8
-set spelllang=en_gb
+set spelllang=en
 set number
 set ruler
 set mouse=a
