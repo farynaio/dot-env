@@ -115,7 +115,7 @@ set shell=sh
 set noswapfile
 set backspace=2
 syntax enable
-set foldmethod=syntax
+set foldmethod=marker
 set omnifunc=syntaxcomplete#Complete
 set hlsearch
 set incsearch
