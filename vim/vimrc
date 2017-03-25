@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug '1995eaton/vim-better-javascript-completion'
 Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-speeddating'
