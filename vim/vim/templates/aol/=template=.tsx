@@ -5,6 +5,3 @@
  *
  * @author %MAIL%
  */
-export class %HERE% {
-
-}
