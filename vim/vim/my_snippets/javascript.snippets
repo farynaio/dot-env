@@ -1,9 +1,17 @@
 snippet cl "console.log(...)"
-console.log('${1:variable}: ' + $1);
+console.log(`$0`);
+endsnippet
+
+snippet cw "console.warn(...)"
+console.warn(`$0`);
+endsnippet
+
+snippet ce "console.error(...)"
+console.error(`$0`);
 endsnippet
 
 snippet todo "// TODO ..."
-// TODO(`echo $EMAIL`) $0 ${1:implement}
+// TODO(`echo $EMAIL`) ${1:implement} $0
 endsnippet
 
 snippet { "position in new anonim object def"
@@ -17,13 +25,27 @@ const ${1} = require('${0:$1}');
 endsnippet
 
 snippet class "Component class ..."
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames/bind';
 import style from './style';
 
+const cx = classNames.bind(styles);
+
 class ${1:name} extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	static propTypes = {
+	}
+
 	render() {
+		const {} = this.props;
+
 		return (
-			$0
+			<div className={cx('$1')}>
+				$0
+			</div>
 		);
 	};
 }
@@ -31,15 +53,48 @@ class ${1:name} extends Component {
 export default $1;
 endsnippet
 
-snippet eclass "export class ..." b
-export class $1 {
+snippet cclass "Connected component class..."
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
+import style from './style';
+
+const cx = classNames.bind(styles);
+
+class ${1:name} extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	static propTypes = {
+	}
+
+	render() {
+		const {} = this.props;
+
+		return (
+			<div className={cx('$1')}>
+				$0
+			</div>
+		);
+	};
+}
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)($1);
+endsnippet
+
+snippet eclass "export default class ..." b
+export default class $1 {
 	constructor(){}
 	$0
 };
 endsnippet
 
-snippet "e(xport|xp|x)?" "export" br
-export ${1:default };
+snippet "e(xport|xp|x)?d" "export" br
+export default $0;
 endsnippet
 
 snippet md "module.exports = ..." b
@@ -105,9 +160,9 @@ import React from 'react';
 import { View } from 'react-native';
 import style from './style';
 
-const ${1:name} = ({ ${2:props} }) => (
-	<View style={style.container}>
-	$0
+const ${1:name} = ({ ${2} }) => (
+	<View>
+		$0
 	</View>
 );
 
@@ -115,13 +170,16 @@ export default $1;
 endsnippet
 
 snippet sless "create react stateless template"
-import * as React from 'react';
-import style from './style';
+import React, { PropTypes } from 'react';
+import classNames from 'classnames/bind';
+import styles from '../css/component/$1';
+
+const cx = classNames.bind(styles);
 
 const ${1:name} = ({ ${2:props} }) => (
-	<View style={style.container}>
-	$0
-	</View>
+	<div class={cx('$1')}>
+		$0
+	</div>
 );
 
 export default $1;
