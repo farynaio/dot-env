@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug 'vim-scripts/matchit.zip'
+Plug 'othree/xml.vim'
+" Plug 'alvan/vim-closetag'
 " Plug '1995eaton/vim-better-javascript-completion'
 Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'kana/vim-textobj-user'
@@ -10,7 +13,6 @@ Plug 'ap/vim-css-color'
 " Plug 'godlygeek/tabular'
 " Plug 'flowtype/vim-flow'
 " Plug 'vim-scripts/Conque-Shell'
-Plug 'alvan/vim-closetag'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'scrooloose/syntastic'
 " Plug 'ternjs/tern_for_vim'
@@ -90,9 +92,12 @@ set encoding=utf-8
 set spelllang=en
 set number
 set ruler
+set wrap
 set mouse=a
 set mousemodel=popup
 set ignorecase
+" autoread file changes
+set autoread
 set tabstop=2
 set shiftwidth=2
 "filetype plugin indent on
@@ -211,10 +216,16 @@ let g:UltiSnipsListSnippets='<C-tab>'
 " let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 " let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
 " let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+
+" ================================================
+" Work with Javascript
+" ================================================
 let g:tsuquyomi_completion_detail = 1
 let g:tsuquyomi_definition_split = 1
 let g:tsuquyomi_disable_quickfix = 1
 let g:tsuquyomi_javascript_support = 1
+let g:tsuquyomi_disable_default_mappings = 1
+noremap <C-]> :TsuDefinition<CR>
 autocmd FileType typescript setlocal completeopt+=preview
 
 " ================================================
@@ -258,7 +269,7 @@ if has('gui_running')
   set background=dark
   " colorscheme gruvbox
   colorscheme monokai
-" znake, zmrok, wolfpack,
+  " znake, zmrok, wolfpack,
   " Fullscreen mode
   set lines=9999 columns=9999
   " colorscheme monokai
@@ -434,8 +445,8 @@ fun! HTMLOpenFunc(action, line)
     call ctrlp#exit()
 
     " Open the file
-  if has('mac')
-    silent! execute '!open' filename
+    if has('mac')
+      silent! execute '!open' filename
     else " is Linux
       silent! execute '!xdg-open' filename
     endif
