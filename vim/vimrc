@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug 'csscomb/vim-csscomb'
 " Plug 'vim-scripts/matchit.zip'
 Plug 'othree/xml.vim'
 " Plug 'alvan/vim-closetag'
@@ -187,6 +188,11 @@ nnoremap <leader>* *<C-O>:%s///gn<CR>
 
 " Remove empty lines
 command! MremoveEmptyLines g/^\s*$/d
+
+" ================================================
+" CSSComb
+" ================================================
+" autocmd FileType css,scss noremap <buffer> <leader>bc :CSScomb<CR>
 
 " ================================================
 " Diff
