@@ -200,9 +200,17 @@ command! MremoveEmptyLines g/^\s*$/d
 " ================================================
 set diffopt+=iwhite
 
-command! Mdiffthis nnoremap <buffer> ] ]c|nnoremap <buffer> [ [c|diffthis
-command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
+" these two are probably not needed
+" command! Mdiffthis nnoremap <buffer> ] ]c|nnoremap <buffer> [ [c|diffthis
+" command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
+if &diff
+  nnoremap <leader>1 :diffget LOCAL<CR>
+  nnoremap <leader>2 :diffget BASE<CR>
+  nnoremap <leader>3 :diffget REMOTE<CR>
+endif
+
+au VimEnter * if &diff | execute 'windo set wrap' | endif
 " ================================================
 " Snippets
 " ================================================
