@@ -240,8 +240,10 @@ let g:tsuquyomi_definition_split = 1
 let g:tsuquyomi_disable_quickfix = 1
 let g:tsuquyomi_javascript_support = 1
 let g:tsuquyomi_disable_default_mappings = 1
-noremap <C-]> :TsuDefinition<CR>
-autocmd FileType typescript setlocal completeopt+=preview
+
+autocmd FileType typescript,javascript
+      \ setlocal completeopt+=preview     |
+      \ noremap <C-]> :TsuDefinition<CR>
 
 " ================================================
 " General Mapings & Ab
