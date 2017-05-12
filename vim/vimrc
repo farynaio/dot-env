@@ -146,6 +146,9 @@ highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
+command! McopyFilePathToClipboard :redir @* | echo @% | redir END
+nnoremap <leader>cf :McopyFilePathToClipboard <CR>
+
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " noremap <Up> <Nop>
