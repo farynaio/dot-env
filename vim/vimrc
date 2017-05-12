@@ -52,6 +52,7 @@ Plug 'tpope/vim-surround'
 Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'heavenshell/vim-jsdoc'
@@ -305,9 +306,21 @@ noremap <leader>tb :TagbarToggle<CR>
 let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git']
 let NERDTreeWinSize = 50
 let NERDTreeShowHidden = 1
+let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_autofind = 0
 
 noremap <leader><F2> :NERDTreeFind<CR>
 noremap <leader>kb :NERDTreeToggle<CR>
+
+autocmd vimenter * NERDTree
+" autocmd TabNew * NERDTreeMirrorOpen
+" autocmd TabNew * :NERDTreeTabsOpen
+" jump to other window then NERDTree on VIM enter
+autocmd VimEnter * wincmd p
+
+" Close VIM when NERDTree is the last opened window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ================================================
 " Git - gutter
