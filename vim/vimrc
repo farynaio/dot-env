@@ -327,7 +327,7 @@ let g:nerdtree_tabs_autofind = 0
 noremap <leader><F2> :NERDTreeFind<CR>
 noremap <leader>kb :NERDTreeToggle<CR>
 
-autocmd vimenter * NERDTree
+autocmd vimenter * if !&diff | execute 'windo :NERDTree' | endif
 " autocmd TabNew * NERDTreeMirrorOpen
 " autocmd TabNew * :NERDTreeTabsOpen
 " jump to other window then NERDTree on VIM enter
