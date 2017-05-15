@@ -1,5 +1,47 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug 'vim-syntastic/syntastic'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'ervandew/supertab'
+
+" Filetype sytax support
+Plug 'JulesWang/css.vim'
+Plug 'honza/dockerfile.vim'
+Plug 'dag/vim-fish'
+Plug 'tpope/vim-git'
+Plug 'othree/html5.vim'
+Plug 'glanotte/vim-jasmine'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'lfilho/cosco.vim'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+Plug 'groenewege/vim-less'
+Plug 'plasticboy/vim-markdown'
+Plug 'StanAngeloff/php.vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'aliev/vim-compiler-python'
+Plug 'wavded/vim-stylus'
+Plug 'kurayama/systemd-vim-syntax'
+Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/XSLT-syntax'
+Plug 'stephpy/vim-yaml'
+Plug 'sheerun/vim-yardoc'
+
+" Lint engine
+Plug 'w0rp/ale'
+
+Plug 'henrik/vim-indexed-search'
+" Plug 'janko-m/vim-test'
+" Plug 'skywind3000/asyncrun.vim'
+Plug 'victormours/better-writing.vim'
+Plug 'vim-scripts/CursorLineCurrentWindow'
+" Plug 'yegappan/mru'
+Plug 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
 " Plug 'csscomb/vim-csscomb'
 " Plug 'vim-scripts/matchit.zip'
 Plug 'othree/xml.vim'
@@ -19,10 +61,8 @@ Plug 'ap/vim-css-color'
 " Plug 'ternjs/tern_for_vim'
 " Plug 'bling/vim-airline'
 Plug 'osyo-manga/vim-anzu'
-" Plug 'ervandew/supertab'
 " Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
-" Plug 'mattn/emmet-vim'
 Plug 'mhartington/vim-typings'
 " Plug 'Shougo/unite.vim'
 Plug 'jason0x43/vim-js-indent'
@@ -61,16 +101,26 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " Plug 'othree/jspc.vim'
 Plug 'moll/vim-node'
 " Plug 'severin-lemaignan/vim-minimap'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
 
 " ================================================
+" Emmet Support
+" ================================================
+
+let g:user_emmet_install_global = 0
+autocmd FileType html EmmetInstall
+
+" ================================================
 " Programming Support
 " ================================================
-let g:polyglot_disabled = []
+" let g:polyglot_disabled = [ 'css',   ]
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
 
 let g:syntastic_javascript_checkers = ['eslint']
 " Override eslint with local version where necessary.
@@ -102,7 +152,6 @@ set ignorecase
 set autoread
 set tabstop=2
 set shiftwidth=2
-"filetype plugin indent on
 set expandtab
 " copy to system clipboard
 set clipboard+=unnamed
@@ -122,12 +171,13 @@ set shell=sh
 " set smartcase
 set noswapfile
 set backspace=2
-syntax enable
+syntax on
 set foldmethod=marker
 set omnifunc=syntaxcomplete#Complete
 set hlsearch
 set incsearch
 set wildmenu
+set hidden
 set guioptions-=r
 set guioptions-=L
 set guicursor=n-v-c:blinkon0
@@ -148,6 +198,9 @@ set colorcolumn=100
 
 command! McopyFilePathToClipboard :redir @* | echo @% | redir END
 nnoremap <leader>cf :McopyFilePathToClipboard <CR>
+
+" close all buffers
+nnoremap <silent> <leader> :%bd <CR>
 
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 
@@ -193,6 +246,12 @@ nnoremap <leader>* *<C-O>:%s///gn<CR>
 " Remove empty lines
 command! MremoveEmptyLines g/^\s*$/d
 
+
+" ================================================
+" Plain Text mode
+" ================================================
+autocmd FileType text :set syntax=better-writing
+
 " ================================================
 " CSSComb
 " ================================================
@@ -213,7 +272,7 @@ if &diff
   nnoremap <leader>3 :diffget REMOTE<CR>
 endif
 
-au VimEnter * if &diff | execute 'windo set wrap' | endif
+autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
 " ================================================
 " Snippets
 " ================================================
@@ -317,21 +376,39 @@ noremap <leader>tb :TagbarToggle<CR>
 " ================================================
 " NERDTree
 " ================================================
-let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git']
+let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git', 'node_modules']
 let NERDTreeWinSize = 50
 let NERDTreeShowHidden = 1
-let g:nerdtree_tabs_open_on_console_startup = 1
+
+" Less verbose NERDTree UI
+let NERDTreeMinimalUI = 1
+
+" Automatically close NERDTree when opened a file
+let NERDTreeQuitOnOpen = 1
+
+" Automatically delete buffer of the deleted file from NERDTree
+let NERDTreeAutoDeleteBuffer = 1
+
+let g:nerdtree_tabs_open_on_gui_startup = 2
+let g:nerdtree_tabs_open_on_console_startup = 2
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autofind = 0
+" let g:nerdtree_tabs_smart_startup_focus = 2
 
 noremap <leader><F2> :NERDTreeFind<CR>
-noremap <leader>kb :NERDTreeToggle<CR>
+noremap <leader>k :NERDTreeToggle<CR>
 
-autocmd vimenter * if !&diff | execute 'windo :NERDTree' | endif
 " autocmd TabNew * NERDTreeMirrorOpen
 " autocmd TabNew * :NERDTreeTabsOpen
-" jump to other window then NERDTree on VIM enter
+
+" Jump to other window then NERDTree on VIM enter
 autocmd VimEnter * wincmd p
+
+" Write variable s:std_in if arguments for VIM was passed
+autocmd StdinReadPre * let s:std_in=1
+
+" Open NERDTree if no arguments were passed to VIM and diff mode is off
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :NERDTree' | endif
 
 " Close VIM when NERDTree is the last opened window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -358,6 +435,7 @@ endfunction
 "   endif
 " endfunction
 
+" Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
   let filename = getcwd() . '/Session.vim'
   if filereadable(filename)
@@ -373,13 +451,14 @@ autocmd VimEnter * call RestoreSession()
 " ================================================
 autocmd QuickFixCmdPost *grep* cwindow
 
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 " ================================================
 " Fuzz Search - find any phrase in all files
 " ================================================
-" com! Fuzz :call Fuzz()
 nnoremap <leader>f :call Fuzz()<CR>
 
-fun! Fuzz()
+function! Fuzz()
   let l:phrase = input('What pattern? ')
   if empty(l:phrase)
     return
@@ -390,8 +469,8 @@ fun! Fuzz()
     return
   endif
 
-  exe ":LAck --smart-case " . l:phrase . "  " . l:folder
-endfun
+  exe ":LAck --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+endfunction
 
 if executable('ag')
   let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -469,7 +548,7 @@ nnoremap <leader>t :CtrlPTag<CR>
 nnoremap <leader>l :CtrlPMRU<CR>
 " nnoremap <leader>q :CtrlPQuickFix<CR>
 
-fun! HTMLOpenFunc(action, line)
+function! HTMLOpenFunc(action, line)
   if a:action =~ '^[tx]$' && fnamemodify(a:line, ':e') =~? '^html\?$'
     " Get the filename
     let filename = fnameescape(fnamemodify(a:line, ':p'))
@@ -491,7 +570,7 @@ fun! HTMLOpenFunc(action, line)
     " Use CtrlP's default file opening function
     call call('ctrlp#acceptfile', [a:action, a:line])
   endif
-endfun
+endfunction
 
 let g:ctrlp_open_func = {'files': 'HTMLOpenFunc'}
 
@@ -609,7 +688,7 @@ augroup END
 " call ApplySkeletonDevs()
 " autocmd VimEnter * call ApplySkeletonDevs()
 
-fun! GetCurrentContent()
+function! GetCurrentContent()
   let l:content = getline(0,line("$"))
   let l:result = 0
   for l:temp in l:content
@@ -627,7 +706,7 @@ autocmd BufEnter * call GetCurrentContent()
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
-fun! ExecuteMacroOverVisualRange()
+function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
-endfun
+endfunction
