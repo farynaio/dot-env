@@ -479,7 +479,7 @@ nnoremap <leader>f :call FuzzSearch()<CR>
 vnoremap <leader>f :call FuzzSearchVisual()<CR>
 
 function! FuzzSearch()
-  let l:phrase = input('What pattern? ')
+  let l:phrase = input('What pattern? ', expand('<cword>'))
   if empty(l:phrase)
     return
   endif
