@@ -347,6 +347,9 @@ nnoremap gb :bn<CR>
 nnoremap gp :bp<CR>
 nnoremap <silent> <LEADER>gd :bd<CR>
 
+" close all buffers
+nnoremap <silent> <leader>bd :%bd <CR>
+
 " Goto local definition and add mark to starting line
 nnoremap gd mm gd
 " nnoremap gg mm gg
