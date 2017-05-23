@@ -178,7 +178,6 @@ set omnifunc=syntaxcomplete#Complete
 set hlsearch
 set incsearch
 set wildmenu
-set hidden
 set guioptions-=r
 set guioptions-=L
 set guicursor=n-v-c:blinkon0
@@ -457,9 +456,10 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " ================================================
 " Fuzz Search - find any phrase in all files
 " ================================================
-nnoremap <leader>f :call Fuzz()<CR>
+nnoremap <leader>f :call FuzzSearch()<CR>
+vnoremap <leader>f :call FuzzSearchVisual()<CR>
 
-function! Fuzz()
+function! FuzzSearch()
   let l:phrase = input('What pattern? ')
   if empty(l:phrase)
     return
@@ -471,6 +471,28 @@ function! Fuzz()
   endif
 
   exe ":LAck --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+endfunction
+
+function! FuzzSearchVisual()
+  let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]]
+  let l:folder = input('What folder? ')
+
+  if empty(l:folder)
+    let l:folder = '.'
+  endif
+
+  exe ":LAck --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+endfunction
+
+nnoremap <leader>h :call FindOccurrences()<CR>
+
+function! FindOccurrences()
+  let l:folder = input('Type search folder name? ')
+  if empty(l:folder)
+    let l:folder = '.';
+  endif
+
+  exe ":LAck --smart-case '<cword>' '" . l:folder . "'"
 endfunction
 
 if executable('ag')
