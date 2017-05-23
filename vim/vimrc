@@ -199,8 +199,24 @@ set colorcolumn=100
 command! McopyFilePathToClipboard :redir @* | echo @% | redir END
 nnoremap <leader>cf :McopyFilePathToClipboard <CR>
 
-" close all buffers
-nnoremap <silent> <leader> :%bd <CR>
+" Lint JS buffers on save.
+" au BufWritePost *.js,*.json,*.jsx,*.tsx :call LintBuffer()
+
+" Search for word under cursor.
+nnoremap <C-h> :help <C-r><C-w><CR>
+
+function LintBuffer()
+  if executable('jshint')
+    if filereadable(glob('~/.jshintrc'))
+      :call JSHintUpdate()
+      execute '!jshint --config ~/.jshintrc'
+    else
+      :echo 'jshint config "~./.jshintrc" does not exists.'
+    endif
+  else
+    :echo 'jshint is not installed.'
+  endif
+endfunction
 
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 
