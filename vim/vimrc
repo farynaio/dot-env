@@ -121,6 +121,7 @@ autocmd FileType html EmmetInstall
 
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
+let g:vim_json_syntax_conceal = 0
 
 let g:syntastic_javascript_checkers = ['eslint']
 " Override eslint with local version where necessary.
