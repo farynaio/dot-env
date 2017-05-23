@@ -396,14 +396,14 @@ noremap <leader>tb :TagbarToggle<CR>
 " NERDTree
 " ================================================
 let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git', 'node_modules']
-let NERDTreeWinSize = 50
+let NERDTreeWinSize = 40
 let NERDTreeShowHidden = 1
 
 " Less verbose NERDTree UI
 let NERDTreeMinimalUI = 1
 
 " Automatically close NERDTree when opened a file
-let NERDTreeQuitOnOpen = 1
+" let NERDTreeQuitOnOpen = 1
 
 " Automatically delete buffer of the deleted file from NERDTree
 let NERDTreeAutoDeleteBuffer = 1
