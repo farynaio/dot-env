@@ -31,14 +31,15 @@ Plug 'vim-scripts/XSLT-syntax'
 Plug 'stephpy/vim-yaml'
 Plug 'sheerun/vim-yardoc'
 
+" Plug 'wookiehangover/jshint.vim'
 " Lint engine
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 Plug 'henrik/vim-indexed-search'
 " Plug 'janko-m/vim-test'
 " Plug 'skywind3000/asyncrun.vim'
 Plug 'victormours/better-writing.vim'
-Plug 'vim-scripts/CursorLineCurrentWindow'
+" Plug 'vim-scripts/CursorLineCurrentWindow'
 " Plug 'yegappan/mru'
 Plug 'tpope/vim-repeat'
 Plug 'mattn/emmet-vim'
