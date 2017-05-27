@@ -222,6 +222,9 @@ set colorcolumn=100
 command! McopyFilePathToClipboard :redir @* | echo @% | redir END
 nnoremap <leader>cf :McopyFilePathToClipboard <CR>
 
+" Copy word under the cursor to clipboard
+nnoremap <leader>c viwy
+
 " Lint JS buffers on save.
 " au BufWritePost *.js,*.json,*.jsx,*.tsx :call LintBuffer()
 
