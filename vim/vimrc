@@ -5,31 +5,47 @@ call plug#begin('~/.vim/plugged')
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'ervandew/supertab'
 
-" Filetype sytax support
-Plug 'JulesWang/css.vim'
-Plug 'honza/dockerfile.vim'
-Plug 'dag/vim-fish'
-Plug 'tpope/vim-git'
-Plug 'othree/html5.vim'
-Plug 'glanotte/vim-jasmine'
-Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'lfilho/cosco.vim'
-Plug 'elzr/vim-json'
-Plug 'mxw/vim-jsx'
-Plug 'groenewege/vim-less'
+
+" General
+
+" Devel
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'vim-scripts/XSLT-syntax'
 Plug 'plasticboy/vim-markdown'
-Plug 'StanAngeloff/php.vim'
+Plug 'tpope/vim-git'
+Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plug 'dag/vim-fish'
+Plug 'elzr/vim-json'
+Plug 'stephpy/vim-yaml'
+Plug 'lfilho/cosco.vim'
+
+" Web
+Plug 'othree/html5.vim'
+Plug 'JulesWang/css.vim'
 Plug 'digitaltoad/vim-pug'
+Plug 'groenewege/vim-less'
+Plug 'wavded/vim-stylus'
+
+" Python
 Plug 'mitsuhiko/vim-python-combined'
 Plug 'aliev/vim-compiler-python'
-Plug 'wavded/vim-stylus'
-Plug 'kurayama/systemd-vim-syntax'
-Plug 'leafgarland/typescript-vim'
-Plug 'vim-scripts/XSLT-syntax'
-Plug 'stephpy/vim-yaml'
+
+" Ruby
 Plug 'sheerun/vim-yardoc'
+
+" PHP
+Plug 'StanAngeloff/php.vim'
+Plug 'mxw/vim-xhp'
+
+" Javascript
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'glanotte/vim-jasmine'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'othree/yajs.vim'
+" Plug 'moll/vim-node'
+
 
 " Plug 'wookiehangover/jshint.vim'
 " Lint engine
