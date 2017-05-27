@@ -208,11 +208,16 @@ set guicursor=n-v-c:blinkon0
 set scrolloff=999
 let mapleader = ","
 set splitright
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore=*.swp,*.bak,*.pyc,*.class,**/node_modules/**,**/dist/**,**/compiled/**
+
 " Remove `O` and `o` Delay
 set timeout timeoutlen=1000 ttimeoutlen=100
 set nopaste
 set visualbell
+
+" Search down into subfolders
+" Provides tab-completition for all file-related tasks
+set path+=**
 
 au BufNewFile,BufRead *.es6 set filetype=es6
 
