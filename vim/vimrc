@@ -168,6 +168,7 @@ set encoding=utf-8
 set spelllang=en
 set number
 set ruler
+set showcmd " show me what I'm typing
 set wrap
 set mouse=a
 set mousemodel=popup
