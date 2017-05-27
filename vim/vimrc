@@ -100,7 +100,6 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'itspriddle/vim-jquery'
 Plug 'othree/javascript-libraries-syntax.vim'
 " Plug 'othree/jspc.vim'
-Plug 'moll/vim-node'
 " Plug 'severin-lemaignan/vim-minimap'
 " Plug 'sheerun/vim-polyglot'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -690,15 +689,15 @@ if has('autocmd')
     echom "Warrning 'js-beautify' is not installed."
   endif
 
-  if executable('ack')
-    augroup Search
-      autocmd!
-      autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
-      autocmd FileType typescript nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
-    augroup end
-  else
-    echom "Warning 'ack' is not installed."
-  endif
+  " if executable('ack')
+  "   augroup Search
+  "     autocmd!
+  "     autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<CR>
+  "     autocmd FileType typescript nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<CR>
+  "   augroup end
+  " else
+  "   echom "Warning 'ack' is not installed."
+  " endif
 
   if exists('+omnifunc')
     augroup Autocompletion
