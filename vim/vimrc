@@ -108,6 +108,17 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Add plugins to &runtimepath
 call plug#end()
 
+" Fix for JSON syntax highlighting (vim-json plugin)
+hi! def link jsonKeyword Identifier
+
+" CSS - fix vim-css3-syntax highlighiting
+setlocal iskeyword+=-
+" augroup VimCSS3Syntax
+" autocmd!
+"   autocmd FileType css setlocal iskeyword+=-
+" augroup END
+
+
 " ================================================
 " Emmet Support
 " ================================================
