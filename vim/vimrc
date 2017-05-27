@@ -288,6 +288,26 @@ nnoremap <leader>* *<C-O>:%s///gn<CR>
 " Remove empty lines
 command! MremoveEmptyLines g/^\s*$/d
 
+" ================================================
+" QuickFix
+" ================================================
+
+nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
+
+let g:quickfix_is_open = 0
+let g:quickfix_return_to_window = winnr()
+
+function! QuickfixToggle()
+  if g:quickfix_is_open
+    cclose
+    let g:quickfix_is_open = 0
+    execute g:quickfix_return_to_window . "wincmd w"
+  else
+    let g:quickfix_return_to_window = winnr()
+    copen
+    let g:quickfix_is_open = 1
+  endif
+endfunction
 
 " ================================================
 " Plain Text mode
@@ -515,7 +535,8 @@ function! FuzzSearch()
     return
   endif
 
-  exe ":LAck --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+  exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+  let g:quickfix_is_open = 1
 endfunction
 
 function! FuzzSearchVisual()
@@ -526,7 +547,8 @@ function! FuzzSearchVisual()
     let l:folder = '.'
   endif
 
-  exe ":LAck --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+  exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+  let g:quickfix_is_open = 1
 endfunction
 
 nnoremap <leader>h :call FindOccurrences()<CR>
