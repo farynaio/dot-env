@@ -366,14 +366,15 @@ let g:UltiSnipsListSnippets='<C-tab>'
 " Work with Javascript
 " ================================================
 let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_definition_split = 1
+let g:tsuquyomi_definition_split = 0
 let g:tsuquyomi_disable_quickfix = 1
 let g:tsuquyomi_javascript_support = 1
 let g:tsuquyomi_disable_default_mappings = 1
 
 autocmd FileType typescript,javascript
       \ setlocal completeopt+=preview     |
-      \ noremap <C-]> :TsuDefinition<CR>
+      \ nnoremap <C-]> :TsuDefinition<CR> |
+      \ nnoremap <C-t> :TsuGoBack<CR>
 
 " ================================================
 " General Mapings & Ab
