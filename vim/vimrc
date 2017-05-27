@@ -667,28 +667,41 @@ let g:ctrlp_open_func = {'files': 'HTMLOpenFunc'}
 " ================================================
 " vim-jsbeautify
 " ================================================
+if has('autocmd')
+  if executable('js-beautify')
+    augroup Beautify
+      autocmd!
+      autocmd FileType typescript noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
+      autocmd FileType html noremap <buffer> <leader><c-f> :call RangeHtmlBeautify()<cr>
+      autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
+      autocmd FileType javascript noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
+      autocmd FileType jsx noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
+      autocmd FileType javascript.jsx noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
+      autocmd FileType json noremap <buffer> <leader><c-f> :call RangeJsonBeautify()<cr>
+    augroup end
+  else
+    echom "Warrning 'js-beautify' is not installed."
+  endif
 
-augroup Beautify
-  autocmd!
-  autocmd FileType typescript noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
-  autocmd FileType html noremap <buffer> <leader><c-f> :call RangeHtmlBeautify()<cr>
-  autocmd FileType css noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
-  autocmd FileType javascript noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
-  autocmd FileType jsx noremap <buffer> <leader><c-f> :call RangeJsxBeautify()<cr>
-  autocmd FileType javascript.jsx noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
-  autocmd FileType json noremap <buffer> <leader><c-f> :call RangeJsonBeautify()<cr>
-augroup end
+  if executable('ack')
+    augroup Search
+      autocmd!
+      autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
+      autocmd FileType typescript nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
+    augroup end
+  else
+    echom "Warning 'ack' is not installed."
+  endif
 
-augroup Search
-  autocmd!
-  autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
-  autocmd FileType typescript nnoremap <leader><F3> :execute "LAck '" . expand("<cword>") . "' src" <Bar> cw<CR>
-augroup end
-
-augroup Autocompletion
-  autocmd!
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-augroup end
+  if exists('+omnifunc')
+    augroup Autocompletion
+      autocmd!
+      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    augroup end
+  else
+    echom "Warning this instalation of VIM doesn't support 'omnifunc'."
+  endif
+endif
 
 " ================================================
 " Templating
