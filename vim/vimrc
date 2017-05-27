@@ -577,7 +577,8 @@ endif
 " ctags
 " ================================================
 let g:autotagTagsFile="tags"
-set tags=tags
+
+command! MakeTags !ctags -R .
 
 " ================================================
 " CSCOPE - ctags alternative
