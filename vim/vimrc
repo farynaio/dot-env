@@ -390,7 +390,7 @@ let g:tsuquyomi_disable_default_mappings = 1
 autocmd FileType typescript,javascript
       \ setlocal completeopt+=preview     |
       \ nnoremap <C-]> :TsuDefinition<CR> |
-      \ nnoremap <C-t> :TsuGoBack<CR>
+      \ nnoremap <C-t> :call GoBackFromFuzz()<CR>
 
 " ================================================
 " General Mapings & Ab
@@ -547,6 +547,8 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 nnoremap <leader>f :call FuzzSearch()<CR>
 vnoremap <leader>f :call FuzzSearchVisual()<CR>
 
+let g:fuzzParentBuffer = bufnr('%')
+
 function! FuzzSearch()
   let l:phrase = input('What pattern? ', expand('<cword>'))
   if empty(l:phrase)
@@ -558,6 +560,7 @@ function! FuzzSearch()
     return
   endif
 
+  let g:fuzzParentBuffer = bufnr('%')
   exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
   let g:quickfix_is_open = 1
 endfunction
@@ -570,6 +573,7 @@ function! FuzzSearchVisual()
     let l:folder = '.'
   endif
 
+  let g:fuzzParentBuffer = bufnr('%')
   exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
   let g:quickfix_is_open = 1
 endfunction
@@ -582,7 +586,28 @@ function! FindOccurrences()
     let l:folder = '.';
   endif
 
-  exe ":LAck --smart-case '<cword>' '" . l:folder . "'"
+  let g:fuzzParentBuffer = bufnr('%')
+  exe ":Ack --smart-case '<cword>' '" . l:folder . "'"
+  let g:quickfix_is_open = 1
+endfunction
+
+nnoremap <c-t> :call GoBackFromFuzz()<CR>
+
+" Go back to parent buffer after visiting Fuzz Search results
+function! GoBackFromFuzz()
+  try
+    if &filetype == 'javascript' || &filetype == 'javascript.jsx'
+      if g:quickfix_is_open
+        execute g:fuzzParentBuffer . "buffer"
+      else
+        :TsuGoBack
+      endif
+    else
+      :pop
+    endif
+  catch
+    execute g:fuzzParentBuffer . "wincmd w"
+  endtry
 endfunction
 
 if executable('ag')
