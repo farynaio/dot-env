@@ -1,0 +1,30 @@
+#!/bin/bash
+
+source $HOME/.dotenv/env.sh
+# source $HOME/.dotenv/exports.sh
+# source $HOME/.dotenv/aliases.sh
+
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
+
+#complete -C aws_completer aws
+
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
+
+cd /Volumes/RAM_Disk
+
+# export GEM_HOME=$HOME/.gem
+# export PATH=$GEM_HOME/bin:$PATH
+#eval "$(docker-machine env docker-vm)"
+
+set -o emacs
+
+export USERNAME="Adam Faryna"
+export EMAIL="adamfaryna@appdy.net"
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+source $(brew --prefix php-version)/php-version.sh && php-version 5
+

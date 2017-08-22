@@ -1,0 +1,16 @@
+#! /bin/sh
+
+alias ssh_home_server="ssh -l serwer1472142 serwer1472142.home.pl"
+alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
+alias ssh_kill_connections="kill -9 $(lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2)"
+alias ssh_zenbox='ssh -l adamfary s13.zenbox.pl'
+alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
+alias start_mysql='mysqld_safe &'
+alias stop_mysql='mysqladmin shutdown'
+
+alias ls="ls -G "
+alias mc=". /usr/local/Cellar/midnight-commander/4.8.13/libexec/mc/mc-wrapper.sh"
+alias f="/usr/local/bin/zsh -l"
+# alias f="fish -l"
+alias subl="mvim +NERDTree "
+
