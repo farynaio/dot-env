@@ -1,24 +1,16 @@
 #!/bin/bash
 
 source $HOME/.dotenv/env.sh
-# source $HOME/.dotenv/exports.sh
-# source $HOME/.dotenv/aliases.sh
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
+  . `brew --prefix`/etc/bash_completion
 fi
 
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
 #complete -C aws_completer aws
 
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
-
-cd /Volumes/RAM_Disk
-
-# export GEM_HOME=$HOME/.gem
-# export PATH=$GEM_HOME/bin:$PATH
 #eval "$(docker-machine env docker-vm)"
-
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+cd /Volumes/RAM_Disk
