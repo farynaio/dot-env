@@ -19,12 +19,6 @@ cd /Volumes/RAM_Disk
 # export PATH=$GEM_HOME/bin:$PATH
 #eval "$(docker-machine env docker-vm)"
 
-set -o emacs
-
-export USERNAME="Adam Faryna"
-export EMAIL="adamfaryna@appdy.net"
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-source $(brew --prefix php-version)/php-version.sh && php-version 5
 

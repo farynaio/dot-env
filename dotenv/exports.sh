@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o emacs
+
+export USERNAME="Adam Faryna"
+export EMAIL="adamfaryna@appdy.net"
+
 #export ANDROID_HOME=/usr/local/opt/android-sdk
 export ANDROID_HOME=/Users/devil/Development/Java/android-sdk-macosx
 #export STUDIO_JDK=/Library/Java/JavaVirtualMachines/1.6.0_45-b06-451.jdk
