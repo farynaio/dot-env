@@ -31,6 +31,8 @@ Plug 'mitsuhiko/vim-python-combined'
 Plug 'aliev/vim-compiler-python'
 
 " Ruby
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
 Plug 'sheerun/vim-yardoc'
 
 " PHP
@@ -178,8 +180,9 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " General
 " ================================================
 set nocompatible
+filetype on
 filetype plugin on
-filetype plugin indent on
+filetype indent on
 set encoding=utf-8
 set spelllang=en
 set number
