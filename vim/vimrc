@@ -247,6 +247,17 @@ set colorcolumn=100
 command! McopyFilePathToClipboard :redir @* | echo @% | redir END
 nnoremap <leader>cf :McopyFilePathToClipboard <CR>
 
+" Delete strings without poluting last yank buffer
+noremap <leader>d "_d
+noremap <leader>x "_x
+noremap <leader>c "_c
+noremap <leader>dw "_dw
+noremap <leader>xw "_xw
+noremap <leader>cw "_cw
+noremap <leader>de "_de
+noremap <leader>xe "_xe
+noremap <leader>ce "_ce
+
 " Copy word under the cursor to clipboard
 nnoremap <leader>c viwy
 
