@@ -2,8 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 ZSH_DOT="$HOME/.dotenv/zsh/"
-source $HOME/.dotenv/env.sh
 
+source $HOME/.dotenv/env.sh
 source $ZSH_DOT/utils.sh
 source $ZSH_DOT/prompt.sh
 # source $ZSH_DOT/history.sh
