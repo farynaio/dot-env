@@ -425,8 +425,7 @@ let g:tsuquyomi_disable_default_mappings = 1
 
 autocmd FileType typescript,javascript
       \ setlocal completeopt+=preview     |
-      \ nnoremap <C-]> :TsuDefinition<CR> |
-      \ nnoremap <C-t> :call GoBackFromFuzz()<CR>
+      \ nnoremap <C-]> :TsuDefinition<CR>
 
 " ================================================
 " General Mapings & Ab
@@ -583,8 +582,6 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 nnoremap <leader>f :call FuzzSearch()<CR>
 vnoremap <leader>f :call FuzzSearchVisual()<CR>
 
-let g:fuzzParentBuffer = bufnr('%')
-
 function! FuzzSearch()
   let l:phrase = input('What pattern? ', expand('<cword>'))
   if empty(l:phrase)
@@ -596,9 +593,34 @@ function! FuzzSearch()
     return
   endif
 
-  let g:fuzzParentBuffer = bufnr('%')
-  exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
+  call FuzzSearchForPhrase(l:phrase, l:folder)
+endfunction
+
+function! FuzzSearchForPhrase(phrase, folder)
+  " Create new horizontal split for opening file from results
+  silent! exe "5new"
+  let l:previewWin = winnr()
+
+  " Move new split to the bottom
+  silent! exe "normal! \<C-w>J"
+
+  let l:wasNERDTreeOpened = 0
+
+  " Check if NERDTree is opened and close if it is
+  if g:NERDTree.IsOpen()
+    let l:wasNERDTreeOpened = 1
+    exe "NERDTreeClose"
+  endif
+
+  exe ":Ack --smart-case '" . a:phrase . "'  '" . a:folder . "'"
   let g:quickfix_is_open = 1
+
+  " Restore nerd tree if was open
+  if l:wasNERDTreeOpened
+    exe "NERDTree"
+    let l:pom = winnr('$') - 1
+    exe "normal! " l:pom . "\<C-W>w"
+  endif
 endfunction
 
 function! FuzzSearchVisual()
@@ -609,41 +631,7 @@ function! FuzzSearchVisual()
     let l:folder = '.'
   endif
 
-  let g:fuzzParentBuffer = bufnr('%')
-  exe ":Ack --smart-case '" . l:phrase . "'  '" . l:folder . "'"
-  let g:quickfix_is_open = 1
-endfunction
-
-nnoremap <leader>h :call FindOccurrences()<CR>
-
-function! FindOccurrences()
-  let l:folder = input('Type search folder name? ')
-  if empty(l:folder)
-    let l:folder = '.';
-  endif
-
-  let g:fuzzParentBuffer = bufnr('%')
-  exe ":Ack --smart-case '<cword>' '" . l:folder . "'"
-  let g:quickfix_is_open = 1
-endfunction
-
-nnoremap <c-t> :call GoBackFromFuzz()<CR>
-
-" Go back to parent buffer after visiting Fuzz Search results
-function! GoBackFromFuzz()
-  try
-    if &filetype == 'javascript' || &filetype == 'javascript.jsx'
-      if g:quickfix_is_open
-        execute g:fuzzParentBuffer . "buffer"
-      else
-        :TsuGoBack
-      endif
-    else
-      :pop
-    endif
-  catch
-    execute g:fuzzParentBuffer . "wincmd w"
-  endtry
+  call FuzzSearchForPhrase(l:phrase, l:folder)
 endfunction
 
 if executable('ag')
