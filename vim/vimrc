@@ -600,7 +600,7 @@ endfunction
 
 function! FuzzSearchForPhrase(phrase, folder)
   " Create new horizontal split for opening file from results
-  silent! exe "5new"
+  silent! exe "new"
   let l:previewWin = winnr()
 
   " Move new split to the bottom
@@ -622,6 +622,8 @@ function! FuzzSearchForPhrase(phrase, folder)
     exe "NERDTree"
     let l:pom = winnr('$') - 1
     exe "normal! " l:pom . "\<C-W>w"
+    exe "resize +5"
+    exe "normal! " winnr('$') . "\<C-W>w"
   endif
 endfunction
 
