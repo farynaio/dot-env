@@ -13,4 +13,8 @@ alias mc=". /usr/local/Cellar/midnight-commander/4.8.13/libexec/mc/mc-wrapper.sh
 alias f="/usr/local/bin/zsh -l"
 # alias f="fish -l"
 alias subl="mvim +NERDTree "
-
+alias tmux="TERM=screen-256color-bce tmux -2 a || tmux new "
+alias ta="TERM=screen-256color-bce tmux -2 a || tmux new "
+alias tnew="tmux new -s "
+alias tls="tmux ls "
+alias tkill="tmux kill-session -t "

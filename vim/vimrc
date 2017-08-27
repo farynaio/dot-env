@@ -5,6 +5,9 @@ call plug#begin('~/.vim/plugged')
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'ervandew/supertab'
 
+" Tmux
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
 
 " General
 
@@ -135,6 +138,25 @@ setlocal iskeyword+=-
 "   autocmd FileType css setlocal iskeyword+=-
 " augroup END
 
+
+" ================================================
+" Tmux Support
+" ================================================
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
+
+" ================================================
+" VImux - Tmux plugin
+" ================================================
+" Inspect runner pane
+nnoremap <Leader>vi :VimuxInspectRunner<CR>
+
+" Zoom the tmux runner pane
+nnoremap <Leader>vz :VimuxZoomRunner<CR>
+
+" Disable tmux navigator when zooming the Vim pane
+" let g:tmux_navigator_disable_when_zoomed = 1
 
 " ================================================
 " Emmet Support
