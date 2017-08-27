@@ -211,6 +211,7 @@ set number
 set ruler
 set showcmd " show me what I'm typing
 set wrap
+set splitbelow " opens next horizontal window below current
 set mouse=a
 set mousemodel=popup
 set ignorecase
@@ -250,6 +251,7 @@ set scrolloff=999
 let mapleader = ","
 set splitright
 set wildignore=*.swp,*.bak,*.pyc,*.class,**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**
+set noequalalways
 
 " Remove `O` and `o` Delay
 set timeout timeoutlen=1000 ttimeoutlen=100
@@ -698,6 +700,7 @@ let g:ctrlp_mruf_relative = 1
 let g:ctrlp_types = ['fil', 'mru', 'buf']
 let g:ctrlp_mruf_case_sensitive = 1
 let g:ctrlp_mruf_save_on_update = 1
+let g:ctrlp_switch_buffer = 'e'
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]((\.(git|hg|svn))|node_modules|cscope.*|build.*|dist.*)',
       \ 'file': '\v\.(exe|so|dll)$',
