@@ -13,17 +13,15 @@ export EDITOR="/usr/bin/vim"
 export PATH=/usr/local/bin:/Users/devil/Development/Java/android-sdk-macosx/tools:$PATH
 export SED=`which sed`
 
-# MacPorts Installer addition on 2014-04-08_at_23:03:08: adding an appropriate PATH variable for use with MacPorts.
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
 export PATH=/Users/devil/Development/codenameone/codenameone-build-tools/tools/codenameone-readonly/Ports/iOSPort/xmlvm/install/bin:$PATH
 export PATH=/Users/devil/Development/Java/android-sdk-macosx/platform-tools:$PATH
 export PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
 export PATH="/Users/devil/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
-
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export DJANGO_SECRET_KEY="@4vjd^wrz-rtvwrnxij6$f^f!%&c2l^6x$u&#t+6&ijk631$8k"
