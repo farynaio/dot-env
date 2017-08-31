@@ -139,24 +139,6 @@ setlocal iskeyword+=-
 " augroup END
 
 
-" ================================================
-" Tmux Support
-" ================================================
-
-" Write all buffers before navigating from Vim to tmux pane
-let g:tmux_navigator_save_on_switch = 2
-
-" ================================================
-" VImux - Tmux plugin
-" ================================================
-" Inspect runner pane
-nnoremap <Leader>vi :VimuxInspectRunner<CR>
-
-" Zoom the tmux runner pane
-nnoremap <Leader>vz :VimuxZoomRunner<CR>
-
-" Disable tmux navigator when zooming the Vim pane
-" let g:tmux_navigator_disable_when_zoomed = 1
 
 " ================================================
 " Emmet Support
@@ -246,7 +228,11 @@ set guicursor=n-v-c:blinkon0
 set scrolloff=999
 let mapleader = ","
 set splitright
-set wildignore=*.swp,*.bak,*.pyc,*.class,**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**
+set wildignore=*.bak,*.pyc,*.class,node_modules/**,**/dist/**,compiled/**,docs/**,target/**
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.swp,*~,._*
 set noequalalways
 
 " Remove `O` and `o` Delay
@@ -268,15 +254,15 @@ command! McopyFilePathToClipboard :redir @* | echo @% | redir END
 nnoremap <leader>cf :McopyFilePathToClipboard <CR>
 
 " Delete strings without poluting last yank buffer
-noremap <leader>d "_d
-noremap <leader>x "_x
-noremap <leader>c "_c
-noremap <leader>dw "_dw
-noremap <leader>xw "_xw
-noremap <leader>cw "_cw
-noremap <leader>de "_de
-noremap <leader>xe "_xe
-noremap <leader>ce "_ce
+nnoremap <leader>d "_d
+nnoremap <leader>x "_x
+nnoremap <leader>c "_c
+nnoremap <leader>dw "_dw
+nnoremap <leader>xw "_xw
+nnoremap <leader>cw "_cw
+nnoremap <leader>de "_de
+nnoremap <leader>xe "_xe
+nnoremap <leader>ce "_ce
 
 " Copy word under the cursor to clipboard
 nnoremap <leader>c viwy
@@ -655,7 +641,7 @@ function! FuzzSearchForPhrase(phrase, folder)
 endfunction
 
 function! FuzzSearchVisual()
-  let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]]
+  let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
   let l:folder = input('What folder? ')
 
   if empty(l:folder)
