@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-    <meta charset="utf-8" />
-		<title>%CLASS%</title>
-	</head>
-	<body>
-		%HERE%
-	</body>
-</html>
+<?php
+/**
+  * Short description for
+  *
+  * @package package
+  * @author devil <adamfaryna@appdy.net>
+  * @version 0.1
+  * @copyright (C) 2017 Adam Faryna <adamfaryna@appdy.net>
+  * @license Proprietary
+  */
+?>

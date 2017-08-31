@@ -1,9 +1,9 @@
 /*
  * %FFILE%
- * Copyright (C) %YEAR% %USER% <%MAIL%>
+ * Copyright (C) %YEAR% Adam Faryna <%MAIL%>
  *
  * Distributed under terms of the %LICENSE% license.
  */
-  
-%HERE%  
+
+%HERE%
 
