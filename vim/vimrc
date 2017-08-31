@@ -113,9 +113,9 @@ Plug 'tpope/vim-surround'
 " Plug 'nathanaelkane/vim-indent-guides'
 Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'itspriddle/vim-jquery'
@@ -166,16 +166,12 @@ nnoremap <Leader>vz :VimuxZoomRunner<CR>
 " let g:user_emmet_mode='a'
 autocmd FileType html EmmetInstall
 
-" ================================================
-" Native File Browser
-" ================================================
 
-let g:netrw_banner = 0 " disable banner
-let g:netrw_browse_split = 4 " open in previously opened window
-let g:netrw_altv = 1 " open splits on the right
-let g:netrw_liststyle = 3 " tree view
-let g:netrw_list_hide = netrw_gitignore#Hide()
-let g:netrw_list_hide += ',\(^\|\s\s\)\zs\.\S\+'
+" Write variable s:std_in if arguments for VIM was passed
+autocmd StdinReadPre * let s:std_in=1
+
+" Open NERDTree if no arguments were passed to VIM and diff mode is off
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
 
 " ================================================
 " Programming Support
@@ -323,6 +319,44 @@ nnoremap Q <nop>
 " nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+" ================================================
+" Tmux Support
+" ================================================
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
+
+" ================================================
+" VImux - Tmux plugin
+" ================================================
+" Inspect runner pane
+nnoremap <leader>vi :VimuxInspectRunner<cr>
+
+" Zoom the tmux runner pane
+nnoremap <leader>vz :VimuxZoomRunner<cr>
+
+" Disable tmux navigator when zooming the Vim pane
+" let g:tmux_navigator_disable_when_zoomed = 1
+
+" ================================================
+" Netrw
+" ================================================
+
+let g:netrw_banner = 0 " disable banner
+let g:netrw_browse_split = 0 " open in new horizontal split
+let g:netrw_altv = 1 " open splits on the right
+let g:netrw_liststyle = 3 " tree view
+let g:netrw_list_hide = netrw_gitignore#Hide()
+let g:netrw_list_hide += ',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide += ',\.git'
+let g:netrw_list_hide += ',\.DS_Store'
+let g:netrw_list_hide += ',node_modules'
+let g:netrw_list_hide += ',\.gem,\.bundle'
+let g:netrw_winsize = 25
+
+nnoremap <leader><F2> :Vexplore<cr>
+nnoremap <leader>k :Sexplore<cr>
 
 " ================================================
 " Select Mode
@@ -501,42 +535,35 @@ noremap <leader>tb :TagbarToggle<CR>
 " ================================================
 " NERDTree
 " ================================================
-let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git', 'node_modules']
-let NERDTreeWinSize = 40
-let NERDTreeShowHidden = 1
-
-" Less verbose NERDTree UI
-let NERDTreeMinimalUI = 1
-
-" Automatically close NERDTree when opened a file
-" let NERDTreeQuitOnOpen = 1
-
-" Automatically delete buffer of the deleted file from NERDTree
-let NERDTreeAutoDeleteBuffer = 1
-
-let g:nerdtree_tabs_open_on_gui_startup = 2
-let g:nerdtree_tabs_open_on_console_startup = 2
-let g:nerdtree_tabs_focus_on_files = 1
-let g:nerdtree_tabs_autofind = 0
-" let g:nerdtree_tabs_smart_startup_focus = 2
-
-noremap <leader><F2> :NERDTreeFind<CR>
-noremap <leader>k :NERDTreeToggle<CR>
-
-" autocmd TabNew * NERDTreeMirrorOpen
-" autocmd TabNew * :NERDTreeTabsOpen
+" let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git', 'node_modules']
+" let NERDTreeWinSize = 40
+" let NERDTreeShowHidden = 1
+"
+" " Less verbose NERDTree UI
+" let NERDTreeMinimalUI = 1
+"
+" " Automatically delete buffer of the deleted file from NERDTree
+" let NERDTreeAutoDeleteBuffer = 1
+"
+" let g:nerdtree_tabs_open_on_gui_startup = 2
+" let g:nerdtree_tabs_open_on_console_startup = 2
+" let g:nerdtree_tabs_focus_on_files = 1
+" let g:nerdtree_tabs_autofind = 0
+"
+" noremap <leader><F2> :NERDTreeFind<CR>
+" noremap <leader>k :NERDTreeToggle<CR>
 
 " Jump to other window then NERDTree on VIM enter
-autocmd VimEnter * wincmd p
+" autocmd VimEnter * wincmd p
 
 " Write variable s:std_in if arguments for VIM was passed
-autocmd StdinReadPre * let s:std_in=1
+" autocmd StdinReadPre * let s:std_in=1
 
 " Open NERDTree if no arguments were passed to VIM and diff mode is off
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :NERDTree' | endif
+" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :NERDTree' | endif
 
 " Close VIM when NERDTree is the last opened window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ================================================
 " Git - gutter
