@@ -327,6 +327,33 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 " let g:tmux_navigator_disable_when_zoomed = 1
 
 " ================================================
+" Windows & splits manipulaton
+" ================================================
+"
+" easier cycling and delete buffers in current window
+nnoremap gb :bn<CR>
+nnoremap gp :bp<CR>
+nnoremap <silent> <LEADER>gd :bd<CR>
+
+" Toggle horizontal/vertical split
+function! ToggleWindowHorizontalVerticalSplit()
+  if !exists('t:splitType')
+    let t:splitType = 'vertical'
+  endif
+
+  if t:splitType == 'vertical' " is vertical switch to horizontal
+    windo wincmd K
+    let t:splitType = 'horizontal'
+
+  else " is horizontal switch to vertical
+    windo wincmd H
+    let t:splitType = 'vertical'
+  endif
+endfunction
+
+nnoremap <silent> <leader>wt :call ToggleWindowHorizontalVerticalSplit()<cr>
+
+" ================================================
 " Netrw
 " ================================================
 
@@ -469,13 +496,9 @@ noremap <Down> gj
 ounmap <Up>
 ounmap <Down>
 
-" easier cycling and delete buffers in current window
-nnoremap gb :bn<CR>
-nnoremap gp :bp<CR>
-nnoremap <silent> <LEADER>gd :bd<CR>
 
-" close all buffers
-nnoremap <silent> <leader>bd :%bd <CR>
+" close all buffers except current one
+nnoremap <silent> <leader>bd :%bd\|e# <CR>
 
 " Goto local definition and add mark to starting line
 nnoremap gd mm gd
