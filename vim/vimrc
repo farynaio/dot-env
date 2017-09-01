@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'ervandew/supertab'
+Plug 'tpope/vim-vinegar'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
