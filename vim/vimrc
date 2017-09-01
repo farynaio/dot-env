@@ -326,6 +326,10 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 " Disable tmux navigator when zooming the Vim pane
 " let g:tmux_navigator_disable_when_zoomed = 1
 
+" Change root directory to local file dir
+nnoremap <silent> <leader>cd :cd %:p:h<cr>
+
+
 " ================================================
 " Windows & splits manipulaton
 " ================================================
