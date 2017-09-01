@@ -229,11 +229,11 @@ set guicursor=n-v-c:blinkon0
 set scrolloff=999
 let mapleader = ","
 set splitright
-set wildignore=*.bak,*.pyc,*.class,node_modules/**,**/dist/**,compiled/**,docs/**,target/**
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
-set wildignore+=*.swp,*~,._*
+set wildignore=**/*.bak,**/*.pyc,**/*.class,**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**,**/target/**
+set wildignore+=**/*.zip,**/*.tar.gz,**/*.tar.bz2,**/*.rar,**/*.tar.xz
+set wildignore+=**/vendor/gems/*,**/vendor/cache/*,**/.bundle/*,**/.sass-cache/*
+set wildignore+=**/*.o,**/*.out,**/*.obj,**/.git,**/*.rbc,**/*.rbo,**/.svn,**/.gem
+set wildignore+=**/.swp,**/*~,**/._*
 set noequalalways
 
 " Remove `O` and `o` Delay
