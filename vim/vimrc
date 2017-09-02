@@ -187,9 +187,9 @@ set wildignore+=**/vendor/gems/*,**/vendor/cache/*,**/.bundle/*,**/.sass-cache/*
 set wildignore+=**/*.o,**/*.out,**/*.obj,**/.git,**/*.rbc,**/*.rbo,**/.svn,**/.gem
 set wildignore+=**/.swp,**/*~,**/._*
 set noequalalways
-
-" Remove `O` and `o` Delay
-set timeout timeoutlen=1000 ttimeoutlen=100
+set secure " not allow shell and write commands in autocmd
+set exrc " allow project specific .vimrc files
+set timeout timeoutlen=1000 ttimeoutlen=100 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 
