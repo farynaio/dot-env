@@ -715,6 +715,7 @@ endif
 " ================================================
 " ctags
 " ================================================
+
 let g:autotagTagsFile="tags"
 
 command! Ctags !ctags -R .
@@ -952,11 +953,13 @@ function! GetCurrentContent()
     exe 'Template .' . l:extension
   endif
 endfunction
-autocmd BufEnter * call GetCurrentContent()
 
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
+autocmd BufEnter * call GetCurrentContent()
 
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
+
