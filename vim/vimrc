@@ -675,25 +675,25 @@ function! FuzzSearchForPhrase(phrase, folder)
   " Move new split to the bottom
   silent! exe "normal! \<C-w>J"
 
-  let l:wasNERDTreeOpened = 0
+  " let l:wasNERDTreeOpened = 0
 
   " Check if NERDTree is opened and close if it is
-  if g:NERDTree.IsOpen()
-    let l:wasNERDTreeOpened = 1
-    exe "NERDTreeClose"
-  endif
+  " if g:NERDTree.IsOpen()
+  "   let l:wasNERDTreeOpened = 1
+  "   exe "NERDTreeClose"
+  " endif
 
   exe ":Ack --smart-case '" . a:phrase . "'  '" . a:folder . "'"
   let g:quickfix_is_open = 1
 
   " Restore nerd tree if was open
-  if l:wasNERDTreeOpened
-    exe "NERDTree"
-    let l:pom = winnr('$') - 1
-    exe "normal! " l:pom . "\<C-W>w"
-    exe "resize +5"
-    exe "normal! " winnr('$') . "\<C-W>w"
-  endif
+  " if l:wasNERDTreeOpened
+  "   exe "NERDTree"
+  "   let l:pom = winnr('$') - 1
+  "   exe "normal! " l:pom . "\<C-W>w"
+  "   exe "resize +5"
+  "   exe "normal! " winnr('$') . "\<C-W>w"
+  " endif
 endfunction
 
 function! FuzzSearchVisual()
