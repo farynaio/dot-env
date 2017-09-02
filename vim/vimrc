@@ -399,6 +399,7 @@ let g:netrw_winsize = 25
 
 nnoremap <leader><F2> :Vexplore<cr>
 nnoremap <leader>k :Sexplore<cr>
+nnoremap <leader>. :fin .<cr>
 
 " Open netrw if no arguments were passed to VIM and diff mode is off
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
