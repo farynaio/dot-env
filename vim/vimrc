@@ -4,13 +4,13 @@ call plug#begin('~/.vim/plugged')
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'ervandew/supertab'
-Plug 'tpope/vim-vinegar'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 " General
+Plug 'tpope/vim-vinegar'
 
 " Devel
 Plug 'vim-scripts/SyntaxComplete'
@@ -129,54 +129,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Add plugins to &runtimepath
 call plug#end()
 
-" Fix for JSON syntax highlighting (vim-json plugin)
-hi! def link jsonKeyword Identifier
-
-" CSS - fix vim-css3-syntax highlighiting
-setlocal iskeyword+=-
-" augroup VimCSS3Syntax
-" autocmd!
-"   autocmd FileType css setlocal iskeyword+=-
-" augroup END
-
-
-
-" ================================================
-" Emmet Support
-" ================================================
-
-" let g:user_emmet_install_global = 0
-" let g:user_emmet_mode='a'
-autocmd FileType html EmmetInstall
-
-
-" Write variable s:std_in if arguments for VIM was passed
-autocmd StdinReadPre * let s:std_in=1
-
-" Open NERDTree if no arguments were passed to VIM and diff mode is off
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
-
-" ================================================
-" Programming Support
-" ================================================
-" let g:polyglot_disabled = [ 'css',   ]
-
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-let g:vim_json_syntax_conceal = 0
-
-let g:syntastic_javascript_checkers = ['eslint']
-" Override eslint with local version where necessary.
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-  let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-  let g:syntastic_javascript_eslint_exec = local_eslint
-endif
-
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
 " ================================================
 " General
 " ================================================
@@ -251,8 +203,50 @@ highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
+" Fix for JSON syntax highlighting (vim-json plugin)
+hi! def link jsonKeyword Identifier
+
+" CSS - fix vim-css3-syntax highlighiting
+setlocal iskeyword+=-
+" augroup VimCSS3Syntax
+" autocmd!
+"   autocmd FileType css setlocal iskeyword+=-
+" augroup END
+
+" ================================================
+" Emmet Support
+" ================================================
+
+" let g:user_emmet_install_global = 0
+" let g:user_emmet_mode='a'
+autocmd FileType html EmmetInstall
+
+" Write variable s:std_in if arguments for VIM was passed
+autocmd StdinReadPre * let s:std_in=1
+
+" ================================================
+" Programming Support
+" ================================================
+" let g:polyglot_disabled = [ 'css',   ]
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+let g:vim_json_syntax_conceal = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+" Override eslint with local version where necessary.
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+  let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+  let g:syntastic_javascript_eslint_exec = local_eslint
+endif
+
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
 command! McopyFilePathToClipboard :redir @* | echo @% | redir END
-nnoremap <leader>cf :McopyFilePathToClipboard <CR>
+nnoremap <leader>cf :McopyFilePathToClipboard <cr>
 
 " Delete strings without poluting last yank buffer
 nnoremap <leader>d "_d
@@ -272,7 +266,7 @@ nnoremap <leader>c viwy
 " au BufWritePost *.js,*.json,*.jsx,*.tsx :call LintBuffer()
 
 " Search for word under cursor.
-nnoremap <C-h> :help <C-r><C-w><CR>
+nnoremap <C-h> :help <C-r><C-w><cr>
 
 function LintBuffer()
   if executable('jshint')
@@ -329,15 +323,14 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 " Change root directory to local file dir
 nnoremap <silent> <leader>cd :cd %:p:h<cr>
 
-
 " ================================================
 " Windows & splits manipulaton
 " ================================================
-"
+
 " easier cycling and delete buffers in current window
-nnoremap gb :bn<CR>
-nnoremap gp :bp<CR>
-nnoremap <silent> <LEADER>gd :bd<CR>
+nnoremap gb :bn<cr>
+nnoremap gp :bp<cr>
+nnoremap <silent> <LEADER>gd :bd<cr>
 
 " Toggle horizontal/vertical split
 function! ToggleWindowHorizontalVerticalSplit()
@@ -367,6 +360,27 @@ endfunction
 
 nnoremap <silent> <leader>bw :call DeleteHiddenBuffers()<cr>
 
+function! AlignBuffer()
+  let l:isPHP = 0
+
+  if &ft ==# 'php'
+    let l:isPHP = 1
+    set ft=html
+  endif
+
+  exe "normal! mm"
+  exe "normal! gg"
+  exe "normal! VG"
+  exe "normal! ="
+  exe "normal! 'm"
+
+  if l:isPHP
+    set ft=php
+  endif
+endfunction
+
+nnoremap <leader>w= :call AlignBuffer()<cr>
+
 " ================================================
 " Netrw
 " ================================================
@@ -386,6 +400,9 @@ let g:netrw_winsize = 25
 nnoremap <leader><F2> :Vexplore<cr>
 nnoremap <leader>k :Sexplore<cr>
 
+" Open netrw if no arguments were passed to VIM and diff mode is off
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
+
 " ================================================
 " Select Mode
 " ================================================
@@ -397,7 +414,7 @@ nnoremap <leader>k :Sexplore<cr>
 " Search & Replace
 " ================================================
 " Search for phrase mached in Visual Mode with //
-" vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'")
+" vnoremap <expr> // 'y/\V'.escape(@",'\').'<cr>'")
 " nnoremap * /\<cword
 " command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
@@ -405,7 +422,7 @@ nnoremap <leader>k :Sexplore<cr>
 " au VimEnter * :exe "winc l"
 
 " Count occourences of selected text.
-nnoremap <leader>* *<C-O>:%s///gn<CR>
+nnoremap <leader>* *<C-O>:%s///gn<cr>
 
 " Remove empty lines
 command! MremoveEmptyLines g/^\s*$/d
@@ -439,7 +456,7 @@ autocmd FileType text :set syntax=better-writing
 " ================================================
 " CSSComb
 " ================================================
-" autocmd FileType css,scss noremap <buffer> <leader>bc :CSScomb<CR>
+" autocmd FileType css,scss noremap <buffer> <leader>bc :CSScomb<cr>
 
 " ================================================
 " Diff
@@ -451,9 +468,9 @@ set diffopt+=iwhite
 " command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
 if &diff
-  nnoremap <leader>1 :diffget LOCAL<CR>
-  nnoremap <leader>2 :diffget BASE<CR>
-  nnoremap <leader>3 :diffget REMOTE<CR>
+  nnoremap <leader>1 :diffget LOCAL<cr>
+  nnoremap <leader>2 :diffget BASE<cr>
+  nnoremap <leader>3 :diffget REMOTE<cr>
 endif
 
 autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
@@ -489,7 +506,7 @@ let g:tsuquyomi_disable_default_mappings = 1
 
 autocmd FileType typescript,javascript
       \ setlocal completeopt+=preview     |
-      \ nnoremap <C-]> :TsuDefinition<CR>
+      \ nnoremap <C-]> :TsuDefinition<cr>
 
 " ================================================
 " General Mapings & Ab
@@ -497,11 +514,11 @@ autocmd FileType typescript,javascript
 " Fix indentation
 noremap <leader><F7> mzgg=G`z
 " Copy to clipboard
-" vnoremap <leader><C-c> :w !pbcopy<CR><CR>
+" vnoremap <leader><C-c> :w !pbcopy<cr><cr>
 " Paste from clipboard
-" noremap <leader><C-v> :r !pbpaste<CR><CR>
-" vnoremap <C-c> :w !pbcopy<CR><CR>
-" noremap <C-v> :r !pbpaste<CR><CR>
+" noremap <leader><C-v> :r !pbpaste<cr><cr>
+" vnoremap <C-c> :w !pbcopy<cr><cr>
+" noremap <C-v> :r !pbpaste<cr><cr>
 nnoremap j gj
 nnoremap k gk
 
@@ -512,7 +529,7 @@ ounmap <Down>
 
 
 " close all buffers except current one
-nnoremap <silent> <leader>bd :%bd\|e# <CR>
+nnoremap <silent> <leader>bd :%bd\|e# <cr>
 
 " Goto local definition and add mark to starting line
 nnoremap gd mm gd
@@ -555,7 +572,7 @@ let g:EditorConfig_core_mode = 'external_command'
 " ================================================
 " Tagbar
 " ================================================
-noremap <leader>tb :TagbarToggle<CR>
+noremap <leader>tb :TagbarToggle<cr>
 " ================================================
 " NERDTree
 " ================================================
@@ -574,8 +591,8 @@ noremap <leader>tb :TagbarToggle<CR>
 " let g:nerdtree_tabs_focus_on_files = 1
 " let g:nerdtree_tabs_autofind = 0
 "
-" noremap <leader><F2> :NERDTreeFind<CR>
-" noremap <leader>k :NERDTreeToggle<CR>
+" noremap <leader><F2> :NERDTreeFind<cr>
+" noremap <leader>k :NERDTreeToggle<cr>
 
 " Jump to other window then NERDTree on VIM enter
 " autocmd VimEnter * wincmd p
@@ -632,8 +649,8 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " ================================================
 " Fuzz Search - find any phrase in all files
 " ================================================
-nnoremap <leader>f :call FuzzSearch()<CR>
-vnoremap <leader>f :call FuzzSearchVisual()<CR>
+nnoremap <leader>f :call FuzzSearch()<cr>
+vnoremap <leader>f :call FuzzSearchVisual()<cr>
 
 function! FuzzSearch()
   let l:phrase = input('What pattern? ', expand('<cword>'))
@@ -699,14 +716,14 @@ endif
 " ================================================
 let g:autotagTagsFile="tags"
 
-command! MakeTags !ctags -R .
+command! Ctags !ctags -R .
 
 " ================================================
 " CSCOPE - ctags alternative
 " ================================================
 " if has("cscope")
-"   nnoremap <leader>fz :tab :call cscope#findInteractive(expand('<cword>'))<CR>
-"   nnoremap <leader>l :call ToggleLocationList()<CR>
+"   nnoremap <leader>fz :tab :call cscope#findInteractive(expand('<cword>'))<cr>
+"   nnoremap <leader>l :call ToggleLocationList()<cr>
 "   set csprg=/usr/local/bin/cscope
 "   set csto=0
 "   set cst
@@ -722,13 +739,13 @@ command! MakeTags !ctags -R .
 " Tabularize
 " ================================================
 if exists(":Tabularize")
-  nnoremap <leader>a= :Tabularize /=<CR>
-  vnoremap <leader>a= :Tabularize /=<CR>
-  nnoremap <leader>a: :Tabularize /:\zs<CR>
-  vnoremap <leader>a: :Tabularize /:\zs<CR>
+  nnoremap <leader>a= :Tabularize /=<cr>
+  vnoremap <leader>a= :Tabularize /=<cr>
+  nnoremap <leader>a: :Tabularize /:\zs<cr>
+  vnoremap <leader>a: :Tabularize /:\zs<cr>
 
   " tabularize on every | char
-  inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+  inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<cr>a
   function! s:align()
     let p = '^\s*|\s.*\s|\s*$'
     if getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -761,11 +778,11 @@ let g:ctrlp_custom_ignore = {
       \ }
 
 " Search by ctags
-nnoremap <leader>p :CtrlP<CR>
-nnoremap <leader>r :CtrlP<CR>
-nnoremap <leader>t :CtrlPTag<CR>
-nnoremap <leader>l :CtrlPMRU<CR>
-" nnoremap <leader>q :CtrlPQuickFix<CR>
+nnoremap <leader>p :CtrlP<cr>
+nnoremap <leader>r :CtrlP<cr>
+nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>l :CtrlPMRU<cr>
+" nnoremap <leader>q :CtrlPQuickFix<cr>
 
 function! HTMLOpenFunc(action, line)
   if a:action =~ '^[tx]$' && fnamemodify(a:line, ':e') =~? '^html\?$'
@@ -815,8 +832,8 @@ if has('autocmd')
   " if executable('ack')
   "   augroup Search
   "     autocmd!
-  "     autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<CR>
-  "     autocmd FileType typescript nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<CR>
+  "     autocmd FileType javascript.jsx nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<cr>
+  "     autocmd FileType typescript nnoremap <leader><F3> :execute "Ack '" . expand("<cword>") . "' src" <Bar> cw<cr>
   "   augroup end
   " else
   "   echom "Warning 'ack' is not installed."
@@ -936,7 +953,7 @@ function! GetCurrentContent()
 endfunction
 autocmd BufEnter * call GetCurrentContent()
 
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
