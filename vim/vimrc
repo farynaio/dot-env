@@ -327,28 +327,6 @@ endfunction
 
 nnoremap <leader>w= :call AlignBuffer()<cr>
 
-" ================================================
-" Netrw
-" ================================================
-
-let g:netrw_banner = 0 " disable banner
-let g:netrw_browse_split = 0 " open in new horizontal split
-let g:netrw_altv = 1 " open splits on the right
-let g:netrw_liststyle = 3 " tree view
-let g:netrw_list_hide = netrw_gitignore#Hide()
-let g:netrw_list_hide += ',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_list_hide += ',\.git'
-let g:netrw_list_hide += ',\.DS_Store'
-let g:netrw_list_hide += ',node_modules'
-let g:netrw_list_hide += ',\.gem,\.bundle'
-let g:netrw_winsize = 25
-
-nnoremap <leader><F2> :Vexplore<cr>
-nnoremap <leader>k :Sexplore<cr>
-nnoremap <leader>. :fin .<cr>
-
-" Open netrw if no arguments were passed to VIM and diff mode is off
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
 
 " ================================================
 " Select Mode
@@ -855,3 +833,29 @@ endfunction
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 
+" ================================================
+" Netrw
+" ================================================
+
+autocmd FileType netrw setl bufhidden=delete
+
+let g:netrw_localmkdir = 'mkdir -p '
+let g:netrw_banner = 0 " disable banner
+let g:netrw_browse_split = 0 " open in new horizontal split
+let g:netrw_altv = 1 " open splits on the right
+let g:netrw_liststyle = 3 " tree view
+let g:netrw_list_hide = netrw_gitignore#Hide()
+let g:netrw_list_hide += ',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide += ',\.git'
+let g:netrw_list_hide += ',\.DS_Store'
+let g:netrw_list_hide += ',node_modules'
+let g:netrw_list_hide += ',\.gem,\.bundle'
+let g:netrw_winsize = 25
+
+nnoremap <leader><F2> :Vexplore<cr>
+nnoremap <leader>k :Sexplore<cr>
+nnoremap <leader>. :fin .<cr>
+nnoremap <leader>l :netrw-refresh<cr>
+
+" Open netrw if no arguments were passed to VIM and diff mode is off
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
