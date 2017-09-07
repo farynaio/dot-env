@@ -141,6 +141,7 @@ set spelllang=en
 set number
 set ruler
 set showcmd " show me what I'm typing
+set laststatus=2
 set wrap
 set splitbelow " opens next horizontal window below current
 set mouse=a
@@ -206,9 +207,13 @@ set colorcolumn=100
 " Write variable s:std_in if arguments for VIM was passed
 autocmd StdinReadPre * let s:std_in=1
 
+function! McopyFilePathToClipboard()
+  redir @*
+  echo @%
+  redir END
+endfunction
 
-command! McopyFilePathToClipboard :redir @* | echo @% | redir END
-nnoremap <leader>cf :McopyFilePathToClipboard <cr>
+nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
 " Delete strings without poluting last yank buffer
 nnoremap <leader>d "_d
@@ -296,7 +301,7 @@ endfunction
 
 nnoremap <silent> <leader>wt :call ToggleWindowHorizontalVerticalSplit()<cr>
 
-function DeleteHiddenBuffers()
+function! DeleteHiddenBuffers()
   let tpbl=[]
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
@@ -524,7 +529,7 @@ noremap <leader>tb :TagbarToggle<cr>
 set updatetime=250
 command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
 
-function SetGitGutterBase(...)
+function! SetGitGutterBase(...)
   let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
   echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
   GitGutter
