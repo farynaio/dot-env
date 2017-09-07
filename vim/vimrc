@@ -311,7 +311,7 @@ function! AlignBuffer()
 
   if &ft ==# 'php'
     let l:isPHP = 1
-    set ft=html
+    setl ft=html
   endif
 
   exe "normal! mm"
@@ -321,7 +321,7 @@ function! AlignBuffer()
   exe "normal! 'm"
 
   if l:isPHP
-    set ft=php
+    setl ft=php
   endif
 endfunction
 
