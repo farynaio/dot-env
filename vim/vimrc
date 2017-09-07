@@ -444,6 +444,8 @@ noremap <Down> gj
 ounmap <Up>
 ounmap <Down>
 
+" search for visualy selected text
+vnoremap * y/<C-R>"<cr>"
 
 " close all buffers except current one
 nnoremap <silent> <leader>bd :%bd\|e# <cr>
