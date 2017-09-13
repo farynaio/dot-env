@@ -10,7 +10,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 " General
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
 
 " Devel
 Plug 'vim-scripts/SyntaxComplete'
