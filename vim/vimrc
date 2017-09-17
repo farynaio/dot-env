@@ -847,9 +847,12 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 autocmd FileType netrw call SetupNetrwEnv()
 
 function! SetupNetrwEnv()
-  setl bufhidden = delete
-  noremap <buffer> gp :bprevious<cr>
-  noremap <buffer> gb :bnext<cr>
+  if !exists('w:netrwSet')
+    setl bufhidden = delete
+    noremap <buffer> gp :bprevious<cr>
+    noremap <buffer> gb :bnext<cr>
+    let w:netrwSet = 1
+  endif
 endfunction
 
 let g:netrw_localmkdir = 'mkdir -p '
