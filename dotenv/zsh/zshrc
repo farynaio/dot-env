@@ -3,6 +3,9 @@
 
 ZSH_DOT="$HOME/.dotenv/zsh/"
 
+# emacs mode
+bindkey -e
+
 source $HOME/.dotenv/env.sh
 source $ZSH_DOT/utils.sh
 source $ZSH_DOT/prompt.sh
