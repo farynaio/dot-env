@@ -307,6 +307,7 @@ function! DeleteHiddenBuffers()
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
     silent execute 'bwipeout' buf
   endfor
+  echom "Hidden buffers wiped out!"
 endfunction
 
 nnoremap <silent> <leader>bw :call DeleteHiddenBuffers()<cr>
