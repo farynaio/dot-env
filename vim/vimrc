@@ -209,7 +209,7 @@ autocmd StdinReadPre * let s:std_in=1
 
 function! McopyFilePathToClipboard()
   redir @*
-  echo @%
+  echo expand('%:p:h')
   redir END
 endfunction
 
