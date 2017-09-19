@@ -550,9 +550,9 @@ endfunction
 
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
-  let filename = getcwd() . '/Session.vim'
-  if filereadable(filename)
-    execute 'so ' . filename
+  let l:filename = getcwd() . '/Session.vim'
+  if filereadable(l:filename)
+    execute 'so ' . l:filename
   endif
 endfunction
 
