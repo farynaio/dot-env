@@ -856,6 +856,7 @@ function! SetupNetrwEnv()
   endif
 endfunction
 
+let g:netrw_use_errorwindow = 0 " show netrw messages as echoerr
 let g:netrw_localmkdir = 'mkdir -p '
 let g:netrw_banner = 0 " disable banner
 let g:netrw_browse_split = 0 " open in new horizontal split
