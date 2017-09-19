@@ -22,6 +22,8 @@ export PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
 export PATH="/Users/devil/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
