@@ -4,18 +4,21 @@ let g:tsuquyomi_disable_quickfix = 1
 let g:tsuquyomi_javascript_support = 1
 let g:tsuquyomi_disable_default_mappings = 1
 
+" augroup JSX_Autocmd
+"   autocmd!
+"   autocmd BufNewFile,BufReadPost * if &ft == 'javascript.jsx' | call <SID>TLoad() | endif
+" augroup END
+
 setlocal completeopt+=preview
 nnoremap <C-]> :TsuDefinition<cr>
 
-if has('autocmd')
-  if exists('+omnifunc')
-    augroup Autocompletion
-      autocmd!
-      setlocal omnifunc=javascriptcomplete#CompleteJS
-    augroup end
-  else
-    echom "Warning this instalation of VIM doesn't support 'omnifunc'."
-  endif
+if exists('+omnifunc')
+  augroup Autocompletion
+    autocmd!
+    setl omnifunc=javascriptcomplete#CompleteJS
+  augroup end
+else
+  echom "Warning this instalation of VIM doesn't support 'omnifunc'."
 endif
 
 if executable('js-beautify')

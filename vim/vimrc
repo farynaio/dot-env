@@ -814,11 +814,6 @@ else
   let g:templates_directory = '~/.vim/templates/private/'
 end
 
-augroup Templating
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call <SID>TLoad()
-augroup END
-
 " call ApplySkeletonDevs()
 " autocmd VimEnter * call ApplySkeletonDevs()
 
