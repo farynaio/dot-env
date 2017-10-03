@@ -704,8 +704,6 @@ let g:ctrlp_custom_ignore = {
       \ }
 
 " Search by ctags
-nnoremap <leader>p :CtrlP<cr>
-nnoremap <leader>r :CtrlP<cr>
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>l :CtrlPMRU<cr>
 " nnoremap <leader>q :CtrlPQuickFix<cr>
