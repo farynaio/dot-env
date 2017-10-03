@@ -409,8 +409,8 @@ autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
 " Snippets
 " ================================================
 set runtimepath+=~/.vim/my-snippets/
-let g:UltiSnipsSnippetsDir = '~/.vim/my_snippets/'
-let g:UltiSnipsSnippetDirectories = ['my_snippets']
+" let g:UltiSnipsSnippetsDir = '~/.vim/my_snippets/'
+let g:UltiSnipsSnippetDirectories = ['ultisnips']
 let g:UltiSnipsEditSplit = 'vertical'
 
 let g:UltiSnipsExpandTrigger="<tab>"
