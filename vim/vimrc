@@ -223,6 +223,8 @@ endfunction
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
 " Delete strings without poluting last yank buffer
+nnoremap <leader>y "_y
+nnoremap <leader>p "_p
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
 nnoremap <leader>c "_c
