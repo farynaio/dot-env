@@ -1,0 +1,1 @@
+setl syntax=better-writing
