@@ -852,11 +852,15 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 " Netrw
 " ================================================
 
-autocmd FileType netrw call SetupNetrwEnv()
+augroup Netrw_Autocmd
+  autocmd!
+  autocmd FileType netrw call SetupNetrwEnv()
+augroup END
 
 function! SetupNetrwEnv()
   if !exists('w:netrwSet')
-    setl bufhidden = delete
+    setl bufhidden=delete
+    setl buftype=nofile
     noremap <buffer> gp :bprevious<cr>
     noremap <buffer> gb :bnext<cr>
     let w:netrwSet = 1
