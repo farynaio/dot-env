@@ -203,8 +203,16 @@ highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
-" Write variable s:std_in if arguments for VIM was passed
-autocmd StdinReadPre * let s:std_in=1
+augroup General_Autocmd
+  autocmd!
+  " Write variable s:std_in if arguments for VIM was passed
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
+  autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
+  autocmd VimEnter * call RestoreSession()
+  " Open netrw if no arguments were passed to VIM and diff mode is off
+  autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
+augroup END
 
 function! McopyFilePathToClipboard()
   redir @*
@@ -224,6 +232,9 @@ nnoremap <leader>cw "_cw
 nnoremap <leader>de "_de
 nnoremap <leader>xe "_xe
 nnoremap <leader>ce "_ce
+
+" Reload vim ~/.vimrc
+command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
 
 " Copy word under the cursor to clipboard
 nnoremap <leader>c viwy
@@ -409,7 +420,11 @@ if &diff
   nnoremap <leader>3 :diffget REMOTE<cr>
 endif
 
-autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
+augroup Diff_Autocmd
+  autocmd!
+  autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
+augroup END
+
 " ================================================
 " Snippets
 " ================================================
@@ -463,8 +478,6 @@ nnoremap gd mm gd
 
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
-
-autocmd BufRead,BufNewFile *.jsx,*.tsx :ia <buffer> </ </<C-X><C-O>>
 
 " ================================================
 " Sessions
@@ -562,7 +575,6 @@ function! RestoreSession()
 endfunction
 
 " autocmd VimLeave * call SaveSess()
-autocmd VimEnter * call RestoreSession()
 
 " ================================================
 " Git - Fugitive
@@ -879,6 +891,3 @@ nnoremap <leader>k :exe "Sexplore " expand('%:p:h') <cr>
 nnoremap <leader>. :exe "Ntree " expand('%:p:h') <cr>
 nnoremap <leader>m :exe "vs " expand('%:p:h') <cr>
 nnoremap <leader>l :netrw-refresh<cr>
-
-" Open netrw if no arguments were passed to VIM and diff mode is off
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
