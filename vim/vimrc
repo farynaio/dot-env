@@ -173,6 +173,7 @@ set backspace=2
 syntax on
 set foldmethod=marker
 set omnifunc=syntaxcomplete#Complete
+set complete-=t
 set hlsearch
 set incsearch
 set wildmenu
@@ -196,9 +197,7 @@ set visualbell
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
-set path+=**
-
-au BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
+set path=**
 
 highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
