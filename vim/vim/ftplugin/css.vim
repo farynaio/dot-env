@@ -4,6 +4,8 @@ setlocal iskeyword+=-
 " autocmd!
 "   autocmd FileType css setlocal iskeyword+=-
 " augroup END
+"
+exe ':EmmetInstall'
 
 if executable('js-beautify')
   noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>

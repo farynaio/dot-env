@@ -275,6 +275,14 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 nnoremap <silent> <leader>cd :cd %:p:h<cr>
 
 " ================================================
+" Emmet
+" ================================================
+
+let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key='<leader>z'
+let g:user_emmet_mode='a'
+
+" ================================================
 " Windows & splits manipulaton
 " ================================================
 
