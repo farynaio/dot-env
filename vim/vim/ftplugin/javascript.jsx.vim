@@ -1,8 +1,3 @@
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_definition_split = 0
-let g:tsuquyomi_disable_quickfix = 1
-let g:tsuquyomi_javascript_support = 1
-let g:tsuquyomi_disable_default_mappings = 1
 
 " augroup JSX_Autocmd
 "   autocmd!
@@ -10,7 +5,15 @@ let g:tsuquyomi_disable_default_mappings = 1
 " augroup END
 
 setlocal completeopt+=preview
-nnoremap <C-]> :TsuDefinition<cr>
+
+if exists('*TsuDefinition')
+  let g:tsuquyomi_completion_detail = 1
+  let g:tsuquyomi_definition_split = 0
+  let g:tsuquyomi_disable_quickfix = 1
+  let g:tsuquyomi_javascript_support = 1
+  let g:tsuquyomi_disable_default_mappings = 1
+  nnoremap <buffer> <C-]> :TsuDefinition<cr>
+endif
 
 if exists('+omnifunc')
   augroup Autocompletion
@@ -32,13 +35,14 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 let g:vim_json_syntax_conceal = 0
 
-let g:syntastic_javascript_checkers = ['eslint']
 " Override eslint with local version where necessary.
 let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
 if matchstr(local_eslint, "^\/\\w") == ''
   let local_eslint = getcwd() . "/" . local_eslint
 endif
+
 if executable(local_eslint)
+  let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_javascript_eslint_exec = local_eslint
 endif
 
@@ -47,13 +51,13 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 function LintBuffer()
   if executable('jshint')
     if filereadable(glob('~/.jshintrc'))
-      :call JSHintUpdate()
+      call JSHintUpdate()
       execute '!jshint --config ~/.jshintrc'
     else
-      :echo 'jshint config "~./.jshintrc" does not exists.'
+      echo 'jshint config "~./.jshintrc" does not exists.'
     endif
   else
-    :echo 'jshint is not installed.'
+    echo 'jshint is not installed.'
   endif
 endfunction
 

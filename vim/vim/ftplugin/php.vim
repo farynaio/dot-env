@@ -5,7 +5,7 @@ exe ':EmmetInstall'
 " ================================================
 
 if exists(":Tabularize")
-  nnoremap <leader>a=> :Tabularize /=><cr>
-  vnoremap <leader>a=> :Tabularize /=><cr>
+  noremap <buffer> <leader>a=> :Tabularize /=><cr>
+  " vnoremap <leader>a=> :Tabularize /=><cr>
 endif
 

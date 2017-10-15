@@ -1,3 +1,10 @@
+" Skip plugins instalation on vim-tiny and vim-small
+if 0 | finish | endif
+
+if has('vim_starting')
+  set nocompatible
+endif
+
 call plug#begin('~/.vim/plugged')
 
 " Plug 'vim-syntastic/syntastic'
@@ -22,6 +29,7 @@ Plug 'dag/vim-fish'
 Plug 'elzr/vim-json'
 Plug 'stephpy/vim-yaml'
 Plug 'lfilho/cosco.vim'
+Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 
 " Web
 Plug 'othree/html5.vim'
@@ -91,7 +99,8 @@ Plug 'SirVer/ultisnips'
 Plug 'mhartington/vim-typings'
 " Plug 'Shougo/unite.vim'
 " Plug 'https://github.com/xolox/vim-easytags.git'
-" Plug 'https://github.com/vim-scripts/YankRing.vim.git'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/scratch.vim'
 Plug 'craigemery/vim-autotag'
 Plug 'majutsushi/tagbar'
 Plug 'xolox/vim-misc'
@@ -124,7 +133,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " Plug 'othree/jspc.vim'
 " Plug 'severin-lemaignan/vim-minimap'
 " Plug 'sheerun/vim-polyglot'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -132,24 +141,32 @@ call plug#end()
 " ================================================
 " General
 " ================================================
-set nocompatible
+filetype plugin indent on
+set shiftround " test
+set showmatch " show maching parenthesis
+set bufhidden=wipe
 filetype on
-filetype plugin on
-filetype indent on
 set encoding=utf-8
 set spelllang=en
 set number
 set ruler
+set modelines=0
+set history=1000
+set undolevels=1000
 set showcmd " show me what I'm typing
 set laststatus=2
 set wrap
+set linebreak " preserve complete words when line break
 set splitbelow " opens next horizontal window below current
 set mouse=a
 set mousemodel=popup
 set ignorecase
+set ttyfast
+" set formatoptions=tcqrn1 " test
 " autoread file changes
 set autoread
 set tabstop=2
+set softtabstop=2 " test
 set shiftwidth=2
 set expandtab
 " copy to system clipboard
@@ -167,33 +184,42 @@ set ai " auto indent
 set si " smart indent
 set shell=sh
 " set relativenumber
-" set smartcase
+set gdefault " add 'g' to all replace options by default
+set smartcase
 set noswapfile
+set nobackup
 set backspace=2
-syntax on
+
+set smarttab " insert tabs on the start of the line
+set foldlevel=1
 set foldmethod=marker
 set omnifunc=syntaxcomplete#Complete
 set complete-=t
 set hlsearch
 set incsearch
 set wildmenu
+set wildmode=list:longest " test
 set guioptions-=r
 set guioptions-=L
 set guicursor=n-v-c:blinkon0
 set scrolloff=999
 let mapleader = ","
 set splitright
-set wildignore=**/*.bak,**/*.pyc,**/*.class,**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**,**/target/**
-set wildignore+=**/*.zip,**/*.tar.gz,**/*.tar.bz2,**/*.rar,**/*.tar.xz
-set wildignore+=**/vendor/gems/*,**/vendor/cache/*,**/.bundle/*,**/.sass-cache/*
-set wildignore+=**/*.o,**/*.out,**/*.obj,**/.git,**/*.rbc,**/*.rbo,**/.svn,**/.gem
-set wildignore+=**/.swp,**/*~,**/._*
+set pastetoggle=<F2> " Switch to paste mode when pasting bulk of text
+set wildignore=*.bak,*.swp,*.pyc,*.class,*.o,*.out,*.obj,*.rbc,*.rbo
+set wildignore+=**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**,**/target/**
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=**/vendor/gems/**,**/vendor/cache/**,**/.bundle/**,**/.sass-cache/**
+set wildignore+=**/.git/**,**/.svn/**,**/.gem/**
+set wildignore+=**/*~,**/._*
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
-set timeout timeoutlen=1000 ttimeoutlen=100 " remove `O` and `o` Delay
+" set timeout
+set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
+set noerrorbells
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
@@ -203,16 +229,18 @@ highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
-augroup General_Autocmd
-  autocmd!
-  " Write variable s:std_in if arguments for VIM was passed
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
-  autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
-  autocmd VimEnter * call RestoreSession()
-  " Open netrw if no arguments were passed to VIM and diff mode is off
-  autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
-augroup END
+if has('autocmd')
+  augroup General_Autocmd
+    autocmd!
+    " Write variable s:std_in if arguments for VIM was passed
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
+    autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
+    autocmd VimEnter * call RestoreSession()
+    " Open netrw if no arguments were passed to VIM and diff mode is off
+    autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
+  augroup END
+endif
 
 function! McopyFilePathToClipboard()
   redir @*
@@ -235,6 +263,10 @@ nnoremap <leader>de "_de
 nnoremap <leader>xe "_xe
 nnoremap <leader>ce "_ce
 
+" should fix some problems with searching regex - test
+nnoremap / /\v
+vnoremap / /\v
+
 " Reload vim ~/.vimrc
 command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
 
@@ -243,6 +275,9 @@ nnoremap <leader>c viwy
 
 " Search for word under cursor.
 nnoremap <C-h> :help <C-r><C-w><cr>
+
+" Reselects just pasted text
+nnoremap <leader>v V`]`
 
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 
@@ -254,6 +289,17 @@ nnoremap <C-h> :help <C-r><C-w><cr>
 " Remove ex mode
 nnoremap Q <nop>
 
+" nnoremap <F2> :call TogglePaste()<cr>
+" function! TogglePaste()
+" 	if &paste ==# 'paste'
+" 		set nopaste
+" 		echo "set to 'nopaste'"
+" 	else
+" 		set paste
+" 		echo "set to 'paste'"
+" 	endif
+" endfunction
+
 " Show search occourences count in statusbar
 " set statusline=%{anzu#search_status()}
 " nmap n <Plug>(anzu-n-with-echo)
@@ -263,6 +309,13 @@ nnoremap Q <nop>
 " nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+" ================================================
+" Copy & paste
+" ================================================
+
+nnoremap <silent> <F3> :YRShow<cr>
+inoremap <silent> <F3> <ESC>:YRShow<cr>
 
 " ================================================
 " Tmux Support
@@ -302,6 +355,17 @@ let g:user_emmet_mode='a'
 nnoremap gb :bn<cr>
 nnoremap gp :bp<cr>
 nnoremap <silent> <LEADER>gd :bd<cr>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Easy window navigation
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
 
 " Toggle horizontal/vertical split
 function! ToggleWindowHorizontalVerticalSplit()
@@ -422,10 +486,12 @@ if &diff
   nnoremap <leader>3 :diffget REMOTE<cr>
 endif
 
-augroup Diff_Autocmd
-  autocmd!
-  autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
-augroup END
+if has('autocmd')
+  augroup Diff_Autocmd
+    autocmd!
+    autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
+  augroup END
+endif
 
 " ================================================
 " Snippets
@@ -459,13 +525,22 @@ noremap <leader><F7> mzgg=G`z
 " noremap <leader><C-v> :r !pbpaste<cr><cr>
 " vnoremap <C-c> :w !pbcopy<cr><cr>
 " noremap <C-v> :r !pbpaste<cr><cr>
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 
 noremap <Up> gk
 noremap <Down> gj
 ounmap <Up>
 ounmap <Down>
+
+" clear search highlight
+noremap <silent> ,/ :nohlsearch<cr>
+
+" execute commands with ;
+nnoremap ; :
+
+" allows entering sudo write mode
+cmap w!! w !sudo tee % >/dev/null
 
 " search for visualy selected text
 vnoremap * y/<C-R>"<cr>"
@@ -481,25 +556,25 @@ nnoremap gd mm gd
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 
+
+" ================================================
+" Look & Feel
+" ================================================
+colorscheme monokai
+set background=dark
+
 " ================================================
 " Sessions
 " ================================================
+
+ " turn sytax highlight when terminal has colors
+if has('gui_running') || &t_Co >= 2
+  syntax on
+endif
+
+" start in full screen mode when run gui
 if has('gui_running')
-  set background=dark
-  " colorscheme gruvbox
-  colorscheme monokai
-  " znake, zmrok, wolfpack,
-  " Fullscreen mode
   set lines=9999 columns=9999
-  " colorscheme monokai
-  " set termguicolors
-  " " colorscheme darkblue
-  " let g:session_autosave = 'yes'
-  " let g:session_autoload = 'yes'
-else
-  " colorscheme phd
-  colorscheme monokai
-  " let g:session_autosave = 'no'
 endif
 
 " ================================================
@@ -581,7 +656,9 @@ endfunction
 " ================================================
 " Git - Fugitive
 " ================================================
-autocmd QuickFixCmdPost *grep* cwindow
+if has('autocmd')
+  autocmd QuickFixCmdPost *grep* cwindow
+endif
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
@@ -844,7 +921,9 @@ function! GetCurrentContent()
   endif
 endfunction
 
-autocmd BufEnter * call GetCurrentContent()
+if has('autocmd')
+  autocmd BufEnter * call GetCurrentContent()
+endif
 
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
@@ -857,10 +936,12 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 " Netrw
 " ================================================
 
-augroup Netrw_Autocmd
-  autocmd!
-  autocmd FileType netrw call SetupNetrwEnv()
-augroup END
+if has('autocmd')
+  augroup Netrw_Autocmd
+    autocmd!
+    autocmd FileType netrw call SetupNetrwEnv()
+  augroup END
+endif
 
 function! SetupNetrwEnv()
   if !exists('w:netrwSet')
@@ -882,7 +963,7 @@ let g:netrw_preview = 1
 let g:netrw_list_hide = netrw_gitignore#Hide()
 let g:netrw_list_hide += ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide += ',\.git'
-let g:netrw_list_hide += ',\.DS_Store'
+let g:netrw_list_hide += ',.DS_Store'
 let g:netrw_list_hide += ',node_modules'
 let g:netrw_list_hide += ',\.gem,\.bundle'
 let g:netrw_winsize = 75
