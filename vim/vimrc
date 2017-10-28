@@ -809,3 +809,10 @@ nnoremap <leader>k :exe "Sexplore " expand('%:p:h') <cr>
 nnoremap <leader>. :exe "Ntree " expand('%:p:h') <cr>
 nnoremap <leader>l :exe "vs " expand('%:p:h') <cr>
 nnoremap <leader>m :vs .<cr>
+
+if has('autocmd')
+  augroup Restore_Session
+    autocmd!
+    autocmd VimEnter * call RestoreSession()
+  augroup END
+endif
