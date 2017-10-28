@@ -243,6 +243,12 @@ if has('autocmd')
   augroup END
 endif
 
+if has('autocmd') && has('omnifunc')
+  augroup Omnifuncs
+    autocmd!
+    autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
+  augroup END
+endif
 function! McopyFilePathToClipboard()
   redir @*
   echo expand('%:p:h')
