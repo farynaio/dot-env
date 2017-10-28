@@ -779,56 +779,6 @@ if exists(":Tabularize")
 endif
 
 " ================================================
-" CTRLP - find particular file
-" ================================================
-let g:ctrlp_use_caching = 1
-let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
-let g:ctrlp_mruf_max = 25
-let g:ctrlp_tilde_homedir = 1
-let g:ctrlp_mruf_relative = 1
-let g:ctrlp_types = ['fil', 'mru', 'buf']
-let g:ctrlp_mruf_case_sensitive = 1
-let g:ctrlp_mruf_save_on_update = 1
-let g:ctrlp_switch_buffer = 'e'
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]((\.(git|hg|svn))|node_modules|cscope.*|build.*|dist.*)',
-      \ 'file': '\v\.(exe|so|dll)$',
-      \ 'link': 'SOME_BAD_SYMBOLIC_LINKS'
-      \ }
-
-" Search by ctags
-nnoremap <leader>t :CtrlPTag<cr>
-nnoremap <leader>l :CtrlPMRU<cr>
-" nnoremap <leader>q :CtrlPQuickFix<cr>
-
-function! HTMLOpenFunc(action, line)
-  if a:action =~ '^[tx]$' && fnamemodify(a:line, ':e') =~? '^html\?$'
-    " Get the filename
-    let filename = fnameescape(fnamemodify(a:line, ':p'))
-
-    " Close CtrlP
-    call ctrlp#exit()
-
-    " Open the file
-    if has('mac')
-      silent! execute '!open' filename
-    else " is Linux
-      silent! execute '!xdg-open' filename
-    endif
-  elseif a:action == 'x' && fnamemodify(a:line, ':e') !~? '^html\?$'
-    " Not a HTML file, simulate pressing <c-o> again and wait for new input
-    call feedkeys("\<c-o>")
-
-  else
-    " Use CtrlP's default file opening function
-    call call('ctrlp#acceptfile', [a:action, a:line])
-  endif
-endfunction
-
-let g:ctrlp_open_func = {'files': 'HTMLOpenFunc'}
-
-" ================================================
 " Templating
 " ================================================
 " fun! InsertFileManifest(file)
