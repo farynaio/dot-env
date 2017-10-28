@@ -160,6 +160,7 @@ set splitbelow " opens next horizontal window below current
 set mouse=a
 set mousemodel=popup
 set ignorecase
+set nrformats-=octal
 set ttyfast
 " set formatoptions=tcqrn1 " test
 " autoread file changes
@@ -176,23 +177,20 @@ set shortmess+=I
 set cursorline
 " Redraw ONLY When Need To
 set lazyredraw
-" Enable Magic for Regular Expression
-set magic
-" Treat Long Lines as Break Lines
-set ai " auto indent
-set si " smart indent
+set magic " Enable Magic for Regular Expressions
+set autoindent " auto indent
+set smartindent " smart indent
 set shell=sh
 set gdefault " add 'g' to all replace options by default
 set smartcase
 set noswapfile
 set nobackup
 set backspace=2
-
+set nocursorline
 set smarttab " insert tabs on the start of the line
 set foldlevel=1
 set foldmethod=marker
-set omnifunc=syntaxcomplete#Complete
-set complete-=t
+set complete-=i " don't scan current file and includes
 set hlsearch
 set incsearch
 set wildmenu
@@ -217,6 +215,10 @@ set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif "
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
