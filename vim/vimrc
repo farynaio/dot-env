@@ -562,7 +562,7 @@ nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 " ================================================
 " Look & Feel
 " ================================================
-colorscheme monokai
+colorscheme mustang
 set background=dark
 
 " ================================================
