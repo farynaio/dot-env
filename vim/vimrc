@@ -30,6 +30,7 @@ Plug 'elzr/vim-json'
 Plug 'stephpy/vim-yaml'
 Plug 'lfilho/cosco.vim'
 Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
+Plug 'vim-scripts/taglist.vim'
 
 " Web
 Plug 'othree/html5.vim'
