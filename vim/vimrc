@@ -249,6 +249,25 @@ if has('autocmd') && has('omnifunc')
     autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
   augroup END
 endif
+
+" Highlight word under the cursor.
+function! HighlightWordUnderCursor()
+	if &ft != 'text' && &ft != 'help' && &ft != 'netrw'
+    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
+        exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
+    else
+        match none
+    endif
+	endif
+endfunction
+
+if has('autocmd')
+  augroup General_Middle_Config
+    autocmd!
+    autocmd CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+  augroup END
+endif
+
 function! McopyFilePathToClipboard()
   redir @*
   echo expand('%:p:h')
@@ -583,7 +602,7 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 noremap <leader>f :call FuzzSearch()<cr>
 
 " Call Ack as Ack! (not open preview automaticaly)
-" cnoreabbrev Ack Ack!
+cnoreabbrev Ack Ack!
 
 function! FuzzSearch()
   let l:phrase = input('What pattern? ', expand('<cword>'))
