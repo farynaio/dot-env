@@ -723,12 +723,22 @@ endfunction
 " endif
 
 " ================================================
-" ctags
+" Tags
 " ================================================
 
 let g:autotagTagsFile="tags"
 
+if has('path_extra')
+  setg tags-=./tags tags-=./tags
+endif
+
 command! Ctags !ctags -R .
+
+" Open tag definition in new tab
+" nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+" Open tag definition in vertical split
+nnoremap <C-w><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " ================================================
 " CSCOPE - ctags alternative
