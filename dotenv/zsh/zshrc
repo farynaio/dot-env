@@ -1,7 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-ZSH_DOT="$HOME/.dotenv/zsh/"
+DOTENV="$HOME/.dotenv/"
+ZSH_DOT="$DOTENV/zsh/"
 
 # emacs mode
 bindkey -e
