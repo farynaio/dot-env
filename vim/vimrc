@@ -133,7 +133,6 @@ Plug 'othree/javascript-libraries-syntax.vim'
 " Plug 'othree/jspc.vim'
 " Plug 'severin-lemaignan/vim-minimap'
 " Plug 'sheerun/vim-polyglot'
-" Plug 'ctrlpvim/ctrlp.vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -183,7 +182,6 @@ set magic
 set ai " auto indent
 set si " smart indent
 set shell=sh
-" set relativenumber
 set gdefault " add 'g' to all replace options by default
 set smartcase
 set noswapfile
@@ -215,7 +213,6 @@ set wildignore+=**/*~,**/._*
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
-" set timeout
 set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
@@ -281,34 +278,8 @@ nnoremap <C-h> :help <C-r><C-w><cr>
 " Reselects just pasted text
 nnoremap <leader>v V`]`
 
-" let g:cssColorVimDoNotMessMyUpdatetime = 1
-
-" noremap <Up> <Nop>
-" noremap <Down> <Nop>
-" noremap <Left> <Nop>
-" noremap <Right> <Nop>
-
 " Remove ex mode
 nnoremap Q <nop>
-
-" nnoremap <F2> :call TogglePaste()<cr>
-" function! TogglePaste()
-" 	if &paste ==# 'paste'
-" 		set nopaste
-" 		echo "set to 'nopaste'"
-" 	else
-" 		set paste
-" 		echo "set to 'paste'"
-" 	endif
-" endfunction
-
-" Show search occourences count in statusbar
-" set statusline=%{anzu#search_status()}
-" nmap n <Plug>(anzu-n-with-echo)
-" nmap N <Plug>(anzu-N-with-echo)
-" nmap * <Plug>(anzu-star-with-echo)
-" nmap # <Plug>(anzu-sharp-with-echo)
-" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
@@ -357,17 +328,6 @@ let g:user_emmet_mode='a'
 nnoremap gb :bn<cr>
 nnoremap gp :bp<cr>
 nnoremap <silent> <LEADER>gd :bd<cr>
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Easy window navigation
-" map <C-h> <C-w>h
-" map <C-j> <C-w>j
-" map <C-k> <C-w>k
-" map <C-l> <C-w>l
 
 " Toggle horizontal/vertical split
 function! ToggleWindowHorizontalVerticalSplit()
@@ -465,22 +425,9 @@ function! QuickfixToggle()
 endfunction
 
 " ================================================
-" Plain Text mode
-" ================================================
-
-" ================================================
-" CSSComb
-" ================================================
-" autocmd FileType css,scss noremap <buffer> <leader>bc :CSScomb<cr>
-
-" ================================================
 " Diff
 " ================================================
 set diffopt+=iwhite
-
-" these two are probably not needed
-" command! Mdiffthis nnoremap <buffer> ] ]c|nnoremap <buffer> [ [c|diffthis
-" command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
 
 if &diff
   nnoremap <leader>1 :diffget LOCAL<cr>
@@ -498,8 +445,8 @@ endif
 " ================================================
 " Snippets
 " ================================================
+
 set runtimepath+=~/.vim/my-snippets/
-" let g:UltiSnipsSnippetsDir = '~/.vim/my_snippets/'
 let g:UltiSnipsSnippetDirectories = ['ultisnips']
 let g:UltiSnipsEditSplit = 'vertical'
 
@@ -508,17 +455,10 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsListSnippets='<C-tab>'
 
-" let g:SuperTabDefaultCompletionType    = '<C-n>'
-" let g:SuperTabCrMapping                = 0
-" let g:UltiSnipsExpandTrigger           = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
-" let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
 " ================================================
 " General Mapings & Ab
 " ================================================
+
 " Fix indentation
 noremap <leader><F7> mzgg=G`z
 " Copy to clipboard
@@ -558,10 +498,10 @@ nnoremap gd mm gd
 " Quick Toggle Background BEtween Dark & Light
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 
-
 " ================================================
 " Look & Feel
 " ================================================
+
 colorscheme mustang
 set background=dark
 
@@ -582,6 +522,7 @@ endif
 " ================================================
 " EditorConfig
 " ================================================
+
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 let g:EditorConfig_core_mode = 'external_command'
@@ -589,43 +530,13 @@ let g:EditorConfig_core_mode = 'external_command'
 " ================================================
 " Tagbar
 " ================================================
+
 noremap <leader>tb :TagbarToggle<cr>
-" ================================================
-" NERDTree
-" ================================================
-" let NERDTreeIgnore = ['cscope.*', '.*\.xd', 'tags', '.DS_Store', '.git', 'node_modules']
-" let NERDTreeWinSize = 40
-" let NERDTreeShowHidden = 1
-"
-" " Less verbose NERDTree UI
-" let NERDTreeMinimalUI = 1
-"
-" " Automatically delete buffer of the deleted file from NERDTree
-" let NERDTreeAutoDeleteBuffer = 1
-"
-" let g:nerdtree_tabs_open_on_gui_startup = 2
-" let g:nerdtree_tabs_open_on_console_startup = 2
-" let g:nerdtree_tabs_focus_on_files = 1
-" let g:nerdtree_tabs_autofind = 0
-"
-" noremap <leader><F2> :NERDTreeFind<cr>
-" noremap <leader>k :NERDTreeToggle<cr>
-
-" Jump to other window then NERDTree on VIM enter
-" autocmd VimEnter * wincmd p
-
-" Write variable s:std_in if arguments for VIM was passed
-" autocmd StdinReadPre * let s:std_in=1
-
-" Open NERDTree if no arguments were passed to VIM and diff mode is off
-" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :NERDTree' | endif
-
-" Close VIM when NERDTree is the last opened window
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ================================================
 " Git - gutter
 " ================================================
+
 set updatetime=250
 command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
 
@@ -638,12 +549,6 @@ endfunction
 " ================================================
 " Session
 " ================================================
-" function! SaveSess()
-"   let filename = getcwd() . '/Session.vim'
-"   if filereadable(filename)
-"     execute 'mksession! ' . getcwd() . '/Session.vim'
-"   endif
-" endfunction
 
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
@@ -653,11 +558,10 @@ function! RestoreSession()
   endif
 endfunction
 
-" autocmd VimLeave * call SaveSess()
-
 " ================================================
 " Git - Fugitive
 " ================================================
+
 if has('autocmd')
   autocmd QuickFixCmdPost *grep* cwindow
 endif
@@ -669,7 +573,6 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " ================================================
 
 noremap <leader>f :call FuzzSearch()<cr>
-" noremap <leader>f :call FuzzSearchVisual()<cr>
 
 " Call Ack as Ack! (not open preview automaticaly)
 " cnoreabbrev Ack Ack!
@@ -684,43 +587,14 @@ function! FuzzSearch()
 endfunction
 
 function! FuzzSearchForPhrase(phrase)
-  " Create new horizontal split for opening file from results
-  " silent! exe "new"
-  " let l:previewWin = winnr()
-
-  " Move new split to the bottom
-  " silent! exe "normal! \<C-w>J"
-
-  " let l:wasNERDTreeOpened = 0
-
-  " Check if NERDTree is opened and close if it is
-  " if g:NERDTree.IsOpen()
-  "   let l:wasNERDTreeOpened = 1
-  "   exe "NERDTreeClose"
-  " endif
-
   exe ":Ack! '" . a:phrase . "' ."
   let g:quickfix_is_open = 1
-
-  " Restore nerd tree if was open
-  " if l:wasNERDTreeOpened
-  "   exe "NERDTree"
-  "   let l:pom = winnr('$') - 1
-  "   exe "normal! " l:pom . "\<C-W>w"
-  "   exe "resize +5"
-  "   exe "normal! " winnr('$') . "\<C-W>w"
-  " endif
 endfunction
 
 function! FuzzSearchVisual()
   let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
   call FuzzSearchForPhrase(l:phrase)
 endfunction
-
-" if executable('ack')
-  " let g:ackprg = 'ag --nogroup --nocolor --column'
-  " let g:ag_working_path_mode="r"
-" endif
 
 " ================================================
 " Tags
@@ -741,25 +615,9 @@ command! Ctags !ctags -R .
 nnoremap <C-w><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " ================================================
-" CSCOPE - ctags alternative
-" ================================================
-" if has("cscope")
-"   nnoremap <leader>fz :tab :call cscope#findInteractive(expand('<cword>'))<cr>
-"   nnoremap <leader>l :call ToggleLocationList()<cr>
-"   set csprg=/usr/local/bin/cscope
-"   set csto=0
-"   set cst
-"   set nocsverb
-"
-"   if filereadable("cscope.out")
-"     cs add cscope.out
-"   endif
-"   set csverb
-" endif
-
-" ================================================
 " Tabularize
 " ================================================
+
 if exists(":Tabularize")
   noremap <leader>a= :Tabularize /=<cr>
   noremap <leader>a: :Tabularize /:\zs<cr>
@@ -857,9 +715,6 @@ if $AOL == 'true'
 else
   let g:templates_directory = '~/.vim/templates/private/'
 end
-
-" call ApplySkeletonDevs()
-" autocmd VimEnter * call ApplySkeletonDevs()
 
 function! GetCurrentContent()
   let l:content = getline(0,line("$"))
