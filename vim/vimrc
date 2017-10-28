@@ -665,8 +665,12 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " ================================================
 " Fuzz Search - find any phrase in all files
 " ================================================
-nnoremap <leader>f :call FuzzSearch()<cr>
-vnoremap <leader>f :call FuzzSearchVisual()<cr>
+
+noremap <leader>f :call FuzzSearch()<cr>
+" noremap <leader>f :call FuzzSearchVisual()<cr>
+
+" Call Ack as Ack! (not open preview automaticaly)
+" cnoreabbrev Ack Ack!
 
 function! FuzzSearch()
   let l:phrase = input('What pattern? ', expand('<cword>'))
@@ -674,21 +678,16 @@ function! FuzzSearch()
     return
   endif
 
-  let l:folder = input('What folder? ')
-  if empty(l:folder)
-    return
-  endif
-
-  call FuzzSearchForPhrase(l:phrase, l:folder)
+  call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! FuzzSearchForPhrase(phrase, folder)
+function! FuzzSearchForPhrase(phrase)
   " Create new horizontal split for opening file from results
-  silent! exe "new"
-  let l:previewWin = winnr()
+  " silent! exe "new"
+  " let l:previewWin = winnr()
 
   " Move new split to the bottom
-  silent! exe "normal! \<C-w>J"
+  " silent! exe "normal! \<C-w>J"
 
   " let l:wasNERDTreeOpened = 0
 
@@ -698,7 +697,7 @@ function! FuzzSearchForPhrase(phrase, folder)
   "   exe "NERDTreeClose"
   " endif
 
-  exe ":Ack --smart-case '" . a:phrase . "'  '" . a:folder . "'"
+  exe ":Ack! '" . a:phrase . "' ."
   let g:quickfix_is_open = 1
 
   " Restore nerd tree if was open
@@ -713,19 +712,13 @@ endfunction
 
 function! FuzzSearchVisual()
   let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
-  let l:folder = input('What folder? ')
-
-  if empty(l:folder)
-    let l:folder = '.'
-  endif
-
-  call FuzzSearchForPhrase(l:phrase, l:folder)
+  call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-if executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-  let g:ag_working_path_mode="r"
-endif
+" if executable('ack')
+  " let g:ackprg = 'ag --nogroup --nocolor --column'
+  " let g:ag_working_path_mode="r"
+" endif
 
 " ================================================
 " ctags
