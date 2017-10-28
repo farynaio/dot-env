@@ -1,28 +1,4 @@
-
-" augroup JSX_Autocmd
-"   autocmd!
-"   autocmd BufNewFile,BufReadPost * if &ft == 'javascript.jsx' | call <SID>TLoad() | endif
-" augroup END
-
 setlocal completeopt+=preview
-
-if exists('*TsuDefinition')
-  let g:tsuquyomi_completion_detail = 1
-  let g:tsuquyomi_definition_split = 0
-  let g:tsuquyomi_disable_quickfix = 1
-  let g:tsuquyomi_javascript_support = 1
-  let g:tsuquyomi_disable_default_mappings = 1
-  nnoremap <buffer> <C-]> :TsuDefinition<cr>
-endif
-
-if exists('+omnifunc')
-  augroup Autocompletion
-    autocmd!
-    setl omnifunc=javascriptcomplete#CompleteJS
-  augroup end
-else
-  echom "Warning this instalation of VIM doesn't support 'omnifunc'."
-endif
 
 if executable('js-beautify')
   noremap <buffer> <leader><c-f> :call RangeJsBeautify()<cr>
@@ -46,9 +22,7 @@ if executable(local_eslint)
   let g:syntastic_javascript_eslint_exec = local_eslint
 endif
 
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-function LintBuffer()
+function! LintBuffer()
   if executable('jshint')
     if filereadable(glob('~/.jshintrc'))
       call JSHintUpdate()
@@ -60,7 +34,3 @@ function LintBuffer()
     echo 'jshint is not installed.'
   endif
 endfunction
-
-" Lint JS buffers on save.
-" au BufWritePost *.js,*.json,*.jsx,*.tsx :call LintBuffer()
-

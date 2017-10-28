@@ -234,9 +234,11 @@ if has('autocmd')
     autocmd!
     " Write variable s:std_in if arguments for VIM was passed
     autocmd StdinReadPre * let s:std_in=1
-    autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
-    autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
-    autocmd VimEnter * call RestoreSession()
+    autocmd BufNewFile,BufRead *.es6.js setf es6
+    autocmd BufNewFile,BufRead *.tsx.js setf tsx
+		autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
+    " autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
+    " autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
     " Open netrw if no arguments were passed to VIM and diff mode is off
     autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
   augroup END

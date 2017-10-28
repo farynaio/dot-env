@@ -1,0 +1,66 @@
+extends react-shared
+
+snippet cclass "Connected container for component"
+import { connect } from 'react-redux';
+
+import ${1} from './$1'
+
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)($1);
+endsnippet
+
+snippet class "Component class ..."
+import React, { Component, PropTypes } from 'react';
+
+class ${1:name} extends Component {
+	static get defaultProps = {
+	}
+
+	static propTypes = {
+		...Component.defaultProps,
+	}
+
+	render() {
+		const {} = this.props;
+
+		return (
+			<div className=''>
+				$0
+			</div>
+		);
+	};
+}
+
+export default $1;
+endsnippet
+
+snippet sless "create react stateless template"
+import React, { PropTypes } from 'react';
+
+const ${1:name} = ({ ${2:props} }) => (
+  <div class=''>
+		$0
+	</div>
+);
+
+$1.defaultProps = {
+};
+
+$1.propTypes = {
+};
+
+export default $1;
+endsnippet
+
+snippet style "create react style template"
+const style = {
+	$0
+};
+
+export default style;
+endsnippet

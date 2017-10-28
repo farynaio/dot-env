@@ -1,0 +1,20 @@
+extends react-shared
+
+snippet sless "create react-native stateless template"
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
+const style = StyleSheet.create({
+	container: {
+
+	}
+});
+
+const ${1:name} = ({ ${2} }) => (
+	<View style={style.container}>
+		$0
+	</View>
+);
+
+export default $1;
+endsnippet
