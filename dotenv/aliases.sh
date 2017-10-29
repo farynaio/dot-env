@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 alias ssh_home_server="ssh -l serwer1472142 serwer1472142.home.pl"
 alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"

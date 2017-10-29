@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 set -o emacs
 
-export USERNAME="Adam Faryna"
+export USER_NAME="Adam Faryna"
 export EMAIL="adamfaryna@appdy.net"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"

@@ -733,7 +733,7 @@ endif
 " endfun
 
 " let g:templates_directory =
-let g:username = $USERNAME
+let g:username = $USER_NAME
 let g:email = $EMAIL
 let g:license = 'Proprietary'
 let g:templates_user_variables = []
