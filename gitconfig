@@ -1,0 +1,131 @@
+[commit]
+  template = /Users/devil/.git-commit-message
+
+[color]
+  ui = auto
+
+[color "branch"]
+	# Blue on black is hard to read in git branch -vv: use cyan instead
+	upstream = cyan
+
+[core]
+  excludesfile = /Users/devil/.gitignore_global
+  autocrlf = input
+  pager = less -r
+
+	# Don't consider trailing space change as a cause for merge conflicts
+	whitespace = -trailing-space
+
+[diff]
+	# Use better, descriptive initials (c, i, w) instead of a/b.
+	mnemonicPrefix = true
+	# Show renames/moves as such
+	renames = true
+	# When using --word-diff, assume --word-diff-regex=.
+	wordRegex = .
+  # Display submodule-related information (commit listings)
+	submodule = log
+
+[grep]
+	# Consider most regexes to be ERE
+	extendedRegexp = true
+
+[log]
+	# Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+	abbrevCommit = true
+	# Automatically --follow when given a single path
+	follow = true
+
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+  prompt = false
+  keepBackup = false
+
+[mergetool]
+	# Clean up backup files created by merge tools on tool exit
+	keepBackup = false
+	# Clean up temp files created by merge tools on tool exit
+	keepTemporaries = false
+	# Put the temp files in a dedicated dir anyway
+	writeToTemp = true
+	# Auto-accept file prompts when launching merge tools
+	prompt = false
+
+[pull]
+  rebase = preserve
+
+[push]
+  default = upstream
+	# When pushing, also push tags whose commit-ishs are now reachable upstream
+	followTags = true
+  recurseSubmodules = on-demand
+
+[status]
+	# or 1
+  submodulesummary = true
+	# Recursively traverse untracked directories to display all contents
+	showUntrackedFiles = all
+
+[tag]
+	# Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
+	sort = version:refname
+
+[versionsort]
+	prereleaseSuffix = -pre
+	prereleaseSuffix = .pre
+	prereleaseSuffix = -beta
+	prereleaseSuffix = .beta
+	prereleaseSuffix = -rc
+	prereleaseSuffix = .rc
+
+[alias]
+  la = "!git config -l | grep alias | cut -c 7-" # list all aliases
+  lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+  ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --branches
+  ll = log --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat --all --branches
+  find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
+  fl = log -u
+  fp = log -p
+  ap = add --all -p
+  dl = "!git ll -1" # diff last commit
+  dr  = "!f() { git diff "$1"^.."$1"; }; f" # show diff of the revision
+  lc  = "!f() { git ll "$1"^.."$1"; }; f" # show changed files in revision
+  diffr  = "!f() { git diff "$1"^.."$1"; }; f"
+  f = "!git ls-files | grep -i" # find file path in code base
+  gr = grep -Ii # search code base for string
+  ci = "commit -m "
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+  assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
+  lasttag = describe --tags --abbrev=0
+  lt = describe --tags --abbrev=0
+  ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
+  theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
+  cp = cherry-pick
+  st = status -s
+  stl = status
+  cl = clone
+  fe = fetch
+  ci = commit
+  co = checkout
+  br = branch
+  diff = diff --word-diff
+  dc = diff --cached HEAD^
+  r = reset
+  r1 = reset HEAD^
+  r2 = reset HEAD^^
+  rh = reset --hard
+  rh1 = reset HEAD^ --hard
+  rh2 = reset HEAD^^ --hard
+  svnr = svn rebase
+  svnd = svn dcommit
+  svnl = svn log --oneline --show-commit
+  sl = stash list
+  sa = stash apply
+  ss = stash save
+[user]
+	name = Adam Faryna
+	email = adamfaryna@appdy.net
