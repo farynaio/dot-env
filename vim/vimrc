@@ -293,8 +293,11 @@ nnoremap <leader>xe "_xe
 nnoremap <leader>ce "_ce
 
 " should fix some problems with searching regex - test
-nnoremap / /\v
-vnoremap / /\v
+noremap / /\v
+" vnoremap / /\v
+
+" search for visualy selected text
+vnoremap // y/<c-r>"<cr>"
 
 " Reload vim ~/.vimrc
 command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
