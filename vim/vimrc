@@ -736,11 +736,14 @@ endif
 " let g:templates_directory =
 let g:username = $USER_NAME
 let g:email = $EMAIL
-let g:license = 'Proprietary'
+let g:license = 'BSD 2-Clause' " 'Proprietary'
+let g:client = $BIZ_CLIENT
 let g:templates_user_variables = []
 
 if $AOL == 'true'
   let g:templates_directory = '~/.vim/templates/aol/'
+elseif !empty(g:client)
+  let g:templates_directory = '~/.vim/templates/' . g:client . '/'
 else
   let g:templates_directory = '~/.vim/templates/private/'
 end
