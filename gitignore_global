@@ -5,3 +5,6 @@ out
 .idea
 node_modules
 tags
+Session.vim
+.nyc_output
+coverage
