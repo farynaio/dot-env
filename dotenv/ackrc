@@ -412,6 +412,8 @@
 --ignore-dir=node_modules
 --ignore-dir=dist
 --ignore-dir=target
+--ignore-dir=build
+--ignore-dir=assets
 --ignore-dir=compiled
 --ignore-dir=.compiled
 --ignore-dir=docs
@@ -426,3 +428,5 @@
 --ignore-file=match:readme.md
 --ignore-file=match:yarn.lock
 --ignore-file=match:.gitignore
+--ignore-file=match:gradlew
+--ignore-file=match:main.jsbundle
