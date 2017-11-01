@@ -31,6 +31,8 @@
 --exclude=compiled/*
 --exclude=docs/*
 --exclude=platforms/*
+--exclude=test/*
+--exclude=__tests__/*
 
 --languages=-javascript
 
