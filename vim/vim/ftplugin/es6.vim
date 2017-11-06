@@ -1,5 +1,7 @@
 source ~/.vim/ftplugin/javascript.vim
 
+exe ':EmmetInstall'
+
 if exists('+omnifunc')
   augroup Autocompletion
     autocmd!
