@@ -312,9 +312,6 @@ nnoremap <C-h> :help <C-r><C-w><cr>
 " Reselects just pasted text
 nnoremap <leader>v V`]`
 
-" Remove ex mode
-nnoremap Q <nop>
-
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 
 " ================================================
@@ -359,8 +356,8 @@ let g:user_emmet_mode='a'
 " ================================================
 
 " easier cycling and delete buffers in current window
-nnoremap gb :bn<cr>
-nnoremap gp :bp<cr>
+nnoremap gp :bprevious<cr>
+nnoremap gb :bnext<cr>
 nnoremap <silent> <LEADER>gd :bd<cr>
 
 " Toggle horizontal/vertical split
@@ -412,24 +409,6 @@ function! AlignBuffer()
 endfunction
 
 nnoremap <leader>w= :call AlignBuffer()<cr>
-
-" ================================================
-" Select Mode
-" ================================================
-" nnoremap § *``gn<C-g>
-" inoremap § <C-o>gn<C-g>
-" snoremap <expr> . @.
-
-" ================================================
-" Search & Replace
-" ================================================
-" Search for phrase mached in Visual Mode with //
-" vnoremap <expr> // 'y/\V'.escape(@",'\').'<cr>'")
-" nnoremap * /\<cword
-" command! Mdiffoff nnoremap <buffer> ] <nop>|nnoremap <buffer> [ <nop>|diffoff
-
-" goto first editable window
-" au VimEnter * :exe "winc l"
 
 " Count occourences of selected text.
 nnoremap <leader>* *<C-O>:%s///gn<cr>
@@ -794,8 +773,6 @@ function! SetupNetrwEnv()
   setl hidden
   setl bufhidden=delete
   setl buftype=nofile
-  noremap <buffer> gp :bprevious<cr>
-  noremap <buffer> gb :bnext<cr>
 endfunction
 
 let g:netrw_use_errorwindow = 0 " show netrw messages as echoerr
