@@ -793,10 +793,10 @@ let g:netrw_wiw = 25
 let g:netrw_localrmdir = 'rm -r' " Remove local non-empty directories
 
 nnoremap <leader><F2> :exe "Vexplore " expand('%:p:h') <cr>
-nnoremap <leader>k :exe "Sexplore " expand('%:p:h') <cr>
+nnoremap <leader>m :exe "vs " expand('%:p:h') <cr>
+nnoremap <leader>k :vs .<cr>
+nnoremap <leader>l :exe "Ntree ." <cr>
 nnoremap <leader>. :exe "Ntree " expand('%:p:h') <cr>
-nnoremap <leader>l :exe "vs " expand('%:p:h') <cr>
-nnoremap <leader>m :vs .<cr>
 
 if has('autocmd')
   augroup Restore_Session
