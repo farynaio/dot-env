@@ -190,8 +190,9 @@ set nobackup
 set backspace=2
 set nocursorline
 set smarttab " insert tabs on the start of the line
-set foldlevel=1
-set foldmethod=marker
+" set foldlevel=1
+" set foldmethod=marker
+set nofoldenable " disable folding
 set complete-=i " don't scan current file and includes
 set hlsearch
 set incsearch
