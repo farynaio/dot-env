@@ -243,7 +243,7 @@ if has('autocmd')
     " autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
     " autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
     " Open netrw if no arguments were passed to VIM and diff mode is off
-    autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff | execute 'windo :Explore' | endif
+    autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists() | exe 'windo :Explore' | endif
   augroup END
 endif
 
@@ -519,7 +519,7 @@ colorscheme mustang
 set background=dark
 
 " ================================================
-" Sessions
+" VIM gui settings
 " ================================================
 
  " turn sytax highlight when terminal has colors
@@ -563,11 +563,49 @@ endfunction
 " Session
 " ================================================
 
+set ssop-=options	" Don't store local and global options
+set ssop-=globals
+set ssop-=folds " Don't store folds
+set ssop-=blank " Don't save empty windows
+set ssop+=resize " Save window views
+set ssop+=winpos
+set ssop+=help
+set ssop+=localoptions
+
+function! SessionFileExists()
+  return filereadable(getcwd() . '/Session.vim')
+endfunction
+
+function! SessionxFileExists()
+  return filereadable(getcwd() . '/Sessionx.vim')
+endfunction
+
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
-  let l:filename = getcwd() . '/Session.vim'
-  if filereadable(l:filename)
-    execute 'so ' . l:filename
+  let l:session = getcwd() . '/Session.vim'
+  let l:sessionx = getcwd() . '/Sessionx.vim'
+  let l:sessionExists = SessionFileExists()
+  let l:sessionxExists = SessionxFileExists()
+
+  if l:sessionExists
+    silent! exe 'so ' . l:session
+  elseif l:sessionxExists
+    silent! exe 'so ' . l:sessionx
+  endif
+endfunction
+
+function! SaveSession()
+  let l:session = getcwd() . '/Session.vim'
+  let l:sessionx = getcwd() . '/Sessionx.vim'
+  let l:sessionExists = SessionFileExists()
+  let l:sessionxExists = SessionxFileExists()
+
+  bufdo setl bl
+
+  if l:sessionxExists
+     exe 'mksession!'
+  elseif l:sessionExists
+    echom 'error: Sessionx.vim not exists!'
   endif
 endfunction
 
@@ -802,5 +840,6 @@ if has('autocmd')
   augroup Restore_Session
     autocmd!
     autocmd VimEnter * call RestoreSession()
+    autocmd VimLeave * call SaveSession()
   augroup END
 endif
