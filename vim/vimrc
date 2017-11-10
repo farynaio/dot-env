@@ -200,6 +200,7 @@ set wildmenu
 set wildmode=list:longest " test
 set guioptions-=r
 set guioptions-=L
+set guioptions-=e " for terminal type tabs in gui
 set guicursor=n-v-c:blinkon0
 set scrolloff=999
 let mapleader = ","
