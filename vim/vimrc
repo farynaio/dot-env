@@ -611,6 +611,36 @@ function! SaveSession()
 endfunction
 
 " ================================================
+" Projects
+" ================================================
+
+let s:projectsFolder = '~/.vim/projects'
+
+function! InitReactProject()
+  call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/react.vim'), 'React')
+endfunction
+
+function! InitReactNativeProject()
+  call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/react-native.vim'), 'React Native')
+endfunction
+
+function! InitNodeProject()
+  call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/node.vim'), 'node')
+endfunction
+
+function! CopyProjectFileIntoCwd(configPath, type)
+  if filereadable(a:configPath)
+    exe '!cp ' . a:configPath . ' project.vim'
+    echo a:type . ' project initiated.'
+  else
+    echoe "Project config file '" . a:configPath . "' doesn't exists!"
+  endif
+endfunction
+
+command InitReactProject :call InitReactProject()
+command InitReactNativeProject :call InitReactNativeProject()
+
+" ================================================
 " Git - Fugitive
 " ================================================
 
