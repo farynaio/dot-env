@@ -577,36 +577,66 @@ function! SessionFileExists()
   return filereadable(getcwd() . '/Session.vim')
 endfunction
 
-function! SessionxFileExists()
-  return filereadable(getcwd() . '/Sessionx.vim')
+function! ProjectFileExists()
+  return filereadable(GetProjectFilename())
+endfunction
+
+function! GetProjectFilename()
+  return getcwd() . '/project.vim'
+endfunction
+
+function! GetSessionFilename()
+  return getcwd() . '/Session.vim'
 endfunction
 
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
-  let l:session = getcwd() . '/Session.vim'
-  let l:sessionx = getcwd() . '/Sessionx.vim'
+  let l:session = GetSessionFilename()
+  let l:projectFile = GetProjectFilename()
   let l:sessionExists = SessionFileExists()
-  let l:sessionxExists = SessionxFileExists()
+  let l:projectFileExists = ProjectFileExists()
+
+	if l:projectFileExists
+    exe 'so ' . l:projectFile
+	endif
 
   if l:sessionExists
     silent! exe 'so ' . l:session
-  elseif l:sessionxExists
-    silent! exe 'so ' . l:sessionx
   endif
 endfunction
 
 function! SaveSession()
-  let l:session = getcwd() . '/Session.vim'
-  let l:sessionx = getcwd() . '/Sessionx.vim'
   let l:sessionExists = SessionFileExists()
-  let l:sessionxExists = SessionxFileExists()
+  let l:projectFileExists = ProjectFileExists()
 
+  " Save netrw windows state
   bufdo setl bl
 
-  if l:sessionxExists
-     exe 'mksession!'
-  elseif l:sessionExists
-    echom 'error: Sessionx.vim not exists!'
+  if l:projectFileExists
+    exe 'mksession!'
+    call SaveTabooTabNames()
+  endif
+endfunction
+
+function! SaveTabooTabNames()
+  if exists(':TabooRename')
+    let l:sessionFilename = GetSessionFilename()
+    silent exe "!echo 'if exists(\":TabooRename\")' >> " . l:sessionFilename
+    silent exe "!echo 'let s:tabNames = {}' >> " . l:sessionFilename
+    tabdo call SaveTabooTabName()
+
+    silent exe "!echo 'tabdo if has_key(s:tabNames, tabpagenr()) | exe \"TabooRename \" . s:tabNames[tabpagenr()] | endif ' >> " . l:sessionFilename
+    silent exe "!echo 'unlet s:tabNames' >> " . l:sessionFilename
+    silent exe "!echo 'exe \"tabfirst\"' >> " . l:sessionFilename
+    silent exe "!echo 'endif' >> " . l:sessionFilename
+  endif
+endfunction
+
+function! SaveTabooTabName()
+  let l:tabnr = tabpagenr()
+  let l:tabooTabName = gettabvar(l:tabnr, 'taboo_tab_name')
+  if !empty(l:tabooTabName)
+    silent exe "!echo 'let s:tabNames[" . l:tabnr . "] = \"" . l:tabooTabName . "\"' >> " . GetSessionFilename()
   endif
 endfunction
 
