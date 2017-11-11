@@ -227,7 +227,9 @@ endif "
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
-set path=**
+set path-=.
+set path-=/usr/include
+set path+=**
 
 highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
