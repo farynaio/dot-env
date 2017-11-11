@@ -19,6 +19,7 @@ Plug 'benmills/vimux'
 " General
 " Plug 'tpope/vim-vinegar'
 Plug 'gcmt/taboo.vim'
+Plug 'tpope/vim-dispatch'
 
 " Devel
 Plug 'vim-scripts/SyntaxComplete'
