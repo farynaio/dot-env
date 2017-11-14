@@ -1,0 +1,66 @@
+extends javascript
+
+snippet req "const nameCamelCase = require(name)" b
+const $1 = require("${1}");
+endsnippet
+
+snippet md "module.exports = ..." b
+module.exports = $0;
+endsnippet
+
+snippet "c(onst)?" "const" br
+const ${1} = $0;
+endsnippet
+
+snippet "l(et)?" "let" br
+let ${1} = $0;
+endsnippet
+
+snippet => "Inline arrow function"
+() => {
+$0
+}
+endsnippet
+
+snippet c=> "Arrow function"
+const ${1:name} = (${2}) => {
+  $0
+};
+endsnippet
+
+snippet des "describe() block"
+describe("#${1}", () => {
+	$0
+});
+endsnippet
+
+snippet it "it() block"
+it("should ${1}", () => {
+	$0
+	expect().to.
+});
+endsnippet
+
+snippet bg "before() block"
+before(() => {
+	${1}
+});
+endsnippet
+
+snippet ag "after() block"
+after(() => {
+	${1}
+});
+endsnippet
+
+snippet ae "afterEach() block"
+afterEach(() => {
+	${1}
+});
+endsnippet
+
+snippet be "beforeEach() block"
+beforeEach(() => {
+	${1}
+});
+endsnippet
