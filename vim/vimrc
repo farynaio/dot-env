@@ -66,8 +66,6 @@ Plug 'othree/yajs.vim'
 Plug 'jason0x43/vim-js-indent'
 Plug 'maksimr/vim-jsbeautify'
 " Plug 'moll/vim-node'
-
-
 " Plug 'wookiehangover/jshint.vim'
 Plug 'juanpabloaj/vim-istanbul'
 " Lint engine
@@ -323,8 +321,8 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
 " Copy & paste
 " ================================================
 
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
+" nnoremap <silent> <F3> :YRShow<cr>
+" inoremap <silent> <F3> <ESC>:YRShow<cr>
 
 " ================================================
 " Tmux Support
@@ -336,6 +334,7 @@ let g:tmux_navigator_save_on_switch = 2
 " ================================================
 " VImux - Tmux plugin
 " ================================================
+
 " Inspect runner pane
 nnoremap <leader>vi :VimuxInspectRunner<cr>
 
