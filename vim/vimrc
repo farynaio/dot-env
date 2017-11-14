@@ -69,6 +69,7 @@ Plug 'maksimr/vim-jsbeautify'
 
 
 " Plug 'wookiehangover/jshint.vim'
+Plug 'juanpabloaj/vim-istanbul'
 " Lint engine
 " Plug 'w0rp/ale'
 

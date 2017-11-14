@@ -34,3 +34,22 @@ function! LintBuffer()
     echo 'jshint is not installed.'
   endif
 endfunction
+
+if exists('g:loaded_istanbul')
+  let b:istanbulShown = 0
+
+  function! IstanbulToggle()
+    echom 'jestem w srodku: ' . b:istanbulShown
+
+    if b:istanbulShown
+      let b:istanbulShown = 0
+      exe "IstanbulHide"
+    else
+      let b:istanbulShown = 1
+      exe "IstanbulShow"
+    endif
+  endfunction
+
+  command! IstanbulToggle call IstanbulToggle()
+  nnoremap <leader>i :call IstanbulToggle()<cr>
+endif
