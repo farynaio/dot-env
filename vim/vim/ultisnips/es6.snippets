@@ -1,76 +1,13 @@
-extends javascript
-
-snippet req "const nameCamelCase = require(name)" b
-const ${1} = require('$1');
-endsnippet
-
-snippet eclass "export default class ..." b
-export default class $1 {
-	constructor(){}
-		$0
-};
-endsnippet
-
-
-snippet class "Component class ..."
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import style from './style';
-
-const cx = classNames.bind(styles);
-
-class ${1:name} extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	static propTypes = {
-	}
-
-	render() {
-		const {} = this.props;
-
-		return (
-			<div className={cx('$1')}>
-				$0
-			</div>
-		);
-	};
-}
-
-export default $1;
-endsnippet
-
-snippet "e(xport|xp|x)?d" "export" br
-export default $0;
-endsnippet
-
-snippet md "module.exports = ..." b
-module.exports = $0;
-endsnippet
+extends node
 
 snippet import "Import from" b
-import { ${1} } from '$1';
+import { ${1} } from "$1";
 endsnippet
 
-snippet "c(onst)?" "const" br
-const ${1} = $0;
-endsnippet
-
-snippet "l(et)?" "let" br
-let ${1} = $0;
-endsnippet
-
-snippet => "Inline arrow function"
-() => {
+snippet index "generate index.js boilerplate"
+import ${1} from "./$1";
 $0
-}
-endsnippet
-
-snippet c=> "Arrow function"
-const ${1:name} = (${2}) => {
-  $0
-};
+export default $1;
 endsnippet
 
 snippet e=> "Exported arrow function"
@@ -79,8 +16,13 @@ export const ${1:name} = (${2}) => {
 };
 endsnippet
 
-snippet index "generate index.js boilerplate"
-import ${1} from './$1';
-$0
-export default $1;
+snippet "e(xport|xp|x)?d" "export default" br
+export default $0;
+endsnippet
+
+snippet eclass "export default class ..." b
+export default class $1 {
+	constructor(){}
+		$0
+};
 endsnippet
