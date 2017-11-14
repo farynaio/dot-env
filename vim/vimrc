@@ -595,6 +595,10 @@ endfunction
 
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
+  if exists("g:nosession")
+    return
+  endif
+
   let l:session = GetSessionFilename()
   let l:projectFile = GetProjectFilename()
   let l:sessionExists = SessionFileExists()
@@ -905,7 +909,7 @@ nnoremap <leader>. :exe "Ntree " expand('%:p:h') <cr>
 if has('autocmd')
   augroup Restore_Session
     autocmd!
-    autocmd VimEnter * call RestoreSession()
+    autocmd VimEnter * if !exists('s:std_in') | call RestoreSession() | endif
     autocmd VimLeave * call SaveSession()
   augroup END
 endif

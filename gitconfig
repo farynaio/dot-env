@@ -12,6 +12,7 @@
   excludesfile = /Users/devil/.gitignore_global
   autocrlf = input
   pager = less -r
+  editor = vim -c 'let g:nosession=1'
 
 	# Don't consider trailing space change as a cause for merge conflicts
 	whitespace = -trailing-space
