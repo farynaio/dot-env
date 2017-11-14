@@ -1,10 +1,10 @@
 *~
 .DS_Store
-dist
 out
 .idea
 node_modules
 tags
 Session.vim
+project.vim
 .nyc_output
 coverage
