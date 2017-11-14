@@ -671,6 +671,7 @@ function! CopyProjectFileIntoCwd(configPath, type)
   endif
 endfunction
 
+command InitNodeProject :call InitNodeProject()
 command InitReactProject :call InitReactProject()
 command InitReactNativeProject :call InitReactNativeProject()
 
