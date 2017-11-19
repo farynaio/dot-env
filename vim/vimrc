@@ -674,6 +674,7 @@ function! CopyProjectFileIntoCwd(configPath, type)
   else
     echoe "Project config file '" . a:configPath . "' doesn't exists!"
   endif
+  source ./project.vim
 endfunction
 
 command InitNodeProject :call InitNodeProject()
