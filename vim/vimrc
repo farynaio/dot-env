@@ -231,6 +231,8 @@ set path-=.
 set path-=/usr/include
 set path+=**
 
+let g:jsx_ext_required = 0
+
 highlight OverLength  ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
