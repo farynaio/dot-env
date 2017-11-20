@@ -39,8 +39,6 @@ if exists('g:loaded_istanbul')
   let b:istanbulShown = 0
 
   function! IstanbulToggle()
-    echom 'jestem w srodku: ' . b:istanbulShown
-
     if b:istanbulShown
       let b:istanbulShown = 0
       exe "IstanbulHide"
