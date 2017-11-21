@@ -729,7 +729,16 @@ if has('path_extra')
   setg tags-=./tags tags-=./tags
 endif
 
-command! Ctags !ctags -R .
+function! GenerateCtags()
+  let l:command = "ctags -R ."
+	if v:version < 800
+		call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': 1 })
+	else
+		silent exe '!' . l:command
+	endif
+endfunction
+
+command! Ctags call GenerateCtags()
 
 " Open tag definition in new tab
 " nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
