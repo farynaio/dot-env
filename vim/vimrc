@@ -33,6 +33,7 @@ Plug 'stephpy/vim-yaml'
 Plug 'lfilho/cosco.vim'
 Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Plug 'vim-scripts/taglist.vim'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " Web
 Plug 'othree/html5.vim'
@@ -348,6 +349,14 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 
 " Change root directory to local file dir
 nnoremap <silent> <leader>cd :cd %:p:h<cr>
+
+" ================================================
+" Format
+" ================================================
+
+let g:prettier#autoformat = 0
+let g:prettier#config#print_width = 127
+let g:prettier#config#single_quote = 'false'
 
 " ================================================
 " Emmet
