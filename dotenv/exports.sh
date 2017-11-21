@@ -10,16 +10,28 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 export EDITOR="/usr/bin/vim"
 export SED=`which sed`
 
+export NPM_PACKAGES="$HOME/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/bin"
+export NODE_PATH=$NODE_PATH:$NPM_PACKAGES/lib/node_modules
+
+if [[ -e $HOME/bin ]]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/share/android-sdk/tools/bin:$PATH"
 export PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
 export PATH="/Users/devil/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
+export PATH="$NPM_PACKAGES/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
+
+export MANPATH=$NPM_PACKAGES/share/man:$MANPATH
 
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
