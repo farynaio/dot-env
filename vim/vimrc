@@ -214,6 +214,7 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=**/vendor/gems/**,**/vendor/cache/**,**/.bundle/**,**/.sass-cache/**
 set wildignore+=**/.git/**,**/.svn/**,**/.gem/**
 set wildignore+=**/*~,**/._*
+set wildignore+=**/project.vim,**/Session.vim
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
