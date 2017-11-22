@@ -430,3 +430,6 @@
 --ignore-file=match:.gitignore
 --ignore-file=match:gradlew
 --ignore-file=match:main.jsbundle
+--ignore-file=match:project.vim
+--ignore-file=match:Session.vim
+--ignore-file=match:package-lock.json
