@@ -718,6 +718,8 @@ function! FuzzSearch()
   endif
 
   call FuzzSearchForPhrase(l:phrase)
+
+  return l:phrase
 endfunction
 
 function! FuzzSearchForPhrase(phrase)
@@ -728,6 +730,22 @@ endfunction
 function! FuzzSearchVisual()
   let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
   call FuzzSearchForPhrase(l:phrase)
+endfunction
+
+function! SearchAndReplace()
+  let l:phrase = input('What text to replace? ', expand('<cword>'))
+  let l:replacement = input('What text for replacement? ', '')
+
+  if empty(l:phrase)
+    return
+  endif
+
+  call FuzzSearchForPhrase(l:phrase)
+
+  let l:hidden = &hidden
+  set nohidden
+  call cfdo "exe '%s/" . l:phrase . "/" . l:replacement . "/'"
+  set hidden
 endfunction
 
 " ================================================
@@ -764,17 +782,19 @@ nnoremap <C-w><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_root_markers = ['package.json']
 let g:ctrlp_regexp = 1
+let g:ctrlp_by_filename = 1
 let g:ctrlp_switch_buffer = 'e'
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
 let g:ctrlp_tabpage_position = 'ac'
 let g:ctrlp_use_caching = 1
-let g:ctrlp_max_files = 0
+let g:ctrlp_max_files = 50
 let g:ctrlp_open_new_file = 'v'
 let g:ctrlp_open_multiple_files = 'v'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_types = ['fil', 'mru']
 let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
-let g:ctrlp_extensions = ['tag', 'mixed', 'bookmarkdir']
+let g:ctrlp_extensions = ['buffertag', 'tag', 'mixed', 'bookmarkdir']
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:10'
 let g:ctrlp_map = '<leader>p'
 
 " nnoremap <leader>p :CtrlP<cr>
