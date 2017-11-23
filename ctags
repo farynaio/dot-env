@@ -25,7 +25,7 @@
 --exclude=tags
 --exclude=cscope.\*
 --exclude=\*.tar.\*
---exclude=node_modules/*
+--exclude=node_modules/.bin/*
 --exclude=bower_components/*
 --exclude=dist/*
 --exclude=compiled/*
