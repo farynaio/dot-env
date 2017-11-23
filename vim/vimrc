@@ -722,7 +722,7 @@ endfunction
 
 function! FuzzSearchForPhrase(phrase)
   exe ":Ack! '" . a:phrase . "' ."
-  let g:quickfix_is_open = 1
+  let s:quickfix_is_open = 1
 endfunction
 
 function! FuzzSearchVisual()
