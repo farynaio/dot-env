@@ -27,6 +27,8 @@
 --exclude=\*.tar.\*
 --exclude=node_modules/.bin/*
 --exclude=bower_components/*
+--exclude=.coverage\*
+--exclude=coverage\*
 --exclude=dist/*
 --exclude=compiled/*
 --exclude=docs/*
