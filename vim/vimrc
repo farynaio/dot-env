@@ -706,24 +706,23 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " Fuzz Search - find any phrase in all files
 " ================================================
 
-noremap <leader>f :call FuzzSearch()<cr>
+nnoremap <leader>f :call FuzzSearchCursor()<cr>
+vnoremap <leader>f :call FuzzSearchVisual()<cr>
 
 " Call Ack as Ack! (not open preview automaticaly)
 cnoreabbrev Ack Ack!
 
-function! FuzzSearch()
+function! FuzzSearchCursor()
   let l:phrase = input('What pattern? ', expand('<cword>'))
-  if empty(l:phrase)
-    return
-  endif
-
   call FuzzSearchForPhrase(l:phrase)
-
-  return l:phrase
 endfunction
 
 function! FuzzSearchForPhrase(phrase)
-  exe ":Ack! '" . a:phrase . "' ."
+  if empty(a:phrase)
+    return
+  endif
+
+  silent exe ":Ack! '" . a:phrase . "' ."
   let s:quickfix_is_open = 1
 endfunction
 
