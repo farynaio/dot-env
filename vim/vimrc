@@ -172,8 +172,16 @@ set tabstop=2
 set softtabstop=2 " test
 set shiftwidth=2
 set expandtab
+
 " copy to system clipboard
-set clipboard+=unnamed
+if has("clipboard")
+  set clipboard=unnamed
+
+  if has("unnamedplus") " X11 clipboard support
+    set clipboard+=unnamedplus
+  endif
+endif
+
 " Hide Vim Intro
 set shortmess+=I
 " Hightlight Current Line
