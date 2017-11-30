@@ -457,6 +457,7 @@ command! MremoveEmptyLines g/^\s*$/d
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 
+" TODO make it per window
 let s:quickfix_is_open = 0
 let s:quickfix_return_to_window = winnr()
 
@@ -753,8 +754,8 @@ function! FuzzSearchVisual()
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! SearchAndReplace()
-  let l:phrase = input('What text to replace? ', expand('<cword>'))
+function! SearchAndReplace(phrase)
+  let l:phrase = input('What text to replace? ', a:phrase)
   let l:replacement = input('What text for replacement? ', '')
 
   if empty(l:phrase)
