@@ -8,6 +8,7 @@ alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 alias start_mysql='mysqld_safe &'
 alias stop_mysql='mysqladmin shutdown'
 
+alias vi="vim "
 alias ls="ls -G "
 alias mc=". /usr/local/Cellar/midnight-commander/4.8.13/libexec/mc/mc-wrapper.sh"
 alias f="/usr/local/bin/zsh "
