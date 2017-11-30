@@ -495,6 +495,9 @@ endif
 " Snippets
 " ================================================
 
+let g:UltiSnipsUsePythonVersion=2
+
+
 set runtimepath+=~/.vim/my-snippets/
 let g:UltiSnipsSnippetDirectories = ['ultisnips']
 let g:UltiSnipsEditSplit = 'vertical'
