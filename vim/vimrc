@@ -764,11 +764,17 @@ function! SearchAndReplace(phrase)
 
   call FuzzSearchForPhrase(l:phrase)
 
+  " TODO remove current buffer file from qf list setqflist()
+ 
   let l:hidden = &hidden
   set nohidden
   call cfdo "exe '%s/" . l:phrase . "/" . l:replacement . "/'"
   set hidden
 endfunction
+
+command! SearchAndReplace :call SearchAndReplace(expand(<cword>))
+
+nnoremap <leader>d :SearchAndReplace
 
 " ================================================
 " Tags
