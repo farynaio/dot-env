@@ -331,9 +331,15 @@ command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
 
 " Copy word under the cursor to clipboard
 nnoremap <leader>c viwy
+" TODO add some message to show after
+
+function! CopyCwordToClipboard()
+  exe "normal viwy"
+  echo "Text '" . expand("<cword>") . "' has been copied to clipboard."
+endfunction
 
 " Search for word under cursor.
-nnoremap <C-h> :help <C-r><C-w><cr>
+nnoremap <C-h> :help <cword><cr>
 
 " Reselects just pasted text
 nnoremap <leader>v V`]`
