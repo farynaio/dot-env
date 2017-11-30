@@ -295,6 +295,17 @@ endfunction
 
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
+" Close all tabs but the current
+nnoremap <c-t>o :call CloseAllTabsButCurrent()<cr>
+
+function! CloseAllTabsButCurrent()
+  silent exe ":tabo"
+  echo "All other tabs are closed."
+endfunction
+
+" Show all the marks
+command! Ma :exe ":marks"
+
 " Delete strings without poluting last yank buffer
 nnoremap <leader>y "_y
 " nnoremap <leader>p "_p
