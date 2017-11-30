@@ -59,14 +59,14 @@
 [push]
   default = upstream
 	# When pushing, also push tags whose commit-ishs are now reachable upstream
-	followTags = true
+  followTags = true
   recurseSubmodules = on-demand
 
 [status]
 	# or 1
   submodulesummary = true
 	# Recursively traverse untracked directories to display all contents
-	showUntrackedFiles = all
+  showUntrackedFiles = all
 
 [tag]
 	# Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
@@ -85,8 +85,9 @@
   lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
   ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --branches
   ll = log --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat --all --branches
+  fl = log -p -- 
   find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
-  fl = log -u
+  # lf = log -u
   fp = log -p
   ap = add --all -p
   dl = "!git ll -1" # diff last commit
@@ -106,6 +107,9 @@
   lt = describe --tags --abbrev=0
   ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
   theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
+  re = remote 
+  rev = remote -v 
+  pl = pull 
   cp = cherry-pick
   st = status -s
   stl = status
@@ -115,7 +119,7 @@
   co = checkout
   br = branch
   diff = diff --word-diff
-  dc = diff --cached HEAD^
+  dc = diff --word-diff --cached HEAD^
   r = reset
   r1 = reset HEAD^
   r2 = reset HEAD^^
