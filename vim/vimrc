@@ -466,17 +466,22 @@ command! MremoveEmptyLines g/^\s*$/d
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 
-" TODO make it per window
-" let s:quickfix_is_open = 0
-" let s:quickfix_return_to_window = winnr()
+function! InitTab()
+  let t:quickfix_is_open = 0
+endfunction
+
+if has('autocmd')
+  augroup New_Tabs
+    autocmd!
+    autocmd TabNew,VimEnter * call InitTab()
+  augroup END
+endif
 
 function! QuickfixToggle()
   if t:quickfix_is_open
     cclose
     let t:quickfix_is_open = 0
-    " exe s:quickfix_return_to_window . "wincmd w"
   else
-    " let s:quickfix_return_to_window = winnr()
     copen
     let t:quickfix_is_open = 1
   endif
