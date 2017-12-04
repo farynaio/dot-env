@@ -467,18 +467,18 @@ command! MremoveEmptyLines g/^\s*$/d
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 
 " TODO make it per window
-let s:quickfix_is_open = 0
-let s:quickfix_return_to_window = winnr()
+" let s:quickfix_is_open = 0
+" let s:quickfix_return_to_window = winnr()
 
 function! QuickfixToggle()
-  if s:quickfix_is_open
+  if t:quickfix_is_open
     cclose
-    let s:quickfix_is_open = 0
-    exe s:quickfix_return_to_window . "wincmd w"
+    let t:quickfix_is_open = 0
+    " exe s:quickfix_return_to_window . "wincmd w"
   else
-    let s:quickfix_return_to_window = winnr()
+    " let s:quickfix_return_to_window = winnr()
     copen
-    let s:quickfix_is_open = 1
+    let t:quickfix_is_open = 1
   endif
 endfunction
 
@@ -755,7 +755,7 @@ function! FuzzSearchForPhrase(phrase)
   endif
 
   silent exe ":Ack! '" . a:phrase . "' ."
-  let s:quickfix_is_open = 1
+  let t:quickfix_is_open = 1
 endfunction
 
 function! FuzzSearchVisual()
@@ -774,7 +774,7 @@ function! SearchAndReplace(phrase)
   call FuzzSearchForPhrase(l:phrase)
 
   " TODO remove current buffer file from qf list setqflist()
- 
+
   let l:hidden = &hidden
   set nohidden
   call cfdo "exe '%s/" . l:phrase . "/" . l:replacement . "/'"
