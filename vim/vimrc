@@ -34,6 +34,8 @@ Plug 'lfilho/cosco.vim'
 Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Plug 'vim-scripts/taglist.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-commentary'
 
 " Web
 Plug 'othree/html5.vim'
@@ -119,7 +121,6 @@ Plug 'vim-scripts/PreserveNoEOL'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'aperezdc/vim-template'
 Plug 'Townk/vim-autoclose'
-Plug 'tomtom/tcomment_vim'
 " Plug 'git://github.com/tpope/vim-cucumber.git'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -197,7 +198,6 @@ set smartcase
 set noswapfile
 set nobackup
 set backspace=2
-set nocursorline
 set smarttab " insert tabs on the start of the line
 " set foldlevel=1
 " set foldmethod=marker
@@ -292,6 +292,9 @@ function! McopyFilePathToClipboard()
   echo expand('%:p:h')
   redir END
 endfunction
+
+" Proper comments
+noremap <c-_><c-_> :Commentary<cr>
 
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
