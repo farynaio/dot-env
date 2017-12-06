@@ -85,19 +85,18 @@
   lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
   ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --branches
   ll = log --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat --all --branches
-  fl = log -p -- 
+  fl = log -p 
   find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
   # lf = log -u
-  fp = log -p
   ap = add --all -p
   dl = "!git ll -1" # diff last commit
-  dr  = "!f() { git diff "$1"^.."$1"; }; f" # show diff of the revision
-  lc  = "!f() { git ll "$1"^.."$1"; }; f" # show changed files in revision
-  diffr  = "!f() { git diff "$1"^.."$1"; }; f"
-  f = "!git ls-files | grep -i" # find file path in code base
+  dr  = "!f() { git diff "$1"^.."$1"; }; f " # show diff of the revision
+  lc  = "!f() { git ll "$1"^.."$1"; }; f " # show changed files in revision
+  diffr  = "!f() { git diff "$1"^.."$1"; }; f "
+  f = "!git ls-files | grep -i " # find file path in code base
   gr = grep -Ii # search code base for string
-  cia = commit --amend -m
-  ci = commit -m
+  cia = commit --amend
+  ci = commit
   assume = update-index --assume-unchanged
   unassume = update-index --no-assume-unchanged
   assumed = "!git ls-files -v | grep ^h | cut -c 3-"
@@ -123,12 +122,6 @@
   r = reset
   r1 = reset HEAD^
   r2 = reset HEAD^^
-  rh = reset --hard
-  rh1 = reset HEAD^ --hard
-  rh2 = reset HEAD^^ --hard
-  svnr = svn rebase
-  svnd = svn dcommit
-  svnl = svn log --oneline --show-commit
-  sl = stash list
+  sl = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)<%an>%C(reset)\"
   sa = stash apply
   ss = stash save
