@@ -85,7 +85,7 @@
   lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
   ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --branches
   ll = log --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat --all --branches
-  fl = log -p 
+  fl = log -p
   find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
   # lf = log -u
   ap = add --all -p
@@ -106,9 +106,9 @@
   lt = describe --tags --abbrev=0
   ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
   theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
-  re = remote 
-  rev = remote -v 
-  pl = pull 
+  re = remote
+  rev = remote -v
+  pl = pull
   cp = cherry-pick
   st = status -s
   stl = status
@@ -117,11 +117,10 @@
   ci = commit
   co = checkout
   br = branch
+  di = diff --word-diff
   diff = diff --word-diff
   dc = diff --word-diff --cached HEAD^
   r = reset
   r1 = reset HEAD^
   r2 = reset HEAD^^
   sl = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)<%an>%C(reset)\"
-  sa = stash apply
-  ss = stash save
