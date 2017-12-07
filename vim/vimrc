@@ -259,6 +259,8 @@ if has('autocmd')
     " autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
     " Open netrw if no arguments were passed to VIM and diff mode is off
     autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists() | exe 'windo :Explore' | endif
+    autocmd TabNew,VimEnter * call SetupTab()
+    autocmd FileType netrw call SetupNetrwEnv()
   augroup END
 endif
 
@@ -428,6 +430,7 @@ function! DeleteHiddenBuffers()
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
     silent! execute 'bwipeout!' buf
   endfor
+  let t:quickfix_is_open = 0
   echom "Hidden buffers wiped out!"
 endfunction
 
@@ -466,16 +469,9 @@ command! MremoveEmptyLines g/^\s*$/d
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 
-function! InitTab()
+function! SetupTab()
   let t:quickfix_is_open = 0
 endfunction
-
-if has('autocmd')
-  augroup New_Tabs
-    autocmd!
-    autocmd TabNew,VimEnter * call InitTab()
-  augroup END
-endif
 
 function! QuickfixToggle()
   if t:quickfix_is_open
@@ -781,11 +777,11 @@ function! SearchAndReplace(phrase)
 
   call FuzzSearchForPhrase(l:phrase)
 
-  " TODO remove current buffer file from qf list setqflist()
-
   set hidden
+  set autosave
   cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
   set nohidden
+  set noautosave
 endfunction
 
 command! SearchAndReplace :call SearchAndReplace(expand("<cword>"))
@@ -870,70 +866,6 @@ endif
 " ================================================
 " Templating
 " ================================================
-" fun! InsertFileManifest(file)
-"   if empty(glob(a:file))
-"     let cwd = fnamemodify(getcwd(), ':t')
-"     let filename = "~/.vim/signatures/" . cwd . ".txt"
-"
-"     if !empty(glob(filename))
-"       exe "-1r " . filename
-"       call EvalTemplateVariables()
-"     endif
-"   endif
-" endfun
-
-" fun! EvalTemplateVariables()
-"   if line("$") > 20
-"     let l = 20
-"   else
-"     let l = line("$")
-"   endif
-"   exe "1," . l . "g/<copy-date>/s/<copy-date>/" . strftime("%Y")
-" endfun
-
-" fun! MyComment()
-"   let l:winview = winsaveview()
-"   :go1
-"   tcomment#Comment()
-"   " call winrestview(l:winview)
-"   " let @q ='msgggcc\`s'
-"   " @q
-" endfun
-
-" autocmd BufFilePre,BufWritePre * ks|call InsertFileManifest(expand('<afile>'))|'s
-
-" fun! ApplySkeletonDevs()
-"   let cwd = fnamemodify(getcwd(), ':t')
-"   let skeletons_path = "~/.vim/skeletons/"
-"   let filename = skeletons_path . cwd
-"   if !empty(glob(filename))
-"     let g:templates_directory = filename
-"
-"     " let skeletons = system("ls " . filename)
-"     "
-"     " for s:item in split(skeletons)
-"     "   " echo "autocmd BufNewFile *." . substitute(s:item,'.*\.', '', '') .	"0r skeletons_path" . s:item
-"     "   let file_ext = substitute(s:item,'.*\.', '.', '')
-"     "   let file_skeleton = join([skeletons_path, s:item])
-"     "   let skeleton_ext = substitute(s:item, '.*\.', '.', '')
-"     "   " autocmd BufNewFile file_ext	0r file_skeleton
-"     "   echo '_' . s:item . '_ file_ext: ' . file_ext . ' skeleton:ext: ' . skeleton_ext
-"     "   autocmd BufNewFile *.*	0r call InsertFile(expand('%'), file_skeleton, skeleton_ext)
-"     " endfor
-"
-"     " autocmd BufNewFile  *.c	0r ~/vim/skeleton.c
-"     " exe "-1r " . filename
-"     " call EvalTemplateVariables()
-"   endif
-" endfun
-
-" fun! InsertFile(file, skeleton, skeleton_ext)
-"   echo '_a:file' . a:file . '_'
-"   let file_ext = substitute(a:file, '.*\.', '.', '')
-"   if file_ext == a:skeleton_ext
-"     :read a:skeleton
-"   endif
-" endfun
 
 " let g:templates_directory =
 let g:username = $USER_NAME
@@ -942,13 +874,9 @@ let g:license = 'BSD 2-Clause' " 'Proprietary'
 let g:client = $BIZ_CLIENT
 let g:templates_user_variables = []
 
-if $AOL == 'true'
-  let g:templates_directory = '~/.vim/templates/aol/'
-elseif !empty(g:client)
+if !empty(g:client)
   let g:templates_directory = '~/.vim/templates/' . g:client . '/'
-else
-  let g:templates_directory = '~/.vim/templates/private/'
-end
+endif
 
 function! GetCurrentContent()
   let l:content = getline(0,line("$"))
@@ -979,13 +907,6 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 " ================================================
 " Netrw
 " ================================================
-
-if has('autocmd')
-  augroup Netrw_Autocmd
-    autocmd!
-    autocmd FileType netrw call SetupNetrwEnv()
-  augroup END
-endif
 
 function! SetupNetrwEnv()
   setl hidden
