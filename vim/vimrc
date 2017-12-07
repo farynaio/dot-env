@@ -770,9 +770,12 @@ endfunction
 
 function! SearchAndReplace(phrase)
   let l:phrase = input('What text to replace? ', a:phrase)
-  let l:replacement = input('What text for replacement? ', '')
-
   if empty(l:phrase)
+    return
+  endif
+
+  let l:replacement = input('What text for replacement? ', l:phrase)
+  if empty(l:replacement)
     return
   endif
 
@@ -780,13 +783,12 @@ function! SearchAndReplace(phrase)
 
   " TODO remove current buffer file from qf list setqflist()
 
-  let l:hidden = &hidden
-  set nohidden
-  call cfdo "exe '%s/" . l:phrase . "/" . l:replacement . "/'"
   set hidden
+  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
+  set nohidden
 endfunction
 
-command! SearchAndReplace :call SearchAndReplace(expand(<cword>))
+command! SearchAndReplace :call SearchAndReplace(expand("<cword>"))
 
 nnoremap <leader>d :SearchAndReplace
 
