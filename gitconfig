@@ -9,7 +9,7 @@
 	upstream = cyan
 
 [core]
-  excludesfile = /Users/devil/.gitignore_global
+	excludesfile = /Users/afaryna/.gitignore_global
   autocrlf = input
   pager = less -r
   editor = vim -c 'let g:nosession=1'
@@ -104,15 +104,13 @@
   assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
   lasttag = describe --tags --abbrev=0
   lt = describe --tags --abbrev=0
-  ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
-  theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
-  re = remote
-  rev = remote -v
-  pl = pull
+# ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
+# theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
+  re = remote 
+  rev = remote -v 
+  pl = pull 
   cp = cherry-pick
   st = status -s
-  stl = status
-  cl = clone
   fe = fetch
   ci = commit
   co = checkout
@@ -124,3 +122,4 @@
   r1 = reset HEAD^
   r2 = reset HEAD^^
   sl = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)<%an>%C(reset)\"
+  rl = reflog --pretty=format:\"%Cred%h%Creset %C(auto)%gd%Creset %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset\" --abbrev-commit
