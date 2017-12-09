@@ -258,23 +258,33 @@ if has('autocmd')
     " autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
     " autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
     " Open netrw if no arguments were passed to VIM and diff mode is off
-    autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists() | exe 'windo :Explore' | endif
-    autocmd TabNew,VimEnter * call SetupTab()
+    autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
+    autocmd TabNew,VimEnter * call SetupTabEnv()
     autocmd FileType netrw call SetupNetrwEnv()
     autocmd BufEnter * call ApplyTemplate()
+    autocmd CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+    autocmd VimEnter * call VimDiffSetupEnv()
+    autocmd VimEnter * call RestoreSession()
+    autocmd VimLeave * call SaveSession()
   augroup END
+
+  if has('omnifunc')
+    augroup Omnifuncs
+      autocmd!
+      autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
+    augroup END
+  endif
 endif
 
-if has('autocmd') && has('omnifunc')
-  augroup Omnifuncs
-    autocmd!
-    autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
-  augroup END
-endif
+function! StartVimInNetrwModeIfNoFilePassed()
+  if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists()
+    exe 'windo :Explore'
+  endif
+endfunction
 
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor()
-	if &ft != 'text' && &ft != 'help' && &ft != 'netrw'
+	if &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
         exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
     else
@@ -282,13 +292,6 @@ function! HighlightWordUnderCursor()
     endif
 	endif
 endfunction
-
-if has('autocmd')
-  augroup General_Middle_Config
-    autocmd!
-    autocmd CursorHold,CursorHoldI * call HighlightWordUnderCursor()
-  augroup END
-endif
 
 function! McopyFilePathToClipboard()
   redir @*
@@ -470,7 +473,7 @@ command! MremoveEmptyLines g/^\s*$/d
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 
-function! SetupTab()
+function! SetupTabEnv()
   let t:quickfix_is_open = 0
 endfunction
 
@@ -496,19 +499,17 @@ if &diff
   nnoremap <leader>3 :diffget REMOTE<cr>
 endif
 
-if has('autocmd')
-  augroup Diff_Autocmd
-    autocmd!
-    autocmd VimEnter * if &diff | execute 'windo set wrap' | endif
-  augroup END
-endif
+function! VimDiffSetupEnv()
+  if &diff
+    exe 'windo set wrap'
+  endif
+endfunction
 
 " ================================================
 " Snippets
 " ================================================
 
 let g:UltiSnipsUsePythonVersion=2
-
 
 set runtimepath+=~/.vim/my-snippets/
 let g:UltiSnipsSnippetDirectories = ['ultisnips']
@@ -641,7 +642,7 @@ endfunction
 
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession()
-  if exists("g:nosession")
+  if exists('s:std_in') || exists("g:nosession")
     return
   endif
 
@@ -660,13 +661,11 @@ function! RestoreSession()
 endfunction
 
 function! SaveSession()
-  let l:sessionExists = SessionFileExists()
   let l:projectFileExists = ProjectFileExists()
 
-  " Save netrw windows state
-  bufdo setl bl
-
   if l:projectFileExists
+    " Save netrw windows state
+    bufdo setl bl
     exe 'mksession!'
     call SaveTabooTabNames()
   endif
@@ -939,11 +938,3 @@ nnoremap <leader>m :exe "vs " expand('%:p:h') <cr>
 nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
-
-if has('autocmd')
-  augroup Restore_Session
-    autocmd!
-    autocmd VimEnter * if !exists('s:std_in') | call RestoreSession() | endif
-    autocmd VimLeave * call SaveSession()
-  augroup END
-endif
