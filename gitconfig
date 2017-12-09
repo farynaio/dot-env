@@ -106,9 +106,10 @@
   lt = describe --tags --abbrev=0
 # ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
 # theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
-  re = remote 
-  rev = remote -v 
-  pl = pull 
+  re = remote
+  rev = remote -v
+  rp = replace --format=long
+  pl = pull
   cp = cherry-pick
   st = status -s
   fe = fetch
