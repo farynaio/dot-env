@@ -261,6 +261,7 @@ if has('autocmd')
     autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists() | exe 'windo :Explore' | endif
     autocmd TabNew,VimEnter * call SetupTab()
     autocmd FileType netrw call SetupNetrwEnv()
+    autocmd BufEnter * call ApplyTemplate()
   augroup END
 endif
 
@@ -867,35 +868,36 @@ endif
 " Templating
 " ================================================
 
-" let g:templates_directory =
 let g:username = $USER_NAME
 let g:email = $EMAIL
 let g:license = 'BSD 2-Clause' " 'Proprietary'
-let g:client = $BIZ_CLIENT
-let g:templates_user_variables = []
+let s:client = $BIZ_CLIENT
+let g:templates_no_autocmd = 1
 
-if !empty(g:client)
-  let g:templates_directory = '~/.vim/templates/' . g:client . '/'
+if !empty(s:client)
+  let g:templates_directory = '~/.vim/templates/' . s:client
 endif
 
-function! GetCurrentContent()
-  let l:content = getline(0,line("$"))
-  let l:result = 0
-  for l:temp in l:content
-    if strlen(l:temp) > 0
-      let l:result = 1
-      break
+function! ApplyTemplate()
+  if &ft ==? 'netrw'
+    return
+  endif
+
+	if !empty(s:client)
+    let l:content = getline(0,line("$"))
+    let l:result = 0
+    for l:temp in l:content
+      if strlen(l:temp) > 0
+        let l:result = 1
+        break
+      endif
+    endfor
+    if l:result == 0
+      let l:extension = expand("%:c")
+      exe 'Template .' . l:extension
     endif
-  endfor
-  if l:result == 0
-    let l:extension = expand("%:c")
-    exe 'Template .' . l:extension
   endif
 endfunction
-
-if has('autocmd')
-  autocmd BufEnter * call GetCurrentContent()
-endif
 
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
