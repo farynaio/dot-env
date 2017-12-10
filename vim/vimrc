@@ -230,6 +230,7 @@ set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
@@ -243,7 +244,7 @@ set path+=**
 
 let g:jsx_ext_required = 0
 
-highlight OverLength  ctermfg=white guibg=#592929
+highlight OverLength ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
 set colorcolumn=100
 
@@ -724,16 +725,6 @@ endfunction
 command InitNodeProject :call InitNodeProject()
 command InitReactProject :call InitReactProject()
 command InitReactNativeProject :call InitReactNativeProject()
-
-" ================================================
-" Git - Fugitive
-" ================================================
-
-if has('autocmd')
-  autocmd QuickFixCmdPost *grep* cwindow
-endif
-
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " ================================================
 " Fuzz Search - find any phrase in all files
