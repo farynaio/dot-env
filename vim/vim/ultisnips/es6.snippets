@@ -1,11 +1,11 @@
 extends node
 
 snippet import "Import from" b
-import ${1} from "$1";
+import ${1} from "${2}";
 endsnippet
 
 snippet index "generate index.js boilerplate"
-import ${1} from "./$1";
+import ${1} from "./${2}";
 $0
 export default $1;
 endsnippet
