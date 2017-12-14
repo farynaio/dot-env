@@ -11,16 +11,37 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 let g:vim_json_syntax_conceal = 0
 
+" ================================================
+" Linting and formatting
+" ================================================
+
 " Override eslint with local version where necessary.
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-  let local_eslint = getcwd() . "/" . local_eslint
+" let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+" if matchstr(local_eslint, "^\/\\w") == ''
+"   let local_eslint = getcwd() . "/" . local_eslint
+" elseif executable('eslint')
+"   let local_eslint = 'eslint'
+" endif
+
+if executable('eslint')
+  if g:loaded_ale
+    if v:version >= 800
+      let b:ale_linters = {}
+      let b:ale_linters[&ft] = ['eslint']
+
+      let b:ale_fixers = {}
+      let b:ale_fixers[&ft] = ['eslint']
+
+      let b:ale_linter_aliases = {}
+      let b:ale_linter_aliases[&ft] = 'javascript'
+    endif
+  endif
 endif
 
-if executable(local_eslint)
-  let g:syntastic_javascript_checkers = ['eslint']
-  let g:syntastic_javascript_eslint_exec = local_eslint
-endif
+" let g:prettier#autoformat = 0
+" let g:prettier#config#print_width = 127
+" let g:prettier#config#single_quote = 'false'
+" let g:prettier#exec_cmd_async = 1
 
 function! LintBuffer()
   if executable('jshint')

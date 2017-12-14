@@ -33,9 +33,10 @@ Plug 'stephpy/vim-yaml'
 Plug 'lfilho/cosco.vim'
 Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Plug 'vim-scripts/taglist.vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'jonas/tig' " git tool, week support, a lot of issues
 
 " Web
 Plug 'othree/html5.vim'
@@ -72,7 +73,7 @@ Plug 'maksimr/vim-jsbeautify'
 " Plug 'wookiehangover/jshint.vim'
 Plug 'juanpabloaj/vim-istanbul'
 " Lint engine
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " Plug 'tpope/vim-speeddating'
 Plug 'henrik/vim-indexed-search'
@@ -118,7 +119,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'Olical/vim-enmasse'
 " Plug 'https://github.com/vim-scripts/cscope.vim'
 Plug 'vim-scripts/PreserveNoEOL'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim' "turn it back
 Plug 'aperezdc/vim-template'
 Plug 'Townk/vim-autoclose'
 " Plug 'git://github.com/tpope/vim-cucumber.git'
@@ -197,7 +198,7 @@ set gdefault " add 'g' to all replace options by default
 set smartcase
 set noswapfile
 set nobackup
-set backspace=2
+set backspace=indent,eol,start
 set smarttab " insert tabs on the start of the line
 " set foldlevel=1
 " set foldmethod=marker
@@ -230,7 +231,26 @@ set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+function! LinterStatus() abort
+  if exists('g:loaded_ale')
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return '[Linter: ' . (l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \))
+    \ . ']'
+  endif
+
+  return ''
+endfunction
+
+set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatus()}%=%-14.(%l,%c%V%)\ %P
 
 if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
@@ -267,6 +287,8 @@ if has('autocmd')
     autocmd VimEnter * call VimDiffSetupEnv()
     autocmd VimEnter * call RestoreSession()
     autocmd VimLeave * call SaveSession()
+    autocmd BufWinEnter * call OnEnterWin()
+    autocmd BufWinLeave * call OnCloseWin()
   augroup END
 
   if has('omnifunc')
@@ -387,12 +409,24 @@ nnoremap <leader>vz :VimuxZoomRunner<cr>
 nnoremap <silent> <leader>cd :cd %:p:h<cr>
 
 " ================================================
-" Format
+" Linting and formatting
 " ================================================
 
-let g:prettier#autoformat = 0
-let g:prettier#config#print_width = 127
-let g:prettier#config#single_quote = 'false'
+if v:version >= 800
+  let g:ale_fix_on_save = 1
+  let g:ale_lint_on_enter = 1
+  " let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_filetype_changed = 1
+  
+  " Do not lint or fix minified files.
+  let g:ale_pattern_options = {
+    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+    \}
+
+  " If you configure g:ale_pattern_options outside of vimrc, you need this.
+  let g:ale_pattern_options_enabled = 1
+endif
 
 " ================================================
 " Emmet
@@ -473,6 +507,21 @@ command! MremoveEmptyLines g/^\s*$/d
 " ================================================
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
+nnoremap <silent> <leader>e :call LocationListToggle()<cr>
+
+function! OnEnterWin()
+  let b:location_list_is_open = 0
+
+  if &ft == 'qf'
+    let t:quickfix_is_open = 1
+  endif
+endfunction
+
+function! OnCloseWin()
+  if &ft == 'qf'
+    let t:quickfix_is_open = 0
+  endif
+endfunction
 
 function! SetupTabEnv()
   let t:quickfix_is_open = 0
@@ -481,10 +530,18 @@ endfunction
 function! QuickfixToggle()
   if t:quickfix_is_open
     cclose
-    let t:quickfix_is_open = 0
   else
     copen
-    let t:quickfix_is_open = 1
+  endif
+endfunction
+
+function! LocationListToggle()
+  if b:location_list_is_open
+    lclose
+    let b:location_list_is_open = 0
+  else
+    lopen
+    let b:location_list_is_open = 1
   endif
 endfunction
 
@@ -791,11 +848,7 @@ endif
 
 function! GenerateCtags()
   let l:command = "ctags -R ."
-	if v:version < 800
-		call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': 1 })
-	else
-		silent exe '!' . l:command
-	endif
+  call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': v:version >= 800 })
 endfunction
 
 command! Ctags call GenerateCtags()
@@ -906,7 +959,7 @@ function! SetupNetrwEnv()
   setl buftype=nofile
   nnoremap <buffer> gn :Ntree<cr>
 endfunction
-
+let g:netrw_fastbrowse = 0
 let g:netrw_use_errorwindow = 0 " show netrw messages as echoerr
 let g:netrw_localmkdir = 'mkdir -p '
 let g:netrw_banner = 0 " disable banner
