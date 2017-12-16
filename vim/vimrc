@@ -538,15 +538,11 @@ endfunction
 
 set diffopt+=iwhite
 
-if &diff
-  nnoremap <leader>1 :diffget LOCAL<cr>
-  nnoremap <leader>2 :diffget BASE<cr>
-  nnoremap <leader>3 :diffget REMOTE<cr>
-endif
-
 function! VimDiffSetupEnv() abort
   if &diff
-    exe 'windo set wrap'
+    nnoremap <leader>1 :diffget LOCAL<cr>
+    nnoremap <leader>2 :diffget BASE<cr>
+    nnoremap <leader>3 :diffget REMOTE<cr>
   endif
 endfunction
 
