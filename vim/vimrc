@@ -762,9 +762,9 @@ function! CopyProjectFileIntoCwd(configPath, type) abort
   source ./project.vim
 endfunction
 
-command InitNodeProject :call InitNodeProject()
-command InitReactProject :call InitReactProject()
-command InitReactNativeProject :call InitReactNativeProject()
+command! InitNodeProject :call InitNodeProject()
+command! InitReactProject :call InitReactProject()
+command! InitReactNativeProject :call InitReactNativeProject()
 
 " ================================================
 " Fuzz Search - find any phrase in all files
