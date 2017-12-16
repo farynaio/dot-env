@@ -47,11 +47,11 @@
 	# Clean up backup files created by merge tools on tool exit
 	keepBackup = false
 	# Clean up temp files created by merge tools on tool exit
-	keepTemporaries = false
+  # keepTemporaries = false
 	# Put the temp files in a dedicated dir anyway
-	writeToTemp = true
+  # writeToTemp = true
 	# Auto-accept file prompts when launching merge tools
-	prompt = false
+	prompt = true
 
 [pull]
   rebase = preserve
