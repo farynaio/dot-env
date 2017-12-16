@@ -207,7 +207,7 @@ set complete-=i " don't scan current file and includes
 set hlsearch
 set incsearch
 set wildmenu
-set wildmode=list:longest " test
+set wildmode=full " test
 set guioptions-=r
 set guioptions-=L
 set guioptions-=e " for terminal type tabs in gui
@@ -231,28 +231,9 @@ set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
+set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-function! LinterStatus() abort
-  if exists('g:loaded_ale')
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return '[Linter: ' . (l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \))
-    \ . ']'
-  endif
-
-  return ''
-endfunction
-
-set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatus()}%=%-14.(%l,%c%V%)\ %P
-
-if v:version > 703 || v:version == 703 && has("patch541")
+if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
 endif "
 
@@ -262,7 +243,8 @@ set path-=.
 set path-=/usr/include
 set path+=**
 
-let g:jsx_ext_required = 0
+set iskeyword+=-
+set iskeyword+=:
 
 highlight OverLength ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
@@ -284,7 +266,7 @@ if has('autocmd')
     autocmd FileType netrw call SetupNetrwEnv()
     autocmd BufEnter * call ApplyTemplate()
     autocmd CursorHold,CursorHoldI * call HighlightWordUnderCursor()
-    autocmd VimEnter * call VimDiffSetupEnv()
+    autocmd BufEnter * call VimDiffSetupEnv()
     autocmd VimEnter * call RestoreSession()
     autocmd VimLeave * call SaveSession()
     autocmd BufWinEnter * call OnEnterWin()
@@ -415,17 +397,22 @@ nnoremap <silent> <leader>cd :cd %:p:h<cr>
 if v:version >= 800
   let g:ale_fix_on_save = 1
   let g:ale_lint_on_enter = 1
-  " let g:ale_lint_on_text_changed = 'never'
   let g:ale_lint_on_filetype_changed = 1
-  
-  " Do not lint or fix minified files.
-  let g:ale_pattern_options = {
-    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-    \}
+  let g:ale_pattern_options_enabled = 1
+  let g:linterIgnoredSuffixes = ['\.min\.js$', '\.min\.css$', '\.vim$']
+  let g:ale_pattern_options = {}
+
+  for item in g:linterIgnoredSuffixes
+    let g:ale_pattern_options[item] = {'ale_linters': [], 'ale_fixers': []}
+  endfor
+
+  " let g:ale_pattern_options = {
+  "   \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+  "   \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+  "   \ '\.vim$'
+  "   \}
 
   " If you configure g:ale_pattern_options outside of vimrc, you need this.
-  let g:ale_pattern_options_enabled = 1
 endif
 
 " ================================================

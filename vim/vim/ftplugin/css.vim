@@ -1,5 +1,4 @@
-" CSS - fix vim-css3-syntax highlighiting
-setlocal iskeyword+=-
+source ~/.vim/ftplugin/devel.vim
 
 " let g:cssColorVimDoNotMessMyUpdatetime = 1
 " augroup VimCSS3Syntax

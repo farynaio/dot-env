@@ -1,12 +1,13 @@
-
-" augroup JSX_Autocmd
-"   autocmd!
-"   autocmd BufNewFile,BufReadPost * if &ft == 'javascript.jsx' | call <SID>TLoad() | endif
-" augroup END
-
 source ~/.vim/ftplugin/es6.vim
 
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+if !exists("s:isJsxGlobalsInitiated")
+  let s:isJsxGlobalsInitiated = 1
+
+  " Allow JSX in normal JS files
+  let g:jsx_ext_required = 0
+endif
+
+let b:jsx_ext_found = 1
 
 function! LintBuffer()
   if executable('jshint')
@@ -23,4 +24,3 @@ endfunction
 
 " Lint JS buffers on save.
 " au BufWritePost *.js,*.json,*.jsx,*.tsx :call LintBuffer()
-

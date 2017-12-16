@@ -1,3 +1,5 @@
+source ~/.vim/ftplugin/devel.vim
+
 exe ':EmmetInstall'
 
 " ================================================
