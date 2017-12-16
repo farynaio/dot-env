@@ -281,24 +281,24 @@ if has('autocmd')
   endif
 endif
 
-function! StartVimInNetrwModeIfNoFilePassed()
+function! StartVimInNetrwModeIfNoFilePassed() abort
   if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists()
     exe 'windo :Explore'
   endif
 endfunction
 
 " Highlight word under the cursor.
-function! HighlightWordUnderCursor()
+function! HighlightWordUnderCursor() abort
 	if &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
-        exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
+      exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
     else
-        match none
+      match none
     endif
 	endif
 endfunction
 
-function! McopyFilePathToClipboard()
+function! McopyFilePathToClipboard() abort
   redir @*
   echo expand('%:p:h')
   redir END
@@ -312,7 +312,7 @@ nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 " Close all tabs but the current
 nnoremap <c-t>o :call CloseAllTabsButCurrent()<cr>
 
-function! CloseAllTabsButCurrent()
+function! CloseAllTabsButCurrent() abort
   silent exe ":tabo"
   echo "All other tabs are closed."
 endfunction
@@ -347,7 +347,7 @@ command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
 nnoremap <leader>c viwy
 " TODO add some message to show after
 
-function! CopyCwordToClipboard()
+function! CopyCwordToClipboard() abort
   exe "normal viwy"
   echo "Text '" . expand("<cword>") . "' has been copied to clipboard."
 endfunction
@@ -433,7 +433,7 @@ nnoremap gb :bnext<cr>
 nnoremap <silent> <LEADER>gd :bd<cr>
 
 " Toggle horizontal/vertical split
-function! ToggleWindowHorizontalVerticalSplit()
+function! ToggleWindowHorizontalVerticalSplit() abort
   if !exists('t:splitType')
     let t:splitType = 'vertical'
   endif
@@ -450,7 +450,7 @@ endfunction
 
 nnoremap <silent> <leader>wt :call ToggleWindowHorizontalVerticalSplit()<cr>
 
-function! DeleteHiddenBuffers()
+function! DeleteHiddenBuffers() abort
   let tpbl=[]
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
@@ -462,7 +462,7 @@ endfunction
 
 nnoremap <silent> <leader>bw :call DeleteHiddenBuffers()<cr>
 
-function! AlignBuffer()
+function! AlignBuffer() abort
   let l:isPHP = 0
 
   if &ft ==# 'php'
@@ -496,7 +496,7 @@ command! MremoveEmptyLines g/^\s*$/d
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 nnoremap <silent> <leader>e :call LocationListToggle()<cr>
 
-function! OnEnterWin()
+function! OnEnterWin() abort
   let b:location_list_is_open = 0
 
   if &ft == 'qf'
@@ -504,17 +504,17 @@ function! OnEnterWin()
   endif
 endfunction
 
-function! OnCloseWin()
+function! OnCloseWin() abort
   if &ft == 'qf'
     let t:quickfix_is_open = 0
   endif
 endfunction
 
-function! SetupTabEnv()
+function! SetupTabEnv() abort
   let t:quickfix_is_open = 0
 endfunction
 
-function! QuickfixToggle()
+function! QuickfixToggle() abort
   if t:quickfix_is_open
     cclose
   else
@@ -522,7 +522,7 @@ function! QuickfixToggle()
   endif
 endfunction
 
-function! LocationListToggle()
+function! LocationListToggle() abort
   if b:location_list_is_open
     lclose
     let b:location_list_is_open = 0
@@ -544,7 +544,7 @@ if &diff
   nnoremap <leader>3 :diffget REMOTE<cr>
 endif
 
-function! VimDiffSetupEnv()
+function! VimDiffSetupEnv() abort
   if &diff
     exe 'windo set wrap'
   endif
@@ -650,7 +650,7 @@ noremap <leader>b :TagbarToggle<cr>
 set updatetime=250
 command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
 
-function! SetGitGutterBase(...)
+function! SetGitGutterBase(...) abort
   let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
   echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
   GitGutter
@@ -669,25 +669,25 @@ set ssop+=winpos
 set ssop+=help
 set ssop+=localoptions
 
-function! SessionFileExists()
+function! SessionFileExists() abort
   return filereadable(getcwd() . '/Session.vim')
 endfunction
 
-function! ProjectFileExists()
+function! ProjectFileExists() abort
   return filereadable(GetProjectFilename())
 endfunction
 
-function! GetProjectFilename()
+function! GetProjectFilename() abort
   return getcwd() . '/project.vim'
 endfunction
 
-function! GetSessionFilename()
+function! GetSessionFilename() abort
   return getcwd() . '/Session.vim'
 endfunction
 
 " Restore VIM session if ./Session.vim file exists.
-function! RestoreSession()
-  if exists('s:std_in') || exists("g:nosession")
+function! RestoreSession() abort
+  if exists('s:std_in') || exists("g:nosession") || &diff
     return
   endif
 
@@ -705,7 +705,7 @@ function! RestoreSession()
   endif
 endfunction
 
-function! SaveSession()
+function! SaveSession() abort
   let l:projectFileExists = ProjectFileExists()
 
   if l:projectFileExists
@@ -716,7 +716,7 @@ function! SaveSession()
   endif
 endfunction
 
-function! SaveTabooTabNames()
+function! SaveTabooTabNames() abort
   if exists(':TabooRename')
     let l:sessionFilename = GetSessionFilename()
     silent exe "!echo 'if exists(\":TabooRename\")' >> " . l:sessionFilename
@@ -730,7 +730,7 @@ function! SaveTabooTabNames()
   endif
 endfunction
 
-function! SaveTabooTabName()
+function! SaveTabooTabName() abort
   let l:tabnr = tabpagenr()
   let l:tabooTabName = gettabvar(l:tabnr, 'taboo_tab_name')
   if !empty(l:tabooTabName)
@@ -744,19 +744,19 @@ endfunction
 
 let s:projectsFolder = '~/.vim/projects'
 
-function! InitReactProject()
+function! InitReactProject() abort
   call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/react.vim'), 'React')
 endfunction
 
-function! InitReactNativeProject()
+function! InitReactNativeProject() abort
   call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/react-native.vim'), 'React Native')
 endfunction
 
-function! InitNodeProject()
+function! InitNodeProject() abort
   call CopyProjectFileIntoCwd(expand(s:projectsFolder . '/node.vim'), 'node')
 endfunction
 
-function! CopyProjectFileIntoCwd(configPath, type)
+function! CopyProjectFileIntoCwd(configPath, type) abort
   if filereadable(a:configPath)
     exe '!cp ' . a:configPath . ' project.vim'
     echo a:type . ' project initiated.'
@@ -780,12 +780,12 @@ vnoremap <leader>f :call FuzzSearchVisual()<cr>
 " Call Ack as Ack! (not open preview automaticaly)
 cnoreabbrev Ack Ack!
 
-function! FuzzSearchCursor()
+function! FuzzSearchCursor() abort
   let l:phrase = input('What pattern? ', expand('<cword>'))
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! FuzzSearchForPhrase(phrase)
+function! FuzzSearchForPhrase(phrase) abort
   if empty(a:phrase)
     return
   endif
@@ -794,12 +794,12 @@ function! FuzzSearchForPhrase(phrase)
   let t:quickfix_is_open = 1
 endfunction
 
-function! FuzzSearchVisual()
+function! FuzzSearchVisual() abort
   let l:phrase = getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1]
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! SearchAndReplace(phrase)
+function! SearchAndReplace(phrase) abort
   let l:phrase = input('What text to replace? ', a:phrase)
   if empty(l:phrase)
     return
@@ -833,7 +833,7 @@ if has('path_extra')
   setg tags-=./tags tags-=./tags
 endif
 
-function! GenerateCtags()
+function! GenerateCtags() abort
   let l:command = "ctags -R ."
   call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': v:version >= 800 })
 endfunction
@@ -908,7 +908,7 @@ if !empty(s:client)
   let g:templates_directory = '~/.vim/templates/' . s:client
 endif
 
-function! ApplyTemplate()
+function! ApplyTemplate() abort
   if &ft ==? 'netrw'
     return
   endif
@@ -929,7 +929,7 @@ function! ApplyTemplate()
   endif
 endfunction
 
-function! ExecuteMacroOverVisualRange()
+function! ExecuteMacroOverVisualRange() abort
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
@@ -940,12 +940,13 @@ xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 " Netrw
 " ================================================
 
-function! SetupNetrwEnv()
+function! SetupNetrwEnv() abort
   setl hidden
   setl bufhidden=delete
   setl buftype=nofile
   nnoremap <buffer> gn :Ntree<cr>
 endfunction
+
 let g:netrw_fastbrowse = 0
 let g:netrw_use_errorwindow = 0 " show netrw messages as echoerr
 let g:netrw_localmkdir = 'mkdir -p '
