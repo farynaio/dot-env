@@ -18,6 +18,7 @@
 	whitespace = -trailing-space
 
 [diff]
+  tool = vimdiff
 	# Use better, descriptive initials (c, i, w) instead of a/b.
 	mnemonicPrefix = true
 	# Show renames/moves as such

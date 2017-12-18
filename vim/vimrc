@@ -233,6 +233,10 @@ set visualbell
 set noerrorbells
 set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
+set iskeyword-=!-~
+set iskeyword+=-
+set iskeyword+=:
+
 if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
 endif "
@@ -242,9 +246,6 @@ endif "
 set path-=.
 set path-=/usr/include
 set path+=**
-
-set iskeyword+=-
-set iskeyword+=:
 
 highlight OverLength ctermfg=white guibg=#592929
 match OverLength /\%100v.\+/
