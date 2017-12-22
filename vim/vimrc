@@ -323,20 +323,20 @@ endfunction
 command! Ma :exe ":marks"
 
 " Delete strings without poluting last yank buffer
-nnoremap <leader>y "_y
+" nnoremap <leader>y "_y
 " nnoremap <leader>p "_p
-nnoremap <leader>d "_d
-nnoremap <leader>x "_x
-nnoremap <leader>c "_c
-nnoremap <leader>dw "_dw
-nnoremap <leader>xw "_xw
-nnoremap <leader>cw "_cw
-nnoremap <leader>de "_de
-nnoremap <leader>xe "_xe
-nnoremap <leader>ce "_ce
+" nnoremap <leader>d "_d
+" nnoremap <leader>x "_x
+" nnoremap <leader>c "_c
+" nnoremap <leader>dw "_dw
+" nnoremap <leader>xw "_xw
+" nnoremap <leader>cw "_cw
+" nnoremap <leader>de "_de
+" nnoremap <leader>xe "_xe
+" nnoremap <leader>ce "_ce
 
 " should fix some problems with searching regex - test
-noremap / /\v
+" noremap / /\v
 " vnoremap / /\v
 
 " search for visualy selected text
@@ -346,11 +346,10 @@ vnoremap // y/<c-r>"<cr>"
 command! ReloadConfig so ~/.vimrc | echom 'Config reloaded'
 
 " Copy word under the cursor to clipboard
-nnoremap <leader>c viwy
-" TODO add some message to show after
+nnoremap <leader>y :call CopyCwordToClipboard()<cr>
 
 function! CopyCwordToClipboard() abort
-  exe "normal viwy"
+  normal viwy
   echo "Text '" . expand("<cword>") . "' has been copied to clipboard."
 endfunction
 
