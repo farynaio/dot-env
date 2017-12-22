@@ -234,8 +234,6 @@ set noerrorbells
 set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 set iskeyword-=!-~
-set iskeyword+=-
-set iskeyword+=:
 
 if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
@@ -269,6 +267,7 @@ if has('autocmd')
     autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
     autocmd InsertEnter * match none
     autocmd BufEnter * call VimDiffSetupEnv()
+    autocmd BufEnter * call SetTabNameToCurrentBuffer()
     autocmd VimEnter * call RestoreSession()
     autocmd VimLeave * call SaveSession()
     autocmd BufWinEnter * call OnEnterWin()
@@ -536,6 +535,13 @@ function! LocationListToggle() abort
   else
     lopen
     let b:location_list_is_open = 1
+  endif
+endfunction
+
+function! SetTabNameToCurrentBuffer() abort
+  let l:currentBufferName = expand('%:t')
+  if !empty(l:currentBufferName)
+    exe ':TabooRename ' . l:currentBufferName
   endif
 endfunction
 
