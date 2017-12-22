@@ -291,9 +291,11 @@ endfunction
 
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor() abort
-	if &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw' && mode() == 'n'
+	if &ft == 'help' || &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw' && mode() == 'n'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
-      exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
+      if !empty(expand('<cword>'))
+        exe 'match' 'Search' '/\v' . expand('<cword>') . '/'
+      endif
     else
       match none
     endif
