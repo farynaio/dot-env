@@ -266,7 +266,8 @@ if has('autocmd')
     autocmd TabNew,VimEnter * call SetupTabEnv()
     autocmd FileType netrw call SetupNetrwEnv()
     autocmd BufEnter * call ApplyTemplate()
-    autocmd CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+    autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
+    autocmd InsertEnter * match none
     autocmd BufEnter * call VimDiffSetupEnv()
     autocmd VimEnter * call RestoreSession()
     autocmd VimLeave * call SaveSession()
@@ -290,7 +291,7 @@ endfunction
 
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor() abort
-	if &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw'
+	if &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw' && mode() == 'n'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
       exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
     else
