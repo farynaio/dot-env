@@ -273,6 +273,7 @@ if has('autocmd')
     autocmd VimLeave * call SaveSession()
     autocmd BufWinEnter * call OnEnterWin()
     autocmd BufWinLeave * call OnCloseWin()
+    autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
   augroup END
 
   if has('omnifunc')
@@ -361,6 +362,8 @@ nnoremap <C-h> :help <cword><cr>
 nnoremap <leader>v V`]`
 
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+
+let &gp='grep -n -R $* /dev/null'
 
 " ================================================
 " Copy & paste
@@ -501,9 +504,9 @@ nnoremap <silent> <leader>e :call LocationListToggle()<cr>
 function! OnEnterWin() abort
   let b:location_list_is_open = 0
 
-  if &ft == 'qf'
-    let t:quickfix_is_open = 1
-  endif
+  " if &ft == 'qf'
+  "   let t:quickfix_is_open = 1
+  " endif
 endfunction
 
 function! OnCloseWin() abort
@@ -519,13 +522,15 @@ endfunction
 function! QuickfixToggle() abort
   if t:quickfix_is_open
     cclose
+    let t:quickfix_is_open = 0
   else
     copen
+    let t:quickfix_is_open = 1
   endif
 endfunction
 
 function! LocationListToggle() abort
-  if b:location_list_is_open
+  if exists('b:location_list_is_open') && b:location_list_is_open
     lclose
     let b:location_list_is_open = 0
   else
@@ -788,8 +793,14 @@ function! FuzzSearchForPhrase(phrase) abort
     return
   endif
 
-  silent exe ":Ack! '" . a:phrase . "' ."
-  let t:quickfix_is_open = 1
+  let l:command = ':grep!'
+
+  if exists(':Ack') && executable('ack')
+    let l:command =  ':Ack!'
+  endif
+  
+  silent exe l:command  . " '" . a:phrase . "' ."
+  " let t:quickfix_is_open = 1
 endfunction
 
 function! FuzzSearchVisual() abort
