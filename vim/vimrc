@@ -258,6 +258,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.tsx.js setf tsx
 		autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
     autocmd BufNewFile,BufRead *.scss,*.sass setf css
+    autocmd BufNewFile,BufRead *rc setf json
     autocmd BufReadPost * call SetupLinterStatusBar()
     autocmd BufEnter * call VimDiffSetupEnv()
     autocmd BufEnter * call SetTabNameToCurrentBuffer()
@@ -324,9 +325,13 @@ function! StartVimInNetrwModeIfNoFilePassed() abort
   endif
 endfunction
 
+function! IsBufferDevel() abort
+  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml'
+endfunction
+
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor() abort
-	if &ft == 'help' || &ft !=? 'text' && &ft !=? 'help' && &ft !=? 'netrw' && mode() == 'n'
+	if IsBufferDevel() && mode() == 'n'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]' && !empty(expand('<cword>'))
       exe 'match' 'Search' '/\v' . expand('<cword>') . '/'
     else
