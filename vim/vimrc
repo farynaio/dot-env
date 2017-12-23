@@ -948,7 +948,7 @@ nnoremap <leader>d :SearchAndReplace
 let g:autotagTagsFile="tags"
 
 if has('path_extra')
-  setg tags-=./tags tags-=./tags
+  setg tags-=./tags
 endif
 
 function! GenerateCtags() abort
