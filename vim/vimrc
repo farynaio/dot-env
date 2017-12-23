@@ -257,22 +257,29 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.es6.js setf es6
     autocmd BufNewFile,BufRead *.tsx.js setf tsx
 		autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
-    " autocmd BufNewFile,BufRead *.es6,*.tsx set ft=javascript.jsx
-    " autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx :ia <buffer> </ </<C-X><C-O>>
-    " Open netrw if no arguments were passed to VIM and diff mode is off
-    autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
-    autocmd TabNew,VimEnter * call SetupTabEnv()
-    autocmd FileType netrw call SetupNetrwEnv()
-    autocmd BufEnter * call ApplyTemplate()
-    autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
-    autocmd InsertEnter * match none
+    autocmd BufNewFile,BufRead *.scss,*.sass setf css
+    autocmd BufReadPost * call SetupLinterStatusBar()
     autocmd BufEnter * call VimDiffSetupEnv()
     autocmd BufEnter * call SetTabNameToCurrentBuffer()
+    autocmd BufEnter * call ApplyTemplate()
+    autocmd FileType netrw call SetupNetrwEnv()
+    autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
+    autocmd InsertEnter * match none
+    autocmd TabNew * call SetupTabEnv()
+    autocmd VimEnter * call SetupTabEnv()
+    autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
+    autocmd VimEnter * call RestoreProject()
     autocmd VimEnter * call RestoreSession()
+    autocmd VimEnter * call DevelSetupEnv()
     autocmd VimLeave * call SaveSession()
     autocmd BufWinEnter * call OnEnterWin()
     autocmd BufWinLeave * call OnCloseWin()
     autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
+
+    " autocmd BufWinEnter * echom 'BufWinEnter'
+    " autocmd BufEnter * echom 'BufEnter'
+    " autocmd BufRead * echom 'BufRead'
+    " autocmd BufNewFile * echom 'BufNewFile'
   augroup END
 
   if has('omnifunc')
@@ -282,6 +289,34 @@ if has('autocmd')
     augroup END
   endif
 endif
+
+function! DisableLinters() abort
+  exe ':ALEDisable'
+  echo 'Linters disabled.'
+endfunction
+
+
+function! EnableLinters() abort
+  exe ':ALEEnable'
+  echo 'Linters enabled.'
+endfunction
+
+command! DisableLinters :call DisableLinters()
+command! EnableLinters :call EnableLinters()
+
+function! DevelSetupEnv() abort
+  let g:UltiSnipsSnippetDirectories = [$HOME . '/.vim/ultisnips']
+  if exists('g:project_type')
+    let l:snippets_basepath = $HOME . '/.vim/ultisnips/'
+    let l:snippets_path = l:snippets_basepath . g:project_type
+
+    if isdirectory(l:snippets_path)
+      let g:UltiSnipsSnippetDirectories = [l:snippets_path] + g:UltiSnipsSnippetDirectories
+    else
+      echom "Snippets folder '" . l:snippets_path . "' doesn't exists!"
+    endif
+  endif
+endfunction
 
 function! StartVimInNetrwModeIfNoFilePassed() abort
   if argc() == 0 && !exists('s:std_in') && !&diff && !SessionFileExists()
@@ -419,6 +454,86 @@ if v:version >= 800
 
   " If you configure g:ale_pattern_options outside of vimrc, you need this.
 endif
+
+function! ThisFileLintingSupported() abort
+  if v:version < 800
+    return 0
+  endif
+
+  let l:currentFileName = expand('%:t')
+
+  if exists('g:linterIgnoredSuffixes')
+    for item in g:linterIgnoredSuffixes
+      if l:currentFileName =~ item
+        return 0
+      endif
+    endfor
+  endif
+
+  return 1
+endfunction
+
+function! SetupLinters() abort
+  if g:loaded_ale && v:version >= 800
+    let g:ale_linters = {}
+    let g:ale_fixers = {}
+    let g:ale_linter_aliases = {}
+
+    call SetupLinterJavascript()
+  else
+    echom 'Linters could not be configured.'
+  endif
+endfunction
+
+function! SetupLinterJavascript() abort
+endfunction
+
+function! SetupLinterStatusBar() abort
+  if exists('g:loaded_ale') && ThisFileLintingSupported()
+    function! LinterStatusbar() abort
+      let l:message = '[Linter: '
+
+      if g:ale_enabled
+        if exists('g:ale_linters[&ft]')
+          let l:count = ale#statusline#Count(bufnr(''))
+          let l:errors = 0
+          let l:warnings = 0
+          let l:styleError = 0
+          let l:totalErrors = 0
+
+          if type(l:count) == type({})
+            let l:errors = l:count.error
+            let l:warnings = l:count.warning
+            let l:styleError = l:count.style_error
+            let l:totalErrors = l:count.total
+
+          elseif type(l:count) == type([])
+            let [ l:errors, l:warnings ] = l:count
+            let l:totalErrors = l:errors
+          endif
+
+          let l:totalIssues = l:errors + l:warnings + l:styleError
+
+          if l:totalIssues
+            let l:all_errors = l:errors + l:styleError
+            let l:all_non_errors = l:totalErrors - l:all_errors
+            let l:message .= printf('%dW %dE', all_non_errors, all_errors)
+          else
+            let l:message .= 'ok'
+          endif
+        else
+          return '[No Linter]'
+        endif
+      else
+        let l:message .= 'disabled'
+      endif
+
+      return l:message . ']'
+    endfunction
+
+    setlocal statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatusbar()}%=%-14.(%l,%c%V%)\ %P
+  endif
+endfunction
 
 " ================================================
 " Emmet
@@ -565,11 +680,7 @@ endfunction
 " ================================================
 
 let g:UltiSnipsUsePythonVersion=2
-
-set runtimepath+=~/.vim/my-snippets/
-let g:UltiSnipsSnippetDirectories = ['ultisnips']
 let g:UltiSnipsEditSplit = 'vertical'
-
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
@@ -684,23 +795,26 @@ function! GetSessionFilename() abort
   return getcwd() . '/Session.vim'
 endfunction
 
+function! RestoreProject() abort
+  if exists('s:std_in') || &diff
+    return
+  endif
+
+	if ProjectFileExists()
+    echom 'Restoring project...'
+    exe 'so ' . GetProjectFilename()
+	endif
+endfunction
+
 " Restore VIM session if ./Session.vim file exists.
 function! RestoreSession() abort
   if exists('s:std_in') || exists("g:nosession") || &diff
     return
   endif
 
-  let l:session = GetSessionFilename()
-  let l:projectFile = GetProjectFilename()
-  let l:sessionExists = SessionFileExists()
-  let l:projectFileExists = ProjectFileExists()
-
-	if l:projectFileExists
-    exe 'so ' . l:projectFile
-	endif
-
-  if l:sessionExists
-    silent! exe 'so ' . l:session
+  if SessionFileExists()
+    echom 'Restoring session...'
+    silent! exe 'so ' . GetSessionFilename
   endif
 endfunction
 
@@ -762,7 +876,8 @@ function! CopyProjectFileIntoCwd(configPath, type) abort
   else
     echoe "Project config file '" . a:configPath . "' doesn't exists!"
   endif
-  source ./project.vim
+
+  call DevelSetupEnv()
 endfunction
 
 command! InitNodeProject :call InitNodeProject()
@@ -794,7 +909,7 @@ function! FuzzSearchForPhrase(phrase) abort
   if exists(':Ack') && executable('ack')
     let l:command =  ':Ack!'
   endif
-  
+
   silent exe l:command  . " '" . a:phrase . "' ."
   " let t:quickfix_is_open = 1
 endfunction
