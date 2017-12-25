@@ -1,11 +1,11 @@
 extends node
 
 snippet import "Import from" b
-import ${1} from "${2}";
+import ${1} from '${2}'
 endsnippet
 
 snippet index "generate index.js boilerplate"
-import ${1} from "./${2}";
+import ${1} from './${2}'
 $0
 export default $1;
 endsnippet
@@ -13,16 +13,16 @@ endsnippet
 snippet e=> "Exported arrow function"
 export const ${1:name} = (${2}) => {
 	$0
-};
+}
 endsnippet
 
-snippet "e(xport|xp|x)?d" "export default" br
-export default $0;
+snippet 'e(xport|xp|x)?d' "export default" br
+export default $0
 endsnippet
 
 snippet eclass "export default class ..." b
 export default class $1 {
 	constructor(){}
 		$0
-};
+}
 endsnippet

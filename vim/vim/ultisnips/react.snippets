@@ -1,8 +1,8 @@
 extends react-shared
 
 snippet class "React Component class ..."
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class ${1:name} extends Component {
 	static defaultProps = {
@@ -13,42 +13,42 @@ class ${1:name} extends Component {
 	}
 
 	render() {
-		const {} = this.props;
+		const {} = this.props
 
 		return (
-			<div className="">
+			<div className=''>
 				$0
 			</div>
-		);
-	};
+		)
+	}
 }
 
-export default $1;
+export default $1
 endsnippet
 
 snippet less "create react stateless template"
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const ${1:name} = ({ ${2:props} }) => (
-	<div className="">
+	<div className=''>
 		$0
 	</div>
-);
+)
 
 $1.defaultProps = {
-};
+}
 
 $1.propTypes = {
-};
+}
 
-export default $1;
+export default $1
 endsnippet
 
 snippet style "create react style template"
 const style = {
 	$0
-};
+}
 
-export default style;
+export default style
 endsnippet
