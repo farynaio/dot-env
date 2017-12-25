@@ -913,8 +913,7 @@ function! FuzzSearchForPhrase(phrase) abort
     let l:command =  ':Ack!'
   endif
 
-  silent exe l:command  . " '" . a:phrase . "' ."
-  " let t:quickfix_is_open = 1
+  silent exe l:command  . " '" . escape(a:phrase, '{}()%^$') . "' ."
 endfunction
 
 function! FuzzSearchVisual() abort
