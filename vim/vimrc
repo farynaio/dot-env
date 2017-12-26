@@ -459,7 +459,7 @@ if v:version >= 800
 endif
 
 function! ThisFileLintingSupported() abort
-  if v:version < 800
+  if v:version < 80 || IsBufferDevel()
     return 0
   endif
 
