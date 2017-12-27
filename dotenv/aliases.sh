@@ -10,7 +10,7 @@ alias stop_mysql='mysqladmin shutdown'
 
 alias vi="vim "
 alias ls="ls -G "
-alias mc=". /usr/local/Cellar/midnight-commander/4.8.13/libexec/mc/mc-wrapper.sh"
+alias mc=". /usr/local/Cellar/midnight-commander/4.8.20/libexec/mc/mc-wrapper.sh"
 alias f="/usr/local/bin/zsh "
 # alias f="fish -l"
 # alias subl="mvim +NERDTree "

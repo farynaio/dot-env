@@ -111,6 +111,7 @@
   cp = cherry-pick
   st = status -s
   fe = fetch
+  fe = fetch -a
   ci = commit
   co = checkout
   br = branch
@@ -120,10 +121,12 @@
   r = reset
   r1 = reset HEAD^
   r2 = reset HEAD^^
+  ss = stash
   sl = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)<%an>%C(reset)\"
   rl = reflog --pretty=format:\"%Cred%h%Creset %C(auto)%gd%Creset %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset\" --abbrev-commit
   mt = mergetool
   dt = difftool
+
 [user]
 	name = Adam Faryna
-	email = adamfaryna@appdy.net
+	email = adam.faryna@aig.com
