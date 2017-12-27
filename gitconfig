@@ -108,10 +108,11 @@
   rev = remote -v
   rp = replace --format=long
   pl = pull
+  ps = push
   cp = cherry-pick
   st = status -s
   fe = fetch
-  fe = fetch -a
+  fea = fetch -a
   ci = commit
   co = checkout
   br = branch

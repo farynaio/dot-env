@@ -534,7 +534,7 @@ function! SetupLinterStatusBar() abort
       return l:message . ']'
     endfunction
 
-    setlocal statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatusbar()}%=%-14.(%l,%c%V%)\ %P
+    setlocal statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatusbar()}\ %=%-14.(%l,%c%V%)\ %P
   endif
 endfunction
 
