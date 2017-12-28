@@ -16,4 +16,3 @@ exe ':EmmetInstall'
 if executable('js-beautify')
   noremap <buffer> <leader><c-f> :call RangeCSSBeautify()<cr>
 endif
-

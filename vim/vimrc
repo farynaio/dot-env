@@ -254,10 +254,10 @@ if has('autocmd')
     autocmd!
     " Write variable s:std_in if arguments for VIM was passed
     autocmd StdinReadPre * let s:std_in=1
-    autocmd BufNewFile,BufRead *.es6.js setf es6
-    autocmd BufNewFile,BufRead *.tsx.js setf tsx
-		autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
-    autocmd BufNewFile,BufRead *.scss,*.sass setf css
+    " autocmd BufNewFile,BufRead *.es6.js setf es6
+    " autocmd BufNewFile,BufRead *.tsx.js setf tsx
+		" autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
+    autocmd BufNewFile,BufRead *.css setl syntax=scss
     autocmd BufNewFile,BufRead *rc setf json
     autocmd BufReadPost * call SetupLinterStatusBar()
     autocmd BufEnter * call VimDiffSetupEnv()
