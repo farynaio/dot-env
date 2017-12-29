@@ -20,6 +20,7 @@ Plug 'benmills/vimux'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-unimpaired' " cherry pick it
 
 " Devel
 Plug 'vim-scripts/SyntaxComplete'
@@ -326,7 +327,7 @@ function! StartVimInNetrwModeIfNoFilePassed() abort
 endfunction
 
 function! IsBufferDevel() abort
-  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml'
+  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile'
 endfunction
 
 " Highlight word under the cursor.
@@ -459,7 +460,7 @@ if v:version >= 800
 endif
 
 function! ThisFileLintingSupported() abort
-  if v:version < 80 || IsBufferDevel()
+  if v:version < 80 || !IsBufferDevel()
     return 0
   endif
 
@@ -489,51 +490,52 @@ function! SetupLinters() abort
 endfunction
 
 function! SetupLinterJavascript() abort
+  " TODO feed content
+endfunction
+
+function! LinterStatusbar() abort
+  let l:message = '[Linter: '
+
+  if g:ale_enabled
+    if exists('g:ale_linters[&ft]')
+      let l:count = ale#statusline#Count(bufnr(''))
+      let l:errors = 0
+      let l:warnings = 0
+      let l:styleError = 0
+      let l:totalErrors = 0
+
+      if type(l:count) == type({})
+        let l:errors = l:count.error
+        let l:warnings = l:count.warning
+        let l:styleError = l:count.style_error
+        let l:totalErrors = l:count.total
+
+      elseif type(l:count) == type([])
+        let [ l:errors, l:warnings ] = l:count
+        let l:totalErrors = l:errors
+      endif
+
+      let l:totalIssues = l:errors + l:warnings + l:styleError
+
+      if l:totalIssues
+        let l:all_errors = l:errors + l:styleError
+        let l:all_non_errors = l:totalErrors - l:all_errors
+        let l:message .= printf('%dW %dE', all_non_errors, all_errors)
+      else
+        let l:message .= 'OK'
+      endif
+    else
+      return '[No Linter]'
+    endif
+  else
+    let l:message .= 'disabled'
+  endif
+
+  return l:message . ']'
 endfunction
 
 function! SetupLinterStatusBar() abort
   if exists('g:loaded_ale') && ThisFileLintingSupported()
-    function! LinterStatusbar() abort
-      let l:message = '[Linter: '
-
-      if g:ale_enabled
-        if exists('g:ale_linters[&ft]')
-          let l:count = ale#statusline#Count(bufnr(''))
-          let l:errors = 0
-          let l:warnings = 0
-          let l:styleError = 0
-          let l:totalErrors = 0
-
-          if type(l:count) == type({})
-            let l:errors = l:count.error
-            let l:warnings = l:count.warning
-            let l:styleError = l:count.style_error
-            let l:totalErrors = l:count.total
-
-          elseif type(l:count) == type([])
-            let [ l:errors, l:warnings ] = l:count
-            let l:totalErrors = l:errors
-          endif
-
-          let l:totalIssues = l:errors + l:warnings + l:styleError
-
-          if l:totalIssues
-            let l:all_errors = l:errors + l:styleError
-            let l:all_non_errors = l:totalErrors - l:all_errors
-            let l:message .= printf('%dW %dE', all_non_errors, all_errors)
-          else
-            let l:message .= 'ok'
-          endif
-        else
-          return '[No Linter]'
-        endif
-      else
-        let l:message .= 'disabled'
-      endif
-
-      return l:message . ']'
-    endfunction
-
     setlocal statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatusbar()}\ %=%-14.(%l,%c%V%)\ %P
   endif
 endfunction
@@ -817,7 +819,7 @@ function! RestoreSession() abort
 
   if SessionFileExists()
     echom 'Restoring session...'
-    silent! exe 'so ' . GetSessionFilename
+    silent! exe 'so ' . GetSessionFilename()
   endif
 endfunction
 
@@ -828,29 +830,6 @@ function! SaveSession() abort
     " Save netrw windows state
     bufdo setl bl
     exe 'mksession!'
-    call SaveTabooTabNames()
-  endif
-endfunction
-
-function! SaveTabooTabNames() abort
-  if exists(':TabooRename')
-    let l:sessionFilename = GetSessionFilename()
-    silent exe "!echo 'if exists(\":TabooRename\")' >> " . l:sessionFilename
-    silent exe "!echo 'let s:tabNames = {}' >> " . l:sessionFilename
-    tabdo call SaveTabooTabName()
-
-    silent exe "!echo 'tabdo if has_key(s:tabNames, tabpagenr()) | exe \"TabooRename \" . s:tabNames[tabpagenr()] | endif ' >> " . l:sessionFilename
-    silent exe "!echo 'unlet s:tabNames' >> " . l:sessionFilename
-    silent exe "!echo 'exe \"tabfirst\"' >> " . l:sessionFilename
-    silent exe "!echo 'endif' >> " . l:sessionFilename
-  endif
-endfunction
-
-function! SaveTabooTabName() abort
-  let l:tabnr = tabpagenr()
-  let l:tabooTabName = gettabvar(l:tabnr, 'taboo_tab_name')
-  if !empty(l:tabooTabName)
-    silent exe "!echo 'let s:tabNames[" . l:tabnr . "] = \"" . l:tabooTabName . "\"' >> " . GetSessionFilename()
   endif
 endfunction
 
