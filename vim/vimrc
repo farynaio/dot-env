@@ -296,7 +296,6 @@ function! DisableLinters() abort
   echo 'Linters disabled.'
 endfunction
 
-
 function! EnableLinters() abort
   exe ':ALEEnable'
   echo 'Linters enabled.'
@@ -308,7 +307,7 @@ command! EnableLinters :call EnableLinters()
 function! SetupDevelBuffer() abort
   if IsBufferDevel()
     " match OverLength /\%100v.\+/
-    set colorcolumn=127
+    setl colorcolumn=127
   endif
 endfunction
 
