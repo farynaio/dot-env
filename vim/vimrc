@@ -357,6 +357,9 @@ endfunction
 " Proper comments
 noremap <c-_><c-_> :Commentary<cr>
 
+" Toggle spelling
+noremap <leader>s :let &spell=!&spell<cr>
+
 " Open new empty tab
 noremap <c-t>n :tabnew<cr>
 
