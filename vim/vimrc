@@ -188,7 +188,6 @@ endif
 " Hide Vim Intro
 set shortmess+=I
 " Hightlight Current Line
-set cursorline
 " Redraw ONLY When Need To
 set lazyredraw
 set magic " Enable Magic for Regular Expressions
@@ -308,6 +307,7 @@ function! SetupDevelBuffer() abort
   if IsBufferDevel()
     " match OverLength /\%100v.\+/
     setl colorcolumn=127
+    setl cursorline
   endif
 endfunction
 
