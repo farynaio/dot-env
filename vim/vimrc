@@ -247,8 +247,6 @@ set path-=/usr/include
 set path+=**
 
 highlight OverLength ctermfg=white guibg=#592929
-match OverLength /\%100v.\+/
-set colorcolumn=100
 
 if has('autocmd')
   augroup General_Autocmd
@@ -260,6 +258,7 @@ if has('autocmd')
 		" autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
     autocmd BufNewFile,BufRead *.css setl syntax=scss
     autocmd BufNewFile,BufRead *rc setf json
+    autocmd BufNewFile,BufRead * call SetupDevelBuffer()
     autocmd BufReadPost * call SetupLinterStatusBar()
     autocmd BufEnter * call VimDiffSetupEnv()
     autocmd BufEnter * call SetTabNameToCurrentBuffer()
@@ -306,6 +305,13 @@ endfunction
 command! DisableLinters :call DisableLinters()
 command! EnableLinters :call EnableLinters()
 
+function! SetupDevelBuffer() abort
+  if IsBufferDevel()
+    " match OverLength /\%100v.\+/
+    set colorcolumn=127
+  endif
+endfunction
+
 function! DevelSetupEnv() abort
   let g:UltiSnipsSnippetDirectories = [$HOME . '/.vim/ultisnips']
   if exists('g:project_type')
@@ -317,6 +323,8 @@ function! DevelSetupEnv() abort
     else
       echom "Snippets folder '" . l:snippets_path . "' doesn't exists!"
     endif
+
+    call SetupLinters()
   endif
 endfunction
 
@@ -327,7 +335,7 @@ function! StartVimInNetrwModeIfNoFilePassed() abort
 endfunction
 
 function! IsBufferDevel() abort
-  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile'
+  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile' || &ft == 'markdown'
 endfunction
 
 " Highlight word under the cursor.
@@ -349,6 +357,9 @@ endfunction
 
 " Proper comments
 noremap <c-_><c-_> :Commentary<cr>
+
+" Open new empty tab
+noremap <c-t>n :tabnew<cr>
 
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
@@ -460,7 +471,7 @@ if v:version >= 800
 endif
 
 function! ThisFileLintingSupported() abort
-  if v:version < 80 || !IsBufferDevel()
+  if v:version < 800 || !IsBufferDevel()
     return 0
   endif
 
@@ -482,56 +493,56 @@ function! SetupLinters() abort
     let g:ale_linters = {}
     let g:ale_fixers = {}
     let g:ale_linter_aliases = {}
-
-    call SetupLinterJavascript()
   else
     echom 'Linters could not be configured.'
   endif
 endfunction
 
-function! SetupLinterJavascript() abort
-  " TODO feed content
-endfunction
+" function! SetupLinterJavascript() abort
+"   " TODO feed content
+" endfunction
 
 function! LinterStatusbar() abort
-  let l:message = '[Linter: '
+  if exists('g:loaded_ale') && ThisFileLintingSupported()
+    let l:message = '[Linter: '
 
-  if g:ale_enabled
-    if exists('g:ale_linters[&ft]')
-      let l:count = ale#statusline#Count(bufnr(''))
-      let l:errors = 0
-      let l:warnings = 0
-      let l:styleError = 0
-      let l:totalErrors = 0
+    if g:ale_enabled
+      if exists('g:ale_linters[&ft]')
+        let l:count = ale#statusline#Count(bufnr(''))
+        let l:errors = 0
+        let l:warnings = 0
+        let l:styleError = 0
+        let l:totalErrors = 0
 
-      if type(l:count) == type({})
-        let l:errors = l:count.error
-        let l:warnings = l:count.warning
-        let l:styleError = l:count.style_error
-        let l:totalErrors = l:count.total
+        if type(l:count) == type({})
+          let l:errors = l:count.error
+          let l:warnings = l:count.warning
+          let l:styleError = l:count.style_error
+          let l:totalErrors = l:count.total
 
-      elseif type(l:count) == type([])
-        let [ l:errors, l:warnings ] = l:count
-        let l:totalErrors = l:errors
-      endif
+        elseif type(l:count) == type([])
+          let [ l:errors, l:warnings ] = l:count
+          let l:totalErrors = l:errors
+        endif " type(l:count) == type({})
 
-      let l:totalIssues = l:errors + l:warnings + l:styleError
+        let l:totalIssues = l:errors + l:warnings + l:styleError
 
-      if l:totalIssues
-        let l:all_errors = l:errors + l:styleError
-        let l:all_non_errors = l:totalErrors - l:all_errors
-        let l:message .= printf('%dW %dE', all_non_errors, all_errors)
+        if l:totalIssues
+          let l:all_errors = l:errors + l:styleError
+          let l:all_non_errors = l:totalErrors - l:all_errors
+          let l:message .= printf('%dW %dE', all_non_errors, all_errors)
+        else
+          let l:message .= 'OK'
+        endif " l:totalIssues
       else
-        let l:message .= 'OK'
-      endif
+        return '[No Linter]'
+      endif " exists('g:ale_linters[&ft]')
     else
-      return '[No Linter]'
-    endif
-  else
-    let l:message .= 'disabled'
-  endif
+      let l:message .= 'disable'
+    endif " g:ale_enabled
 
-  return l:message . ']'
+    return l:message . ']'
+  endif " exists('g:loaded_ale') && ThisFileLintingSupported()
 endfunction
 
 function! SetupLinterStatusBar() abort
@@ -615,11 +626,19 @@ nnoremap <leader>* *<C-O>:%s///gn<cr>
 command! MremoveEmptyLines g/^\s*$/d
 
 " ================================================
-" QuickFix
+" QuickFix & Location List
 " ================================================
 
 nnoremap <silent> <leader>q :call QuickfixToggle()<cr>
 nnoremap <silent> <leader>e :call LocationListToggle()<cr>
+nnoremap ]q :cnext<cr>
+nnoremap [q :cprevious<cr>
+nnoremap [Q :cfirst<cr>
+nnoremap ]Q :clast<cr>
+nnoremap ]e :lnext<cr>
+nnoremap [e :lprevious<cr>
+nnoremap [E :lfirst<cr>
+nnoremap ]E :llast<cr>
 
 function! OnEnterWin() abort
   let b:location_list_is_open = 0
@@ -892,7 +911,7 @@ function! FuzzSearchForPhrase(phrase) abort
     let l:command =  ':Ack!'
   endif
 
-  silent exe l:command  . " '" . escape(a:phrase, '{}()%^$') . "' ."
+  silent! exe l:command  . " '" . escape(a:phrase, '{}()%^$') . "' ."
 endfunction
 
 function! FuzzSearchVisual() abort
