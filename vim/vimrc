@@ -353,9 +353,8 @@ function! McopyFilePathToClipboard() abort
   redir END
 endfunction
 
-" Proper comments
 noremap <c-_><c-_> :Commentary<cr>
-
+noremap <c-w>n :vnew<cr>
 noremap <leader>s :call ToggleSpelling()<cr>
 
 function! ToggleSpelling()
