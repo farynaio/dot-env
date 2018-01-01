@@ -152,7 +152,8 @@ set showmatch " show maching parenthesis
 set bufhidden=wipe
 filetype on
 set encoding=utf-8
-set spelllang=en
+set spelllang=en,pl
+set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/pl.utf-8.add
 set number
 set ruler
 set modelines=0
@@ -357,8 +358,12 @@ endfunction
 " Proper comments
 noremap <c-_><c-_> :Commentary<cr>
 
-" Toggle spelling
-noremap <leader>s :let &spell=!&spell<cr>
+noremap <leader>s :call ToggleSpelling()<cr>
+
+function! ToggleSpelling()
+  let &spell = !&spell
+  echo 'Spelling in ' . &spelllang . ' is ' . (&spell ?  'on' : 'off') . '.'
+endfunction
 
 " Open new empty tab
 noremap <c-t>n :tabnew<cr>
