@@ -232,9 +232,11 @@ set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
-set statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-
 set iskeyword-=!-~
+
+function! SpellStatusLine()
+  return &spell ? '[Spell]' : ''
+endfunction
 
 if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
@@ -253,13 +255,9 @@ if has('autocmd')
     autocmd!
     " Write variable s:std_in if arguments for VIM was passed
     autocmd StdinReadPre * let s:std_in=1
-    " autocmd BufNewFile,BufRead *.es6.js setf es6
-    " autocmd BufNewFile,BufRead *.tsx.js setf tsx
-		" autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
     autocmd BufNewFile,BufRead *.css setl syntax=scss
     autocmd BufNewFile,BufRead *rc setf json
     autocmd BufNewFile,BufRead * call SetupDevelBuffer()
-    autocmd BufReadPost * call SetupLinterStatusBar()
     autocmd BufEnter * call VimDiffSetupEnv()
     autocmd BufEnter * call SetTabNameToCurrentBuffer()
     autocmd BufEnter * call ApplyTemplate()
@@ -509,7 +507,7 @@ endfunction
 "   " TODO feed content
 " endfunction
 
-function! LinterStatusbar() abort
+function! LinterStatusLine() abort
   if exists('g:loaded_ale') && ThisFileLintingSupported()
     let l:message = '[Linter: '
 
@@ -550,12 +548,8 @@ function! LinterStatusbar() abort
 
     return l:message . ']'
   endif " exists('g:loaded_ale') && ThisFileLintingSupported()
-endfunction
 
-function! SetupLinterStatusBar() abort
-  if exists('g:loaded_ale') && ThisFileLintingSupported()
-    setlocal statusline=%<%f\ %y%h%m%r%{fugitive#statusline()}\ %{LinterStatusbar()}\ %=%-14.(%l,%c%V%)\ %P
-  endif
+  return ''
 endfunction
 
 " ================================================
@@ -1097,3 +1091,5 @@ nnoremap <leader>m :exe "vs " expand('%:p:h') <cr>
 nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
+
+set statusline=%<%f\ %y%h%m%r%(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
