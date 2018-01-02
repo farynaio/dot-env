@@ -1091,4 +1091,4 @@ nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
 
-set statusline=%<%f\ %y%h%m%r%(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %y%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
