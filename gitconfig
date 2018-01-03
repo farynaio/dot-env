@@ -94,7 +94,7 @@
   diffr  = "!f() { git diff "$1"^.."$1"; }; f "
   f = "!git ls-files | grep -i " # find file path in code base
   gr = grep -Ii # search code base for string
-  cia = commit --amend
+  cia = commit --amend --reuse-message=HEAD --edit
   ci = commit
   assume = update-index --assume-unchanged
   unassume = update-index --no-assume-unchanged
