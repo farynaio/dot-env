@@ -59,6 +59,10 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'majutsushi/tagbar'
 " Plug 'tpope/vim-cucumber.git'
 " Plug 'janko-m/vim-test' " great! test runner, could run async commands
+" Plug 'tpope/vim-jdaddy' " TODO check
+" Plug 'tpope/vim-sleuth' " TODO check
+" Plug 'tpope/vim-endwise' " TODO check
+" Plug 'vim-vividchalk ' " TODO check color scheme
 
 " Web
 Plug 'othree/html5.vim'
@@ -69,6 +73,7 @@ Plug 'groenewege/vim-less'
 Plug 'wavded/vim-stylus'
 Plug 'mattn/emmet-vim'
 Plug 'alvan/vim-closetag'
+" Plug 'tpope/vim-ragtag' " TODO check
 
 " Python
 Plug 'mitsuhiko/vim-python-combined'
@@ -229,6 +234,7 @@ function! AfterInit()
       autocmd!
       autocmd BufNewFile,BufRead *.css setl syntax=scss
       autocmd BufNewFile,BufRead *rc set ft=json
+      autocmd BufNewFile,BufRead vim* set ft=vim
       autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
       autocmd BufNewFile,BufRead * if empty(&ft) && empty(expand('%:e')) | set ft=text | endif
       autocmd BufNewFile,BufRead * call SetupBufferNew()
@@ -242,15 +248,9 @@ function! AfterInit()
       autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
       autocmd InsertEnter * match none
       autocmd TabNew * call SetupTabEnv()
-      autocmd VimLeave * call SaveSession()
       autocmd BufWinEnter * call OnEnterWin()
       autocmd BufWinLeave * call OnCloseWin()
       autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
-
-      " autocmd BufWinEnter * echom 'BufWinEnter'
-      " autocmd BufEnter * echom 'BufEnter'
-      " autocmd BufRead * echom 'BufRead'
-      " autocmd BufNewFile * echom 'BufNewFile'
     augroup END
 
     if has('omnifunc')
@@ -273,6 +273,7 @@ if has('autocmd')
     autocmd VimEnter * call RestoreProject()
     autocmd VimEnter * call RestoreSession()
     autocmd VimEnter * call DevelSetupEnv()
+    autocmd VimLeave * call SaveSession()
   augroup END
 endif
 
