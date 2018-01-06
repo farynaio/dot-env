@@ -17,6 +17,7 @@ Plug 'benmills/vimux'
 
 " General
 " Plug 'tpope/vim-vinegar' " TODO cherry pick this
+Plug 'adamfaryna/netrw.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
