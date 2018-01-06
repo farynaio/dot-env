@@ -1,1 +1,1 @@
-setl syntax=better-writing
+set nocursorline

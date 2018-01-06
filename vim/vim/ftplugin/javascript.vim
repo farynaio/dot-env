@@ -1,4 +1,5 @@
 setlocal completeopt+=preview
+setl cursorline
 
 exe ':EmmetInstall'
 
@@ -25,7 +26,7 @@ else
 endif
 
 if exists('g:project_type') && (g:project_type ==? 'react' || g:project_type ==? 'react-native' || g:project_type ==? 'node')
-  if exists('*TsuDefinition') 
+  if exists('*TsuDefinition')
     let g:tsuquyomi_completion_detail = 1
     let g:tsuquyomi_definition_split = 0
     let g:tsuquyomi_disable_quickfix = 1
@@ -33,11 +34,12 @@ if exists('g:project_type') && (g:project_type ==? 'react' || g:project_type ==?
     let g:tsuquyomi_disable_default_mappings = 1
     nnoremap <buffer> <C-]> :TsuDefinition<cr>
   endif
-
-  " Allow JSX in normal JS files
-  let g:jsx_ext_required = 0
-  let b:jsx_ext_found = 1
 endif
+
+" Allow JSX in normal JS files
+" let g:jsx_ext_required = 0
+let b:jsx_ext_required = 0
+let b:jsx_ext_found = 1
 
 " ================================================
 " Linting and formatting
@@ -46,7 +48,7 @@ endif
 if g:loaded_ale && v:version >= 800 && ThisFileLintingSupported()
   let g:ale_linter_aliases[&ft] = 'javascript'
 
-  if executable('eslint') 
+  if executable('eslint')
     let g:ale_linters[&ft] = ['eslint']
     let g:ale_fixers[&ft] = ['eslint']
   endif

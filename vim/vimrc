@@ -16,11 +16,23 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 " General
-" Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar' " TODO cherry pick this
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
-" Plug 'tpope/vim-unimpaired' " cherry pick it
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'henrik/vim-indexed-search'
+Plug 'osyo-manga/vim-anzu' " to albo to wyżej
+Plug 'Townk/vim-autoclose' " closes parenthesis automatically
+Plug 'SirVer/ultisnips'
+Plug 'victormours/better-writing.vim'
+Plug 'tpope/vim-surround'
+Plug 'flazz/vim-colorschemes'
+Plug 'vim-scripts/PreserveNoEOL' " don't show final empty line at the end of the buffer
+Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
+" Plug 'skywind3000/asyncrun.vim' " run any shell command async and populate QF list
+" Plug 'tpope/vim-unimpaired' " TODO cherry pick it
 
 " Devel
 Plug 'vim-scripts/SyntaxComplete'
@@ -28,16 +40,24 @@ Plug 'vim-scripts/XSLT-syntax'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-git'
 Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-Plug 'dag/vim-fish'
 Plug 'elzr/vim-json'
 Plug 'stephpy/vim-yaml'
 Plug 'lfilho/cosco.vim'
 Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Plug 'vim-scripts/taglist.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
-" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" Plug 'jonas/tig' " git tool, week support, a lot of issues
+Plug 'benjifisher/matchit.zip'
+Plug 'craigemery/vim-autotag'
+Plug 'tpope/vim-fugitive'
+Plug 'mileszs/ack.vim'
+Plug 'aperezdc/vim-template'
+Plug 'othree/xml.vim'
+Plug 'AndrewRadev/splitjoin.vim' " TODO add mappings
+Plug 'airblade/vim-gitgutter'
+" Plug 'tpope/vim-projectionist' " TODO test
+" Plug 'majutsushi/tagbar'
+" Plug 'tpope/vim-cucumber.git'
+" Plug 'janko-m/vim-test' " great! test runner, could run async commands
 
 " Web
 Plug 'othree/html5.vim'
@@ -46,7 +66,8 @@ Plug 'ap/vim-css-color'
 Plug 'digitaltoad/vim-pug'
 Plug 'groenewege/vim-less'
 Plug 'wavded/vim-stylus'
-Plug 'benjifisher/matchit.zip'
+Plug 'mattn/emmet-vim'
+Plug 'alvan/vim-closetag'
 
 " Python
 Plug 'mitsuhiko/vim-python-combined'
@@ -55,90 +76,38 @@ Plug 'aliev/vim-compiler-python'
 " Ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
-Plug 'sheerun/vim-yardoc'
+Plug 'noprompt/vim-yardoc'
 
 " PHP
 Plug 'StanAngeloff/php.vim'
 Plug 'mxw/vim-xhp'
 
 " Javascript
-Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'glanotte/vim-jasmine'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
-Plug 'othree/yajs.vim'
+" Plug 'othree/yajs.vim'
 Plug 'jason0x43/vim-js-indent'
 Plug 'maksimr/vim-jsbeautify'
 " Plug 'moll/vim-node'
 " Plug 'wookiehangover/jshint.vim'
 Plug 'juanpabloaj/vim-istanbul'
-" Lint engine
-Plug 'w0rp/ale'
-
-" Plug 'tpope/vim-speeddating'
-Plug 'henrik/vim-indexed-search'
-" Plug 'janko-m/vim-test'
-" Plug 'skywind3000/asyncrun.vim'
-Plug 'victormours/better-writing.vim'
-" Plug 'vim-scripts/CursorLineCurrentWindow'
-" Plug 'yegappan/mru'
-" Plug 'tpope/vim-repeat'
-Plug 'mattn/emmet-vim'
-" Plug 'csscomb/vim-csscomb'
-Plug 'othree/xml.vim'
-" Plug 'alvan/vim-closetag'
-" Plug '1995eaton/vim-better-javascript-completion'
-Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'kana/vim-textobj-user'
-" Plug 'vim-scripts/ConflictMotions'
-" Plug 'skammer/vim-css-color'
-Plug 'godlygeek/tabular'
-" Plug 'flowtype/vim-flow'
-" Plug 'vim-scripts/Conque-Shell'
-" Plug 'Chiel92/vim-autoformat'
-" Plug 'scrooloose/syntastic'
-" Plug 'ternjs/tern_for_vim'
-" Plug 'bling/vim-airline'
-Plug 'osyo-manga/vim-anzu'
-" Plug 'Valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips'
-Plug 'mhartington/vim-typings'
-" Plug 'Shougo/unite.vim'
-" Plug 'https://github.com/xolox/vim-easytags.git'
-" Plug 'vim-scripts/YankRing.vim'
-Plug 'vim-scripts/scratch.vim'
-Plug 'craigemery/vim-autotag'
-Plug 'majutsushi/tagbar'
-Plug 'xolox/vim-misc'
-" Plug 'https://github.com/xolox/vim-session.git'
-Plug 'airblade/vim-gitgutter'
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'Olical/vim-enmasse'
-" Plug 'https://github.com/vim-scripts/cscope.vim'
-Plug 'vim-scripts/PreserveNoEOL'
-Plug 'editorconfig/editorconfig-vim' "turn it back
-Plug 'aperezdc/vim-template'
-Plug 'Townk/vim-autoclose'
-" Plug 'git://github.com/tpope/vim-cucumber.git'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-" Plug 'nathanaelkane/vim-indent-guides'
-Plug 'flazz/vim-colorschemes'
-Plug 'mileszs/ack.vim'
-" Plug 'scrooloose/nerdtree'
-" Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'othree/jsdoc-syntax.vim'
-Plug 'heavenshell/vim-jsdoc'
-Plug 'itspriddle/vim-jquery'
+Plug 'w0rp/ale' " lint engine
 Plug 'othree/javascript-libraries-syntax.vim'
-" Plug 'othree/jspc.vim'
-" Plug 'severin-lemaignan/vim-minimap'
-" Plug 'sheerun/vim-polyglot'
+Plug 'Quramy/vim-js-pretty-template'
+" Plug 'heavenshell/vim-jsdoc' " generates JSDoc
+" Plug 'itspriddle/vim-jquery'
+
+" Typescript
+" Plug 'leafgarland/typescript-vim'
+" Plug 'mhartington/vim-typings'
+" Plug 'Quramy/tsuquyomi'
+" Plug 'HerringtonDarkholme/yats.vim'
+
+" Plug '1995eaton/vim-better-javascript-completion'
+" Plug 'xolox/vim-misc' " it't not needed any more?
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'} " TODO is it needed?
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -176,6 +145,8 @@ set tabstop=2
 set softtabstop=2 " test
 set shiftwidth=2
 set expandtab
+set cursorline
+" set viminfofile=NONE
 
 " copy to system clipboard
 if has("clipboard")
@@ -233,6 +204,7 @@ set nopaste
 set visualbell
 set noerrorbells
 set iskeyword-=!-~
+" set runtimepath+=~/.vim/after/ftplugin
 
 function! SpellStatusLine()
   return &spell ? '[Spell]' : ''
@@ -250,43 +222,56 @@ set path+=**
 
 highlight OverLength ctermfg=white guibg=#592929
 
+function! AfterInit()
+  if has('autocmd')
+    augroup General_Autocmd
+      autocmd!
+      autocmd BufNewFile,BufRead *.css setl syntax=scss
+      autocmd BufNewFile,BufRead *rc set ft=json
+      autocmd BufNewFile,BufRead * if empty(&ft) && empty(expand('%:e')) | set ft=text | endif
+      autocmd BufNewFile,BufRead * call SetupBufferNew()
+      autocmd BufEnter * call VimDiffSetupEnv()
+      autocmd BufEnter * call SetTabNameToCurrentBuffer()
+      autocmd BufEnter * call ApplyTemplate()
+      autocmd BufEnter * call SetupBufferEnter()
+      autocmd BufLeave * call SetupBufferLeave()
+      autocmd FileType text setl syntax=better-writing
+      autocmd FileType netrw call SetupNetrwEnv()
+      autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
+      autocmd InsertEnter * match none
+      autocmd TabNew * call SetupTabEnv()
+      autocmd VimLeave * call SaveSession()
+      autocmd BufWinEnter * call OnEnterWin()
+      autocmd BufWinLeave * call OnCloseWin()
+      autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
+
+      " autocmd BufWinEnter * echom 'BufWinEnter'
+      " autocmd BufEnter * echom 'BufEnter'
+      " autocmd BufRead * echom 'BufRead'
+      " autocmd BufNewFile * echom 'BufNewFile'
+    augroup END
+
+    if has('omnifunc')
+      augroup Omnifuncs
+        autocmd!
+        autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
+      augroup END
+    endif
+  endif
+endfunction
+
 if has('autocmd')
-  augroup General_Autocmd
+  augroup Autocmd_init
     autocmd!
     " Write variable s:std_in if arguments for VIM was passed
     autocmd StdinReadPre * let s:std_in=1
-    autocmd BufNewFile,BufRead *.css setl syntax=scss
-    autocmd BufNewFile,BufRead *rc setf json
-    autocmd BufNewFile,BufRead * call SetupDevelBuffer()
-    autocmd BufEnter * call VimDiffSetupEnv()
-    autocmd BufEnter * call SetTabNameToCurrentBuffer()
-    autocmd BufEnter * call ApplyTemplate()
-    autocmd FileType netrw call SetupNetrwEnv()
-    autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
-    autocmd InsertEnter * match none
-    autocmd TabNew * call SetupTabEnv()
+    autocmd VimEnter * call AfterInit()
     autocmd VimEnter * call SetupTabEnv()
     autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
     autocmd VimEnter * call RestoreProject()
     autocmd VimEnter * call RestoreSession()
     autocmd VimEnter * call DevelSetupEnv()
-    autocmd VimLeave * call SaveSession()
-    autocmd BufWinEnter * call OnEnterWin()
-    autocmd BufWinLeave * call OnCloseWin()
-    autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
-
-    " autocmd BufWinEnter * echom 'BufWinEnter'
-    " autocmd BufEnter * echom 'BufEnter'
-    " autocmd BufRead * echom 'BufRead'
-    " autocmd BufNewFile * echom 'BufNewFile'
   augroup END
-
-  if has('omnifunc')
-    augroup Omnifuncs
-      autocmd!
-      autocmd Filetype * if &omnifunc == "" | set omnifunc=syntaxcomplete#Complete | endif
-    augroup END
-  endif
 endif
 
 function! DisableLinters() abort
@@ -302,12 +287,30 @@ endfunction
 command! DisableLinters :call DisableLinters()
 command! EnableLinters :call EnableLinters()
 
-function! SetupDevelBuffer() abort
-  if IsBufferDevel()
-    " match OverLength /\%100v.\+/
-    setl colorcolumn=127
-    setl cursorline
+function! SetupBufferNew() abort
+  if !IsBufferDevel()
+    setl nocursorline
   endif
+endfunction
+
+function! SetupBufferEnter() abort
+  if IsBufferDevel()
+    " let b:cursorline = 1
+    setl cursorline
+    setl colorcolumn=127
+  elseif &ft == 'gitcommit' || &ft == 'qf' || &ft == 'netrw'
+    " let b:cursorline = 1
+    setl cursorline
+  else
+    " let b:cursorline = 0
+    setl nocursorline
+  endif
+endfunction
+
+function! SetupBufferLeave() abort
+  setl nocursorline
+  setl colorcolumn=""
+  match none
 endfunction
 
 function! DevelSetupEnv() abort
@@ -415,9 +418,14 @@ nnoremap <C-h> :help <cword><cr>
 " Reselects just pasted text
 nnoremap <leader>v V`]`
 
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
-
 let &gp='grep -n -R $* /dev/null'
+
+" ================================================
+" HTML
+" ================================================
+
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 
 " ================================================
 " Copy & paste
@@ -1067,6 +1075,7 @@ function! SetupNetrwEnv() abort
   nnoremap <buffer> gn :Ntree<cr>
 endfunction
 
+let g:netrw_cursor = 2
 let g:netrw_fastbrowse = 0
 let g:netrw_use_errorwindow = 0 " show netrw messages as echoerr
 let g:netrw_localmkdir = 'mkdir -p '
