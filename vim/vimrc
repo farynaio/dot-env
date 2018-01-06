@@ -228,6 +228,7 @@ function! AfterInit()
       autocmd!
       autocmd BufNewFile,BufRead *.css setl syntax=scss
       autocmd BufNewFile,BufRead *rc set ft=json
+      autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
       autocmd BufNewFile,BufRead * if empty(&ft) && empty(expand('%:e')) | set ft=text | endif
       autocmd BufNewFile,BufRead * call SetupBufferNew()
       autocmd BufEnter * call VimDiffSetupEnv()
@@ -509,10 +510,6 @@ function! SetupLinters() abort
     echom 'Linters could not be configured.'
   endif
 endfunction
-
-" function! SetupLinterJavascript() abort
-"   " TODO feed content
-" endfunction
 
 function! LinterStatusLine() abort
   if exists('g:loaded_ale') && ThisFileLintingSupported()
