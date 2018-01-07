@@ -244,6 +244,7 @@ function! AfterInit()
       autocmd BufEnter * call ApplyTemplate()
       autocmd BufEnter * call SetupBufferEnter()
       autocmd BufLeave * call SetupBufferLeave()
+      autocmd BufReadPost fugitive://* set bufhidden=delete
       autocmd FileType text setl syntax=better-writing
       autocmd FileType netrw call SetupNetrwEnv()
       autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
