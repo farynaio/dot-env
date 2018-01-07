@@ -32,6 +32,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'vim-scripts/PreserveNoEOL' " don't show final empty line at the end of the buffer
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
+" Plug 'Shougo/denite.nvim' " TODO check ctrlp alternative (requires Python3)
 " Plug 'skywind3000/asyncrun.vim' " run any shell command async and populate QF list
 " Plug 'tpope/vim-unimpaired' " TODO cherry pick it
 
@@ -786,7 +787,7 @@ let g:EditorConfig_core_mode = 'external_command'
 " Tagbar
 " ================================================
 
-noremap <leader>b :TagbarToggle<cr>
+" noremap <leader>b :TagbarToggle<cr>
 
 " ================================================
 " Git
