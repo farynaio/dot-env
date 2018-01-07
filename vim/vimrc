@@ -298,14 +298,18 @@ endfunction
 
 function! SetupBufferEnter() abort
   if IsBufferDevel()
-    " let b:cursorline = 1
     setl cursorline
     setl colorcolumn=127
+
   elseif &ft == 'gitcommit' || &ft == 'qf' || &ft == 'netrw'
-    " let b:cursorline = 1
     setl cursorline
+
+  elseif expand('%') =~ "fugitive:"
+    setl cursorline
+    noremap <buffer> dp :diffput<cr>
+    noremap <buffer> do :diffget<cr>
+
   else
-    " let b:cursorline = 0
     setl nocursorline
   endif
 endfunction
@@ -785,17 +789,28 @@ let g:EditorConfig_core_mode = 'external_command'
 noremap <leader>b :TagbarToggle<cr>
 
 " ================================================
-" Git - gutter
+" Git
 " ================================================
 
 set updatetime=250
-command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
+" command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
 
-function! SetGitGutterBase(...) abort
-  let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
-  echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
-  GitGutter
-endfunction
+" function! SetGitGutterBase(...) abort
+"   let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
+"   echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
+"   GitGutter
+" endfunction
+
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>ge :Gedit<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gps :Dispatch! git push<cr>
+nnoremap <leader>gpl :Dispatch! git pull<cr>
+nnoremap <leader>gl :Glog --<space>
+nnoremap <leader>go :Git co<space>
+nnoremap <leader>gb :Git br<space>
 
 " ================================================
 " Session
