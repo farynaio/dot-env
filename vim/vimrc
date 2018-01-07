@@ -992,7 +992,21 @@ command! Ctags call GenerateCtags()
 " nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Open tag definition in vertical split
-nnoremap <C-w><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-w><C-]> :vsp <cr>:exec("tag " . expand("<cword>"))<cr>
+
+" Override native commands
+function! CommandCabbr(abbreviation, expansion)
+  exe 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+endfunction
+
+command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
+"
+" Use it on itself to define a simpler abbreviation for itself.
+" CommandCabbr ccab CommandCabbr
+CommandCabbr ta stag
+
+nnoremap ]t :tnext<cr>
+nnoremap [t :tprevious<cr>
 
 " ================================================
 " CtrlP
