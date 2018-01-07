@@ -206,7 +206,7 @@ set wildignore+=**/project.vim,**/Session.vim
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
-set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
+set timeoutlen=600 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
