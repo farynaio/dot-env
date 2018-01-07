@@ -1,0 +1,1 @@
+GitGutterDisable

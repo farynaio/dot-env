@@ -237,6 +237,7 @@ function! AfterInit()
       autocmd BufNewFile,BufRead *rc set ft=json
       autocmd BufNewFile,BufRead vim* set ft=vim
       autocmd BufNewFile,BufRead *.es6,*.tsx,*.jsx setl syntax=javascript
+      autocmd BufNewFile,BufRead *.log setl ft=log
       autocmd BufNewFile,BufRead * if empty(&ft) && empty(expand('%:e')) | set ft=text | endif
       autocmd BufNewFile,BufRead * call SetupBufferNew()
       autocmd BufEnter * call VimDiffSetupEnv()
@@ -375,12 +376,12 @@ function! ToggleSpelling()
 endfunction
 
 " Open new empty tab
-noremap <c-t>n :tabnew<cr>
+" noremap <c-t>n :tabnew<cr>
 
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
 " Close all tabs but the current
-nnoremap <c-t>o :call CloseAllTabsButCurrent()<cr>
+nnoremap <leader>to :call CloseAllTabsButCurrent()<cr>
 
 function! CloseAllTabsButCurrent() abort
   silent exe ":tabo"
@@ -1005,7 +1006,8 @@ command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
 "
 " Use it on itself to define a simpler abbreviation for itself.
 " CommandCabbr ccab CommandCabbr
-CommandCabbr ta stag
+CommandCabbr t ta
+CommandCabbr f fin
 
 nnoremap ]t :tnext<cr>
 nnoremap [t :tprevious<cr>
@@ -1136,4 +1138,4 @@ nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
 
-set statusline=%<%f\ %y%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %y%w%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
