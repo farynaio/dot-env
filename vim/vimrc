@@ -306,8 +306,8 @@ function! SetupBufferEnter() abort
 
   elseif expand('%') =~ "fugitive:"
     setl cursorline
-    noremap <buffer> dp :diffput<cr>
-    noremap <buffer> do :diffget<cr>
+    xnoremap <buffer> dp :diffput<cr>
+    xnoremap <buffer> do :diffget<cr>
 
   else
     setl nocursorline
@@ -793,7 +793,10 @@ noremap <leader>b :TagbarToggle<cr>
 " ================================================
 
 set updatetime=250
-" command! -nargs=? MGitBase call SetGitGutterBase(<f-args>)
+
+" TODO fix to autocomplete commit hash
+" command! -nargs=? Gbase call SetGitGutterBase(<f-args>)
+" command! -nargs=? GbaseHead call SetGitGutterBase(<f-args>)
 
 " function! SetGitGutterBase(...) abort
 "   let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
@@ -803,13 +806,16 @@ set updatetime=250
 
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>ge :Gedit<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gc :Gcommit -v -q<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gps :Dispatch! git push<cr>
 nnoremap <leader>gpl :Dispatch! git pull<cr>
+" TODO do it do autocompletation of hash?
+nnoremap <leader>gd :Gdiff<space>
 nnoremap <leader>gl :Glog --<space>
+" TODO do it do autocompletation of hash?
 nnoremap <leader>go :Git co<space>
+" TODO do it do autocompletation of branch?
 nnoremap <leader>gb :Git br<space>
 
 " ================================================
