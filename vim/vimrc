@@ -1029,7 +1029,7 @@ let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_types = ['fil', 'mru']
 let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
 let g:ctrlp_extensions = ['buffertag', 'tag', 'mixed', 'bookmarkdir']
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:10'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:5'
 let g:ctrlp_map = '<leader>p'
 
 " nnoremap <leader>p :CtrlP<cr>
