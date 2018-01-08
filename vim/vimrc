@@ -346,7 +346,7 @@ function! StartVimInNetrwModeIfNoFilePassed() abort
 endfunction
 
 function! IsBufferDevel() abort
-  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile' || &ft == 'markdown'
+  return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'scss' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile' || &ft == 'markdown'
 endfunction
 
 " Highlight word under the cursor.
@@ -606,7 +606,7 @@ function! DeleteHiddenBuffers() abort
   for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
     silent! execute 'bwipeout!' buf
   endfor
-  let t:quickfix_is_open = 0
+  let g:quickfix_is_open = 0
   echom "Hidden buffers wiped out!"
 endfunction
 
@@ -657,28 +657,36 @@ nnoremap ]E :llast<cr>
 function! OnEnterWin() abort
   let b:location_list_is_open = 0
 
-  " if &ft == 'qf'
-  "   let t:quickfix_is_open = 1
-  " endif
+  if &ft == 'qf'
+    let g:quickfix_is_open = 1
+    let l:qf_mappings = {
+      \ "t": "<C-W><CR><C-W>T",
+      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+      \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t" }
+
+    for key_map in items(l:qf_mappings)
+      execute printf("nnoremap <buffer> <silent> %s %s", get(key_map, 0), get(key_map, 1))
+    endfor
+  endif
 endfunction
 
 function! OnCloseWin() abort
   if &ft == 'qf'
-    let t:quickfix_is_open = 0
+    let g:quickfix_is_open = 0
   endif
 endfunction
 
 function! SetupTabEnv() abort
-  let t:quickfix_is_open = 0
+  let g:quickfix_is_open = 0
 endfunction
 
 function! QuickfixToggle() abort
-  if t:quickfix_is_open
+  if g:quickfix_is_open
     cclose
-    let t:quickfix_is_open = 0
+    let g:quickfix_is_open = 0
   else
-    copen
-    let t:quickfix_is_open = 1
+    botright copen
+    let g:quickfix_is_open = 1
   endif
 endfunction
 
@@ -927,22 +935,23 @@ vnoremap <leader>f :call FuzzSearchVisual()<cr>
 " cnoreabbrev Ack Ack!
 
 function! FuzzSearchCursor() abort
-  let l:phrase = input('What pattern? ', expand('<cword>'))
+  let l:phrase = input('What pattern? ')
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
 function! FuzzSearchForPhrase(phrase) abort
-  if empty(a:phrase)
+  let l:phrase = a:phrase ? a:phrase : expand('<cword>')
+  let l:command = ':grep!'
+
+  if empty(l:phrase)
     return
   endif
-
-  let l:command = ':grep!'
 
   if exists(':Ack') && executable('ack')
     let l:command =  ':Ack!'
   endif
 
-  silent! exe l:command  . " '" . escape(a:phrase, '{}()%^$') . "' ."
+  silent! exe l:command  . " '" . escape(l:phrase, '{}()%^$') . "' ."
 endfunction
 
 function! FuzzSearchVisual() abort
