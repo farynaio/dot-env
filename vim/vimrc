@@ -212,6 +212,11 @@ set visualbell
 set noerrorbells
 set iskeyword-=!-~
 " set runtimepath+=~/.vim/after/ftplugin
+let g:ack_use_dispatch = 1
+let g:ackhighlight = 1
+let g:ack_autoclose = 1
+let g:ack_autofold_results = 1
+" g:ack_use_cword_for_empty_search " TODO make use of it
 
 function! SpellStatusLine()
   return &spell ? '[Spell]' : ''
@@ -253,7 +258,7 @@ function! AfterInit()
       autocmd TabNew * call SetupTabEnv()
       autocmd BufWinEnter * call OnEnterWin()
       autocmd BufWinLeave * call OnCloseWin()
-      autocmd QuickFixCmdPost *grep* cwindow | let t:quickfix_is_open = 1
+      autocmd QuickFixCmdPost *grep* cwindow | let g:quickfix_is_open = 1
     augroup END
 
     if has('omnifunc')
@@ -940,7 +945,7 @@ function! FuzzSearchCursor() abort
 endfunction
 
 function! FuzzSearchForPhrase(phrase) abort
-  let l:phrase = a:phrase ? a:phrase : expand('<cword>')
+  let l:phrase = empty(a:phrase) ? expand('<cword>') : a:phrase
   let l:command = ':grep!'
 
   if empty(l:phrase)
