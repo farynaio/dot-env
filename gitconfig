@@ -117,9 +117,9 @@
   ci = commit
   co = checkout
   br = branch
-  di = diff --word-diff
-  diff = diff --word-diff
-  dc = diff --word-diff --cached HEAD^
+  di = diff
+  diff = diff
+  dc = diff --cached HEAD^
   r = reset
   r1 = reset HEAD^
   r2 = reset HEAD^^
