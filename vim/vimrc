@@ -226,6 +226,12 @@ if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
 endif "
 
+function! PwdStatusLine()
+  let l:cwdTokens = split(getcwd(), '/')
+  let l:cwdLastToken = l:cwdTokens[len(l:cwdTokens) - 1]
+  return '[PWD: ' . l:cwdLastToken . ']'
+endfunction!
+
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
 set path-=.
@@ -1152,4 +1158,4 @@ nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
 
-set statusline=%<%f\ %y%w%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %{PwdStatusLine()}\ %y%w%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
