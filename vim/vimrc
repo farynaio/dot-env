@@ -206,7 +206,7 @@ set wildignore+=**/project.vim,**/Session.vim
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
-set timeoutlen=600 ttimeoutlen=0 " remove `O` and `o` Delay
+set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
@@ -246,7 +246,7 @@ endfunction
 function! CursorPositionStatusLine()
   if (winwidth(0)) < 60
     return '-41.((%l/%L)'
-  endif 
+  endif
 
   return '-14.((%l,%c%V/%L)'
 endfunction
@@ -259,7 +259,7 @@ function! FilePropertiesStatusLine()
 
     return '%y%w%h%m%r'
   endif
-  
+
   return '%y%w%h%m%r'
 endfunction
 
@@ -267,12 +267,12 @@ function! CurrentFileNameStatusLine()
   if (winwidth(0)) < 40
     return '%t'
   endif
-  
+
   return '%f'
 endfunction
 
 function! BuildStatusLine()
-  return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitGutterStatusline()}%{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
+  return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
 endfunction
 
 " Search down into subfolders
@@ -864,12 +864,26 @@ let g:EditorConfig_core_mode = 'external_command'
 
 let g:gitgutter_diff_base = 'HEAD'
 
-command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
-cabbr Gb Gbase
-
-function! GitHashCompleteCustom(arg, cmd, cursor)
-  let l:hashes = system('git log --date=iso --pretty=format:"%h \"%s"')
+function! GitHashCompleteCustom(arg, cmd, cursor) abort
+  let l:hashes = system('git log --date=iso --pretty=format:"%h \"%s" -10')
   return substitute(l:hashes, "\^[0-9a-z]\\+", 'HEAD', '')
+endfunction
+
+function! GitBranchCompleteCustom(arg, cmd, cursor) abort
+  return system('git branch | cut -c 3-')
+endfunction
+
+function! GitHeadsCompleteCustom(arg, cmd, cursor) abort
+  let l:i = 0
+  let l:result = ''
+
+  while l:i <= 10
+    let l:i += 1
+    let l:result .= 'HEAD~' . l:i . "\n"
+  endwhile
+
+  echom l:result
+  return l:result
 endfunction
 
 function! SetGitGutterBase(...) abort
@@ -885,19 +899,33 @@ function! GitGutterStatusline() abort
   return ''
 endfunction
 
+function! GitSwitchBranch(...) abort
+  if a:0
+    exe 'Git co ' . a:1
+    echo "Checkout branch " . a:1
+  endif
+endfunction
+
+function! GitDiffRevision(...) abort
+  exe 'Gdiff ' . (a:0 ? a:1 : '')
+endfunction
+
+command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
+command! -complete=custom,GitBranchCompleteCustom -nargs=? GswitchBranch call GitSwitchBranch(<f-args>)
+command! -complete=custom,GitHeadsCompleteCustom -nargs=? GdiffRevision call GitDiffRevision(<f-args>)
+
+cabbr Gb Gbase
+
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>gc :Gcommit -v -q<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gps :Dispatch! git push<cr>
 nnoremap <leader>gpl :Dispatch! git pull<cr>
-" TODO do it do autocompletation of hash?
-nnoremap <leader>gd :Gdiff<space>
-nnoremap <leader>gl :Glog --<space>
-" TODO do it do autocompletation of hash?
-nnoremap <leader>go :Git co<space>
-" TODO do it do autocompletation of branch?
-nnoremap <leader>gb :Git br<space>
+nnoremap <leader>gd :GdiffRevision<space>
+nnoremap <leader>gl :Glog -- %<space>
+nnoremap <leader>go :GswitchBranch<space>
+" nnoremap <leader>gb :Git br<space>
 
 " ================================================
 " Session
