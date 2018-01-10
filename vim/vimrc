@@ -907,7 +907,7 @@ function! GitSwitchBranch(...) abort
 endfunction
 
 function! GitDiffRevision(...) abort
-  exe 'Gdiff ' . (a:0 ? a:1 : '')
+  exe 'Gdiff ' . (a:0 ? a:1 : 'HEAD~1')
 endfunction
 
 command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
