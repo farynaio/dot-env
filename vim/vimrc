@@ -153,7 +153,7 @@ set softtabstop=2 " test
 set shiftwidth=2
 set expandtab
 set cursorline
-" set viminfofile=NONE
+set updatetime=250
 
 " copy to system clipboard
 if has("clipboard")
@@ -226,10 +226,54 @@ if v:version >= 703 && has("patch541")
 endif "
 
 function! PwdStatusLine()
+  if winwidth(0) < 60
+    return ''
+  endif
+
   let l:cwdTokens = split(getcwd(), '/')
   let l:cwdLastToken = l:cwdTokens[len(l:cwdTokens) - 1]
-  return '[PWD: ' . l:cwdLastToken . ']'
+  return '[/' . l:cwdLastToken . ']'
 endfunction!
+
+function! GitStatusLine()
+  if (winwidth(0)) > 80
+    return fugitive#statusline()
+  endif
+
+  return ''
+endfunction
+
+function! CursorPositionStatusLine()
+  if (winwidth(0)) < 60
+    return '-41.((%l/%L)'
+  endif 
+
+  return '-14.((%l,%c%V/%L)'
+endfunction
+
+function! FilePropertiesStatusLine()
+  if (winwidth(0)) < 60
+    if &ft == 'netrw'
+      return '%w%h'
+    endif
+
+    return '%y%w%h%m%r'
+  endif
+  
+  return '%y%w%h%m%r'
+endfunction
+
+function! CurrentFileNameStatusLine()
+  if (winwidth(0)) < 40
+    return '%t'
+  endif
+  
+  return '%f'
+endfunction
+
+function! BuildStatusLine()
+  return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitGutterStatusline()}%{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
+endfunction
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
@@ -488,6 +532,7 @@ if v:version >= 800
   let g:ale_pattern_options_enabled = 1
   let g:linterIgnoredSuffixes = ['\.min\.js$', '\.min\.css$', '\.vim$']
   let g:ale_pattern_options = {}
+  " TODO remove messages polution
 
   for item in g:linterIgnoredSuffixes
     let g:ale_pattern_options[item] = {'ale_linters': [], 'ale_fixers': []}
@@ -531,6 +576,10 @@ function! SetupLinters() abort
 endfunction
 
 function! LinterStatusLine() abort
+  if winwidth(0) < 100
+    return ''
+  endif
+
   if exists('g:loaded_ale') && ThisFileLintingSupported()
     let l:message = '[Linter: '
 
@@ -813,17 +862,28 @@ let g:EditorConfig_core_mode = 'external_command'
 " Git
 " ================================================
 
-set updatetime=250
+let g:gitgutter_diff_base = 'HEAD'
 
-" TODO fix to autocomplete commit hash
-" command! -nargs=? Gbase call SetGitGutterBase(<f-args>)
-" command! -nargs=? GbaseHead call SetGitGutterBase(<f-args>)
+command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
+cabbr Gb Gbase
 
-" function! SetGitGutterBase(...) abort
-"   let g:gitgutter_diff_base = a:0 == 0 ? '' : a:1
-"   echo 'g:gitgutter_diff_base: ' . g:gitgutter_diff_base
-"   GitGutter
-" endfunction
+function! GitHashCompleteCustom(arg, cmd, cursor)
+  let l:hashes = system('git log --date=iso --pretty=format:"%h \"%s"')
+  return substitute(l:hashes, "\^[0-9a-z]\\+", 'HEAD', '')
+endfunction
+
+function! SetGitGutterBase(...) abort
+  let g:gitgutter_diff_base = a:0 ? split(a:1)[0] : 'HEAD'
+  echo 'New git base set: ' . g:gitgutter_diff_base
+endfunction
+
+function! GitGutterStatusline() abort
+  if exists('b:git_dir') " fugitive dependency
+    return '[GG(' . g:gitgutter_diff_base . ')]'
+  endif
+
+  return ''
+endfunction
 
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>ge :Gedit<cr>
@@ -1157,4 +1217,4 @@ nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
 
-set statusline=%<%f\ %{PwdStatusLine()}\ %y%w%h%m%r\ %(%{fugitive#statusline()}\ %)%(%{SpellStatusLine()}\ %)%(%{LinterStatusLine()}\ %)%=%-14.(%l,%c%V%)\ %P
+set statusline=%!BuildStatusLine()
