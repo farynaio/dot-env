@@ -215,7 +215,7 @@ set iskeyword-=!-~
 let g:ack_use_dispatch = 1
 let g:ackhighlight = 1
 " let g:ack_autoclose = 1
-let g:ack_autofold_results = 1
+" let g:ack_autofold_results = 1
 
 function! SpellStatusLine()
   return &spell ? '[Spell]' : ''
@@ -1065,30 +1065,29 @@ function! FuzzSearchVisual() abort
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! SearchAndReplace() abort
-  let l:phrase = input('What text to replace? ')
+function! SearchAndReplace(phrase) abort
+  let l:phrase = input('What text to replace? ', a:phrase)
   if empty(l:phrase)
     return
   endif
 
-  let l:replacement = input('What text for replacement? ')
+  let l:replacement = input('What text for replacement? ', l:phrase)
   if empty(l:replacement)
     return
   endif
 
-  let g:ack_use_dispatch_back = g:ack_use_dispatch
-  let g:ack_use_dispatch = 0
   call FuzzSearchForPhrase(l:phrase)
-  let g:ack_use_dispatch = g:ack_use_dispatch_back
 
-  winc w
-  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/" | w
+  set hidden
+  set autosave
+  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
+  set nohidden
+  set noautosave
 endfunction
 
-" TODO auto completion with empty string or <cword>
-command! SearchAndReplace :call SearchAndReplace()
+command! SearchAndReplace :call SearchAndReplace(expand("<cword>"))
 
-nnoremap <leader>d :SearchAndReplace<cr>
+nnoremap <leader>d :SearchAndReplace
 
 " ================================================
 " Tags
