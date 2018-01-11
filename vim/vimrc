@@ -1057,29 +1057,30 @@ function! FuzzSearchVisual() abort
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! SearchAndReplace(phrase) abort
-  let l:phrase = input('What text to replace? ', a:phrase)
+function! SearchAndReplace() abort
+  let l:phrase = input('What text to replace? ')
   if empty(l:phrase)
     return
   endif
 
-  let l:replacement = input('What text for replacement? ', l:phrase)
+  let l:replacement = input('What text for replacement? ')
   if empty(l:replacement)
     return
   endif
 
+  let g:ack_use_dispatch_back = g:ack_use_dispatch
+  let g:ack_use_dispatch = 0
   call FuzzSearchForPhrase(l:phrase)
+  let g:ack_use_dispatch = g:ack_use_dispatch_back
 
-  set hidden
-  set autosave
-  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
-  set nohidden
-  set noautosave
+  winc w
+  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/" | w
 endfunction
 
-command! SearchAndReplace :call SearchAndReplace(expand("<cword>"))
+" TODO auto completion with empty string or <cword>
+command! SearchAndReplace :call SearchAndReplace()
 
-nnoremap <leader>d :SearchAndReplace
+nnoremap <leader>d :SearchAndReplace<cr>
 
 " ================================================
 " Tags
