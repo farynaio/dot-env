@@ -919,7 +919,8 @@ cabbr Gb Gbase
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>gc :Gcommit -v -q<cr>
-nnoremap <leader>gw :Gwrite<cr>
+" nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>ga  :exe ":Dispatch! git add " . expand('%:p')<cr>
 nnoremap <leader>gps :Dispatch! git push<cr>
 nnoremap <leader>gpl :Dispatch! git pull<cr>
 nnoremap <leader>gd :GdiffRevision<space>
@@ -1141,6 +1142,8 @@ let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
 let g:ctrlp_extensions = ['buffertag', 'tag', 'mixed', 'bookmarkdir']
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:5'
 let g:ctrlp_map = '<leader>p'
+" let ctrlp_custom_ignore
+let g:ctrlp_show_hidden = 0
 
 " nnoremap <leader>p :CtrlP<cr>
 nnoremap <leader>t :CtrlPTag<cr>
