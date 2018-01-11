@@ -903,7 +903,7 @@ function! GitGutterStatusline() abort
   return ''
 endfunction
 
-function! GitSwitchBranch(...) abort
+function! GitBranchSwitch(...) abort
   if a:0
     exe 'Git co ' . a:1
     echo "Checkout branch " . a:1
@@ -946,7 +946,7 @@ command! GstashSave call GitStashSave()
 command! GstashPop call GitStashPop()
 command! -complete=custom,GitStashCompleteCustom -nargs=? GstashDiff call GitStashDiff(<f-args>)
 command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
-command! -complete=custom,GitBranchCompleteCustom -nargs=? GswitchBranch call GitSwitchBranch(<f-args>)
+command! -complete=custom,GitBranchCompleteCustom -nargs=? GbranchSwitch call GitBranchSwitch(<f-args>)
 command! -complete=custom,GitHeadsCompleteCustom -nargs=? GdiffRevision call GitDiffRevision(<f-args>)
 command! -complete=custom,GitBranchCompleteCustom -nargs=? Grebase call GitRebase(<f-args>)
 
@@ -957,19 +957,16 @@ nnoremap <leader>ga :GaddCurrentFile<cr>
 nnoremap <leader>gc :Gcommit -v -q<cr>
 nnoremap <leader>gps :Dispatch git push<cr>
 nnoremap <leader>gpl :Dispatch git pull<cr>
-" nnoremap <leader>gpl :Gpull<cr>
 nnoremap <leader>gd :GdiffRevision<space>
 " nnoremap <leader>gl :Glog -- %<space>
 nnoremap <leader>gl :Dispatch! git lg<cr>
-nnoremap <leader>go :GswitchBranch<space>
+nnoremap <leader>go :GbranchSwitch<space>
 nnoremap <leader>gg :Dispatch git<space>
 nnoremap <leader>gm :Gmerge<space>
 nnoremap <leader>gr :Grebase<space>
 nnoremap <leader>gsd :GstashDiff<space>
 nnoremap <leader>gss :GstashSave<cr>
 nnoremap <leader>gsp :GstashPop<cr>
-
-" nnoremap <leader>gb :Git br<space>
 
 " ================================================
 " Session
