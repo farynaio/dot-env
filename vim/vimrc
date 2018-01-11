@@ -206,7 +206,7 @@ set wildignore+=**/project.vim,**/Session.vim
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
-set timeoutlen=1000 ttimeoutlen=0 " remove `O` and `o` Delay
+set timeoutlen=600 ttimeoutlen=0 " remove `O` and `o` Delay
 set nopaste
 set visualbell
 set noerrorbells
@@ -869,6 +869,10 @@ function! GitHashCompleteCustom(arg, cmd, cursor) abort
   return substitute(l:hashes, "\^[0-9a-z]\\+", 'HEAD', '')
 endfunction
 
+function! GitStashCompleteCustom(arg, cmd, cursor) abort
+  return system('git stash list --format="%gd \" %gs"')
+endfunction
+
 function! GitBranchCompleteCustom(arg, cmd, cursor) abort
   return system('git branch | cut -c 3-')
 endfunction
@@ -907,23 +911,50 @@ function! GitSwitchBranch(...) abort
 endfunction
 
 function! GitDiffRevision(...) abort
+  exe 'Gdiff ' . (a:0 ? a:1 : 'HEAD~1')
+endfunction
+
+function! GitRebase(...) abort
   if a:0
-    exe 'Gdiff ' . (a:0 ? a:1 : '')
-  else
-    Gdiff
+    exe 'Dispatch git rebase ' . a:1
+    echo 'Rebasing on ' . a:1
   endif
 endfunction
 
+function! GitStashSave() abort
+  exe 'Dispatch! git stash'
+  echo 'Stash saved.'
+endfunction
+
+function! GitStashPop() abort
+  exe 'Dispatch git stash pop'
+  echo 'Stash popped.'
+endfunction
+
+function! GitStashDiff(...) abort
+  let l:stash = (a:0 ? split(a:1)[0] : 'stash@{0}')
+  exe 'Dispatch! git stash show -p ' . l:stash
+  echo 'Show stash ' . l:stash . '.'
+endfunction
+
+function! GitAddCurrentFile(...) abort
+  exe 'Dispatch! git add ' . expand('%:p')
+endfunction
+
+command! GaddCurrentFile call GitAddCurrentFile()
+command! GstashSave call GitStashSave()
+command! GstashPop call GitStashPop()
+command! -complete=custom,GitStashCompleteCustom -nargs=? GstashDiff call GitStashDiff(<f-args>)
 command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
 command! -complete=custom,GitBranchCompleteCustom -nargs=? GswitchBranch call GitSwitchBranch(<f-args>)
 command! -complete=custom,GitHeadsCompleteCustom -nargs=? GdiffRevision call GitDiffRevision(<f-args>)
+command! -complete=custom,GitBranchCompleteCustom -nargs=? Grebase call GitRebase(<f-args>)
 
 cabbr Gb Gbase
 
 nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>ge :Gedit<cr>
+nnoremap <leader>ga :GaddCurrentFile<cr>
 nnoremap <leader>gc :Gcommit -v -q<cr>
-" nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gps :Dispatch git push<cr>
 nnoremap <leader>gpl :Dispatch git pull<cr>
 " nnoremap <leader>gpl :Gpull<cr>
@@ -931,8 +962,13 @@ nnoremap <leader>gd :GdiffRevision<space>
 " nnoremap <leader>gl :Glog -- %<space>
 nnoremap <leader>gl :Dispatch! git lg<cr>
 nnoremap <leader>go :GswitchBranch<space>
-" nnoremap <leader>gg :Dispatch git<space>
+nnoremap <leader>gg :Dispatch git<space>
 nnoremap <leader>gm :Gmerge<space>
+nnoremap <leader>gr :Grebase<space>
+nnoremap <leader>gsd :GstashDiff<space>
+nnoremap <leader>gss :GstashSave<cr>
+nnoremap <leader>gsp :GstashPop<cr>
+
 " nnoremap <leader>gb :Git br<space>
 
 " ================================================
@@ -1036,9 +1072,6 @@ command! InitReactNativeProject :call InitReactNativeProject()
 
 nnoremap <leader>f :call FuzzSearchCursor()<cr>
 vnoremap <leader>f :call FuzzSearchVisual()<cr>
-
-" Call Ack as Ack! (not open preview automaticaly)
-" cnoreabbrev Ack Ack!
 
 function! FuzzSearchCursor() abort
   let l:phrase = inputdialog('What pattern? ')
