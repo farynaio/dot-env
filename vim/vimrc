@@ -907,7 +907,11 @@ function! GitSwitchBranch(...) abort
 endfunction
 
 function! GitDiffRevision(...) abort
-  exe 'Gdiff ' . (a:0 ? a:1 : 'HEAD~1')
+  if a:0
+    exe 'Gdiff ' . (a:0 ? a:1 : '')
+  else
+    Gdiff
+  endif
 endfunction
 
 command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutterBase(<f-args>)
@@ -920,12 +924,15 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>gc :Gcommit -v -q<cr>
 " nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga  :exe ":Dispatch! git add " . expand('%:p')<cr>
-nnoremap <leader>gps :Dispatch! git push<cr>
-nnoremap <leader>gpl :Dispatch! git pull<cr>
+nnoremap <leader>gps :Dispatch git push<cr>
+nnoremap <leader>gpl :Dispatch git pull<cr>
+" nnoremap <leader>gpl :Gpull<cr>
 nnoremap <leader>gd :GdiffRevision<space>
-nnoremap <leader>gl :Glog -- %<space>
+" nnoremap <leader>gl :Glog -- %<space>
+nnoremap <leader>gl :Dispatch! git lg<cr>
 nnoremap <leader>go :GswitchBranch<space>
+" nnoremap <leader>gg :Dispatch git<space>
+nnoremap <leader>gm :Gmerge<space>
 " nnoremap <leader>gb :Git br<space>
 
 " ================================================

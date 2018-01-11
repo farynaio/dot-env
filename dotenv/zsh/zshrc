@@ -15,6 +15,9 @@ source $ZSH_DOT/utils.sh
 # source $ZSH_DOT/mandatory_aliases.sh
 # source $ZSH_DOT/explicit_aliases.sh
 
+# completions
+# source $DOTENV/completion/tmuxinator.zsh
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -78,9 +81,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=4"
 # don't share commands history between sessions
 unsetopt share_history
 # export MANPATH="/usr/local/man:$MANPATH"
-
-# completions
-# source $DOTENV/completion/tmuxinator.zsh
 
 # Print current directory content after every pwd change
 # add-zsh-hook -Uz chpwd (){ ls; }
