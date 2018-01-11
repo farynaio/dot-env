@@ -1041,7 +1041,12 @@ vnoremap <leader>f :call FuzzSearchVisual()<cr>
 " cnoreabbrev Ack Ack!
 
 function! FuzzSearchCursor() abort
-  let l:phrase = input('What pattern? ')
+  let l:phrase = inputdialog('What pattern? ')
+
+  if empty(l:phrase)
+    return
+  endif
+
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
@@ -1066,12 +1071,12 @@ function! FuzzSearchVisual() abort
 endfunction
 
 function! SearchAndReplace(phrase) abort
-  let l:phrase = input('What text to replace? ', a:phrase)
+  let l:phrase = inputdialog('What text to replace? ', a:phrase)
   if empty(l:phrase)
     return
   endif
 
-  let l:replacement = input('What text for replacement? ', l:phrase)
+  let l:replacement = inputdialog('What text for replacement? ', l:phrase)
   if empty(l:replacement)
     return
   endif
