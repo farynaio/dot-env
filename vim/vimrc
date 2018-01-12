@@ -726,6 +726,8 @@ function! OnEnterWin() abort
     for key_map in items(l:qf_mappings)
       execute printf("nnoremap <buffer> <silent> %s %s", get(key_map, 0), get(key_map, 1))
     endfor
+
+    nnoremap <buffer> dd :call QfRemoveAllMatchingFilesFromTheList()<cr>
   endif
 endfunction
 
@@ -764,6 +766,36 @@ function! SetTabNameToCurrentBuffer() abort
   if !empty(l:currentBufferName)
     exe ':TabooRename ' . l:currentBufferName
   endif
+endfunction
+
+" function! QfRecordRemove() abort
+"   let l:currentList = getqflist()
+"   let l:currentLineNumber = line('.')
+"   let l:currentLineText = l:currentList[l:currentLineNumber - 1].text
+
+"   unlet l:currentList[l:currentLineNumber - 1]
+"   call setqflist(l:currentList, 'r')
+
+"   echo "Removed line '" . l:currentLineText . "' from Quickfix list."
+" endfunction
+
+function! QfRemoveAllMatchingFilesFromTheList() abort
+  let l:currentList = getqflist()
+  let l:currentLineNumber = line('.')
+  let l:currentLine = l:currentList[l:currentLineNumber - 1]
+
+  let l:i = 0
+  for elem in l:currentList
+    if elem.bufnr == l:currentLine.bufnr
+      call remove(l:currentList, l:i)
+    else
+      let l:i += 1
+    endif
+  endfor
+
+  call setqflist(l:currentList, 'r')
+
+  echo "Removed all lines with buffer '" . l:currentLine.bufnr . "' from Quickfix list."
 endfunction
 
 " ================================================
@@ -1100,18 +1132,18 @@ function! FuzzSearchVisual() abort
   call FuzzSearchForPhrase(l:phrase)
 endfunction
 
-function! SearchAndReplace(phrase) abort
-  let l:phrase = inputdialog('What text to replace? ', a:phrase)
+function! ReplaceQfFiles() abort
+  let l:phrase = inputdialog('What text to replace? ')
   if empty(l:phrase)
     return
   endif
 
-  let l:replacement = inputdialog('What text for replacement? ', l:phrase)
+  let l:replacement = inputdialog('What text for replacement? ')
   if empty(l:replacement)
     return
   endif
 
-  call FuzzSearchForPhrase(l:phrase)
+  " call FuzzSearchForPhrase(l:phrase)
 
   set hidden
   set autosave
@@ -1120,9 +1152,8 @@ function! SearchAndReplace(phrase) abort
   set noautosave
 endfunction
 
-command! SearchAndReplace :call SearchAndReplace(expand("<cword>"))
-
-nnoremap <leader>d :SearchAndReplace
+command! ReplaceQfFiles :call ReplaceQfFiles()
+nnoremap <leader>d :ReplaceQfFiles<cr>
 
 " ================================================
 " Tags
