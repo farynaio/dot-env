@@ -45,7 +45,7 @@ let b:jsx_ext_found = 1
 " Linting and formatting
 " ================================================
 
-if g:loaded_ale && v:version >= 800 && ThisFileLintingSupported()
+if exists('g:loaded_ale') && g:loaded_ale && v:version >= 800 && ThisFileLintingSupported()
   let g:ale_linter_aliases[&ft] = 'javascript'
 
   if executable('eslint')

@@ -566,7 +566,7 @@ function! ThisFileLintingSupported() abort
 endfunction
 
 function! SetupLinters() abort
-  if g:loaded_ale && v:version >= 800
+  if exists('g:loaded_ale') && g:loaded_ale && v:version >= 800
     let g:ale_linters = {}
     let g:ale_fixers = {}
     let g:ale_linter_aliases = {}
