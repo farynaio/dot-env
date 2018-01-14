@@ -1099,17 +1099,19 @@ command! InitReactNativeProject :call InitReactNativeProject()
 " Fuzz Search - find any phrase in all files
 " ================================================
 
-nnoremap <leader>f :call FuzzSearchCursor()<cr>
+function! PhraseCompleteCustom(arg, cmd, cursor) abort
+  return expand('<cword>')
+endfunction
+
+command! -complete=custom,PhraseCompleteCustom -nargs=? FuzzSearchCursor call FuzzSearchCursor(<f-args>)
+
 vnoremap <leader>f :call FuzzSearchVisual()<cr>
+nnoremap <leader>f :FuzzSearchCursor<space>
 
-function! FuzzSearchCursor() abort
-  let l:phrase = inputdialog('What pattern? ')
-
-  if empty(l:phrase)
-    return
+function! FuzzSearchCursor(...) abort
+  if a:0
+    call FuzzSearchForPhrase(a:1)
   endif
-
-  call FuzzSearchForPhrase(l:phrase)
 endfunction
 
 function! FuzzSearchForPhrase(phrase) abort
