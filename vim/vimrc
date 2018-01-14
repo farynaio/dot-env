@@ -217,7 +217,7 @@ let g:ackhighlight = 1
 " let g:ack_autoclose = 1
 " let g:ack_autofold_results = 1
 
-function! SpellStatusLine()
+function! SpellStatusLine() abort
   return &spell ? '[Spell]' : ''
 endfunction
 
@@ -225,7 +225,7 @@ if v:version >= 703 && has("patch541")
   set formatoptions+=j " Delete comment character when joining commented lines
 endif "
 
-function! PwdStatusLine()
+function! PwdStatusLine() abort
   if winwidth(0) < 60
     return ''
   endif
@@ -235,7 +235,7 @@ function! PwdStatusLine()
   return '[/' . l:cwdLastToken . ']'
 endfunction!
 
-function! GitStatusLine()
+function! GitStatusLine() abort
   if (winwidth(0)) > 80
     return fugitive#statusline()
   endif
@@ -243,7 +243,7 @@ function! GitStatusLine()
   return ''
 endfunction
 
-function! CursorPositionStatusLine()
+function! CursorPositionStatusLine() abort
   if (winwidth(0)) < 60
     return '-41.((%l/%L)'
   endif
@@ -251,7 +251,7 @@ function! CursorPositionStatusLine()
   return '-14.((%l,%c%V/%L)'
 endfunction
 
-function! FilePropertiesStatusLine()
+function! FilePropertiesStatusLine() abort
   if (winwidth(0)) < 60
     if &ft == 'netrw'
       return '%w%h'
@@ -263,7 +263,7 @@ function! FilePropertiesStatusLine()
   return '%y%w%h%m%r'
 endfunction
 
-function! CurrentFileNameStatusLine()
+function! CurrentFileNameStatusLine() abort
   if (winwidth(0)) < 40
     return '%t'
   endif
@@ -271,7 +271,7 @@ function! CurrentFileNameStatusLine()
   return '%f'
 endfunction
 
-function! BuildStatusLine()
+function! BuildStatusLine() abort
   return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
 endfunction
 
@@ -283,7 +283,7 @@ set path+=**
 
 highlight OverLength ctermfg=white guibg=#592929
 
-function! AfterInit()
+function! AfterInit() abort
   if has('autocmd')
     augroup General_Autocmd
       autocmd!
@@ -424,7 +424,7 @@ noremap <c-_><c-_> :Commentary<cr>
 noremap <c-w>n :vnew<cr>
 noremap <leader>s :call ToggleSpelling()<cr>
 
-function! ToggleSpelling()
+function! ToggleSpelling() abort
   let &spell = !&spell
   echo 'Spelling in ' . &spelllang . ' is ' . (&spell ?  'on' : 'off') . '.'
 endfunction
@@ -767,17 +767,6 @@ function! SetTabNameToCurrentBuffer() abort
     exe ':TabooRename ' . l:currentBufferName
   endif
 endfunction
-
-" function! QfRecordRemove() abort
-"   let l:currentList = getqflist()
-"   let l:currentLineNumber = line('.')
-"   let l:currentLineText = l:currentList[l:currentLineNumber - 1].text
-
-"   unlet l:currentList[l:currentLineNumber - 1]
-"   call setqflist(l:currentList, 'r')
-
-"   echo "Removed line '" . l:currentLineText . "' from Quickfix list."
-" endfunction
 
 function! QfRemoveAllMatchingFilesFromTheList() abort
   let l:currentList = getqflist()
@@ -1181,7 +1170,7 @@ command! Ctags call GenerateCtags()
 nnoremap <C-w><C-]> :vsp <cr>:exec("tag " . expand("<cword>"))<cr>
 
 " Override native commands
-function! CommandCabbr(abbreviation, expansion)
+function! CommandCabbr(abbreviation, expansion) abort
   exe 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
 endfunction
 
