@@ -406,7 +406,7 @@ endfunction
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor() abort
 	if IsBufferDevel() && mode() == 'n'
-    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]' && !empty(expand('<cword>'))
+    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]' && !empty(expand('<cword>')) && len(expand('<cword>')) >= 3
       exe 'match' 'Search' '/\v' . expand('<cword>') . '/'
     else
       match none
