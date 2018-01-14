@@ -328,9 +328,9 @@ if has('autocmd')
     autocmd VimEnter * call SetupTabEnv()
     autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
     autocmd VimEnter * call RestoreProject()
-    autocmd VimEnter * call RestoreSession()
+    " autocmd VimEnter * call RestoreSession()
     autocmd VimEnter * call DevelSetupEnv()
-    autocmd VimLeave * call SaveSession()
+    " autocmd VimLeave * call SaveSession()
   augroup END
 endif
 
