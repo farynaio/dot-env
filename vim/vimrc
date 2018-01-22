@@ -326,6 +326,18 @@ if has('autocmd')
     " Write variable s:std_in if arguments for VIM was passed
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * call AfterInit()
+    autocmd BufNewFile,BufRead *.es6.js setf es6
+    autocmd BufNewFile,BufRead *.tsx.js setf tsx
+    autocmd BufNewFile,BufRead *.scss,*.sass setf css
+    autocmd BufNewFile,BufRead *rc setf json
+    autocmd BufNewFile,BufRead * call SetupDevelBuffer()
+    autocmd BufEnter * call VimDiffSetupEnv()
+    autocmd BufEnter * call SetTabNameToCurrentBuffer()
+    autocmd BufEnter * call ApplyTemplate()
+    autocmd FileType netrw call SetupNetrwEnv()
+    autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
+    autocmd InsertEnter * match none
+    autocmd TabNew * call SetupTabEnv()
     autocmd VimEnter * call SetupTabEnv()
     autocmd VimEnter * call StartVimInNetrwModeIfNoFilePassed()
     autocmd VimEnter * call RestoreProject()
@@ -376,6 +388,13 @@ function! SetupBufferLeave() abort
   setl nocursorline
   setl colorcolumn=""
   match none
+endfunction
+
+function! SetupDevelBuffer() abort
+  if IsBufferDevel()
+    " match OverLength /\%100v.\+/
+    set colorcolumn=127
+  endif
 endfunction
 
 function! DevelSetupEnv() abort
