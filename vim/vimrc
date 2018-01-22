@@ -32,6 +32,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'vim-scripts/PreserveNoEOL' " don't show final empty line at the end of the buffer
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
+Plug 'machakann/vim-highlightedyank'
 " Plug 'Shougo/denite.nvim' " TODO check ctrlp alternative (requires Python3)
 " Plug 'skywind3000/asyncrun.vim' " run any shell command async and populate QF list
 " Plug 'tpope/vim-unimpaired' " TODO cherry pick it
@@ -483,6 +484,14 @@ nnoremap <C-h> :help <cword><cr>
 nnoremap <leader>v V`]`
 
 let &gp='grep -n -R $* /dev/null'
+
+if has('nvim')
+  set inccommand=split
+else
+  if exists('*highlightedyank#autocmd_highlight')
+    noremap y <Plug>(highlightedyank)
+  endif
+endif
 
 " ================================================
 " HTML
