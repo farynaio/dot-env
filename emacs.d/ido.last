@@ -1,0 +1,71 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/devil/App Data/" . "dict/")
+ ("/Users/devil/" . "App Data/")
+ ("/Volumes/" . "RAM_Disk/")
+ ("/" . "System/")
+ ("/Users/devil/Development/learn/react/" . "reactGo/")
+ ("/Users/devil/Development/" . "learn/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/devil/Dropbox/devel/orgs/"
+ "/Users/devil/Dropbox/devel/"
+ "/Users/devil/"
+ "/"
+ "/Users/devil/App Data/dict/"
+ "/Volumes/RAM_Disk/"
+ "/Users/devil/Development/learn/react/reactGo/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "ecommerce.org"
+ "ecommerce.org_archive"
+ "LICENSE"
+ ".DS_Store"
+ "pl_huge.dic"
+ "framemove.el"
+ "20180105052805_00005 (1).pdf"
+ "Changelog.md"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/devil/Dropbox/devel/orgs/" (23150 17380 0 0) "ecommerce.org_archive" "ecommerce.org" "../" "./")
+
+ ("/Users/devil/" (23150 16465 0 0) "yankring_history_v2.txt" "VM_share/" "VirtualBox Share/" "UMLet/" "tags" "skrypt.sh" "Sites/" "scripts/" "result" "Public/" "Pictures/" "News/" "Nauka/" "Music/" "Movies/" "mbox" "Marketing/" "Library/" "keystore.ks" "inne/" "iBackupBot" "howto/" "Google Drive/" "git.crt" "funy/" "Dropbox/" "Downloads/" "Documents/" "Development/" "Desktop/" "D2150221.txt" "Creative Cloud Files/" "BnetLog.txt" "bin/" "Biblioteka calibre/" "bazka.kdb" "Backups/" "Applications/" "App Data/" ".zshrc.org" ".zshrc" ".zsh_history" ".zcompdump-Adam’s MacBook Air-5.4.1" ".z" ".yo-rc-global.json" ".yarnrc" ".Xauthority" ".webpack-dashboard-cache.db-wal" ".webpack-dashboard-cache.db-shm" ".webpack-dashboard-cache.db" ".vscode/" ".virtualenvs/" ".vimrc" ".vimprojects" ".viminfo" ".vim/" ".vagrant.d/" ".v8flags.6.1.534.42.devil.json" ".v8flags.6.1.534.42.d81e8213797f23651cf57e59b4bd8da0.json" ".v8flags.6.0.287.53.d81e8213797f23651cf57e59b4bd8da0.json" ".v8flags.6.0.286.52.devil.json" ".v8flags.5.4.500.48.devil.json" ".v8flags.5.0.71.57.devil.json" ".v8flags.4.6.85.28.devil.json" ".v8flags.4.5.103.37.devil.json" ".v8flags.3.28.73.devil.json" ".Trash/" ".tmux.conf" ".tmux/" ".swp" ".subversion/" ".sublime/" ".ssh/" ".squirrel-sql/" ".sqlite_history" ".sqldeveloper/" ".ScreamingFrogSEOSpider/" ".ruby-version" ".rnd" ".rbenv/" ".Rapp.history" ".python_history" ".putty/" ".pm2/" ".plugman/" ".pencil/" ".pearrc" ".p2/" ".oracle_jre_usage/" ".oh-my-zsh/" ".npmrc" ".npm-packages/" ".npm/" ".node_repl_history" ".node-gyp/" ".newsrc-dribble" ".netrc" ".NERDTreeBookmarks" ".mysql_history" ".mplayer/" ".mongorc.js" ".m2/" ".local/" ".lldb/" ".links/" ".lesshst" ".keepassx/" ".kdb" ".karaf/" ".jspm/" ".jrebel/" ".jenkins/" ".jalopy.15/" ".itmstransporter/" ".ionic/" ".IntelliJIdea15/" ".ideaquicknotes/" ".hgignore_global" ".heroku/" ".gtk-bookmarks" ".gsutil/" ".gradle/" ".gnupg/" ".gitignore_global" ".gitconfig" ".git-commit-message" ".gfclient/" ".Genymobile/" ".gem/" ".gapdebug/" ".fontconfig/" ".flow-typed/" ".filezilla/" ".expo/" ".emulator_console_auth_token" ".embedmongo/" ".emacs~" ".emacs.d/" ".electron/" ".editorconfig" ".eclipse_keyring" ".eclipse/" ".dvdcss/" ".DS_Store" ".dropbox/" ".dotenv/" ".docker/" ".dir" ".dia-etc/" ".deliverycenter.system" ".deliverycenter.installs" ".dbshell" ".cups/" ".ctags.old.old" ".ctags.old" ".ctags" ".cscope.vim/" ".crossftp/" ".cordova/" ".config/" ".composer/" ".code-push.config" ".cn1/" ".clang-format" ".CFUserTextEncoding" ".cache/" ".bundle/" ".bower/" ".boto" ".bash_profile.backup" ".bash_profile" ".bash_history" ".babel.json" ".aws/" ".astah/" ".asadminpass" ".appcfg_oauth2_tokens_java" ".AndroidStudio2.0/" ".AndroidStudio1.2/" ".android/" ".amaya-devil" ".amaya-check-instance" ".ackrc" ".3T/" "#.boto#" "../" "./")
+
+ ("/Users/devil/Dropbox/" (23058 62886 0 0) "SimpleMind/" "Saves/" "Read Later/" "Public/" "private/" "Photos/" "music/" "Icon
+" "film/" "devel/" "Camera Uploads/" ".DS_Store" ".dropbox.cache/" ".dropbox" "../" "./")
+
+ ("/Users/devil/Dropbox/devel/" (23150 15616 0 0) "vim/" "tmuxinator/" "scripts/" "orgs/" "npmrc" "LICENSE" "iterm2/" "gitignore_global" "gitconfig" "emacs.d/" "editorconfig" "dotenv/" "ctags" "config/" ".gitignore" ".git/" ".DS_Store" "../" "./")
+
+ ("/System/" (21618 34555 0 0) "Library/" ".localized" "../" "./")
+
+ ("/Users/devil/App Data/dict/" (21023 54168 0 0) "pl_huge.zip" "pl_huge.txt" "pl_huge.dic" "../" "./")
+
+ ("/Users/devil/App Data/" (21230 23845 0 0) "dict/" ".DS_Store" "../" "./")
+
+ ("/Volumes/RAM_Disk/" (23150 14370 0 0) "zoo/" "tube-train-underground-map.pdf" "trash/" "to sign/" "to print/" "timesheets/" "test/" "temp/" "Subtle Art of Not Giving a Fuck, The - Mark Manson.mobi" "SA106-2017.pdf" "react-redux-universal-hot-example/" "profile_photo_big.jpg" "profile_photo.jpg" "pro_javascript_design_patterns.pdf" "pp/" "pom/" "Please_DocuSign_AIG_Limited_Company_Contract_final.pdf" "PaySlip.pdf" "paszport.jpg" "output.csv" "Node JS Developer 3100.doc" "lloyds/" "learning_javascript_design_patterns.pdf" "large-example.csv" "jest_react_redux_node_webpack_complex_example/" "invoice_template-rev_1.doc" "Incorporation_Code_wide.pdf" "fw8ben.pdf" "framemove.el" "Firefox 58.0.dmg" "example.csv" "ebooks/" "dyplom/" "devel/" "ddd/" "cutty sark gym/" "crunch-business-guides-freelance-photography.pdf" "crunch guides/" "cover_letter.pdf" "cover_letter.odt" "chomik/" "Caches/" "BUSINESS_PLAN_2015.pdf" "business plan/" "applied blockchain copy/" "applied blockchain/" "application-CODE_WIDE.pdf" "app.js" "AOL Contract (part 1) - signed.pdf" "aig/" "aexea_registration_form.docx" "aexea_registration_form.doc" "Adam_Faryna_cv_en.pdf" "Adam_Faryna_cv_en.doc" "_MG_4799.JPG" "600_465536965.jpeg" "26167596_2027859400787463_7720127604817703026_n.jpg" "20180105052805_00005.pdf" "20180105052805_00005 (1).pdf" ".Trashes/" ".TemporaryItems/" ".fseventsd/" ".DS_Store" ".DocumentRevisions-V100/" "../" "./")
+
+ ("/Volumes/" (23149 59326 0 0) "RAM_Disk/" "Macintosh HD/" ".DS_Store" "../" "./")
+
+ ("/Users/devil/Development/learn/react/reactGo/" (23021 64396 0 0) "yarn.lock" "webpack/" "tags" "server/" "Roadmap.md" "README.md" "Procfile" "package.json" "package-lock.json" "nodemon.json" "node_modules/" "LICENSE" "docs/" "data/" "config/" "compiled/" "Changelog.md" "app.json" "app/" ".sequelizerc" ".gitignore" ".github/" ".git/" ".eslintrc" ".eslintignore" "../" "./")
+
+ ("/Users/devil/Development/learn/react/" (23026 1259 0 0) "reactGo/" "my/" "examples/" ".travis.yml" ".gitignore" ".DS_Store" "../" "./")
+
+ ("/Users/devil/Development/learn/" (23084 14951 0 0) "TypeScriptSamples/" "TypeScript-Node-Starter/" "ruby/" "reactGo/" "react_native/" "react/" "rails/" "npm-debug.log" "javascript/" "hackathon-starter-es5/" "hackathon-starter/" "graphql/" "git_playground/" "ad_template/" ".DS_Store" "../" "./")
+
+ ("/Users/" (22883 43320 0 0) "Shared/" "redmine/" "Guest/" "devil/" ".localized" "../" "./")
+
+ ("/Users/devil/Development/devel/" (23040 44839 0 0) "wordpress_theme_test/" "template/" "holidayextras/" "axsy/" ".DS_Store" "../" "./")
+
+ ("/Users/devil/Development/" (23127 54967 0 0) "work/" "wordpress_devel/" "wiedza/" "vim/" "umlet_diagrams/" "tools/" "test/" "SuiteCRM-7.9.4/" "sublime-text-unofficial-documentation.pdf" "redmine-3.4.1/" "react-native/" "projects/" "Private_dev_own.dmg" "Private_dev.dmg" "learn/" "javascript_input_events.png" "Java/" "icons/" "HackerRank/" "docker-suitecrm/" "devel/" "database/" "ctags/" "companies/" "aws/" ".DS_Store" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
