@@ -1,3 +1,11 @@
 init.view
 .netrwbook
 .netrwhist
+orgs/*
+emacs.d/elpa
+emacs.d/backups
+emacs.d/auto-save-list
+emacs.d/network-security.data
+emacs.d/.persistent-scratch
+emacs.d/org-clock-save.el
+vim/vim/init.vim

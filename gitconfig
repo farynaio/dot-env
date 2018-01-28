@@ -6,7 +6,7 @@
 	upstream = cyan
 
 [core]
-	excludesfile = /Users/afaryna/.gitignore_global
+	excludesfile = ~/.gitignore_global
   autocrlf = input
   pager = less -r
   editor = vim -c 'let g:nosession=1'
