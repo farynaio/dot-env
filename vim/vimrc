@@ -1188,7 +1188,8 @@ endif
 
 function! GenerateCtags() abort
   let l:command = "ctags -R ."
-  call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': v:version >= 800 })
+  " call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': v:version >= 800 })
+  exe 'Dispatch! ' . l:command
 endfunction
 
 command! Ctags call GenerateCtags()
