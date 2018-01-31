@@ -21,7 +21,7 @@ Plug 'adamfaryna/netrw.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'henrik/vim-indexed-search'
 Plug 'osyo-manga/vim-anzu' " to albo to wyżej
 Plug 'Townk/vim-autoclose' " closes parenthesis automatically
@@ -360,9 +360,22 @@ endfunction
 command! DisableLinters :call DisableLinters()
 command! EnableLinters :call EnableLinters()
 
+let s:filesHistory = []
+
 function! SetupBufferNew() abort
   if !IsBufferDevel()
     setl nocursorline
+  endif
+
+  if IsBufferEditable()
+    let l:currentFile = expand('%')
+    let l:i = index(s:filesHistory, l:currentFile)
+
+    if l:i > -1
+      call remove(s:filesHistory, l:i)
+    endif
+
+    call insert(s:filesHistory, l:currentFile)
   endif
 endfunction
 
@@ -421,6 +434,10 @@ endfunction
 
 function! IsBufferDevel() abort
   return &ft == 'javascript' || &ft == 'javascript.jsx' || &ft == 'json' || &ft == 'java' || &ft == 'ruby' || &ft == 'php' || &ft == 'css' || &ft == 'scss' || &ft == 'html' || &ft == 'conf' || &ft == 'vim' || &ft == 'xml' || &ft == 'dockerfile' || &ft == 'markdown'
+endfunction
+
+function! IsBufferEditable() abort
+  return IsBufferDevel() || &ft == 'text'
 endfunction
 
 " Highlight word under the cursor.
@@ -939,6 +956,10 @@ function! GitHeadsCompleteCustom(arg, cmd, cursor) abort
   return l:result
 endfunction
 
+function! RecentFilesCompleteCustom(arg, cmd, cursor) abort
+  return join(s:filesHistory, "\n")
+endfunction
+
 function! SetGitGutterBase(...) abort
   let g:gitgutter_diff_base = a:0 ? split(a:1)[0] : 'HEAD'
   echo 'New git base set: ' . g:gitgutter_diff_base
@@ -990,6 +1011,12 @@ function! GitAddCurrentFile(...) abort
   exe 'Dispatch! git add ' . expand('%:p')
 endfunction
 
+function! RecentFiles(...) abort
+  if a:0
+    exe ":vs " . a:1
+  endif
+endfunction
+
 command! GaddCurrentFile call GitAddCurrentFile()
 command! GstashSave call GitStashSave()
 command! GstashPop call GitStashPop()
@@ -998,6 +1025,7 @@ command! -complete=custom,GitHashCompleteCustom -nargs=? Gbase call SetGitGutter
 command! -complete=custom,GitBranchCompleteCustom -nargs=? GbranchSwitch call GitBranchSwitch(<f-args>)
 command! -complete=custom,GitHeadsCompleteCustom -nargs=? GdiffRevision call GitDiffRevision(<f-args>)
 command! -complete=custom,GitBranchCompleteCustom -nargs=? Grebase call GitRebase(<f-args>)
+command! -complete=custom,RecentFilesCompleteCustom -nargs=? RecentFiles call RecentFiles(<f-args>)
 
 cabbr Gb Gbase
 
@@ -1016,6 +1044,7 @@ nnoremap <leader>gr :Grebase<space>
 nnoremap <leader>gsd :GstashDiff<space>
 nnoremap <leader>gss :GstashSave<cr>
 nnoremap <leader>gsp :GstashPop<cr>
+nnoremap <leader>r :RecentFiles<space>
 
 " ================================================
 " Session
@@ -1216,30 +1245,8 @@ nnoremap ]t :tnext<cr>
 nnoremap [t :tprevious<cr>
 
 " ================================================
-" CtrlP
-" ================================================
 
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_root_markers = ['package.json']
-let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
-let g:ctrlp_switch_buffer = 'e'
-let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
-let g:ctrlp_tabpage_position = 'ac'
-let g:ctrlp_use_caching = 1
-let g:ctrlp_max_files = 50
-let g:ctrlp_open_new_file = 'v'
-let g:ctrlp_open_multiple_files = 'v'
-let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_types = ['fil', 'mru']
-let g:ctrlp_open_single_match = ['buffer tags', 'buffer']
-let g:ctrlp_extensions = ['buffertag', 'tag', 'mixed', 'bookmarkdir']
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:5'
-let g:ctrlp_map = '<leader>p'
 
-" nnoremap <leader>p :CtrlP<cr>
-nnoremap <leader>t :CtrlPTag<cr>
-nnoremap <leader>r :CtrlPMRU<cr>
 
 " ================================================
 " Tabularize
