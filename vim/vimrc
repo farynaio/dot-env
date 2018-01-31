@@ -954,13 +954,13 @@ endfunction
 
 function! GitBranchSwitch(...) abort
   if a:0
-    exe 'Git co ' . a:1
+    silent exe 'Git co ' . a:1
     echo "Checkout branch " . a:1
   endif
 endfunction
 
 function! GitDiffRevision(...) abort
-  exe 'Gdiff ' . (a:0 ? a:1 : 'HEAD~1')
+  silent exe 'Gdiff ' . (a:0 ? a:1 : 'HEAD~1')
 endfunction
 
 function! GitRebase(...) abort
