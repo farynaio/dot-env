@@ -1125,6 +1125,7 @@ command! -complete=custom,PhraseCompleteCustom -nargs=? FuzzSearchCursor call Fu
 vnoremap <leader>f :call FuzzSearchVisual()<cr>
 nnoremap <leader>f :FuzzSearchCursor<space>
 
+" TODO add param select history
 function! FuzzSearchCursor(...) abort
   if a:0
     call FuzzSearchForPhrase(a:1)
@@ -1152,7 +1153,7 @@ function! FuzzSearchVisual() abort
 endfunction
 
 function! ReplaceQfFiles() abort
-  let l:phrase = inputdialog('What text to replace? ')
+  let l:phrase = inputdialog('What text to replace? ', expand('<cword>'))
   if empty(l:phrase)
     return
   endif
@@ -1165,12 +1166,13 @@ function! ReplaceQfFiles() abort
   " call FuzzSearchForPhrase(l:phrase)
 
   set hidden
-  set autosave
+  " set autosave
   cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
   set nohidden
-  set noautosave
+  " set noautosave
 endfunction
 
+" TODO add autocompletion for word under the cursor
 command! ReplaceQfFiles :call ReplaceQfFiles()
 nnoremap <leader>d :ReplaceQfFiles<cr>
 
