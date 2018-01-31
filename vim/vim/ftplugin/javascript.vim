@@ -58,7 +58,7 @@ if exists('g:loaded_istanbul')
   let b:istanbulShown = 0
 
   function! IstanbulToggle() abort
-    if exists('g:coverage_json_report_path')
+    if !exists('g:coverage_json_report_path')
       echom 'Variable g:coverage_json_report_path is not set.'
       return 0
     endif
@@ -71,9 +71,11 @@ if exists('g:loaded_istanbul')
     if b:istanbulShown
       let b:istanbulShown = 0
       exe "IstanbulHide"
+      echo "Hide coverage."
     else
       let b:istanbulShown = 1
       exe "IstanbulShow"
+      echo "Show coverage."
     endif
   endfunction
 
