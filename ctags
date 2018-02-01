@@ -25,7 +25,7 @@
 --exclude=tags
 --exclude=cscope.\*
 --exclude=\*.tar.\*
---exclude=node_modules/.bin/*
+--exclude=node_modules/*
 --exclude=bower_components/*
 --exclude=.coverage\*
 --exclude=coverage\*
@@ -42,7 +42,7 @@
 --langmap=js:.js
 --langmap=js:+.jsx
 --langmap=js:+.es6
---regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'\[\{]|null)/\1/n,constant/
+--regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'`\[\{]|null)/\1/n,constant/
 --regex-js=/\.([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object/
 --regex-js=/['"]*([A-Za-z0-9_$]+)['"]*[ \t]*:[ \t]*\{/\1/o,object/
 --regex-js=/([A-Za-z0-9._$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*\{/\1\.\2/o,object/
