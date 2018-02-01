@@ -1030,7 +1030,7 @@ endfunction
 function! OpenFile(...) abort
   if a:0
     vsp
-    exe ":e " . a:1
+    exe ":find " . a:1
   endif
 endfunction
 
