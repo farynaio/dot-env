@@ -21,7 +21,6 @@ Plug 'adamfaryna/netrw.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-abolish'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'henrik/vim-indexed-search'
 Plug 'osyo-manga/vim-anzu' " to albo to wyżej
 Plug 'Townk/vim-autoclose' " closes parenthesis automatically
@@ -368,7 +367,7 @@ function! SetupBufferNew() abort
   endif
 
   if IsBufferEditable()
-    let l:currentFile = expand('%')
+    let l:currentFile = fnamemodify(expand("%"), ":~:.")
     let l:i = index(s:filesHistory, l:currentFile)
 
     if l:i > -1
@@ -472,7 +471,7 @@ endfunction
 nnoremap <leader>cf :call McopyFilePathToClipboard()<cr>
 
 " Close all tabs but the current
-nnoremap <leader>to :call CloseAllTabsButCurrent()<cr>
+" nnoremap <leader>to :call CloseAllTabsButCurrent()<cr>
 
 function! CloseAllTabsButCurrent() abort
   silent exe ":tabo"
@@ -930,6 +929,10 @@ let g:EditorConfig_core_mode = 'external_command'
 
 let g:gitgutter_diff_base = 'HEAD'
 
+" ================================================
+" Custom commands
+" ================================================
+
 function! GitHashCompleteCustom(arg, cmd, cursor) abort
   let l:hashes = system('git log --date=iso --pretty=format:"%h \"%s" -10')
   return substitute(l:hashes, "\^[0-9a-z]\\+", 'HEAD', '')
@@ -1017,6 +1020,20 @@ function! RecentFiles(...) abort
   endif
 endfunction
 
+function! OpenTag(...) abort
+  if a:0
+    vsp
+    exe ":tag " . a:1
+  endif
+endfunction
+
+function! OpenFile(...) abort
+  if a:0
+    vsp
+    exe ":e " . a:1
+  endif
+endfunction
+
 command! GaddCurrentFile call GitAddCurrentFile()
 command! GstashSave call GitStashSave()
 command! GstashPop call GitStashPop()
@@ -1026,6 +1043,8 @@ command! -complete=custom,GitBranchCompleteCustom -nargs=? GbranchSwitch call Gi
 command! -complete=custom,GitHeadsCompleteCustom -nargs=? GdiffRevision call GitDiffRevision(<f-args>)
 command! -complete=custom,GitBranchCompleteCustom -nargs=? Grebase call GitRebase(<f-args>)
 command! -complete=custom,RecentFilesCompleteCustom -nargs=? RecentFiles call RecentFiles(<f-args>)
+command! -complete=tag -nargs=? OpenTag call OpenTag(<f-args>)
+command! -complete=file_in_path -nargs=? OpenFile call OpenFile(<f-args>)
 
 cabbr Gb Gbase
 
@@ -1045,6 +1064,8 @@ nnoremap <leader>gsd :GstashDiff<space>
 nnoremap <leader>gss :GstashSave<cr>
 nnoremap <leader>gsp :GstashPop<cr>
 nnoremap <leader>r :RecentFiles<space>
+nnoremap <leader>t :OpenTag<space>
+nnoremap <leader>p :OpenFile<space>
 
 " ================================================
 " Session
@@ -1243,10 +1264,6 @@ CommandCabbr f fin
 
 nnoremap ]t :tnext<cr>
 nnoremap [t :tprevious<cr>
-
-" ================================================
-
-
 
 " ================================================
 " Tabularize
