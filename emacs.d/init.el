@@ -1,19 +1,25 @@
+; Folder with manualy added packages
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 (require 'cl)
+(require 'centered-cursor-mode)
 
 (setq package-list '(color-theme-sanityinc-tomorrow
                      persistent-scratch
+                     git-gutter
+		     centered-cursor-mode
+		     ;; hl-anything
+		     auto-highlight-symbol
+		     hl-todo
                      ; helm
                      ; projectile
                      ; neotree
                     ))
 
-; folder with manualy added packages
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")))
+
 (package-initialize)
 
 ; fetch the list of packages available
@@ -25,22 +31,51 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
+
+(setq-default word-wrap t)
+
+(setq tab-width 2)
+
+(setq ahs-idle-interval 0)
+
+(setq show-paren-delay 0)
+(show-paren-mode 1)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (scroll-bar-mode -1)
 (if window-system
   (tool-bar-mode -1)
 )
 
+(blink-cursor-mode 0)
 (global-linum-mode 1)
 (ido-mode t)
+(centered-cursor-mode t)
+
+;; programming
+(setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
+
+(add-hook 'find-file-hook
+	  (lambda ()
+	    (dolist (i devel-buffers)
+	      (when (string= (file-name-extension buffer-file-name) i)
+		(hl-line-mode)
+		(hl-highlight-thingatpt-local)
+		))))	  
+
+;; mode hooks
+(setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
+
+(if (executable-find "aspell")
+  (dolist (i flyspell-mode-hooks)
+    (add-hook i #'flyspell-prog-mode)))
 
 ;; navigation
 (require 'framemove)
@@ -58,7 +93,14 @@
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
+;; programming
+(add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
+
 (require 'color-theme-sanityinc-tomorrow)
+
+(if (fboundp 'global-git-gutter-mode)
+  (global-git-gutter-mode +1)
+)
 
 (if (fboundp 'persistent-scratch-setup-default)
   (persistent-scratch-setup-default)
@@ -80,7 +122,7 @@
  '(fci-rule-color "#d6d6d6")
  '(package-selected-packages
    (quote
-    (persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
+    (auto-highlight-symbol hl-anything hl-todo centered-cursor-mode highlight-symbol git-gutter persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote

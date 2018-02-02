@@ -8,4 +8,6 @@ emacs.d/auto-save-list
 emacs.d/network-security.data
 emacs.d/.persistent-scratch
 emacs.d/org-clock-save.el
+emacs.d/.hl-save
+emacs.d/ido.last
 vim/vim/init.vim
