@@ -38,6 +38,7 @@
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
 
+(delete-selection-mode 1)
 (setq-default word-wrap t)
 
 (setq tab-width 2)
