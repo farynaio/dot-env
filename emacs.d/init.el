@@ -2,13 +2,11 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'cl)
-(require 'centered-cursor-mode)
 
 (setq package-list '(color-theme-sanityinc-tomorrow
                      persistent-scratch
                      git-gutter
 		     centered-cursor-mode
-		     ;; hl-anything
 		     auto-highlight-symbol
 		     hl-todo
                      ; helm
@@ -31,9 +29,12 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; (require 'centered-cursor-mode)
+
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
@@ -42,19 +43,27 @@
 (setq-default word-wrap t)
 
 (setq tab-width 2)
-
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 (setq ahs-idle-interval 0)
+(setq bookmark-save-flag nil)
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
+
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 (scroll-bar-mode -1)
 (if window-system
   (tool-bar-mode -1)
 )
 
+(global-auto-revert-mode 1)
 (blink-cursor-mode 0)
 (global-linum-mode 1)
 (ido-mode t)
@@ -68,8 +77,9 @@
 	    (dolist (i devel-buffers)
 	      (when (string= (file-name-extension buffer-file-name) i)
 		(hl-line-mode)
-		(hl-highlight-thingatpt-local)
-		))))	  
+		(hl-todo-mode)
+		(auto-highlight-symbol-mode)
+		(rainbow-mode)))))
 
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
@@ -123,7 +133,7 @@
  '(fci-rule-color "#d6d6d6")
  '(package-selected-packages
    (quote
-    (auto-highlight-symbol hl-anything hl-todo centered-cursor-mode highlight-symbol git-gutter persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
+    (rainbow-mode auto-highlight-symbol hl-anything hl-todo centered-cursor-mode highlight-symbol git-gutter persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -146,10 +156,5 @@
      (340 . "#eab700")
      (360 . "#718c00"))))
  '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
+(custom-set-faces)
+(set-cursor-color "#ffffff")
