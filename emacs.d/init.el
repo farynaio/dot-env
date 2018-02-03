@@ -22,7 +22,7 @@
 (package-initialize)
 
 (require 'framemove)
-;; (require 'color-theme-sanityinc-tomorrow)
+(require 'sunrise-commander)
 
 ; fetch the list of packages available
 (unless package-archive-contents
@@ -56,12 +56,30 @@
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
 
+(setq diredp-hide-details-initially-flag nil)
+(require 'dired+)
+(diredp-toggle-find-file-reuse-dir 1)
+
+;; sunrise commander
+(defun mc ()
+  "Open sunrise commander in default directory."
+  (interactive)
+  (make-frame-command)
+  (sunrise default-directory default-directory)
+  )
+
+(add-hook 'sr-start-hook (lambda ()
+                           (delete-window (car (last (window-list))))))
+
 ;; Mappings / Shortcuts
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 (global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
+
+(eval-after-load 'dired-mode
+  '(define-key (kbd "t") (dired-toggle-marks))) ; toggle marks
 
 (defun revert-buffer-noconfirm ()
   (interactive)
@@ -174,5 +192,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+  )
+
 (set-cursor-color "#ffffff")
