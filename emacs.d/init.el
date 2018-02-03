@@ -116,7 +116,12 @@
 
 (if (fboundp 'persistent-scratch-setup-default)
   (persistent-scratch-setup-default)
-)
+	)
+
+(defun reload-config ()
+	"Reload config."
+	(interactive)
+	(load-file (expand-file-name "init.el" user-emacs-directory)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -159,3 +164,4 @@
  '(vc-annotate-very-old-color nil))
 (custom-set-faces)
 (set-cursor-color "#ffffff")
+
