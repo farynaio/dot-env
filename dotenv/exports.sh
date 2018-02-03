@@ -2,8 +2,8 @@
 
 set -o emacs
 
-export USER_NAME="Adam Faryna"
-export EMAIL="adam.faryna@aig.com"
+export USER_NAME=""
+export EMAIL=""
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export JAVA_HOME=$(/usr/libexec/java_home)
