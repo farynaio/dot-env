@@ -1,0 +1,209 @@
+* Emacs
+** Navigation
+*** C-M-n - move to forward parentheses
+*** C-M-p - move to previous parentheses
+*** C-M-space - put mark at the end of parentheses
+*** C-x C-r - open recent file
+** Spellcheck
+*** C-, - go to next error
+*** C-c $ - interactive error resolve
+** Buffers
+*** C-x <previous> - change to next buffer
+*** C-x <left> - change to previous buffer
+** Windows
+*** C-x + - all windows the same size
+*** C-x 0 - close this window
+*** C-x 2 - split window horizontally
+** Frames
+*** C-x 5 0 - close this frame
+*** C-x 5 f - find file in other frame
+
+** Files
+*** C-x C-f C-f - create file in 'find file mode'
+*** 
+** Org mode
+*** basic
+**** M-ret - insert heading
+**** C-c C-a - insert attachment
+**** C-c C-d - deadline??
+  
+*** navigation
+**** C-', C-, - cycle org files
+  
+*** Marks
+**** S-left, S-right - mark cycle
+**** M-h - mark paragraph
+**** C-x h - mark entire buffer
+  
+*** priorities
+**** C-c , - set priority
+**** S-up - priority up
+**** S-down - priority down
+**** sorting
+**** M-<up> - record line up
+**** M-<down> - record line down
+
+*** check
+**** org-reload
+**** calendar 
+**** org-goto
+**** org-archive-subtree
+**** agenda
+**** pcomplete
+**** org-attach
+**** org-deadline
+**** org-reveal
+**** org-refile
+**** org-add-note
+**** org-insert-*
+**** org-deadline
+**** org-export-dispatch
+**** org-schedule
+**** org-kill-note-or-show-branches
+**** org-open-at-point
+**** org-priority
+**** org-timer-*
+**** org-time-*
+**** org-sort
+**** org-remove-file
+**** org-date-from-calendar
+**** org-sparse-tree
+**** org-table-* (orgtbl-mode)
+**** org-list-make-subtree
+**** org-show-subtree
+**** Brokerage - posrednictwo
+**** recentf-dialog-mode
+**** recentf-mode
+
+** Recovery
+*** C-x u - undo
+*** C-f C-g C-x - redo
+*** M-x recovery-session - recovery files lost after system crash
+
+** Dired
+*** ! - run shell command
+*** & - run async shell command
+*** + - create directory
+*** = - diff
+*** g - refresh
+*** f - find file
+*** C-M-u - navigate directory up
+** Edit
+*** M-% - interactive replace
+*** C-y - paste
+*** C-w - cut
+*** M-w - copy
+*** C-c C-c - tag search
+*** C-x z - repeat last command
+** Programming
+*** C-x C-; - comment current line
+* VIM
+** spellcheck
+*** <leader>s - toggle spellcheck
+*** ]s [s - navigation
+*** z= - fix
+*** zg - add
+** substitution
+*** %s - entire file
+*** s - current line
+*** ‘<,’>s - visual selection
+*** .,$s - from the current line to end of the file
+*** .,+2s - from the current line and next 2 lines
+*** g///g - entire file
+*** // - last search pattern
+** edit
+*** ]p - paste and indnet block
+*** /** - mark entire buffer content
+** navigation
+*** [ or ] - go to next/previous function definition
+*** ( or ) - go to next/previous paragraph
+*** ]] - section forward or to next paragraph
+*** gf - goto filename below the cursor
+** bookmarks
+*** marks - shows list of bookmarks
+*** '] - go to start of last change
+** aligments
+*** = - align selected text
+** futivive - git
+*** - - add to index
+*** p - patch
+** window & tabs
+*** C-w | - maximize horizontal split
+*** C-w | - maximize vertical split
+*** C-w n - new horizontal split
+*** C-w v - new vertical split
+*** C-w c - close window
+*** C-w o - close all living only current window
+*** C-w T - open move window to new tab
+*** C-w z - close preview window
+** Ctrlp
+*** C-x - open file from the list in new horizontal split
+*** C-t -  open file from the list in new tab
+*** { } - jump to next/previous empty line
+** tags
+*** tn - next function definition
+*** C-w C-] - open definition in horizontal split
+** netrw
+*** % - create new file
+*** D - delete file under the cursor
+*** o/O - open file under the cursor in new window
+*** i - cycle between: thin, long, wide, tree view
+*** c - make the browsing directory current directory
+*** gh - toggle hidden files
+*** gn - change root directory for the directory below cursor (one level only)
+*** mc - copy files to directory (requires mt first)
+*** mf - toggle mark file
+*** mg - vimgrep for marked files
+*** md - apply diff to marked files (up to 3)
+*** mm - move marked files to market directory
+*** mr - mark files using regexp
+*** mu - unmark all
+*** mv - apply vim command to marked files
+*** mx - apply shell command to marked files
+*** P - open file and focus on it
+*** qb - list bookmarked directories
+*** qf - display file info
+*** qF - mark files using quickfix list
+*** qL - mark files using location list
+*** r - reverse sorting order
+*** R - rename file or directory
+*** s - select sorting style
+*** t - enter a file/dir name into tab
+*** u/U/- - go to recently visited directory
+*** x - view file in associated program
+*** X - execute file under cursor by system
+*** c-l - refresh directory listing
+
+* Docker
+** docker-machine start
+* iTerm2
+** options + mouse selection - select text to copy
+** options + command + mouse selection - select block to copy
+* Tmux - https://gist.github.com/henrik/1967800
+** console
+*** [  ] - scroll
+*** / - search down
+*** shift-/ - search up
+** sessions
+*** $ - rename
+*** C-r - restore sessions state
+*** C-r - save sessions state
+** windows
+*** c - new
+*** , - rename
+*** n - change to next
+*** p - change to previous
+*** w - choose interactively
+** panes
+*** x - kill current
+*** z - toggle zoom on current
+*** { } - swapping
+*** space - toggle horizontal - vertical
+** client
+*** d - detach current
+*** $ - rename current client session
+*** R - source .tmux.conf
+*** ~ - display previous tmux message
+*** [  - enter "copy mode"
+** commands
+*** swap-window -t 1 - swaps window 1 which top window

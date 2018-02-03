@@ -8,7 +8,7 @@ emacs.d/orgs/*
 emacs.d/backups/*
 emacs.d/auto-save-list/*
 emacs.d/autosaves/*
-!orgs/emacs.org
+!emacs.d/orgs/shortcuts.org
 !emacs.d/backups/.keep
 !emacs.d/auto-save-list/.keep
 !emacs.d/autosaves/.keep
