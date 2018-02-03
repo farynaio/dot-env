@@ -42,6 +42,7 @@
 (delete-selection-mode 1)
 (setq-default word-wrap t)
 
+(setq ns-right-alternate-modifier nil)
 (setq tab-width 2)
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
