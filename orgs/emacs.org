@@ -1,0 +1,91 @@
+* Shortcuts
+** Windows
+*** C-x + - all windows the same size
+*** C-x 0 - close this window
+*** C-x 2 - split window horizontaly
+
+** Frames
+*** C-x 5 0 - close this frame
+*** C-x 5 f - find file in other frame
+
+** Files
+*** C-x C-f C-f - create file in 'find file mode'
+
+** Navigation
+*** Parentheses
+*** C-M-n - move to forward parentheses
+*** C-M-p - move to previous parentheses
+*** C-M-space - put mark at the end of parentheses
+
+** Recovery
+*** C-x u - undo
+*** C-f C-g C-x - redo
+*** M-x recovery-session - recovery files lost after system crash
+
+** Programming
+*** C-x C-; - comment current line
+
+** Edit
+*** M-% - interactive replace
+*** C-y - paste
+*** C-w - cut
+*** M-w - copy
+*** C-c C-c - tag search
+
+* Org
+** basic
+*** M-ret - insert heading
+*** C-c C-a - insert attachment
+*** C-c C-d - deadline??
+ 
+** navigation
+*** C-', C-, - cycle org files
+ 
+** Marks
+*** S-left, S-right - mark cycle
+*** M-h - mark paragraph
+*** C-x h - mark entire buffer
+ 
+** priorities
+*** C-c , - set priority
+*** S-up - priority up
+*** S-down - priority down
+*** sorting
+*** M-<up> - record line up
+*** M-<down> - record line down
+
+** check
+*** calendar
+*** org-goto
+*** org-archive-subtree
+*** agenda
+*** pcomplete
+*** org-attach
+*** org-deadline
+*** org-reveal
+*** org-refile
+*** org-add-note
+*** org-insert-*
+*** org-deadline
+*** org-export-dispatch
+*** org-schedule
+*** org-kill-note-or-show-branches
+*** org-open-at-point
+*** org-priority
+*** org-timer-*
+*** org-time-*
+*** org-sort
+*** org-remove-file
+*** org-date-from-calendar
+*** org-sparse-tree
+*** org-table-* (orgtbl-mode)
+*** org-list-make-subtree
+*** org-show-subtree
+*** Brokerage - posrednictwo
+*** recentf-dialog-mode
+*** recentf-mode
+
+* TODOs
+** TODO add pl letters support
+** TODO on link click open browser
+** TODO outline mode
