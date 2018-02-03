@@ -4,6 +4,8 @@
 *** C-M-p - move to previous parentheses
 *** C-M-space - put mark at the end of parentheses
 *** C-x C-r - open recent file
+*** C-x p - git previous change
+*** C-x n - git next change
 ** Spellcheck
 *** C-, - go to next error
 *** C-c $ - interactive error resolve
@@ -20,22 +22,23 @@
 
 ** Files
 *** C-x C-f C-f - create file in 'find file mode'
-*** 
+***
 ** Org mode
-*** basic
-**** M-ret - insert heading
+*** Edit
+**** C-return - insert next item (same level)
+**** M-return - insert item
 **** C-c C-a - insert attachment
+**** M-left/right - demote/promote item
 **** C-c C-d - deadline??
-  
-*** navigation
+*** Navigation
 **** C-', C-, - cycle org files
-  
+**** M-up, M-down - reorder item
 *** Marks
 **** S-left, S-right - mark cycle
 **** M-h - mark paragraph
 **** C-x h - mark entire buffer
-  
-*** priorities
+
+*** Priorities
 **** C-c , - set priority
 **** S-up - priority up
 **** S-down - priority down
@@ -43,9 +46,9 @@
 **** M-<up> - record line up
 **** M-<down> - record line down
 
-*** check
+*** TODO Check
 **** org-reload
-**** calendar 
+**** calendar
 **** org-goto
 **** org-archive-subtree
 **** agenda
@@ -88,6 +91,7 @@
 *** g - refresh
 *** f - find file
 *** C-M-u - navigate directory up
+*** C-J - jump to Dired mode from minibuffer
 ** Edit
 *** M-% - interactive replace
 *** C-y - paste
