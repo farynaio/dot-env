@@ -302,6 +302,7 @@ function! AfterInit() abort
       autocmd BufReadPost fugitive://* set bufhidden=delete
       autocmd FileType text setl syntax=better-writing
       autocmd FileType netrw call SetupNetrwEnv()
+      autocmd FileType crontab setl bkc=yes
       autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
       autocmd InsertEnter * match none
       autocmd TabNew * call SetupTabEnv()
