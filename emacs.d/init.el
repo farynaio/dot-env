@@ -68,7 +68,7 @@
 (blink-cursor-mode 0)
 (global-linum-mode 1)
 (ido-mode t)
-(centered-cursor-mode t)
+(centered-cursor-mode)
 
 ;; programming
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
