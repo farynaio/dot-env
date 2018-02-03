@@ -1,10 +1,10 @@
 init.view
 .netrwbook
 .netrwhist
-orgs/*
 emacs.d/recentf
 emacs.d/bookmarks
 emacs.d/elpa
+emacs.d/orgs/*
 emacs.d/backups/*
 emacs.d/auto-save-list/*
 emacs.d/autosaves/*
