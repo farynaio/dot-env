@@ -1,4 +1,11 @@
 * Emacs
+** Edit
+*** M-% - interactive replace
+*** C-y - paste
+*** C-w - cut
+*** M-w - copy
+*** C-c C-c - tag search
+*** C-x z - repeat last command
 ** Navigation
 *** C-M-n - move to forward parentheses
 *** C-M-p - move to previous parentheses
@@ -24,6 +31,12 @@
 *** C-x C-f C-f - create file in 'find file mode'
 ***
 ** Org mode
+*** Timestamp
+***** S-left-right - timestamp day next/previous
+***** S-up/down - timestamp next/previous
+***** > / < - scroll calendar forward / backward 1 month
+***** M-v / C-v - scroll calendar forward / backward 3 months
+***** M-S-down / up - scroll calendar forward / backward 1 year
 *** Edit
 **** C-return - insert next item (same level)
 **** M-return - insert item
@@ -48,23 +61,16 @@
 
 *** TODO Check
 **** org-reload
-**** calendar
 **** org-goto
 **** org-archive-subtree
-**** agenda
-**** pcomplete
 **** org-attach
-**** org-deadline
 **** org-reveal
 **** org-refile
 **** org-add-note
 **** org-insert-*
-**** org-deadline
 **** org-export-dispatch
-**** org-schedule
 **** org-kill-note-or-show-branches
 **** org-open-at-point
-**** org-priority
 **** org-timer-*
 **** org-time-*
 **** org-sort
@@ -74,31 +80,26 @@
 **** org-table-* (orgtbl-mode)
 **** org-list-make-subtree
 **** org-show-subtree
-**** Brokerage - posrednictwo
-**** recentf-dialog-mode
-**** recentf-mode
+**** Clocking work time
 
 ** Recovery
 *** C-x u - undo
 *** C-f C-g C-x - redo
 *** M-x recovery-session - recovery files lost after system crash
-
 ** Dired
 *** ! - run shell command
 *** & - run async shell command
 *** + - create directory
 *** = - diff
 *** g - refresh
+*** a - reuse existing buffer if exists
+*** o - open file/directory in other window (not override Dired buffer)
 *** f - find file
-*** C-M-u - navigate directory up
+*** t - toggle marks
+*** u - unmark item
+*** m - mark item
+*** C-M-u or ^ - navigate directory up
 *** C-J - jump to Dired mode from minibuffer
-** Edit
-*** M-% - interactive replace
-*** C-y - paste
-*** C-w - cut
-*** M-w - copy
-*** C-c C-c - tag search
-*** C-x z - repeat last command
 ** Programming
 *** C-x C-; - comment current line
 * VIM
