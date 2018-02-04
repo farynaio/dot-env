@@ -12,6 +12,7 @@ emacs.d/autosaves/*
 !emacs.d/backups/.keep
 !emacs.d/auto-save-list/.keep
 !emacs.d/autosaves/.keep
+!emacs.d/journal/.keep
 emacs.d/network-security.data
 emacs.d/.persistent-scratch
 emacs.d/org-clock-save.el
