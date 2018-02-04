@@ -9,7 +9,8 @@
 										 centered-cursor-mode
 										 auto-highlight-symbol
 										 hl-todo
-										 editorconfig
+                     editorconfig
+                     org-journal
                      ; helm
                      ; projectile
                      ; neotree
@@ -77,6 +78,7 @@
 (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 (global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x a") 'org-agenda)
 
 (eval-after-load 'dired-mode
   '(define-key (kbd "t") (dired-toggle-marks))) ; toggle marks
@@ -123,9 +125,31 @@
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
-;; org mode
+;; org mode / journal
 (setq org-clock-persist 'history)
 (org-clock-persistence-insinuate)
+(setq org-lowest-priority 68)
+(setq org-highest-priority 65)
+(setq org-default-priority 68)
+(setq org-log-done 'time)
+(setq org-closed-keep-when-no-todo t)
+(setq org-log-done-with-time nil)
+(setq org-tags-column -100)
+(setq org-directory (expand-file-name "orgs" user-emacs-directory))
+(setq org-agenda-files '("todo.org"))
+(setq org-journal-dir (expand-file-name "journal/" user-emacs-directory))
+
+(setq org-tag-alist '(("@health" . ?h)
+                       ("@fun" . ?f)
+                       ("@efficiency" . ?e)
+                       ("@love" . ?l)
+                       ("@wealth" . ?w)
+                       ))
+
+(defun agenda ()
+  "Open org-mode agenda."
+  (interactive)
+  (org-agenda-list))
 
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -153,45 +177,48 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-	 [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-	 (vector "#4d4d4c" "#c82829" "#718c00" "#eab700" "#4271ae" "#8959a8" "#3e999f" "#d6d6d6"))
+  '(ansi-color-faces-vector
+     [default bold shadow italic underline bold bold-italic bold])
+  '(ansi-color-names-vector
+     (vector "#4d4d4c" "#c82829" "#718c00" "#eab700" "#4271ae" "#8959a8" "#3e999f" "#d6d6d6"))
  '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
- '(custom-safe-themes
-	 (quote
-		("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+  '(custom-safe-themes
+     (quote
+       ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(fci-rule-color "#d6d6d6")
- '(package-selected-packages
-	 (quote
-		(editorconfig rainbow-mode auto-highlight-symbol hl-anything hl-todo centered-cursor-mode highlight-symbol git-gutter persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
+  '(package-selected-packages
+     (quote
+       (org-journal editorconfig rainbow-mode auto-highlight-symbol hl-anything hl-todo centered-cursor-mode highlight-symbol git-gutter persistent-scratch tabbar-ruler color-theme-sanityinc-tomorrow)))
  '(vc-annotate-background nil)
- '(vc-annotate-color-map
-	 (quote
-		((20 . "#c82829")
-		 (40 . "#f5871f")
-		 (60 . "#eab700")
-		 (80 . "#718c00")
-		 (100 . "#3e999f")
-		 (120 . "#4271ae")
-		 (140 . "#8959a8")
-		 (160 . "#c82829")
-		 (180 . "#f5871f")
-		 (200 . "#eab700")
-		 (220 . "#718c00")
-		 (240 . "#3e999f")
-		 (260 . "#4271ae")
-		 (280 . "#8959a8")
-		 (300 . "#c82829")
-		 (320 . "#f5871f")
-		 (340 . "#eab700")
-		 (360 . "#718c00"))))
+  '(vc-annotate-color-map
+     (quote
+       ((20 . "#c82829")
+         (40 . "#f5871f")
+         (60 . "#eab700")
+         (80 . "#718c00")
+         (100 . "#3e999f")
+         (120 . "#4271ae")
+         (140 . "#8959a8")
+         (160 . "#c82829")
+         (180 . "#f5871f")
+         (200 . "#eab700")
+         (220 . "#718c00")
+         (240 . "#3e999f")
+         (260 . "#4271ae")
+         (280 . "#8959a8")
+         (300 . "#c82829")
+         (320 . "#f5871f")
+         (340 . "#eab700")
+         (360 . "#718c00"))))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  )
+ )
 
 (set-cursor-color "#ffffff")
+
+(setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1" )
+(set-face-attribute 'default nil :font default-font)
