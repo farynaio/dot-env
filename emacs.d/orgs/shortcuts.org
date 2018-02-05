@@ -36,10 +36,12 @@
 *** C-x + - all windows the same size
 *** C-x 0 - close this window
 *** C-x 2 - split window horizontally
+*** C-x 4 r <filename> - open file in read-only mode in other window
 ** Frames
 *** C-x 5 0 - close this frame
 *** C-x 5 f - find file in other frame
-
+*** C-x 5 2 - open empty frame and clone current buffer
+*** C-x 5 r <filename> - open file in read-only mode in new frame 
 ** Files
 *** C-x C-f C-f - create file in 'find file mode'
 ***
@@ -250,3 +252,4 @@
 *** [  - enter "copy mode"
 ** commands
 *** swap-window -t 1 - swaps window 1 which top window
+* TODOs

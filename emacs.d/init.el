@@ -6,10 +6,11 @@
 (setq package-list '(color-theme-sanityinc-tomorrow
                      persistent-scratch
                      git-gutter
-										 centered-cursor-mode
-										 auto-highlight-symbol
-										 hl-todo
-                     editorconfig
+		     centered-cursor-mode
+		     auto-highlight-symbol
+		     hl-todo
+		     rainbow-mode
+		     editorconfig
                      org-journal
                      ; helm
                      ; projectile
@@ -74,6 +75,13 @@
 (add-hook 'sr-start-hook (lambda ()
                            (delete-window (car (last (window-list))))))
 
+(add-hook 'org-mode-hook (lambda ()
+													 (local-unset-key (kbd "C-c $")) ; removed archive subtree shortcut
+													 (local-unset-key (kbd "C-c C-x C-a")) ; remove archive subtree default shortcut
+													 (local-unset-key (kbd "C-c C-x C-s")) ; remove archive subtree shortcut
+													 (local-unset-key (kbd "C-c C-x A")) ; remove archive to archive siblings shortcut
+													 ))
+
 ;; Mappings / Shortcuts
 (global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
@@ -116,6 +124,12 @@
 		(auto-highlight-symbol-mode)
 		(rainbow-mode)))))
 
+(add-hook 'recentf-dialog-mode-hook
+	  (lambda ()
+	    (hl-line-mode)
+	    )
+	  )
+
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
 
@@ -131,7 +145,7 @@
 ;; org mode / journal
 (setq org-clock-into-drawer t)
 (setq org-clock-persist t) ; or 'history?
-(setq org-clock-idle-time 5) ; TODO requires testing
+(setq org-clock-idle-time 2) ; TODO requires testing
 (setq org-default-notes-file (expand-file-name "notes" user-emacs-directory))
 (setq org-lowest-priority 68)
 (setq org-highest-priority 65)
@@ -211,12 +225,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
-  '(custom-safe-themes
-     (quote
-       ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default))))
+ '(custom-safe-themes
+   (quote
+    ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
+ '(package-selected-packages
+   (quote
+    (rainbow-mode persistent-scratch org-journal hl-todo git-gutter editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; temporary
+(set-face-foreground 'dired-directory "yellow" )
