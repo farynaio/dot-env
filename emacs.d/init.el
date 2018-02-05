@@ -53,6 +53,8 @@
 
 (setq-default word-wrap t)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (when (eq system-type 'darwin)
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
