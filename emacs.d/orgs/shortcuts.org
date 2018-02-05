@@ -6,6 +6,7 @@
 *** M-w - copy
 *** C-c C-c - tag search
 *** C-x z - repeat last command
+*** M-delete - delete symbol previous cursor
 ** Navigation
 *** C-M-n - move to forward parentheses
 *** C-M-p - move to previous parentheses
@@ -13,6 +14,18 @@
 *** C-x C-r - open recent file
 *** C-x p - git previous change
 *** C-x n - git next change
+** Help
+*** C-h f - show function help
+*** C-h k - show shortcut help
+*** C-h v - show variable help
+*** C-h m - show major mode help
+*** C-M-v - scroll help window
+*** C-h t - show tutorial
+*** l - go back
+*** r - go forward
+** Info
+*** C-h i - open documentation (Info)
+*** C-h S - find function or variable in Info
 ** Spellcheck
 *** C-, - go to next error
 *** C-c $ - interactive error resolve
@@ -38,14 +51,37 @@
 ***** M-v / C-v - scroll calendar forward / backward 3 months
 ***** M-S-down / up - scroll calendar forward / backward 1 year
 *** Edit
-**** C-return - insert next item (same level)
-**** M-return - insert item
+**** C-return - insert heading (not break current heading)
+**** M-return - insert heading
+**** C-c C-l - insert link
 **** C-c C-a - insert attachment
 **** M-left/right - demote/promote item
 **** C-c C-d - deadline??
+**** C-c C-z - add time stamped note to LOGBOOK drawer
+**** C-x C-x d - insert drawer (collapsed block)
 *** Navigation
 **** C-', C-, - cycle org files
 **** M-up, M-down - reorder item
+**** C-c o - open link
+**** C-c % - push current position to mark ring
+**** C-c & - go to recorded position
+*** Clock
+**** C-c C-x C-i - start clock on current item
+**** C-c C-x C-o - stop clock time
+**** C-c C-x C-x - reclock last clocked time
+**** C-c C-x C-q - cancel current clock
+**** C-c C-x C-j - jump to task of the current clock
+**** C-c C-x C-d - display task clock summary
+**** C-c C-x ; - start countdown timer
+**** C-c C-x . - insert current timer string into buffer
+**** C-c C-x - - insert description item to list bounded to timer position
+**** C-c C-x , - toggle pause of timer
+**** C-c C-x _ - stop the timer
+*** Agenda
+**** I - clock in
+**** L - recenter
+**** / - secondary filtering
+**** ; - start countdown timer
 *** Marks
 **** S-left, S-right - mark cycle
 **** M-h - mark paragraph
@@ -59,7 +95,7 @@
 **** M-<up> - record line up
 **** M-<down> - record line down
 
-*** TODO Check
+*** Check
 **** org-reload
 **** org-goto
 **** org-archive-subtree
@@ -73,6 +109,8 @@
 **** org-open-at-point
 **** org-timer-*
 **** org-time-*
+**** TODO [#C] Check org-journal-*                                                     :@efficiency:
+     SCHEDULED: <2018-02-04 Sun>
 **** org-sort
 **** org-remove-file
 **** org-date-from-calendar

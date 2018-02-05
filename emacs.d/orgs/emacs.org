@@ -1,0 +1,28 @@
+* General
+** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
+** ModeLine
+*** ** - modified since last save
+*** -- - not modified since last save
+*** %* - read-only but modified
+*** %% - read-only not modified
+* Org mode
+** comments - prevent heading and sub headings from being exported
+** links to files, web
+** footnotes
+** inline images
+** task effort estimation
+** clock tables
+** countdown timer
+** relative timer
+** refile - move heading to different place
+** note captures - templates
+* Shortcuts
+* TODOs
+** TODO on link click open browser
+** TODO outline mode
+** TODO how to open file/buffer in read-only
+** TODO how to toggle buffer read-only
+** TODO org mode effort estimates
+** TODO org mode dealing with repeating tasks
+** TODO org mode clock tables
+** TODO org mode what is column mode?
