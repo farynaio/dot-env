@@ -1,7 +1,7 @@
 extends javascript
 
 snippet req "const nameCamelCase = require(name)" b
-const $1 = require('${1}')
+const $1 = require("${1}")
 endsnippet
 
 snippet md "module.exports = ..." b
@@ -29,13 +29,13 @@ const ${1:name} = (${2}) => {
 endsnippet
 
 snippet des "describe() block"
-describe('#${1}', () => {
+describe("#${1}", () => {
 	$0
 })
 endsnippet
 
 snippet it "it() block"
-it('should ${1}', () => {
+it("should ${1}", () => {
 	$0
 	expect().
 })

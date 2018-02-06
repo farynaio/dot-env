@@ -1,22 +1,23 @@
 extends react-shared
 
+priority 1
+
 snippet class "React Component class ..."
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 class ${1:name} extends Component {
 	static defaultProps = {
 	}
 
 	static propTypes = {
-		...Component.defaultProps,
 	}
 
 	render() {
 		const {} = this.props
 
 		return (
-			<div className=''>
+			<div className="">
 				$0
 			</div>
 		)
@@ -27,11 +28,11 @@ export default $1
 endsnippet
 
 snippet less "create react stateless template"
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 
 const ${1:name} = ({ ${2:props} }) => (
-	<div className=''>
+	<div className="">
 		$0
 	</div>
 )
