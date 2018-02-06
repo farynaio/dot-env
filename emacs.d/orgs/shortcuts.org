@@ -1,8 +1,52 @@
+* Tasks
+** TODO [#B] Org mode how notes works                                                  :@efficiency:
+** DONE [#B] Org mode org-reload
+   SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:01]
+** TODO [#C] Org mode org-goto                                                         :@efficiency:
+** TODO [#D] Org mode org-archive-subtree                                              :@efficiency:
+** TODO [#B] Org mode org-attach                                                       :@efficiency:
+** TODO [#C] Org mode org-reveal                                                       :@efficiency:
+** TODO [#D] Org mode org-refile                                                       :@efficiency:
+** DONE [#B] Org mode org-add-note                                                     :@efficiency:
+   CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:12]
+** TODO [#B] Org mode org-insert-*                                                     :@efficiency:
+** TODO [#C] Org mode org-export-dispatch                                              :@efficiency:
+** TODO [#D] Org mode org-kill-note-or-show-branches                                   :@efficiency:
+** DONE [#B] Org mode org-open-at-point                                                :@efficiency:
+   SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:11]
+** TODO [#B] Org mode org-timer-*                                                      :@efficiency:
+** TODO [#B] Org mode org-time-*                                                       :@efficiency:
+** CANCELED Org mode org-sort                                                          :@efficiency:
+   CLOSED: [2018-02-05 Mon]
+   - State "CANCELED"   from "TODO"       [2018-02-05 Mon 22:00] \\
+     Because of org-agenda, it's not needed anymore.
+** TODO [#D] Org mode org-remove-file                                                  :@efficiency:
+** TODO [#D] Org mode org-date-from-calendar                                           :@efficiency:
+** TODO [#D] Org mode org-sparse-tree                                                  :@efficiency:
+** TODO [#C] Org mode org-table-* (orgtbl-mode)                                        :@efficiency:
+** TODO [#D] Org mode org-list-make-subtree                                            :@efficiency:
+** TODO [#D] Org mode org-show-subtree                                                 :@efficiency:
+** DONE [#D] Org mode org-change-tag-in-region
+   SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:04]
+** DONE [#A] Org mode clocking work time                                               :@efficiency:
+   CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:00]
+
+** TODO [#C] Emacs check wdired mode (editable Dired)
+   - Note taken on [2018-02-05 Mon 22:24] \\
+     https://www.gnu.org/software/emacs/manual/html_node/emacs/Wdired.html
+
 * Emacs
 ** Edit
 *** M-% - interactive replace
 *** C-y - paste
 *** C-w - cut
+*** M-^ - join lines
+*** M-<space> - delete spaces and tabs around the word
 *** M-w - copy
 *** C-c C-c - tag search
 *** C-x z - repeat last command
@@ -41,86 +85,63 @@
 *** C-x 5 0 - close this frame
 *** C-x 5 f - find file in other frame
 *** C-x 5 2 - open empty frame and clone current buffer
-*** C-x 5 r <filename> - open file in read-only mode in new frame 
+*** C-x 5 r <filename> - open file in read-only mode in new frame
 ** Files
 *** C-x C-f C-f - create file in 'find file mode'
 ***
-** Org mode
-*** Timestamp
-***** S-left-right - timestamp day next/previous
-***** S-up/down - timestamp next/previous
-***** > / < - scroll calendar forward / backward 1 month
-***** M-v / C-v - scroll calendar forward / backward 3 months
-***** M-S-down / up - scroll calendar forward / backward 1 year
-*** Edit
-**** C-return - insert heading (not break current heading)
-**** M-return - insert heading
-**** C-c C-l - insert link
-**** C-c C-a - insert attachment
-**** M-left/right - demote/promote item
-**** C-c C-d - deadline??
-**** C-c C-z - add time stamped note to LOGBOOK drawer
-**** C-x C-x d - insert drawer (collapsed block)
-*** Navigation
-**** C-', C-, - cycle org files
-**** M-up, M-down - reorder item
+* Org mode
+** Timestamp
+*** S-left-right - timestamp day next/previous
+*** S-up/down - timestamp next/previous
+*** > / < - scroll calendar forward / backward 1 month
+*** M-v / C-v - scroll calendar forward / backward 3 months
+*** M-S-down / up - scroll calendar forward / backward 1 year
+** Tags
+*** org-change-tag-in-region
+** Edit
+*** C-return - insert heading (not break current heading)
+*** M-return - insert heading
+*** C-c C-l - insert link
+*** C-c C-a - insert attachment
+*** M-left/right - demote/promote heading
+*** C-c C-d - deadline??
+*** C-c C-z - add time stamped note to LOGBOOK drawer
+*** C-x C-x d - insert drawer (collapsed block)
+** Navigation
+*** C-', C-, - cycle org files
+*** M-up, M-down - reorder item
 **** C-c o - open link
-**** C-c % - push current position to mark ring
-**** C-c & - go to recorded position
-*** Clock
-**** C-c C-x C-i - start clock on current item
-**** C-c C-x C-o - stop clock time
-**** C-c C-x C-x - reclock last clocked time
-**** C-c C-x C-q - cancel current clock
-**** C-c C-x C-j - jump to task of the current clock
-**** C-c C-x C-d - display task clock summary
-**** C-c C-x ; - start countdown timer
-**** C-c C-x . - insert current timer string into buffer
-**** C-c C-x - - insert description item to list bounded to timer position
-**** C-c C-x , - toggle pause of timer
-**** C-c C-x _ - stop the timer
-*** Agenda
-**** I - clock in
-**** L - recenter
-**** / - secondary filtering
-**** ; - start countdown timer
-*** Marks
-**** S-left, S-right - mark cycle
-**** M-h - mark paragraph
-**** C-x h - mark entire buffer
+*** C-c % - push current position to mark ring
+*** C-c & - go to recorded position
+** Clock
+*** C-c C-x C-i - start clock on current item
+*** C-c C-x C-o - stop clock time
+*** C-c C-x C-x - reclock last clocked time
+*** C-c C-x C-q - cancel current clock
+*** C-c C-x C-j - jump to task of the current clock
+*** C-c C-x C-d - display task clock summary
+*** C-c C-x ; - start countdown timer
+*** C-c C-x . - insert current timer string into buffer
+*** C-c C-x - - insert description item to list bounded to timer position
+*** C-c C-x , - toggle pause of timer
+*** C-c C-x _ - stop the timer
+** Agenda
+*** I - clock in
+*** L - recenter
+*** / - secondary filtering
+*** ; - start countdown timer
+** Marks
+*** S-left, S-right - mark cycle
+*** M-h - mark paragraph
+*** C-x h - mark entire buffer
 
-*** Priorities
+** Priorities
 **** C-c , - set priority
 **** S-up - priority up
 **** S-down - priority down
 **** sorting
 **** M-<up> - record line up
 **** M-<down> - record line down
-
-*** Check
-**** org-reload
-**** org-goto
-**** org-archive-subtree
-**** org-attach
-**** org-reveal
-**** org-refile
-**** org-add-note
-**** org-insert-*
-**** org-export-dispatch
-**** org-kill-note-or-show-branches
-**** org-open-at-point
-**** org-timer-*
-**** org-time-*
-**** TODO [#C] Check org-journal-*                                                     :@efficiency:
-     SCHEDULED: <2018-02-04 Sun>
-**** org-sort
-**** org-remove-file
-**** org-date-from-calendar
-**** org-sparse-tree
-**** org-table-* (orgtbl-mode)
-**** org-list-make-subtree
-**** org-show-subtree
-**** Clocking work time
 
 ** Recovery
 *** C-x u - undo
@@ -218,7 +239,6 @@
 *** x - view file in associated program
 *** X - execute file under cursor by system
 *** c-l - refresh directory listing
-
 * Docker
 ** docker-machine start
 * iTerm2
@@ -252,4 +272,3 @@
 *** [  - enter "copy mode"
 ** commands
 *** swap-window -t 1 - swaps window 1 which top window
-* TODOs

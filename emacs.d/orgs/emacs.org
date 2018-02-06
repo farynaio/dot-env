@@ -1,3 +1,32 @@
+* TODOs
+** TODO [#B] emacs how to click on link to open browser?
+** TODO [#D] emacs what is outline mode?
+** TODO [#D] emacs how to open file/buffer in read-only?
+** TODO [#D] emacs how to toggle buffer read-only
+** TODO [#B] Org mode effort estimates
+** TODO [#C] Org mode how to deal with repeating tasks?
+** TODO [#B] Org mode clock tables
+** TODO [#C] Org mode what is column mode?
+** TODO [#C] Org mode what are habits?
+** TODO [#C] Org mode identify org-stuck-projects
+** TODO [#C] Org mode how to use effort?
+   SCHEDULED: <2018-02-05 Mon>
+** TODO [#C] Org mode what export options do I have?
+** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
+   CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
+   - Note taken on [2018-02-05 Mon 20:07] \\
+   Faces for TODO keywords
+
+** TODO [#B] Org mode how to deal with repeatable tasks?
+   SCHEDULED: <2018-02-06 Tue>
+   - Note taken on [2018-02-05 Mon 23:53] \\
+     https://orgmode.org/manual/Repeated-tasks.html
+
+** TODO [#B] Org mode how to add tasks fast?
+   SCHEDULED: <2018-02-06 Tue>
+   - Note taken on [2018-02-06 Tue 00:15] \\
+      What about capture, diary and journal?
+     org-journal-*
 * General
 ** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
 ** ModeLine
@@ -6,6 +35,8 @@
 *** %* - read-only but modified
 *** %% - read-only not modified
 * Org mode
+** Edit
+*** org-change-tag-in-region
 ** comments - prevent heading and sub headings from being exported
 ** links to files, web
 ** footnotes
@@ -16,13 +47,3 @@
 ** relative timer
 ** refile - move heading to different place
 ** note captures - templates
-* Shortcuts
-* TODOs
-** TODO on link click open browser
-** TODO outline mode
-** TODO how to open file/buffer in read-only
-** TODO how to toggle buffer read-only
-** TODO org mode effort estimates
-** TODO org mode dealing with repeating tasks
-** TODO org mode clock tables
-** TODO org mode what is column mode?
