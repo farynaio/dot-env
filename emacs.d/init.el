@@ -170,11 +170,34 @@
 (setq org-agenda-files (list org-directory))
 (setq org-journal-dir (expand-file-name "journal/" user-emacs-directory))
 (setq org-agenda-custom-commands
-  '(("c" "TODOs weekly sorted by state, priority, effort"
-      ((agenda)
-        (tags-todo "*"))
-      ((org-agenda-overriding-header "TODOs weekly sorted by state, priority, effort")
-        (org-agenda-sorting-strategy '(todo-state-down priority-down effort-up))))))
+  '(("d" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
+      (
+        (agenda "*"))
+      ((org-agenda-overriding-header "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort")
+        (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
+     ("cn" "TODOs not sheduled"
+       (
+         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED"))
+       ((org-agenda-overriding-header "TODOs not scheduled")
+         (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
+     ("cb" "TODOs blocked"
+       (
+         (tags "+BLOCKED"))
+       ((org-agenda-overriding-header "TODOs blocked")
+         (org-agenda-sorting-strategy '(priority-down deadline-down alpha-down effort-up))))
+     ("cc" "TODOs canceled"
+       (
+         (todo "CANCELED"))
+       ((org-agenda-overriding-header "TODOs canceled")
+         (org-agenda-sorting-strategy '(priority-down alpha-down effort-up))))
+     ("cj" "Journal"
+       (
+         (search ""))
+       ((org-agenda-files (list org-journal-dir))
+         (org-agenda-overriding-header "Journal")
+         (org-agenda-sorting-strategy '(timestamp-down))))
+     )
+  )
 
 (org-clock-persistence-insinuate)
 
