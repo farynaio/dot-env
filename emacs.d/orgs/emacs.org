@@ -47,3 +47,5 @@
 ** relative timer
 ** refile - move heading to different place
 ** note captures - templates
+* Links
+- [[blog.aaronbieber.com]]
