@@ -53,7 +53,7 @@
 (setq show-paren-delay 0)
 (setq recentf-max-menu-items 25)
 (setq dired-use-ls-diredto nil)
-
+(setq help-window-select t)
 (setq-default word-wrap t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
