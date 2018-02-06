@@ -11,7 +11,8 @@
 		     hl-todo
 		     rainbow-mode
 		     editorconfig
-                     org-journal
+                      org-journal
+                      multiple-cursors
                      ; helm
                      ; projectile
                      ; neotree
@@ -23,9 +24,6 @@
 
 (package-initialize)
 
-(require 'framemove)
-(require 'sunrise-commander)
-
 ; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
@@ -34,6 +32,10 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+(require 'framemove)
+(require 'sunrise-commander)
+(require 'multiple-cursors)
 
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -83,13 +85,17 @@
 													 ))
 
 ;; Mappings / Shortcuts
-(global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers
+(global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers for editing
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 (global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
 (global-set-key (kbd "C-x a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+;; Multiline cursor
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (eval-after-load 'dired-mode
   '(define-key (kbd "t") (dired-toggle-marks))) ; toggle marks
@@ -116,13 +122,18 @@
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
 
 (add-hook 'find-file-hook
-	  (lambda ()
+  (lambda ()
+    (let* ((found nil)
+            (buf-name (file-name-extension buffer-file-name) ))
 	    (dolist (i devel-buffers)
-	      (when (string= (file-name-extension buffer-file-name) i)
-		(hl-line-mode)
-		(hl-todo-mode)
-		(auto-highlight-symbol-mode)
-		(rainbow-mode)))))
+	      (when (string= buf-name i)
+          (hl-line-mode)
+          (hl-todo-mode)
+          (auto-highlight-symbol-mode)
+          (rainbow-mode)
+          (setq found t)))
+        (when (not found)
+          ))))
 
 (add-hook 'recentf-dialog-mode-hook
 	  (lambda ()
@@ -225,12 +236,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
- '(custom-safe-themes
-   (quote
-    ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
- '(package-selected-packages
-   (quote
-    (rainbow-mode persistent-scratch org-journal hl-todo git-gutter editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
+  '(custom-safe-themes
+     (quote
+       ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
