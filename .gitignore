@@ -22,10 +22,10 @@ emacs.d/journal/*
 !emacs.d/orgs/english.org
 !emacs.d/orgs/shortcuts.org
 
-emacs.d/network-security.data
 emacs.d/.persistent-scratch
-emacs.d/org-clock-save.el
 emacs.d/.hl-save
+emacs.d/network-security.data
+emacs.d/org-clock-save.el
 emacs.d/ido.last
 emacs.d/local-config.el
 
