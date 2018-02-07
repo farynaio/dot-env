@@ -21,6 +21,7 @@ emacs.d/journal/*
 !emacs.d/orgs/emacs.org
 !emacs.d/orgs/english.org
 !emacs.d/orgs/shortcuts.org
+!emacs.d/orgs/emacs_migration.org
 
 emacs.d/.persistent-scratch
 emacs.d/.hl-save
