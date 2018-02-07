@@ -118,14 +118,14 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers for editing
 (global-set-key (kbd "C-x p") #'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") #'git-gutter:next-hunk)
-; (global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
 (global-set-key (kbd "C-x a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 ;; Helm
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x C-r") #'helm-recentf)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+; (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x b") #'helm-mini)
 (global-set-key (kbd "C-c h") #'helm-command-prefix)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
@@ -136,7 +136,7 @@
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
 
-(setq helm-split-window-in-side-p t
+(setq helm-split-window-inside-p t
   helm-move-to-line-cycle-in-source t
   helm-ff-search-library-in-sexp t
   helm-scroll-amount 8
