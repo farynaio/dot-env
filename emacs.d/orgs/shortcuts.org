@@ -6,6 +6,8 @@
 ** TODO [#C] Org mode org-goto                                                         :@efficiency:
 ** TODO [#D] Org mode org-archive-subtree                                              :@efficiency:
 ** TODO [#B] Org mode org-attach                                                       :@efficiency:
+** TODO [#B] vim indent relating to last line not beginning of next line 	       :@efficiency:
+   SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Org mode org-reveal                                                       :@efficiency:
 ** TODO [#D] Org mode org-refile                                                       :@efficiency:
 ** DONE [#B] Org mode org-add-note                                                     :@efficiency:
