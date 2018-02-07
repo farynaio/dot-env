@@ -410,6 +410,7 @@
 --type-add=yaml:ext:yaml,yml
 
 --ignore-dir=node_modules
+--ignore-dir=__snapshots__
 --ignore-dir=dist
 --ignore-dir=target
 --ignore-dir=build
@@ -425,6 +426,7 @@
 --ignore-dir=.gem
 --ignore-dir=.bundle
 --ignore-dir=.coverage
+--ignore-dir=coverage
 --ignore-file=match:tags
 --ignore-file=match:readme.md
 --ignore-file=match:yarn.lock
@@ -434,4 +436,3 @@
 --ignore-file=match:project.vim
 --ignore-file=match:Session.vim
 --ignore-file=match:package-lock.json
---ignore-file=match:coverage.json
