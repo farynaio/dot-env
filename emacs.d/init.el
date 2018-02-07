@@ -6,21 +6,23 @@
 (setq package-list '(color-theme-sanityinc-tomorrow
                      persistent-scratch
                      git-gutter
-		     centered-cursor-mode
-		     auto-highlight-symbol
-		     hl-todo
-		     rainbow-mode
-		     editorconfig
+                      centered-cursor-mode
+                      auto-highlight-symbol
+                      hl-todo
+                      rainbow-mode
+                      editorconfig
                       org-journal
                       multiple-cursors
-                     ; helm
+                      helm
                      ; projectile
                      ; neotree
                     ))
 
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+                          ("gnu" . "http://elpa.gnu.org/packages/")
+                          ("melpa-stable" . "https://stable.melpa.org/packages/")
+                          ("melpa" . "https://melpa.org/packages/")
+                          ))
 
 (package-initialize)
 
@@ -36,6 +38,8 @@
 (require 'framemove)
 (require 'sunrise-commander)
 (require 'multiple-cursors)
+(require 'helm)
+(require 'helm-config)
 
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -66,6 +70,32 @@
 (require 'dired+)
 (diredp-toggle-find-file-reuse-dir 1)
 
+;; Helm
+(setq helm-completion-in-region-fuzzy-match t
+  helm-mode-fuzzy-match t)
+
+;; TODO is it good?
+;; (defun spacemacs//helm-hide-minibuffer-maybe ()
+;;   "Hide minibuffer in Helm session if we use the header line as input field."
+;;   (when (with-helm-buffer helm-echo-input-in-header-line)
+;;     (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+;;       (overlay-put ov 'window (selected-window))
+;;       (overlay-put ov 'face
+;;                    (let ((bg-color (face-background 'default nil)))
+;;                      `(:background ,bg-color :foreground ,bg-color)))
+;;       (setq-local cursor-type nil))))
+
+;; (add-hook 'helm-minibuffer-set-up-hook
+;;           'spacemacs//helm-hide-minibuffer-maybe)
+
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+
+;; ido
+; (add-to-list 'ido-ignore-files "\\.DS_Store")
+; (setq ido-use-faces nil)
+
 ;; sunrise commander
 (defun mc ()
   "Open sunrise commander in default directory."
@@ -86,16 +116,37 @@
 
 ;; Mappings / Shortcuts
 (global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers for editing
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-(global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x p") #'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") #'git-gutter:next-hunk)
+; (global-set-key (kbd "C-x r") 'revert-buffer-noconfirm)
 (global-set-key (kbd "C-x a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+;; Helm
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x C-r") #'helm-recentf)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x b") #'helm-mini)
+(global-set-key (kbd "C-c h") #'helm-command-prefix)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+(global-unset-key (kbd "C-x c"))
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p t
+  helm-move-to-line-cycle-in-source t
+  helm-ff-search-library-in-sexp t
+  helm-scroll-amount 8
+  helm-ff-file-name-history-use-recentf t
+  helm-echo-input-in-header-line t)
+
 ;; Multiline cursor
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C->") #'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
 
 (eval-after-load 'dired-mode
   '(define-key (kbd "t") (dired-toggle-marks))) ; toggle marks
@@ -109,7 +160,8 @@
 (global-auto-revert-mode 1)
 (blink-cursor-mode 0)
 (global-linum-mode 1)
-(ido-mode t)
+(helm-mode 1)
+;; (ido-mode t)
 (centered-cursor-mode)
 (editorconfig-mode 1)
 (recentf-mode 1)
@@ -117,6 +169,9 @@
 (delete-selection-mode 1)
 (scroll-bar-mode -1)
 (if window-system (tool-bar-mode -1))
+
+;; Helm
+(setq helm-ff-auto-update-initial-value t)
 
 ;; programming
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
@@ -168,6 +223,8 @@
 (setq org-return-follows-link t)
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
 (setq org-agenda-files (list org-directory))
+(setq org-todo-keywords
+  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 (setq org-journal-dir (expand-file-name "journal/" user-emacs-directory))
 (setq org-agenda-custom-commands
   '(("d" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
@@ -253,6 +310,8 @@
 (setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 (set-face-attribute 'default nil :font default-font)
 
+;; temporary
+(set-face-foreground 'dired-directory "yellow" )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -268,6 +327,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; temporary
-(set-face-foreground 'dired-directory "yellow" )
