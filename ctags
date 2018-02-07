@@ -56,7 +56,8 @@
 --regex-js=/(function)*[ \t]*([A-Za-z$_][A-Za-z0-9_$]+)[ \t]*\([^)]*\)[ \t]*\{/\2/f,function/
 --regex-js=/['"]*([A-Za-z$][A-Za-z0-9_$]+)['"]*:[ \t]*function[ \t]*\(/\1/m,method/
 --regex-js=/([A-Za-z0-9_$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*function[ \t]*\(/\2/m,method/
-
+--regex-js=/^[ \t]*export[ \t]+(var|let|const)[ \t]+([a-zA-Z0-9_]+)/\2/v,variables/
+--regex-js=/^[ \t]*(export)?[ \t]*function[ \t]+([a-zA-Z0-9_]+)/\2/f,functions/
 
 --langdef=typescript
 --langmap=typescript:.ts
