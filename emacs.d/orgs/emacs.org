@@ -17,9 +17,9 @@ https://github.com/snosov1/toc-org
 ** TODO [#C] Org mode identify org-stuck-projects
 ** TODO [#C] Org mode how to use effort?
    SCHEDULED: <2018-02-05 Mon>
-** TODO [#B] emacs helm package
+** IN-PROCESS [#B] emacs helm package
    SCHEDULED: <2018-02-06 Tue>
-** TODO [#B] emacs projectile package
+** TODO [#C] emacs projectile package
    SCHEDULED: <2018-02-06 Tue>
 ** TODO [#C] Org mode what export options do I have?
 ** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
