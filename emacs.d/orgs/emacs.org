@@ -3,23 +3,32 @@
 ** TODO [#D] emacs how to open file/buffer in read-only?
 ** TODO [#D] emacs how to toggle buffer read-only
 ** TODO [#B] Org mode how to click on link to open browser?
-** TODO [#B] Org mode effort estimates
+** IN-PROCESS [#B] Org mode effort estimates
+   SCHEDULED: <2018-02-07 Wed>
+   - Note taken on [2018-02-07 Wed 13:05] \\
+     org-set-effort
+     
+     Set effort ranges in
+     org-global-properties
+     
+     https://orgmode.org/manual/Effort-estimates.html
 ** TODO [#D] Org mode Check Table of content generator
 https://github.com/snosov1/toc-org
 ** Org mode org-sort
 ** TODO [#C] Org mode how to deal with repeating tasks?
+** TODO [#B] Vim change TODO highlight to something less obstructive
 ** TODO [#B] Org mode clock tables
+** TODO [#B] VIM remove fugitive from recent list
+   SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Org mode what is column mode?
 ** DONE [#C] Org mode what are habits?
    CLOSED: [2018-02-06 Tue]
    - Note taken on [2018-02-06 Tue 20:07] \\
      Repeatable tasks.
 ** TODO [#C] Org mode identify org-stuck-projects
-** TODO [#C] Org mode how to use effort?
-   SCHEDULED: <2018-02-05 Mon>
 ** IN-PROCESS [#B] emacs helm package
    SCHEDULED: <2018-02-06 Tue>
-** TODO [#C] emacs projectile package
+** TODO [#C] emacs projectile package should I care
    SCHEDULED: <2018-02-06 Tue>
 ** TODO [#C] Org mode what export options do I have?
 ** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?

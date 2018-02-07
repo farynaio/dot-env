@@ -181,6 +181,7 @@ set backspace=indent,eol,start
 set smarttab " insert tabs on the start of the line
 " set foldlevel=1
 " set foldmethod=marker
+set foldmethod=marker
 set nofoldenable " disable folding
 set complete-=i " don't scan current file and includes
 set hlsearch
@@ -199,7 +200,7 @@ set wildignore=*.bak,*.swp,*.pyc,*.class,*.o,*.out,*.obj,*.rbc,*.rbo
 set wildignore+=*/node_modules/*,*/dist/*,*/compiled/*,*/docs/*,*/target/*
 set wildignore+=*/.nyc_output/*
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.snap
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*/coverage/*,*__mocks__/*
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,coverage/*,*__mocks__/*
 set wildignore+=*/.git/*,*/.svn/*,*/.gem/*
 set wildignore+=*/*~,*/._*
 set wildignore+=*/project.vim,*/Session.vim
@@ -990,48 +991,46 @@ endfunction
 
 function! GitRebase(...) abort
   if a:0
-    exe 'Dispatch git rebase ' . a:1
+    silent exe 'Dispatch git rebase ' . a:1
     echo 'Rebasing on ' . a:1
   endif
 endfunction
 
 function! GitStashSave() abort
-  exe 'Dispatch! git stash'
+  silent exe 'Dispatch! git stash'
   echo 'Stash saved.'
 endfunction
 
 function! GitStashPop() abort
-  exe 'Dispatch git stash pop'
+  silent exe 'Dispatch git stash pop'
   echo 'Stash popped.'
 endfunction
 
 function! GitStashDiff(...) abort
   let l:stash = (a:0 ? split(a:1)[0] : 'stash@{0}')
-  exe 'Dispatch! git stash show -p ' . l:stash
+  silent exe 'Dispatch! git stash show -p ' . l:stash
   echo 'Show stash ' . l:stash . '.'
 endfunction
 
 function! GitAddCurrentFile(...) abort
-  exe 'Dispatch! git add ' . expand('%:p')
+  silent exe 'Dispatch! git add ' . expand('%:p')
 endfunction
 
 function! RecentFiles(...) abort
   if a:0
-    exe ":e " . a:1
+    silent exe ":e " . a:1
   endif
 endfunction
 
 function! OpenTag(...) abort
   if a:0
-    " vsp
-    exe ":tag " . a:1
+    silent exe ":tag " . a:1
   endif
 endfunction
 
 function! OpenFile(...) abort
   if a:0
-    " vsp
-    exe ":find " . a:1
+    silent exe ":find " . a:1
   endif
 endfunction
 
@@ -1150,7 +1149,7 @@ endfunction
 
 function! CopyProjectFileIntoCwd(configPath, type) abort
   if filereadable(a:configPath)
-    exe '!cp ' . a:configPath . ' project.vim'
+    silent exe '!cp ' . a:configPath . ' project.vim'
     echo a:type . ' project initiated.'
   else
     echoe "Project config file '" . a:configPath . "' doesn't exists!"
@@ -1218,7 +1217,7 @@ function! ReplaceQfFiles() abort
 
   set hidden
   " set autosave
-  cfdo exe "%s/" . l:phrase . "/" . l:replacement . "/"
+  cfdo silent exe "%s/" . l:phrase . "/" . l:replacement . "/"
   set nohidden
   " set noautosave
 endfunction
@@ -1240,7 +1239,7 @@ endif
 function! GenerateCtags() abort
   let l:command = "ctags -R ."
   " call xolox#misc#os#exec({'command': l:command, 'check': 0, 'async': v:version >= 800 })
-  exe 'Dispatch! ' . l:command
+  silent exe 'Dispatch! ' . l:command
 endfunction
 
 command! Ctags call GenerateCtags()
@@ -1253,7 +1252,7 @@ nnoremap <C-w><C-]> :vsp <cr>:exec("tag " . expand("<cword>"))<cr>
 
 " Override native commands
 function! CommandCabbr(abbreviation, expansion) abort
-  exe 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+  silent exe 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
 endfunction
 
 command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
@@ -1318,14 +1317,14 @@ function! ApplyTemplate() abort
     endfor
     if l:result == 0
       let l:extension = expand("%:c")
-      exe 'Template .' . l:extension
+      silent exe 'Template .' . l:extension
     endif
   endif
 endfunction
 
 function! ExecuteMacroOverVisualRange() abort
   echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
+  silent exe ":'<,'>normal @".nr2char(getchar())
 endfunction
 
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
