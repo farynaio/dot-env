@@ -1,16 +1,26 @@
-* TODOs
-** TODO [#B] emacs how to click on link to open browser?
+* Tasks
 ** TODO [#D] emacs what is outline mode?
 ** TODO [#D] emacs how to open file/buffer in read-only?
 ** TODO [#D] emacs how to toggle buffer read-only
+** TODO [#B] Org mode how to click on link to open browser?
 ** TODO [#B] Org mode effort estimates
+** TODO [#D] Org mode Check Table of content generator
+https://github.com/snosov1/toc-org
+** Org mode org-sort
 ** TODO [#C] Org mode how to deal with repeating tasks?
 ** TODO [#B] Org mode clock tables
 ** TODO [#C] Org mode what is column mode?
-** TODO [#C] Org mode what are habits?
+** DONE [#C] Org mode what are habits?
+   CLOSED: [2018-02-06 Tue]
+   - Note taken on [2018-02-06 Tue 20:07] \\
+     Repeatable tasks.
 ** TODO [#C] Org mode identify org-stuck-projects
 ** TODO [#C] Org mode how to use effort?
    SCHEDULED: <2018-02-05 Mon>
+** TODO [#B] emacs helm package
+   SCHEDULED: <2018-02-06 Tue>
+** TODO [#B] emacs projectile package
+   SCHEDULED: <2018-02-06 Tue>
 ** TODO [#C] Org mode what export options do I have?
 ** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
    CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
@@ -27,6 +37,7 @@
    - Note taken on [2018-02-06 Tue 00:15] \\
       What about capture, diary and journal?
      org-journal-*
+
 * General
 ** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
 ** ModeLine
@@ -49,3 +60,5 @@
 ** note captures - templates
 * Links
 - [[blog.aaronbieber.com]]
+- http://whattheemacsd.com
+- http://emacsrocks.com

@@ -40,16 +40,21 @@
    - Note taken on [2018-02-05 Mon 22:24] \\
      https://www.gnu.org/software/emacs/manual/html_node/emacs/Wdired.html
 
+** DONE [#B] Emacs goto line
+   SCHEDULED: <2018-02-06 Tue>
+   - State "DONE"       from "TODO"       [2018-02-06 Tue 21:56]
+   - Note taken on [2018-02-06 Tue 21:56] \\
+     M-g M-g or M-g g
 * Emacs
 ** Edit
-*** M-% - interactive replace
-*** C-y - paste
 *** C-w - cut
-*** M-^ - join lines
-*** M-<space> - delete spaces and tabs around the word
-*** M-w - copy
+*** C-y - paste
 *** C-c C-c - tag search
 *** C-x z - repeat last command
+*** M-% - interactive replace
+*** M-^ - join lines
+*** M-w - copy region
+*** M-<space> - delete spaces and tabs around the word
 *** M-delete - delete symbol previous cursor
 ** Navigation
 *** C-M-n - move to forward parentheses
@@ -58,15 +63,21 @@
 *** C-x C-r - open recent file
 *** C-x p - git previous change
 *** C-x n - git next change
+*** M-> - go to end of the buffer
+*** M-< - go to beginning of the buffer
+*** M-g M-g or M-g g - goto line number
+*** C-x C-d - (helm) browser project folder
 ** Help
 *** C-h f - show function help
 *** C-h k - show shortcut help
 *** C-h v - show variable help
 *** C-h m - show major mode help
-*** C-M-v - scroll help window
+*** C-h b - display all key bindings
 *** C-h t - show tutorial
-*** l - go back
-*** r - go forward
+** Help window
+*** C-M-v - scroll help window
+*** l - go back in help window
+*** r - go forward in help window
 ** Info
 *** C-h i - open documentation (Info)
 *** C-h S - find function or variable in Info
@@ -163,6 +174,9 @@
 *** C-J - jump to Dired mode from minibuffer
 ** Programming
 *** C-x C-; - comment current line
+** Folding
+*** TAB - toggle fold heading
+*** S-<TAB> - toggle fold all
 * VIM
 ** spellcheck
 *** <leader>s - toggle spellcheck
