@@ -1067,6 +1067,7 @@ nnoremap <leader>gsp :GstashPop<cr>
 nnoremap <leader>r :RecentFiles<space>
 nnoremap <leader>t :OpenTag<space>
 nnoremap <leader>p :OpenFile<space>
+nnoremap <leader>b :b<space>
 
 " ================================================
 " Session
