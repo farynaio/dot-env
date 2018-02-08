@@ -197,13 +197,13 @@ let mapleader = ","
 set splitright
 set pastetoggle=<F2> " Switch to paste mode when pasting bulk of text
 set wildignore=*.bak,*.swp,*.pyc,*.class,*.o,*.out,*.obj,*.rbc,*.rbo
-set wildignore+=*/node_modules/*,*/dist/*,*/compiled/*,*/docs/*,*/target/*
-set wildignore+=*/.nyc_output/*
+set wildignore+=**/node_modules/**,**/dist/**,**/compiled/**,**/docs/**,**/target/**
+set wildignore+=**/.nyc_output/**
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.snap
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,coverage/*,*__mocks__/*
-set wildignore+=*/.git/*,*/.svn/*,*/.gem/*
+set wildignore+=**/vendor/gems/**,**/vendor/cache/**,**/.bundle/**,**/.sass-cache/**,**/coverage/**,**__mocks__/**
+set wildignore+=**/.git/**,**/.svn/**,**/.gem/**
 set wildignore+=*/*~,*/._*
-set wildignore+=*/project.vim,*/Session.vim
+set wildignore+=**/project.vim,**/Session.vim
 set noequalalways
 set secure " not allow shell and write commands in autocmd
 set exrc " allow project specific .vimrc files
