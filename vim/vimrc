@@ -304,6 +304,7 @@ function! AfterInit() abort
       autocmd FileType text setl syntax=better-writing
       autocmd FileType netrw call SetupNetrwEnv()
       autocmd FileType crontab setl bkc=yes
+      " autocmd FileType json setl foldmethod=syntax
       autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
       autocmd InsertEnter * match none
       autocmd TabNew * call SetupTabEnv()
