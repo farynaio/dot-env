@@ -104,6 +104,7 @@
   (sunrise default-directory default-directory)
   )
 
+;; delete redundant window in MC mode
 (add-hook 'sr-start-hook (lambda ()
                            (delete-window (car (last (window-list))))))
 
@@ -122,9 +123,9 @@
 (global-set-key (kbd "C-x a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 ;; Helm
-(global-set-key (kbd "M-x") #'helm-M-x)
+;; (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x C-r") #'helm-recentf)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
+;; (global-set-key (kbd "C-x C-f") #'helm-find-files)
 ; (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x b") #'helm-mini)
 (global-set-key (kbd "C-c h") #'helm-command-prefix)
@@ -217,6 +218,8 @@
 (setq org-highest-priority 65)
 (setq org-default-priority 68)
 (setq org-log-done 'time)
+(setq org-adapt-indentation nil)
+(setq org-list-description-max-indent 5)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
 (setq org-tags-column -100)
@@ -263,6 +266,7 @@
                        ("@efficiency" . ?e)
                        ("@love" . ?l)
                        ("@wealth" . ?w)
+                       ("@p-devel" . ?p)
                        ))
 
 ;; org mode conflicts resolution: windmove
