@@ -1,0 +1,9 @@
+* Tasks
+** TODO Check org-export-dispatch
+** TODO Get development version of Org from the git
+
+* Emacs
+** C-x b - start new document?
+* Org mode
+** Notes markup **, //, __, ==, ~~, ++
+** 
