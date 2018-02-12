@@ -279,11 +279,6 @@
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
-(set-register ?g (cons 'file (expand-file-name "goals.org" org-directory)))
-(set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
-(set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
-(set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
@@ -316,6 +311,12 @@
      ("c" "Add note to currently clocked entry" plain (clock)
        "- Note taken on %U \\\\ \n  %?")
      ))
+
+(set-register ?g (cons 'file (expand-file-name "goals.org" org-directory)))
+(set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
+(set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
+(set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
