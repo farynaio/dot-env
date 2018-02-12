@@ -4,6 +4,8 @@ set -o emacs
 
 export USER_NAME=""
 export EMAIL=""
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export JAVA_HOME=$(/usr/libexec/java_home)

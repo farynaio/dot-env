@@ -444,13 +444,13 @@ endfunction
 
 " Highlight word under the cursor.
 function! HighlightWordUnderCursor() abort
-	if IsBufferDevel() && mode() == 'n'
+  if IsBufferDevel() && mode() == 'n'
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]' && !empty(expand('<cword>')) && len(expand('<cword>')) >= 3
       exe 'match' 'Search' '/\v' . expand('<cword>') . '/'
     else
       match none
     endif
-	endif
+  endif
 endfunction
 
 function! McopyFilePathToClipboard() abort
@@ -766,9 +766,9 @@ function! OnEnterWin() abort
   if &ft == 'qf'
     let g:quickfix_is_open = 1
     let l:qf_mappings = {
-      \ "t": "<C-W><CR><C-W>T",
-      \ "T": "<C-W><CR><C-W>TgT<C-W>j",
-      \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t" }
+          \ "t": "<C-W><CR><C-W>T",
+          \ "T": "<C-W><CR><C-W>TgT<C-W>j",
+          \ "v": "<C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t" }
 
     for key_map in items(l:qf_mappings)
       execute printf("nnoremap <buffer> <silent> %s %s", get(key_map, 0), get(key_map, 1))
@@ -892,17 +892,22 @@ nnoremap gd mm gd
 nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 
 " ================================================
-" Look & Feel
+" Look & Feel TODO
 " ================================================
 
 colorscheme mustang
 set background=dark
 
+augroup vimrc
+  autocmd!
+  autocmd ColorScheme * hi Todo guifg=#af0000 gui=italic ctermfg=124 ctermbg=None
+augroup END
+
 " ================================================
 " VIM gui settings
 " ================================================
 
- " turn sytax highlight when terminal has colors
+" turn sytax highlight when terminal has colors
 if has('gui_running') || &t_Co >= 2
   syntax on
 endif
@@ -1064,10 +1069,11 @@ nnoremap <leader>gr :Grebase<space>
 nnoremap <leader>gsd :GstashDiff<space>
 nnoremap <leader>gss :GstashSave<cr>
 nnoremap <leader>gsp :GstashPop<cr>
-nnoremap <leader>r :RecentFiles<space>
+nnoremap <leader>r :b<space>
 nnoremap <leader>t :OpenTag<space>
 nnoremap <leader>p :OpenFile<space>
 nnoremap <leader>b :b<space>
+nnoremap # :exe "normal *"<cr>
 
 " ================================================
 " Session
@@ -1103,10 +1109,10 @@ function! RestoreProject() abort
     return
   endif
 
-	if ProjectFileExists()
+  if ProjectFileExists()
     echom 'Restoring project...'
     exe 'so ' . GetProjectFilename()
-	endif
+  endif
 endfunction
 
 " Restore VIM session if ./Session.vim file exists.
@@ -1308,7 +1314,7 @@ function! ApplyTemplate() abort
     return
   endif
 
-	if !empty(s:client)
+  if !empty(s:client)
     let l:content = getline(0,line("$"))
     let l:result = 0
     for l:temp in l:content
