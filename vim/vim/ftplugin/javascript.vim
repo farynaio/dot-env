@@ -12,7 +12,7 @@ endif
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 let g:vim_json_syntax_conceal = 0
-let g:coverage_json_report_path = './coverage/coverage-final.json'
+let g:coverage_json_report_path = fnamemodify('coverage/coverage-final.json', ':p')
 
 if exists('+omnifunc')
   if has('autocmd')
@@ -63,8 +63,8 @@ if exists('g:loaded_istanbul')
       return 0
     endif
 
-    if !filereadable(expand(g:coverage_json_report_path))
-      echom 'Coverate file ' . g:coverage_json_report_path . ' dont exists!'
+    if !filereadable(g:coverage_json_report_path)
+      echom 'Coverage file ' . g:coverage_json_report_path . ' dont exists!'
       return 0
     endif
 
