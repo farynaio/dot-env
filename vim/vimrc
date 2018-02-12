@@ -910,6 +910,7 @@ augroup END
 " turn sytax highlight when terminal has colors
 if has('gui_running') || &t_Co >= 2
   syntax on
+  set guifont=Menlo\ Regular:h15
 endif
 
 " start in full screen mode when run gui
