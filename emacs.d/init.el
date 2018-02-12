@@ -20,7 +20,6 @@
                       neotree
                       wgrep
                                         ; projectile
-
                     ))
 
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
@@ -193,6 +192,17 @@
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
   (message (concat "Buffer '" (file-name-nondirectory buffer-file-name) "' reloaded.")))
+
+(defun toggle-maximize-buffer ()
+   "Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_) 
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
+
+(global-set-key (kbd "C-x |") 'toggle-maximize-buffer)
 
 (if (commandp 'wgrep)
   (progn
@@ -437,10 +447,7 @@
  '(custom-enabled-themes (quote (sanityinc-tomorrow-blue)))
   '(custom-safe-themes
      (quote
-       ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
-  '(package-selected-packages
-     (quote
-       (wgrep smex flx-ido ido-better-flex ido-completing-read+ ido-ubiquitous-mode rainbow-mode persistent-scratch neotree multiple-cursors hl-todo helm git-gutter editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
+       ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
