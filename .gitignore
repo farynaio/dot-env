@@ -1,6 +1,7 @@
 init.view
 .netrwbook
 .netrwhist
+*.spl
 
 emacs.d/recentf
 emacs.d/bookmarks

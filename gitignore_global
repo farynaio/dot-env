@@ -7,3 +7,5 @@ Session.vim
 project.vim
 .nyc_output
 coverage
+.#*
+#*
