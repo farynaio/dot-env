@@ -232,7 +232,7 @@ https://github.com/easymotion/vim-easymotion
 *** C-c C-c - tag search
 *** C-x z - repeat last command
 *** M-% - interactive replace
-*** M-^ - join lines
+*** M-^ or C-j - join lines / delete indentation
 *** M-w - copy region
 *** M-<space> - delete spaces and tabs around the word
 *** M-delete - delete symbol previous cursor
@@ -330,7 +330,7 @@ https://github.com/easymotion/vim-easymotion
 ** Navigation
 *** C-', C-, - cycle org files
 *** M-up, M-down - reorder item
-**** C-c o - open link
+*** C-c o - open link
 *** C-c % - push current position to mark ring
 *** C-c & - go to recorded position
 ** Display
@@ -360,12 +360,12 @@ https://github.com/easymotion/vim-easymotion
 *** C-x h - mark entire buffer
 
 ** Priorities
-**** C-c , - set priority
-**** S-up - priority up
-**** S-down - priority down
-**** sorting
-**** M-<up> - record line up
-**** M-<down> - record line down
+*** C-c , - set priority
+*** S-up - priority up
+*** S-down - priority down
+*** sorting
+*** M-<up> - record line up
+*** M-<down> - record line down
 
 ** Recovery
 *** C-x u - undo
