@@ -193,7 +193,7 @@
 
 (add-hook 'dired-mode
   (lambda ()
-    (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
+    ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
     ))
 
 (defun revert-buffer-noconfirm ()
@@ -348,7 +348,7 @@
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
      ("cn" "TODOs not sheduled"
        (
-         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED"))
+         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED|+IN_PROCESS"))
        ((org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
      ("cb" "TODOs blocked"
@@ -470,7 +470,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (set-face-attribute 'default nil :font default-font)
 
 ;; temporary
-(set-face-foreground 'dired-directory "yellow" )
+;; (set-face-foreground 'dired-directory "yellow" )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -480,9 +481,3 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   '(custom-safe-themes
      (quote
        ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
