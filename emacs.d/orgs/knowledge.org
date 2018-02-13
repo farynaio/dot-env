@@ -209,8 +209,12 @@ CLOSED: [2018-02-12 Mon]
     - Note taken on [2018-02-06 Tue 20:24] \\
       recentf-*
 ** TODO Emacs git support (magit)
-** TODO Vim try easy motion
+** TODO [#C] Vim try easy motion
+
 https://github.com/easymotion/vim-easymotion
+
+** TODO [#C] Vim check vimtutor
+** TODO [#C] Configure "stuck projects"
 * English
 ** adjectives
 ** adverbs
