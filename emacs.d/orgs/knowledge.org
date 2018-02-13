@@ -1,11 +1,18 @@
 * Tasks
 ** TODO [#D] emacs what is outline mode?
+** TODO [#B] Emacs check occur for searching
+** TODO [#D] Emacs TRAMP as a replacement for FileZilla
 ** TODO [#C] Org mode using properties to organize collections of things (books)
 - Note taken on [2018-02-10 Sat 00:45] \\
   https://orgmode.org/manual/Property-syntax.html#Property-syntax
 ** TODO [#D] emacs how to open file/buffer in read-only?
 ** TODO [#D] Vim solve snippets inheritance problem
 ** TODO [#D] emacs how to toggle buffer read-only
+** TODO [#C] Add default priority to created tasks
+** TODO [#B] Vim master switch capital case, snake case etc.
+** TODO [#B] Emacs switch from capital case, snake case etc.
+** TODO [#C] Check org-export-dispatch
+
 ** TODO [#B] Org mode Ghantt diagram
    - Note taken on [2018-02-08 Thu 23:56] \\
      http://taskjuggler.org
@@ -115,8 +122,9 @@ webdav server na heroku
 
 ** TODO [#C] Org mode agile / scrum / spring                                           :@efficiency:
    SCHEDULED: <2018-02-04 Sun>
-** TODO [#A] Org mode setup proper agenda view                                         :@efficiency:
-   SCHEDULED: <2018-02-07 Wed>
+** DONE [#A] Org mode setup proper agenda view					       :@efficiency:
+CLOSED: [2018-02-13 Tue] SCHEDULED: <2018-02-07 Wed>
+- State "DONE"       from "TODO"       [2018-02-13 Tue 15:17]
 ** DONE [#A] Setup agenda view for all undone tasks                                    :@efficiency:
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 - State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
@@ -127,7 +135,18 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#D] Access org mode on mobile                                                 :@efficiency:
 
 
-** TODO [#D] Git blame support
+** IN-PROCESS [#D] Git blame support
+- Note taken on [2018-02-13 Tue 17:05] \\
+  build in package vc-*
+  
+  git.el http://alexott.net/en/writings/emacs-vcs/EmacsGit.html
+
+hacks:
+http://snarfed.org/emacs-vc-git-tweaks
+
+  magit:
+  https://magit.vc/manual/
+  https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs
 ** DONE Gitgutter
     CLOSED: [2018-02-06 Tue]
 ** DONE [#C] run commands async (what commands?)
@@ -190,6 +209,7 @@ CLOSED: [2018-02-12 Mon]
     CLOSED: [2018-02-06 Tue]
     - Note taken on [2018-02-06 Tue 20:24] \\
       recentf-*
+** TODO Emacs git support (magit)
 * English
 ** adjectives
 ** adverbs
@@ -228,6 +248,13 @@ CLOSED: [2018-02-12 Mon]
 *** M-< - go to beginning of the buffer
 *** M-g M-g or M-g g - goto line number
 *** C-x C-d - (helm) browser project folder
+*** C-s C-s - search for most recent search again
+**** M-p|n - go through kill ring
+**** C-w - add another word to active search
+**** M-e - edit searching phrase
+*** C-x r b - jump to bookmark
+*** C-x r m - set bookmark
+*** C-x r l - list bookmarks
 ** Help
 *** C-h f - show function help
 *** C-h k - show shortcut help
@@ -260,7 +287,9 @@ CLOSED: [2018-02-12 Mon]
 *** C-x 5 r <filename> - open file in read-only mode in new frame
 ** Files
 *** C-x C-f C-f - create file in 'find file mode'
-
+** VCS / git
+*** vc-annotate - git blame (https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs)
+*** C-x v = - ediff-revision
 * Org mode
 ** Features
 *** comments - prevent heading and sub headings from being exported
@@ -362,12 +391,11 @@ CLOSED: [2018-02-12 Mon]
 *** S-<TAB> - toggle fold all
 
 ** Links
--
  http://[[blog.aaronbieber.com]]
-- http://whattheemacsd.com
-- http://emacsrocks.com
-- https://orgmode.org/worg/org-tutorials/org4beginners.html
-  https://sachachua.com
+ http://whattheemacsd.com
+ http://emacsrocks.com
+ https://orgmode.org/worg/org-tutorials/org4beginners.html
+ https://sachachua.com
 * VIM
 ** spellcheck
 *** <leader>s - toggle spellcheck
