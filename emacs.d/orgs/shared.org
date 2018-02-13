@@ -1,4 +1,5 @@
 * Tasks
+** TODO Add default priority to created tasks
 ** TODO Check org-export-dispatch
 ** TODO Get development version of Org from the git
 
