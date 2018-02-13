@@ -217,14 +217,12 @@
 	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
 	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
 (add-hook 'ediff-startup-hook
-	  (lambda () 
+	  (lambda ()
 	    (select-frame-by-name "Ediff")
 	    (set-frame-size(selected-frame) 40 10)))
 (add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
 (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
-
-
 ;; (when (executable-find "curl")
 ;;   (setq helm-google-suggest-use-curl-p t))
 
