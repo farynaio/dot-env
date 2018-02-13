@@ -392,7 +392,7 @@ function! SetupBufferEnter() abort
   elseif expand('%') =~ "fugitive:"
     setl cursorline
     xnoremap <buffer> dp :diffput<cr>
-    xnoremap <buffer> do :diffget<cr>
+    xnoremap <buffer> dg :diffget<cr>
 
   else
     setl nocursorline
