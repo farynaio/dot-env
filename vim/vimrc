@@ -874,8 +874,6 @@ ounmap <Down>
 " clear search highlight
 noremap <silent> ,/ :nohlsearch<cr>
 
-" execute commands with ;
-
 " allows entering sudo write mode
 cmap w!! w !sudo tee % >/dev/null
 
