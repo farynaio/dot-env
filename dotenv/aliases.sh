@@ -7,6 +7,7 @@ alias ssh_zenbox='ssh -l adamfary s13.zenbox.pl'
 alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 alias start_mysql='mysqld_safe &'
 alias stop_mysql='mysqladmin shutdown'
+alias emacs_find_package='find /Applications/Emacs.app -regex '
 
 alias vi="vim "
 alias ls="ls -G "
