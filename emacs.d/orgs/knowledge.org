@@ -127,6 +127,69 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#D] Access org mode on mobile                                                 :@efficiency:
 
 
+** TODO [#D] Git blame support
+** DONE Gitgutter
+    CLOSED: [2018-02-06 Tue]
+** DONE [#C] run commands async (what commands?)
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:45]
+** TODO [#D] JSON by syntax
+** TODO [#B] folded markers available all the time
+** DONE [#A] how to refresh buffer?
+CLOSED: [2018-02-12 Mon]
+- Note taken on [2018-02-12 Mon 23:47] \\
+  <C-x r> or <C-r>
+- State "DONE"       from ""           [2018-02-12 Mon 23:47]
+** DONE [#B] search and replace in multiple files
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:14]
+    - Note taken on [2018-02-11 Sun 23:08] \\
+      rgrep + wgrep combo https://github.com/mhayashi1120/Emacs-wgrep
+    - Note taken on [2018-02-11 Sun 23:04] \\
+      projectile could be useful here - occur, grep
+    - Note taken on [2018-02-06 Tue 21:28] \\
+      Build in s&r by tags tags-query-replace.
+** DONE [#A] search and replace in single file
+    CLOSED: [2018-02-06 Tue] SCHEDULED: <2018-02-06 Tue>
+    - State "DONE"       from "IN-PROCESS" [2018-02-06 Tue 21:58]
+    - Note taken on [2018-02-06 Tue 21:40] \\
+      M-% together with C-s (incremental search).
+** DONE toggle dictionary fast
+    CLOSED: [2018-02-06 Tue]
+    - Note taken on [2018-02-06 Tue 20:16] \\
+      dict-toggle
+      M-$ - correct word
+      C-, - next error
+      Fly prog mode
+** DONE [#B] indent region
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:48]
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Just with <tab>.
+** DONE [#A] Window zoom
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:49]
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Toggle window zoom with <C-x |>.
+** DONE [#A] go to line number
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:50]
+- Note taken on [2018-02-12 Mon 23:49] \\
+  <M-gg> or <M-g><M-g>
+** DONE [#A] easy tabs switch
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+- Note taken on [2018-02-12 Mon 23:50] \\
+  With <cmd-left> and <cmd-right>.
+** DONE [#A] easy window switch
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+- Note taken on [2018-02-12 Mon 23:51] \\
+  Done with C-x <left>/<right>/<up>/<down>.
+** DONE [#A] navigation recent files
+    CLOSED: [2018-02-06 Tue]
+    - Note taken on [2018-02-06 Tue 20:24] \\
+      recentf-*
 * English
 ** adjectives
 ** adverbs
@@ -299,7 +362,8 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 *** S-<TAB> - toggle fold all
 
 ** Links
-- [[blog.aaronbieber.com]]
+-
+ http://[[blog.aaronbieber.com]]
 - http://whattheemacsd.com
 - http://emacsrocks.com
 - https://orgmode.org/worg/org-tutorials/org4beginners.html
@@ -419,69 +483,32 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 * Emacs VIM switch
 ** navigation
 *** [#A] navigation by tags
-*** [#A] navigation by files in path
-*** DONE [#A] navigation recent files
-    CLOSED: [2018-02-06 Tue]
-    - Note taken on [2018-02-06 Tue 20:24] \\
-      recentf-*
-*** [#A] go to accordance * and #
-*** [#A] easy window switch
-*** [#A] easy tabs switch
-*** [#A] search for phrase in root folder (helm)
-*** [#A] go to line number
+*** TODO [#A] Emacs navigation by files in path
+*** TODO [#B] go to accordance * and #
+*** TODO [#B] search for phrase in root folder
 ** snippets
 *** [#B] class, less, cl
 ** templates
-*** [#C] new HTML doc
+*** [#C] new HTML doc from template
 ** git
-*** [#A] diff file from revision
-*** [#A] blame
-*** DONE Gitgutter
-    CLOSED: [2018-02-06 Tue]
-** [#C] run commands async (what commands?)
+*** [#B] diff file from revision
 ** folding
-*** [#D] JSON by syntax
-*** [#C] folded markers available all the time
 ** auto completion
-*** [#A] auto completion tags
+*** [#B] auto completion tags
 *** [#A] auto completion files in path
 *** [#A] auto completion opened buffers
-*** [#A] auto completion syntax
+*** [#B] auto completion syntax
 **  file types support
-*** [#A] file type support CSS, SCSS
+*** [#B] file type support CSS, SCSS
 *** [#D] file type support md
 ** display
-*** [#B] aka color column
+*** [#C] color column limit
 *** [#B] status line display folder name
-*** [#A] Window zoom
 ** [#B] Emmet support
 ** [#B] support prettier or eslint
-** [#A] code coverage: nyc, istanbul
+** [#B] code coverage: nyc, istanbul
 ** edit
-*** [#A] how to refresh buffer?
-*** [#A] master use multi cursors
+*** [#B] master use multi cursors
 *** [#B] Surround region
-*** DONE [#B] search and replace in multiple files
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
-- State "DONE"       from "TODO"       [2018-02-11 Sun 23:14]
-    - Note taken on [2018-02-11 Sun 23:08] \\
-      rgrep + wgrep combo https://github.com/mhayashi1120/Emacs-wgrep
-    - Note taken on [2018-02-11 Sun 23:04] \\
-      projectile could be useful here - occur, grep
-    - Note taken on [2018-02-06 Tue 21:28] \\
-      Build in s&r by tags tags-query-replace.
-*** DONE [#A] search and replace in single file
-    CLOSED: [2018-02-06 Tue] SCHEDULED: <2018-02-06 Tue>
-    - State "DONE"       from "IN-PROCESS" [2018-02-06 Tue 21:58]
-    - Note taken on [2018-02-06 Tue 21:40] \\
-      M-% together with C-s (incremental search).
 *** [#A] Upper case / lower case
-*** [#A] indent region
 ** spell check
-*** DONE toggle dictionary fast
-    CLOSED: [2018-02-06 Tue]
-    - Note taken on [2018-02-06 Tue 20:16] \\
-      dict-toggle
-      M-$ - correct word
-      C-, - next error
-      Fly prog mode
