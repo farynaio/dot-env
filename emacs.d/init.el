@@ -170,6 +170,60 @@
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-j") 'join-line)
 
+;; VCS / git
+(setq ediff-split-window-function (if (> (frame-width) 150)
+				      'split-window-horizontally
+				    'split-window-vertically))
+
+;; Bring back window configuration after ediff quits
+(defvar my-ediff-bwin-config nil "Window configuration before ediff.")
+(defcustom my-ediff-bwin-reg ?b
+  "*Register to be set up to hold `my-ediff-bwin-config'
+    configuration.")
+
+(defvar my-ediff-awin-config nil "Window configuration after ediff.")
+(defcustom my-ediff-awin-reg ?e
+  "*Register to be used to hold `my-ediff-awin-config' window
+    configuration.")
+
+(defun my-ediff-bsh ()
+  "Function to be called before any buffers or window setup for
+    ediff."
+  (setq my-ediff-bwin-config (current-window-configuration))
+  (when (characterp my-ediff-bwin-reg)
+    (set-register my-ediff-bwin-reg
+		  (list my-ediff-bwin-config (point-marker)))))
+
+(defun my-ediff-ash ()
+  "Function to be called after buffers and window setup for ediff."
+  (setq my-ediff-awin-config (current-window-configuration))
+  (when (characterp my-ediff-awin-reg)
+    (set-register my-ediff-awin-reg
+		  (list my-ediff-awin-config (point-marker)))))
+
+(defun my-ediff-qh ()
+  "Function to be called when ediff quits."
+  (when my-ediff-bwin-config
+    (set-window-configuration my-ediff-bwin-config)))
+
+(add-hook 'ediff-load-hook
+	  (lambda ()
+	    (add-hook 'ediff-before-setup-hook
+		      (lambda ()
+			(setq ediff-saved-window-configuration (current-window-configuration))))
+	    (let ((restore-window-configuration
+		   (lambda ()
+		     (set-window-configuration ediff-saved-window-configuration))))
+	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
+	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
+(add-hook 'ediff-startup-hook
+	  (lambda () 
+	    (select-frame-by-name "Ediff")
+	    (set-frame-size(selected-frame) 40 10)))
+(add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
+(add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
+(add-hook 'ediff-quit-hook 'my-ediff-qh)
+
 
 ;; (when (executable-find "curl")
 ;;   (setq helm-google-suggest-use-curl-p t))
@@ -336,6 +390,7 @@
 (set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
 (set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
 (set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
+(set-register ?i (cons 'file (expand-file-name "init.el"  org-directory)))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
@@ -348,7 +403,7 @@
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
      ("cn" "TODOs not sheduled"
        (
-         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED|+IN_PROCESS"))
+         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED|+IN-PROCESS"))
        ((org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
      ("cb" "TODOs blocked"
@@ -368,7 +423,7 @@
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
      ("d" "Coprehensive agenda"
-       ((tags "PRIORITY=\"A\"/!+TODO|+IN_PROCESS|+BLOCKED|+WAITING"
+       ((tags "PRIORITY=\"A\"/!+TODO|+IN-PROCESS|+BLOCKED|+WAITING"
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
             (org-agenda-overriding-header "High-priority unfinished tasks:")))
          (agenda "")
