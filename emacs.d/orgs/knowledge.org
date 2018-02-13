@@ -122,9 +122,9 @@ webdav server na heroku
 
 ** TODO [#C] Org mode agile / scrum / spring                                           :@efficiency:
    SCHEDULED: <2018-02-04 Sun>
-** DONE [#A] Org mode setup proper agenda view					       :@efficiency:
-CLOSED: [2018-02-13 Tue] SCHEDULED: <2018-02-07 Wed>
-- State "DONE"       from "TODO"       [2018-02-13 Tue 15:17]
+** DONE [#A] Org mode setup proper agenda view                                         :@efficiency:
+CLOSED: [2018-02-12 Mon] SCHEDULED: <2018-02-07 Wed>
+- State "DONE"       from "TODO"       [2018-02-12 Mon 23:59]
 ** DONE [#A] Setup agenda view for all undone tasks                                    :@efficiency:
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 - State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
@@ -134,11 +134,10 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
    CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
 ** TODO [#D] Access org mode on mobile                                                 :@efficiency:
 
-
 ** IN-PROCESS [#D] Git blame support
 - Note taken on [2018-02-13 Tue 17:05] \\
   build in package vc-*
-  
+
   git.el http://alexott.net/en/writings/emacs-vcs/EmacsGit.html
 
 hacks:
@@ -210,6 +209,8 @@ CLOSED: [2018-02-12 Mon]
     - Note taken on [2018-02-06 Tue 20:24] \\
       recentf-*
 ** TODO Emacs git support (magit)
+** TODO Vim try easy motion
+https://github.com/easymotion/vim-easymotion
 * English
 ** adjectives
 ** adverbs
