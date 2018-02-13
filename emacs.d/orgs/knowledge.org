@@ -398,6 +398,36 @@ https://github.com/easymotion/vim-easymotion
  https://orgmode.org/worg/org-tutorials/org4beginners.html
  https://sachachua.com
 * VIM
+** edit
+*** ]p - paste and indnet block
+*** /** - mark entire buffer content
+** navigation
+*** [ or ] - go to next/previous function definition
+*** ( or ) - go to next/previous paragraph
+*** ]] - section forward or to next paragraph
+*** gf - goto filename below the cursor
+*** w - jump forward beginning of next word
+*** W - jump forward beginning of next WORD
+*** e - jump forward to end of word
+*** E - jump forward to end of WORD
+*** {} - jump back/forward to end/start of blocks
+*** [] - jump to the start of next/previous block
+*** g; - go to previous change I made
+*** g, - go to next change I made
+*** C-o - jump to previously visited location
+*** C-i - jump to next visited location
+*** hjkl - left/down/up/right
+*** ciw, ciW - change word/WORD under the cursor
+*** diw, diW - delete word/WORD under the cursor
+*** ci( - change content inside ()
+*** ci" - change content inside ""
+*** mM - creates global mark
+*** mm - creates local mark
+*** f - move to next occurrence of the char (;, to go next/back)
+***
+** help
+*** K - open help for word under the cursor
+*** :h index - index of keys
 ** spellcheck
 *** <leader>s - toggle spellcheck
 *** ]s [s - navigation
@@ -411,14 +441,6 @@ https://github.com/easymotion/vim-easymotion
 *** .,+2s - from the current line and next 2 lines
 *** g///g - entire file
 *** // - last search pattern
-** edit
-*** ]p - paste and indnet block
-*** /** - mark entire buffer content
-** navigation
-*** [ or ] - go to next/previous function definition
-*** ( or ) - go to next/previous paragraph
-*** ]] - section forward or to next paragraph
-*** gf - goto filename below the cursor
 ** bookmarks
 *** marks - shows list of bookmarks
 *** '] - go to start of last change
