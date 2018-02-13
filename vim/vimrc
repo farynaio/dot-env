@@ -463,6 +463,9 @@ noremap <c-_><c-_> :Commentary<cr>
 noremap <c-w>n :vnew<cr>
 noremap <leader>s :call ToggleSpelling()<cr>
 
+noremap H ^
+noremap L $
+
 function! ToggleSpelling() abort
   let &spell = !&spell
   echo 'Spelling in ' . &spelllang . ' is ' . (&spell ?  'on' : 'off') . '.'
@@ -872,7 +875,6 @@ ounmap <Down>
 noremap <silent> ,/ :nohlsearch<cr>
 
 " execute commands with ;
-nnoremap ; :
 
 " allows entering sudo write mode
 cmap w!! w !sudo tee % >/dev/null
