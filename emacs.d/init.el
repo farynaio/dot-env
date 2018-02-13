@@ -321,6 +321,7 @@
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-agenda-files (list org-directory))
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-directory))
       "* TODO %?")
@@ -337,10 +338,10 @@
 (set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
 
 (setq org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
 (setq org-agenda-custom-commands
-  '(("d" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
+  '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
       (
         (agenda "*"))
       ((org-agenda-overriding-header "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort")
@@ -366,8 +367,31 @@
        ((org-agenda-files (list org-journal-dir))
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
+     ("d" "Coprehensive agenda"
+       ((tags "PRIORITY=\"A\"/!+TODO|+IN_PROCESS|+BLOCKED|+WAITING"
+          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+            (org-agenda-overriding-header "High-priority unfinished tasks:")))
+         (agenda "")
+         (alltodo ""
+           ((org-agenda-skip-function
+              '(or (air-org-skip-subtree-if-priority ?A)
+                 (org-agenda-skip-if nil '(scheduled deadline)))))
+           ))
+       )
      )
   )
+
+(defun air-org-skip-subtree-if-priority (priority)
+  "Skip an agenda subtree if it has a priority of PRIORITY.
+
+PRIORITY may be one of the characters ?A, ?B, or ?C."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+        (pri-value (* 1000 (- org-lowest-priority priority)))
+        (pri-current (org-get-priority (thing-at-point 'line t))))
+    (if (= pri-value pri-current)
+        subtree-end
+      nil)))
+
 
 (org-clock-persistence-insinuate)
 
