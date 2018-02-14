@@ -401,12 +401,12 @@
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
      ("cn" "TODOs not sheduled"
        (
-         (tags "-SCHEDULED={.+}/!+TODO|+STARTED|+BLOCKED|+IN-PROCESS"))
+         (tags "-SCHEDULED={.+}/!+TODO|+BLOCKED|+IN-PROCESS|+WAITING"))
        ((org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
      ("cb" "TODOs blocked"
        (
-         (tags "+BLOCKED"))
+         (tags "BLOCKED"))
        ((org-agenda-overriding-header "TODOs blocked")
          (org-agenda-sorting-strategy '(priority-down deadline-down alpha-down effort-up))))
      ("cc" "TODOs canceled"
@@ -421,14 +421,16 @@
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
      ("d" "Coprehensive agenda"
-       ((tags "PRIORITY=\"A\"/!+TODO|+IN-PROCESS|+BLOCKED|+WAITING"
+      ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
             (org-agenda-overriding-header "High-priority unfinished tasks:")))
          (agenda "")
          (alltodo ""
            ((org-agenda-skip-function
               '(or (air-org-skip-subtree-if-priority ?A)
-                 (org-agenda-skip-if nil '(scheduled deadline)))))
+		   (org-agenda-skip-if nil '(scheduled deadline))
+		   (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))
+		   )))
            ))
        )
      )
