@@ -18,7 +18,7 @@
      http://taskjuggler.org
    https://orgmode.org/worg/org-tutorials/org-taskjuggler.html
 ** TODO [#B] Org mode how to click on link to open browser?
-** IN-PROCESS [#B] Org mode effort estimates
+** TODO [#B] Org mode effort estimates
    SCHEDULED: <2018-02-07 Wed>
    - Note taken on [2018-02-07 Wed 13:05] \\
      org-set-effort
@@ -134,7 +134,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
    CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
 ** TODO [#D] Access org mode on mobile                                                 :@efficiency:
 
-** IN-PROCESS [#D] Git blame support
+** TODO [#D] Git blame support
 - Note taken on [2018-02-13 Tue 17:05] \\
   build in package vc-*
 
@@ -208,7 +208,7 @@ CLOSED: [2018-02-12 Mon]
     CLOSED: [2018-02-06 Tue]
     - Note taken on [2018-02-06 Tue 20:24] \\
       recentf-*
-** TODO Emacs git support (magit)
+** TODO [#C] Emacs git support (magit)
 ** TODO [#C] Vim try easy motion
 
 https://github.com/easymotion/vim-easymotion
@@ -538,7 +538,7 @@ https://github.com/easymotion/vim-easymotion
 * Emacs VIM switch
 ** navigation
 *** [#A] navigation by tags
-*** TODO [#A] Emacs navigation by files in path
+*** TODO [#B] Emacs navigation by files in path
 *** TODO [#B] go to accordance * and #
 *** TODO [#B] search for phrase in root folder
 ** snippets
