@@ -5,10 +5,3 @@ https://github.com/dfeich/org-clock-convenience
 ** TODO [#B] Org mode ledger
 https://www.ledger-cli.org/3.0/doc/ledger3.html#Emacs-org-Mode
 https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
-
-
-* Emacs
-** C-x b - start new document?
-* Org mode
-** Notes markup **, //, __, ==, ~~, ++
-** 

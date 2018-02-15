@@ -321,9 +321,9 @@ https://github.com/easymotion/vim-easymotion
 *** C-c C-l - insert link
 *** C-c C-a - insert attachment
 *** M-left/right - demote/promote heading
-*** C-c C-d - deadline??
+*** C-c C-d - set deadline
+*** C-c C-s - set scheduled
 *** C-c C-z - add time stamped note to LOGBOOK drawer
-*** C-x C-x d - insert drawer (collapsed block)
 *** org-change-tag-in-region
 *** M-S-<left>/<right> - demote/promote entire subtree
 *** M-h - mark heading
@@ -331,6 +331,8 @@ https://github.com/easymotion/vim-easymotion
 *** C-c ^ - sort same level entries
 *** C-c @ - mark subtree
 *** C-c * - toggle heading (turn regular line into heading)
+*** C-x C-c a - toggle archive heading
+*** C-x C-x d - insert drawer (collapsed block)
 ** Navigation
 *** C-', C-, - cycle org files
 *** M-up, M-down - reorder item
