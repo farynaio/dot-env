@@ -33,6 +33,9 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
 
+export PAGER="/usr/bin/less -isM -F -X +Gg $LESS"
+export MANPAGER=$PAGER
+export GIT_PAGER=$PAGER
 export MANPATH=$NPM_PACKAGES/share/man:$MANPATH
 
 export WORKON_HOME=~/.virtualenvs
