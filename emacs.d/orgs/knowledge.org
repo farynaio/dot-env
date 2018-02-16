@@ -56,7 +56,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    - Note taken on [2018-02-05 Mon 20:07] \\
    Faces for TODO keywords
 
-** TODO [#B] Org mode how to deal with repeatable tasks?
+** TODO [#B] Org mode how can I manage repeatable tasks?
    SCHEDULED: <2018-02-06 Tue>
    - Note taken on [2018-02-05 Mon 23:53] \\
      https://orgmode.org/manual/Repeated-tasks.html
@@ -120,8 +120,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 https://orgmode.org/worg/org-tutorials/org-google-sync.html
 webdav server na heroku
 
-** TODO [#C] Org mode agile / scrum / spring                                           :@efficiency:
-   SCHEDULED: <2018-02-04 Sun>
+** TODO [#B] Org mode agile / scrum / spring                                           :@efficiency:
 ** DONE [#A] Org mode setup proper agenda view                                         :@efficiency:
 CLOSED: [2018-02-12 Mon] SCHEDULED: <2018-02-07 Wed>
 - State "DONE"       from "TODO"       [2018-02-12 Mon 23:59]
