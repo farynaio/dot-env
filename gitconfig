@@ -129,7 +129,3 @@
   sd = stash show -p
   mt = mergetool
   dt = difftool
-
-[user]
-	name = Adam Faryna
-	email = adam.faryna@aig.com
