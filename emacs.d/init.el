@@ -125,6 +125,7 @@
                            (delete-window (car (last (window-list))))))
 
 (add-hook 'org-mode-hook (lambda ()
+                           (local-set-key (kbd "C-c l") 'org-store-link)
 													 (local-unset-key (kbd "C-c $")) ; removed archive subtree shortcut
 													 (local-unset-key (kbd "C-c C-x C-a")) ; remove archive subtree default shortcut
 													 (local-unset-key (kbd "C-c C-x C-s")) ; remove archive subtree shortcut
@@ -362,7 +363,7 @@
 (setq org-default-priority 68)
 (setq org-log-done 'time)
 (setq org-completion-use-ido t)
-(setq org-adapt-indentation nil)
+;; (setq org-adapt-indentation nil)
 (setq org-list-description-max-indent 5)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
@@ -377,6 +378,8 @@
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-directory))
       "* TODO %?")
+     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-directory))
+      "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  :STYLE: habit\n  :END:")
      ("j" "Journal" entry (file (expand-file-name "journal.org" org-directory))
        "* [%<%Y-%m-%d>]\n%?")
      ("c" "Add note to currently clocked entry" plain (clock)
@@ -388,10 +391,12 @@
 (set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
 (set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
 (set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
-(set-register ?i (cons 'file (expand-file-name "init.el"  org-directory)))
+(set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+
+(define-key org-agenda-mode-map "c" 'org-capture)
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
@@ -428,10 +433,12 @@
          (alltodo ""
            ((org-agenda-skip-function
               '(or (air-org-skip-subtree-if-priority ?A)
-		   (org-agenda-skip-if nil '(scheduled deadline))
-		   (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))
-		   )))
-           ))
+                 (air-org-skip-subtree-if-habit)
+                 (org-agenda-skip-if nil '(scheduled deadline))
+                 (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
+             )
+           )
+        )
        )
      )
   )
@@ -447,16 +454,24 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
         subtree-end
       nil)))
 
+(defun air-org-skip-subtree-if-habit ()
+  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (if (string= (org-entry-get nil "STYLE") "habit")
+        subtree-end
+      nil)))
 
 (org-clock-persistence-insinuate)
 
-(setq org-tag-alist '(("@health" . ?h)
-                       ("@fun" . ?f)
-                       ("@career" . ?c)
-                       ("@family&friends" . ?f)
-                       ("@love" . ?l)
-                       ("@wealth" . ?w)
+(setq org-tag-alist '(("@health" . ?h) ; my energy level, my looks
+                       ("@fun" . ?f) ; relax, enjoy life
+                       ("@career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
+                       ("@family&friends" . ?f) ; my social network, my professional network
+                       ("@love" . ?l) ; my happiness, my ultimate goal, my real legacy
+                       ("@wealth" . ?w) ; my legacy
                        ))
+
+(add-to-list 'org-modules 'org-habit t)
 
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
