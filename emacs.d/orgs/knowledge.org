@@ -113,7 +113,8 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Check org agenda set effort.                                              :@efficiency:
 ** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
 ** TODO [#C] Check org-agenda-write                                                    :@efficiency:
-** TODO [#C] Org mode add sync with google cal                                         :@efficiency:
+** TODO [#B] Org mode add sync with google cal                                         :@efficiency:
+SCHEDULED: <2018-02-18 Sun>
    - Note taken on [2018-02-08 Thu 23:59] \\
      https://www.npmjs.com/package/webdav-server
 
@@ -214,11 +215,16 @@ https://github.com/easymotion/vim-easymotion
 
 ** TODO [#C] Vim check vimtutor
 ** TODO [#C] Configure "stuck projects"
+** TODO [#B] Check emacs navigation shortcuts
+
 * English
 ** adjectives
 ** adverbs
 ** nouns
 *** Brokerage - pośrednictwo
+*** black lilac - czarny bez
+*** verbena flower - werbena
+*** linden - lipa
 ** verbs
 * Emacs
 ** General
@@ -317,7 +323,8 @@ https://github.com/easymotion/vim-easymotion
 ** Edit
 *** C-return - insert heading (not break current heading)
 *** M-return - insert heading, item or row
-*** C-c C-l - insert link
+*** C-c C-l - insert link (https://stackoverflow.com/a/21482249/346921)
+*** internal links - https://orgmode.org/manual/Internal-links.html
 *** C-c C-a - insert attachment
 *** M-left/right - demote/promote heading
 *** C-c C-d - set deadline
@@ -332,6 +339,8 @@ https://github.com/easymotion/vim-easymotion
 *** C-c * - toggle heading (turn regular line into heading)
 *** C-x C-c a - toggle archive heading
 *** C-x C-x d - insert drawer (collapsed block)
+*** C-x C-c - toggle checkbox https://orgmode.org/manual/Checkboxes.html#Checkboxes
+*** C-u C-x C-c - create empty checkbox
 ** Navigation
 *** C-', C-, - cycle org files
 *** M-up, M-down - reorder item
@@ -359,6 +368,9 @@ https://github.com/easymotion/vim-easymotion
 *** L - recenter
 *** / - secondary filtering
 *** ; - start countdown timer
+*** F - follow mode on current entry
+*** <space> - show current entry
+*** <tab> - switch to current entry
 ** Marks
 *** S-left, S-right - mark cycle
 *** M-h - mark paragraph
@@ -397,7 +409,7 @@ https://github.com/easymotion/vim-easymotion
 *** S-<TAB> - toggle fold all
 
 ** Links
- http://[[blog.aaronbieber.com]]
+http://[[blog.aaronbieber.com]]
  http://whattheemacsd.com
  http://emacsrocks.com
  https://orgmode.org/worg/org-tutorials/org4beginners.html
