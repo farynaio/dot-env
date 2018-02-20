@@ -113,7 +113,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Check org agenda set effort.                                              :@efficiency:
 ** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
 ** TODO [#C] Check org-agenda-write                                                    :@efficiency:
-** TODO [#B] Org mode add sync with google cal                                         :@efficiency:
+** TODO [#A] Org mode add sync with google cal                                         :@efficiency:
 SCHEDULED: <2018-02-18 Sun>
    - Note taken on [2018-02-08 Thu 23:59] \\
      https://www.npmjs.com/package/webdav-server
