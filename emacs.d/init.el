@@ -448,15 +448,15 @@
                (air-org-agenda-skip-if-scheduled-later))
             )
            (org-agenda-overriding-header "High-priority unfinished tasks:")))
-         (agenda "")
-         (alltodo ""
-           ((org-agenda-skip-function
-              '(or (air-org-skip-subtree-if-priority ?A)
-                 (air-org-skip-subtree-if-habit)
-                 (org-agenda-skip-if nil '(scheduled deadline))
-                 (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
-             )
-           )
+        (agenda "")
+        (alltodo ""
+          ((org-agenda-skip-function
+             '(or (air-org-skip-subtree-if-priority ?A)
+                (air-org-skip-subtree-if-habit)
+                (org-agenda-skip-if nil '(scheduled deadline))
+                (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
+            )
+          )
         )
        )
      )
