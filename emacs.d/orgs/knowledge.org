@@ -533,6 +533,8 @@ http://[[blog.aaronbieber.com]]
 * iTerm2
 ** options + mouse selection - select text to copy
 ** options + command + mouse selection - select block to copy
+* GIT
+** git rebase --onto <new_parent> <old_parent>
 * eCommerce
 * Tmux - https://gist.github.com/henrik/1967800
 ** console
