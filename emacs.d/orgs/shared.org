@@ -4,6 +4,7 @@ https://github.com/dfeich/org-clock-convenience
 
 ** TODO [#B] Org mode ledger
 https://www.ledger-cli.org/3.0/doc/ledger3.html#Emacs-org-Mode
+http://hledger.org/step-by-step.html
 https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
 ** TODO [#B] Org mode add filter to agenda to hide A tasks that are scheduled for other day from agenda.
 SCHEDULED: <2018-02-18 Sun>
