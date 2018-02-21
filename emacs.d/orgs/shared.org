@@ -6,8 +6,10 @@ https://github.com/dfeich/org-clock-convenience
 https://www.ledger-cli.org/3.0/doc/ledger3.html#Emacs-org-Mode
 http://hledger.org/step-by-step.html
 https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
-** TODO [#B] Org mode add filter to agenda to hide A tasks that are scheduled for other day from agenda.
-SCHEDULED: <2018-02-18 Sun>
+** CANCELED [#B] Org agenda add filter to hide A tasks that are scheduled for other day from agenda.
+   CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-18 Sun>
+   - State "CANCELED"   from "TODO"       [2018-02-21 Wed 22:51] \\
+     Not needed. Tasks 'A' are for current day only.
 ** TODO [#B] FieldGlass fill timesheets
    SCHEDULED: <2018-02-25 Sun .+7d/9d>
    - State "DONE"       from "TODO"       [2018-02-18 Sun 21:55]

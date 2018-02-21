@@ -17,9 +17,11 @@
    - Note taken on [2018-02-08 Thu 23:56] \\
      http://taskjuggler.org
    https://orgmode.org/worg/org-tutorials/org-taskjuggler.html
-** TODO [#B] Org mode how to click on link to open browser?
+** DONE [#B] Org mode how to click on link to open browser?
+   CLOSED: [2018-02-21 Wed]
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
 ** TODO [#B] Org mode effort estimates
-   SCHEDULED: <2018-02-07 Wed>
+   SCHEDULED: <2018-02-22 Thu>
    - Note taken on [2018-02-07 Wed 13:05] \\
      org-set-effort
 
@@ -31,7 +33,9 @@
 https://github.com/snosov1/toc-org
 ** Org mode org-sort
 ** TODO [#C] Org mode how to deal with repeating tasks?
-** TODO [#B] Vim change TODO highlight to something less obstructive
+** DONE [#B] Vim change TODO highlight to something less obstructive
+   CLOSED: [2018-02-21 Wed]
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
 ** TODO [#B] Org mode clock tables
 ** CANCELED [#B] VIM remove fugitive from recent list
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
@@ -56,8 +60,11 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    - Note taken on [2018-02-05 Mon 20:07] \\
    Faces for TODO keywords
 
-** TODO [#B] Org mode how can I manage repeatable tasks?
-   SCHEDULED: <2018-02-06 Tue>
+** DONE [#B] Org mode how can I manage repeatable tasks?                                   :@career:
+   CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-06 Tue>
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:49]
+   - Note taken on [2018-02-21 Wed 22:49] \\
+     org mode habits
    - Note taken on [2018-02-05 Mon 23:53] \\
      https://orgmode.org/manual/Repeated-tasks.html
 
@@ -114,9 +121,11 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
 ** TODO [#C] Check org-agenda-write                                                    :@efficiency:
 ** TODO [#B] Org mode add sync with google cal                                         :@efficiency:
-SCHEDULED: <2018-02-18 Sun>
+   SCHEDULED: <2018-02-23 Fri>
    - Note taken on [2018-02-08 Thu 23:59] \\
      https://www.npmjs.com/package/webdav-server
+
+private cloud u Marcina - gmail
 
 https://orgmode.org/worg/org-tutorials/org-google-sync.html
 webdav server na heroku
