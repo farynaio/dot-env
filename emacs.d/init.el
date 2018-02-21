@@ -145,7 +145,7 @@
 (global-set-key (kbd "C-x n") #'git-gutter:next-hunk)
 (global-set-key (kbd "C-c n") #'neotree-toggle)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(global-set-key (kbd "C-x e") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x e") 'air-revert-buffer-noconfirm)
 (global-set-key (kbd "C-x 4 t") 'flop-frame)
 (global-set-key (kbd "s-w") 'kill-ring-save)
 (global-set-key (kbd "C-x g s") 'magit-status)
@@ -259,12 +259,12 @@
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
     ))
 
-(defun revert-buffer-noconfirm ()
+(defun air-revert-buffer-noconfirm ()
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
   (message (concat "Buffer '" (file-name-nondirectory buffer-file-name) "' reloaded.")))
 
-(defun toggle-maximize-buffer ()
+(defun air-toggle-maximize-buffer ()
    "Maximize buffer"
   (interactive)
   (if (= 1 (length (window-list)))
@@ -273,7 +273,7 @@
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
-(global-set-key (kbd "C-x |") 'toggle-maximize-buffer)
+(global-set-key (kbd "C-x |") 'air-toggle-maximize-buffer)
 
 (if (commandp 'wgrep)
   (progn
@@ -285,7 +285,6 @@
 (ido-mode t)
 
 (setq ido-use-faces t)
-
 
 (if (commandp 'ido-ubiquitous-mode)
   (progn
@@ -437,8 +436,12 @@
          (org-agenda-sorting-strategy '(timestamp-down))))
      ("d" "Coprehensive agenda"
       ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
-          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-            (org-agenda-overriding-header "High-priority unfinished tasks:")))
+         ((org-agenda-skip-function
+            '(or
+               (org-agenda-skip-entry-if 'todo 'done)
+               (air-org-agenda-skip-if-scheduled-later))
+            )
+           (org-agenda-overriding-header "High-priority unfinished tasks:")))
          (agenda "")
          (alltodo ""
            ((org-agenda-skip-function
@@ -469,6 +472,21 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
     (if (string= (org-entry-get nil "STYLE") "habit")
         subtree-end
       nil)))
+
+(defun air-org-agenda-skip-if-scheduled-later ()
+  "If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (ignore-errors
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+           (scheduled-seconds
+             (time-to-seconds
+               (org-time-string-to-time
+                 (org-entry-get nil "SCHEDULED"))))
+           (now (time-to-seconds (current-time))))
+      (and scheduled-seconds
+        (>= scheduled-seconds now)
+        subtree-end))))
 
 (org-clock-persistence-insinuate)
 
@@ -525,7 +543,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (message (concat "Current spell language is '" ispell-current-dictionary "'."))
   )
 
-(defun goto-match-paren (&optional arg)
+(defun air-goto-match-paren (&optional arg)
   "Go to the matching parenthesis character if one is adjacent to point."
   (interactive "^p")
   (cond ((looking-at "\\s(") (forward-sexp arg))
@@ -534,7 +552,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
 
-(global-set-key (kbd "C-%") 'goto-match-paren)
+(global-set-key (kbd "C-%") 'air-goto-match-paren)
 
 (set-cursor-color "#ffffff")
 
