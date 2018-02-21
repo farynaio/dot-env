@@ -9,6 +9,7 @@ emacs.d/elpa
 
 emacs.d/orgs/tasks.org
 emacs.d/orgs/notes.org
+emacs.d/orgs/pickup.org
 emacs.d/orgs/journal.org
 emacs.d/orgs/projects.org
 emacs.d/orgs/goals.org

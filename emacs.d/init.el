@@ -13,12 +13,15 @@
                       editorconfig
                       ido-completing-read+
                       ido-vertical-mode
+                      imenu-anywhere
                       smex ; better search for ido mode
                       ;; org-journal
                       multiple-cursors
                       ;; swiper
                       neotree
                       wgrep
+                      transpose-frame
+                      magit
                                         ; projectile
                     ))
 
@@ -49,6 +52,7 @@
 (require 'ido-vertical-mode)
 (require 'grep)
 (require 'wgrep)
+(require 'org-agenda)
 
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -126,11 +130,14 @@
 
 (add-hook 'org-mode-hook (lambda ()
                            (local-set-key (kbd "C-c l") 'org-store-link)
+                           (local-set-key (kbd "C-.") 'imenu-anywhere)
 													 (local-unset-key (kbd "C-c $")) ; removed archive subtree shortcut
 													 (local-unset-key (kbd "C-c C-x C-a")) ; remove archive subtree default shortcut
 													 (local-unset-key (kbd "C-c C-x C-s")) ; remove archive subtree shortcut
 													 (local-unset-key (kbd "C-c C-x A")) ; remove archive to archive siblings shortcut
 													 ))
+
+(setq mac-command-modifier 'super)
 
 ;; Mappings / Shortcuts
 (global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers for editing
@@ -139,6 +146,10 @@
 (global-set-key (kbd "C-c n") #'neotree-toggle)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "C-x e") 'revert-buffer-noconfirm)
+(global-set-key (kbd "C-x 4 t") 'flop-frame)
+(global-set-key (kbd "s-w") 'kill-ring-save)
+(global-set-key (kbd "C-x g s") 'magit-status)
+
 ;; Org mode
 (global-set-key (kbd "\C-cc") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
@@ -157,7 +168,6 @@
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-x <C-left>"))
 (global-unset-key (kbd "C-x <C-right>"))
-(global-unset-key (kbd "s-w"))
 (global-unset-key (kbd "<kp-end>"))
 (global-unset-key (kbd "<kp-home>"))
 (global-unset-key (kbd "<end>"))
@@ -445,7 +455,6 @@
 
 (defun air-org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.
-
 PRIORITY may be one of the characters ?A, ?B, or ?C."
   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
         (pri-value (* 1000 (- org-lowest-priority priority)))
@@ -550,4 +559,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
   '(custom-safe-themes
      (quote
-       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))))
+       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+  '(package-selected-packages
+     (quote
+       (magit imenu-anywhere transpose-frame wgrep smex rainbow-mode persistent-scratch neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter flx-ido editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
