@@ -181,6 +181,12 @@
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-j") 'join-line)
 
+(setq calendar-week-start-day 1)
+
+(add-hook 'calendar-load-hook
+  (lambda ()
+    (calendar-set-date-style 'european)))
+
 ;; VCS / git
 (setq ediff-split-window-function (if (> (frame-width) 150)
 				      'split-window-horizontally
