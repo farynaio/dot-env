@@ -113,7 +113,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Check org agenda set effort.                                              :@efficiency:
 ** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
 ** TODO [#C] Check org-agenda-write                                                    :@efficiency:
-** TODO [#A] Org mode add sync with google cal                                         :@efficiency:
+** TODO [#B] Org mode add sync with google cal                                         :@efficiency:
 SCHEDULED: <2018-02-18 Sun>
    - Note taken on [2018-02-08 Thu 23:59] \\
      https://www.npmjs.com/package/webdav-server
@@ -217,6 +217,9 @@ https://github.com/easymotion/vim-easymotion
 ** TODO [#C] Configure "stuck projects"
 ** TODO [#B] Check emacs navigation shortcuts
 
+** TODO [#D] Emacs snippets support
+yasnippet
+
 * English
 ** adjectives
 ** adverbs
@@ -246,6 +249,13 @@ https://github.com/easymotion/vim-easymotion
 *** M-<space> - delete spaces and tabs around the word
 *** M-delete - delete symbol previous cursor
 *** C-x C-q - toggle read-only mode
+** Tables
+*** table-insert
+*** table-recognize-table - treat text as table at point
+*** table-unrecognize-table - not treat text as table at point
+*** table-capture - convert properly formatted data (separated) to table at point
+*** table-release - revert table-capture behaviour
+*** C-c ' - convert org-mode table to text table
 ** Navigation
 *** C-M-n - move to forward parentheses
 *** C-M-p - move to previous parentheses
@@ -265,6 +275,11 @@ https://github.com/easymotion/vim-easymotion
 *** C-x r b - jump to bookmark
 *** C-x r m - set bookmark
 *** C-x r l - list bookmarks
+*** M-. - find tag
+*** M-* - tag go level up
+*** M-, - resume tag search
+*** M-x list-tags
+*** M-x tags-query-replace
 ** Help
 *** C-h f - show function help
 *** C-h k - show shortcut help
