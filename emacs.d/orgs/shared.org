@@ -43,3 +43,6 @@ https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
 ** TODO [#B] Emacs fix error references
 
 https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variable-byte-compilation-warnings
+** TODO [#B] Emacs open in buffer - not jump
+  SCHEDULED: <2018-02-26 Mon>
+Always create new window
