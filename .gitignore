@@ -13,6 +13,10 @@ emacs.d/orgs/pickup.org
 emacs.d/orgs/journal.org
 emacs.d/orgs/projects.org
 emacs.d/orgs/goals.org
+emacs.d/orgs/google.org
+emacs.d/org-caldav*
+emacs.d/*.plstore
+emacs.d/.org-id-locations
 emacs.d/backups/*
 emacs.d/auto-save-list/*
 emacs.d/autosaves/*

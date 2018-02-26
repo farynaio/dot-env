@@ -22,6 +22,7 @@
                       wgrep
                       transpose-frame
                       magit
+                      oauth2
                                         ; projectile
                     ))
 
@@ -45,7 +46,6 @@
 (require 'framemove)
 (require 'sunrise-commander)
 (require 'multiple-cursors)
-;; (require 'helm)
 (require 'neotree)
 (require 'ido)
 (require 'ido-completing-read+)
@@ -172,6 +172,7 @@
 (global-unset-key (kbd "<kp-home>"))
 (global-unset-key (kbd "<end>"))
 (global-unset-key (kbd "<home>"))
+(global-unset-key (kbd "C-x C-'"))
 
 (global-set-key (kbd "<home>") 'left-word)
 (global-set-key (kbd "<end>") 'right-word)
@@ -378,6 +379,9 @@
 (setq org-default-priority 68)
 (setq org-log-done 'time)
 (setq org-completion-use-ido t)
+(setq org-export-exclude-category (list "google" "private"))
+(setq org-icalendar-use-scheduled '(todo-start event-if-todo))
+(setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
 ;; (setq org-adapt-indentation nil)
 (setq org-list-description-max-indent 5)
 (setq org-closed-keep-when-no-todo t)
@@ -387,7 +391,22 @@
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
 (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+(setq org-caldav-inbox (expand-file-name "google.org" org-directory))
+(setq org-caldav-url 'google)
+(setq org-icalendar-timezone "Europe/London")
+(setq org-icalendar-alarm-time 10)
+
+(defconst air-directory-files-no-dot-files-regexp
+  ;; "^\\([^.]\\|\\.\\([^.#]\\|\\.keep\\|\\..\\)\\).*\\.org"
+  "^[^.][^#]*\\.org"
+  "Regexp matching any file name except \".\" and \"..\".")
+
+(setq org-caldav-files (directory-files org-directory t air-directory-files-no-dot-files-regexp))
+(setq org-caldav-delete-calendar-entries 'never)
+(setq org-caldav-delete-org-entries 'never)
+(setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-files (list org-directory))
+(setq org-habit-show-habits-only-for-today nil)
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-capture-templates
@@ -461,6 +480,32 @@
        )
      )
   )
+
+
+(defun org-mycal-export-limit ()
+  "Limit the export to items that have a date, time and a range. Also exclude certain categories."
+  (setq org-tst-regexp "<\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} ... [0-9]\\{2\\}:[0-9]\\{2\\}[^\r\n>]*?\
+\)>")
+  (setq org-tstr-regexp (concat org-tst-regexp "--?-?" org-tst-regexp))
+  (save-excursion
+    ; get categories
+    (setq mycategory (org-get-category))
+    ; get start and end of tree
+    (org-back-to-heading t)
+    (setq mystart    (point))
+    (org-end-of-subtree)
+    (setq myend      (point))
+    (goto-char mystart)
+    ; search for timerange
+    (setq myresult (re-search-forward org-tstr-regexp myend t))
+    ; search for categories to exclude
+    (setq mycatp (member mycategory org-export-exclude-category))
+    ; return t if ok, nil when not ok
+    (if (and myresult (not mycatp)) t nil)))
+
+(defun air-org-cal-export ()
+  (let ((org-icalendar-verify-function 'org-mycal-export-limit))
+    (org-export-icalendar-combine-agenda-files)))
 
 (defun air-org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.
@@ -586,7 +631,7 @@ should be continued."
        ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
   '(package-selected-packages
      (quote
-       (magit imenu-anywhere transpose-frame wgrep smex rainbow-mode persistent-scratch neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter flx-ido editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
+       (oauth2 org-caldav org-caldev noflet magit imenu-anywhere transpose-frame wgrep smex rainbow-mode persistent-scratch neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter flx-ido editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
