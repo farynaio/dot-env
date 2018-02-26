@@ -1,2 +1,5 @@
 * Places
+  :PROPERTIES:
+  :ID:       FF53B53B-DD9C-4DF2-8CE1-1AA928E111C1
+  :END:
 - Alexander palace in London

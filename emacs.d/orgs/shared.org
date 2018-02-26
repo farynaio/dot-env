@@ -1,8 +1,17 @@
 * Tasks
+  :PROPERTIES:
+  :ID:       4E64A670-C27B-40B9-93FB-6E665518D790
+  :END:
 ** TODO [#C] Org mode clock-in upgrade?
+   :PROPERTIES:
+   :ID:       FE161319-3B55-4852-9601-D2BCF12AE219
+   :END:
 https://github.com/dfeich/org-clock-convenience
 
 ** TODO [#B] Org mode ledger
+   :PROPERTIES:
+   :ID:       9643743B-5A99-49EB-8E0D-80F9E857F803
+   :END:
 https://www.ledger-cli.org/3.0/doc/ledger3.html#Emacs-org-Mode
 http://hledger.org/step-by-step.html
 https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
@@ -10,10 +19,27 @@ https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
    CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-18 Sun>
    - State "CANCELED"   from "TODO"       [2018-02-21 Wed 22:51] \\
      Not needed. Tasks 'A' are for current day only.
-** TODO [#B] FieldGlass fill timesheets
-   SCHEDULED: <2018-02-25 Sun .+7d/9d>
+   :PROPERTIES:
+   :ID:       C260C228-0BA3-4598-BBD7-70D146721F73
+   :END:
+** TODO [#B] FieldGlass fill timesheets                                                    :@wealth:
+   SCHEDULED: <2018-03-01 Thu ++1w/9d>
+   - State "DONE"       from "TODO"       [2018-02-24 Sat 09:01]
    - State "DONE"       from "TODO"       [2018-02-18 Sun 21:55]
    :PROPERTIES:
    :STYLE: habit
-   :LAST_REPEAT: [2018-02-18 Sun 21:55]
+   :LAST_REPEAT: [2018-02-24 Sat 09:01]
+   :ID:       11E31749-13B9-46A1-9C27-CE2231DEA302
    :END:
+** TODO [#A] Sign new contract?
+   SCHEDULED: <2018-02-26 Mon>
+   :PROPERTIES:
+   :ID:       607888CE-F783-4A91-A25A-E44FF725B114
+   :END:
+** TODO [#B] Emacs GnuPG
+   :PROPERTIES:
+   :ID:       44756E00-C0AF-4613-AD35-383228933B0C
+   :END:
+** TODO [#B] Emacs fix error references
+
+https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variable-byte-compilation-warnings
