@@ -23,6 +23,7 @@
                       transpose-frame
                       magit
                       oauth2
+											with-editor ; dependency for other package
                                         ; projectile
                     ))
 
@@ -378,6 +379,7 @@
 (setq org-highest-priority 65)
 (setq org-default-priority 68)
 (setq org-log-done 'time)
+(setq org-columns-default-format "%25ITEM %TODO %3PRIORITY %17Effort %TAGxsS")
 (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
@@ -429,8 +431,6 @@
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
-
-(define-key org-agenda-mode-map "c" 'org-capture)
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
