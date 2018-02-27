@@ -62,7 +62,9 @@
    :PROPERTIES:
    :ID:       70B9D2A9-5FA3-4EE7-98EF-762421816234
    :END:
-** TODO [#B] Org mode effort estimates
+** DONE [#B] Org mode effort estimates
+   CLOSED: [2018-02-26 Mon]
+   - State "DONE"       from "IN-PROCESS" [2018-02-26 Mon 13:17]
    :PROPERTIES:
    :ID:       7DE24571-C1D6-42D3-B85E-048031F386F1
    :END:
@@ -457,6 +459,8 @@ https://github.com/easymotion/vim-easymotion
    :END:
 yasnippet
 
+** TODO [#B] Emacs check projectile package
+
 * English
   :PROPERTIES:
   :ID:       D6E7B206-6F2C-4FEE-A71D-4F1A07482DE4
@@ -485,7 +489,7 @@ yasnippet
     :PROPERTIES:
     :ID:       37823EC0-9FD8-4BA4-9689-CA7FD2D2B4B0
     :END:
-*** linden - lipa
+*** linden - drzewo lipa
     :PROPERTIES:
     :ID:       B3897C9B-4286-4313-B9C6-5A5F46FF8019
     :END:
@@ -493,6 +497,7 @@ yasnippet
    :PROPERTIES:
    :ID:       1DCE4BBF-805C-42FC-945B-8758E16859B5
    :END:
+*** span - sięgać, przekraczać
 * Emacs
   :PROPERTIES:
   :ID:       35622B68-3FCF-4238-AF2B-0DD5DAA7D185
@@ -998,6 +1003,7 @@ yasnippet
     :PROPERTIES:
     :ID:       2933DCA2-E4AC-4FCE-BCCA-E7B14C12A26B
     :END:
+*** C-c C-x e - set effort
 ** Navigation
    :PROPERTIES:
    :ID:       6C8BF68F-49E3-42A2-AF8F-788919C8E3F3

@@ -46,3 +46,7 @@ https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variab
 ** TODO [#B] Emacs open in buffer - not jump
   SCHEDULED: <2018-02-26 Mon>
 Always create new window
+** TODO [#B] Org add automatic clock out when changed status
+
+** TODO [#B] Emacs try ivy package
+Alternative to IDO?
