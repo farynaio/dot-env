@@ -1,1272 +1,194 @@
-* Tasks
-  :PROPERTIES:
-  :ID:       EED427C5-27F2-49E8-B5C5-179A85416F97
-  :END:
-** TODO [#D] emacs what is outline mode?
-   :PROPERTIES:
-   :ID:       C3CE8BC0-48DB-4A97-867E-271B72F41CB5
-   :END:
-** TODO [#B] Emacs check occur for searching
-   :PROPERTIES:
-   :ID:       FD3F0DE1-C770-4952-B7D8-85502D6006B1
-   :END:
-** TODO [#D] Emacs TRAMP as a replacement for FileZilla
-   :PROPERTIES:
-   :ID:       1E255CE5-6177-4A68-BF3E-8008F8670A17
-   :END:
-** TODO [#C] Org mode using properties to organize collections of things (books)
-   :PROPERTIES:
-   :ID:       7C799B9B-A97D-4DC4-8343-4EC48F52EF5D
-   :END:
-- Note taken on [2018-02-10 Sat 00:45] \\
-  https://orgmode.org/manual/Property-syntax.html#Property-syntax
-** TODO [#D] emacs how to open file/buffer in read-only?
-   :PROPERTIES:
-   :ID:       042CAAFB-DA51-4693-879C-C1F6D92F41BA
-   :END:
-** TODO [#D] Vim solve snippets inheritance problem
-   :PROPERTIES:
-   :ID:       4A2C57D5-1F17-4AC6-A71C-F345BDE4C537
-   :END:
-** TODO [#D] emacs how to toggle buffer read-only
-   :PROPERTIES:
-   :ID:       5BB6B58C-FBFE-42F2-915D-CE910B48B917
-   :END:
-** TODO [#C] Add default priority to created tasks
-   :PROPERTIES:
-   :ID:       A7055171-B8D9-441D-ACC9-F970D855C9FB
-   :END:
-** TODO [#B] Vim master switch capital case, snake case etc.
-   :PROPERTIES:
-   :ID:       E1DB02C5-59ED-4C1E-9171-508F89D2FF88
-   :END:
-** TODO [#B] Emacs switch from capital case, snake case etc.
-   :PROPERTIES:
-   :ID:       7A5D0E8F-3FAF-4C46-86FE-FAE51B5BA3D6
-   :END:
-** TODO [#C] Check org-export-dispatch
-   :PROPERTIES:
-   :ID:       22552D1A-86E7-4F9C-8D90-6766A566E639
-   :END:
-
-** TODO [#B] Org mode Ghantt diagram
-   :PROPERTIES:
-   :ID:       D2C87B15-8303-4B7C-977B-73D9265AD8AC
-   :END:
-   - Note taken on [2018-02-08 Thu 23:56] \\
-     http://taskjuggler.org
-   https://orgmode.org/worg/org-tutorials/org-taskjuggler.html
-** DONE [#B] Org mode how to click on link to open browser?
-   CLOSED: [2018-02-21 Wed]
-   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
-   :PROPERTIES:
-   :ID:       70B9D2A9-5FA3-4EE7-98EF-762421816234
-   :END:
-** DONE [#B] Org mode effort estimates
-   CLOSED: [2018-02-26 Mon]
-   - State "DONE"       from "IN-PROCESS" [2018-02-26 Mon 13:17]
-   :PROPERTIES:
-   :ID:       7DE24571-C1D6-42D3-B85E-048031F386F1
-   :END:
-   - Note taken on [2018-02-07 Wed 13:05] \\
-     org-set-effort
-
-     Set effort ranges in
-     org-global-properties
-
-     https://orgmode.org/manual/Effort-estimates.html
-** TODO [#D] Org mode Check Table of content generator
-   :PROPERTIES:
-   :ID:       828EA522-5AB1-4DF7-B4A6-8AA58BF5F6D9
-   :END:
-https://github.com/snosov1/toc-org
-** Org mode org-sort
-   :PROPERTIES:
-   :ID:       BECBFFC0-5765-44B7-88EF-22D9D5B7E35E
-   :END:
-** TODO [#C] Org mode how to deal with repeating tasks?
-   :PROPERTIES:
-   :ID:       D45B1BFE-1FCE-4611-BE15-2D640C2F9B96
-   :END:
-** DONE [#B] Vim change TODO highlight to something less obstructive
-   CLOSED: [2018-02-21 Wed]
-   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
-   :PROPERTIES:
-   :ID:       6EE80B4E-92EB-4578-ADAC-30700BE0E02E
-   :END:
-** TODO [#B] Org mode clock tables
-   :PROPERTIES:
-   :ID:       3BEE9397-000B-4377-9197-F9D6963A26D3
-   :END:
-** CANCELED [#B] VIM remove fugitive from recent list
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
-- State "CANCELED"   from "TODO"       [2018-02-11 Sun 23:18] \\
-  Not use recent list anymore.
-   - Note taken on [2018-02-11 Sun 23:15] \\
-     Switched to switch buffer rather then use another function.
-   :PROPERTIES:
-:ID:       856E63FA-C017-4B49-A2B9-4AFFCE39BE44
-   :END:
-** TODO [#C] Org mode what is column mode?
-   :PROPERTIES:
-   :ID:       D07AD112-248E-4A67-82EB-46BAFCD4D641
-   :END:
-** DONE [#C] Org mode what are habits?
-   CLOSED: [2018-02-06 Tue]
-   :PROPERTIES:
-   :ID:       2CE3F5B5-01E5-465A-A438-2543F61B72C2
-   :END:
-   - Note taken on [2018-02-06 Tue 20:07] \\
-     Repeatable tasks.
-** TODO [#C] Org mode identify org-stuck-projects
-   :PROPERTIES:
-   :ID:       28AD1F5C-F5FE-4C93-B6C4-8FD19690757A
-   :END:
-** DONE [#B] Is Emacs helm package works for me?
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
-   :PROPERTIES:
-   :ID:       7D010C1B-468F-4EF5-9B21-9DEE25E072EE
-   :END:
-- Note taken on [2018-02-11 Sun 23:01] \\
-  Nope, probably only M-x mode.
-- State "DONE"       from "IN-PROCESS" [2018-02-11 Sun 23:01]
-** TODO [#C] Org mode what export options do I have?
-   :PROPERTIES:
-   :ID:       F377F15B-A15C-45C4-BBA3-478CEB764DAD
-   :END:
-** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
-   CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
-   :PROPERTIES:
-   :ID:       E2C434D8-A84D-4F10-921E-B7DCBACDD2FE
-   :END:
-   - Note taken on [2018-02-05 Mon 20:07] \\
-   Faces for TODO keywords
-
-** DONE [#B] Org mode how can I manage repeatable tasks?                                   :@career:
-   CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-06 Tue>
-   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:49]
-   :PROPERTIES:
-   :ID:       0DEE06C4-AFEF-4AB4-95CD-10D23AEAED47
-   :END:
-   - Note taken on [2018-02-21 Wed 22:49] \\
-     org mode habits
-   - Note taken on [2018-02-05 Mon 23:53] \\
-     https://orgmode.org/manual/Repeated-tasks.html
-
-** DONE [#B] Org mode how to add tasks fast?
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
-- State "DONE"       from "TODO"       [2018-02-11 Sun 23:05]
-   - Note taken on [2018-02-11 Sun 23:05] \\
-     org-refill org-capture and org-agenda
-   - Note taken on [2018-02-08 Thu 23:46] \\
-     refiling
-     https://orgmode.org/manual/Refile-and-copy.html#Refile-and-copy
-   - Note taken on [2018-02-06 Tue 00:15] \\
-      What about capture, diary and journal?
-     org-journal-*
-   :PROPERTIES:
-:ID:       615D1B55-E4DA-4BAB-A473-AFEAB96D670A
-   :END:
-
-** DONE [#D] Emacs make font bigger                                                    :@efficiency:
-   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-03 Sat>
-   :PROPERTIES:
-   :ID:       C12E9064-1F2F-47B0-A1BC-693B62CF5D21
-   :END:
-   - Note taken on [2018-02-07 Wed 20:06] \\
-     C-x C--
-     C-x C-+
-** TODO [#B] Org mode how notes works                                                  :@efficiency:
-   :PROPERTIES:
-   :ID:       F1F7A212-358C-4592-ABB9-457A96978B83
-   :END:
-** DONE [#B] Org mode org-reload
-   SCHEDULED: <2018-02-05 Mon>
-   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:01]
-   :PROPERTIES:
-   :ID:       773AAF3E-C083-4E62-9834-D291EF05C163
-   :END:
-** TODO [#C] Org mode org-goto                                                         :@efficiency:
-   :PROPERTIES:
-   :ID:       FD5F8543-F714-47A3-8D7F-67C1007B3045
-   :END:
-** DONE Learn to use Emacs Dired mode                                                  :@efficiency:
-   - State "DONE"       from "TODO"   [2018-02-07 Wed 20:10]
-   :PROPERTIES:
-   :ID:       B052C0B3-8CCE-4009-842D-2221F743E22B
-   :END:
-** TODO [#C] Learn Emacs sunrise commander                                             :@efficiency:
-   :PROPERTIES:
-   :ID:       A6ED928C-BE01-4AE1-A0E6-74A8F5A10754
-   :END:
-** TODO [#D] Org mode add encryption
-   :PROPERTIES:
-   :ID:       05A123C7-0542-47B4-966B-D72778EB299E
-   :END:
-** DONE [#B] Create org mode sort custom configuration                                 :@efficiency:
-   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
-   :PROPERTIES:
-   :ID:       2673885C-3FA8-420D-8DF7-B2E9609BAC6D
-   :END:
-
-** DONE [#B] Check org-priority                                                        :@efficiency:
-   CLOSED: [2018-02-03 Sat]
-   :PROPERTIES:
-   :ID:       DC7BA308-6F5B-4623-BDAC-9A638546AC75
-   :END:
-** DONE [#B] Check org-schedule                                                        :@efficiency:
-   CLOSED: [2018-02-03 Sat]
-   :PROPERTIES:
-   :ID:       63FFD240-6DA0-4E7D-9362-F6DCC36BF75C
-   :END:
-** DONE [#B] Check org-deadline                                                        :@efficiency:
-   CLOSED: [2018-02-03 Sat]
-   :PROPERTIES:
-   :ID:       9279A221-23DD-4271-8BB1-B94EE48E04FE
-   :END:
-** DONE [#B] Emacs calendar                                                            :@efficiency:
-   CLOSED: [2018-02-03 Sat]
-   :PROPERTIES:
-   :ID:       1BF7CC0B-30DC-4D02-88AE-5A80986625DA
-   :END:
-** DONE [#C] Emacs recentf-dialog-mode                                                 :@efficiency:
-   CLOSED: [2018-02-03 Sat]
-   :PROPERTIES:
-   :ID:       F95E67AF-22ED-46EC-B6E0-9C820DA6DBA0
-   :END:
-
-** TODO [#D] Setup Gnus                                                                :@efficiency:
-   :PROPERTIES:
-   :ID:       B61E32C7-C6A5-495F-9D5B-0050850A8CF1
-   :END:
-setup keys
-
-** DONE [#A] What are 'org categories'?                                                :@efficiency:
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
-- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
-   - Note taken on [2018-02-11 Sun 23:06] \\
-     File names by default, also configurable in properties.
-   :PROPERTIES:
-:ID:       3A8D6E63-F99E-459A-8243-F8862488E075
-   :END:
-** TODO [#B] Manage English new words in org mode                        :@efficiency:@love:@wealth:
-   :PROPERTIES:
-   :ID:       ABB2A56A-07CB-47A3-AA8A-1C4AE4475ECD
-   :END:
-** TODO [#C] Check org agenda set effort.                                              :@efficiency:
-   :PROPERTIES:
-   :ID:       A7B3002A-4DC3-4F34-9661-71CEF4AF7F2F
-   :END:
-** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
-   :PROPERTIES:
-   :ID:       88D19E5F-AA68-49EE-9915-F901EF04B907
-   :END:
-** TODO [#C] Check org-agenda-write                                                    :@efficiency:
-   :PROPERTIES:
-   :ID:       673DE6AE-0A1E-4A2A-AE04-744B07F9BC72
-   :END:
-** DONE [#B] Org mode add sync with google cal                                         :@efficiency:
-   CLOSED: [2018-02-25 Sun] SCHEDULED: <2018-02-24 Sat>
-   - State "DONE"       from "IN-PROCESS" [2018-02-25 Sun 23:49]
-   :PROPERTIES:
-   :ID:       241C1D1F-8F94-4E17-A7E5-2DCB03A4530D
-   :END:
-   - Note taken on [2018-02-08 Thu 23:59] \\
-     https://www.npmjs.com/package/webdav-server
-
-private cloud u Marcina - gmail
-
-https://orgmode.org/worg/org-tutorials/org-google-sync.html
-webdav server na heroku
-
-** TODO [#B] Org mode agile / scrum / spring                                           :@efficiency:
-   :PROPERTIES:
-   :ID:       1F511C71-7351-472E-B33F-70EA284B2A60
-   :END:
-** DONE [#A] Org mode setup proper agenda view                                         :@efficiency:
-CLOSED: [2018-02-12 Mon] SCHEDULED: <2018-02-07 Wed>
-- State "DONE"       from "TODO"       [2018-02-12 Mon 23:59]
-   :PROPERTIES:
-:ID:       53E03D9B-94A1-4FCF-A275-6052404B628E
-   :END:
-** DONE [#A] Setup agenda view for all undone tasks                                    :@efficiency:
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
-- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
-   :PROPERTIES:
-:ID:       33D4CD90-1D6B-49A7-B8C7-4D8BAB8BC497
-   :END:
-** DONE Learn to use Emacs calendar                                                    :@efficiency:
-   CLOSED: [2018-02-04 Sun]
-   :PROPERTIES:
-   :ID:       1DAAC8BA-A1ED-43D0-983F-A201E2A5E286
-   :END:
-** DONE [#C] Learn to work with org-agenda mode                                        :@efficiency:
-   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
-   :PROPERTIES:
-   :ID:       571C7406-AF2C-47F2-9C4E-64CE46433DCB
-   :END:
-** TODO [#D] Access org mode on mobile                                                 :@efficiency:
-   :PROPERTIES:
-   :ID:       5BA2C400-D799-4D79-A2DE-8E643B97C8AF
-   :END:
-
-** TODO [#D] Git blame support
-   :PROPERTIES:
-   :ID:       BB8EF6FD-9F6E-4259-9A88-157881E3F053
-   :END:
-- Note taken on [2018-02-13 Tue 17:05] \\
-  build in package vc-*
-
-  git.el http://alexott.net/en/writings/emacs-vcs/EmacsGit.html
-
-hacks:
-http://snarfed.org/emacs-vc-git-tweaks
-
-  magit:
-  https://magit.vc/manual/
-  https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs
-** DONE Gitgutter
-    CLOSED: [2018-02-06 Tue]
-   :PROPERTIES:
-   :ID:       25E5EF77-9764-458B-A06A-0C9574B4211B
-   :END:
-** DONE [#C] run commands async (what commands?)
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:45]
-   :PROPERTIES:
-:ID:       C9A8DC4D-2E95-4D61-B2CD-9B0D952AF025
-   :END:
-** TODO [#D] JSON by syntax
-   :PROPERTIES:
-   :ID:       F8EC5680-CC2C-4239-8B45-22BA1403C0B6
-   :END:
-** TODO [#B] folded markers available all the time
-   :PROPERTIES:
-   :ID:       68093CCC-770F-4CC5-9E45-87D99BBF6662
-   :END:
-** DONE [#A] how to refresh buffer?
-CLOSED: [2018-02-12 Mon]
-   :PROPERTIES:
-   :ID:       068EC40C-7F7F-4A85-A730-12878B92CD6B
-   :END:
-- Note taken on [2018-02-12 Mon 23:47] \\
-  <C-x r> or <C-r>
-- State "DONE"       from ""           [2018-02-12 Mon 23:47]
-** DONE [#B] search and replace in multiple files
-CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
-- State "DONE"       from "TODO"       [2018-02-11 Sun 23:14]
-    - Note taken on [2018-02-11 Sun 23:08] \\
-      rgrep + wgrep combo https://github.com/mhayashi1120/Emacs-wgrep
-    - Note taken on [2018-02-11 Sun 23:04] \\
-      projectile could be useful here - occur, grep
-    - Note taken on [2018-02-06 Tue 21:28] \\
-      Build in s&r by tags tags-query-replace.
-   :PROPERTIES:
-:ID:       A85BF69E-A028-445C-8996-2451D9F28941
-   :END:
-** DONE [#A] search and replace in single file
-    CLOSED: [2018-02-06 Tue] SCHEDULED: <2018-02-06 Tue>
-    - State "DONE"       from "IN-PROCESS" [2018-02-06 Tue 21:58]
-   :PROPERTIES:
-   :ID:       5FFD6CE5-3EA8-4320-A403-420A167EA1A1
-   :END:
-    - Note taken on [2018-02-06 Tue 21:40] \\
-      M-% together with C-s (incremental search).
-** DONE toggle dictionary fast
-    CLOSED: [2018-02-06 Tue]
-   :PROPERTIES:
-   :ID:       B856D8FB-1DC3-467C-AE71-9131DBA01BD7
-   :END:
-    - Note taken on [2018-02-06 Tue 20:16] \\
-      dict-toggle
-      M-$ - correct word
-      C-, - next error
-      Fly prog mode
-** DONE [#B] indent region
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:48]
-   :PROPERTIES:
-:ID:       E919E759-15A6-4C21-90D3-64D62D9FD8F0
-   :END:
-- Note taken on [2018-02-12 Mon 23:48] \\
-  Just with <tab>.
-** DONE [#A] Window zoom
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:49]
-   :PROPERTIES:
-:ID:       FC0A5346-EE6F-4293-82C3-D72FA07237C7
-   :END:
-- Note taken on [2018-02-12 Mon 23:48] \\
-  Toggle window zoom with <C-x |>.
-** DONE [#A] go to line number
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:50]
-   :PROPERTIES:
-:ID:       DD9BD244-4D6E-414C-95DE-903FE77488B0
-   :END:
-- Note taken on [2018-02-12 Mon 23:49] \\
-  <M-gg> or <M-g><M-g>
-** DONE [#A] easy tabs switch
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:51]
-   :PROPERTIES:
-:ID:       8E4CD6E2-83F0-40CB-99F4-A977BB78463D
-   :END:
-- Note taken on [2018-02-12 Mon 23:50] \\
-  With <cmd-left> and <cmd-right>.
-** DONE [#A] easy window switch
-CLOSED: [2018-02-12 Mon]
-- State "DONE"       from ""           [2018-02-12 Mon 23:51]
-   :PROPERTIES:
-:ID:       E0635A0D-C2E4-4618-B940-74F158E456DE
-   :END:
-- Note taken on [2018-02-12 Mon 23:51] \\
-  Done with C-x <left>/<right>/<up>/<down>.
-** DONE [#A] navigation recent files
-    CLOSED: [2018-02-06 Tue]
-   :PROPERTIES:
-   :ID:       F9BDD5B0-98A7-4B8D-A81D-0F8506870548
-   :END:
-    - Note taken on [2018-02-06 Tue 20:24] \\
-      recentf-*
-** TODO [#C] Emacs git support (magit)
-   :PROPERTIES:
-   :ID:       B35C19FC-23F8-47F1-B65B-003FC022E2F8
-   :END:
-** TODO [#C] Vim try easy motion
-   :PROPERTIES:
-   :ID:       3148044C-A3CC-4524-95BB-6D4360D4E4DB
-   :END:
-
-https://github.com/easymotion/vim-easymotion
-
-** TODO [#C] Vim check vimtutor
-   :PROPERTIES:
-   :ID:       7DD57898-1585-42CE-BB12-81CDC4ACBB76
-   :END:
-** TODO [#C] Configure "stuck projects"
-   :PROPERTIES:
-   :ID:       18B803C4-7B19-4C36-9221-375AB1B3C86A
-   :END:
-** TODO [#B] Check emacs navigation shortcuts
-   :PROPERTIES:
-   :ID:       5BCA1333-1672-441F-8919-0B1AB59DD362
-   :END:
-
-** TODO [#D] Emacs snippets support
-   :PROPERTIES:
-   :ID:       D94FB1A1-F964-43A0-9E3A-CF4BA6CA7A56
-   :END:
-yasnippet
-
-** TODO [#B] Emacs check projectile package
-
-* English
-  :PROPERTIES:
-  :ID:       D6E7B206-6F2C-4FEE-A71D-4F1A07482DE4
-  :END:
-** adjectives
-   :PROPERTIES:
-   :ID:       21146C61-B4A9-47C1-BACF-BF88B2000BC0
-   :END:
-** adverbs
-   :PROPERTIES:
-   :ID:       99A4E4F0-6AEE-4396-ADE1-559C890463C7
-   :END:
-** nouns
-   :PROPERTIES:
-   :ID:       84933479-F5C5-47DC-A2FB-2E56F5C726D7
-   :END:
-*** Brokerage - pośrednictwo
-    :PROPERTIES:
-    :ID:       38A03829-67F4-4DEF-A047-FDBFF3B0AB52
-    :END:
-*** black lilac - czarny bez
-    :PROPERTIES:
-    :ID:       1705E60B-0C2E-4548-8D30-8DB539060445
-    :END:
-*** verbena flower - werbena
-    :PROPERTIES:
-    :ID:       37823EC0-9FD8-4BA4-9689-CA7FD2D2B4B0
-    :END:
-*** linden - drzewo lipa
-    :PROPERTIES:
-    :ID:       B3897C9B-4286-4313-B9C6-5A5F46FF8019
-    :END:
-** verbs
-   :PROPERTIES:
-   :ID:       1DCE4BBF-805C-42FC-945B-8758E16859B5
-   :END:
-*** span - sięgać, przekraczać
 * Emacs
-  :PROPERTIES:
-  :ID:       35622B68-3FCF-4238-AF2B-0DD5DAA7D185
-  :END:
 ** General
-   :PROPERTIES:
-   :ID:       90A9AA93-7E4F-4A41-AFCC-90BE1610B08D
-   :END:
 *** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
-    :PROPERTIES:
-    :ID:       41E81F83-CB9D-435C-B92B-50EE61FC4D70
-    :END:
 *** ModeLine
-    :PROPERTIES:
-    :ID:       EB12FBB5-DD9A-46B1-99BC-AD8337DD2850
-    :END:
 **** ** - modified since last save
-     :PROPERTIES:
-     :ID:       AC604AB1-88FE-4940-BC89-B58263D6A6DA
-     :END:
 **** -- - not modified since last save
-     :PROPERTIES:
-     :ID:       E46D78C3-8844-4215-BB11-423CF6FA0AA5
-     :END:
 **** %* - read-only but modified
-     :PROPERTIES:
-     :ID:       3A621C1A-A42B-45EA-8240-7AF4E779CC80
-     :END:
 **** %% - read-only not modified
-     :PROPERTIES:
-     :ID:       2F4F6A49-0823-4DE5-9644-A87E95E03FC9
-     :END:
-
 ** Edit
-   :PROPERTIES:
-   :ID:       BD3B5F90-A8C6-40F2-AE31-F9B609125EE6
-   :END:
 *** C-w - cut
-    :PROPERTIES:
-    :ID:       527091D8-397A-4D74-824D-11553559E85E
-    :END:
 *** C-y - paste
-    :PROPERTIES:
-    :ID:       1BCA59AA-B0A5-4236-865E-77B403B07B66
-    :END:
 *** C-c C-c - tag search
-    :PROPERTIES:
-    :ID:       90190B37-B190-429B-BEAB-30EFB567054F
-    :END:
 *** C-x z - repeat last command
-    :PROPERTIES:
-    :ID:       5B01A931-F731-46C0-B28B-DE209710C945
-    :END:
 *** M-% - interactive replace
-    :PROPERTIES:
-    :ID:       C052C397-BE61-4AC5-804B-AED037C83B0F
-    :END:
 *** M-^ or C-j - join lines / delete indentation
-    :PROPERTIES:
-    :ID:       41969EBB-BA5A-4D8D-B741-891E252FE1C4
-    :END:
 *** M-w - copy region
-    :PROPERTIES:
-    :ID:       7ABB8B67-A725-46E3-90D9-BD6F058F3F88
-    :END:
 *** M-<space> - delete spaces and tabs around the word
-    :PROPERTIES:
-    :ID:       5FCFCC06-E659-4DFD-88A9-EE01C22219DA
-    :END:
 *** M-delete - delete symbol previous cursor
-    :PROPERTIES:
-    :ID:       58C008C5-2707-44F4-BAD6-A203F5A16512
-    :END:
 *** C-x C-q - toggle read-only mode
-    :PROPERTIES:
-    :ID:       150474AC-FF53-48AD-BBD0-58CDC4F8F65C
-    :END:
+*** flush-lines - remove lines regexp
 ** Tables
-   :PROPERTIES:
-   :ID:       3A5C739D-8A71-46A8-8230-0DB3EF03230C
-   :END:
 *** table-insert
-    :PROPERTIES:
-    :ID:       BA1FA505-C4B8-446B-ABB8-93E2E7DEC846
-    :END:
 *** table-recognize-table - treat text as table at point
-    :PROPERTIES:
-    :ID:       14177D9B-1499-44F0-8CE4-1D68A8322057
-    :END:
 *** table-unrecognize-table - not treat text as table at point
-    :PROPERTIES:
-    :ID:       B92AF329-181A-4666-9AF0-547D5302849D
-    :END:
 *** table-capture - convert properly formatted data (separated) to table at point
-    :PROPERTIES:
-    :ID:       7DCCD649-F496-4B86-A7FC-94E127F50726
-    :END:
 *** table-release - revert table-capture behaviour
-    :PROPERTIES:
-    :ID:       F2A098E4-D00D-4DD5-8F5B-CBB9299B7137
-    :END:
 *** C-c ' - convert org-mode table to text table
-    :PROPERTIES:
-    :ID:       3C728467-F627-4571-82F0-F65393767381
-    :END:
 ** Navigation
-   :PROPERTIES:
-   :ID:       3F5D4DBE-8B75-4D34-8E6D-5A3898977D40
-   :END:
 *** C-M-n - move to forward parentheses
-    :PROPERTIES:
-    :ID:       F47E6B9D-911E-4720-8DF2-C182431D486E
-    :END:
 *** C-M-p - move to previous parentheses
-    :PROPERTIES:
-    :ID:       75316E92-585E-4663-85E1-0187DCFD74B1
-    :END:
 *** C-M-space - put mark at the end of parentheses
-    :PROPERTIES:
-    :ID:       BC81F55C-421F-4275-BC66-5ED8443DD61A
-    :END:
 *** C-x r j - jump to register
-    :PROPERTIES:
-    :ID:       310A8B89-4049-4D84-A172-6C33C7CA3F20
-    :END:
 *** C-x C-r - open recent file
-    :PROPERTIES:
-    :ID:       2B57BB94-C790-4AB9-B682-21A712627EE1
-    :END:
 *** C-x p - git previous change
-    :PROPERTIES:
-    :ID:       97A83392-4781-4297-9578-6BEE1B272B9D
-    :END:
 *** C-x n - git next change
-    :PROPERTIES:
-    :ID:       E27B5F72-9CD9-4204-BD1F-E26F0A5E9021
-    :END:
 *** M-> - go to end of the buffer
-    :PROPERTIES:
-    :ID:       F05AFC8F-D47E-453C-8429-57D7C91156BA
-    :END:
 *** M-< - go to beginning of the buffer
-    :PROPERTIES:
-    :ID:       CA40D5D1-1B9A-4990-9026-6A6A838E0CAD
-    :END:
 *** M-g M-g or M-g g - goto line number
-    :PROPERTIES:
-    :ID:       29577171-3FFA-451A-8B74-3ED56BE501A7
-    :END:
 *** C-x C-d - (helm) browser project folder
-    :PROPERTIES:
-    :ID:       851E5E56-A1E9-4CAF-AA14-4F2B1CD64D93
-    :END:
 *** C-s C-s - search for most recent search again
-    :PROPERTIES:
-    :ID:       5F9886A0-ACD9-4A97-BEA3-1BD361529454
-    :END:
 **** M-p|n - go through kill ring
-     :PROPERTIES:
-     :ID:       B7EFC728-22FA-4B2B-9890-535F36929BDF
-     :END:
 **** C-w - add another word to active search
-     :PROPERTIES:
-     :ID:       8B81F942-721F-45C2-9F55-7DC45F89201E
-     :END:
 **** M-e - edit searching phrase
-     :PROPERTIES:
-     :ID:       2C2E5421-422F-4B00-AA27-889C87E58DA2
-     :END:
 *** C-x r b - jump to bookmark
-    :PROPERTIES:
-    :ID:       7EA5863C-6BE9-4094-BED0-F411E1AADDAD
-    :END:
 *** C-x r m - set bookmark
-    :PROPERTIES:
-    :ID:       1FD93B64-EE49-454E-8FFB-781E2E96229D
-    :END:
 *** C-x r l - list bookmarks
-    :PROPERTIES:
-    :ID:       3E70616E-7366-463E-B65F-F561BCB2732E
-    :END:
 *** M-. - find tag
-    :PROPERTIES:
-    :ID:       11F17B4B-A975-40BB-8639-7FDE9349FCDF
-    :END:
 *** M-* - tag go level up
-    :PROPERTIES:
-    :ID:       29ACD444-95C2-4B9F-A4DE-91D2ECC13ED7
-    :END:
 *** M-, - resume tag search
-    :PROPERTIES:
-    :ID:       4DBAA5A9-0F5F-49B1-98DE-A28631105E2F
-    :END:
 *** M-x list-tags
-    :PROPERTIES:
-    :ID:       F91C416F-F3D0-4E05-B831-2B27E9FCBC04
-    :END:
 *** M-x tags-query-replace
-    :PROPERTIES:
-    :ID:       BEA890A5-1C72-4E78-A716-102908E5F04A
-    :END:
 ** Help
-   :PROPERTIES:
-   :ID:       ED77BDB0-77EC-43FD-965E-58F8330FAE67
-   :END:
 *** C-h f - show function help
-    :PROPERTIES:
-    :ID:       E29145F8-A12D-4B6C-96C8-49B446604BD7
-    :END:
 *** C-h k - show shortcut help
-    :PROPERTIES:
-    :ID:       93996D52-AAA3-4845-973C-0E8257CBDFAF
-    :END:
 *** C-h v - show variable help
-    :PROPERTIES:
-    :ID:       6846BDE9-A358-467C-BB1E-03C752A96D77
-    :END:
 *** C-h m - show major mode help
-    :PROPERTIES:
-    :ID:       3897E3B0-8EBF-4419-9491-D4A7AC6EE908
-    :END:
 *** C-h b - display all key bindings
-    :PROPERTIES:
-    :ID:       1BDF5482-2AD3-4DE1-A2F0-DB645BD22FF3
-    :END:
 *** C-h t - show tutorial
-    :PROPERTIES:
-    :ID:       141291F2-4A87-4498-9348-118620D0D60A
-    :END:
 ** Help window
-   :PROPERTIES:
-   :ID:       B5BCAA9B-DF9D-42CD-A6A2-C3528D70D446
-   :END:
 *** C-M-v - scroll help window
-    :PROPERTIES:
-    :ID:       B4B7A678-322A-46E4-B5DD-25222B97752A
-    :END:
 *** l - go back in help window
-    :PROPERTIES:
-    :ID:       A3F07882-80A1-4A9A-9376-2A5659F9AB9C
-    :END:
 *** r - go forward in help window
-    :PROPERTIES:
-    :ID:       E9455050-CCC8-4FD8-914C-AB4498C7D3AE
-    :END:
 ** Info
-   :PROPERTIES:
-   :ID:       87DAFFA7-C829-4868-A7A5-6BA7E31D6CD7
-   :END:
 *** C-h i - open documentation (Info)
-    :PROPERTIES:
-    :ID:       61D60CD9-EFA6-4CF9-BAB8-941FE961990E
-    :END:
 *** C-h S - find function or variable in Info
-    :PROPERTIES:
-    :ID:       8BEFBD71-1A2C-4619-A526-CE78BB76AF63
-    :END:
 ** Spellcheck
-   :PROPERTIES:
-   :ID:       9E4BE91B-B2FC-4268-9577-FE59894AB7B9
-   :END:
 *** C-, - go to next error
-    :PROPERTIES:
-    :ID:       D27D63C2-55D1-4632-B858-A16F5D760DE8
-    :END:
 *** C-c $ - interactive error resolve
-    :PROPERTIES:
-    :ID:       31A36BBB-0409-4016-A060-EBFF9E87BDB9
-    :END:
 ** Buffers
-   :PROPERTIES:
-   :ID:       9971BF42-17A2-4D4A-838F-F023BC15C54F
-   :END:
 *** C-x <previous> - change to next buffer
-    :PROPERTIES:
-    :ID:       9BA1D038-3401-4CDA-944F-E9EC4FD7A5C1
-    :END:
 *** C-x <left> - change to previous buffer
-    :PROPERTIES:
-    :ID:       FD1C466B-E01C-4B03-9055-BED350F047E9
-    :END:
 ** Windows
-   :PROPERTIES:
-   :ID:       BB28F123-1EF4-40DE-A315-1214520EE639
-   :END:
 *** C-x + - all windows the same size
-    :PROPERTIES:
-    :ID:       1406CC21-CAD8-4C59-B9BB-064B2B0BD567
-    :END:
 *** C-x 0 - close this window
-    :PROPERTIES:
-    :ID:       A3F73D86-C484-4C1C-872E-54DF946C8063
-    :END:
 *** C-x 2 - split window horizontally
-    :PROPERTIES:
-    :ID:       B2FA1233-E1ED-457D-B8F2-DBD8393764FA
-    :END:
 *** C-x 4 r <filename> - open file in read-only mode in other window
-    :PROPERTIES:
-    :ID:       169D3344-0F08-41DA-A2A4-BBEA609577FD
-    :END:
 ** Frames
-   :PROPERTIES:
-   :ID:       41037B02-B300-481A-9DB4-CB651147DDF3
-   :END:
 *** C-x 5 0 - close this frame
-    :PROPERTIES:
-    :ID:       B600E6B9-7851-4854-9791-C188EC68FF60
-    :END:
 *** C-x 5 f - find file in other frame
-    :PROPERTIES:
-    :ID:       7D1E82F8-CAAD-4798-89DC-34AA330B50CD
-    :END:
 *** C-x 5 2 - open empty frame and clone current buffer
-    :PROPERTIES:
-    :ID:       7C6D15AE-09F0-48DA-9238-DB64C4265790
-    :END:
 *** C-x 5 r <filename> - open file in read-only mode in new frame
-    :PROPERTIES:
-    :ID:       6822DFB8-CEA8-41E7-B800-68D4034030F3
-    :END:
 ** Files
-   :PROPERTIES:
-   :ID:       2FB44E68-B16C-4DDF-BA0B-12B5C84B9A1C
-   :END:
 *** C-x C-f C-f - create file in 'find file mode'
-    :PROPERTIES:
-    :ID:       E3673598-32A7-487B-8E7F-B380190DA5B4
-    :END:
 ** VCS / git
-   :PROPERTIES:
-   :ID:       B486C87A-9A73-426B-8C3D-B743E1A22A8B
-   :END:
 *** vc-annotate - git blame (https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs)
-    :PROPERTIES:
-    :ID:       BCFDCC97-2AAA-4A62-A712-98DBB1B5B1B6
-    :END:
 *** C-x v = - ediff-revision
-    :PROPERTIES:
-    :ID:       9D5AD932-1A46-459C-BB58-1C19FB4E93C9
-    :END:
 * Org mode
-  :PROPERTIES:
-  :ID:       0B74D9BC-665E-4132-AC4E-21034CAABC32
-  :END:
 ** Features
-   :PROPERTIES:
-   :ID:       B0B46CA1-55E1-4BEC-9EE8-9C4F24386710
-   :END:
 *** comments - prevent heading and sub headings from being exported
-    :PROPERTIES:
-    :ID:       55D05079-9004-45ED-BA38-8283AE206C0D
-    :END:
-*** links to files, web
-    :PROPERTIES:
-    :ID:       B539C46A-2F7C-4305-8791-CB4DBC020436
-    :END:
 *** footnotes
-    :PROPERTIES:
-    :ID:       27A754F1-F70A-47FF-9F06-EAE9175A5016
-    :END:
 *** inline images
-    :PROPERTIES:
-    :ID:       FAFB3541-9755-4BCE-8CA6-1C5E397F264A
-    :END:
 *** task effort estimation
-    :PROPERTIES:
-    :ID:       446ED73A-46E7-4412-AFF9-9F8813C2FC8C
-    :END:
-*** clock tables
-    :PROPERTIES:
-    :ID:       235E9B9F-061D-4FB3-98F2-964E230B024D
-    :END:
-*** countdown timer
-    :PROPERTIES:
-    :ID:       D41C20DD-5D84-4D3C-AE07-EA7CB4476BB7
-    :END:
-*** relative timer
-    :PROPERTIES:
-    :ID:       B226DEFD-E50D-4251-B036-DC4D5FB2A726
-    :END:
-*** refile - move heading to different place
-    :PROPERTIES:
-    :ID:       DCBDAD71-AA2A-4A84-A1CE-647BF0D415CC
-    :END:
-*** note captures - templates
-    :PROPERTIES:
-    :ID:       4B33C27C-F0D4-4163-A11F-97E8F45E825B
-    :END:
-** Timestamp
-   :PROPERTIES:
-   :ID:       876AC542-6212-4B55-B655-37EC47D28AFE
-   :END:
-*** S-left-right - timestamp day next/previous
-    :PROPERTIES:
-    :ID:       43765B8A-1564-4FB1-9B53-06CD2613756C
-    :END:
-*** S-up/down - timestamp next/previous
-    :PROPERTIES:
-    :ID:       5CDD2836-B076-4048-9EF1-9C8139C6335A
-    :END:
-*** > / < - scroll calendar forward / backward 1 month
-    :PROPERTIES:
-    :ID:       B954DF20-5080-42BC-8703-8391E9079E00
-    :END:
-*** M-v / C-v - scroll calendar forward / backward 3 months
-    :PROPERTIES:
-    :ID:       B8B1E5E8-E86B-40FE-AF8F-18235A5B91EF
-    :END:
-*** M-S-down / up - scroll calendar forward / backward 1 year
-    :PROPERTIES:
-    :ID:       DCF3BD76-F32C-4858-BE75-543D2B0CC66B
-    :END:
-** Tags
-   :PROPERTIES:
-   :ID:       8246FB15-9A03-4BFE-AD45-F6AD88ED1AC9
-   :END:
-*** org-change-tag-in-region
-    :PROPERTIES:
-    :ID:       9364E5C9-9615-429A-A174-6534A6316308
-    :END:
-** Edit
-   :PROPERTIES:
-   :ID:       2C861A3D-3BEC-4369-987F-2C6FA4342310
-   :END:
-*** C-return - insert heading (not break current heading)
-    :PROPERTIES:
-    :ID:       B3607567-4D75-4928-9E8D-9A94784CEE58
-    :END:
-*** M-return - insert heading, item or row
-    :PROPERTIES:
-    :ID:       41193075-13A7-4AF6-91CB-F8B95D6C2D64
-    :END:
-*** C-c C-l - insert link (https://stackoverflow.com/a/21482249/346921)
-    :PROPERTIES:
-    :ID:       D8F6B0B8-D95F-45E7-93F0-EEB378298AB5
-    :END:
-*** internal links - https://orgmode.org/manual/Internal-links.html
-    :PROPERTIES:
-    :ID:       FC4A321A-BBC0-4C69-8191-731A2F434230
-    :END:
-*** C-c C-a - insert attachment
-    :PROPERTIES:
-    :ID:       2E57EDA8-1785-42B9-8F7A-43E646467541
-    :END:
-*** M-left/right - demote/promote heading
-    :PROPERTIES:
-    :ID:       C29DF608-7B43-4EBB-9DCE-24D4BE6A7A70
-    :END:
-*** C-c C-d - set deadline
-    :PROPERTIES:
-    :ID:       07D80FC1-A2FE-4606-AB9B-EE4877AE585F
-    :END:
-*** C-c C-s - set scheduled
-    :PROPERTIES:
-    :ID:       B6D95539-A197-41CF-8476-2AAB03CC5E13
-    :END:
-*** C-c C-z - add time stamped note to LOGBOOK drawer
-    :PROPERTIES:
-    :ID:       B9388CCE-FD21-4371-926C-D2C6676D4137
-    :END:
-*** org-change-tag-in-region
-    :PROPERTIES:
-    :ID:       54D03503-446F-4F83-8493-910EA7EEF969
-    :END:
-*** M-S-<left>/<right> - demote/promote entire subtree
-    :PROPERTIES:
-    :ID:       EC4FA885-3CF3-4F33-A229-792F1D267E1D
-    :END:
-*** M-h - mark heading
-    :PROPERTIES:
-    :ID:       B326F70A-B39B-4E0B-906D-DA00E4FCDB5F
-    :END:
-*** C-c c - capture note
-    :PROPERTIES:
-    :ID:       A42C45C6-5574-46C0-B2AA-0379998669F8
-    :END:
-*** C-c ^ - sort same level entries
-    :PROPERTIES:
-    :ID:       6EEC2E07-BD06-4F97-8A7B-86451E8FA4D0
-    :END:
-*** C-c @ - mark subtree
-    :PROPERTIES:
-    :ID:       C480F498-74EC-430E-81CB-407E3E7E1C83
-    :END:
-*** C-c * - toggle heading (turn regular line into heading)
-    :PROPERTIES:
-    :ID:       E70DE761-3824-4FB6-9189-7CB835A1630A
-    :END:
-*** C-x C-c a - toggle archive heading
-    :PROPERTIES:
-    :ID:       169DEAD4-8B12-4096-B7B7-7082F0A02249
-    :END:
-*** C-x C-x d - insert drawer (collapsed block)
-    :PROPERTIES:
-    :ID:       7415807D-42C1-46D8-A35D-8B96E7F7B934
-    :END:
-*** C-x C-c - toggle checkbox https://orgmode.org/manual/Checkboxes.html#Checkboxes
-    :PROPERTIES:
-    :ID:       E766CB49-1924-4A64-A430-5F86D74BBC64
-    :END:
-*** C-u C-x C-c - create empty checkbox
-    :PROPERTIES:
-    :ID:       2933DCA2-E4AC-4FCE-BCCA-E7B14C12A26B
-    :END:
 *** C-c C-x e - set effort
-** Navigation
-   :PROPERTIES:
-   :ID:       6C8BF68F-49E3-42A2-AF8F-788919C8E3F3
-   :END:
+*** clock tables
+*** countdown timer
+*** relative timer
+*** refile - move heading to different place
+*** note captures - templates
+** Timestamp
+*** S-left-right - timestamp day next/previous
+*** S-up/down - timestamp next/previous
+*** > / < - scroll calendar forward / backward 1 month
+*** M-v / C-v - scroll calendar forward / backward 3 months
+*** M-S-down / up - scroll calendar forward / backward 1 year
+** Tags
+*** org-change-tag-in-region
+** Edit
+*** C-return - insert heading (not break current heading)
+*** M-return - insert heading, item or row
+*** C-c C-l - insert link (https://stackoverflow.com/a/21482249/346921)
+*** internal links - https://orgmode.org/manual/Internal-links.html
+*** C-c C-a - insert attachment
+*** M-left/right - demote/promote heading
+*** C-c C-d - set deadline
+*** C-c C-s - set scheduled
+*** C-c C-z - add time stamped note to LOGBOOK drawer
+*** org-change-tag-in-region
+*** M-S-<left>/<right> - demote/promote entire subtree
+*** M-h - mark heading
+*** C-c c - capture note
+*** C-c ^ - sort same level entries
+*** C-c @ - mark subtree
+*** C-c * - toggle heading (turn regular line into heading)
+*** C-x C-c a - toggle archive heading
+*** C-x C-x d - insert drawer (collapsed block)
+*** C-x C-c - toggle checkbox https://orgmode.org/manual/Checkboxes.html#Checkboxes
+*** C-u C-x C-c - create empty checkbox
 *** C-', C-, - cycle org files
-    :PROPERTIES:
-    :ID:       0263452B-5F1A-4E15-A036-73B5D9321B57
-    :END:
 *** M-up, M-down - reorder item
-    :PROPERTIES:
-    :ID:       98D7D540-AA97-47A1-97FC-0E482865224F
-    :END:
 *** C-c o - open link
-    :PROPERTIES:
-    :ID:       270C212C-536E-4A3D-A770-A0C60440D6FB
-    :END:
 *** C-c % - push current position to mark ring
-    :PROPERTIES:
-    :ID:       59230615-D007-4AA9-B5B9-E201A9D0D261
-    :END:
 *** C-c & - go to recorded position
-    :PROPERTIES:
-    :ID:       AE7FDAF2-36EE-496C-8582-C3072CE431E0
-    :END:
 ** Display
-   :PROPERTIES:
-   :ID:       D38C7097-F667-4A23-B5A3-7A0BE224DDC6
-   :END:
 *** C-x n s - narrow buffer to current subtree
-    :PROPERTIES:
-    :ID:       5DBCD961-A55C-4036-A076-8F34C30001DC
-    :END:
 *** C-x n w - turn off narrowing
-    :PROPERTIES:
-    :ID:       47BB3D3B-FC9B-4274-AC77-9EF3AE9783BB
-    :END:
 *** S-<TAB> - toggle visibility for all items
-    :PROPERTIES:
-    :ID:       BB630B25-D16C-44FF-A4E9-0790519AFC8B
-    :END:
 ** Clock
-   :PROPERTIES:
-   :ID:       BC0C2AB7-8CB3-4CC9-B184-36C247D0D8EF
-   :END:
 *** C-c C-x C-i - start clock on current item
-    :PROPERTIES:
-    :ID:       11E72A6F-987F-43A9-8AEB-C6CB93A20409
-    :END:
 *** C-c C-x C-o - stop clock time
-    :PROPERTIES:
-    :ID:       AE48F260-2104-40A0-8318-44B8BDFEA81C
-    :END:
 *** C-c C-x C-x - reclock last clocked time
-    :PROPERTIES:
-    :ID:       541A9D21-71A9-411A-B84E-92A8B76BA973
-    :END:
 *** C-c C-x C-q - cancel current clock
-    :PROPERTIES:
-    :ID:       F0E6CDAA-57FF-45DB-AF67-AE4C7A4551D6
-    :END:
 *** C-c C-x C-j - jump to task of the current clock
-    :PROPERTIES:
-    :ID:       8A8B88F8-7BF0-4263-A867-60CF90401BE3
-    :END:
 *** C-c C-x C-d - display task clock summary
-    :PROPERTIES:
-    :ID:       6294B96E-E8E9-4A34-BBB2-9A72DF868180
-    :END:
 *** C-c C-x ; - start countdown timer
-    :PROPERTIES:
-    :ID:       6345B6F9-62E3-4788-8CBE-3FFCD6AF207C
-    :END:
 *** C-c C-x . - insert current timer string into buffer
-    :PROPERTIES:
-    :ID:       9D31E119-D676-4744-997C-A194D1D99CAD
-    :END:
 *** C-c C-x - - insert description item to list bounded to timer position
-    :PROPERTIES:
-    :ID:       1F218153-1C0B-4565-8F1E-FFD161E0FC25
-    :END:
 *** C-c C-x , - toggle pause of timer
-    :PROPERTIES:
-    :ID:       ABCDEC9C-2187-4532-A235-B0BEFB6DF965
-    :END:
 *** C-c C-x _ - stop the timer
-    :PROPERTIES:
-    :ID:       482B7517-6024-49D2-AC7E-39DDEEAA84FF
-    :END:
 ** Agenda
-   :PROPERTIES:
-   :ID:       65C1EC0A-2CCA-483F-B7BC-87A590663D75
-   :END:
 *** I - clock in
-    :PROPERTIES:
-    :ID:       018FF263-C590-4241-A2DD-AC0CB0AA7282
-    :END:
 *** L - recenter
-    :PROPERTIES:
-    :ID:       5FF8976D-6B55-46A6-87FB-E816A82ADA69
-    :END:
 *** / - secondary filtering
-    :PROPERTIES:
-    :ID:       ECA471B5-0B9E-495E-85E4-518F35666297
-    :END:
 *** ; - start countdown timer
-    :PROPERTIES:
-    :ID:       46FFB085-60D7-4164-8895-4C075F28CACD
-    :END:
 *** F - follow mode on current entry
-    :PROPERTIES:
-    :ID:       3AEB9981-FB53-49FD-9235-33DFA789BD38
-    :END:
 *** <space> - show current entry
-    :PROPERTIES:
-    :ID:       627DFA44-9414-4C52-AF7D-313D45F9A78F
-    :END:
 *** <tab> - switch to current entry
-    :PROPERTIES:
-    :ID:       55A95AF3-324D-4A0D-B4D4-1E0EC9A097B9
-    :END:
 ** Marks
-   :PROPERTIES:
-   :ID:       3DAE0CEE-1753-4F72-B441-1764FED7417E
-   :END:
 *** S-left, S-right - mark cycle
-    :PROPERTIES:
-    :ID:       80F473C7-0EE6-47EC-B608-62D810142F74
-    :END:
 *** M-h - mark paragraph
-    :PROPERTIES:
-    :ID:       ABED6869-7E3C-4DCA-AAAE-663DDEED2BF0
-    :END:
 *** C-x h - mark entire buffer
-    :PROPERTIES:
-    :ID:       C76B4444-77C1-4A54-A62C-1B877C7BB6A0
-    :END:
-
 ** Priorities
-   :PROPERTIES:
-   :ID:       C340201E-EB2C-48C1-A8F0-F123DDF04B8C
-   :END:
 *** C-c , - set priority
-    :PROPERTIES:
-    :ID:       3047B252-3D84-48E5-A27C-E73801F41DCC
-    :END:
 *** S-up - priority up
-    :PROPERTIES:
-    :ID:       7ED95827-2952-44FE-BA68-ADF0D4A1415E
-    :END:
 *** S-down - priority down
-    :PROPERTIES:
-    :ID:       767C1698-D64D-4CE1-83FA-054F7AE984FC
-    :END:
 *** sorting
-    :PROPERTIES:
-    :ID:       3891A17F-52AF-4CDB-B8FB-80964C0A84E2
-    :END:
 *** M-<up> - record line up
-    :PROPERTIES:
-    :ID:       4EBAF5F3-ED4F-4D94-A45B-CCD3AA5B9409
-    :END:
 *** M-<down> - record line down
-    :PROPERTIES:
-    :ID:       60CB99A2-920A-4A8E-9E07-2BB3D188C59D
-    :END:
-
 ** Recovery
-   :PROPERTIES:
-   :ID:       F7D5CFD9-D495-4535-8E67-251DB4A87BBA
-   :END:
 *** C-x u - undo
-    :PROPERTIES:
-    :ID:       3FBF96D5-7F3A-4D92-BC56-A0C96A4A8AA2
-    :END:
 *** C-f C-g C-x - redo
-    :PROPERTIES:
-    :ID:       6E112E66-6DB7-4680-9F1C-9A48F1CA78A4
-    :END:
 *** M-x recovery-session - recovery files lost after system crash
-    :PROPERTIES:
-    :ID:       982518BB-EA26-4309-9153-0E5DF233DCD7
-    :END:
 ** Dired
-   :PROPERTIES:
-   :ID:       AFC5FCB6-A7C2-48F0-BA3E-AC2C48DCCC1A
-   :END:
 *** ! - run shell command
-    :PROPERTIES:
-    :ID:       A6629A1F-FD1C-4CBE-91DE-20FF81C3715D
-    :END:
 *** & - run async shell command
-    :PROPERTIES:
-    :ID:       6AD06828-AC39-497F-9E7F-783FD7144A89
-    :END:
 *** + - create directory
-    :PROPERTIES:
-    :ID:       7044FB8C-3F79-41B4-A6B5-BD342464149B
-    :END:
 *** = - diff
-    :PROPERTIES:
-    :ID:       B9B39988-8B52-4327-B06E-F242667D7759
-    :END:
 *** g - refresh
-    :PROPERTIES:
-    :ID:       0C4BD812-9DE9-4D61-ABDA-C7C300BF3C9D
-    :END:
 *** a - reuse existing buffer if exists
-    :PROPERTIES:
-    :ID:       0677E366-2D93-45D6-8F88-FFFB91532928
-    :END:
 *** o - open file/directory in other window (not override Dired buffer)
-    :PROPERTIES:
-    :ID:       79F7C513-9AC1-442D-A438-CE6C4DB2537A
-    :END:
 *** f - find file
-    :PROPERTIES:
-    :ID:       D1EEA600-AC2C-4F83-8047-59020380D96C
-    :END:
 *** t - toggle marks
-    :PROPERTIES:
-    :ID:       10A205B9-9158-4D7C-AA93-59D7DB471A9B
-    :END:
 *** u - unmark item
-    :PROPERTIES:
-    :ID:       6E948E66-EE01-4CFD-BDB9-CD8C0C5FA6A9
-    :END:
 *** m - mark item
-    :PROPERTIES:
-    :ID:       179DF7EE-20A5-4AF7-BBBA-D3447C704AA7
-    :END:
 *** C-M-u or ^ - navigate directory up
-    :PROPERTIES:
-    :ID:       C6F68719-0F27-4DE5-A608-40F396AE0B4C
-    :END:
 *** C-J - jump to Dired mode from minibuffer
-    :PROPERTIES:
-    :ID:       086E4D6B-41EC-441B-BB7A-82783A8EA345
-    :END:
 ** Programming
-   :PROPERTIES:
-   :ID:       EA801A35-AA2F-446D-A962-8370A06E544A
-   :END:
 *** C-x C-; - comment current line
-    :PROPERTIES:
-    :ID:       0B47552C-3CAC-4263-A597-199FBFE4712E
-    :END:
 ** Folding
-   :PROPERTIES:
-   :ID:       F87AA7C2-96A0-4CBE-B1EA-E7E54C407296
-   :END:
 *** TAB - toggle fold heading
-    :PROPERTIES:
-    :ID:       E24242F3-9B56-4067-ACC8-24943A2BE126
-    :END:
 *** S-<TAB> - toggle fold all
-    :PROPERTIES:
-    :ID:       F60C7A4B-CCC0-4C4E-9A63-88838E7D6F64
-    :END:
-
 ** Links
-   :PROPERTIES:
-   :ID:       E20D99B8-56B1-4B28-88C1-6166582AE48D
-   :END:
    http://[[blog.aaronbieber.com]]
    http://whattheemacsd.com
    http://emacsrocks.com
@@ -1275,665 +197,168 @@ yasnippet
    http://pages.sachachua.com/.emacs.d/Sacha.html
    http://doc.norang.ca/org-mode.html
 * VIM
-  :PROPERTIES:
-  :ID:       DA044723-01F6-4104-BFF6-24E8E58B13C1
-  :END:
 ** edit
-   :PROPERTIES:
-   :ID:       762D6236-6025-468A-A7B5-1C335AC7C44E
-   :END:
 *** ]p - paste and indnet block
-    :PROPERTIES:
-    :ID:       19A4809D-513F-44EE-9CF0-B62A998D4A73
-    :END:
 *** /** - mark entire buffer content
-    :PROPERTIES:
-    :ID:       7A382ED3-81DD-4BFC-BCFA-2DB069B868A1
-    :END:
 ** navigation
-   :PROPERTIES:
-   :ID:       72E73518-ABFF-464B-BB93-F88322571CFD
-   :END:
 *** [ or ] - go to next/previous function definition
-    :PROPERTIES:
-    :ID:       56370689-6B08-4257-A2B6-21BBB737AB26
-    :END:
 *** ( or ) - go to next/previous paragraph
-    :PROPERTIES:
-    :ID:       8C8B049F-9D12-4B65-BCB6-7D7BD3098B34
-    :END:
 *** ]] - section forward or to next paragraph
-    :PROPERTIES:
-    :ID:       28365D44-4600-486D-B1C0-AC06BAC165A5
-    :END:
 *** gf - goto filename below the cursor
-    :PROPERTIES:
-    :ID:       F2D93C7B-C930-4DAE-A786-63BBFD4F4051
-    :END:
 *** w - jump forward beginning of next word
-    :PROPERTIES:
-    :ID:       A7279794-E7D3-4C10-B46C-02AC970765C4
-    :END:
 *** W - jump forward beginning of next WORD
-    :PROPERTIES:
-    :ID:       917691D4-B043-4829-870E-1D9FBF2BB575
-    :END:
 *** e - jump forward to end of word
-    :PROPERTIES:
-    :ID:       1D5BDDDF-6070-4A85-9333-DCF4331CB1E1
-    :END:
 *** E - jump forward to end of WORD
-    :PROPERTIES:
-    :ID:       9A02C7F4-A103-485D-BF1A-48F25654E090
-    :END:
 *** {} - jump back/forward to end/start of blocks
-    :PROPERTIES:
-    :ID:       ABBA9F88-E792-4AA6-A5E7-96FC15BFA514
-    :END:
 *** [] - jump to the start of next/previous block
-    :PROPERTIES:
-    :ID:       08DC3E62-A560-4B52-8E98-CC362DDC37C7
-    :END:
 *** g; - go to previous change I made
-    :PROPERTIES:
-    :ID:       846CA04C-22E2-4DA8-B0A4-D1D1CBCFDE87
-    :END:
 *** g, - go to next change I made
-    :PROPERTIES:
-    :ID:       3F246CBC-2C4E-4E8D-84BE-4A419529C4EB
-    :END:
 *** C-o - jump to previously visited location
-    :PROPERTIES:
-    :ID:       DD345246-6383-4D09-9DEF-4BCF8C08D12D
-    :END:
 *** C-i - jump to next visited location
-    :PROPERTIES:
-    :ID:       76956560-C983-4033-9082-CAE4AC0B489D
-    :END:
 *** hjkl - left/down/up/right
-    :PROPERTIES:
-    :ID:       E9049C7D-3FF0-43A9-8089-BD40EEC17808
-    :END:
 *** ciw, ciW - change word/WORD under the cursor
-    :PROPERTIES:
-    :ID:       D0097C0F-C4AA-4ED2-BF7A-030492E30C92
-    :END:
 *** diw, diW - delete word/WORD under the cursor
-    :PROPERTIES:
-    :ID:       392F4931-829E-4C45-A878-B48392510B24
-    :END:
 *** ci( - change content inside ()
-    :PROPERTIES:
-    :ID:       3E345C09-DABB-4EB1-945E-79BD71CF5340
-    :END:
 *** ci" - change content inside ""
-    :PROPERTIES:
-    :ID:       003DCADE-B476-4E9E-963E-C92ADFABC236
-    :END:
 *** mM - creates global mark
-    :PROPERTIES:
-    :ID:       0790ECD1-F51D-4E8A-8DBD-5A85647E35BA
-    :END:
 *** mm - creates local mark
-    :PROPERTIES:
-    :ID:       067EE808-C010-413E-BBE3-B2BDDE8BAA17
-    :END:
 *** f - move to next occurrence of the char (;, to go next/back)
-    :PROPERTIES:
-    :ID:       80D39165-43FE-42DA-A393-F331C2FC1E0D
-    :END:
 ***
 ** help
-   :PROPERTIES:
-   :ID:       DFBBB9EB-0895-4482-93BE-21DF46A0F38E
-   :END:
 *** K - open help for word under the cursor
-    :PROPERTIES:
-    :ID:       C04FABE2-2460-43FE-8D7E-8B45AEA7D922
-    :END:
 *** :h index - index of keys
-    :PROPERTIES:
-    :ID:       14245326-8931-44C7-98DC-70597DE249BB
-    :END:
 ** spellcheck
-   :PROPERTIES:
-   :ID:       8C4CBA75-45E1-44A9-BC42-B5155CC73ADB
-   :END:
 *** <leader>s - toggle spellcheck
-    :PROPERTIES:
-    :ID:       448A53DA-485E-4188-80F1-8E541B9C2F65
-    :END:
 *** ]s [s - navigation
-    :PROPERTIES:
-    :ID:       2E22ABB4-C001-4C18-A291-DA8300E8A4AC
-    :END:
 *** z= - fix
-    :PROPERTIES:
-    :ID:       910C0A5A-A8EF-45FB-A9AF-F9E298FE1331
-    :END:
 *** zg - add
-    :PROPERTIES:
-    :ID:       3E3B2EF1-87AC-463D-9E6A-B183EB4010B9
-    :END:
 ** substitution
-   :PROPERTIES:
-   :ID:       15185DC8-C808-4413-BC3D-A393F90B0D04
-   :END:
 *** %s - entire file
-    :PROPERTIES:
-    :ID:       A65EB18C-02CF-4A7C-8179-2359A1E3E136
-    :END:
 *** s - current line
-    :PROPERTIES:
-    :ID:       04A0D414-C88B-43E4-B55E-B11066DD6485
-    :END:
 *** ‘<,’>s - visual selection
-    :PROPERTIES:
-    :ID:       503D8A4E-18D4-4582-95FB-C1C03B85E449
-    :END:
 *** .,$s - from the current line to end of the file
-    :PROPERTIES:
-    :ID:       7D61F038-F87B-465B-BF27-889A068C3BE6
-    :END:
 *** .,+2s - from the current line and next 2 lines
-    :PROPERTIES:
-    :ID:       CBD3B5F0-71EF-45F3-A14C-96B3B3F70CBC
-    :END:
 *** g///g - entire file
-    :PROPERTIES:
-    :ID:       8A5D4ACD-2C1F-44A5-B2F5-E03522DE0B9F
-    :END:
 *** // - last search pattern
-    :PROPERTIES:
-    :ID:       436A13F8-3D3B-4785-8CB4-107B988AF404
-    :END:
 ** bookmarks
-   :PROPERTIES:
-   :ID:       10276528-C878-4900-86EF-5A9441743A65
-   :END:
 *** marks - shows list of bookmarks
-    :PROPERTIES:
-    :ID:       131C0D6E-AB3A-4C93-881E-40876CC72738
-    :END:
 *** '] - go to start of last change
-    :PROPERTIES:
-    :ID:       9B65CC9E-A385-4546-B6FE-281D80601915
-    :END:
 ** aligments
-   :PROPERTIES:
-   :ID:       63E182A8-D3A8-401A-A31D-B4B7B7CE837C
-   :END:
 *** = - align selected text
-    :PROPERTIES:
-    :ID:       1B3EEFA4-BAB0-41D3-9564-3E51E4D683F1
-    :END:
 ** futivive - git
-   :PROPERTIES:
-   :ID:       4DEDB125-9E23-46D7-9F25-1A56A58FA783
-   :END:
 *** - - add to index
-    :PROPERTIES:
-    :ID:       0D0AD7A9-30DF-456C-9490-3A99C9B08766
-    :END:
 *** p - patch
-    :PROPERTIES:
-    :ID:       F7F3B6CB-DDEF-4A1B-939E-04338C1CF042
-    :END:
 ** window & tabs
-   :PROPERTIES:
-   :ID:       96485351-BDF1-489A-929E-4D14C9953F80
-   :END:
 *** C-w | - maximize horizontal split
-    :PROPERTIES:
-    :ID:       E8F27CB3-F8E8-428E-A0C2-9B2990694D17
-    :END:
 *** C-w | - maximize vertical split
-    :PROPERTIES:
-    :ID:       F94074EF-544D-41AD-BDB2-ED54FE1EA0D2
-    :END:
 *** C-w n - new horizontal split
-    :PROPERTIES:
-    :ID:       47C1C921-88AC-45F9-80FC-63522801EC0E
-    :END:
 *** C-w v - new vertical split
-    :PROPERTIES:
-    :ID:       45D655A0-6860-45F8-9F2A-F4CE50818857
-    :END:
 *** C-w c - close window
-    :PROPERTIES:
-    :ID:       2951D0A7-4D1D-4775-B0B3-9D041E2D924A
-    :END:
 *** C-w o - close all living only current window
-    :PROPERTIES:
-    :ID:       7082C30C-2681-4E08-815A-016334855FAF
-    :END:
 *** C-w T - open move window to new tab
-    :PROPERTIES:
-    :ID:       DF6F4089-06F8-40A3-88AF-7FB47BBAE214
-    :END:
 *** C-w z - close preview window
-    :PROPERTIES:
-    :ID:       B72EC0D4-93BA-4970-8556-EB7A1F2ABAE6
-    :END:
 ** Ctrlp
-   :PROPERTIES:
-   :ID:       238D7DF8-130F-4272-95EB-E5B69B5A33A4
-   :END:
 *** C-x - open file from the list in new horizontal split
-    :PROPERTIES:
-    :ID:       8A45DDBF-405F-45FF-9577-9639C27D2C1F
-    :END:
 *** C-t -  open file from the list in new tab
-    :PROPERTIES:
-    :ID:       ABF5D199-538F-4DD5-9A64-450407A830C5
-    :END:
 *** { } - jump to next/previous empty line
-    :PROPERTIES:
-    :ID:       B2EF806B-2CC2-4A78-A537-67AECE904297
-    :END:
 ** tags
-   :PROPERTIES:
-   :ID:       8CCB6B72-EBB2-461B-8E4E-136868717AB3
-   :END:
 *** tn - next function definition
-    :PROPERTIES:
-    :ID:       CCD70F76-980F-424B-91CA-3B641FD29C93
-    :END:
 *** C-w C-] - open definition in horizontal split
-    :PROPERTIES:
-    :ID:       836ADE1D-8B9F-4685-A311-7290CAF2D1FA
-    :END:
 ** netrw
-   :PROPERTIES:
-   :ID:       31434969-DBBC-4048-BEAE-A3B9D750A964
-   :END:
 *** % - create new file
-    :PROPERTIES:
-    :ID:       DEAAD81C-8853-4AE1-9720-CF3D11F4AC05
-    :END:
 *** D - delete file under the cursor
-    :PROPERTIES:
-    :ID:       BA8552CA-9984-4BAB-81E1-F1B97E2866BD
-    :END:
 *** o/O - open file under the cursor in new window
-    :PROPERTIES:
-    :ID:       C242941C-C67E-49FF-9217-BFC69B0D2941
-    :END:
 *** i - cycle between: thin, long, wide, tree view
-    :PROPERTIES:
-    :ID:       E11BAF92-B0C5-4BB1-92A6-9D7C3B492E1D
-    :END:
 *** c - make the browsing directory current directory
-    :PROPERTIES:
-    :ID:       BB189ACB-C516-40D6-A972-113AB82839AD
-    :END:
 *** gh - toggle hidden files
-    :PROPERTIES:
-    :ID:       0C9D34A7-9FEB-483C-9015-8CAA1504DA31
-    :END:
 *** gn - change root directory for the directory below cursor (one level only)
-    :PROPERTIES:
-    :ID:       B07CDFB2-D972-4119-8DC9-4AB42516FF71
-    :END:
 *** mc - copy files to directory (requires mt first)
-    :PROPERTIES:
-    :ID:       9904EA11-AEE7-4800-9A2A-E465D5ECCE12
-    :END:
 *** mf - toggle mark file
-    :PROPERTIES:
-    :ID:       6F675BF1-6F03-4839-A2C1-2417671C7277
-    :END:
 *** mg - vimgrep for marked files
-    :PROPERTIES:
-    :ID:       C7EB4427-3C80-4C55-828A-C2340468BE82
-    :END:
 *** md - apply diff to marked files (up to 3)
-    :PROPERTIES:
-    :ID:       F70931C8-B08D-41F3-AC8A-AF49A0165A2F
-    :END:
 *** mm - move marked files to market directory
-    :PROPERTIES:
-    :ID:       F0990119-1B3E-4B15-8CA5-EDA51B47B25A
-    :END:
 *** mr - mark files using regexp
-    :PROPERTIES:
-    :ID:       D33697F4-E921-4F71-8856-602C2ACC53C3
-    :END:
 *** mu - unmark all
-    :PROPERTIES:
-    :ID:       00DBD46E-DDA8-4639-A44F-89651C649CB0
-    :END:
 *** mv - apply vim command to marked files
-    :PROPERTIES:
-    :ID:       A94BCAC2-61B8-4395-8DFD-ECA65DC3CE2F
-    :END:
 *** mx - apply shell command to marked files
-    :PROPERTIES:
-    :ID:       B6B09AEB-5BB9-4B4C-B41C-64ED75BA0E42
-    :END:
 *** P - open file and focus on it
-    :PROPERTIES:
-    :ID:       9866FD73-EFF9-46DC-9A6B-A2428605151B
-    :END:
 *** qb - list bookmarked directories
-    :PROPERTIES:
-    :ID:       F622F283-8BDA-48EE-A102-1C5501B04F49
-    :END:
 *** qf - display file info
-    :PROPERTIES:
-    :ID:       EDEC980E-3E38-47FE-B1A6-42046B48D22E
-    :END:
 *** qF - mark files using quickfix list
-    :PROPERTIES:
-    :ID:       F04AE287-0CD8-4989-9F11-90858D94A517
-    :END:
 *** qL - mark files using location list
-    :PROPERTIES:
-    :ID:       1D338B14-1EDF-47BC-8F47-3DBDF203D2CB
-    :END:
 *** r - reverse sorting order
-    :PROPERTIES:
-    :ID:       B8C7AE5C-004F-44BD-9D55-EB11B0219FA8
-    :END:
 *** R - rename file or directory
-    :PROPERTIES:
-    :ID:       D1F71ED7-4393-4126-94BA-4F577A59E70F
-    :END:
 *** s - select sorting style
-    :PROPERTIES:
-    :ID:       A9C8636D-41E4-45D9-917C-7357C5B396E5
-    :END:
 *** t - enter a file/dir name into tab
-    :PROPERTIES:
-    :ID:       A26F0742-F967-450B-9955-FED609B699EC
-    :END:
 *** u/U/- - go to recently visited directory
-    :PROPERTIES:
-    :ID:       E2DF16DA-7238-42FB-91D5-65E15F18AF4A
-    :END:
 *** x - view file in associated program
-    :PROPERTIES:
-    :ID:       9B0F190C-BE41-4EC8-B0CA-DB07B1B05D51
-    :END:
 *** X - execute file under cursor by system
-    :PROPERTIES:
-    :ID:       58E7CF7A-C299-415E-94CC-E0E07DA19EB4
-    :END:
 *** c-l - refresh directory listing
-    :PROPERTIES:
-    :ID:       64CDB37B-150F-44F8-A458-C657D56ED299
-    :END:
-
 * Docker
-  :PROPERTIES:
-  :ID:       E956E22E-5016-460D-9384-915D30FD544C
-  :END:
 ** docker-machine start
-   :PROPERTIES:
-   :ID:       75B41AC4-5444-4232-B8FB-A15F225A322F
-   :END:
 * iTerm2
-  :PROPERTIES:
-  :ID:       7BCB8CCC-EFF0-4210-96DC-37B78ED33F30
-  :END:
 ** options + mouse selection - select text to copy
-   :PROPERTIES:
-   :ID:       E4CEB7E6-0DA0-414B-A0D8-A749351D2D46
-   :END:
 ** options + command + mouse selection - select block to copy
-   :PROPERTIES:
-   :ID:       6285FD75-35D0-4599-AF11-9616E75C5589
-   :END:
 * GIT
-  :PROPERTIES:
-  :ID:       375347B4-38EB-4CF7-A584-575CE199A673
-  :END:
 ** git rebase --onto <new_parent> <old_parent>
-   :PROPERTIES:
-   :ID:       C1143C7E-BAAC-4FE5-AE0C-CFD88E962AAF
-   :END:
 * eCommerce
-  :PROPERTIES:
-  :ID:       6FE38FE3-81A5-462A-AAC5-D211B786CA03
-  :END:
 * Tmux - https://gist.github.com/henrik/1967800
-  :PROPERTIES:
-  :ID:       70C86637-8D90-4A62-9105-130D70E7F82D
-  :END:
 ** console
-   :PROPERTIES:
-   :ID:       A0826D32-0A15-448A-92DF-B86E145AE64D
-   :END:
 *** [  ] - scroll
-    :PROPERTIES:
-    :ID:       54450F87-D5E8-4194-95AD-A0A8F374C411
-    :END:
 *** / - search down
-    :PROPERTIES:
-    :ID:       7699DA87-73D6-41D6-AE5D-8297F289951C
-    :END:
 *** shift-/ - search up
-    :PROPERTIES:
-    :ID:       30E90C6E-334D-4D49-AE95-2A5E900D5BE7
-    :END:
 ** sessions
-   :PROPERTIES:
-   :ID:       DDFEA7E6-1349-41E5-B950-D4BB94849FF6
-   :END:
 *** $ - rename
-    :PROPERTIES:
-    :ID:       EB83FA2E-B4B9-42FB-AA8B-B2FE9AC876B2
-    :END:
 *** C-r - restore sessions state
-    :PROPERTIES:
-    :ID:       B69302E7-D8B3-47D7-A9F0-A18220B6CCFA
-    :END:
 *** C-r - save sessions state
-    :PROPERTIES:
-    :ID:       D258FCA4-AE89-4A75-A976-446B19320AF1
-    :END:
 ** windows
-   :PROPERTIES:
-   :ID:       2D0DD78D-9451-4F96-8EBF-8BCD6DCB1840
-   :END:
 *** c - new
-    :PROPERTIES:
-    :ID:       448209F4-2A73-4184-A43F-44B60FF20487
-    :END:
 *** , - rename
-    :PROPERTIES:
-    :ID:       84D5A4A4-851F-48E7-8FED-A0D3FB6F8A9E
-    :END:
 *** n - change to next
-    :PROPERTIES:
-    :ID:       AB3C39ED-C712-49C1-9C68-013FE2EAABBA
-    :END:
 *** p - change to previous
-    :PROPERTIES:
-    :ID:       19B49C33-D051-46EE-8640-D87A27CAF48A
-    :END:
 *** w - choose interactively
-    :PROPERTIES:
-    :ID:       35DD5959-AEE8-4490-A437-A63B4A9C7175
-    :END:
 ** panes
-   :PROPERTIES:
-   :ID:       56CA9A06-5B61-4F5F-886E-6ADE9B1A246C
-   :END:
 *** x - kill current
-    :PROPERTIES:
-    :ID:       01A2C993-E823-4978-867B-81B6E41B03F3
-    :END:
 *** z - toggle zoom on current
-    :PROPERTIES:
-    :ID:       CE2FB102-7229-45E2-AFC1-8BBECC90B3D9
-    :END:
 *** { } - swapping
-    :PROPERTIES:
-    :ID:       A2477B88-40CC-44B1-85C8-B8FFF40E4DF0
-    :END:
 *** space - toggle horizontal - vertical
-    :PROPERTIES:
-    :ID:       7D343D14-DD57-44D5-80A4-957925FDF0A0
-    :END:
 ** client
-   :PROPERTIES:
-   :ID:       2C7A0B75-18E5-49AE-9D11-FD5884C59A4A
-   :END:
 *** d - detach current
-    :PROPERTIES:
-    :ID:       D40ACFE4-F82D-4A88-A64A-6FA27D338C98
-    :END:
 *** $ - rename current client session
-    :PROPERTIES:
-    :ID:       B7EA7AFB-98FB-4007-BC50-B7A786941344
-    :END:
 *** R - source .tmux.conf
-    :PROPERTIES:
-    :ID:       67B86CCF-EC41-4C2B-8827-4DD4AA1CACF1
-    :END:
 *** ~ - display previous tmux message
-    :PROPERTIES:
-    :ID:       63E0B6B4-CDF1-456A-B633-99B6CF281773
-    :END:
 *** [  - enter "copy mode"
-    :PROPERTIES:
-    :ID:       2465945B-C84E-4E61-9454-BD3E789DCA96
-    :END:
 ** commands
-   :PROPERTIES:
-   :ID:       07CA5A10-A450-4654-8763-6521D1D5F71D
-   :END:
 *** swap-window -t 1 - swaps window 1 which top window
-    :PROPERTIES:
-    :ID:       FCF6D95B-D3B5-43D0-B7C3-C48C8769DE08
-    :END:
-
 * Emacs VIM switch
-  :PROPERTIES:
-  :ID:       A4F5251E-BC6F-4018-B8D1-469551B3B662
-  :END:
 ** navigation
-   :PROPERTIES:
-   :ID:       CA1638F2-49CC-4308-9DCA-621912351B30
-   :END:
 *** [#A] navigation by tags
-    :PROPERTIES:
-    :ID:       9636F059-8642-4AB6-A61B-10F4E17131EA
-    :END:
 *** TODO [#B] Emacs navigation by files in path
-    :PROPERTIES:
-    :ID:       99CCE77B-FA86-4F62-B263-38C7B733EDB2
-    :END:
 *** TODO [#B] go to accordance * and #
-    :PROPERTIES:
-    :ID:       2F2E989A-3F70-459C-A45E-C1C1A63451BE
-    :END:
 *** TODO [#B] search for phrase in root folder
-    :PROPERTIES:
-    :ID:       D780D230-0157-4516-8A1B-77207558A08E
-    :END:
 ** snippets
-   :PROPERTIES:
-   :ID:       A3DA3F17-B6B1-4518-A29E-D1C403504873
-   :END:
 *** [#B] class, less, cl
-    :PROPERTIES:
-    :ID:       CA69917E-D7AC-40CC-A811-BA53CD78FA43
-    :END:
 ** templates
-   :PROPERTIES:
-   :ID:       46D3C96A-FA5D-4013-8E05-3630F70B8EFF
-   :END:
 *** [#C] new HTML doc from template
-    :PROPERTIES:
-    :ID:       D3A93974-AF89-4D59-8706-E2A8B91F6EF2
-    :END:
 ** git
-   :PROPERTIES:
-   :ID:       F57A4BBD-102C-4EC7-ACE4-13D7C510F105
-   :END:
 *** [#B] diff file from revision
-    :PROPERTIES:
-    :ID:       C860D281-A325-4B78-B5D2-93F804666FB6
-    :END:
 ** folding
-   :PROPERTIES:
-   :ID:       61C957D8-7C55-4D90-85DC-2C529CA5A15B
-   :END:
 ** auto completion
-   :PROPERTIES:
-   :ID:       09386ED8-9C4D-4484-A9CB-74C516FE2273
-   :END:
 *** [#B] auto completion tags
-    :PROPERTIES:
-    :ID:       3D080BE3-07ED-4326-9933-54D27504B30D
-    :END:
 *** [#A] auto completion files in path
-    :PROPERTIES:
-    :ID:       73DB840B-A330-4118-BB13-371F669C108B
-    :END:
 *** [#A] auto completion opened buffers
-    :PROPERTIES:
-    :ID:       46D6464C-F071-4387-B91A-353596653CD5
-    :END:
 *** [#B] auto completion syntax
-    :PROPERTIES:
-    :ID:       6C70C050-E23D-4849-97B5-F425C477CF9D
-    :END:
 **  file types support
-   :PROPERTIES:
-   :ID:       5354E7E6-1DBE-42AA-BC9C-EEA4D739DF39
-   :END:
 *** [#B] file type support CSS, SCSS
-    :PROPERTIES:
-    :ID:       32EA5837-8DBD-4295-9739-64CAFF131E90
-    :END:
 *** [#D] file type support md
-    :PROPERTIES:
-    :ID:       F955D3BE-E173-478E-ACDC-F8EBA9B01B82
-    :END:
 ** display
-   :PROPERTIES:
-   :ID:       4DD5E2C5-111F-4812-BB39-7865B856DB73
-   :END:
 *** [#C] color column limit
-    :PROPERTIES:
-    :ID:       A2E5348B-15C4-40E7-9673-FDEC37644A67
-    :END:
 *** [#B] status line display folder name
-    :PROPERTIES:
-    :ID:       FF82BB79-EE01-442B-9D8F-401DC70D14BF
-    :END:
 ** [#B] Emmet support
-   :PROPERTIES:
-   :ID:       4D915694-D08F-425C-AACA-0C1F6F8DCEDC
-   :END:
 ** [#B] support prettier or eslint
-   :PROPERTIES:
-   :ID:       C337410B-8AD2-4F07-AC5D-6D58F04FF25B
-   :END:
 ** [#B] code coverage: nyc, istanbul
-   :PROPERTIES:
-   :ID:       F0F7615E-F63A-4346-9D42-A8F8581004AB
-   :END:
 ** edit
-   :PROPERTIES:
-   :ID:       5F7EF6B9-BE34-47C7-8B7A-0D5DF7CA59B8
-   :END:
 *** [#B] master use multi cursors
-    :PROPERTIES:
-    :ID:       A953D0EB-741E-4C32-BF3B-9EB33DF30A6E
-    :END:
 *** [#B] Surround region
-    :PROPERTIES:
-    :ID:       D89B298C-4C53-43FF-878C-20C529A54FC6
-    :END:
 *** [#A] Upper case / lower case
-    :PROPERTIES:
-    :ID:       55E53D90-9E82-4720-8009-327B281DD410
-    :END:
 ** spell check
-   :PROPERTIES:
-   :ID:       7A7F8108-11F2-458D-AFF7-142D9C1CAF78
-   :END:

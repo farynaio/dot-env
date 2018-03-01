@@ -15,6 +15,9 @@ https://github.com/dfeich/org-clock-convenience
 https://www.ledger-cli.org/3.0/doc/ledger3.html#Emacs-org-Mode
 http://hledger.org/step-by-step.html
 https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
+http://plaintextaccounting.org
+https://www.emacswiki.org/emacs/CategoryFinancial
+https://www.emacswiki.org/emacs/CellMode
 ** CANCELED [#B] Org agenda add filter to hide A tasks that are scheduled for other day from agenda.
    CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-18 Sun>
    - State "CANCELED"   from "TODO"       [2018-02-21 Wed 22:51] \\
@@ -23,7 +26,7 @@ https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
    :ID:       C260C228-0BA3-4598-BBD7-70D146721F73
    :END:
 ** TODO [#B] FieldGlass fill timesheets                                                    :@wealth:
-   SCHEDULED: <2018-03-01 Thu ++1w/9d>
+   SCHEDULED: <2018-03-04 Sun ++1w>
    - State "DONE"       from "TODO"       [2018-02-24 Sat 09:01]
    - State "DONE"       from "TODO"       [2018-02-18 Sun 21:55]
    :PROPERTIES:
@@ -41,12 +44,473 @@ https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
    :ID:       44756E00-C0AF-4613-AD35-383228933B0C
    :END:
 ** TODO [#B] Emacs fix error references
+   :PROPERTIES:
+   :ID:       0D7CD10F-7139-4D64-9D67-997C1AB25B93
+   :END:
 
 https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variable-byte-compilation-warnings
-** TODO [#B] Emacs open in buffer - not jump
-  SCHEDULED: <2018-02-26 Mon>
+** CANCELED [#B] Emacs open in buffer - not jump
+   CLOSED: [2018-02-27 Tue] SCHEDULED: <2018-02-26 Mon>
+   - State "CANCELED"   from "TODO"       [2018-02-27 Tue 20:47] \\
+     Looks like it's hard to do it in IDO mode, I can live without it.
+   :PROPERTIES:
+   :ID:       100CD2E3-D90B-4F5F-8CF7-FE7E1AF1CF20
+   :END:
 Always create new window
 ** TODO [#B] Org add automatic clock out when changed status
-
 ** TODO [#B] Emacs try ivy package
 Alternative to IDO?
+** TODO [#D] emacs what is outline mode?
+   :PROPERTIES:
+   :ID:       C3CE8BC0-48DB-4A97-867E-271B72F41CB5
+   :END:
+** TODO [#B] Emacs check occur for searching
+   :PROPERTIES:
+   :ID:       FD3F0DE1-C770-4952-B7D8-85502D6006B1
+   :END:
+** TODO [#D] Emacs TRAMP as a replacement for FileZilla
+   :PROPERTIES:
+   :ID:       1E255CE5-6177-4A68-BF3E-8008F8670A17
+   :END:
+** TODO [#C] Org mode using properties to organize collections of things (books)
+   :PROPERTIES:
+   :ID:       7C799B9B-A97D-4DC4-8343-4EC48F52EF5D
+   :END:
+- Note taken on [2018-02-10 Sat 00:45] \\
+  https://orgmode.org/manual/Property-syntax.html#Property-syntax
+** TODO [#D] emacs how to open file/buffer in read-only?
+   :PROPERTIES:
+   :ID:       042CAAFB-DA51-4693-879C-C1F6D92F41BA
+   :END:
+** TODO [#D] Vim solve snippets inheritance problem
+   :PROPERTIES:
+   :ID:       4A2C57D5-1F17-4AC6-A71C-F345BDE4C537
+   :END:
+** TODO [#D] emacs how to toggle buffer read-only
+   :PROPERTIES:
+   :ID:       5BB6B58C-FBFE-42F2-915D-CE910B48B917
+   :END:
+** TODO [#C] Add default priority to created tasks
+   :PROPERTIES:
+   :ID:       A7055171-B8D9-441D-ACC9-F970D855C9FB
+   :END:
+** TODO [#B] Vim master switch capital case, snake case etc.
+   :PROPERTIES:
+   :ID:       E1DB02C5-59ED-4C1E-9171-508F89D2FF88
+   :END:
+** TODO [#B] Emacs switch from capital case, snake case etc.
+   :PROPERTIES:
+   :ID:       7A5D0E8F-3FAF-4C46-86FE-FAE51B5BA3D6
+   :END:
+** TODO [#C] Check org-export-dispatch
+   :PROPERTIES:
+   :ID:       22552D1A-86E7-4F9C-8D90-6766A566E639
+   :END:
+
+** TODO [#B] Org mode Ghantt diagram
+   :PROPERTIES:
+   :ID:       D2C87B15-8303-4B7C-977B-73D9265AD8AC
+   :END:
+   - Note taken on [2018-02-08 Thu 23:56] \\
+     http://taskjuggler.org
+   https://orgmode.org/worg/org-tutorials/org-taskjuggler.html
+** DONE [#B] Org mode how to click on link to open browser?
+   CLOSED: [2018-02-21 Wed]
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
+   :PROPERTIES:
+   :ID:       70B9D2A9-5FA3-4EE7-98EF-762421816234
+   :END:
+** TODO [#B] Org mode effort estimates
+   :PROPERTIES:
+   :ID:       7DE24571-C1D6-42D3-B85E-048031F386F1
+   :END:
+   - Note taken on [2018-02-07 Wed 13:05] \\
+     org-set-effort
+
+     Set effort ranges in
+     org-global-properties
+
+     https://orgmode.org/manual/Effort-estimates.html
+** TODO [#D] Org mode Check Table of content generator
+   :PROPERTIES:
+   :ID:       828EA522-5AB1-4DF7-B4A6-8AA58BF5F6D9
+   :END:
+https://github.com/snosov1/toc-org
+** TODO [#B] Org mode org-sort
+   :PROPERTIES:
+   :ID:       BECBFFC0-5765-44B7-88EF-22D9D5B7E35E
+   :END:
+** TODO [#C] Org mode how to deal with repeating tasks?
+   :PROPERTIES:
+   :ID:       D45B1BFE-1FCE-4611-BE15-2D640C2F9B96
+   :END:
+** DONE [#B] Vim change TODO highlight to something less obstructive
+   CLOSED: [2018-02-21 Wed]
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
+   :PROPERTIES:
+   :ID:       6EE80B4E-92EB-4578-ADAC-30700BE0E02E
+   :END:
+** TODO [#B] Org mode clock tables
+   :PROPERTIES:
+   :ID:       3BEE9397-000B-4377-9197-F9D6963A26D3
+   :END:
+** CANCELED [#B] VIM remove fugitive from recent list
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+- State "CANCELED"   from "TODO"       [2018-02-11 Sun 23:18] \\
+  Not use recent list anymore.
+   - Note taken on [2018-02-11 Sun 23:15] \\
+     Switched to switch buffer rather then use another function.
+   :PROPERTIES:
+:ID:       856E63FA-C017-4B49-A2B9-4AFFCE39BE44
+   :END:
+** TODO [#C] Org mode what is column mode?
+   :PROPERTIES:
+   :ID:       D07AD112-248E-4A67-82EB-46BAFCD4D641
+   :END:
+** DONE [#C] Org mode what are habits?
+   CLOSED: [2018-02-06 Tue]
+   :PROPERTIES:
+   :ID:       2CE3F5B5-01E5-465A-A438-2543F61B72C2
+   :END:
+   - Note taken on [2018-02-06 Tue 20:07] \\
+     Repeatable tasks.
+** TODO [#C] Org mode identify org-stuck-projects
+   :PROPERTIES:
+   :ID:       28AD1F5C-F5FE-4C93-B6C4-8FD19690757A
+   :END:
+** DONE [#B] Is Emacs helm package works for me?
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
+   :PROPERTIES:
+   :ID:       7D010C1B-468F-4EF5-9B21-9DEE25E072EE
+   :END:
+- Note taken on [2018-02-11 Sun 23:01] \\
+  Nope, probably only M-x mode.
+- State "DONE"       from "IN-PROCESS" [2018-02-11 Sun 23:01]
+** TODO [#C] Org mode what export options do I have?
+   :PROPERTIES:
+   :ID:       F377F15B-A15C-45C4-BBA3-478CEB764DAD
+   :END:
+** DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
+   CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
+   :PROPERTIES:
+   :ID:       E2C434D8-A84D-4F10-921E-B7DCBACDD2FE
+   :END:
+   - Note taken on [2018-02-05 Mon 20:07] \\
+   Faces for TODO keywords
+
+** DONE [#B] Org mode how can I manage repeatable tasks?                                   :@career:
+   CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-06 Tue>
+   - State "DONE"       from "TODO"       [2018-02-21 Wed 22:49]
+   :PROPERTIES:
+   :ID:       0DEE06C4-AFEF-4AB4-95CD-10D23AEAED47
+   :END:
+   - Note taken on [2018-02-21 Wed 22:49] \\
+     org mode habits
+   - Note taken on [2018-02-05 Mon 23:53] \\
+     https://orgmode.org/manual/Repeated-tasks.html
+
+** DONE [#B] Org mode how to add tasks fast?
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:05]
+   - Note taken on [2018-02-11 Sun 23:05] \\
+     org-refill org-capture and org-agenda
+   - Note taken on [2018-02-08 Thu 23:46] \\
+     refiling
+     https://orgmode.org/manual/Refile-and-copy.html#Refile-and-copy
+   - Note taken on [2018-02-06 Tue 00:15] \\
+      What about capture, diary and journal?
+     org-journal-*
+   :PROPERTIES:
+:ID:       615D1B55-E4DA-4BAB-A473-AFEAB96D670A
+   :END:
+
+** DONE [#D] Emacs make font bigger                                                    :@efficiency:
+   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-03 Sat>
+   :PROPERTIES:
+   :ID:       C12E9064-1F2F-47B0-A1BC-693B62CF5D21
+   :END:
+   - Note taken on [2018-02-07 Wed 20:06] \\
+     C-x C--
+     C-x C-+
+** TODO [#B] Org mode how notes works                                                  :@efficiency:
+   :PROPERTIES:
+
+   :END:
+** DONE [#B] Org mode org-reload
+   SCHEDULED: <2018-02-05 Mon>
+   - State "DONE"       from "TODO"       [2018-02-05 Mon 22:01]
+   :PROPERTIES:
+   :ID:       773AAF3E-C083-4E62-9834-D291EF05C163
+   :END:
+** TODO [#C] Org mode org-goto                                                         :@efficiency:
+   :PROPERTIES:
+   :ID:       FD5F8543-F714-47A3-8D7F-67C1007B3045
+   :END:
+** DONE Learn to use Emacs Dired mode                                                  :@efficiency:
+   - State "DONE"       from "TODO"   [2018-02-07 Wed 20:10]
+   :PROPERTIES:
+   :ID:       B052C0B3-8CCE-4009-842D-2221F743E22B
+   :END:
+** TODO [#C] Learn Emacs sunrise commander                                             :@efficiency:
+   :PROPERTIES:
+   :ID:       A6ED928C-BE01-4AE1-A0E6-74A8F5A10754
+   :END:
+** TODO [#D] Org mode add encryption
+   :PROPERTIES:
+   :ID:       05A123C7-0542-47B4-966B-D72778EB299E
+   :END:
+** DONE [#B] Create org mode sort custom configuration                                 :@efficiency:
+   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
+   :PROPERTIES:
+   :ID:       2673885C-3FA8-420D-8DF7-B2E9609BAC6D
+   :END:
+
+** DONE [#B] Check org-priority                                                        :@efficiency:
+   CLOSED: [2018-02-03 Sat]
+   :PROPERTIES:
+   :ID:       DC7BA308-6F5B-4623-BDAC-9A638546AC75
+   :END:
+** DONE [#B] Check org-schedule                                                        :@efficiency:
+   CLOSED: [2018-02-03 Sat]
+   :PROPERTIES:
+   :ID:       63FFD240-6DA0-4E7D-9362-F6DCC36BF75C
+   :END:
+** DONE [#B] Check org-deadline                                                        :@efficiency:
+   CLOSED: [2018-02-03 Sat]
+   :PROPERTIES:
+   :ID:       9279A221-23DD-4271-8BB1-B94EE48E04FE
+   :END:
+** DONE [#B] Emacs calendar                                                            :@efficiency:
+   CLOSED: [2018-02-03 Sat]
+   :PROPERTIES:
+   :ID:       1BF7CC0B-30DC-4D02-88AE-5A80986625DA
+   :END:
+** DONE [#C] Emacs recentf-dialog-mode                                                 :@efficiency:
+   CLOSED: [2018-02-03 Sat]
+   :PROPERTIES:
+   :ID:       F95E67AF-22ED-46EC-B6E0-9C820DA6DBA0
+   :END:
+
+** TODO [#D] Setup Gnus                                                                :@efficiency:
+   :PROPERTIES:
+   :ID:       B61E32C7-C6A5-495F-9D5B-0050850A8CF1
+   :END:
+setup keys
+
+** DONE [#A] What are 'org categories'?                                                :@efficiency:
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
+   - Note taken on [2018-02-11 Sun 23:06] \\
+     File names by default, also configurable in properties.
+   :PROPERTIES:
+:ID:       3A8D6E63-F99E-459A-8243-F8862488E075
+   :END:
+** TODO [#B] Manage English new words in org mode                        :@efficiency:@love:@wealth:
+   :PROPERTIES:
+   :ID:       ABB2A56A-07CB-47A3-AA8A-1C4AE4475ECD
+   :END:
+** TODO [#C] Check org agenda set effort.                                              :@efficiency:
+   :PROPERTIES:
+   :ID:       A7B3002A-4DC3-4F34-9661-71CEF4AF7F2F
+   :END:
+** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
+   :PROPERTIES:
+   :ID:       88D19E5F-AA68-49EE-9915-F901EF04B907
+   :END:
+** TODO [#C] Check org-agenda-write                                                    :@efficiency:
+   :PROPERTIES:
+   :ID:       673DE6AE-0A1E-4A2A-AE04-744B07F9BC72
+   :END:
+** DONE [#B] Org mode add sync with google cal                                         :@efficiency:
+   CLOSED: [2018-02-25 Sun] SCHEDULED: <2018-02-24 Sat>
+   - State "DONE"       from "IN-PROCESS" [2018-02-25 Sun 23:49]
+   :PROPERTIES:
+   :ID:       241C1D1F-8F94-4E17-A7E5-2DCB03A4530D
+   :END:
+   - Note taken on [2018-02-08 Thu 23:59] \\
+     https://www.npmjs.com/package/webdav-server
+
+private cloud u Marcina - gmail
+
+https://orgmode.org/worg/org-tutorials/org-google-sync.html
+webdav server na heroku
+
+** TODO [#B] Org mode agile / scrum / spring                                           :@efficiency:
+   :PROPERTIES:
+   :ID:       1F511C71-7351-472E-B33F-70EA284B2A60
+   :END:
+** DONE [#A] Org mode setup proper agenda view                                         :@efficiency:
+CLOSED: [2018-02-12 Mon] SCHEDULED: <2018-02-07 Wed>
+- State "DONE"       from "TODO"       [2018-02-12 Mon 23:59]
+   :PROPERTIES:
+:ID:       53E03D9B-94A1-4FCF-A275-6052404B628E
+   :END:
+** DONE [#A] Setup agenda view for all undone tasks                                    :@efficiency:
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
+   :PROPERTIES:
+:ID:       33D4CD90-1D6B-49A7-B8C7-4D8BAB8BC497
+   :END:
+** DONE Learn to use Emacs calendar                                                    :@efficiency:
+   CLOSED: [2018-02-04 Sun]
+   :PROPERTIES:
+   :ID:       1DAAC8BA-A1ED-43D0-983F-A201E2A5E286
+   :END:
+** DONE [#C] Learn to work with org-agenda mode                                        :@efficiency:
+   CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
+   :PROPERTIES:
+   :ID:       571C7406-AF2C-47F2-9C4E-64CE46433DCB
+   :END:
+** TODO [#D] Access org mode on mobile                                                 :@efficiency:
+   :PROPERTIES:
+   :ID:       5BA2C400-D799-4D79-A2DE-8E643B97C8AF
+   :END:
+
+** TODO [#D] Git blame support
+   :PROPERTIES:
+   :ID:       BB8EF6FD-9F6E-4259-9A88-157881E3F053
+   :END:
+- Note taken on [2018-02-13 Tue 17:05] \\
+  build in package vc-*
+
+  git.el http://alexott.net/en/writings/emacs-vcs/EmacsGit.html
+
+hacks:
+http://snarfed.org/emacs-vc-git-tweaks
+
+  magit:
+  https://magit.vc/manual/
+  https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs
+** DONE Gitgutter
+    CLOSED: [2018-02-06 Tue]
+   :PROPERTIES:
+   :ID:       25E5EF77-9764-458B-A06A-0C9574B4211B
+   :END:
+** DONE [#C] run commands async (what commands?)
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:45]
+   :PROPERTIES:
+:ID:       C9A8DC4D-2E95-4D61-B2CD-9B0D952AF025
+   :END:
+** TODO [#D] JSON by syntax
+   :PROPERTIES:
+   :ID:       F8EC5680-CC2C-4239-8B45-22BA1403C0B6
+   :END:
+** TODO [#B] folded markers available all the time
+   :PROPERTIES:
+   :ID:       68093CCC-770F-4CC5-9E45-87D99BBF6662
+   :END:
+** DONE [#A] how to refresh buffer?
+CLOSED: [2018-02-12 Mon]
+   :PROPERTIES:
+   :ID:       068EC40C-7F7F-4A85-A730-12878B92CD6B
+   :END:
+- Note taken on [2018-02-12 Mon 23:47] \\
+  <C-x r> or <C-r>
+- State "DONE"       from ""           [2018-02-12 Mon 23:47]
+** DONE [#B] search and replace in multiple files
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:14]
+    - Note taken on [2018-02-11 Sun 23:08] \\
+      rgrep + wgrep combo https://github.com/mhayashi1120/Emacs-wgrep
+    - Note taken on [2018-02-11 Sun 23:04] \\
+      projectile could be useful here - occur, grep
+    - Note taken on [2018-02-06 Tue 21:28] \\
+      Build in s&r by tags tags-query-replace.
+   :PROPERTIES:
+:ID:       A85BF69E-A028-445C-8996-2451D9F28941
+   :END:
+** DONE [#A] search and replace in single file
+    CLOSED: [2018-02-06 Tue] SCHEDULED: <2018-02-06 Tue>
+    - State "DONE"       from "IN-PROCESS" [2018-02-06 Tue 21:58]
+   :PROPERTIES:
+   :ID:       5FFD6CE5-3EA8-4320-A403-420A167EA1A1
+   :END:
+    - Note taken on [2018-02-06 Tue 21:40] \\
+      M-% together with C-s (incremental search).
+** DONE toggle dictionary fast
+    CLOSED: [2018-02-06 Tue]
+   :PROPERTIES:
+   :ID:       B856D8FB-1DC3-467C-AE71-9131DBA01BD7
+   :END:
+    - Note taken on [2018-02-06 Tue 20:16] \\
+      dict-toggle
+      M-$ - correct word
+      C-, - next error
+      Fly prog mode
+** DONE [#B] indent region
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:48]
+   :PROPERTIES:
+:ID:       E919E759-15A6-4C21-90D3-64D62D9FD8F0
+   :END:
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Just with <tab>.
+** DONE [#A] Window zoom
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:49]
+   :PROPERTIES:
+:ID:       FC0A5346-EE6F-4293-82C3-D72FA07237C7
+   :END:
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Toggle window zoom with <C-x |>.
+** DONE [#A] go to line number
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:50]
+   :PROPERTIES:
+:ID:       DD9BD244-4D6E-414C-95DE-903FE77488B0
+   :END:
+- Note taken on [2018-02-12 Mon 23:49] \\
+  <M-gg> or <M-g><M-g>
+** DONE [#A] easy tabs switch
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+   :PROPERTIES:
+:ID:       8E4CD6E2-83F0-40CB-99F4-A977BB78463D
+   :END:
+- Note taken on [2018-02-12 Mon 23:50] \\
+  With <cmd-left> and <cmd-right>.
+** DONE [#A] easy window switch
+CLOSED: [2018-02-12 Mon]
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+   :PROPERTIES:
+:ID:       E0635A0D-C2E4-4618-B940-74F158E456DE
+   :END:
+- Note taken on [2018-02-12 Mon 23:51] \\
+  Done with C-x <left>/<right>/<up>/<down>.
+** DONE [#A] navigation recent files
+    CLOSED: [2018-02-06 Tue]
+   :PROPERTIES:
+   :ID:       F9BDD5B0-98A7-4B8D-A81D-0F8506870548
+   :END:
+    - Note taken on [2018-02-06 Tue 20:24] \\
+      recentf-*
+** TODO [#C] Emacs git support (magit)
+   :PROPERTIES:
+   :ID:       B35C19FC-23F8-47F1-B65B-003FC022E2F8
+   :END:
+** TODO [#C] Vim try easy motion
+   :PROPERTIES:
+   :ID:       3148044C-A3CC-4524-95BB-6D4360D4E4DB
+   :END:
+
+https://github.com/easymotion/vim-easymotion
+
+** TODO [#C] Vim check vimtutor
+   :PROPERTIES:
+   :ID:       7DD57898-1585-42CE-BB12-81CDC4ACBB76
+   :END:
+** TODO [#C] Configure "stuck projects"
+   :PROPERTIES:
+   :ID:       18B803C4-7B19-4C36-9221-375AB1B3C86A
+   :END:
+** TODO [#B] Check emacs navigation shortcuts
+   :PROPERTIES:
+   :ID:       5BCA1333-1672-441F-8919-0B1AB59DD362
+   :END:
+
+** TODO [#D] Emacs snippets support
+   :PROPERTIES:
+   :ID:       D94FB1A1-F964-43A0-9E3A-CF4BA6CA7A56
+   :END:
+yasnippet
