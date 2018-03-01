@@ -22,7 +22,7 @@
                       wgrep
                       transpose-frame
                       magit
-                      oauth2
+                      ; oauth2
 											with-editor ; dependency for other package
                                         ; projectile
                     ))
@@ -55,6 +55,9 @@
 (require 'wgrep)
 (require 'org-agenda)
 
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -75,7 +78,7 @@
   dired-recursive-copies 'always
   dired-recursive-deletes 'always)
 (setq ahs-idle-interval 0)
-(setq bookmark-save-flag nil)
+(setq bookmark-save-flag t)
 (setq show-paren-delay 0)
 (setq recentf-max-menu-items 25)
 (setq help-window-select t)
@@ -393,21 +396,24 @@
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
 (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+(setq org-caldav-save-directory (expand-file-name "tmp" user-emacs-directory))
+(setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
 (setq org-caldav-inbox (expand-file-name "google.org" org-directory))
 (setq org-caldav-url 'google)
-(setq org-icalendar-timezone "Europe/London")
+(setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
-
-(defconst air-directory-files-no-dot-files-regexp
-  ;; "^\\([^.]\\|\\.\\([^.#]\\|\\.keep\\|\\..\\)\\).*\\.org"
-  "^[^.][^#]*\\.org"
-  "Regexp matching any file name except \".\" and \"..\".")
-
-(setq org-caldav-files (directory-files org-directory t air-directory-files-no-dot-files-regexp))
+(setq org-caldav-skip-conditions '(nottodo))
+(setq org-caldav-files (directory-files org-directory t "^[^.][^#]*\\.org"))
 (setq org-caldav-delete-calendar-entries 'never)
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
-(setq org-agenda-files (list org-directory))
+(setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
+(setq org-agenda-files (list org-agenda-directory))
+(setq org-icalendar-with-timestamps nil)
+(setq org-icalendar-include-todo t)
+;; org-icalendar-include-bbdb-anniversaries
+(setq org-icalendar-include-sexps nil)
+(setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -426,7 +432,8 @@
 (set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
 (set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
 (set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
-(set-register ?t (cons 'file (expand-file-name "tasks.org" org-directory)))
+(set-register ?t (cons 'file (expand-file-name "tasks.org" org-agenda-directory)))
+(set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 
 (setq org-todo-keywords
@@ -629,12 +636,4 @@ should be continued."
   '(custom-safe-themes
      (quote
        ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
-  '(package-selected-packages
-     (quote
-       (oauth2 org-caldav org-caldev noflet magit imenu-anywhere transpose-frame wgrep smex rainbow-mode persistent-scratch neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter flx-ido editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  )
