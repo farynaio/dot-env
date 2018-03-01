@@ -394,6 +394,7 @@
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
 (setq org-tags-column -100)
+(setq org-agenda-scheduled-leaders '("" ""))
 (setq org-return-follows-link t)
 (setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
@@ -406,11 +407,10 @@
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
 (setq org-caldav-skip-conditions '(nottodo))
-(setq org-caldav-files (directory-files org-directory t "^[^.][^#]*\\.org"))
+(setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
 (setq org-caldav-delete-calendar-entries 'never)
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
-
 (setq org-agenda-files (list org-agenda-directory))
 (setq org-icalendar-with-timestamps nil)
 (setq org-icalendar-include-todo t)
@@ -421,9 +421,9 @@
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-capture-templates
-  '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-directory))
+  '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-agenda-directory))
       "* TODO %?")
-     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-directory))
+     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory))
       "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  :STYLE: habit\n  :END:")
      ("j" "Journal" entry (file (expand-file-name "journal.org" org-directory))
        "* [%<%Y-%m-%d>]\n%?")
@@ -553,7 +553,7 @@ should be continued."
 (org-clock-persistence-insinuate)
 
 (setq org-tag-alist '(("@health" . ?h) ; my energy level, my looks
-                       ("@fun" . ?f) ; relax, enjoy life
+                       ("@fun" . ?u) ; relax, enjoy life
                        ("@career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
                        ("@family&friends" . ?f) ; my social network, my professional network
                        ("@love" . ?l) ; my happiness, my ultimate goal, my real legacy
