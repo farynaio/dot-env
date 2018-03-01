@@ -377,6 +377,8 @@
 
 (desktop-save-mode 1)
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
+(add-to-list 'desktop-modes-not-to-save 'Info-mode)
+(add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
 (setq desktop-buffers-not-to-save
   (concat "\\("
     "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
