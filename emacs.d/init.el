@@ -406,12 +406,13 @@
 (setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
-(setq org-caldav-skip-conditions '(nottodo))
+;; (setq org-caldav-skip-conditions '(nottodo))
 (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
 (setq org-caldav-delete-calendar-entries 'never)
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-files (list org-agenda-directory))
+(org-remove-file org-caldav-inbox)
 (setq org-icalendar-with-timestamps nil)
 (setq org-icalendar-include-todo t)
 ;; org-icalendar-include-bbdb-anniversaries
@@ -618,8 +619,6 @@ should be continued."
 
 (set-cursor-color "#ffffff")
 
-
-
 (when (file-exists-p local-config-file)
   (message "local config exists")
   (load local-config-file)
@@ -630,7 +629,6 @@ should be continued."
 
 ;; temporary
 ;; (set-face-foreground 'dired-directory "yellow" )
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -640,4 +638,12 @@ should be continued."
   '(custom-safe-themes
      (quote
        ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+  '(org-agenda-files
+     (quote
+       ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
