@@ -375,6 +375,14 @@
 
 (setq local-config-file (expand-file-name "local-config.el" user-emacs-directory))
 
+(desktop-save-mode 1)
+(add-to-list 'desktop-modes-not-to-save 'dired-mode)
+(setq desktop-buffers-not-to-save
+  (concat "\\("
+    "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
+    "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
+    "\\)$"))
+
 ;; org mode / journal
 (setq org-clock-into-drawer t)
 (setq org-clock-persist t) ; or 'history?
@@ -619,6 +627,10 @@ should be continued."
 
 (set-cursor-color "#ffffff")
 
+(setq custom-safe-themes t)
+
+(color-theme-sanityinc-tomorrow-night)
+
 (when (file-exists-p local-config-file)
   (message "local config exists")
   (load local-config-file)
@@ -634,13 +646,9 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-  '(custom-safe-themes
-     (quote
-       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
-  '(org-agenda-files
-     (quote
-       ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
+ '(org-agenda-files
+   (quote
+    ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
