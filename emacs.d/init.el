@@ -393,12 +393,13 @@
 (setq org-log-done-with-time nil)
 (setq org-tags-column -100)
 (setq org-return-follows-link t)
+(setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
 (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-caldav-save-directory (expand-file-name "tmp" user-emacs-directory))
 (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-(setq org-caldav-inbox (expand-file-name "google.org" org-directory))
+(setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
 (setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
@@ -407,7 +408,7 @@
 (setq org-caldav-delete-calendar-entries 'never)
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
-(setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
+
 (setq org-agenda-files (list org-agenda-directory))
 (setq org-icalendar-with-timestamps nil)
 (setq org-icalendar-include-todo t)
