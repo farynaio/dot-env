@@ -373,6 +373,8 @@
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
+(setq local-config-file (expand-file-name "local-config.el" user-emacs-directory))
+
 ;; org mode / journal
 (setq org-clock-into-drawer t)
 (setq org-clock-persist t) ; or 'history?
@@ -436,6 +438,7 @@
 (set-register ?t (cons 'file (expand-file-name "tasks.org" org-agenda-directory)))
 (set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
+(set-register ?l (cons 'file local-config-file))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
@@ -615,9 +618,9 @@ should be continued."
 
 (set-cursor-color "#ffffff")
 
-(setq local-config-file (expand-file-name "local-config" user-emacs-directory))
 
-(when (file-exists-p (concat local-config-file ".el"))
+
+(when (file-exists-p local-config-file)
   (message "local config exists")
   (load local-config-file)
   )
