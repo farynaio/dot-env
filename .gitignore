@@ -7,16 +7,12 @@ emacs.d/recentf
 emacs.d/bookmarks
 emacs.d/elpa
 emacs.d/tmp
+emacs.d/orgs
+emacs.d/agenda
 
-emacs.d/agenda/tasks.org
-emacs.d/orgs/notes.org
-emacs.d/orgs/pickup.org
-emacs.d/orgs/journal.org
-emacs.d/orgs/places.org
-emacs.d/orgs/ltd.org
-emacs.d/orgs/projects.org
-emacs.d/orgs/goals.org
-emacs.d/orgs/google.org
+!emacs.d/agenda/shared.org
+!emacs.d/orgs/knowledge
+
 emacs.d/org-caldav*
 emacs.d/*.plstore
 emacs.d/.org-id-locations
@@ -38,5 +34,6 @@ emacs.d/org-clock-save.el
 emacs.d/ido.last
 emacs.d/local-config.el
 emacs.d/smex-items
+emacs.d/.emacs.desktop*
 
 vim/vim/init.vim
