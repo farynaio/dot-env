@@ -3,13 +3,12 @@ init.view
 .netrwhist
 *.spl
 
-emacs.d/agenda
 emacs.d/recentf
 emacs.d/bookmarks
 emacs.d/elpa
 emacs.d/tmp
 
-emacs.d/orgs/tasks.org
+emacs.d/agenda/tasks.org
 emacs.d/orgs/notes.org
 emacs.d/orgs/pickup.org
 emacs.d/orgs/journal.org
