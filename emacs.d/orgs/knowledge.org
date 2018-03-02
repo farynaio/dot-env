@@ -257,12 +257,15 @@
 *** C-w o - close all living only current window
 *** C-w T - open move window to new tab
 *** C-w z - close preview window
+*** C-w q - close current window
 ** Ctrlp
 *** C-x - open file from the list in new horizontal split
 *** C-t -  open file from the list in new tab
 *** { } - jump to next/previous empty line
 ** tags
-*** tn - next function definition
+*** ]t - next tag definition
+*** [t - previous tag definition
+*** g C-] - show tag definitions list
 *** C-w C-] - open definition in horizontal split
 ** netrw
 *** % - create new file
