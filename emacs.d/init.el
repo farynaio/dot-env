@@ -87,6 +87,7 @@
 (setq show-paren-delay 0)
 (setq recentf-max-menu-items 25)
 (setq help-window-select t)
+(setq column-number-mode t)
 (setq-default word-wrap t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
