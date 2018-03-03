@@ -63,6 +63,13 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
+(defun air-calendar-replacement (orig-fun &rest args)
+  "Replaces default calendar which calfw-org-calendar."
+  (cfw:open-org-calendar)
+  )
+
+(advice-add #'calendar :around #'air-calendar-replacement)
+
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
