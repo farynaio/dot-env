@@ -159,6 +159,14 @@
 													 (local-unset-key (kbd "C-c C-x A")) ; remove archive to archive siblings shortcut
 													 ))
 
+(add-hook 'org-clock-in-prepare-hook (lambda ()
+                                       (unless (org-element-property :EFFORT (org-element-at-point))
+                                         (if (derived-mode-p 'org-agenda-mode)
+                                           (org-agenda-set-effort)
+                                           (org-set-effort)
+                                           )
+                                         )))
+
 (setq mac-command-modifier 'super)
 
 ;; Mappings / Shortcuts
