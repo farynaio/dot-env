@@ -24,6 +24,8 @@
                       magit
                       ; oauth2
 											with-editor ; dependency for other package
+                      calfw
+                      calfw-org
                                         ; projectile
                     ))
 
@@ -54,6 +56,8 @@
 (require 'grep)
 (require 'wgrep)
 (require 'org-agenda)
+(require 'calfw)
+(require 'calfw-org)
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
