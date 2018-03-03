@@ -403,6 +403,7 @@
 (setq org-highest-priority 65)
 (setq org-default-priority 68)
 (setq org-log-done 'time)
+(setq org-use-property-inheritance t)
 (setq org-priority-start-cycle-with-default nil)
 (setq org-columns-default-format "%25ITEM %TODO %3PRIORITY %17Effort %TAGxsS")
 (setq org-completion-use-ido t)
