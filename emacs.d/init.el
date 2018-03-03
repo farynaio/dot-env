@@ -97,7 +97,12 @@
 (setq column-number-mode t)
 (setq-default word-wrap t)
 
+(setq holiday-bahai-holidays nil)
+(setq holiday-local-holidays nil) ; set it one day
+(setq org-agenda-include-diary t)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
+
 
 (when (eq system-type 'darwin)
   (require 'ls-lisp)
