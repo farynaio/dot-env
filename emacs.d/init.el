@@ -1,5 +1,6 @@
 ; Folder with manualy added packages
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'exec-path "/usr/local/bin")
 
 (require 'cl)
 
