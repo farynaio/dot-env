@@ -1,3 +1,4 @@
+#+PROPERTY: Effort_ALL 0:15 0:30 1:00 2:00 4:00
 * Tasks
   :PROPERTIES:
   :ID:       9C34D261-13F9-48FF-BD28-98C1FF3AB619
@@ -376,7 +377,7 @@ CLOSED: [2018-02-12 Mon]
    :PROPERTIES:
    :ID:       0EBE051E-6C8E-4892-B0BB-390B6C77E485
    :END:
-** TODO [#B] folded markers available all the time
+** TODO [#B] Vim folded markers available all the time
    :PROPERTIES:
    :ID:       6D4FBEA4-9B33-473D-AF42-0A0E9CB54886
    :END:

@@ -1,3 +1,12 @@
+* English
+** adjectives
+** adverbs
+** nouns
+*** Brokerage - pośrednictwo
+** verbs
+** sayings
+*** TGIF - thanks god it's Friday
+*** life time events
 * Emacs
 ** General
 *** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
@@ -69,6 +78,7 @@
 ** Buffers
 *** C-x <previous> - change to next buffer
 *** C-x <left> - change to previous buffer
+*** C-x e - reload buffer
 ** Windows
 *** C-x + - all windows the same size
 *** C-x 0 - close this window
@@ -305,6 +315,19 @@
 * GIT
 ** git rebase --onto <new_parent> <old_parent>
 * eCommerce
+** Info
+Pisać o możliwości zwrotu produktów na stronie, informować klientów o ich prawach jako o dodatkowych zaletach kupowania u mnie.
+Jak robić badania rynku?
+
+* People
+- Invest money into:
+  - things they already bought
+  - social status
+  - to be more attractive
+  - to be better then others
+
+- What influences decision making process
+  - hard times
 * Tmux - https://gist.github.com/henrik/1967800
 ** console
 *** [  ] - scroll
@@ -333,6 +356,9 @@
 *** [  - enter "copy mode"
 ** commands
 *** swap-window -t 1 - swaps window 1 which top window
+* OS
+** NIX OS - better alternative for Arch Linux
+** GNU STOW - way of creating building workspace scripts
 * Emacs VIM switch
 ** navigation
 *** [#A] navigation by tags
@@ -365,3 +391,43 @@
 *** [#B] Surround region
 *** [#A] Upper case / lower case
 ** spell check
+* Health
+** Reserve time to worry about things if necessary
+** Posture
+- for donald duck
+  - pull in abdomen
+  - keep sholders back and relaxed
+  - balance weight evently on both feet
+  - not tilt head towards, backwards, sideways
+  - legs straight but knees relaxed
+- for standing on one leg
+  - Side-lying leg rises - https://www.nhs.uk/Livewell/fitness/Pages/firm-butt-workout.aspx#side-lying
+  - Bridges - https://www.nhs.uk/Livewell/fitness/Pages/firm-butt-workout.aspx#bridges
+** Exercises
+*** Lower back
+**** Plank - https://www.nhs.uk/Livewell/fitness/Pages/abs-workout.aspx#plank
+**** Oblique crunch - https://www.nhs.uk/Livewell/fitness/Pages/abs-workout.aspx#plank
+**** Stomach crunch - https://www.nhs.uk/Livewell/fitness/Pages/abs-workout.aspx#plank
+**** Stomach crunch with legs rised - https://www.nhs.uk/Livewell/fitness/Pages/abs-workout.aspx#plank
+*** Chest stretch - https://www.nhs.uk/video/Pages/strength-and-flex-chest-stretch.aspx
+** Inspiration
+*** Business
+**** Steve Chandler - self-help book writter
+**** kandellconsulting.com - consultant
+*** Diet
+**** http://www.meatfreemondays.co.uk - vege once a week
+**** http://www.mysupermarket.co.uk - compane supermarket prices
+* UK
+** Healthcare
+*** EKUZ - https://www.nhs.uk/NHSEngland/Healthcareabroad/EHIC/Pages/about-the-ehic.aspx
+** London
+- shopping
+  - TK Maxx - 120 Charing Cross Rd, London WC2H 0JR
+  - TK Maxx - 15-17 Long Acre, London WC2E 9LH
+  - Primark - 14-28 Oxford St, Fitzrovia, London W1D 1AU
+* Business
+** Tools
+*** www.lloydsbanktrade.com
+** Freelance
+*** No limits on payment
+*** http://www.londonfreelance.org
