@@ -495,7 +495,7 @@
                                      ))
 
 (setq org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
