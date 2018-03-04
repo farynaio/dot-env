@@ -159,13 +159,6 @@
 													 (local-unset-key (kbd "C-c C-x A")) ; remove archive to archive siblings shortcut
 													 ))
 
-(add-hook 'org-clock-in-prepare-hook (lambda ()
-                                       (unless (org-element-property :EFFORT (org-element-at-point))
-                                         (if (derived-mode-p 'org-agenda-mode)
-                                           (org-agenda-set-effort)
-                                           (org-set-effort)
-                                           )
-                                         )))
 
 (setq mac-command-modifier 'super)
 
@@ -425,7 +418,7 @@
 (setq org-log-done 'time)
 (setq org-use-property-inheritance t)
 (setq org-priority-start-cycle-with-default nil)
-(setq org-columns-default-format "%25ITEM %TODO %3PRIORITY %17Effort %TAGxsS")
+(setq org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
 (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
@@ -435,6 +428,14 @@
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
 (setq org-tags-column -100)
+(setq org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
+(setq org-clock-report-include-clocking-task t)
+(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-pretty-entities t)
+(setq org-clock-in-resume t)
+(setq org-clock-persist-query-resume nil)
+(setq org-clock-in-switch-to-state "IN-PROCESS")
+(setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING"))
 (setq org-agenda-scheduled-leaders '("" ""))
 (setq org-return-follows-link t)
 (setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
@@ -480,7 +481,14 @@
 (set-register ?t (cons 'file (expand-file-name "tasks.org" org-agenda-directory)))
 (set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
+;; (set-register ?z (cons 'file (expand-file-name "google.org" org-agenda-directory)))
 (set-register ?l (cons 'file local-config-file))
+
+(advice-add 'org-clock-in :before '(lambda (&rest args)
+                                     (unless (org-element-property :EFFORT (org-element-at-point))
+                                       (org-set-effort)
+                                       )
+                                     ))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
