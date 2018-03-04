@@ -63,12 +63,11 @@
 (require 're-builder)
 (setq reb-re-syntax 'string)
 
-(defun air-calendar-replacement (orig-fun &rest args)
-  "Replaces default calendar which calfw-org-calendar."
+(defun cal ()
+  "Full month calendar by calfw-org-calendar."
+  (interactive)
   (cfw:open-org-calendar)
   )
-
-(advice-add #'calendar :around #'air-calendar-replacement)
 
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
