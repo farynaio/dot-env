@@ -33,7 +33,7 @@ https://www.emacswiki.org/emacs/CellMode
    :LAST_REPEAT: [2018-02-24 Sat 09:01]
    :ID:       11E31749-13B9-46A1-9C27-CE2231DEA302
    :END:
-** DONE [#A] Sign new contract?
+** DONE [#A] Sign new contract?                                                    :@career:@wealth:
    CLOSED: [2018-03-01 Thu] SCHEDULED: <2018-02-26 Mon>
    - State "DONE"       from "TODO"       [2018-03-01 Thu 20:36]
    :PROPERTIES:
@@ -48,7 +48,7 @@ https://www.emacswiki.org/emacs/CellMode
    :ID:       5C251F41-F2E4-48BB-86B0-6C88BAF082D7
    :END:
 https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variable-byte-compilation-warnings
-** CANCELED [#B] Emacs open in buffer - not jump
+** CANCELED [#B] Emacs open in buffer - not jump                                   :@career:@wealth:
    CLOSED: [2018-02-27 Tue] SCHEDULED: <2018-02-26 Mon>
    - State "CANCELED"   from "TODO"       [2018-02-27 Tue 20:47] \\
      Looks like it's hard to do it in IDO mode, I can live without it.
