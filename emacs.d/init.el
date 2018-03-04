@@ -356,13 +356,18 @@
 ;; programming
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
 
+(add-hook 'org-agenda-mode-hook (lambda ()
+                                  (hl-line-mode)
+                                  ))
+
+(add-hook 'org-mode-hook (lambda ()
+                           (hl-line-mode)
+                           ))
+
 (add-hook 'find-file-hook
   (lambda ()
     (let* ((found nil)
             (buf-name (file-name-extension buffer-file-name) ))
-      (when (derived-mode-p 'org-mode 'org-agenda-mode)
-        (hl-line-mode)
-        )
 	    (dolist (i devel-buffers)
 	      (when (string= buf-name i)
           (hl-line-mode)
