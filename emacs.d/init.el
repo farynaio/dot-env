@@ -27,6 +27,7 @@
 											with-editor ; dependency for other package
                       calfw
                       calfw-org
+                      miniedit
                                         ; projectile
                     ))
 
