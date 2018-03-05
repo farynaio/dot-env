@@ -24,13 +24,14 @@ https://www.emacswiki.org/emacs/CellMode
    :PROPERTIES:
    :ID:       7B588AE7-1E2D-468D-A7BA-3BDF2AF5A6B4
    :END:
-** TODO [#B] FieldGlass fill timesheets                                                    :@wealth:
-   SCHEDULED: <2018-03-04 Sun ++1w>
+** TODO [#B] S: FieldGlass fill timesheets                                                    :@wealth:
+   <2018-03-04 Sun>
+   - State "DONE"       from "TODO"       [2018-03-04 Sun 11:41]
    - State "DONE"       from "TODO"       [2018-02-24 Sat 09:01]
    - State "DONE"       from "TODO"       [2018-02-18 Sun 21:55]
    :PROPERTIES:
    :STYLE: habit
-   :LAST_REPEAT: [2018-02-24 Sat 09:01]
+   :LAST_REPEAT: [2018-03-04 Sun 11:41]
    :ID:       11E31749-13B9-46A1-9C27-CE2231DEA302
    :END:
 ** DONE [#A] Sign new contract?                                                    :@career:@wealth:

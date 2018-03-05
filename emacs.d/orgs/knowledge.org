@@ -94,6 +94,8 @@
 ** VCS / git
 *** vc-annotate - git blame (https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs)
 *** C-x v = - ediff-revision
+** Links
+http://pages.sachachua.com/.emacs.d/Sacha.html
 * Org mode
 ** Features
 *** comments - prevent heading and sub headings from being exported
