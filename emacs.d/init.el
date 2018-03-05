@@ -47,6 +47,64 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+(require 'use-package)
+(use-package auto-compile
+  :config (auto-compile-on-load-mode))
+(setq load-prefer-newer t)
+
+;; (use-package dash)
+
+(use-package guide-key
+  :defer t
+  :diminish guide-key-mode
+  :config
+  (progn
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
+  (guide-key-mode 1)))  ; Enable guide-key-mode
+
+(prefer-coding-system 'utf-8)
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+
+(bind-key "C-c p" 'pop-to-mark-command)
+(setq set-mark-command-repeat-pop t)
+
+(bind-key "C-c j" 'org-clock-goto) ;; jump to current task from anywhere
+
+(use-package smartscan
+  :defer t
+  :config (global-smartscan-mode t))
+
+(defun my/smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'my/smarter-move-beginning-of-line)
+
 (require 'framemove)
 (require 'sunrise-commander)
 (require 'multiple-cursors)
@@ -59,9 +117,20 @@
 (require 'org-agenda)
 (require 'calfw)
 (require 'calfw-org)
+(require 'recentf)
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
+
+;; (defun my/copy-file-name-to-clipboard ()
+;;   "Copy the current buffer file name to the clipboard."
+;;   (interactive)
+;;   (let ((filename (if (equal major-mode 'dired-mode)
+;;                       default-directory
+;;                     (buffer-file-name))))
+;;     (when filename
+;;       (kill-new filename)
+;;       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
 (defun cal ()
   "Full month calendar by calfw-org-calendar."
@@ -78,7 +147,7 @@
   kept-old-versions 5
   delete-old-versions t
   version-control t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
 (setq visible-bell 1)
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
@@ -91,7 +160,12 @@
 (setq ahs-idle-interval 0)
 (setq bookmark-save-flag t)
 (setq show-paren-delay 0)
-(setq recentf-max-menu-items 25)
+
+
+(setq recentf-max-saved-items 200
+  recentf-max-menu-items 15)
+(recentf-mode 1)
+
 (setq help-window-select t)
 (setq column-number-mode t)
 (setq-default word-wrap t)
@@ -100,8 +174,23 @@
 (setq holiday-local-holidays nil) ; set it one day
 (setq org-agenda-include-diary t)
 
+(setq create-lockfiles nil) ; this should be safe as long I'm the only user of FS
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+
+
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+         regexp-search-ring))
+
+(setq sentence-end-double-space nil)
 
 (when (eq system-type 'darwin)
   (require 'ls-lisp)
@@ -110,6 +199,34 @@
 (setq diredp-hide-details-initially-flag nil)
 (require 'dired+)
 (diredp-toggle-find-file-reuse-dir 1)
+
+(remove-hook 'text-mode-hook #'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
+
+(setq dabbrev-friend-buffer-function '(lambda (other-buffer)
+                                        (< (buffer-size other-buffer) (* 1 1024 1024))))
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+(require 'hippie-exp)
+(setq hippie-expand-try-functions-list
+      '( ;;yas-hippie-try-expand ; requires yasnippet plugin
+        try-expand-all-abbrevs
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-from-kill
+        try-expand-dabbrev-all-buffers
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+(add-hook 'text-mode-hook 'abbrev-mode)
+(use-package diminish)
+(diminish 'abbrev-mode " A")
+
+
+
 
 ;; Helm
 ;; (setq helm-completion-in-region-fuzzy-match t
@@ -204,7 +321,13 @@
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-j") 'join-line)
 
+(bind-key "C-c l" 'org-store-link)
+(bind-key "C-c l" 'org-store-link)
+(bind-key "C-c L" 'org-insert-link-global)
+(bind-key "C-c O" 'org-open-at-point-global)
+
 (setq calendar-week-start-day 1)
+(setq calendar-date-style "european")
 
 (add-hook 'calendar-load-hook
   (lambda ()
@@ -344,7 +467,7 @@
 (blink-cursor-mode 0)
 (global-linum-mode 1)
 (editorconfig-mode 1)
-(recentf-mode 1)
+
 (show-paren-mode 1)
 (delete-selection-mode 1)
 (scroll-bar-mode -1)
@@ -377,12 +500,6 @@
           (setq found t)))
         (when (not found)
           ))))
-
-(add-hook 'recentf-dialog-mode-hook
-	  (lambda ()
-	    (hl-line-mode)
-	    )
-	  )
 
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
@@ -420,6 +537,8 @@
 (setq org-highest-priority 65)
 (setq org-default-priority 68)
 (setq org-log-done 'time)
+(setq org-enforce-todo-dependencies t)
+(setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
 (setq org-priority-start-cycle-with-default nil)
 (setq org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
@@ -432,7 +551,8 @@
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
 (setq org-tags-column -100)
-(setq org-global-properties '(("Effort_ALL" . "0:15 0:30 1:00 2:00 4:00")))
+(setq org-reverse-note-order t)
+(setq org-global-properties '(("Effort_ALL" . "0:05 0:15 0:30 1:00 2:00 4:00")))
 (setq org-clock-report-include-clocking-task t)
 (setq org-clock-out-remove-zero-time-clocks t)
 (setq org-pretty-entities t)
@@ -466,12 +586,14 @@
 (setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+(setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+
+(defvar org-capture-template-common-props "  Created: [%<%Y-%m-%d>]\n")
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-agenda-directory))
-      "* TODO %?")
-     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory))
-      "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  :STYLE: habit\n  :END:")
+      (concat "* TODO %?\n  :PROPERTIES:\n" org-capture-template-common-props "  :END:"))
+     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory)) (concat "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n" org-capture-template-common-props ":STYLE: habit\n  :END:"))
      ("j" "Journal" entry (file (expand-file-name "journal.org" org-directory))
        "* [%<%Y-%m-%d>]\n%?")
      ("c" "Add note to currently clocked entry" plain (clock)
@@ -488,14 +610,22 @@
 ;; (set-register ?z (cons 'file (expand-file-name "google.org" org-agenda-directory)))
 (set-register ?l (cons 'file local-config-file))
 
-(advice-add 'org-clock-in :before '(lambda (&rest args)
-                                     (unless (org-element-property :EFFORT (org-element-at-point))
-                                       (org-set-effort)
-                                       )
-                                     ))
+(add-hook 'org-clock-in-prepare-hook (lambda ()
+                                       "Ask for an effort estimate when clocking in."
+                                       (unless (org-entry-get (point) "Effort")
+                                         (let ((effort (completing-read "Effort: "
+                                                         (org-entry-get-multivalued-property (point) "Effort"))))
+                                           (unless (equal effort "")
+                                             (org-set-property "Effort" effort))))))
+
+;; (advice-add 'org-clock-in :before '(lambda (&rest args)
+;;                                      (unless (org-element-property :EFFORT (org-element-at-point))
+;;                                        (org-set-effort)
+;;                                        )
+;;                                      ))
 
 (setq org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
@@ -529,6 +659,7 @@
          ((org-agenda-skip-function
             '(or
                (org-agenda-skip-entry-if 'todo 'done)
+               (org-agenda-skip-entry-if "SOMEDAY")
                (air-org-agenda-skip-if-scheduled-later))
             )
            (org-agenda-overriding-header "High-priority unfinished tasks:")))
