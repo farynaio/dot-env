@@ -191,6 +191,11 @@ point reaches the beginning or end of the buffer, stop there."
         search-ring
          regexp-search-ring))
 
+(diminish 'editorconfig-mode)
+(diminish 'auto-revert-mode)
+(diminish 'auto-highlight-symbol-mode)
+(diminish 'git-gutter-mode)
+
 (setq sentence-end-double-space nil)
 
 (when (eq system-type 'darwin)
