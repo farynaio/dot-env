@@ -665,7 +665,7 @@ point reaches the beginning or end of the buffer, stop there."
          ((org-agenda-skip-function
             '(or
                (org-agenda-skip-entry-if 'todo 'done)
-               (org-agenda-skip-entry-if "SOMEDAY")
+               (org-agenda-skip-entry-if 'todo "SOMEDAY")
                (air-org-agenda-skip-if-scheduled-later))
             )
            (org-agenda-overriding-header "High-priority unfinished tasks:")))
