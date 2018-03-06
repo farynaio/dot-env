@@ -2,6 +2,43 @@
   :PROPERTIES:
   :ID:       9C34D261-13F9-48FF-BD28-98C1FF3AB619
   :END:
+** TODO [#D] Check Metro bank                                                              :@wealth:
+   :PROPERTIES:
+   :ID:       7BCF7EF5-03A5-4968-9D3A-3046DFD3CD24
+   :END:
+** TODO [#C] org mode archive
+   :PROPERTIES:
+   :ID:       ABA90ADF-615D-475D-BAA0-AA5069B67641
+   :END:
+** TODO [#B] What is "delay cookie" in org-schedule?
+   :PROPERTIES:
+   :ID:       B82DB973-B54A-448F-B94F-A6FE1EE24007
+   :END:
+** TODO [#B] org-caldav remove annoying prefix S:
+   :PROPERTIES:
+   :ID:       39FE3AC7-89EA-4EC1-B552-12768B8EEDD0
+   :END:
+** TODO [#B] Org agenda add effort to sort fields
+   SCHEDULED: <2018-03-04 Sun>
+   :PROPERTIES:
+   :ID:       6FB23EC0-EB99-4704-AF96-0870F2996420
+   :END:
+** TODO [#B] Kim są anglosasi?
+   SCHEDULED: <2018-03-04 Sun>
+   :PROPERTIES:
+   :Effort:   0:15
+   :ID:       EC4FB05A-D5DF-47EC-837D-0FE0295AFCBC
+   :END:
+** TODO [#C] Android Greenify                                                           :@fun:@love:
+   SCHEDULED: <2018-03-03 Sat>
+   :PROPERTIES:
+   :ID:       B2B3AB1E-048A-4396-A6FE-6FED3E33A679
+   :END:
+** TODO [#B] Lisp what is . use for in list
+   SCHEDULED: <2018-03-04 Sun>
+   :PROPERTIES:
+   :ID:       5C5F5F1B-BCC7-46AD-A76C-6C3C59942980
+   :END:
 ** TODO [#C] Org mode clock-in upgrade?
    :PROPERTIES:
    :ID:       811788A9-FB46-4A01-84D9-14598C467E61
@@ -44,7 +81,9 @@ https://www.emacswiki.org/emacs/CellMode
    :PROPERTIES:
    :ID:       D4668AE2-B5E3-410B-AC5A-7EE60DF57F0D
    :END:
-** TODO [#B] Emacs fix error references
+** DONE [#B] Emacs fix error references
+   CLOSED: [2018-03-06 Tue]
+   - State "DONE"       from "TODO"       [2018-03-06 Tue 21:45]
    :PROPERTIES:
    :ID:       5C251F41-F2E4-48BB-86B0-6C88BAF082D7
    :END:
@@ -75,10 +114,6 @@ Always create new window
    :END:
 - Note taken on [2018-02-10 Sat 00:45] \\
   https://orgmode.org/manual/Property-syntax.html#Property-syntax
-** TODO [#D] emacs how to open file/buffer in read-only?
-   :PROPERTIES:
-   :ID:       6EB39BBD-E5ED-4AD3-9186-DABD41124A04
-   :END:
 ** TODO [#D] Vim solve snippets inheritance problem
    :PROPERTIES:
    :ID:       D8579914-9F6A-4FC3-8456-614FB81424CE
@@ -116,7 +151,9 @@ Always create new window
    :PROPERTIES:
    :ID:       107A96E1-7E91-4C32-A720-8F9364AD484C
    :END:
-** TODO [#B] Org mode effort estimates
+** DONE [#B] Org mode effort estimates
+   CLOSED: [2018-03-06 Tue]
+   - State "DONE"       from "TODO"       [2018-03-06 Tue 21:45]
    :PROPERTIES:
    :ID:       FF0A87F6-58E5-4382-AD30-817CB723041F
    :END:
@@ -280,11 +317,6 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :PROPERTIES:
    :ID:       DA07ADC5-A7BB-4382-B320-BAD18B79113D
    :END:
-** TODO [#D] Setup Gnus                                                                :@efficiency:
-   :PROPERTIES:
-   :ID:       7720F5AB-54B6-49D7-9F00-C010C3D46402
-   :END:
-setup keys
 ** DONE [#A] What are 'org categories'?                                                :@efficiency:
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 - State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
@@ -300,10 +332,6 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
 ** TODO [#C] Check org agenda set effort.                                              :@efficiency:
    :PROPERTIES:
    :ID:       A1A386D4-9CBE-482E-8D24-F0FBF620E7C1
-   :END:
-** TODO [#D] Org-mobile integration + android app.                                     :@efficiency:
-   :PROPERTIES:
-   :ID:       1D1ECA22-531F-44B2-8158-9485F72D05CA
    :END:
 ** TODO [#C] Check org-agenda-write                                                    :@efficiency:
    :PROPERTIES:
