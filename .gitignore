@@ -9,6 +9,7 @@ emacs.d/elpa
 emacs.d/tmp
 emacs.d/orgs
 emacs.d/agenda
+emacs.d/savehist
 
 !emacs.d/agenda/shared.org
 !emacs.d/orgs/knowledge
