@@ -595,11 +595,10 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 
-(defvar org-capture-template-common-props "  Created: [%<%Y-%m-%d>]\n")
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-agenda-directory))
-      (concat "* TODO %?\n  :PROPERTIES:\n" org-capture-template-common-props "  :END:"))
-     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory)) (concat "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n" org-capture-template-common-props ":STYLE: habit\n  :END:"))
+      "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:")
+     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:")
      ("j" "Journal" entry (file (expand-file-name "journal.org" org-directory))
        "* [%<%Y-%m-%d>]\n%?")
      ("c" "Add note to currently clocked entry" plain (clock)
@@ -616,13 +615,14 @@ point reaches the beginning or end of the buffer, stop there."
 ;; (set-register ?z (cons 'file (expand-file-name "google.org" org-agenda-directory)))
 (set-register ?l (cons 'file local-config-file))
 
-(add-hook 'org-clock-in-prepare-hook (lambda ()
-                                       "Ask for an effort estimate when clocking in."
-                                       (unless (org-entry-get (point) "Effort")
-                                         (let ((effort (completing-read "Effort: "
-                                                         (org-entry-get-multivalued-property (point) "Effort"))))
-                                           (unless (equal effort "")
-                                             (org-set-property "Effort" effort))))))
+;; TODO fix this
+;; (add-hook 'org-clock-in-prepare-hook (lambda ()
+;;                                        "Ask for an effort estimate when clocking in."
+;;                                        (unless (org-entry-get (point) "Effort")
+;;                                          (let ((effort (completing-read "Effort: "
+;;                                                          (org-entry-get-multivalued-property (point) "Effort"))))
+;;                                            (unless (equal effort "")
+;;                                              (org-set-property "Effort" effort))))))
 
 ;; (advice-add 'org-clock-in :before '(lambda (&rest args)
 ;;                                      (unless (org-element-property :EFFORT (org-element-at-point))
@@ -828,9 +828,13 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+  '(custom-safe-themes
+     (quote
+       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+  '(package-selected-packages
+     (quote
+      (with-editor magit transpose-frame imenu-anywhere wgrep smex rainbow-mode persistent-scratch org-journal neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
