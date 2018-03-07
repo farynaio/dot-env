@@ -3,10 +3,14 @@
 ** adverbs
 ** nouns
 *** Brokerage - pośrednictwo
+*** black lilac - czarny bez
+*** verbena flower - werbena
+*** linden - lipa
 ** verbs
 ** sayings
 *** TGIF - thanks god it's Friday
 *** life time events
+*** span - sięgać, przekraczać
 * Emacs
 ** General
 *** Many mail handlers: Wanderlust/Gnus/Rmail/BBDB
@@ -201,7 +205,7 @@ http://pages.sachachua.com/.emacs.d/Sacha.html
 *** TAB - toggle fold heading
 *** S-<TAB> - toggle fold all
 ** Links
-   http://[[blog.aaronbieber.com]]
+   http://blog.aaronbieber.com
    http://whattheemacsd.com
    http://emacsrocks.com
    https://orgmode.org/worg/org-tutorials/org4beginners.html
