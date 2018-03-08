@@ -31,6 +31,12 @@
 *** M-delete - delete symbol previous cursor
 *** C-x C-q - toggle read-only mode
 *** flush-lines - remove lines regexp
+*** M-% - search and replace in single file (together which C-s)
+** Dict
+*** dict-toggle
+*** M-$ - correct word
+*** C-, - next error
+*** C-$
 ** Tables
 *** table-insert
 *** table-recognize-table - treat text as table at point
@@ -62,6 +68,7 @@
 *** M-, - resume tag search
 *** M-x list-tags
 *** M-x tags-query-replace
+*** M-gg - go to line number
 ** Help
 *** C-h f - show function help
 *** C-h k - show shortcut help
