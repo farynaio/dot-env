@@ -589,7 +589,16 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-caldav-delete-calendar-entries 'always)
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
-(setq org-agenda-files (list org-agenda-directory))
+(setq org-agenda-file-regexp ".*org\(.gpg\)?$")
+(setq org-agenda-files
+  (delq nil
+    (mapcar (lambda (x) (and x (file-exists-p x) x))
+      (list
+        (expand-file-name "tasks.org" org-agenda-directory)
+        (expand-file-name "shared.org" org-agenda-directory)
+        (expand-file-name "tasks.org.gpg" org-agenda-directory)
+        ))))
+
 (org-remove-file org-caldav-inbox)
 (setq org-icalendar-with-timestamps 'active)
 (setq org-icalendar-include-todo t)
@@ -602,20 +611,20 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 
 (setq org-capture-templates
-  '(("t" "Todo" entry (file (expand-file-name "tasks.org" org-agenda-directory))
+  '(("t" "Todo" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
       "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:")
-     ("h" "Habit" entry (file (expand-file-name "tasks.org" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:")
-     ("j" "Journal" entry (file (expand-file-name "journal.org" org-directory))
+     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:")
+     ("j" "Journal" entry (file (expand-file-name "journal.org.gpg" org-directory))
        "* [%<%Y-%m-%d>]\n%?")
      ("c" "Add note to currently clocked entry" plain (clock)
        "- Note taken on %U \\\\ \n  %?")
      ))
 
-(set-register ?g (cons 'file (expand-file-name "goals.org" org-directory)))
+(set-register ?g (cons 'file (expand-file-name "goals.org.gpg" org-directory)))
 (set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
-(set-register ?j (cons 'file (expand-file-name "journal.org" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "projects.org" org-directory)))
-(set-register ?t (cons 'file (expand-file-name "tasks.org" org-agenda-directory)))
+(set-register ?j (cons 'file (expand-file-name "journal.org.gpg" org-directory)))
+(set-register ?p (cons 'file (expand-file-name "projects.org.gpg" org-directory)))
+(set-register ?t (cons 'file (expand-file-name "tasks.org.gpg" org-agenda-directory)))
 (set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 ;; (set-register ?z (cons 'file (expand-file-name "google.org" org-agenda-directory)))
@@ -834,10 +843,7 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-  '(org-agenda-files
-     (quote
-       ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
