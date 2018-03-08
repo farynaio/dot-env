@@ -683,7 +683,9 @@ point reaches the beginning or end of the buffer, stop there."
                (org-agenda-skip-entry-if 'todo "SOMEDAY")
                (air-org-agenda-skip-if-scheduled-later))
             )
-           (org-agenda-overriding-header "High-priority unfinished tasks:")))
+           (org-agenda-overriding-header "High-priority unfinished tasks:")
+           (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
+           ))
         (agenda "")
         (alltodo ""
           ((org-agenda-skip-function
@@ -691,6 +693,7 @@ point reaches the beginning or end of the buffer, stop there."
                 (air-org-skip-subtree-if-habit)
                 (org-agenda-skip-if nil '(scheduled deadline))
                 (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
+            (org-agenda-sorting-strategy '(priority-down effort-down category-keep alpha-up))
             )
           )
         )
