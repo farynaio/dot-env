@@ -28,7 +28,9 @@
                       calfw
                       calfw-org
                       miniedit
+                      use-package
                                         ; projectile
+                      ;; artbollocks-mode
                     ))
 
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
@@ -106,6 +108,7 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [remap move-beginning-of-line]
                 'my/smarter-move-beginning-of-line)
 
+(require 'epa-file)
 (require 'framemove)
 (require 'sunrise-commander)
 (require 'multiple-cursors)
@@ -122,6 +125,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 (require 're-builder)
 (setq reb-re-syntax 'string)
+
+(epa-file-enable)
+(setq epa-file-encrypt-to '("adamfaryna@gmail.com"))
 
 ;; (defun my/copy-file-name-to-clipboard ()
 ;;   "Copy the current buffer file name to the clipboard."
@@ -829,12 +835,9 @@ should be continued."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-  '(custom-safe-themes
+  '(org-agenda-files
      (quote
-       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
-  '(package-selected-packages
-     (quote
-      (with-editor magit transpose-frame imenu-anywhere wgrep smex rainbow-mode persistent-scratch org-journal neotree multiple-cursors ido-vertical-mode ido-completing-read+ hl-todo helm git-gutter editorconfig color-theme-sanityinc-tomorrow centered-cursor-mode auto-highlight-symbol))))
+       ("/Users/devil/.emacs.d/agenda/shared.org" "/Users/devil/.emacs.d/agenda/tasks.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
