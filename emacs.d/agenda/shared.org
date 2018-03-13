@@ -6,8 +6,9 @@
    :PROPERTIES:
    :ID:       7BCF7EF5-03A5-4968-9D3A-3046DFD3CD24
    :END:
-** TODO [#C] org mode archive
-   SCHEDULED: <2018-03-08 Thu>
+** DONE [#C] org mode archive                                                              :@career:
+   CLOSED: [2018-03-08 Thu] SCHEDULED: <2018-03-08 Thu>
+   - State "DONE"       from "TODO"       [2018-03-08 Thu 21:34]
    :PROPERTIES:
    :ID:       ABA90ADF-615D-475D-BAA0-AA5069B67641
    :END:
@@ -18,25 +19,35 @@
 ** TODO [#B] org-caldav remove annoying prefix S:
    :PROPERTIES:
    :ID:       39FE3AC7-89EA-4EC1-B552-12768B8EEDD0
+   :Effort:   3:00
    :END:
-** TODO [#B] Org agenda add effort to sort fields
-   SCHEDULED: <2018-03-04 Sun>
+** DONE [#B] Org agenda add effort to sort fields
+   CLOSED: [2018-03-09 Fri] SCHEDULED: <2018-03-04 Sun>
+   - State "DONE"       from "TODO"       [2018-03-09 Fri 08:47]
    :PROPERTIES:
    :ID:       6FB23EC0-EB99-4704-AF96-0870F2996420
    :END:
-** TODO [#B] Kim są anglosasi?
-   SCHEDULED: <2018-03-04 Sun>
+** DONE [#B] Kim są anglosasi?
+   CLOSED: [2018-03-13 Tue] SCHEDULED: <2018-03-04 Sun>
+   - State "DONE"       from "IN-PROCESS" [2018-03-13 Tue 12:18]
    :PROPERTIES:
-   :Effort:   0:15
+   :Effort:   0:05
    :ID:       EC4FB05A-D5DF-47EC-837D-0FE0295AFCBC
    :END:
+Wspólnota narodów wywodzących się z plemion anglosaskich.
+Zasiedlili większą część wysp brytyjskich.
+Biały kolor skóry, wyznanie chrześcijańskie, posługiwanie się językiem angielskim
+(jako pierwszy lub drugim językiem). Dawniej pochodzenie Skandynawia, Niemcy.
 ** TODO [#C] Android Greenify                                                           :@fun:@love:
-   SCHEDULED: <2018-03-03 Sat>
+   SCHEDULED: <2018-03-11 Sun>
    :PROPERTIES:
    :ID:       B2B3AB1E-048A-4396-A6FE-6FED3E33A679
    :END:
-** TODO [#B] Lisp what is . use for in list
-   SCHEDULED: <2018-03-04 Sun>
+** DONE [#B] Lisp what is . use for in list
+   CLOSED: [2018-03-08 Thu] SCHEDULED: <2018-03-04 Sun>
+   - State "DONE"       from "TODO"       [2018-03-08 Thu 21:35]
+   - Note taken on [2018-03-08 Thu 21:34] \\
+     When I want to separate car from cdr.
    :PROPERTIES:
    :ID:       5C5F5F1B-BCC7-46AD-A76C-6C3C59942980
    :END:
@@ -65,7 +76,9 @@ https://www.emacswiki.org/emacs/CellMode
    :LAST_REPEAT: [2018-03-04 Sun 11:41]
    :ID:       11E31749-13B9-46A1-9C27-CE2231DEA302
    :END:
-** TODO [#B] Emacs GnuPG
+** DONE [#B] Emacs GnuPG
+   CLOSED: [2018-03-08 Thu]
+   - State "DONE"       from "TODO"       [2018-03-08 Thu 21:37]
    :PROPERTIES:
    :ID:       D4668AE2-B5E3-410B-AC5A-7EE60DF57F0D
    :END:
@@ -144,6 +157,7 @@ https://github.com/snosov1/toc-org
 ** TODO [#B] Org mode org-sort
    :PROPERTIES:
    :ID:       F9B28B55-B9FA-4D60-B21E-CFB90BD05D71
+   :Effort:   4:00
    :END:
 ** TODO [#C] Org mode how to deal with repeating tasks?
    :PROPERTIES:
@@ -273,6 +287,7 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
 ** TODO [#C] Emacs git support (magit)
    :PROPERTIES:
    :ID:       B56B2D18-6793-406A-B0CF-D2CF2D01BC98
+   :Effort:   0:30
    :END:
 ** TODO [#C] Vim try easy motion
    :PROPERTIES:

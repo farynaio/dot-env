@@ -1,12 +1,13 @@
 * English
-** adjectives
-** adverbs
-** nouns
+** adjectives - przymiotnik
+*** cognitive - poznawczy
+** adverbs - przysłuwek
+** nouns - rzeczownik
 *** Brokerage - pośrednictwo
 *** black lilac - czarny bez
 *** verbena flower - werbena
 *** linden - lipa
-** verbs
+** verbs - czasownik
 ** sayings
 *** TGIF - thanks god it's Friday
 *** life time events
@@ -19,6 +20,7 @@
 **** -- - not modified since last save
 **** %* - read-only but modified
 **** %% - read-only not modified
+*** C-x m - (compose-mail)
 ** Edit
 *** C-w - cut
 *** C-y - paste
@@ -45,6 +47,9 @@
 *** table-release - revert table-capture behaviour
 *** C-c ' - convert org-mode table to text table
 ** Navigation
+*** C-x <previous> - change to next buffer
+*** C-x <left> - change to previous buffer
+
 *** C-M-n - move to forward parentheses
 *** C-M-p - move to previous parentheses
 *** C-M-space - put mark at the end of parentheses
@@ -52,6 +57,7 @@
 *** C-x C-r - open recent file
 *** C-x p - git previous change
 *** C-x n - git next change
+*** C-% - go to open/closing bracket/parenthesis
 *** M-> - go to end of the buffer
 *** M-< - go to beginning of the buffer
 *** M-g M-g or M-g g - goto line number
@@ -87,8 +93,6 @@
 *** C-, - go to next error
 *** C-c $ - interactive error resolve
 ** Buffers
-*** C-x <previous> - change to next buffer
-*** C-x <left> - change to previous buffer
 *** C-x e - reload buffer
 ** Windows
 *** C-x + - all windows the same size
@@ -107,6 +111,32 @@
 *** C-x v = - ediff-revision
 ** Links
 http://pages.sachachua.com/.emacs.d/Sacha.html
+https://writequit.org/denver-emacs/presentations/2017-04-11-time-clocking-with-org.html#fnr.1
+* Gnus
+** Group Buffer
+*** C-u RET - enter group and see all the emails not unread only
+*** GG - (gnus-group-make-nnir-group) search mails at server side in Group Buffer
+*** # - mark group for search
+*** M-# - unmark group for search
+*** C-u GG - search certain fields in the Group Buffer
+*** AA - open subscribe/unsubscribe view
+**** u - toggle subscribe/unsubscribe
+** Summary Buffer
+*** // - limit mails by topic
+*** /a - limit mails by author
+*** /w - cancel current filter
+*** R - (gnus-summary-reply-with-original) reply which quoted text
+*** r - (gnus-summary-reply) reply without quoted text
+*** S W - (gnus-summary-wide-reply-with-original) reply to all which quoted text
+*** S w - reply to all without quoted text
+*** m - (gnus-new-mail) create new mail
+*** S D e - (gnus-summary-resend-message-edit) re-send email
+*** c - mark as read
+*** Mail compose
+**** C-c C-a - add attachment
+**** C-c C-f - (gnus-summary-mail-forward) can mark multiple by #
+**** o - (gnus-mime-save-part) save attachment under cursor
+**** RET - open attachment
 * Org mode
 ** Features
 *** comments - prevent heading and sub headings from being exported
@@ -404,6 +434,9 @@ Jak robić badania rynku?
 *** [#B] Surround region
 *** [#A] Upper case / lower case
 ** spell check
+* Security
+** Links
+https://ssd.eff.org/en/index
 * Health
 ** Reserve time to worry about things if necessary
 ** Posture
@@ -431,6 +464,12 @@ Jak robić badania rynku?
 **** http://www.meatfreemondays.co.uk - vege once a week
 **** http://www.mysupermarket.co.uk - compane supermarket prices
 * UK
+** Dictionary
+*** Anglosasi
+Wspólnota narodów wywodzących się z plemion anglosaskich.
+Zasiedlili większą część wysp brytyjskich.
+Biały kolor skóry, wyznanie chrześcijańskie, posługiwanie się językiem angielskim
+(jako pierwszy lub drugim językiem). Dawniej pochodzenie Skandynawia, Niemcy.
 ** Healthcare
 *** EKUZ - https://www.nhs.uk/NHSEngland/Healthcareabroad/EHIC/Pages/about-the-ehic.aspx
 ** London
