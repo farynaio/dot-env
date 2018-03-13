@@ -2,63 +2,106 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'exec-path "/usr/local/bin")
 
-(require 'cl)
-
-(setq package-list '(color-theme-sanityinc-tomorrow
-                     persistent-scratch
-                     git-gutter
-                      centered-cursor-mode
-                      auto-highlight-symbol
-                      hl-todo
-                      rainbow-mode
-                      editorconfig
-                      ido-completing-read+
-                      ido-vertical-mode
-                      imenu-anywhere
-                      smex ; better search for ido mode
-                      ;; org-journal
-                      multiple-cursors
-                      ;; swiper
-                      neotree
-                      wgrep
-                      transpose-frame
-                      magit
-                      ; oauth2
-											with-editor ; dependency for other package
-                      calfw
-                      calfw-org
-                      miniedit
-                      use-package
-                                        ; projectile
-                      ;; artbollocks-mode
-                    ))
-
-(setq package-archives '(("elpa" . "http://tromey.com/elpa/")
-                          ("gnu" . "http://elpa.gnu.org/packages/")
-                          ("melpa-stable" . "https://stable.melpa.org/packages/")
-                          ("melpa" . "https://melpa.org/packages/")
-                          ))
-
+;; (require 'cl)
+(require 'package)
+(unless (assoc-default "org" package-archives)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
+(unless (assoc-default "melpa" package-archives)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")))
+(unless (assoc-default "gnu" package-archives)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(unless (assoc-default "tromey" package-archives)
+  (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))
 (package-initialize)
 
-; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+(setq
+  use-package-verbose t
+  use-package-always-ensure t)
 
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-(setq use-package-verbose t)
-(setq use-package-always-ensure t)
 (require 'use-package)
+
 (use-package auto-compile
   :config (auto-compile-on-load-mode))
+
 (setq load-prefer-newer t)
 
+(use-package miniedit)
+(use-package calfw)
+(use-package magit)
+(use-package transpose-frame)
+(use-package calfw-org)
+(use-package wgrep)
+(use-package hl-todo)
+(use-package rainbow-mode)
+(use-package editorconfig)
 ;; (use-package dash)
+(use-package ido-completing-read+)
+(use-package centered-cursor-mode)
+(use-package auto-highlight-symbol)
+(use-package imenu-anywhere)
+(use-package smex)  ; better search for ido mode
+(use-package with-editor)  ; dependency for other package
+(use-package neotree)
+(use-package multiple-cursors)
+(use-package color-theme-sanityinc-tomorrow)
+(use-package persistent-scratch)
+(use-package git-gutter)
+
+;; (use-package org-journal)
+;; (use-package swiper)
+;; (use-package oauth2)
+;; (use-package projectile)
+;; (use-package artbollocks-mode)
+
+(use-package ivy :ensure t
+  :diminish (ivy-mode . "")
+  :bind
+  (:map ivy-mode-map
+   ("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  ;; add recentf-mode and bookmarks to ivy-switch-buffer.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+	;; allow input not in order
+        '((t   . ivy--regex-ignore-order))))
+
+
+
+(use-package ido-vertical-mode)
+;; (use-package helm
+;;   :config
+;;   (progn
+;;     (setq
+;;       helm-autoresize-max-height 0
+;;       helm-autoresize-min-height 20
+;;       helm-completion-in-region-fuzzy-match t
+;;       helm-mode-fuzzy-match t)
+;;     (bind-key "M-x" #'helm-M-x)
+;;     (helm-autoresize-mode 1))
+;;   )
+
+(eval-after-load 'ediff
+  '(progn
+     (setq ediff-window-setup-function 'ediff-setup-windows-plain
+       ediff-forward-word-function 'forward-char
+       ediff-use-toolbar-p nil)
+     (add-hook 'ediff-before-setup-hook 'new-frame)
+     (add-hook 'ediff-quit-hook 'delete-frame)
+     ))
 
 (use-package guide-key
   :defer t
@@ -128,6 +171,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (epa-file-enable)
 (setq epa-file-encrypt-to '("adamfaryna@gmail.com"))
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 ;; (defun my/copy-file-name-to-clipboard ()
 ;;   "Copy the current buffer file name to the clipboard."
@@ -144,6 +188,18 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive)
   (cfw:open-org-calendar)
   )
+
+(defun my/move-current-window-to-new-frame ()
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (unless (one-window-p)
+      (delete-window))
+    (display-buffer-pop-up-frame buffer nil)))
+
+(global-set-key (kbd "C-c w t") 'my/move-current-window-to-new-frame)
+(global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
+
+(setq gc-cons-threshold 3500000)
 
 ;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -176,6 +232,9 @@ point reaches the beginning or end of the buffer, stop there."
 (setq help-window-select t)
 (setq column-number-mode t)
 (setq-default word-wrap t)
+(setq compare-ignore-case t)
+(setq compare-ignore-whitespace t)
+
 
 (setq holiday-bahai-holidays nil)
 (setq holiday-local-holidays nil) ; set it one day
@@ -241,8 +300,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 
 ;; Helm
-;; (setq helm-completion-in-region-fuzzy-match t
-;;   helm-mode-fuzzy-match t)
 
 ;; TODO is it good?
 ;; (defun spacemacs//helm-hide-minibuffer-maybe ()
@@ -254,68 +311,157 @@ point reaches the beginning or end of the buffer, stop there."
 ;;                    (let ((bg-color (face-background 'default nil)))
 ;;                      `(:background ,bg-color :foreground ,bg-color)))
 ;;       (setq-local cursor-type nil))))
-
 ;; (add-hook 'helm-minibuffer-set-up-hook
-;;           'spacemacs//helm-hide-minibuffer-maybe)
-
-;; (setq helm-autoresize-max-height 0)
-;; (setq helm-autoresize-min-height 20)
-;; (helm-autoresize-mode 1)
+;;       'spacemacs/helm-hide-minibuffer-maybe)
 
 ;; ido
 
 ;; (setq ido-use-faces nil)
 
-;; sunrise commander
-(defun mc ()
-  "Open sunrise commander in default directory."
-  (interactive)
-  (make-frame-command)
-  (sunrise default-directory default-directory)
+(eval-after-load 'sunrise-commander
+  '(progn
+     (message "auuuuuu")
+     (defun mc ()
+       "Open sunrise commander in default directory."
+       (interactive)
+       (make-frame-command)
+       (sunrise default-directory default-directory)
+       )
+
+     ;; delete redundant window in MC mode
+     (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))
+     ))
+
+(eval-after-load 'org
+  '(progn
+     (bind-key "M-}" 'forward-paragraph org-mode-map)
+     (bind-key "M-{" 'backward-paragraph org-mode-map)
+     (bind-key "C-c C-r" 'air-revert-buffer-noconfirm org-mode-map)
+     (bind-key "C-c l" 'org-store-link org-mode-map)
+     (bind-key "C-." 'imenu-anywhere org-mode-map)
+     (bind-key "C-c C-x C-s" 'org-archive-subtree-default org-mode-map)
+     (unbind-key "C-c $" org-mode-map) ; removed archive subtree shortcut
+     (unbind-key "C-c C-x C-a" org-mode-map) ; remove archive subtree default shortcut
+     (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
+     (unbind-key "C-c C-x A" org-mode-map) ; remove archive to archive siblings shortcut
+
+     (advice-add 'org-forward-paragraph :around (lambda (orig &rest args) (forward-paragraph)))
+     (advice-add 'org-backward-paragraph :around (lambda (orig &rest args) (backward-paragraph)))
+
+     (add-hook 'org-mode-hook (lambda () (hl-line-mode))))
   )
 
-;; delete redundant window in MC mode
-(add-hook 'sr-start-hook (lambda ()
-                           (delete-window (car (last (window-list))))))
+; Gnus
+(setq
+  gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
+  gnus-treat-hide-citation t
+  ;; gnus-use-adaptive-scoring t
+  gnus-inhibit-slow-scoring "^nntp[+:]"
+  gnus-agent nil
+  gnus-asynchronous t
+  gnus-message-archive-group nil
+  gnus-use-cache t ; cache everything
+  gnus-read-active-file 'some
+  gnus-thread-sort-functions
+  '(gnus-thread-sort-by-score
+     gnus-thread-sort-by-date
+     (not gnus-thread-sort-by-number))
+  gnus-thread-hide-subtree t ; hide specific threads?
+  gnus-thread-ignore-subject t
+  gnus-thread-indent-level 2
+  gnus-sum-thread-tree-indent " "
+  gnus-auto-select-first nil
+  gnus-auto-select-next nil
+  gnus-user-date-format-alist '((t . "%d.%m.%Y %H:%M"))
+  gnus-activate-level 3
+  message-default-charset `utf-8
+  ;; gnus-default-adaptive-score-alist
+  ;; '((gnus-unread-mark)
+  ;;    (gnus-ticked-mark (subject 10))
+  ;;    (gnus-killed-mark (subject -5))
+  ;;    (gnus-catchup-mark (subject -1)))
+                                        ; gnus-select-method '(nnnil "")
 
-(add-hook 'org-mode-hook (lambda ()
-                           (local-set-key (kbd "C-c l") 'org-store-link)
-                           (local-set-key (kbd "C-.") 'imenu-anywhere)
-													 (local-unset-key (kbd "C-c $")) ; removed archive subtree shortcut
-													 (local-unset-key (kbd "C-c C-x C-a")) ; remove archive subtree default shortcut
-													 (local-unset-key (kbd "C-c C-x C-s")) ; remove archive subtree shortcut
-													 (local-unset-key (kbd "C-c C-x A")) ; remove archive to archive siblings shortcut
-													 ))
+  gnus-summary-line-format "%D%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n"
 
+  ;; gnus-parameters '(
+  message-directory "~/.Mail/"
+  message-send-mail-function 'smtpmail-send-it
+  send-mail-function 'smtpmail-send-it
+  smtpmail-smtp-server "smtp.gmail.com"
+  nnir-imap-default-search-key "gmail"
+  nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
+
+(setq
+  smtpmail-smtp-service 587
+  mml2015-encrypt-to-self t
+  mm-verify-option t
+  mm-decrypt-option t
+  )
+
+(if (executable-find "w3m")
+  (use-package w3m
+    :config (progn
+              (setq
+                w3m-use-cookies t
+                mm-text-html-renderer 'w3m)))
+  (message (concat "Executable 'w3m' not found!")))
+
+(add-hook 'gnus-summary-mode-hook (lambda ()
+                                    (local-set-key "y" 'gmail-archive)
+                                    (local-set-key "$" 'gmail-report-spam)))
+(add-hook 'message-sent-hook 'gnus-score-followup-thread)
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;; (eval-after-load 'gnus-topic
+;;   '(progn
+;;      (setq gnus-message-archive-group '((format-time-string "sent.%Y")))
+;;      (setq gnus-topic-topology '((("gmail" visible nil nil))
+;;                                   ("Gnus" visible)
+;;                                   (("misc" visible))))))
+
+     ;; Please not the key of topic is specified in my sample setup
+     ;; (setq gnus-topic-alist '(("gmail" ; the key of topic
+     ;;                           "INBOX"
+     ;;                           "[Gmail]/Sent Mail"
+     ;;                           "Drafts")
+     ;;                          ("misc" ; the key of topic
+     ;;                           "nnfolder+archive:sent.2018-12"
+     ;;                           "nnfolder+archive:sent.2018"
+     ;;                           "nndraft:drafts")
+     ;;                          ("Gnus")))))
+
+
+(defun gmail-archive ()
+  "Archive the current or marked mails.
+This moves them into the All Mail folder."
+  (interactive)
+  (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/All Mail"))
+
+(defun gmail-report-spam ()
+  "Report the current or marked mails as spam.
+This moves them into the Spam folder."
+  (interactive)
+  (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
 
 (setq mac-command-modifier 'super)
 
 ;; Mappings / Shortcuts
 (global-set-key (kbd "C-x C-b") 'ibuffer) ; list buffers for editing
-(global-set-key (kbd "C-x p") #'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") #'git-gutter:next-hunk)
-(global-set-key (kbd "C-c n") #'neotree-toggle)
+(global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
+(global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
+;; (global-set-key (kbd "C-c n") #'neotree-toggle)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(global-set-key (kbd "C-x e") 'air-revert-buffer-noconfirm)
+(global-set-key (kbd "C-c C-r") 'air-revert-buffer-noconfirm)
 (global-set-key (kbd "C-x 4 t") 'flop-frame)
 (global-set-key (kbd "s-w") 'kill-ring-save)
 (global-set-key (kbd "C-x g s") 'magit-status)
 
 ;; Org mode
-(global-set-key (kbd "\C-cc") #'org-capture)
+(global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
-;; Helm
-;; (global-set-key (kbd "M-x") #'helm-M-x)
-;; (global-set-key (kbd "C-x C-r") #'helm-recentf)
-;; (global-set-key (kbd "C-x C-f") #'helm-find-files)
-                                        ; (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-;; (global-set-key (kbd "C-x b") #'helm-mini)
-;; (global-set-key (kbd "C-c h") #'helm-command-prefix)
-;; (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action) ; rebind tab to do persistent action
-;; (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action) ; make TAB works in terminal
-;; (define-key helm-map (kbd "C-z")  #'helm-select-action) ; list actions using C-z
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-x <C-left>"))
 (global-unset-key (kbd "C-x <C-right>"))
@@ -333,7 +479,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-j") 'join-line)
 
-(bind-key "C-c l" 'org-store-link)
 (bind-key "C-c l" 'org-store-link)
 (bind-key "C-c L" 'org-insert-link-global)
 (bind-key "C-c O" 'org-open-at-point-global)
@@ -465,11 +610,11 @@ point reaches the beginning or end of the buffer, stop there."
   (message "No 'ido-vertical-mode' found.")
   )
 
-(if (commandp 'smex)
-  (progn
-    (global-set-key (kbd "M-x") 'smex))
-  (message "No 'smex' command found.")
-  )
+;; (if (commandp 'smex)
+;;   (progn
+;;     (global-set-key (kbd "M-x") 'smex))
+;;   (message "No 'smex' command found.")
+;;   )
 
 ;; General
 (setq vc-follow-symlinks t)
@@ -494,10 +639,6 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'org-agenda-mode-hook (lambda ()
                                   (hl-line-mode)
                                   ))
-
-(add-hook 'org-mode-hook (lambda ()
-                           (hl-line-mode)
-                           ))
 
 (add-hook 'find-file-hook
   (lambda ()
@@ -609,6 +750,14 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
 (setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+(setq org-odt-preferred-output-format "doc")
+;; (setq org-odt-preferred-output-format "xls")
+
+(if (executable-find "unoconv")
+  (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
+  (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d.xls %i")))
+  (message "No executable \"unoconv found\".")
+  )
 
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
@@ -780,12 +929,19 @@ should be continued."
 ;; programming
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
 
-(if (executable-find "ack")
+(setq ack-path (executable-find "ack"))
+
+(if ack-path
   (progn
-  (setq grep-command "ack --with-filename --nofilter --nogroup ")
-  (setq grep-program "ack")
-  (setq sr-grep-command "ack ")
-  (grep-apply-setting 'grep-find-template "find <D> <X> -type f <F> -exec ack --with-filename --nofilter --nogroup '<R>' /dev/null {} +")
+  ;; (setq grep-command "ack --with-filename --nofilter --nogroup ")
+  ;; (setq grep-program grep-command) ; ack
+    ;; (setq sr-grep-command grep-program)
+    ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
+    ;; "ack --with-filename --nofilter --nogroup ")
+    ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
+    ;; (grep-apply-setting 'grep-find-template "find <D> <X> -type f <F> -exec ack --with-filename --nofilter --nogroup '<R>' /dev/null {} +")
+    (grep-apply-setting 'grep-find-template
+      (concat "find . -type f -exec " ack-path " --with-filename --nofilter --nogroup '<R>' /dev/null {} +"))
     )
   (message "No 'ack' executable found.")
   )
@@ -846,7 +1002,10 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+  '(package-selected-packages
+     (quote
+       (ivy w3m wgrep use-package transpose-frame smex smartscan rainbow-mode persistent-scratch org-ac oauth2 noflet neotree multiple-cursors miniedit magit imenu-anywhere ido-vertical-mode ido-completing-read+ hl-todo helm guide-key git-gutter flx-ido editorconfig diminish color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw auto-highlight-symbol auto-compile))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
