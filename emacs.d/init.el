@@ -33,66 +33,173 @@
 
 (use-package miniedit)
 (use-package calfw)
-(use-package magit)
-(use-package transpose-frame)
 (use-package calfw-org)
+
+(use-package magit
+  :diminish magit-auto-revert-mode
+  :config
+  (progn
+    (setq
+      magit-completing-read-function 'ivy-completing-read
+      magit-item-highlight-face 'bold
+      ;; magit-repo-dirs-depth 1
+
+      )
+  ))
+(use-package transpose-frame)
 (use-package wgrep)
 (use-package hl-todo)
 (use-package rainbow-mode)
 (use-package editorconfig)
 ;; (use-package dash)
-(use-package ido-completing-read+)
 (use-package centered-cursor-mode)
 (use-package auto-highlight-symbol)
 (use-package imenu-anywhere)
-(use-package smex)  ; better search for ido mode
+;; (use-package smex)  ; better search for ido mode
 (use-package with-editor)  ; dependency for other package
 (use-package neotree)
 (use-package multiple-cursors)
 (use-package color-theme-sanityinc-tomorrow)
 (use-package persistent-scratch)
 (use-package git-gutter)
-
-;; (use-package org-journal)
-;; (use-package swiper)
 ;; (use-package oauth2)
-;; (use-package projectile)
 ;; (use-package artbollocks-mode)
 
-(use-package ivy :ensure t
+(use-package avy)
+(use-package ivy-hydra)
+(use-package ivy
+  :ensure t
   :diminish (ivy-mode . "")
-  :bind
-  (:map ivy-mode-map
-   ("C-'" . ivy-avy))
   :config
-  (ivy-mode 1)
-  ;; add recentf-mode and bookmarks to ivy-switch-buffer.
-  (setq ivy-use-virtual-buffers t)
-  ;; number of result lines to display
-  (setq ivy-height 10)
-  ;; does not count candidates
-  (setq ivy-count-format "")
-  ;; no regexp by default
-  (setq ivy-initial-inputs-alist nil)
-  ;; configure regexp engine.
-  (setq ivy-re-builders-alist
-	;; allow input not in order
-        '((t   . ivy--regex-ignore-order))))
+  (progn
+    (ivy-mode 1)
+    (bind-key "<return>" #'ivy-alt-done ivy-minibuffer-map)
+    (bind-key "C-M-h" #'ivy-previous-line-and-call ivy-minibuffer-map)
+    (bind-key "C-:" #'ivy-dired ivy-minibuffer-map)
+    (bind-key "C-c o" #'ivy-occur ivy-minibuffer-map)
+    (bind-key "C-o" #'ivy-hydra/body  ivy-minibuffer-map)
+    (bind-key "C-'" #'ivy-avy ivy-minibuffer-map)
+    (bind-key "C-x b" #'ivy-switch-buffer)
+
+    (defun ivy-dired ()
+      (interactive)
+      (if ivy--directory
+        (ivy-quit-and-run
+          (dired ivy--directory)
+          (when (re-search-forward
+                  (regexp-quote
+                    (substring ivy--current 0 -1)) nil t)
+            (goto-char (match-beginning 0))))
+        (user-error
+          "Not completing files currently")))
+
+    (defun ivy-view-backtrace ()
+      (interactive)
+      (switch-to-buffer "*ivy-backtrace*")
+      (delete-region (point-min) (point-max))
+      (fundamental-mode)
+      (insert ivy-old-backtrace)
+      (goto-char (point-min))
+      (forward-line 1)
+      (let (part parts)
+        (while (< (point) (point-max))
+          (condition-case nil
+            (progn
+              (setq part (read (current-buffer)))
+              (push part parts)
+              (delete-region (point-min) (point)))
+            (error
+              (progn
+                (ignore-errors (up-list))
+                (delete-region (point-min) (point)))))))
+      (goto-char (point-min))
+      (dolist (part parts)
+        (lispy--insert part)
+        (lispy-alt-multiline)
+        (insert "\n")))
+
+    (setq ivy-switch-buffer-faces-alist
+      '((emacs-lisp-mode . swiper-match-face-1)
+         (dired-mode . ivy-subdir)
+         (org-mode . org-level-4)))
+
+    (setq
+      ivy-use-virtual-buffers t
+      ivy-height 10
+      ivy-use-selectable-prompt t
+      ivy-count-format "(%d/%d) "
+      ivy-re-builders-alist '((t   . ivy--regex-ignore-order)))
+    )
+  )
+
+(use-package swiper
+  :config
+  (progn
+    (bind-key "C-s"
+      (lambda ()
+        (interactive)
+        (let ((word (if (symbol-at-point) (symbol-name (symbol-at-point)) "")))
+          (swiper word)
+          )))))
+
+(use-package counsel
+  :config
+  (progn
+    (setq counsel-find-file-ignore-regexp "\\`\\.")
+    (bind-key "C-r" #'counsel-expression-history read-expression-map)
+    (bind-key "C-r" #'counsel-minibuffer-history read-expression-map)
+    (bind-key "M-x" #'counsel-M-x)
+    (bind-key "C-x C-f" #'counsel-find-file)
+    (bind-key "<f1> f" #'counsel-describe-function)
+    (bind-key "<f1> v" #'counsel-describe-variable)
+    (bind-key "<f1> l" #'counsel-find-library)
+    (bind-key "<f2> s" #'counsel-info-lookup-symbol)
+    (bind-key "<f2> u" #'counsel-unicode-char)
+    (bind-key "C-h f" #'counsel-describe-function)
+    (bind-key "C-h v" #'counsel-describe-variable)
+    (bind-key "C-x r b" #'counsel-bookmark)
+    ;; (global-set-key (kbd "C-c g") 'counsel-git)
+    ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    ;; (global-set-key (kbd "C-c k") 'counsel-ack)
+
+    ;; (setq counsel-grep-base-command "grep -niE %s %s")
+    ;; (setq counsel-grep-base-command
+    ;;   "rg -i -M 120 --no-heading --line-number --color never %s %s")
+    ;; (setq counsel-rg-base-command
+    ;;   "rg -i -M 120 --no-heading --line-number --color never %s .")
+    (setq counsel-git-grep-cmd-default
+      (concat "git --no-pager grep --full-name -n --no-color -i -e '%s' -- './*' "
+        (mapconcat (lambda (x) (format "':!*.%s'" x))
+          '("htm" "so" "a" "TTC" "NDS" "png" "md5") " ")))
+    ;; (setq counsel-git-grep-projects-alist
+    ;;   (list
+    ;;     (cons "/home/oleh/Dropbox/source/site-lisp/"
+    ;;       (concat "/home/oleh/Dropbox/source/site-lisp/etc/git-multi-grep '%s' "
+    ;;         "/home/oleh/Dropbox/source/site-lisp 'git/*'"))
+    ;;     (cons "/home/oleh/git/ivy-dependencies/"
+    ;;       (concat "/home/oleh/Dropbox/source/site-lisp/etc/git-multi-grep '%s' "
+    ;;         "/home/oleh/git/ivy-dependencies '*'"))))
+    ;; (setq counsel-git-cmd "rg --files")
 
 
+    (ivy-set-display-transformer 'counsel-describe-function nil)
+    )
+  )
 
-(use-package ido-vertical-mode)
-;; (use-package helm
-;;   :config
-;;   (progn
-;;     (setq
-;;       helm-autoresize-max-height 0
-;;       helm-autoresize-min-height 20
-;;       helm-completion-in-region-fuzzy-match t
-;;       helm-mode-fuzzy-match t)
-;;     (bind-key "M-x" #'helm-M-x)
-;;     (helm-autoresize-mode 1))
+;; (use-package projectile
+;;   :init
+;;   (setq
+;;     projectile-completion-system 'ivy
+;;     projectile-indexing-method 'alien
+;;     projectile-enable-caching t
+;;     projectile-verbose nil
+;;     projectile-do-log nil
+;;     )
 ;;   )
+
+;; (use-package ido)
+;; (use-package ido-completing-read+)
+;; (use-package ido-vertical-mode)
 
 (eval-after-load 'ediff
   '(progn
@@ -156,9 +263,9 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'sunrise-commander)
 (require 'multiple-cursors)
 (require 'neotree)
-(require 'ido)
-(require 'ido-completing-read+)
-(require 'ido-vertical-mode)
+
+;; (require 'ido-completing-read+)
+;; (require 'ido-vertical-mode)
 (require 'grep)
 (require 'wgrep)
 (require 'org-agenda)
@@ -224,6 +331,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq bookmark-save-flag t)
 (setq show-paren-delay 0)
 
+(bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
@@ -296,31 +404,8 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package diminish)
 (diminish 'abbrev-mode " A")
 
-
-
-
-;; Helm
-
-;; TODO is it good?
-;; (defun spacemacs//helm-hide-minibuffer-maybe ()
-;;   "Hide minibuffer in Helm session if we use the header line as input field."
-;;   (when (with-helm-buffer helm-echo-input-in-header-line)
-;;     (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-;;       (overlay-put ov 'window (selected-window))
-;;       (overlay-put ov 'face
-;;                    (let ((bg-color (face-background 'default nil)))
-;;                      `(:background ,bg-color :foreground ,bg-color)))
-;;       (setq-local cursor-type nil))))
-;; (add-hook 'helm-minibuffer-set-up-hook
-;;       'spacemacs/helm-hide-minibuffer-maybe)
-
-;; ido
-
-;; (setq ido-use-faces nil)
-
 (eval-after-load 'sunrise-commander
   '(progn
-     (message "auuuuuu")
      (defun mc ()
        "Open sunrise commander in default directory."
        (interactive)
@@ -591,25 +676,22 @@ This moves them into the Spam folder."
   )
 
 ;; Ido
-(ido-mode t)
-
-(setq ido-use-faces t)
-
-(if (commandp 'ido-ubiquitous-mode)
-  (progn
-    (ido-everywhere 1)
-    (ido-ubiquitous-mode 1))
-  (message "No 'ido-ubiquitous-mode' found.")
-  )
-
-(if (commandp 'ido-vertical-mode)
-  (progn
-    (ido-vertical-mode 1)
-    (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-    (setq ido-vertical-show-count t))
-  (message "No 'ido-vertical-mode' found.")
-  )
-
+;; (ido-mode t)
+;; (bind-key "C-x b" 'ido-switch-buffer)
+;; (setq ido-use-faces t)
+;; (if (commandp 'ido-ubiquitous-mode)
+;;   (progn
+;;     (ido-everywhere 1)
+;;     (ido-ubiquitous-mode 1))
+;;   (message "No 'ido-ubiquitous-mode' found.")
+;;   )
+;; (if (commandp 'ido-vertical-mode)
+;;   (progn
+;;     (ido-vertical-mode 1)
+;;     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
+;;     (setq ido-vertical-show-count t))
+;;   (message "No 'ido-vertical-mode' found.")
+;;   )
 ;; (if (commandp 'smex)
 ;;   (progn
 ;;     (global-set-key (kbd "M-x") 'smex))
@@ -666,8 +748,7 @@ This moves them into the Spam folder."
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
-
-(add-to-list 'ido-ignore-files "\\.DS_Store")
+;; (add-to-list 'ido-ignore-files "\\.DS_Store")
 
 (setq local-config-file (expand-file-name "local-config.el" user-emacs-directory))
 
@@ -695,7 +776,7 @@ This moves them into the Spam folder."
 (setq org-use-property-inheritance t)
 (setq org-priority-start-cycle-with-default nil)
 (setq org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
-(setq org-completion-use-ido t)
+;; (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
@@ -1002,10 +1083,8 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-  '(package-selected-packages
-     (quote
-       (ivy w3m wgrep use-package transpose-frame smex smartscan rainbow-mode persistent-scratch org-ac oauth2 noflet neotree multiple-cursors miniedit magit imenu-anywhere ido-vertical-mode ido-completing-read+ hl-todo helm guide-key git-gutter flx-ido editorconfig diminish color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw auto-highlight-symbol auto-compile))))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
