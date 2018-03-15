@@ -65,6 +65,13 @@
 ;; (use-package oauth2)
 ;; (use-package artbollocks-mode)
 
+(use-package goto-last-change
+  :config
+  (progn
+    (bind-key "C-x C-\\" #'goto-last-change)
+    )
+  )
+
 (use-package avy)
 (use-package ivy-hydra)
 (use-package ivy
@@ -77,7 +84,6 @@
     (bind-key "C-M-h" #'ivy-previous-line-and-call ivy-minibuffer-map)
     (bind-key "C-:" #'ivy-dired ivy-minibuffer-map)
     (bind-key "C-c o" #'ivy-occur ivy-minibuffer-map)
-    (bind-key "C-o" #'ivy-hydra/body  ivy-minibuffer-map)
     (bind-key "C-'" #'ivy-avy ivy-minibuffer-map)
     (bind-key "C-x b" #'ivy-switch-buffer)
 
@@ -124,7 +130,7 @@
          (org-mode . org-level-4)))
 
     (setq
-      ivy-use-virtual-buffers t
+      ;; ivy-use-virtual-buffers t
       ivy-height 10
       ivy-use-selectable-prompt t
       ivy-count-format "(%d/%d) "
@@ -135,12 +141,13 @@
 (use-package swiper
   :config
   (progn
-    (bind-key "C-s"
-      (lambda ()
-        (interactive)
-        (let ((word (if (symbol-at-point) (symbol-name (symbol-at-point)) "")))
-          (swiper word)
-          )))))
+    (bind-key "C-s" #'swiper)
+      ;; (lambda ()
+      ;;   (interactive)
+      ;;   (let ((word (if (symbol-at-point) (symbol-name (symbol-at-point)) "")))
+      ;;     (swiper word)
+      ;;     )))
+  ))
 
 (use-package counsel
   :config
@@ -167,10 +174,10 @@
     ;;   "rg -i -M 120 --no-heading --line-number --color never %s %s")
     ;; (setq counsel-rg-base-command
     ;;   "rg -i -M 120 --no-heading --line-number --color never %s .")
-    (setq counsel-git-grep-cmd-default
-      (concat "git --no-pager grep --full-name -n --no-color -i -e '%s' -- './*' "
-        (mapconcat (lambda (x) (format "':!*.%s'" x))
-          '("htm" "so" "a" "TTC" "NDS" "png" "md5") " ")))
+    ;; (setq counsel-git-grep-cmd-default
+    ;;   (concat "git --no-pager grep --full-name -n --no-color -i -e '%s' -- './*' "
+    ;;     (mapconcat (lambda (x) (format "':!*.%s'" x))
+    ;;       '("htm" "so" "a" "TTC" "NDS" "png" "md5") " ")))
     ;; (setq counsel-git-grep-projects-alist
     ;;   (list
     ;;     (cons "/home/oleh/Dropbox/source/site-lisp/"
@@ -201,6 +208,32 @@
 ;; (use-package ido-completing-read+)
 ;; (use-package ido-vertical-mode)
 
+;; TODO make it language specific switch
+(use-package artbollocks-mode
+  :defer t
+  :config
+  (progn
+    (setq artbollocks-weasel-words-regex
+          (concat "\\b" (regexp-opt
+                         '("one of the"
+                           "should"
+                           "just"
+                           "sort of"
+                           "a lot"
+                           "probably"
+                           "maybe"
+                           "perhaps"
+                           "I think"
+                           "really"
+                           "pretty"
+                           "nice"
+                           "action"
+                           "utilize"
+                           "leverage") t) "\\b"))
+    (setq artbollocks-jargon nil)
+    (add-hook 'text-mode-hook 'artbollocks-mode)
+    ))
+
 (eval-after-load 'ediff
   '(progn
      (setq ediff-window-setup-function 'ediff-setup-windows-plain
@@ -229,7 +262,8 @@
 
 (use-package smartscan
   :defer t
-  :config (global-smartscan-mode t))
+  :config
+  (global-smartscan-mode t))
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -382,7 +416,6 @@ point reaches the beginning or end of the buffer, stop there."
 (remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
-
 (setq dabbrev-friend-buffer-function '(lambda (other-buffer)
                                         (< (buffer-size other-buffer) (* 1 1024 1024))))
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -425,6 +458,13 @@ point reaches the beginning or end of the buffer, stop there."
      (bind-key "C-c l" 'org-store-link org-mode-map)
      (bind-key "C-." 'imenu-anywhere org-mode-map)
      (bind-key "C-c C-x C-s" 'org-archive-subtree-default org-mode-map)
+     (bind-key "C-x :"
+       (lambda ()
+         (interactive)
+         "Insert tags in a capture window without losing the point"
+         (save-excursion
+           (org-back-to-heading)
+           (org-set-tags))))
      (unbind-key "C-c $" org-mode-map) ; removed archive subtree shortcut
      (unbind-key "C-c C-x C-a" org-mode-map) ; remove archive subtree default shortcut
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
@@ -440,6 +480,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq
   gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
   gnus-treat-hide-citation t
+  gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject ; is it needed?
   ;; gnus-use-adaptive-scoring t
   gnus-inhibit-slow-scoring "^nntp[+:]"
   gnus-agent nil
@@ -545,7 +586,6 @@ This moves them into the Spam folder."
 ;; Org mode
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
-(global-set-key (kbd "C-c c") #'org-capture)
 
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-x <C-left>"))
@@ -842,10 +882,10 @@ This moves them into the Spam folder."
 
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
-      "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:")
-     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:")
+      "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:" :prepend t)
+     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:" :prepend t)
      ("j" "Journal" entry (file (expand-file-name "journal.org.gpg" org-directory))
-       "* [%<%Y-%m-%d>]\n%?")
+       "* [%<%Y-%m-%d>]\n%?"  :prepend t :jump-to-captured t)
      ("c" "Add note to currently clocked entry" plain (clock)
        "- Note taken on %U \\\\ \n  %?")
      ))
@@ -1083,8 +1123,9 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
-
+  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+  )
+  
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
