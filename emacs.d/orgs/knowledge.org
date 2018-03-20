@@ -112,6 +112,8 @@
 ** Links
 http://pages.sachachua.com/.emacs.d/Sacha.html
 https://writequit.org/denver-emacs/presentations/2017-04-11-time-clocking-with-org.html#fnr.1
+http://endlessparentheses.com - lisp blog
+http://cachestocaches.com
 * Gnus
 ** Group Buffer
 *** C-u RET - enter group and see all the emails not unread only
@@ -149,6 +151,8 @@ https://writequit.org/denver-emacs/presentations/2017-04-11-time-clocking-with-o
 *** relative timer
 *** refile - move heading to different place
 *** note captures - templates
+** Export
+*** org-table-export
 ** Timestamp
 *** S-left-right - timestamp day next/previous
 *** S-up/down - timestamp next/previous
@@ -249,6 +253,7 @@ https://writequit.org/denver-emacs/presentations/2017-04-11-time-clocking-with-o
    https://sachachua.com
    http://pages.sachachua.com/.emacs.d/Sacha.html
    http://doc.norang.ca/org-mode.html
+http://www.flutterbys.com.au/stats/tut/tut16.1.html - tables tutorial
 * VIM
 ** edit
 *** ]p - paste and indnet block

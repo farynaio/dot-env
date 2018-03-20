@@ -38,8 +38,8 @@ Wspólnota narodów wywodzących się z plemion anglosaskich.
 Zasiedlili większą część wysp brytyjskich.
 Biały kolor skóry, wyznanie chrześcijańskie, posługiwanie się językiem angielskim
 (jako pierwszy lub drugim językiem). Dawniej pochodzenie Skandynawia, Niemcy.
-** TODO [#C] Android Greenify                                                           :@fun:@love:
-   SCHEDULED: <2018-03-11 Sun>
+** TODO [#C] S: Android Greenify                                                           :@fun:@love:
+   <2018-03-11 Sun>
    :PROPERTIES:
    :ID:       B2B3AB1E-048A-4396-A6FE-6FED3E33A679
    :END:
@@ -66,13 +66,14 @@ https://orgmode.org/worg/org-tutorials/weaving-a-budget.html
 http://plaintextaccounting.org
 https://www.emacswiki.org/emacs/CategoryFinancial
 https://www.emacswiki.org/emacs/CellMode
-** TODO [#B] S: FieldGlass fill timesheets                                                    :@wealth:
+** DONE [#B] FieldGlass fill timesheets                                                    :@wealth:
    <2018-03-04 Sun>
+   - State "DONE"       from "TODO"       [2018-03-16 Fri 01:51]
+<2018-03-04 Sun>
    - State "DONE"       from "TODO"       [2018-03-04 Sun 11:41]
    - State "DONE"       from "TODO"       [2018-02-24 Sat 09:01]
    - State "DONE"       from "TODO"       [2018-02-18 Sun 21:55]
    :PROPERTIES:
-   :STYLE: habit
    :LAST_REPEAT: [2018-03-04 Sun 11:41]
    :ID:       11E31749-13B9-46A1-9C27-CE2231DEA302
    :END:
@@ -89,7 +90,7 @@ https://www.emacswiki.org/emacs/CellMode
    :ID:       5C251F41-F2E4-48BB-86B0-6C88BAF082D7
    :END:
 https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variable-byte-compilation-warnings
-** TODO [#D] emacs what is outline mode?
+** TODO [#D] Emacs what is outline mode?
    :PROPERTIES:
    :ID:       2176E9EB-8B66-4CE4-9393-29B87A67D81D
    :END:
@@ -111,7 +112,7 @@ https://stackoverflow.com/questions/12432093/get-rid-of-reference-to-free-variab
    :PROPERTIES:
    :ID:       D8579914-9F6A-4FC3-8456-614FB81424CE
    :END:
-** TODO [#D] emacs how to toggle buffer read-only
+** TODO [#D] Emacs how to toggle buffer read-only
    :PROPERTIES:
    :ID:       35CF92C0-39A0-4484-BDE3-63C14B6C2114
    :END:
@@ -159,10 +160,13 @@ https://github.com/snosov1/toc-org
    :ID:       F9B28B55-B9FA-4D60-B21E-CFB90BD05D71
    :Effort:   4:00
    :END:
-** TODO [#C] Org mode how to deal with repeating tasks?
+** DONE [#C] Org mode how to deal with repeating tasks?
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:32]
    :PROPERTIES:
    :ID:       C405B51A-5069-449D-9B57-654C24B9B280
    :END:
+org-habits & repeated tasks
 ** DONE [#B] Vim change TODO highlight to something less obstructive
    CLOSED: [2018-02-21 Wed]
    - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
@@ -173,14 +177,13 @@ https://github.com/snosov1/toc-org
    :PROPERTIES:
    :ID:       0C444F18-920E-4EE8-90C7-04B8B91A10C1
    :END:
-** TODO [#C] Org mode what is column mode?
+** DONE [#C] Org mode what is column mode?
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:34]
    :PROPERTIES:
    :ID:       2F238429-DF0C-4BE8-8639-F461D546067C
    :END:
-** TODO [#C] Org mode identify org-stuck-projects
-   :PROPERTIES:
-   :ID:       66855607-C321-466B-8FE9-9F864D976D38
-   :END:
+C-c C-x C-c
 ** DONE [#B] Is Emacs helm package works for me?
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :PROPERTIES:
@@ -189,10 +192,17 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
 - Note taken on [2018-02-11 Sun 23:01] \\
   Nope, probably only M-x mode.
 - State "DONE"       from "IN-PROCESS" [2018-02-11 Sun 23:01]
-** TODO [#C] Org mode what export options do I have?
+** DONE [#C] Org mode what export options do I have?
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:34]
    :PROPERTIES:
    :ID:       55D2DE5C-689C-45B3-9FF2-BBC92225A40C
    :END:
+to blog
+to pdf/xls
+to csv
+
+To almost everything.
 ** TODO [#B] Org mode how notes works                                                  :@efficiency:
    :PROPERTIES:
    :ID:       2DCA906E-E0C7-4B78-AFDF-B84F7ABA95B4
@@ -216,10 +226,6 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :PROPERTIES:
    :ID:       C5A459AA-92C6-43E5-B641-802B952541F3
    :END:
-** TODO [#D] Org mode add encryption
-   :PROPERTIES:
-   :ID:       4913B74C-4F82-4CB0-86F3-B973B414A277
-   :END:
 ** DONE [#B] Create org mode sort custom configuration                                 :@efficiency:
    CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
    :PROPERTIES:
@@ -241,11 +247,14 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :PROPERTIES:
    :ID:       8EEC29FF-4174-45B2-B782-4717DBC0501F
    :END:
-** TODO [#D] Access org mode on mobile                                                 :@efficiency:
+** CANCELED [#D] Access org mode on mobile                                             :@efficiency:
+   CLOSED: [2018-03-14 Wed]
+   - State "CANCELED"   from "TODO"       [2018-03-14 Wed 19:35] \\
+     Not needed, I use only calendar so far.
    :PROPERTIES:
    :ID:       A8C77B91-C427-40D3-B3B6-000DB20E321E
    :END:
-** TODO [#D] Git blame support
+** TODO [#D] Emacs git blame support
    :PROPERTIES:
    :ID:       B8550EEE-8CCA-498E-90DC-F6262855BE4A
    :END:
@@ -257,20 +266,26 @@ http://snarfed.org/emacs-vc-git-tweaks
   magit:
   https://magit.vc/manual/
   https://stackoverflow.com/questions/15460550/git-blame-with-commit-details-in-emacs
-** TODO [#D] JSON by syntax
+** TODO [#D] Emacs JSON by syntax
    :PROPERTIES:
    :ID:       0EBE051E-6C8E-4892-B0BB-390B6C77E485
    :END:
-** TODO [#B] Vim folded markers available all the time
+** DONE [#B] Vim folded markers available all the time
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:40]
+   - Note taken on [2018-03-14 Wed 19:40] \\
+     Added for JSON only.
    :PROPERTIES:
    :ID:       6D4FBEA4-9B33-473D-AF42-0A0E9CB54886
    :END:
-** TODO [#B] how to refresh buffer?                                                        :@career:
+** DONE [#B] how to refresh buffer?                                                        :@career:
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:39]
    :PROPERTIES:
    :ID:       2718CA3E-A44C-4C97-B137-CEA6FD65A0EC
    :END:
 - Note taken on [2018-02-12 Mon 23:47] \\
-  <C-x r> or <C-r>
+  C-c r
 - State "DONE"       from ""           [2018-02-12 Mon 23:47]
 ** DONE [#B] search and replace in multiple files
 CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
@@ -284,7 +299,9 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :PROPERTIES:
 :ID:       A39BFDD0-C382-4A39-A67C-EA8765961D92
    :END:
-** TODO [#C] Emacs git support (magit)
+** DONE [#C] Emacs git support (magit)
+   CLOSED: [2018-03-14 Wed]
+   - State "DONE"       from "TODO"       [2018-03-14 Wed 19:35]
    :PROPERTIES:
    :ID:       B56B2D18-6793-406A-B0CF-D2CF2D01BC98
    :Effort:   0:30
@@ -294,14 +311,16 @@ CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
    :ID:       0A6CE09B-1ADF-4341-A477-6D9E7F6CB1FA
    :END:
 https://github.com/easymotion/vim-easymotion
-** TODO [#C] Vim check vimtutor
+** TODO [#D] Vim check vimtutor
    :PROPERTIES:
    :ID:       4F859744-F316-4B70-8A8D-EC88BB439C1C
    :END:
 ** TODO [#C] Configure "stuck projects"
+   SCHEDULED: <2018-03-14 Wed>
    :PROPERTIES:
    :ID:       6D20E883-F704-4E10-8E9A-958022DB8164
    :END:
+identify org-stuck-projects
 ** TODO [#B] Check emacs navigation shortcuts
    :PROPERTIES:
    :ID:       5FC776EE-21B2-4836-AB9C-889EDF6637A7
