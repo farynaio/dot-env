@@ -35,6 +35,55 @@
 (use-package calfw)
 (use-package calfw-org)
 
+(use-package dash)
+(use-package monitor)
+
+(use-package evil
+  :init
+  (progn
+    (setq
+      evil-want-C-u-scroll t
+      evil-want-C-i-jump nil))
+  :config
+  (progn
+    (evil-mode 1)
+    (define-key evil-normal-state-map (kbd "C-e") #'move-end-of-line)
+    (define-key evil-visual-state-map (kbd "C-e") #'move-end-of-line)
+    (define-key evil-normal-state-map (kbd "C-a") #'my/smarter-move-beginning-of-line)
+    (define-key evil-visual-state-map (kbd "C-a") #'my/smarter-move-beginning-of-line)
+    (define-key evil-normal-state-map (kbd "TAB") #'indent-for-tab-command)
+    (define-key evil-visual-state-map (kbd "TAB") #'indent-for-tab-command)
+    (define-key evil-normal-state-map (kbd "/") #'swiper)
+    (define-key evil-normal-state-map (kbd "C-x T") #'my/move-current-window-to-new-frame)
+    (define-key evil-normal-state-map (kbd ", c") #'flyspell-mode)
+    (define-key evil-normal-state-map (kbd ", g s") #'magit-status)
+
+    (evil-define-key 'normal flyspell-mode-map
+      "[s" 'flyspell-goto-next-error
+      "]s" 'flyspell-goto-next-error
+      )
+    (evil-define-key 'normal help-mode-map
+      "TAB" 'forward-button
+      "s-TAB" 'backward-button)
+    (evil-define-key 'normal ediff-mode-map
+      "[c" 'ediff-next-difference
+      "]c" 'ediff-previous-difference
+      )))
+
+(use-package evil-surround
+  :config
+  (progn
+    (global-evil-surround-mode 1)
+    ))
+
+(use-package evil-matchit
+  :config
+  (progn
+    (global-evil-matchit-mode 1)
+    ))
+
+(use-package org-evil)
+
 (use-package magit
   :diminish magit-auto-revert-mode
   :config
@@ -43,9 +92,13 @@
       magit-completing-read-function 'ivy-completing-read
       magit-item-highlight-face 'bold
       ;; magit-repo-dirs-depth 1
-
       )
-  ))
+
+    (define-key magit-mode-map (kbd "}") #'evil-forward-paragraph)
+    (define-key magit-mode-map (kbd "]") #'evil-forward-paragraph)
+    (define-key magit-mode-map (kbd "{") #'evil-backward-paragraph)
+    (define-key magit-mode-map (kbd "[") #'evil-backward-paragraph)))
+
 (use-package transpose-frame)
 (use-package wgrep)
 (use-package hl-todo)
