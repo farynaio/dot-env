@@ -24,6 +24,9 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+(unless (package-installed-p 'org-plus-contrib)
+  (package-install 'org-plus-contrib))
+
 (require 'use-package)
 
 (use-package auto-compile
@@ -419,6 +422,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq show-paren-delay 0)
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
+(bind-key "M-%" #'query-replace-regexp)
 
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
@@ -862,7 +866,7 @@ This moves them into the Spam folder."
 (setq org-default-notes-file (expand-file-name "notes" user-emacs-directory))
 (setq org-lowest-priority 68)
 (setq org-highest-priority 65)
-(setq org-default-priority 68)
+(setq org-default-priority 65)
 (setq org-log-done 'time)
 (setq org-enforce-todo-dependencies t)
 (setq org-track-ordered-property-with-tag t)
@@ -872,6 +876,7 @@ This moves them into the Spam folder."
 ;; (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
+(setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
 ;; (setq org-adapt-indentation nil)
 (setq org-list-description-max-indent 5)
@@ -888,14 +893,15 @@ This moves them into the Spam folder."
 (setq org-clock-in-switch-to-state "IN-PROCESS")
 (setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING"))
 (setq org-agenda-scheduled-leaders '("" ""))
-(setq org-return-follows-link t)
+;; (setq org-agenda-window-setup 'current-window)
+(setq org-return-follows-link nil)
 (setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
 (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-caldav-save-directory (expand-file-name "tmp" user-emacs-directory))
 (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-(setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
+(setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
 (setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
@@ -936,7 +942,8 @@ This moves them into the Spam folder."
 (setq org-capture-templates
   '(("t" "Todo" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
       "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:" :prepend t)
-     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory)) "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:" :prepend t)
+     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
+       "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:" :prepend t)
      ("j" "Journal" entry (file (expand-file-name "journal.org.gpg" org-directory))
        "* [%<%Y-%m-%d>]\n%?"  :prepend t :jump-to-captured t)
      ("c" "Add note to currently clocked entry" plain (clock)
@@ -1003,7 +1010,7 @@ This moves them into the Spam folder."
          ((org-agenda-skip-function
             '(or
                (org-agenda-skip-entry-if 'todo 'done)
-               (org-agenda-skip-entry-if 'todo "SOMEDAY")
+               (org-agenda-skip-entry-if 'todo '("SOMEDAY"))
                (air-org-agenda-skip-if-scheduled-later))
             )
            (org-agenda-overriding-header "High-priority unfinished tasks:")
@@ -1093,6 +1100,7 @@ should be continued."
                        ))
 
 (add-to-list 'org-modules 'org-habit t)
+(add-to-list 'org-modules 'org-collector t)
 
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
