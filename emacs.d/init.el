@@ -2,7 +2,6 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'exec-path "/usr/local/bin")
 
-;; (require 'cl)
 (require 'package)
 (unless (assoc-default "org" package-archives)
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
@@ -50,40 +49,63 @@
   :config
   (progn
     (evil-mode 1)
-    (define-key evil-normal-state-map (kbd "C-e") #'move-end-of-line)
-    (define-key evil-visual-state-map (kbd "C-e") #'move-end-of-line)
-    (define-key evil-normal-state-map (kbd "C-a") #'my/smarter-move-beginning-of-line)
-    (define-key evil-visual-state-map (kbd "C-a") #'my/smarter-move-beginning-of-line)
-    (define-key evil-normal-state-map (kbd "TAB") #'indent-for-tab-command)
-    (define-key evil-visual-state-map (kbd "TAB") #'indent-for-tab-command)
-    (define-key evil-normal-state-map (kbd "/") #'swiper)
-    (define-key evil-normal-state-map (kbd "C-x T") #'my/move-current-window-to-new-frame)
-    (define-key evil-normal-state-map (kbd ", c") #'flyspell-mode)
-    (define-key evil-normal-state-map (kbd ", g s") #'magit-status)
+    (bind-key "C-e"   #'move-end-of-line                    evil-normal-state-map)
+    (bind-key "C-e"   #'move-end-of-line                    evil-visual-state-map)
+    (bind-key "C-a"   #'my/smarter-move-beginning-of-line   evil-normal-state-map)
+    (bind-key "C-a"   #'my/smarter-move-beginning-of-line   evil-visual-state-map)
+    (bind-key "TAB"   #'indent-for-tab-command              evil-normal-state-map)
+    (bind-key "TAB"   #'indent-for-tab-command              evil-visual-state-map)
+    (bind-key "TAB"   #'tab-to-tab-stop                     evil-insert-state-map)
+    (bind-key "/"     #'swiper                              evil-normal-state-map)
+    (bind-key "C-x T" #'my/move-current-window-to-new-frame evil-normal-state-map)
+    (bind-key ", s"   #'flyspell-mode                       evil-normal-state-map)
+    (bind-key ", g s" #'magit-status                        evil-normal-state-map)
+    (bind-key "C-w"   #'evil-delete-char                    evil-visual-state-map)
+    (bind-key "h"     #'evil-first-non-blank                evil-normal-state-map)
+    (bind-key "h"     #'evil-first-non-blank                evil-visual-state-map)
+    (bind-key "l"     #'evil-end-of-line                    evil-normal-state-map)
+    (bind-key "l"     #'evil-end-of-line                    evil-visual-state-map)
+    (bind-key "}"     #'forward-paragraph                   evil-motion-state-map)
+    (bind-key "{"     #'backward-paragraph                  evil-motion-state-map)
+    (bind-key "C-k"   #'kill-line                           evil-insert-state-map)
+    (bind-key "C-y"   #'yank                                evil-normal-state-map)
+    (bind-key "C-d"   #'evil-scroll-down)
+    (bind-key "C-u"   #'evil-scroll-up)
+
+    (bind-key "C-c w t"
+      (lambda ()
+        (interactive)
+        "Move current window to new frame."
+        (let ((buffer (current-buffer)))
+          (unless (one-window-p)
+            (delete-window))
+          (display-buffer-pop-up-frame buffer nil)))
+      evil-normal-state-map)
 
     (evil-define-key 'normal flyspell-mode-map
       "[s" 'flyspell-goto-next-error
-      "]s" 'flyspell-goto-next-error
-      )
+      "]s" 'flyspell-goto-next-error)
+
     (evil-define-key 'normal help-mode-map
-      "TAB" 'forward-button
+      "TAB" 'forward-button)
+    (evil-define-key 'motion help-mode-map
+      "l" 'help-go-back
+      "r" 'help-go-forward
       "s-TAB" 'backward-button)
+
     (evil-define-key 'normal ediff-mode-map
       "[c" 'ediff-next-difference
-      "]c" 'ediff-previous-difference
-      )))
+      "]c" 'ediff-previous-difference)))
 
 (use-package evil-surround
   :config
   (progn
-    (global-evil-surround-mode 1)
-    ))
+    (global-evil-surround-mode 1)))
 
 (use-package evil-matchit
   :config
   (progn
-    (global-evil-matchit-mode 1)
-    ))
+    (global-evil-matchit-mode 1)))
 
 (use-package org-evil)
 
@@ -97,10 +119,12 @@
       ;; magit-repo-dirs-depth 1
       )
 
-    (define-key magit-mode-map (kbd "}") #'evil-forward-paragraph)
-    (define-key magit-mode-map (kbd "]") #'evil-forward-paragraph)
-    (define-key magit-mode-map (kbd "{") #'evil-backward-paragraph)
-    (define-key magit-mode-map (kbd "[") #'evil-backward-paragraph)))
+    (bind-key "}" #'evil-forward-paragraph  magit-mode-map)
+    (bind-key "]" #'evil-forward-paragraph  magit-mode-map)
+    (bind-key "{" #'evil-backward-paragraph magit-mode-map)
+    (bind-key "[" #'evil-backward-paragraph magit-mode-map)
+    (bind-key "r" #'magit-reverse           magit-hunk-section-map)
+    (bind-key "v" #'evil-visual-char        magit-hunk-section-map)))
 
 (use-package transpose-frame)
 (use-package wgrep)
@@ -109,7 +133,10 @@
 (use-package editorconfig)
 ;; (use-package dash)
 (use-package centered-cursor-mode)
-(use-package auto-highlight-symbol)
+(use-package auto-highlight-symbol
+  :config
+  (progn
+    (setq ahs-idle-interval 0)))
 (use-package imenu-anywhere)
 ;; (use-package smex)  ; better search for ido mode
 (use-package with-editor)  ; dependency for other package
@@ -124,10 +151,7 @@
 (use-package goto-last-change
   :config
   (progn
-    (bind-key "C-x C-\\" #'goto-last-change)
-    )
-  )
-
+    (bind-key "C-x C-\\" #'goto-last-change)))
 (use-package avy)
 (use-package ivy-hydra)
 (use-package ivy
@@ -141,7 +165,7 @@
     (bind-key "C-:" #'ivy-dired ivy-minibuffer-map)
     (bind-key "C-c o" #'ivy-occur ivy-minibuffer-map)
     (bind-key "C-'" #'ivy-avy ivy-minibuffer-map)
-    (bind-key "C-x b" #'ivy-switch-buffer)
+    (bind-key "C-x b" #'display-buffer)
 
     (defun ivy-dired ()
       (interactive)
@@ -197,13 +221,7 @@
 (use-package swiper
   :config
   (progn
-    (bind-key "C-s" #'swiper)
-      ;; (lambda ()
-      ;;   (interactive)
-      ;;   (let ((word (if (symbol-at-point) (symbol-name (symbol-at-point)) "")))
-      ;;     (swiper word)
-      ;;     )))
-  ))
+    (bind-key "C-s" #'swiper)))
 
 (use-package counsel
   :config
@@ -287,8 +305,7 @@
                            "utilize"
                            "leverage") t) "\\b"))
     (setq artbollocks-jargon nil)
-    (add-hook 'text-mode-hook 'artbollocks-mode)
-    ))
+    (add-hook 'text-mode-hook 'artbollocks-mode)))
 
 (eval-after-load 'ediff
   '(progn
@@ -296,16 +313,15 @@
        ediff-forward-word-function 'forward-char
        ediff-use-toolbar-p nil)
      (add-hook 'ediff-before-setup-hook 'new-frame)
-     (add-hook 'ediff-quit-hook 'delete-frame)
-     ))
+     (add-hook 'ediff-quit-hook 'delete-frame)))
 
 (use-package guide-key
   :defer t
   :diminish guide-key-mode
   :config
   (progn
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
-  (guide-key-mode 1)))  ; Enable guide-key-mode
+    (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
+    (guide-key-mode 1)))
 
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
@@ -353,63 +369,68 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'sunrise-commander)
 (require 'multiple-cursors)
 (require 'neotree)
-
-;; (require 'ido-completing-read+)
-;; (require 'ido-vertical-mode)
 (require 'grep)
 (require 'wgrep)
 (require 'org-agenda)
 (require 'calfw)
 (require 'calfw-org)
 (require 'recentf)
-
 (require 're-builder)
 (setq reb-re-syntax 'string)
+
+(eval-after-load 'recentf
+  '(progn
+    (recentf-mode 1)))
 
 (epa-file-enable)
 (setq epa-file-encrypt-to '("adamfaryna@gmail.com"))
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
-;; (defun my/copy-file-name-to-clipboard ()
-;;   "Copy the current buffer file name to the clipboard."
-;;   (interactive)
-;;   (let ((filename (if (equal major-mode 'dired-mode)
-;;                       default-directory
-;;                     (buffer-file-name))))
-;;     (when filename
-;;       (kill-new filename)
-;;       (message "Copied buffer file name '%s' to the clipboard." filename))))
+(setq default-directory "~/.emacs.d")
+
+(setq display-buffer-reuse-frames t)
+(setq display-buffer-fallback-action
+  '(( display-buffer-reuse-window
+      display-buffer--maybe-same-window
+      display-buffer--maybe-pop-up-frame-or-window
+      display-buffer-in-previous-window
+      display-buffer-use-some-window
+      display-buffer-pop-up-frame)))
+
+;; (setq display-buffer-alist
+;;   '(("*Help*" . ((display-buffer-same-window)))))
+
+(bind-key ", c d"
+  (lambda ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename
+            (if (equal major-mode 'dired-mode)
+              default-directory
+              (buffer-file-name))))
+      (when filename
+        (kill-new filename)
+        (message "Copied buffer file name '%s' to the clipboard." filename))))
+  evil-normal-state-map)
 
 (defun cal ()
   "Full month calendar by calfw-org-calendar."
   (interactive)
-  (cfw:open-org-calendar)
-  )
+  (cfw:open-org-calendar))
+(bind-key "C-x C-SPC" 'rectangle-mark-mode)
 
-(defun my/move-current-window-to-new-frame ()
-  (interactive)
-  (let ((buffer (current-buffer)))
-    (unless (one-window-p)
-      (delete-window))
-    (display-buffer-pop-up-frame buffer nil)))
-
-(global-set-key (kbd "C-c w t") 'my/move-current-window-to-new-frame)
-(global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
-
-(setq gc-cons-threshold 3500000)
-
-;; config
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq
   backup-by-copying t
   kept-new-versions 5
   kept-old-versions 5
   delete-old-versions t
-  version-control t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t)))
-(setq visible-bell 1)
-(setq ring-bell-function 'ignore)
+  version-control t
+  auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
+  backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq
+  visible-bell 1
+ ring-bell-function 'ignore)
 (setq inhibit-startup-screen t)
 (setq ns-right-alternate-modifier nil)
 (setq tab-width 2)
@@ -417,16 +438,16 @@ point reaches the beginning or end of the buffer, stop there."
   dired-use-ls-diredto nil
   dired-recursive-copies 'always
   dired-recursive-deletes 'always)
-(setq ahs-idle-interval 0)
-(setq bookmark-save-flag t)
-(setq show-paren-delay 0)
+(setq
+  gc-cons-threshold 3500000
+  bookmark-save-flag t
+  show-paren-delay 0)
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 (bind-key "M-%" #'query-replace-regexp)
 
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
-(recentf-mode 1)
 
 (setq help-window-select t)
 (setq column-number-mode t)
@@ -442,8 +463,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq create-lockfiles nil) ; this should be safe as long I'm the only user of FS
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-
+(defalias 'ar #'align-regexp)
 
 (setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
@@ -491,8 +511,10 @@ point reaches the beginning or end of the buffer, stop there."
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 (add-hook 'text-mode-hook 'abbrev-mode)
-(use-package diminish)
-(diminish 'abbrev-mode " A")
+(use-package diminish
+  :config
+  (progn
+    (diminish 'abbrev-mode " A")))
 
 (eval-after-load 'sunrise-commander
   '(progn
@@ -504,17 +526,17 @@ point reaches the beginning or end of the buffer, stop there."
        )
 
      ;; delete redundant window in MC mode
-     (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))
-     ))
+     (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))))
 
 (eval-after-load 'org
   '(progn
-     (bind-key "M-}" 'forward-paragraph org-mode-map)
-     (bind-key "M-{" 'backward-paragraph org-mode-map)
-     (bind-key "C-c C-r" 'air-revert-buffer-noconfirm org-mode-map)
-     (bind-key "C-c l" 'org-store-link org-mode-map)
-     (bind-key "C-." 'imenu-anywhere org-mode-map)
-     (bind-key "C-c C-x C-s" 'org-archive-subtree-default org-mode-map)
+     (bind-key "M-}"         #'forward-paragraph           org-mode-map)
+     (bind-key "M-{"         #'backward-paragraph          org-mode-map)
+     (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm org-mode-map)
+     (bind-key "C-c l"       #'org-store-link              org-mode-map)
+     (bind-key "C-."         #'imenu-anywhere              org-mode-map)
+     (bind-key "C-c C-x C-s" #'org-archive-subtree-default org-mode-map)
+     (bind-key "C-c C-c"     #'counsel-org-tag             org-mode-map)
      (bind-key "C-x :"
        (lambda ()
          (interactive)
@@ -522,16 +544,18 @@ point reaches the beginning or end of the buffer, stop there."
          (save-excursion
            (org-back-to-heading)
            (org-set-tags))))
-     (unbind-key "C-c $" org-mode-map) ; removed archive subtree shortcut
+     (unbind-key "C-c $"       org-mode-map) ; removed archive subtree shortcut
      (unbind-key "C-c C-x C-a" org-mode-map) ; remove archive subtree default shortcut
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
-     (unbind-key "C-c C-x A" org-mode-map) ; remove archive to archive siblings shortcut
+     (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
      (advice-add 'org-forward-paragraph :around (lambda (orig &rest args) (forward-paragraph)))
      (advice-add 'org-backward-paragraph :around (lambda (orig &rest args) (backward-paragraph)))
+     (add-hook 'org-mode-hook (lambda () (hl-line-mode)))))
 
-     (add-hook 'org-mode-hook (lambda () (hl-line-mode))))
-  )
+(eval-after-load 'org-agenda
+  '(progn
+     (bind-key "C-c C-c" #'counsel-org-tag-agenda org-agenda-mode-map)))
 
 ; Gnus
 (setq
@@ -579,8 +603,7 @@ point reaches the beginning or end of the buffer, stop there."
   smtpmail-smtp-service 587
   mml2015-encrypt-to-self t
   mm-verify-option t
-  mm-decrypt-option t
-  )
+  mm-decrypt-option t)
 
 (if (executable-find "w3m")
   (use-package w3m
@@ -772,29 +795,6 @@ This moves them into the Spam folder."
     )
   )
 
-;; Ido
-;; (ido-mode t)
-;; (bind-key "C-x b" 'ido-switch-buffer)
-;; (setq ido-use-faces t)
-;; (if (commandp 'ido-ubiquitous-mode)
-;;   (progn
-;;     (ido-everywhere 1)
-;;     (ido-ubiquitous-mode 1))
-;;   (message "No 'ido-ubiquitous-mode' found.")
-;;   )
-;; (if (commandp 'ido-vertical-mode)
-;;   (progn
-;;     (ido-vertical-mode 1)
-;;     (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
-;;     (setq ido-vertical-show-count t))
-;;   (message "No 'ido-vertical-mode' found.")
-;;   )
-;; (if (commandp 'smex)
-;;   (progn
-;;     (global-set-key (kbd "M-x") 'smex))
-;;   (message "No 'smex' command found.")
-;;   )
-
 ;; General
 (setq vc-follow-symlinks t)
 
@@ -815,9 +815,7 @@ This moves them into the Spam folder."
 ;; programming
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
 
-(add-hook 'org-agenda-mode-hook (lambda ()
-                                  (hl-line-mode)
-                                  ))
+(add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (add-hook 'find-file-hook
   (lambda ()
@@ -844,8 +842,6 @@ This moves them into the Spam folder."
 (windmove-default-keybindings)
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
-
-;; (add-to-list 'ido-ignore-files "\\.DS_Store")
 
 (setq local-config-file (expand-file-name "local-config.el" user-emacs-directory))
 
@@ -882,7 +878,7 @@ This moves them into the Spam folder."
 (setq org-list-description-max-indent 5)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
-(setq org-tags-column -100)
+;; (setq org-tags-column -100)
 (setq org-reverse-note-order t)
 (setq org-global-properties '(("Effort_ALL" . "0:05 0:15 0:30 1:00 2:00 4:00")))
 (setq org-clock-report-include-clocking-task t)
@@ -897,6 +893,7 @@ This moves them into the Spam folder."
 (setq org-return-follows-link nil)
 (setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
 (setq org-directory (expand-file-name "orgs" user-emacs-directory))
+(defvar my/org-contacts-file (expand-file-name "contacts.org.gpg" org-directory))
 (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-caldav-save-directory (expand-file-name "tmp" user-emacs-directory))
@@ -923,15 +920,15 @@ This moves them into the Spam folder."
 (org-remove-file org-caldav-inbox)
 (setq org-icalendar-with-timestamps 'active)
 (setq org-icalendar-include-todo t)
-;; org-icalendar-include-bbdb-anniversaries
 (setq org-icalendar-include-sexps t)
 (setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
-(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+(setq org-refile-use-outline-path t)
+(setq org-refile-targets '((nil . (:maxlevel . 1))
+                            (org-agenda-files . (:maxlevel . 1))))
 (setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-odt-preferred-output-format "doc")
-;; (setq org-odt-preferred-output-format "xls")
 
 (if (executable-find "unoconv")
   (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
@@ -939,16 +936,48 @@ This moves them into the Spam folder."
   (message "No executable \"unoconv found\".")
   )
 
+(advice-add 'org-capture :before (lambda () (interactive) (message (concat "ala: org-agenda-directory: " org-agenda-directory " org-directory: " org-directory))))
+
 (setq org-capture-templates
-  '(("t" "Todo" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
-      "* TODO %?\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :END:" :prepend t)
-     ("h" "Habit" entry (file (expand-file-name "tasks.org.gpg" org-agenda-directory))
-       "* TODO %?\n  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>\n  :PROPERTIES:\n  Created: [%<%Y-%m-%d>]\n  :STYLE: habit\n  :END:" :prepend t)
-     ("j" "Journal" entry (file (expand-file-name "journal.org.gpg" org-directory))
+  `(("t" "Todo" entry (file ,(expand-file-name "tasks.org.gpg" org-agenda-directory))
+      "* TODO %?
+  :PROPERTIES:
+  :CREATED: [%<%Y-%m-%d>]
+  :END:" :prepend t)
+     ("p" "Blog post" entry (file ,(expand-file-name "blog.org.gpg" org-directory))
+       "* %?
+  :PROPERTIES:
+  :CREATED: [%<%Y-%m-%d>]
+  :END:" :prepend t)
+     ("h" "Habit" entry (file ,(expand-file-name "tasks.org.gpg" org-agenda-directory))
+       "* TODO %?
+  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
+  :PROPERTIES:
+  :CREATED: [%<%Y-%m-%d>]
+  :STYLE: habit
+  :END:" :prepend t)
+     ("j" "Journal" entry (file ,(expand-file-name "journal.org.gpg" org-directory))
        "* [%<%Y-%m-%d>]\n%?"  :prepend t :jump-to-captured t)
-     ("c" "Add note to currently clocked entry" plain (clock)
+     ("n" "Add note to currently clocked entry" plain (clock)
        "- Note taken on %U \\\\ \n  %?")
-     ))
+     ("c" "Contact" entry (file my/org-contacts-file) ;,(expand-file-name "contacts.org.gpg" org-directory))
+       "* %(org-contacts-template-name)
+  :PROPERTIES:
+  :TITLE:
+  :ALIAS:
+  :COMPANY:
+  :ROLE:
+  :EMAIL: %(org-contacts-template-email)
+  :MOBILE:
+  :WORK_PHONE:
+  :ADDRESS:
+  :URL:
+  :BIRTHDAY:
+  :ITOLD_THEM_EMAIL:
+  :ITOLD_THEM_PHONE:
+  :NOTES:
+  :CREATED: [%<%Y-%m-%d>]
+  :END:")))
 
 (set-register ?g (cons 'file (expand-file-name "goals.org.gpg" org-directory)))
 (set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
@@ -957,23 +986,7 @@ This moves them into the Spam folder."
 (set-register ?t (cons 'file (expand-file-name "tasks.org.gpg" org-agenda-directory)))
 (set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
-;; (set-register ?z (cons 'file (expand-file-name "google.org" org-agenda-directory)))
 (set-register ?l (cons 'file local-config-file))
-
-;; TODO fix this
-;; (add-hook 'org-clock-in-prepare-hook (lambda ()
-;;                                        "Ask for an effort estimate when clocking in."
-;;                                        (unless (org-entry-get (point) "Effort")
-;;                                          (let ((effort (completing-read "Effort: "
-;;                                                          (org-entry-get-multivalued-property (point) "Effort"))))
-;;                                            (unless (equal effort "")
-;;                                              (org-set-property "Effort" effort))))))
-
-;; (advice-add 'org-clock-in :before '(lambda (&rest args)
-;;                                      (unless (org-element-property :EFFORT (org-element-at-point))
-;;                                        (org-set-effort)
-;;                                        )
-;;                                      ))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
@@ -1011,7 +1024,7 @@ This moves them into the Spam folder."
             '(or
                (org-agenda-skip-entry-if 'todo 'done)
                (org-agenda-skip-entry-if 'todo '("SOMEDAY"))
-               (air-org-agenda-skip-if-scheduled-later))
+               (my/org-agenda-skip-if-scheduled-later))
             )
            (org-agenda-overriding-header "High-priority unfinished tasks:")
            (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
@@ -1019,8 +1032,8 @@ This moves them into the Spam folder."
         (agenda "")
         (alltodo ""
           ((org-agenda-skip-function
-             '(or (air-org-skip-subtree-if-priority ?A)
-                (air-org-skip-subtree-if-habit)
+             '(or (my/org-skip-subtree-if-priority ?A)
+                (my/org-skip-subtree-if-habit)
                 (org-agenda-skip-if nil '(scheduled deadline))
                 (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
             (org-agenda-sorting-strategy '(priority-down effort-down category-keep alpha-up))
@@ -1032,7 +1045,7 @@ This moves them into the Spam folder."
   )
 
 
-(defun org-mycal-export-limit ()
+(defun my/org-calendar-export-limit ()
   "Limit the export to items that have a date, time and a range. Also exclude certain categories."
   (setq org-tst-regexp "<\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} ... [0-9]\\{2\\}:[0-9]\\{2\\}[^\r\n>]*?\
 \)>")
@@ -1053,11 +1066,11 @@ This moves them into the Spam folder."
     ; return t if ok, nil when not ok
     (if (and myresult (not mycatp)) t nil)))
 
-(defun air-org-cal-export ()
-  (let ((org-icalendar-verify-function 'org-mycal-export-limit))
-    (org-export-icalendar-combine-agenda-files)))
+;; (defun air-org-cal-export ()
+;;   (let ((org-icalendar-verify-function 'my/org-calendar-export-limit))
+;;     (org-export-icalendar-combine-agenda-files)))
 
-(defun air-org-skip-subtree-if-priority (priority)
+(defun my/org-skip-subtree-if-priority (priority)
   "Skip an agenda subtree if it has a priority of PRIORITY.
 PRIORITY may be one of the characters ?A, ?B, or ?C."
   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
@@ -1067,14 +1080,14 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
         subtree-end
       nil)))
 
-(defun air-org-skip-subtree-if-habit ()
+(defun my/org-skip-subtree-if-habit ()
   "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
   (let ((subtree-end (save-excursion (org-end-of-subtree t))))
     (if (string= (org-entry-get nil "STYLE") "habit")
         subtree-end
       nil)))
 
-(defun air-org-agenda-skip-if-scheduled-later ()
+(defun my/org-agenda-skip-if-scheduled-later ()
   "If this function returns nil, the current match should not be skipped.
 Otherwise, the function must return a position from where the search
 should be continued."
@@ -1149,33 +1162,19 @@ should be continued."
     (ispell-change-dictionary "pl")
     (ispell-change-dictionary "en")
     )
-  (message (concat "Current spell language is '" ispell-current-dictionary "'."))
-  )
-
-(defun air-goto-match-paren (&optional arg)
-  "Go to the matching parenthesis character if one is adjacent to point."
-  (interactive "^p")
-  (cond ((looking-at "\\s(") (forward-sexp arg))
-        ((looking-back "\\s)" 1) (backward-sexp arg))
-        ;; Now, try to succeed from inside of a bracket
-        ((looking-at "\\s)") (forward-char) (backward-sexp arg))
-        ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
-
-(global-set-key (kbd "C-%") 'air-goto-match-paren)
+  (message (concat "Current spell language is '" ispell-current-dictionary "'.")))
 
 (set-cursor-color "#ffffff")
-
-(setq custom-safe-themes t)
-
+(setq
+  custom-safe-themes t
+  default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+(set-face-attribute 'default nil :font default-font)
 (color-theme-sanityinc-tomorrow-night)
 
 (when (file-exists-p local-config-file)
   (message "local config exists")
-  (load local-config-file)
-  )
+  (load local-config-file))
 
-(setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-(set-face-attribute 'default nil :font default-font)
 
 ;; temporary
 ;; (set-face-foreground 'dired-directory "yellow" )
@@ -1184,9 +1183,7 @@ should be continued."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
-  )
-  
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
