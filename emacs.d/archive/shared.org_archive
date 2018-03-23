@@ -1,0 +1,469 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/devil/Dropbox/devel/emacs.d/agenda/shared.org
+
+
+* DONE [#A] Sign new contract?                                                     :@career:@wealth:
+  CLOSED: [2018-03-01 Thu] SCHEDULED: <2018-02-26 Mon>
+  :PROPERTIES:
+  :ID:       50CD9AAA-7D5F-4D1C-9A24-0A4B48A228EC
+  :END:
+  - State "DONE"       from "TODO"       [2018-03-01 Thu 20:36]
+  :PROPERTIES:
+  :ID:       C47E7EC4-082A-4534-AB1A-468891BE7D7A
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:08
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#A] What are 'org categories'?                                                 :@efficiency:
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+:PROPERTIES:
+:ID:       B6BB08D7-DBCF-4878-9EF0-FBC92A25D249
+:END:
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
+   - Note taken on [2018-02-11 Sun 23:06] \\
+     File names by default, also configurable in properties.
+   :PROPERTIES:
+:ID:       42F3228C-C653-4770-A08D-463ABA4FEE70
+:ARCHIVE_TIME: 2018-03-08 Thu 21:23
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+
+* DONE [#A] Org mode setup proper agenda view                                          :@efficiency:
+CLOSED: [2018-02-12 Mon] SCHEDULED: <2018-02-07 Wed>
+:PROPERTIES:
+:ID:       F38C1731-1DB2-4611-A194-D979D9D8F97F
+:END:
+- State "DONE"       from "TODO"       [2018-02-12 Mon 23:59]
+   :PROPERTIES:
+:ID:       A8D4E5CE-8B9E-48D3-96AE-0792ADCCCC99
+:ARCHIVE_TIME: 2018-03-08 Thu 21:23
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+
+* DONE [#A] Setup agenda view for all undone tasks                                     :@efficiency:
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+:PROPERTIES:
+:ID:       ABA70235-A182-4484-AB76-C9232A722E82
+:END:
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:06]
+   :PROPERTIES:
+:ID:       3242BE16-2BB2-425B-8475-FCE53D981858
+:ARCHIVE_TIME: 2018-03-08 Thu 21:23
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+
+* DONE [#A] Window zoom                                                                    :@career:
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       A5FD874C-33C8-4B92-B9D2-3D71C947903E
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:49]
+   :PROPERTIES:
+:ID:       672C3990-72F1-40CB-82CD-BD12005318D4
+:ARCHIVE_TIME: 2018-03-08 Thu 21:23
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Toggle window zoom with <C-x |>.
+
+* DONE [#A] navigation recent files                                                        :@career:
+   CLOSED: [2018-02-06 Tue]
+  :PROPERTIES:
+  :ID:       B16F33E1-9C40-41DA-A6B7-82106F893C2F
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:23
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+   - Note taken on [2018-02-06 Tue 20:24] \\
+     recentf-*
+
+* CANCELED [#B] Org agenda add filter to hide A tasks that are scheduled for other day from agenda.
+  CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-18 Sun>
+  :PROPERTIES:
+  :ID:       5BC1E0EE-7DE3-4A07-B41C-A2C2171E915A
+  :END:
+  - State "CANCELED"   from "TODO"       [2018-02-21 Wed 22:51] \\
+    Not needed. Tasks 'A' are for current day only.
+  :PROPERTIES:
+  :ID:       7B588AE7-1E2D-468D-A7BA-3BDF2AF5A6B4
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: CANCELED
+  :END:
+
+* CANCELED [#B] Emacs open in buffer - not jump                                    :@career:@wealth:
+   CLOSED: [2018-02-27 Tue] SCHEDULED: <2018-02-26 Mon>
+   :PROPERTIES:
+   :ID:       FDA75825-EA17-4CFE-9FB2-0B7D0AC86599
+   :END:
+   - State "CANCELED"   from "TODO"       [2018-02-27 Tue 20:47] \\
+     Looks like it's hard to do it in IDO mode, I can live without it.
+   :PROPERTIES:
+   :ID:       E38A101E-54E9-47C4-8C00-01BBBE9586E3
+   :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+   :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+   :ARCHIVE_OLPATH: Tasks
+   :ARCHIVE_CATEGORY: shared
+   :ARCHIVE_TODO: CANCELED
+   :END:
+Always create new window
+
+* CANCELED [#B] VIM remove fugitive from recent list
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-07 Wed>
+:PROPERTIES:
+:ID:       D7A79F58-CBD0-4C45-BE3E-3046320C7202
+:END:
+- State "CANCELED"   from "TODO"       [2018-02-11 Sun 23:18] \\
+  Not use recent list anymore.
+   - Note taken on [2018-02-11 Sun 23:15] \\
+     Switched to switch buffer rather then use another function.
+   :PROPERTIES:
+:ID:       BE84E402-3649-4474-BB81-9B380F05A936
+:ARCHIVE_TIME: 2018-03-08 Thu 21:25
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: CANCELED
+   :END:
+
+* DONE [#C] Org mode what are habits?
+  CLOSED: [2018-02-06 Tue]
+  :PROPERTIES:
+  :ID:       273CD1EA-4B28-4632-BC66-D3D8149E3F65
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+  - Note taken on [2018-02-06 Tue 20:07] \\
+    Repeatable tasks.
+
+* DONE [#C] org mode how to add statuses: WAITING, BLOCKED, STARTED?
+  CLOSED: [2018-02-05 Mon] SCHEDULED: <2018-02-05 Mon>
+  :PROPERTIES:
+  :ID:       7502389E-421C-47E6-84F2-25308CF956F4
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+  - Note taken on [2018-02-05 Mon 20:07] \\
+  Faces for TODO keywords
+
+* DONE [#D] Emacs make font bigger                                                     :@efficiency:
+  CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-03 Sat>
+  :PROPERTIES:
+  :ID:       104BCF31-B133-4676-A771-EABD7C6459D5
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+  - Note taken on [2018-02-07 Wed 20:06] \\
+    C-x C--
+    C-x C-+
+
+* DONE [#B] Check org-priority                                                         :@efficiency:
+  CLOSED: [2018-02-03 Sat]
+  :PROPERTIES:
+  :ID:       E0715499-85C1-45D9-B86A-C2A5DCCC3682
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#B] Check org-schedule                                                         :@efficiency:
+  CLOSED: [2018-02-03 Sat]
+  :PROPERTIES:
+  :ID:       67C1FFF4-E848-44D2-9368-2FEE283AE331
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#B] Check org-deadline                                                         :@efficiency:
+  CLOSED: [2018-02-03 Sat]
+  :PROPERTIES:
+  :ID:       F040F68A-3196-47D0-8898-86D0DED1F9BF
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#B] Emacs calendar                                                             :@efficiency:
+  CLOSED: [2018-02-03 Sat]
+  :PROPERTIES:
+  :ID:       FEA9E047-5538-432C-A863-F60EF99DCE36
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#C] Emacs recentf-dialog-mode                                                  :@efficiency:
+  CLOSED: [2018-02-03 Sat]
+  :PROPERTIES:
+  :ID:       DA07ADC5-A7BB-4382-B320-BAD18B79113D
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#B] Org mode add sync with google cal                                          :@efficiency:
+   CLOSED: [2018-02-25 Sun] SCHEDULED: <2018-02-24 Sat>
+   :PROPERTIES:
+   :ID:       48669637-FB96-4B9C-B5AA-BE74DFAF3BA5
+   :END:
+   - State "DONE"       from "IN-PROCESS" [2018-02-25 Sun 23:49]
+   :PROPERTIES:
+   :ID:       0F1D0CA5-A28F-418D-A6F5-7D763FC0DE02
+   :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+   :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+   :ARCHIVE_OLPATH: Tasks
+   :ARCHIVE_CATEGORY: shared
+   :ARCHIVE_TODO: DONE
+   :END:
+   - Note taken on [2018-02-08 Thu 23:59] \\
+     https://www.npmjs.com/package/webdav-server
+private cloud u Marcina - gmail
+https://orgmode.org/worg/org-tutorials/org-google-sync.html
+webdav server na heroku
+
+* DONE Learn to use Emacs calendar                                                     :@efficiency:
+  CLOSED: [2018-02-04 Sun]
+  :PROPERTIES:
+  :ID:       3657F1AC-2EB8-4D15-83B7-AC36CCDF91F9
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#C] Learn to work with org-agenda mode                                         :@efficiency:
+  CLOSED: [2018-02-04 Sun] SCHEDULED: <2018-02-04 Sun>
+  :PROPERTIES:
+  :ID:       EE495662-BAB8-4FAB-83EE-E0C57E6BDD89
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Gitgutter
+   CLOSED: [2018-02-06 Tue]
+  :PROPERTIES:
+  :ID:       84BF213B-78D1-4CAC-B014-53B515B7734A
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:25
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#C] run commands async (what commands?)
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       2D40053F-8FE1-43A5-A851-40CFE23D9346
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:45]
+   :PROPERTIES:
+:ID:       072C25C2-41C1-45A7-92D4-7522357AA33A
+:ARCHIVE_TIME: 2018-03-08 Thu 21:25
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+
+* DONE [#B] Org mode how to click on link to open browser?
+  CLOSED: [2018-02-21 Wed]
+  :PROPERTIES:
+  :ID:       6D205E7C-72EB-4CED-B39E-C87E4F489B2C
+  :END:
+  - State "DONE"       from "TODO"       [2018-02-21 Wed 22:55]
+  :PROPERTIES:
+  :ID:       107A96E1-7E91-4C32-A720-8F9364AD484C
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:28
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#B] Org mode how can I manage repeatable tasks?                                    :@career:
+  CLOSED: [2018-02-21 Wed] SCHEDULED: <2018-02-06 Tue>
+  :PROPERTIES:
+  :ID:       E441278F-721E-4C95-A6AF-4BD312CE88C0
+  :END:
+  - State "DONE"       from "TODO"       [2018-02-21 Wed 22:49]
+  :PROPERTIES:
+  :ID:       0838C454-E1E0-482D-B14D-7EC754FB5FA7
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:28
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+  - Note taken on [2018-02-21 Wed 22:49] \\
+    org mode habits
+  - Note taken on [2018-02-05 Mon 23:53] \\
+    https://orgmode.org/manual/Repeated-tasks.html
+
+* DONE [#B] Org mode how to add tasks fast?                                                :@career:
+CLOSED: [2018-02-11 Sun] SCHEDULED: <2018-02-06 Tue>
+:PROPERTIES:
+:ID:       35D5EE55-CF97-4D89-AFDB-7C05C44783A4
+:END:
+- State "DONE"       from "TODO"       [2018-02-11 Sun 23:05]
+   - Note taken on [2018-02-11 Sun 23:05] \\
+     org-refill org-capture and org-agenda
+   - Note taken on [2018-02-08 Thu 23:46] \\
+     refiling
+     https://orgmode.org/manual/Refile-and-copy.html#Refile-and-copy
+   - Note taken on [2018-02-06 Tue 00:15] \\
+      What about capture, diary and journal?
+     org-journal-*
+   :PROPERTIES:
+:ID:       720E0159-4318-49A4-8224-8CB465F6E02C
+:ARCHIVE_TIME: 2018-03-08 Thu 21:28
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+
+* DONE toggle dictionary fast
+   CLOSED: [2018-02-06 Tue]
+  :PROPERTIES:
+  :ID:       A1C54F6C-AA57-403D-95B7-E8CB57DC40BE
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:28
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+   - Note taken on [2018-02-06 Tue 20:16] \\
+     dict-toggle
+     M-$ - correct word
+     C-, - next error
+     Fly prog mode
+
+* DONE [#B] indent region
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       45CEF8F6-003B-40F3-A53B-D11C28C08628
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:48]
+   :PROPERTIES:
+:ID:       C575B5F5-9BE1-4FDD-BCDA-2F902E01A123
+:ARCHIVE_TIME: 2018-03-08 Thu 21:28
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+- Note taken on [2018-02-12 Mon 23:48] \\
+  Just with <tab>.
+
+* DONE [#A] search and replace in single file                                              :@career:
+   CLOSED: [2018-02-06 Tue] SCHEDULED: <2018-02-06 Tue>
+   :PROPERTIES:
+   :ID:       7F5923C0-2F07-46E9-8F53-D58D169F25EB
+   :END:
+   - State "DONE"       from "IN-PROCESS" [2018-02-06 Tue 21:58]
+  :PROPERTIES:
+  :ID:       09BB8413-A555-49A5-8EDC-A502D79E1033
+  :ARCHIVE_TIME: 2018-03-08 Thu 21:30
+  :ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+  :ARCHIVE_OLPATH: Tasks
+  :ARCHIVE_CATEGORY: shared
+  :ARCHIVE_TODO: DONE
+  :END:
+   - Note taken on [2018-02-06 Tue 21:40] \\
+     M-% together with C-s (incremental search).
+
+* DONE [#A] go to line number                                                              :@career:
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       550915C6-D0DD-469E-8FA5-738C934D75AF
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:50]
+   :PROPERTIES:
+:ID:       1A51AEB1-9FDD-46C0-BD73-0CFCB6E64F4D
+:ARCHIVE_TIME: 2018-03-08 Thu 21:30
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+- Note taken on [2018-02-12 Mon 23:49] \\
+  <M-gg> or <M-g><M-g>
+
+* DONE [#A] easy tabs switch                                                               :@career:
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       7D8CE61E-CD9E-4833-B588-7E22BB223ADD
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+   :PROPERTIES:
+:ID:       70F48594-8637-4A3B-A4DF-0D99AED12D28
+:ARCHIVE_TIME: 2018-03-08 Thu 21:30
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+- Note taken on [2018-02-12 Mon 23:50] \\
+  With <cmd-left> and <cmd-right>.
+
+* DONE [#A] easy window switch                                                             :@career:
+CLOSED: [2018-02-12 Mon]
+:PROPERTIES:
+:ID:       C4BBE618-F19C-476C-8DFE-66AF0306521C
+:END:
+- State "DONE"       from ""           [2018-02-12 Mon 23:51]
+   :PROPERTIES:
+:ID:       DB035961-747D-41C7-AEC7-E57081556E6C
+:ARCHIVE_TIME: 2018-03-08 Thu 21:30
+:ARCHIVE_FILE: ~/Dropbox/devel/emacs.d/agenda/shared.org
+:ARCHIVE_OLPATH: Tasks
+:ARCHIVE_CATEGORY: shared
+:ARCHIVE_TODO: DONE
+   :END:
+- Note taken on [2018-02-12 Mon 23:51] \\
+  Done with C-x <left>/<right>/<up>/<down>.
