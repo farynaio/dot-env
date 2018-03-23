@@ -69,8 +69,10 @@
     (bind-key "{"     #'backward-paragraph                  evil-motion-state-map)
     (bind-key "C-k"   #'kill-line                           evil-insert-state-map)
     (bind-key "C-y"   #'yank                                evil-normal-state-map)
-    (bind-key "C-d"   #'evil-scroll-down)
-    (bind-key "C-u"   #'evil-scroll-up)
+    (bind-key "C-d"   #'evil-scroll-down                    evil-motion-state-map)
+    (bind-key "C-d"   #'evil-scroll-down                    evil-normal-state-map)
+    (bind-key "C-u"   #'evil-scroll-up                      evil-motion-state-map)
+    (bind-key "C-u"   #'evil-scroll-up                      evil-normal-state-map)
 
     (bind-key "C-c w t"
       (lambda ()
@@ -119,12 +121,14 @@
       ;; magit-repo-dirs-depth 1
       )
 
-    (bind-key "}" #'evil-forward-paragraph  magit-mode-map)
-    (bind-key "]" #'evil-forward-paragraph  magit-mode-map)
-    (bind-key "{" #'evil-backward-paragraph magit-mode-map)
-    (bind-key "[" #'evil-backward-paragraph magit-mode-map)
-    (bind-key "r" #'magit-reverse           magit-hunk-section-map)
-    (bind-key "v" #'evil-visual-char        magit-hunk-section-map)))
+    (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
+    (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
+    (bind-key "{"   #'evil-backward-paragraph magit-mode-map)
+    (bind-key "["   #'evil-backward-paragraph magit-mode-map)
+    (bind-key "C-d" #'evil-scroll-down        magit-mode-map)
+    (bind-key "C-u" #'evil-scroll-up          magit-mode-map)
+    (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
+    (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)))
 
 (use-package transpose-frame)
 (use-package wgrep)
@@ -555,7 +559,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 (eval-after-load 'org-agenda
   '(progn
-     (bind-key "C-c C-c" #'counsel-org-tag-agenda org-agenda-mode-map)))
+     (bind-key "C-c C-c" #'counsel-org-tag-agenda org-agenda-mode-map)
+     (bind-key "C-d" #'evil-scroll-down org-agenda-mode-map)
+     (bind-key "C-u" #'evil-scroll-up org-agenda-mode-map)))
 
 ; Gnus
 (setq
@@ -856,7 +862,9 @@ This moves them into the Spam folder."
     "\\)$"))
 
 ;; org mode / journal
-(setq org-clock-into-drawer t)
+(setq
+  org-clock-into-drawer t
+  org-log-into-drawer t)
 (setq org-clock-persist t) ; or 'history?
 (setq org-clock-idle-time 2) ; TODO requires testing
 (setq org-default-notes-file (expand-file-name "notes" user-emacs-directory))
@@ -943,19 +951,19 @@ This moves them into the Spam folder."
       "* TODO %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend t)
+  :END:" :prepend nil) ; wish :prepend t
      ("p" "Blog post" entry (file ,(expand-file-name "blog.org.gpg" org-directory))
        "* %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend t)
+  :END:" :prepend nil) ; wish :prepend t
      ("h" "Habit" entry (file ,(expand-file-name "tasks.org.gpg" org-agenda-directory))
        "* TODO %?
   SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
   :STYLE: habit
-  :END:" :prepend t)
+  :END:" :prepend nil) ; wish :prepend t
      ("j" "Journal" entry (file ,(expand-file-name "journal.org.gpg" org-directory))
        "* [%<%Y-%m-%d>]\n%?"  :prepend t :jump-to-captured t)
      ("n" "Add note to currently clocked entry" plain (clock)
