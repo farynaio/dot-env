@@ -10,9 +10,11 @@ emacs.d/tmp
 emacs.d/orgs
 emacs.d/agenda
 emacs.d/savehist
+emacs.d/archive
 
 !emacs.d/agenda/shared.org
-!emacs.d/orgs/knowledge
+
+!emacs.d/archive/shared_archive.org
 
 emacs.d/org-caldav*
 emacs.d/*.plstore
@@ -23,6 +25,7 @@ emacs.d/autosaves/*
 emacs.d/journal/*
 
 !emacs.d/orgs/.keep
+!emacs.d/archive/.keep
 !emacs.d/backups/.keep
 !emacs.d/auto-save-list/.keep
 !emacs.d/autosaves/.keep

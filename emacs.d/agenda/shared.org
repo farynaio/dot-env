@@ -1,4 +1,4 @@
-#+ARCHIVE: ../archive/%s_archive.gpg::
+#+ARCHIVE: ../archive/shared_archive.org::
 * Tasks
   :PROPERTIES:
   :ID:       CA5156FD-77D4-46B5-8131-EFF9EE879EB3
