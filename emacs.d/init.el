@@ -40,6 +40,8 @@
 (use-package dash)
 (use-package monitor)
 
+(defvar my/text-modes '('org-mode 'emacs-lisp-mode))
+
 (use-package evil
   :init
   (progn
@@ -73,6 +75,13 @@
     (bind-key "C-d"   #'evil-scroll-down                    evil-normal-state-map)
     (bind-key "C-u"   #'evil-scroll-up                      evil-motion-state-map)
     (bind-key "C-u"   #'evil-scroll-up                      evil-normal-state-map)
+    (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-normal-state-map)
+    (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-motion-state-map)
+
+    (dolist (element my/text-modes)
+      (evil-define-key '(motion normal) element
+        (kbd "<down>") #'evil-next-visual-line
+        (kbd "<up>")   #'evil-previous-visual-line))
 
     (bind-key "C-c w t"
       (lambda ()
@@ -84,20 +93,56 @@
           (display-buffer-pop-up-frame buffer nil)))
       evil-normal-state-map)
 
+    ;; (defvar mu4e:view-mode-map (make-sparse-keymap))
+    ;; (defvar mu4e-headers-mode-map (make-sparse-keymap))
+    ;; (defvar flyspell-mode-map (make-sparse-keymap))
+    ;; (defvar help-mode-map (make-sparse-keymap))
+    ;; (defvar ediff-mode-map (make-sparse-keymap))
+
+    (evil-define-key '(motion emacs normal) mu4e:view-mode-map
+      "C-d" #'evil-scroll-down
+      "C-u" #'evil-scroll-up)
+
+    (evil-define-key '(motion emacs) mu4e-headers-mode-map
+      "C-d" #'evil-scroll-down
+      "C-u" #'evil-scroll-up)
+
     (evil-define-key 'normal flyspell-mode-map
       "[s" 'flyspell-goto-next-error
       "]s" 'flyspell-goto-next-error)
 
-    (evil-define-key 'normal help-mode-map
-      "TAB" 'forward-button)
-    (evil-define-key 'motion help-mode-map
+    (evil-define-key '(motion normal) help-mode-map
       "l" 'help-go-back
       "r" 'help-go-forward
-      "s-TAB" 'backward-button)
+      "s-TAB" 'backward-button
+      "TAB" 'forward-button)
 
     (evil-define-key 'normal ediff-mode-map
       "[c" 'ediff-next-difference
       "]c" 'ediff-previous-difference)))
+
+(defun my/move-current-window-to-new-frame ()
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (unless (one-window-p)
+      (delete-window))
+    (display-buffer-pop-up-frame buffer nil)))
+
+(defvar my/mu4e-local-path "/usr/local/Cellar/mu/HEAD-bf80b5b/share/emacs/site-lisp/mu/mu4e")
+
+(if (file-directory-p my/mu4e-local-path)
+  (progn
+    (add-to-list 'load-path my/mu4e-local-path)
+    (require 'mu4e)
+    (require 'org-mu4e))
+  (message "'mu' not found"))
+
+(use-package evil-mu4e
+  :config
+  (progn
+    (evil-define-key 'normal mu4e-compose-mode-map (kbd "TAB") #'message-tab)
+    (evil-define-key 'normal mu4e-view-mode-map (kbd "TAB") #'shr-next-link)
+    (evil-define-key 'normal mu4e-view-mode-map (kbd "BACKTAB") #'shr-previous-link)))
 
 (use-package evil-surround
   :config
@@ -133,7 +178,8 @@
 (use-package transpose-frame)
 (use-package wgrep)
 (use-package hl-todo)
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :diminish rainbow-mode)
 (use-package editorconfig)
 ;; (use-package dash)
 (use-package centered-cursor-mode)
@@ -271,16 +317,22 @@
     )
   )
 
-;; (use-package projectile
-;;   :init
-;;   (setq
-;;     projectile-completion-system 'ivy
-;;     projectile-indexing-method 'alien
-;;     projectile-enable-caching t
-;;     projectile-verbose nil
-;;     projectile-do-log nil
-;;     )
-;;   )
+(use-package projectile
+  :init
+  (setq
+    projectile-completion-system 'ivy
+    projectile-indexing-method 'alien
+    projectile-enable-caching t
+    projectile-verbose nil
+    projectile-do-log nil)
+  :config
+  (progn
+    (projectile-mode 1)))
+
+(use-package counsel-projectile
+  :config
+  (progn
+    (counsel-projectile-mode 1)))
 
 ;; (use-package ido)
 ;; (use-package ido-completing-read+)
@@ -369,6 +421,7 @@ point reaches the beginning or end of the buffer, stop there."
                 'my/smarter-move-beginning-of-line)
 
 (require 'epa-file)
+(require 'epg-config)
 (require 'framemove)
 (require 'sunrise-commander)
 (require 'multiple-cursors)
@@ -376,6 +429,7 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'grep)
 (require 'wgrep)
 (require 'org-agenda)
+(require 'org-contacts)
 (require 'calfw)
 (require 'calfw-org)
 (require 'recentf)
@@ -385,6 +439,10 @@ point reaches the beginning or end of the buffer, stop there."
 (eval-after-load 'recentf
   '(progn
     (recentf-mode 1)))
+
+(require 'dash-at-point)
+(bind-key "C-c d" #'dash-at-point)
+(bind-key "C-c e" #'dash-at-point-with-docset)
 
 (epa-file-enable)
 (setq epa-file-encrypt-to '("adamfaryna@gmail.com"))
@@ -400,6 +458,12 @@ point reaches the beginning or end of the buffer, stop there."
       display-buffer-in-previous-window
       display-buffer-use-some-window
       display-buffer-pop-up-frame)))
+
+;; (setq display-buffer-alist
+;;   '((".*\.org\.gpg$"
+;;       (display-buffer-reuse-window display-buffer-below-selected) . (reusable-frames t)))
+;;     ("^\*.*?\*$" )
+;;      ))
 
 ;; (setq display-buffer-alist
 ;;   '(("*Help*" . ((display-buffer-same-window)))))
@@ -459,7 +523,6 @@ point reaches the beginning or end of the buffer, stop there."
 (setq compare-ignore-case t)
 (setq compare-ignore-whitespace t)
 
-
 (setq holiday-bahai-holidays nil)
 (setq holiday-local-holidays nil) ; set it one day
 (setq org-agenda-include-diary t)
@@ -474,15 +537,13 @@ point reaches the beginning or end of the buffer, stop there."
 (setq history-length t)
 (setq history-delete-duplicates t)
 (setq savehist-save-minibuffer-history 1)
-(setq savehist-additional-variables
-      '(kill-ring
-        search-ring
-         regexp-search-ring))
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
 (diminish 'editorconfig-mode)
 (diminish 'auto-revert-mode)
 (diminish 'auto-highlight-symbol-mode)
 (diminish 'git-gutter-mode)
+(diminish 'undo-tree-mode)
 
 (setq sentence-end-double-space nil)
 
@@ -540,7 +601,7 @@ point reaches the beginning or end of the buffer, stop there."
      (bind-key "C-c l"       #'org-store-link              org-mode-map)
      (bind-key "C-."         #'imenu-anywhere              org-mode-map)
      (bind-key "C-c C-x C-s" #'org-archive-subtree-default org-mode-map)
-     (bind-key "C-c C-c"     #'counsel-org-tag             org-mode-map)
+     ;; (bind-key "C-c C-c"     #'counsel-org-tag             org-mode-map)
      (bind-key "C-x :"
        (lambda ()
          (interactive)
@@ -609,14 +670,28 @@ point reaches the beginning or end of the buffer, stop there."
   smtpmail-smtp-service 587
   mml2015-encrypt-to-self t
   mm-verify-option t
-  mm-decrypt-option t)
+  mm-decrypt-option t
+  mml2015-use 'epg
+  mml2015-encrypt-to-self t
+  mml2015-sign-with-sender t)
 
 (if (executable-find "w3m")
   (use-package w3m
     :config (progn
               (setq
+                w3m-default-display-inline-images t
                 w3m-use-cookies t
-                mm-text-html-renderer 'w3m)))
+                mm-text-html-renderer 'w3m
+                w3m-coding-system 'utf-8
+                w3m-file-coding-system 'utf-8
+                w3m-file-name-coding-system 'utf-8
+                w3m-input-coding-system 'utf-8
+                w3m-output-coding-system 'utf-8
+                w3m-terminal-coding-system 'utf-8)
+
+              (if (string= system-type "darwin")
+                (setq process-connection-type nil))
+              ))
   (message (concat "Executable 'w3m' not found!")))
 
 (add-hook 'gnus-summary-mode-hook (lambda ()
@@ -672,6 +747,7 @@ This moves them into the Spam folder."
 ;; Org mode
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
+(bind-key "C-c C-o" #'org-open-at-point-global)
 
 (global-unset-key (kbd "C-x c"))
 (global-unset-key (kbd "C-x <C-left>"))
@@ -849,7 +925,7 @@ This moves them into the Spam folder."
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
-(setq local-config-file (expand-file-name "local-config.el" user-emacs-directory))
+(setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
 
 (desktop-save-mode 1)
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
@@ -867,12 +943,48 @@ This moves them into the Spam folder."
   org-log-into-drawer t)
 (setq org-clock-persist t) ; or 'history?
 (setq org-clock-idle-time 2) ; TODO requires testing
-(setq org-default-notes-file (expand-file-name "notes" user-emacs-directory))
 (setq org-lowest-priority 68)
 (setq org-highest-priority 65)
 (setq org-default-priority 65)
 (setq org-log-done 'time)
+
+(defvar my/org-base-path "~/Documents/emacs/")
+
+(setq org-agenda-directory (expand-file-name "agenda" my/org-base-path))
+(setq org-directory (expand-file-name "orgs" my/org-base-path))
+
+(defvar my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
+(defvar my/org-tasks-file-path (expand-file-name "tasks.org.gpg" org-agenda-directory))
+(defvar my/org-repeatables-file-path (expand-file-name "repeat.org.gpg" org-agenda-directory))
+(defvar my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-directory))
+(defvar my/org-blog-file-path (expand-file-name "blog.org.gpg" org-directory))
+(defvar my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
+(defvar my/org-journal-file-path (expand-file-name "journal.org.gpg" org-directory))
+(defvar my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
+(defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
+
+(setq org-default-notes-file (expand-file-name "notes" org-directory))
+(setq org-contacts-files my/org-contacts-file-path)
+;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
+(setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+(setq org-caldav-save-directory my/tmp-base-path)
+(setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
+(setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
+(setq org-refile-targets `((,my/org-tasks-file-path :maxlevel . 3)
+                           (,my/org-repeatables-file-path :level . 1)
+                           (,my/org-blog-file-path :maxlevel . 2)
+                           (,my/org-journal-file-path :level . 1)
+                           (,my/org-journal-dating-file-path :level . 1)
+                           (,my/org-projects-file-path :level . 1)))
+;; (setq org-refile-targets '((nil . (:maxlevel . 1))
+;;                             (org-agenda-files . (:maxlevel . 1))))
+(setq org-agenda-files
+  (delq nil
+    (mapcar (lambda (x) (and x (file-exists-p x) x))
+      (list my/org-tasks-file-path my/org-repeatables-file-path my/org-anniversaries-file-path))))
+
 (setq org-enforce-todo-dependencies t)
+(setq org-agenda-dim-blocked-tasks t) ; or "invisible"
 (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
 (setq org-priority-start-cycle-with-default nil)
@@ -882,7 +994,7 @@ This moves them into the Spam folder."
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
-;; (setq org-adapt-indentation nil)
+(setq org-adapt-indentation nil)
 (setq org-list-description-max-indent 5)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
@@ -899,14 +1011,6 @@ This moves them into the Spam folder."
 (setq org-agenda-scheduled-leaders '("" ""))
 ;; (setq org-agenda-window-setup 'current-window)
 (setq org-return-follows-link nil)
-(setq org-agenda-directory (expand-file-name "agenda" user-emacs-directory))
-(setq org-directory (expand-file-name "orgs" user-emacs-directory))
-(defvar my/org-contacts-file (expand-file-name "contacts.org.gpg" org-directory))
-(setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
-(setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-(setq org-caldav-save-directory (expand-file-name "tmp" user-emacs-directory))
-(setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-(setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
 (setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 10)
@@ -916,14 +1020,6 @@ This moves them into the Spam folder."
 (setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-file-regexp ".*org\(.gpg\)?$")
-(setq org-agenda-files
-  (delq nil
-    (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list
-        (expand-file-name "tasks.org" org-agenda-directory)
-        (expand-file-name "shared.org" org-agenda-directory)
-        (expand-file-name "tasks.org.gpg" org-agenda-directory)
-        ))))
 
 (org-remove-file org-caldav-inbox)
 (setq org-icalendar-with-timestamps 'active)
@@ -932,11 +1028,12 @@ This moves them into the Spam folder."
 (setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
 (setq org-refile-use-outline-path t)
-(setq org-refile-targets '((nil . (:maxlevel . 1))
-                            (org-agenda-files . (:maxlevel . 1))))
+
 (setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-odt-preferred-output-format "doc")
+(setq org-agenda-start-on-weekday nil)
+(setq org-fast-tag-selection-single-key 'expert) ; ?
 
 (if (executable-find "unoconv")
   (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
@@ -944,31 +1041,33 @@ This moves them into the Spam folder."
   (message "No executable \"unoconv found\".")
   )
 
-(advice-add 'org-capture :before (lambda () (interactive) (message (concat "ala: org-agenda-directory: " org-agenda-directory " org-directory: " org-directory))))
+(setq org-tags-exclude-from-inheritance '("project") ; prj
+      org-stuck-projects '("+project/-DONE" ("TODO") ()))
+
 
 (setq org-capture-templates
-  `(("t" "Todo" entry (file ,(expand-file-name "tasks.org.gpg" org-agenda-directory))
+  `(("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
       "* TODO %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil) ; wish :prepend t
-     ("p" "Blog post" entry (file ,(expand-file-name "blog.org.gpg" org-directory))
+  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+     ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
        "* %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil) ; wish :prepend t
-     ("h" "Habit" entry (file ,(expand-file-name "tasks.org.gpg" org-agenda-directory))
+  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+     ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
        "* TODO %?
   SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
   :STYLE: habit
-  :END:" :prepend nil) ; wish :prepend t
-     ("j" "Journal" entry (file ,(expand-file-name "journal.org.gpg" org-directory))
-       "* [%<%Y-%m-%d>]\n%?"  :prepend t :jump-to-captured t)
+  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+     ("j" "Journal" entry (file ,my/org-journal-file-path)
+       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1)
      ("n" "Add note to currently clocked entry" plain (clock)
-       "- Note taken on %U \\\\ \n  %?")
-     ("c" "Contact" entry (file my/org-contacts-file) ;,(expand-file-name "contacts.org.gpg" org-directory))
+       "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
+     ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
        "* %(org-contacts-template-name)
   :PROPERTIES:
   :TITLE:
@@ -985,19 +1084,50 @@ This moves them into the Spam folder."
   :ITOLD_THEM_PHONE:
   :NOTES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:")))
+  :END:" :prepend nil :empty-lines-after 1)))
 
-(set-register ?g (cons 'file (expand-file-name "goals.org.gpg" org-directory)))
-(set-register ?k (cons 'file (expand-file-name "knowledge.org" org-directory)))
-(set-register ?j (cons 'file (expand-file-name "journal.org.gpg" org-directory)))
-(set-register ?p (cons 'file (expand-file-name "projects.org.gpg" org-directory)))
-(set-register ?t (cons 'file (expand-file-name "tasks.org.gpg" org-agenda-directory)))
-(set-register ?s (cons 'file (expand-file-name "shared.org" org-agenda-directory)))
+(defvar my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
+(defvar my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
+
+(set-register ?a (cons 'file my/org-anniversaries-file-path))
+(set-register ?g (cons 'file my/org-goals-file-path))
+(set-register ?k (cons 'file my/org-knowledge-file-path))
+(set-register ?j (cons 'file my/org-journal-file-path))
+(set-register ?p (cons 'file my/org-projects-file-path))
+(set-register ?t (cons 'file my/org-tasks-file-path))
+(set-register ?t (cons 'file my/org-repeatables-file-path)) ; repeat, habit
+(set-register ?l (cons 'file my/local-config-file-path))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
-(set-register ?l (cons 'file local-config-file))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+
+; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
+(defun my/org-agenda-skip-all-siblings-but-first ()
+  "Skip all but the first non-done entry."
+  (let (should-skip-entry)
+    (unless (my/org-current-is-todo-p)
+      (setq should-skip-entry t))
+    (save-excursion
+      (while (and (not should-skip-entry) (org-goto-sibling t))
+        (if (my/org-current-is-todo-p)
+          (setq should-skip-entry t)
+          (setq should-skip-entry nil))))
+    (when should-skip-entry
+      (or (outline-next-heading)
+          (goto-char (point-max))))))
+
+(defun my/org-current-is-todo-p ()
+  (string= "TODO" (org-get-todo-state)))
+
+;; (setq org-agenda-custom-commands
+;;   '(("o" "At the office" tags-todo "@office"
+;;       ((org-agenda-overriding-header "Office")
+;;         (org-agenda-skip-function #'my/org-agenda-skip-all-siblings-but-first)))))
+
+;; (setq org-agenda-custom-commands
+;;       '(("o" "At the office" tags-todo "@office"
+;;          ((org-agenda-overriding-header "Office")))))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
@@ -1037,7 +1167,8 @@ This moves them into the Spam folder."
            (org-agenda-overriding-header "High-priority unfinished tasks:")
            (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
            ))
-        (agenda "")
+        (agenda ""
+          ((org-agenda-sorting-strategy '(todo-state-down habit-down))))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -1179,10 +1310,9 @@ should be continued."
 (set-face-attribute 'default nil :font default-font)
 (color-theme-sanityinc-tomorrow-night)
 
-(when (file-exists-p local-config-file)
-  (message "local config exists")
-  (load local-config-file))
-
+(when (file-exists-p my/local-config-file-path)
+  (message (concat "Loading " my/local-config-file-path "..."))
+  (load my/local-config-file-path))
 
 ;; temporary
 ;; (set-face-foreground 'dired-directory "yellow" )
