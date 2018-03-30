@@ -2,6 +2,7 @@ init.view
 .netrwbook
 .netrwhist
 *.spl
+*.elc
 
 dotenv/bash/bash_profile
 
