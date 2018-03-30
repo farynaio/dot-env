@@ -40,7 +40,7 @@
 (use-package dash)
 (use-package monitor)
 
-(defvar my/text-modes '('org-mode 'emacs-lisp-mode))
+(defvar my/text-modes '('org-mode-map 'emacs-lisp-mode-map))
 
 (use-package evil
   :init
@@ -78,6 +78,8 @@
     (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-normal-state-map)
     (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-motion-state-map)
 
+    (add-hook 'with-editor-mode-hook 'evil-insert-state)
+
     (dolist (element my/text-modes)
       (evil-define-key '(motion normal) element
         (kbd "<down>") #'evil-next-visual-line
@@ -92,12 +94,6 @@
             (delete-window))
           (display-buffer-pop-up-frame buffer nil)))
       evil-normal-state-map)
-
-    ;; (defvar mu4e:view-mode-map (make-sparse-keymap))
-    ;; (defvar mu4e-headers-mode-map (make-sparse-keymap))
-    ;; (defvar flyspell-mode-map (make-sparse-keymap))
-    ;; (defvar help-mode-map (make-sparse-keymap))
-    ;; (defvar ediff-mode-map (make-sparse-keymap))
 
     (evil-define-key '(motion emacs normal) mu4e:view-mode-map
       "C-d" #'evil-scroll-down
@@ -154,7 +150,12 @@
   (progn
     (global-evil-matchit-mode 1)))
 
-(use-package org-evil)
+(use-package org-evil
+  :config
+  (progn
+    (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
+    (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
+    ))
 
 (use-package magit
   :diminish magit-auto-revert-mode
@@ -324,7 +325,8 @@
     projectile-indexing-method 'alien
     projectile-enable-caching t
     projectile-verbose nil
-    projectile-do-log nil)
+    projectile-do-log nil
+    projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :config
   (progn
     (projectile-mode 1)))
@@ -333,10 +335,6 @@
   :config
   (progn
     (counsel-projectile-mode 1)))
-
-;; (use-package ido)
-;; (use-package ido-completing-read+)
-;; (use-package ido-vertical-mode)
 
 ;; TODO make it language specific switch
 (use-package artbollocks-mode
@@ -383,6 +381,9 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
+(setq safe-local-variable-values '(
+  (ispell-dictionary . "pl")))
+
 (bind-key "C-c p" 'pop-to-mark-command)
 (setq set-mark-command-repeat-pop t)
 
@@ -416,7 +417,6 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
-;; remap C-a to `smarter-move-beginning-of-line'
 (global-set-key [remap move-beginning-of-line]
                 'my/smarter-move-beginning-of-line)
 
@@ -441,32 +441,22 @@ point reaches the beginning or end of the buffer, stop there."
     (recentf-mode 1)))
 
 (require 'dash-at-point)
-(bind-key "C-c d" #'dash-at-point)
-(bind-key "C-c e" #'dash-at-point-with-docset)
 
 (epa-file-enable)
-(setq epa-file-encrypt-to '("adamfaryna@gmail.com"))
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 (setq default-directory "~/.emacs.d")
 
-(setq display-buffer-reuse-frames t)
-(setq display-buffer-fallback-action
-  '(( display-buffer-reuse-window
-      display-buffer--maybe-same-window
-      display-buffer--maybe-pop-up-frame-or-window
-      display-buffer-in-previous-window
-      display-buffer-use-some-window
-      display-buffer-pop-up-frame)))
-
-;; (setq display-buffer-alist
-;;   '((".*\.org\.gpg$"
-;;       (display-buffer-reuse-window display-buffer-below-selected) . (reusable-frames t)))
-;;     ("^\*.*?\*$" )
-;;      ))
-
-;; (setq display-buffer-alist
-;;   '(("*Help*" . ((display-buffer-same-window)))))
+(setq display-buffer-alist
+  '(
+     (".*\.org\(\.gpg\)?$"
+       (display-buffer-reuse-window display-buffer-below-selected) . (reusable-frames t))
+     ("^\*.*?\*$"
+       (display-buffer-reuse-window display-buffer-pop-up-window) . (inhibit-switch-frame t))
+     ("*.el$"
+       (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame)
+       )
+     ))
 
 (bind-key ", c d"
   (lambda ()
@@ -545,6 +535,8 @@ point reaches the beginning or end of the buffer, stop there."
 (diminish 'git-gutter-mode)
 (diminish 'undo-tree-mode)
 
+(setq undo-tree-visualizer-diff t)
+
 (setq sentence-end-double-space nil)
 
 (when (eq system-type 'darwin)
@@ -601,7 +593,7 @@ point reaches the beginning or end of the buffer, stop there."
      (bind-key "C-c l"       #'org-store-link              org-mode-map)
      (bind-key "C-."         #'imenu-anywhere              org-mode-map)
      (bind-key "C-c C-x C-s" #'org-archive-subtree-default org-mode-map)
-     ;; (bind-key "C-c C-c"     #'counsel-org-tag             org-mode-map)
+
      (bind-key "C-x :"
        (lambda ()
          (interactive)
@@ -614,9 +606,11 @@ point reaches the beginning or end of the buffer, stop there."
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
-     (advice-add 'org-forward-paragraph :around (lambda (orig &rest args) (forward-paragraph)))
-     (advice-add 'org-backward-paragraph :around (lambda (orig &rest args) (backward-paragraph)))
-     (add-hook 'org-mode-hook (lambda () (hl-line-mode)))))
+     (add-hook 'org-mode-hook
+       (lambda ()
+         (hl-line-mode)
+         (setq-local paragraph-start "[:graph:]+$")
+         (setq-local paragraph-separate "[:space:]*$")))))
 
 (eval-after-load 'org-agenda
   '(progn
@@ -848,10 +842,6 @@ This moves them into the Spam folder."
 (eval-after-load 'dired-mode
   (lambda ()
     (define-key (kbd "t") (dired-toggle-marks)) ; toggle marks
-    ))
-
-(add-hook 'dired-mode
-  (lambda ()
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
     ))
 
@@ -897,6 +887,8 @@ This moves them into the Spam folder."
 ;; programming
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
 
+(setq my/devel-keymaps (list emacs-lisp-mode-map lisp-mode-map lisp-interaction-mode-map))
+
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (add-hook 'find-file-hook
@@ -912,6 +904,10 @@ This moves them into the Spam folder."
           (setq found t)))
         (when (not found)
           ))))
+
+(dolist (i my/devel-keymaps)
+  (bind-key "C-c d" #'dash-at-point i)
+  (bind-key "C-c e" #'dash-at-point-with-docset i))
 
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
@@ -964,7 +960,7 @@ This moves them into the Spam folder."
 (defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
 
 (setq org-default-notes-file (expand-file-name "notes" org-directory))
-(setq org-contacts-files my/org-contacts-file-path)
+(setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-caldav-save-directory my/tmp-base-path)
@@ -1182,7 +1178,6 @@ This moves them into the Spam folder."
        )
      )
   )
-
 
 (defun my/org-calendar-export-limit ()
   "Limit the export to items that have a date, time and a range. Also exclude certain categories."
