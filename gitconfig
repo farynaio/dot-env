@@ -6,6 +6,7 @@
 	upstream = cyan
 
 [core]
+  attributesFile = ~/.gitattributes_global
 	excludesfile = ~/.gitignore_global
   autocrlf = input
   pager = less -r
@@ -24,6 +25,9 @@
 	wordRegex = .
   # Display submodule-related information (commit listings)
 	submodule = log
+
+[diff "gpg"]
+	textconv = gpg --no-tty --decrypt
 
 [grep]
 	# Consider most regexes to be ERE
