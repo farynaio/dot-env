@@ -14,9 +14,9 @@ emacs.d/orgs
 emacs.d/agenda
 emacs.d/savehist
 emacs.d/archive
+emacs.d/image-dired
 
 !emacs.d/agenda/shared.org
-
 !emacs.d/archive/shared_archive.org
 
 emacs.d/org-caldav*

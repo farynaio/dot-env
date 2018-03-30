@@ -3,10 +3,10 @@
 (add-to-list 'exec-path "/usr/local/bin")
 
 (require 'package)
-(unless (assoc-default "org" package-archives)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
 (unless (assoc-default "melpa" package-archives)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")))
+(unless (assoc-default "org" package-archives)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
 (unless (assoc-default "gnu" package-archives)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (unless (assoc-default "tromey" package-archives)
@@ -32,6 +32,11 @@
   :config (auto-compile-on-load-mode))
 
 (setq load-prefer-newer t)
+
+(use-package diminish
+  :config
+  (progn
+    (diminish 'abbrev-mode " A")))
 
 (use-package miniedit)
 (use-package calfw)
@@ -193,8 +198,11 @@
 (use-package with-editor)  ; dependency for other package
 (use-package neotree)
 (use-package multiple-cursors)
-(use-package color-theme-sanityinc-tomorrow)
-(use-package persistent-scratch)
+
+(use-package color-theme-sanityinc-tomorrow
+  :config (color-theme-sanityinc-tomorrow-night))
+
+;; (use-package persistent-scratch)
 (use-package git-gutter)
 ;; (use-package oauth2)
 ;; (use-package artbollocks-mode)
@@ -216,7 +224,8 @@
     (bind-key "C-:" #'ivy-dired ivy-minibuffer-map)
     (bind-key "C-c o" #'ivy-occur ivy-minibuffer-map)
     (bind-key "C-'" #'ivy-avy ivy-minibuffer-map)
-    (bind-key "C-x b" #'display-buffer)
+    (bind-key "C-x b" #'pop-to-buffer)
+    ;; (bind-key "C-x b" #'display-buffer)
 
     (defun ivy-dired ()
       (interactive)
@@ -336,7 +345,6 @@
   (progn
     (counsel-projectile-mode 1)))
 
-;; TODO make it language specific switch
 (use-package artbollocks-mode
   :defer t
   :config
@@ -434,7 +442,7 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'calfw-org)
 (require 'recentf)
 (require 're-builder)
-(setq reb-re-syntax 'string)
+;; (setq reb-re-syntax 'string)
 
 (eval-after-load 'recentf
   '(progn
@@ -449,13 +457,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (setq display-buffer-alist
   '(
-     (".*\.org\(\.gpg\)?$"
-       (display-buffer-reuse-window display-buffer-below-selected) . (reusable-frames t))
-     ("^\*.*?\*$"
-       (display-buffer-reuse-window display-buffer-pop-up-window) . (inhibit-switch-frame t))
-     ("*.el$"
-       (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame)
-       )
+     ("^.+\\.org\\(\\.gpg\\)?$"
+       (display-buffer-reuse-window) . ((reusable-frames . t)))
+     ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
+       (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))
      ))
 
 (bind-key ", c d"
@@ -543,9 +548,19 @@ point reaches the beginning or end of the buffer, stop there."
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
 
-(setq diredp-hide-details-initially-flag nil)
-(require 'dired+)
-(diredp-toggle-find-file-reuse-dir 1)
+(use-package dired+
+  :init
+  (progn
+    (setq diredp-hide-details-initially-flag nil))
+  :config
+  (progn
+    (diredp-toggle-find-file-reuse-dir 1)
+    (setq diredp-auto-focus-frame-for-thumbnail-tooltip-flag t)
+    (bind-key (kbd "<backspace>") #'diredp-up-directory-reuse-dir-buffer dired-mode-map)))
+
+;; (use-package image-dired+)
+(use-package image-dired)
+;; (require 'bookmark+)
 
 (remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
@@ -568,10 +583,6 @@ point reaches the beginning or end of the buffer, stop there."
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
 (add-hook 'text-mode-hook 'abbrev-mode)
-(use-package diminish
-  :config
-  (progn
-    (diminish 'abbrev-mode " A")))
 
 (eval-after-load 'sunrise-commander
   '(progn
@@ -1303,20 +1314,17 @@ should be continued."
   custom-safe-themes t
   default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 (set-face-attribute 'default nil :font default-font)
-(color-theme-sanityinc-tomorrow-night)
 
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
 
-;; temporary
-;; (set-face-foreground 'dired-directory "yellow" )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
+  ;; If there is more than one, they won't work right.
+  )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -133,3 +133,6 @@
   sd = stash show -p
   mt = mergetool
   dt = difftool
+[user]
+	name = Adam Faryna
+	email = adamfaryna@appdy.net
