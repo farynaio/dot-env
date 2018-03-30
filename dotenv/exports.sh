@@ -2,8 +2,6 @@
 
 set -o emacs
 
-export USER_NAME=""
-export EMAIL=""
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export ANDROID_HOME="/usr/local/share/android-sdk"
@@ -11,6 +9,7 @@ export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export EDITOR="/usr/bin/vim"
 export SED=`which sed`
+export MU_HOME="~/Maildir"
 
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/bin"
@@ -33,10 +32,10 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
 
-export PAGER="/usr/bin/less -isM -F -X +Gg $LESS"
-export MANPAGER=$PAGER
-export GIT_PAGER=$PAGER
-export MANPATH=$NPM_PACKAGES/share/man:$MANPATH
+# export PAGER="/usr/bin/less -isM -F -X +Gg $LESS"
+# export MANPAGER=$PAGER
+# export GIT_PAGER=$PAGER
+# export MANPATH=$NPM_PACKAGES/share/man:$MANPATH
 
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3

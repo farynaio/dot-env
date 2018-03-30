@@ -3,6 +3,8 @@ init.view
 .netrwhist
 *.spl
 
+dotenv/bash/bash_profile
+
 emacs.d/recentf
 emacs.d/bookmarks
 emacs.d/elpa
