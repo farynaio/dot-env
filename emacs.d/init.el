@@ -389,8 +389,11 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-(setq safe-local-variable-values '(
-  (ispell-dictionary . "pl")))
+(setq safe-local-variable-values '((ispell-dictionary . "pl")))
+
+(add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
+(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
 (bind-key "C-c p" 'pop-to-mark-command)
 (setq set-mark-command-repeat-pop t)
@@ -961,8 +964,10 @@ This moves them into the Spam folder."
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 
 (defvar my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
-(defvar my/org-tasks-file-path (expand-file-name "tasks.org.gpg" org-agenda-directory))
-(defvar my/org-repeatables-file-path (expand-file-name "repeat.org.gpg" org-agenda-directory))
+(defvar my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
+(defvar my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
+(defvar my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
+(defvar my/org-notes-file-path (expand-file-name "notes.org" org-directory))
 (defvar my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-directory))
 (defvar my/org-blog-file-path (expand-file-name "blog.org.gpg" org-directory))
 (defvar my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
@@ -970,10 +975,10 @@ This moves them into the Spam folder."
 (defvar my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
 (defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
 
-(setq org-default-notes-file (expand-file-name "notes" org-directory))
+(setq org-default-notes-file my/org-notes-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
-(setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq org-caldav-save-directory my/tmp-base-path)
 (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
 (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
@@ -988,23 +993,33 @@ This moves them into the Spam folder."
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list my/org-tasks-file-path my/org-repeatables-file-path my/org-anniversaries-file-path))))
+      (list my/org-tasks-file-path my/org-anniversaries-file-path))))
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
 (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
+(setq org-use-speed-commands t)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
 (setq org-priority-start-cycle-with-default nil)
 (setq org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
 ;; (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
+(setq org-export-babel-evaluate nil)
+(setq org-ascii-links-to-notes nil)
+(setq org-ascii-headline-spacing '(1 . 1))
+(setq org-export-with-smart-quotes t) ; could cause problems on babel export
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
 (setq org-adapt-indentation nil)
 (setq org-list-description-max-indent 5)
+(setq org-agenda-inhibit-startup t)
+(setq org-agenda-use-tag-inheritance nil)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
+(setq org-deadline-warning-days 5)
 ;; (setq org-tags-column -100)
 (setq org-reverse-note-order t)
 (setq org-global-properties '(("Effort_ALL" . "0:05 0:15 0:30 1:00 2:00 4:00")))
@@ -1040,7 +1055,7 @@ This moves them into the Spam folder."
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-odt-preferred-output-format "doc")
 (setq org-agenda-start-on-weekday nil)
-(setq org-fast-tag-selection-single-key 'expert) ; ?
+(setq org-fast-tag-selection-single-key t) ; expert ?
 
 (if (executable-find "unoconv")
   (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
@@ -1051,29 +1066,36 @@ This moves them into the Spam folder."
 (setq org-tags-exclude-from-inheritance '("project") ; prj
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
-
 (setq org-capture-templates
-  `(("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
+  `(("i" "Inbox" entry (file ,my/org-inbox-file-path)
+      "* %?
+  :PROPERTIES:
+  :CREATED: [%<%Y-%m-%d>]
+  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+     ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
       "* TODO %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
        "* %?
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
        "* TODO %?
   SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
   :PROPERTIES:
   :CREATED: [%<%Y-%m-%d>]
   :STYLE: habit
-  :END:" :prepend nil :empty-lines-after 1) ; wish :prepend t
+  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("j" "Journal" entry (file ,my/org-journal-file-path)
-       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1)
-     ("n" "Add note to currently clocked entry" plain (clock)
-       "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
+       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+     ("n" "Note" plain (file ,my/org-notes-file-path)
+       "  - Note taken on %U \\\\
+    %?" :prepend nil :kill-buffer t)
+     ;; ("n" "Add note to currently clocked entry" plain (clock)
+     ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
      ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
        "* %(org-contacts-template-name)
   :PROPERTIES:
@@ -1091,7 +1113,7 @@ This moves them into the Spam folder."
   :ITOLD_THEM_PHONE:
   :NOTES:
   :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1)))
+  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t)))
 
 (defvar my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (defvar my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
@@ -1102,12 +1124,23 @@ This moves them into the Spam folder."
 (set-register ?j (cons 'file my/org-journal-file-path))
 (set-register ?p (cons 'file my/org-projects-file-path))
 (set-register ?t (cons 'file my/org-tasks-file-path))
-(set-register ?t (cons 'file my/org-repeatables-file-path)) ; repeat, habit
+(set-register ?h (cons 'file my/org-repeatables-file-path)) ; repeat, habit
 (set-register ?l (cons 'file my/local-config-file-path))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 
 (setq org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)" "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)")
+     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+
+(setq org-todo-keyword-faces
+  '(("TODO" . (:foreground "dark grey" :weight bold))
+     ("IN-PROCESS" . (:foreground "IndianRed1" :weight bold))
+     ("BLOCKED"    . (:foreground "OrangeRed" :weight bold))
+     ("WAITING"    . (:foreground "coral" :weight bold))
+     ("SOMEDAY"    . (:foreground "blue" :weight bold))
+     ("DONE"       . (:foreground "LimeGreen" :weight bold))
+     ("CANCELED"   . (:foreground "LimeGreen" :weight bold))
+     ("UNDOABLE"   . (:foreground "LimeGreen" :weight bold))))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 (defun my/org-agenda-skip-all-siblings-but-first ()
@@ -1175,7 +1208,10 @@ This moves them into the Spam folder."
            (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
            ))
         (agenda ""
-          ((org-agenda-sorting-strategy '(todo-state-down habit-down))))
+          ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down))
+            (org-agenda-remove-tags t)
+            (ps-number-of-columns 2)
+            (ps-landscape-mode t)))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -1249,12 +1285,18 @@ should be continued."
 
 (org-clock-persistence-insinuate)
 
-(setq org-tag-alist '(("@health" . ?h) ; my energy level, my looks
-                       ("@fun" . ?u) ; relax, enjoy life
-                       ("@career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
-                       ("@family&friends" . ?f) ; my social network, my professional network
-                       ("@love" . ?l) ; my happiness, my ultimate goal, my real legacy
-                       ("@wealth" . ?w) ; my legacy
+(setq org-tag-alist '(
+                       ("health" . ?h) ; my energy level, my looks
+                       ("fun" . ?u) ; relax, enjoy life
+                       ("career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
+                       ("family" . ?f) ; my social network, my professional network
+                       ("love" . ?l) ; my happiness, my ultimate goal, my real legacy
+                       ("wealth" . ?w) ; my legacy
+                       ("@home" . ?o)
+                       ("@office" . ?i)
+                       ("@phone" . ?p)
+                       ("@email" . ?m)
+                       ("@delegate" . ?d)
                        ))
 
 (add-to-list 'org-modules 'org-habit t)
@@ -1265,6 +1307,14 @@ should be continued."
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+;; blogging
+;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
+;; (require 'ox-publish)
+;; (setq org-html-coding-system 'utf-8-unix)
+;; (setq org-html-head-include-default-style nil)
+;; (setq org-html-head-include-scripts nil)
+;; (setq org-html-validation-link nil)
 
 ;; programming
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
@@ -1323,8 +1373,9 @@ should be continued."
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-  )
+ ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
