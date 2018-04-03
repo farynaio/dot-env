@@ -45,6 +45,14 @@
 (use-package dash)
 (use-package monitor)
 
+(use-package oauth2
+  :init
+  (progn
+    (defvar oauth--token-data ())
+    (defvar url-http-extra-headers ())
+    (defvar url-callback-function ())
+    (defvar url-callback-arguments ())))
+
 (defvar my/text-modes '('org-mode-map 'emacs-lisp-mode-map))
 
 (use-package evil
@@ -606,7 +614,7 @@ point reaches the beginning or end of the buffer, stop there."
      (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm org-mode-map)
      (bind-key "C-c l"       #'org-store-link              org-mode-map)
      (bind-key "C-."         #'imenu-anywhere              org-mode-map)
-     (bind-key "C-c C-x C-s" #'org-archive-subtree-default org-mode-map)
+     (bind-key "C-c C-x a"   #'org-archive-subtree-default org-mode-map)
 
      (bind-key "C-x :"
        (lambda ()
@@ -619,6 +627,9 @@ point reaches the beginning or end of the buffer, stop there."
      (unbind-key "C-c C-x C-a" org-mode-map) ; remove archive subtree default shortcut
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
+
+     (advice-add #'org-refile :after
+       (lambda (&rest args) (org-save-all-org-buffers)))
 
      (add-hook 'org-mode-hook
        (lambda ()
@@ -964,13 +975,14 @@ This moves them into the Spam folder."
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 
 (defvar my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
-(defvar my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
+(defvar my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (defvar my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
+(defvar my/org-tasks-file-path (expand-file-name "tasks.org" org-directory))
 (defvar my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
+(defvar my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
 (defvar my/org-notes-file-path (expand-file-name "notes.org" org-directory))
 (defvar my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-directory))
 (defvar my/org-blog-file-path (expand-file-name "blog.org.gpg" org-directory))
-(defvar my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
 (defvar my/org-journal-file-path (expand-file-name "journal.org.gpg" org-directory))
 (defvar my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
 (defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
@@ -982,18 +994,16 @@ This moves them into the Spam folder."
 (setq org-caldav-save-directory my/tmp-base-path)
 (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
 (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
-(setq org-refile-targets `((,my/org-tasks-file-path :maxlevel . 3)
+(setq org-refile-targets `((,my/org-tasks-file-path :level . 1)
+                           (,my/org-active-file-path :level . 1)
                            (,my/org-repeatables-file-path :level . 1)
-                           (,my/org-blog-file-path :maxlevel . 2)
-                           (,my/org-journal-file-path :level . 1)
-                           (,my/org-journal-dating-file-path :level . 1)
-                           (,my/org-projects-file-path :level . 1)))
+                           (,my/org-projects-file-path :maxlevel . 3)))
 ;; (setq org-refile-targets '((nil . (:maxlevel . 1))
 ;;                             (org-agenda-files . (:maxlevel . 1))))
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list my/org-tasks-file-path my/org-anniversaries-file-path))))
+      (list my/org-active-file-path my/org-anniversaries-file-path))))
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
@@ -1118,12 +1128,13 @@ This moves them into the Spam folder."
 (defvar my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (defvar my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
 
-(set-register ?a (cons 'file my/org-anniversaries-file-path))
+(set-register ?a (cons 'file my/org-active-file-path))
+(set-register ?t (cons 'file my/org-tasks-file-path))
+(set-register ?p (cons 'file my/org-projects-file-path))
+(set-register ?n (cons 'file my/org-anniversaries-file-path))
 (set-register ?g (cons 'file my/org-goals-file-path))
 (set-register ?k (cons 'file my/org-knowledge-file-path))
 (set-register ?j (cons 'file my/org-journal-file-path))
-(set-register ?p (cons 'file my/org-projects-file-path))
-(set-register ?t (cons 'file my/org-tasks-file-path))
 (set-register ?h (cons 'file my/org-repeatables-file-path)) ; repeat, habit
 (set-register ?l (cons 'file my/local-config-file-path))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
@@ -1176,9 +1187,12 @@ This moves them into the Spam folder."
       ((org-agenda-overriding-header "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort")
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
      ("cn" "TODOs not sheduled"
+       ((todo "DONE|TODO|CANCELED|UNDOABLE"))
        (
-         (tags "-SCHEDULED={.+}/!+TODO|+BLOCKED|+IN-PROCESS|+WAITING"))
-       ((org-agenda-overriding-header "TODOs not scheduled")
+         (org-agenda-skip-function
+           '(or (org-agenda-skip-if nil '(scheduled))))
+         (org-agenda-category-filter-preset '("-Holidays"))
+         (org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
      ("cb" "TODOs blocked"
        (
@@ -1196,6 +1210,9 @@ This moves them into the Spam folder."
        ((org-agenda-files (list org-journal-dir))
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
+     ("z" "DONE tasks"
+       ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
+       ((org-agenda-files '(my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
      ("d" "Coprehensive agenda"
       ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
          ((org-agenda-skip-function
@@ -1375,7 +1392,10 @@ should be continued."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night))))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+  '(custom-safe-themes
+     (quote
+       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
