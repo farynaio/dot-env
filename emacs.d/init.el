@@ -1007,7 +1007,8 @@ This moves them into the Spam folder."
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
       (list my/org-active-file-path
-         my/org-anniversaries-file-path
+        my/org-anniversaries-file-path
+        my/org-repeatables-file-path
          my/org-tasks-file-path))))
 
 (setq org-enforce-todo-dependencies t)
@@ -1404,7 +1405,10 @@ should be continued."
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
   '(custom-safe-themes
      (quote
-       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" . t))))
+       ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" . t)))
+  '(package-selected-packages
+     (quote
+       (oauth2 wgrep w3m use-package ujelly-theme twilight-theme transpose-frame sublime-themes smartscan rainbow-mode persistent-scratch org-plus-contrib org-evil neotree multiple-cursors monokai-theme miniedit material-theme magit ivy-hydra imenu-anywhere image-dired+ hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dracula-theme dired+ diminish darktooth-theme counsel-projectile color-theme-sanityinc-tomorrow challenger-deep-theme centered-cursor-mode calfw-org calfw base16-theme badger-theme avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
