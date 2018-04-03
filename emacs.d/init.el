@@ -631,6 +631,9 @@ point reaches the beginning or end of the buffer, stop there."
      (advice-add #'org-refile :after
        (lambda (&rest args) (org-save-all-org-buffers)))
 
+     (advice-add #'org-archive-subtree-default :after
+       (lambda () (org-save-all-org-buffers)))
+
      (add-hook 'org-mode-hook
        (lambda ()
          (hl-line-mode)
@@ -1003,7 +1006,9 @@ This moves them into the Spam folder."
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list my/org-active-file-path my/org-anniversaries-file-path))))
+      (list my/org-active-file-path
+         my/org-anniversaries-file-path
+         my/org-tasks-file-path))))
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
@@ -1144,14 +1149,14 @@ This moves them into the Spam folder."
      (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
 
 (setq org-todo-keyword-faces
-  '(("TODO" . (:foreground "dark grey" :weight bold))
+  '(("TODO" . (:foreground "LimeGreen" :weight bold))
      ("IN-PROCESS" . (:foreground "IndianRed1" :weight bold))
      ("BLOCKED"    . (:foreground "OrangeRed" :weight bold))
      ("WAITING"    . (:foreground "coral" :weight bold))
      ("SOMEDAY"    . (:foreground "blue" :weight bold))
-     ("DONE"       . (:foreground "LimeGreen" :weight bold))
-     ("CANCELED"   . (:foreground "LimeGreen" :weight bold))
-     ("UNDOABLE"   . (:foreground "LimeGreen" :weight bold))))
+     ("DONE"       . (:foreground "dark grey" :weight bold))
+     ("CANCELED"   . (:foreground "dark grey" :weight bold))
+     ("UNDOABLE"   . (:foreground "dark grey" :weight bold))))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 (defun my/org-agenda-skip-all-siblings-but-first ()
@@ -1182,35 +1187,37 @@ This moves them into the Spam folder."
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
-      (
-        (agenda "*"))
-      ((org-agenda-overriding-header "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort")
+      ((agenda "*"))
+      ((org-agenda-overriding-header "agenda weekly sorted by state, priority, deadline, scheduled, alpha and effort")
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
      ("cn" "TODOs not sheduled"
-       ((todo "DONE|TODO|CANCELED|UNDOABLE"))
-       (
-         (org-agenda-skip-function
+       ((todo "*"))
+       ((org-agenda-skip-function
            '(or (org-agenda-skip-if nil '(scheduled))))
          (org-agenda-category-filter-preset '("-Holidays"))
          (org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
      ("cb" "TODOs blocked"
-       (
-         (tags "BLOCKED"))
+       ((tags "BLOCKED"))
        ((org-agenda-overriding-header "TODOs blocked")
          (org-agenda-sorting-strategy '(priority-down deadline-down alpha-down effort-up))))
      ("cc" "TODOs canceled"
-       (
-         (todo "CANCELED"))
+       ((todo "CANCELED"))
        ((org-agenda-overriding-header "TODOs canceled")
          (org-agenda-sorting-strategy '(priority-down alpha-down effort-up))))
-     ("cj" "Journal"
-       (
-         (search ""))
+     ("cj" "Journal entries"
+       ((search ""))
        ((org-agenda-files (list org-journal-dir))
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
-     ("z" "DONE tasks"
+     ("cm" "agenda 1 month ahead"
+       ((agenda ""
+         ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down))
+           (org-agenda-span 'month)
+           (org-agenda-remove-tags t)
+           (ps-number-of-columns 2)
+           (ps-landscape-mode t)))))
+     ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-files '(my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
      ("d" "Coprehensive agenda"
@@ -1225,7 +1232,7 @@ This moves them into the Spam folder."
            (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
            ))
         (agenda ""
-          ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down))
+          ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down effort-down))
             (org-agenda-remove-tags t)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)))
@@ -1309,11 +1316,13 @@ should be continued."
                        ("family" . ?f) ; my social network, my professional network
                        ("love" . ?l) ; my happiness, my ultimate goal, my real legacy
                        ("wealth" . ?w) ; my legacy
+                       (:startgroup . nil)
                        ("@home" . ?o)
                        ("@office" . ?i)
                        ("@phone" . ?p)
                        ("@email" . ?m)
                        ("@delegate" . ?d)
+                       (:endgroup . nil)
                        ))
 
 (add-to-list 'org-modules 'org-habit t)
