@@ -207,8 +207,8 @@
 (use-package neotree)
 (use-package multiple-cursors)
 
-(use-package color-theme-sanityinc-tomorrow
-  :config (color-theme-sanityinc-tomorrow-night))
+
+(use-package color-theme-sanityinc-tomorrow)
 
 ;; (use-package persistent-scratch)
 (use-package git-gutter)
@@ -642,7 +642,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (eval-after-load 'org-agenda
   '(progn
-     (bind-key "C-c C-c" #'counsel-org-tag-agenda org-agenda-mode-map)
+     (bind-key "C-c C-c" #'org-agenda-set-tags org-agenda-mode-map)
      (bind-key "C-d" #'evil-scroll-down org-agenda-mode-map)
      (bind-key "C-u" #'evil-scroll-up org-agenda-mode-map)))
 
@@ -980,6 +980,7 @@ This moves them into the Spam folder."
 (defvar my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
 (defvar my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (defvar my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
+(defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
 (defvar my/org-tasks-file-path (expand-file-name "tasks.org" org-directory))
 (defvar my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
 (defvar my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
@@ -988,7 +989,7 @@ This moves them into the Spam folder."
 (defvar my/org-blog-file-path (expand-file-name "blog.org.gpg" org-directory))
 (defvar my/org-journal-file-path (expand-file-name "journal.org.gpg" org-directory))
 (defvar my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
-(defvar my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
+(defvar my/org-media-file-path (expand-file-name "media.org.gpg" org-directory))
 
 (setq org-default-notes-file my/org-notes-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
@@ -1051,7 +1052,7 @@ This moves them into the Spam folder."
 (setq org-return-follows-link nil)
 (setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
-(setq org-icalendar-alarm-time 10)
+(setq org-icalendar-alarm-time 60)
 ;; (setq org-caldav-skip-conditions '(nottodo))
 (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
 (setq org-caldav-delete-calendar-entries 'always)
@@ -1085,26 +1086,37 @@ This moves them into the Spam folder."
 (setq org-capture-templates
   `(("i" "Inbox" entry (file ,my/org-inbox-file-path)
       "* %?
-  :PROPERTIES:
-  :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
       "* TODO %?
-  :PROPERTIES:
-  :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
        "* %?
-  :PROPERTIES:
-  :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
        "* TODO %?
   SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
-  :PROPERTIES:
-  :CREATED: [%<%Y-%m-%d>]
-  :STYLE: habit
-  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:STYLE: habit
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+     ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
+       "* %\\3 %\\1 %\\2 %? %^g
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:TITLE: %^{What Title: }
+:AUTHOR: %^{What author: }
+:TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
+:EFFORT: %^{What effort: }
+:RECOMMENDED: %^{Who recommended: }
+:RATING: %^{What rating: |5|4|3|2|1}
+:END:" :prepend nil :kill-buffer t)
      ("j" "Journal" entry (file ,my/org-journal-file-path)
        "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
      ("n" "Note" plain (file ,my/org-notes-file-path)
@@ -1114,22 +1126,22 @@ This moves them into the Spam folder."
      ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
      ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
        "* %(org-contacts-template-name)
-  :PROPERTIES:
-  :TITLE:
-  :ALIAS:
-  :COMPANY:
-  :ROLE:
-  :EMAIL: %(org-contacts-template-email)
-  :MOBILE:
-  :WORK_PHONE:
-  :ADDRESS:
-  :URL:
-  :BIRTHDAY:
-  :ITOLD_THEM_EMAIL:
-  :ITOLD_THEM_PHONE:
-  :NOTES:
-  :CREATED: [%<%Y-%m-%d>]
-  :END:" :prepend nil :empty-lines-after 1 :kill-buffer t)))
+:PROPERTIES:
+:TITLE:
+:ALIAS:
+:COMPANY:
+:ROLE:
+:EMAIL: %(org-contacts-template-email)
+:MOBILE:
+:WORK_PHONE:
+:ADDRESS:
+:URL:
+:BIRTHDAY:
+:ITOLD_THEM_EMAIL:
+:ITOLD_THEM_PHONE:
+:NOTES:
+:CREATED: [%<%Y-%m-%d>]
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t)))
 
 (defvar my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (defvar my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
@@ -1218,25 +1230,37 @@ This moves them into the Spam folder."
            (org-agenda-remove-tags t)
            (ps-number-of-columns 2)
            (ps-landscape-mode t)))))
+     ("cp" "list all projects"
+       ((tags-todo "PROJECT"))
+       ((org-agenda-overriding-header "All Projects")
+         (org-tags-match-list-sublevels nil)
+         (org-agenda-remove-tags t)
+         (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
      ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
-       ((org-agenda-files '(my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
+       ((org-agenda-overriding-header "DONE tasks not archived")
+         (org-agenda-files (list my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
      ("d" "Coprehensive agenda"
-      ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
+      ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
+      ((tags-todo "PRIORITY=\"A\""
          ((org-agenda-skip-function
             '(or
-               (org-agenda-skip-entry-if 'todo 'done)
-               (org-agenda-skip-entry-if 'todo '("SOMEDAY"))
-               (my/org-agenda-skip-if-scheduled-later))
-            )
+               ;; (org-agenda-skip-entry-if 'todo 'done)
+               (org-agenda-skip-entry-if 'todo '("DONE" "SOMEDAY" "UNDOABLE" "CANCELED"))
+               (my/org-agenda-skip-if-scheduled-later)))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
-           (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))
-           ))
+           (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))))
         (agenda ""
           ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down effort-down))
             (org-agenda-remove-tags t)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)))
+        (tags-todo "PROJECT"
+          ((org-agenda-overriding-header "All projects:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags t)
+            ;; (org-agenda-hide-tags-regexp "PROJECT")
+            (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -1320,9 +1344,11 @@ should be continued."
                        (:startgroup . nil)
                        ("@home" . ?o)
                        ("@office" . ?i)
-                       ("@phone" . ?p)
-                       ("@email" . ?m)
                        ("@delegate" . ?d)
+                       (:endgroup . nil)
+                       (:startgroup . nil)
+                       ("@phone" . ?p)
+                       ("@computer" . ?m)
                        (:endgroup . nil)
                        ))
 
