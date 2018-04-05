@@ -999,11 +999,9 @@ This moves them into the Spam folder."
 (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
 (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
 (setq org-refile-targets `((,my/org-tasks-file-path :level . 1)
-                           (,my/org-active-file-path :level . 1)
-                           (,my/org-repeatables-file-path :level . 1)
-                           (,my/org-projects-file-path :maxlevel . 3)))
-;; (setq org-refile-targets '((nil . (:maxlevel . 1))
-;;                             (org-agenda-files . (:maxlevel . 1))))
+                            (,my/org-active-file-path :level . 1)
+                            (,my/org-repeatables-file-path :level . 1)
+                            (,my/org-projects-file-path :maxlevel . 3)))
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
@@ -1085,7 +1083,7 @@ This moves them into the Spam folder."
 
 (setq org-capture-templates
   `(("i" "Inbox" entry (file ,my/org-inbox-file-path)
-      "* %?
+      "* NOTE %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
@@ -1107,7 +1105,7 @@ This moves them into the Spam folder."
 :STYLE: habit
 :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-       "* %\\3 %\\1 %\\2 %? %^g
+       "* TODO %\\3 %\\1 %\\2 %? %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :TITLE: %^{What Title: }
@@ -1119,9 +1117,11 @@ This moves them into the Spam folder."
 :END:" :prepend nil :kill-buffer t)
      ("j" "Journal" entry (file ,my/org-journal-file-path)
        "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
-     ("n" "Note" plain (file ,my/org-notes-file-path)
-       "  - Note taken on %U \\\\
-    %?" :prepend nil :kill-buffer t)
+     ("d" "Dating Journal" entry (file ,my/org-journal-dating-file-path)
+       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+     ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
+       ;; "* NOTE taken on %U \\\\
+    ;; %?" :prepend nil :kill-buffer t)
      ;; ("n" "Add note to currently clocked entry" plain (clock)
      ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
      ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
@@ -1141,7 +1141,7 @@ This moves them into the Spam folder."
 :ITOLD_THEM_PHONE:
 :NOTES:
 :CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t)))
+:END:" :prepend nil :kill-buffer t)))
 
 (defvar my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (defvar my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
@@ -1159,7 +1159,7 @@ This moves them into the Spam folder."
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "SOMEDAY(s@)")
-     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)" "NOTE(n)")))
 
 (setq org-todo-keyword-faces
   '(("TODO" . (:foreground "LimeGreen" :weight bold))
@@ -1169,7 +1169,8 @@ This moves them into the Spam folder."
      ("SOMEDAY"    . (:foreground "blue" :weight bold))
      ("DONE"       . (:foreground "dark grey" :weight bold))
      ("CANCELED"   . (:foreground "dark grey" :weight bold))
-     ("UNDOABLE"   . (:foreground "dark grey" :weight bold))))
+     ("UNDOABLE"   . (:foreground "dark grey" :weight bold))
+     ("NOTE")      . (:foreground "white" :weight bold)))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 (defun my/org-agenda-skip-all-siblings-but-first ()
@@ -1341,6 +1342,7 @@ should be continued."
                        ("family" . ?f) ; my social network, my professional network
                        ("love" . ?l) ; my happiness, my ultimate goal, my real legacy
                        ("wealth" . ?w) ; my legacy
+                       ("@poland" . ?n)
                        (:startgroup . nil)
                        ("@home" . ?o)
                        ("@office" . ?i)
