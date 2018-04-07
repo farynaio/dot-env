@@ -1,4 +1,10 @@
 ; Folder with manualy added packages
+(eval-when-compile
+  (defvar oauth--token-data ())
+  (defvar url-http-extra-headers ())
+  (defvar url-callback-function ())
+  (defvar url-callback-arguments ()))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
 (add-to-list 'exec-path "/usr/local/bin")
@@ -21,11 +27,11 @@
   use-package-verbose t
   use-package-always-ensure t)
 
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
 (unless (package-installed-p 'org-plus-contrib)
   (package-install 'org-plus-contrib))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 (require 'use-package)
 
@@ -45,12 +51,11 @@
 
 (use-package miniedit)
 (use-package calfw)
-(use-package calfw-org)
 
 (use-package dash)
 (use-package monitor)
 
-(setq my/text-modes (list org-mode-map emacs-lisp-mode-map))
+(setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
 (setq my/devel-keymaps (list emacs-lisp-mode-map lisp-mode-map lisp-interaction-mode-map))
 
 ;; My modules
@@ -62,13 +67,9 @@
 (require 'my-devel)
 (require 'my-dired)
 
-(use-package oauth2
-  :init
-  (progn
-    (defvar oauth--token-data ())
-    (defvar url-http-extra-headers ())
-    (defvar url-callback-function ())
-    (defvar url-callback-arguments ())))
+(use-package calfw-org)
+
+(use-package oauth2)
 
 ;; (use-package transpose-frame)
 (use-package wgrep)
@@ -143,10 +144,6 @@
         (message "Copied buffer file name '%s' to the clipboard." filename))))
   evil-normal-state-map)
 
-(defun cal ()
-  "Full month calendar by calfw-org-calendar."
-  (interactive)
-  (cfw:open-org-calendar))
 (bind-key "C-x C-SPC" 'rectangle-mark-mode)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -309,6 +306,15 @@
 
 (setq ack-path (executable-find "ack"))
 
+(require 'grep)
+
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "auto-save-list" ,user-emacs-directory))
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "autosaves" ,user-emacs-directory))
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "backups" ,user-emacs-directory))
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "elpa" ,user-emacs-directory))
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "lisp" ,user-emacs-directory))
+(add-to-list 'grep-find-ignored-directories `(expand-file-name "tools" ,user-emacs-directory))
+
 (if ack-path
   (progn
   ;; (setq grep-command "ack --with-filename --nofilter --nogroup ")
@@ -346,10 +352,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(debug-on-error nil)
-  '(package-selected-packages
-     (quote
-       (langtool org-alert oauth2 wgrep w3m use-package ujelly-theme twilight-theme transpose-frame sublime-themes smartscan rainbow-mode persistent-scratch org-plus-contrib org-evil neotree multiple-cursors monokai-theme miniedit material-theme magit ivy-hydra imenu-anywhere image-dired+ hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dracula-theme dired+ diminish darktooth-theme counsel-projectile color-theme-sanityinc-tomorrow challenger-deep-theme centered-cursor-mode calfw-org calfw base16-theme badger-theme avy auto-highlight-symbol auto-compile artbollocks-mode))))
+ '(debug-on-error nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

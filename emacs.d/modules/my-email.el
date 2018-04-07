@@ -1,6 +1,3 @@
-(defgroup my-email nil
-  "Email client config.")
-
 (defvar my/mu4e-local-path "/usr/local/Cellar/mu/HEAD-bf80b5b/share/emacs/site-lisp/mu/mu4e")
 
 (if (file-directory-p my/mu4e-local-path)

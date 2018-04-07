@@ -1,20 +1,17 @@
-(defgroup my-org nil
-  "org-mode config")
-
 (require 'calfw-org)
 (require 'org-agenda)
 (require 'org-contacts)
+(require 'org-caldav)
+
+(defun cal ()
+  "Full month calendar by calfw-org-calendar."
+  (interactive)
+  (cfw:open-org-calendar))
 
 ;; (use-package org-alert
   ;; :config (org-alert-enable))
 
 (bind-key "C-c j" 'org-clock-goto) ;; jump to current task from anywhere
-
-(use-package org-evil
-  :config
-  (progn
-    (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
-    (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)))
 
 (eval-after-load 'org
   '(progn
@@ -24,6 +21,9 @@
      (bind-key "C-c l"       #'org-store-link              org-mode-map)
      (bind-key "C-."         #'imenu-anywhere              org-mode-map)
      (bind-key "C-c C-x a"   #'org-archive-subtree-default org-mode-map)
+
+    (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
+    (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
 
      (bind-key "C-x :"
        (lambda ()
@@ -48,6 +48,19 @@
          (hl-line-mode)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")))))
+
+(eval-after-load 'org-caldav
+  '(progn
+    (setq org-caldav-url 'google)
+    (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
+    (setq org-caldav-delete-calendar-entries 'always)
+    (setq org-caldav-delete-org-entries 'never)
+    (setq org-caldav-save-directory my/tmp-base-path)
+    (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
+    (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
+    (org-remove-file org-caldav-inbox)))
+
+(use-package org-evil)
 
 (eval-after-load 'org-agenda
   '(progn
@@ -80,14 +93,11 @@
 (setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-(setq org-caldav-save-directory my/tmp-base-path)
-(setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-(setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
 (setq org-refile-targets `((,my/org-tasks-file-path :level . 1)
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
                             (,my/org-projects-file-path :maxlevel . 3)))
-(setq org-agenda-file
+(setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
       (list my/org-active-file-path
@@ -133,17 +143,12 @@
 (setq org-agenda-scheduled-leaders '("" ""))
 ;; (setq org-agenda-window-setup 'current-window)
 (setq org-return-follows-link nil)
-(setq org-caldav-url 'google)
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 60)
 ;; (setq org-caldav-skip-conditions '(nottodo))
-(setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
-(setq org-caldav-delete-calendar-entries 'always)
-(setq org-caldav-delete-org-entries 'never)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-file-regexp ".*org\(.gpg\)?$")
 
-(org-remove-file org-caldav-inbox)
 (setq org-icalendar-with-timestamps 'active)
 (setq org-icalendar-include-todo t)
 (setq org-icalendar-include-sexps t)
@@ -427,10 +432,6 @@ should be continued."
 
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-collector t)
-
-
-
-
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (provide 'my-org)

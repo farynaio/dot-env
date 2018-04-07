@@ -1,6 +1,3 @@
-(defgroup my-evil nil
-  "My evil-mode config.")
-
 (use-package evil
   :init
   (progn

@@ -1,6 +1,3 @@
-(defgroup my-devel nil
-  "Devel config.")
-
 (use-package rainbow-mode
   :diminish rainbow-mode)
 

@@ -1,14 +1,9 @@
-(defgroup my-dired nil
-  "Dired config.")
-
 (require 'sunrise-commander)
-
 
 (setq
   dired-use-ls-diredto nil
   dired-recursive-copies 'always
   dired-recursive-deletes 'always)
-
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 
@@ -43,8 +38,5 @@
     (define-key (kbd "t") (dired-toggle-marks)) ; toggle marks
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
     ))
-
-
-
 
 (provide 'my-dired)

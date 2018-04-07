@@ -1,6 +1,3 @@
-(defgroup my-navigation nil
-  "Navigation config.")
-
 (require 'recentf)
 
 (eval-after-load 'recentf
