@@ -34,7 +34,6 @@
     (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-normal-state-map)
     (bind-key "C-w T" #'my/move-current-window-to-new-frame evil-motion-state-map)
     (bind-key ", f"   #'rgrep                               evil-normal-state-map)
-    ;; (bind-key ", f"   #'rgrep                               evil-motion-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
@@ -84,12 +83,5 @@
   :config
   (progn
     (global-evil-matchit-mode 1)))
-
-(defun my/move-current-window-to-new-frame ()
-  (interactive)
-  (let ((buffer (current-buffer)))
-    (unless (one-window-p)
-      (delete-window))
-    (display-buffer-pop-up-frame buffer nil)))
 
 (provide 'my-evil)

@@ -34,6 +34,7 @@
 (setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
 (setq my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (setq my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
+(setq my/org-quotes-file-path (expand-file-name "quotes.org.gpg" org-directory))
 
 (use-package smartscan
   :defer t
@@ -45,7 +46,8 @@
 
 (require 'framemove)
 (require 'grep)
-(require 'neotree)
+
+(use-package neotree)
 
 (use-package avy)
 (use-package ivy-hydra)
@@ -200,6 +202,7 @@
 (set-register ?j (cons 'file my/org-journal-file-path))
 (set-register ?h (cons 'file my/org-repeatables-file-path)) ; repeat, habit
 (set-register ?l (cons 'file my/local-config-file-path))
+(set-register ?q (cons 'file my/org-quotes-file-path))
 (set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 
 (defun my/smarter-move-beginning-of-line (arg)

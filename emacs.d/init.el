@@ -1,4 +1,3 @@
-; Folder with manualy added packages
 (eval-when-compile
   (defvar oauth--token-data ())
   (defvar url-http-extra-headers ())
@@ -40,6 +39,8 @@
 
 (setq load-prefer-newer t)
 
+(require 'bind-key)
+
 (use-package diminish
   :config
   (progn
@@ -67,15 +68,13 @@
 (require 'my-devel)
 (require 'my-dired)
 
-(use-package calfw-org)
-
+(use-package popup)
 (use-package oauth2)
 
 ;; (use-package transpose-frame)
 (use-package wgrep)
 (use-package hl-todo)
 (use-package editorconfig)
-;; (use-package dash)
 (use-package centered-cursor-mode)
 (use-package auto-highlight-symbol
   :config
@@ -252,6 +251,13 @@
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
+(defun my/move-current-window-to-new-frame ()
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (unless (one-window-p)
+      (delete-window))
+    (display-buffer-pop-up-frame buffer nil)))
+
 (global-set-key (kbd "C-x |") 'air-toggle-maximize-buffer)
 
 (if (commandp 'wgrep)
@@ -352,7 +358,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(debug-on-error nil))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(debug-on-error nil)
+  '(package-selected-packages
+     (quote
+       (synosaurus wgrep w3m use-package ujelly-theme twilight-theme transpose-frame sublime-themes smartscan rainbow-mode persistent-scratch org-plus-contrib org-evil org-alert oauth2 neotree multiple-cursors monokai-theme miniedit material-theme magit langtool ivy-hydra imenu-anywhere image-dired+ hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dracula-theme dired+ diminish darktooth-theme counsel-projectile color-theme-sanityinc-tomorrow challenger-deep-theme centered-cursor-mode calfw-org calfw base16-theme badger-theme avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
