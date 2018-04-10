@@ -6,10 +6,8 @@
 (use-package synosaurus
   :config
   (progn
-    (setq synosaurus-backend 'synosaurus-backend-wordnet)
-
-    (add-hook 'text-mode-hook #'synosaurus-mode)
-    (add-hook 'org-mode-hook #'synosaurus-mode)))
+    (setq synosaurus-backend 'synosaurus-backend-wordnet)))
+    ;; (add-hook 'text-mode-hook #'synosaurus-mode)))
 
 (use-package artbollocks-mode
   :config
@@ -20,8 +18,8 @@
                                         ; test
                          "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                          ) t) "\\b")
-      artbollocks-jargon nil)
-    (add-hook 'text-mode-hook 'artbollocks-mode)))
+      artbollocks-jargon nil)))
+    ;; (add-hook 'text-mode-hook #'artbollocks-mode)))
 
 (defun cal ()
   "Full month calendar by calfw-org-calendar."
@@ -343,11 +341,12 @@
          (org-agenda-files (list my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
      ("d" "Coprehensive agenda"
       ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
-      ((tags-todo "PRIORITY=\"A\""
+      ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
          ((org-agenda-skip-function
             '(or
                ;; (org-agenda-skip-entry-if 'todo 'done)
                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
+               (org-agenda-skip-entry-if 'notscheduled)
                (my/org-agenda-skip-if-scheduled-later)))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
            (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))))
