@@ -2,6 +2,21 @@
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-caldav)
+(require 'taskjuggler-mode)
+
+(defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
+
+(setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))
+
+(define-derived-mode my/taskjuggler-mode org-mode "TJ"
+  "Major mode for TaskJuggler projects."
+  (visual-line-mode 1)
+  (add-hook 'after-save-hook #'org-taskjuggler-export-and-process nil t)
+  (add-hook 'find-file-hook #'org-taskjuggler-export-process-and-open nil t)
+  (add-hook 'find-file-hook
+    (lambda ()
+      (setq-local org-taskjuggler-reports-directory (concat (file-name-sans-extension (file-name-sans-extension (file-relative-name buffer-file-name))) "_reports"))
+      ) nil t))
 
 (use-package synosaurus
   :config
@@ -113,16 +128,18 @@
 (setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
-(setq org-refile-targets `((,my/org-tasks-file-path :level . 1)
+(setq org-refile-targets `((nil :level . 1)
+                            (,my/org-tasks-file-path :level . 1) ; pool of tasks
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
-                            (,my/org-projects-file-path :maxlevel . 3)))
+                            (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
       (list my/org-active-file-path
         my/org-anniversaries-file-path
         my/org-repeatables-file-path
+        my/org-projects-file-path
          my/org-tasks-file-path))))
 
 (setq org-enforce-todo-dependencies t)
@@ -297,6 +314,13 @@
 ;;       '(("o" "At the office" tags-todo "@office"
 ;;          ((org-agenda-overriding-header "Office")))))
 
+(setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
+
+(setq my/org-active-projects
+  (list
+    (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder)
+    ))
+
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
       ((agenda "*"))
@@ -329,12 +353,14 @@
            (org-agenda-remove-tags t)
            (ps-number-of-columns 2)
            (ps-landscape-mode t)))))
-     ("cp" "list all projects"
-       ((tags-todo "PROJECT"))
-       ((org-agenda-overriding-header "All Projects")
+     ("cp" "Active projects"
+       ((tags "PROJECT"))
+       ((org-agenda-overriding-header "Active Projects")
          (org-tags-match-list-sublevels nil)
          (org-agenda-remove-tags t)
-         (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+         (org-agenda-files my/org-active-projects)))
+         ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+         ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
      ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
@@ -349,18 +375,21 @@
                (org-agenda-skip-entry-if 'notscheduled)
                (my/org-agenda-skip-if-scheduled-later)))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
-           (org-agenda-sorting-strategy '(time-up effort-down category-keep alpha-up))))
-        (agenda ""
-          ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down effort-down))
-            (org-agenda-remove-tags t)
-            (ps-number-of-columns 2)
-            (ps-landscape-mode t)))
-        (tags-todo "PROJECT"
-          ((org-agenda-overriding-header "All projects:")
+           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
+        (tags "PROJECT"
+          ((org-agenda-overriding-header "Active projects:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
+            (org-agenda-files my/org-active-projects)))
             ;; (org-agenda-hide-tags-regexp "PROJECT")
-            (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+            ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+        (agenda ""
+          ((org-agenda-sorting-strategy '(time-up priority-down todo-state-down effort-down habit-down))
+            (org-agenda-remove-tags t)
+            (ps-number-of-columns 2)
+            (ps-landscape-mode t)
+            (org-agenda-files (append org-agenda-files my/org-active-projects))
+            ))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -455,6 +484,7 @@ should be continued."
 
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-collector t)
+(add-to-list 'org-modules 'org-depend t)
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (use-package langtool

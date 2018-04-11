@@ -21,7 +21,7 @@
 (setq my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (setq my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
 (setq my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
-(setq my/org-tasks-file-path (expand-file-name "tasks.org" org-directory))
+(setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
 (setq my/org-notes-file-path (expand-file-name "notes.org" org-directory))
