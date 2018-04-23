@@ -9,9 +9,32 @@
 
 (require 'dash-at-point)
 
-(dolist (i my/devel-keymaps)
-  (bind-key "C-c d" #'dash-at-point i)
-  (bind-key "C-c e" #'dash-at-point-with-docset i))
+;; quickrun
+;; expand-region.el
+;; restclient.el
+;; php-auto-yasnippets
+
+
+(use-package company)
+(use-package company-php)
+
+(use-package smartparens)
+
+(use-package php-mode
+  :config
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+    (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))))
+
+(use-package web-mode
+  :config
+  (progn
+    (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))))
+
+(add-hook 'php-mode-hook #'company-mode)
 
 (use-package magit
   :diminish magit-auto-revert-mode
@@ -99,5 +122,26 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
 
+(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map))
+(setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
+
+(add-hook 'find-file-hook
+  (lambda ()
+    (let* ((found nil)
+            (buf-name (file-name-extension buffer-file-name) ))
+	    (dolist (i devel-buffers)
+	      (when (string= buf-name i)
+          (hl-line-mode)
+          (hl-todo-mode)
+          (auto-highlight-symbol-mode)
+          (rainbow-mode)
+          (smartparens-mode)
+          (setq found t)))
+        (when (not found)
+          ))))
+
+(dolist (i my/devel-keymaps)
+  (bind-key "C-c d" #'dash-at-point i)
+  (bind-key "C-c e" #'dash-at-point-with-docset i))
 
 (provide 'my-devel)

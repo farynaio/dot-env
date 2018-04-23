@@ -30,6 +30,8 @@
 (setq my/org-journal-file-path (expand-file-name "journal.org.gpg" org-directory))
 (setq my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
 (setq my/org-media-file-path (expand-file-name "media.org.gpg" org-directory))
+(setq my/org-tools-file-path (expand-file-name "tools.org" org-directory))
+(setq my/org-languages-file-path (expand-file-name "languages.org" org-directory))
 
 (setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
 (setq my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
@@ -48,6 +50,16 @@
 (require 'grep)
 
 (use-package neotree)
+
+(setq default-directory "~/.emacs.d")
+
+;; (setq display-buffer-alist
+;;   '(
+;;      ("^.+\\.org\\(\\.gpg\\)?$"
+;;        (display-buffer-reuse-window) . ((reusable-frames . t)))
+;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
+;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
+
 
 (use-package avy)
 (use-package ivy-hydra)
@@ -199,11 +211,14 @@
 (set-register ?n (cons 'file my/org-anniversaries-file-path))
 (set-register ?g (cons 'file my/org-goals-file-path))
 (set-register ?k (cons 'file my/org-knowledge-file-path))
+(set-register ?i (cons 'file my/org-inbox-file-path))
 (set-register ?j (cons 'file my/org-journal-file-path))
 (set-register ?h (cons 'file my/org-repeatables-file-path)) ; repeat, habit
 (set-register ?l (cons 'file my/local-config-file-path))
+(set-register ?w (cons 'file my/org-languages-file-path))
 (set-register ?q (cons 'file my/org-quotes-file-path))
-(set-register ?i (cons 'file (expand-file-name "init.el" user-emacs-directory)))
+(set-register ?t (cons 'file my/org-tools-file-path))
+(set-register ?c (cons 'file (expand-file-name "init.el" user-emacs-directory)))
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.

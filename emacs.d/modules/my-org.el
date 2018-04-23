@@ -48,6 +48,7 @@
 
 (eval-after-load 'org
   '(progn
+     (setq org-startup-with-inline-images t)
      (bind-key "M-}"         #'forward-paragraph           org-mode-map)
      (bind-key "M-{"         #'backward-paragraph          org-mode-map)
      (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm org-mode-map)
@@ -57,7 +58,6 @@
 
     (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
     (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
-
      (bind-key "C-x :"
        (lambda ()
          (interactive)
@@ -82,7 +82,8 @@
             (kbd "C-c C-s") #'org-schedule)
          (hl-line-mode)
          (setq-local paragraph-start "[:graph:]+$")
-         (setq-local paragraph-separate "[:space:]*$")))))
+         (setq-local paragraph-separate "[:space:]*$")
+         (abbrev-mode t)))))
 
 (eval-after-load 'org-caldav
   '(progn
@@ -140,6 +141,7 @@
         my/org-anniversaries-file-path
         my/org-repeatables-file-path
         my/org-projects-file-path
+        my/org-media-file-path
          my/org-tasks-file-path))))
 
 (setq org-enforce-todo-dependencies t)
@@ -220,6 +222,11 @@
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
+       "* %?
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+     ("w" "New word" entry (file+headline ,my/org-languages-file-path "New")
        "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
@@ -374,6 +381,8 @@
                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
                (org-agenda-skip-entry-if 'notscheduled)
                (my/org-agenda-skip-if-scheduled-later)))
+           (org-agenda-remove-tags t)
+           (org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
         (tags "PROJECT"

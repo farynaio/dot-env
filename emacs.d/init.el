@@ -40,24 +40,26 @@
 (setq load-prefer-newer t)
 
 (require 'bind-key)
+(require 'autorevert)
 
 (use-package diminish
   :config
   (progn
-    (diminish 'editorconfig-mode)
+    ;; (diminish 'editorconfig-mode)
     (diminish 'auto-revert-mode)
-    (diminish 'auto-highlight-symbol-mode)
+    ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'undo-tree-mode)
     (diminish 'abbrev-mode " A")))
 
 (use-package miniedit)
 (use-package calfw)
 
+(require 'sql)
+
 (use-package dash)
 (use-package monitor)
 
 (setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
-(setq my/devel-keymaps (list emacs-lisp-mode-map lisp-mode-map lisp-interaction-mode-map))
 
 ;; My modules
 (require 'my-evil)
@@ -67,6 +69,7 @@
 (require 'my-email)
 (require 'my-devel)
 (require 'my-dired)
+(require 'my-notifications)
 
 (use-package popup)
 (use-package oauth2)
@@ -74,11 +77,13 @@
 ;; (use-package transpose-frame)
 (use-package wgrep)
 (use-package hl-todo)
-(use-package editorconfig)
+(use-package editorconfig
+  :config (diminish 'editorconfig-mode))
 (use-package centered-cursor-mode)
 (use-package auto-highlight-symbol
   :config
   (progn
+    (diminish 'auto-highlight-symbol-mode)
     (setq ahs-idle-interval 0)))
 (use-package imenu-anywhere)
 ;; (use-package smex)  ; better search for ido mode
@@ -120,15 +125,6 @@
 
 (epa-file-enable)
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-
-(setq default-directory "~/.emacs.d")
-
-;; (setq display-buffer-alist
-;;   '(
-;;      ("^.+\\.org\\(\\.gpg\\)?$"
-;;        (display-buffer-reuse-window) . ((reusable-frames . t)))
-;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
-;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
 
 (bind-key ", c d"
   (lambda ()
@@ -275,23 +271,6 @@
 (scroll-bar-mode -1)
 (if window-system (tool-bar-mode -1))
 
-;; programming
-(setq devel-buffers '("js" "jsx" "vim" "json" "java" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
-
-(add-hook 'find-file-hook
-  (lambda ()
-    (let* ((found nil)
-            (buf-name (file-name-extension buffer-file-name) ))
-	    (dolist (i devel-buffers)
-	      (when (string= buf-name i)
-          (hl-line-mode)
-          (hl-todo-mode)
-          (auto-highlight-symbol-mode)
-          (rainbow-mode)
-          (setq found t)))
-        (when (not found)
-          ))))
-
 (desktop-save-mode 1)
 (add-to-list 'desktop-modes-not-to-save 'dired-mode)
 (add-to-list 'desktop-modes-not-to-save 'Info-mode)
@@ -362,7 +341,7 @@
  '(debug-on-error nil)
   '(package-selected-packages
      (quote
-       (synosaurus wgrep w3m use-package ujelly-theme twilight-theme transpose-frame sublime-themes smartscan rainbow-mode persistent-scratch org-plus-contrib org-evil org-alert oauth2 neotree multiple-cursors monokai-theme miniedit material-theme magit langtool ivy-hydra imenu-anywhere image-dired+ hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dracula-theme dired+ diminish darktooth-theme counsel-projectile color-theme-sanityinc-tomorrow challenger-deep-theme centered-cursor-mode calfw-org calfw base16-theme badger-theme avy auto-highlight-symbol auto-compile artbollocks-mode))))
+       (company-php company web-mode smartparens wgrep w3m use-package synosaurus smartscan rainbow-mode popup persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dired+ diminish counsel-projectile color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -8,6 +8,7 @@ alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 alias start_mysql='mysqld_safe &'
 alias stop_mysql='mysqladmin shutdown'
 alias emacs_find_package='find /Applications/Emacs.app -regex '
+alias taskjuggler='/Users/devil/.rbenv/versions/`rbenv global`/bin/tj3 '
 
 alias vi="vim "
 alias ls="ls -G "

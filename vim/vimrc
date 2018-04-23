@@ -56,6 +56,7 @@ Plug 'aperezdc/vim-template'
 Plug 'othree/xml.vim'
 Plug 'AndrewRadev/splitjoin.vim' " TODO add mappings
 Plug 'airblade/vim-gitgutter'
+Plug 'rizzatti/dash.vim'
 " Plug 'tpope/vim-projectionist' " TODO test
 " Plug 'majutsushi/tagbar'
 " Plug 'tpope/vim-cucumber.git'
@@ -283,6 +284,8 @@ set path-=/usr/include
 set path+=**
 
 highlight OverLength ctermfg=white guibg=#592929
+
+noremap <leader>x :Dash<cr>
 
 function! AfterInit() abort
   if has('autocmd')
