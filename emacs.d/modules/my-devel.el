@@ -7,17 +7,20 @@
   (progn
     (global-git-gutter-mode +1)))
 
+;; (use-package git-timemachine)
+
 (require 'dash-at-point)
 
 ;; quickrun
 ;; expand-region.el
 ;; restclient.el
 ;; php-auto-yasnippets
-
+;; js2-mode
 
 (use-package company)
 (use-package company-php)
-
+(use-package dockerfile-mode
+  :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 (use-package smartparens)
 
 (use-package php-mode
@@ -32,7 +35,10 @@
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))))
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (setq web-mode-markup-indent-offset 2
+      web-mode-css-indent-offset 2
+      web-mode-code-indent-offset 2)))
 
 (add-hook 'php-mode-hook #'company-mode)
 
@@ -136,6 +142,7 @@
           (auto-highlight-symbol-mode)
           (rainbow-mode)
           (smartparens-mode)
+          (setq c-basic-offset 2)
           (setq found t)))
         (when (not found)
           ))))
