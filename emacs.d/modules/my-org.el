@@ -3,6 +3,7 @@
 (require 'org-contacts)
 (require 'org-caldav)
 (require 'taskjuggler-mode)
+(require 'calendar)
 
 (defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
 
@@ -108,8 +109,90 @@
 (global-set-key (kbd "C-x a") #'org-agenda)
 (bind-key "C-c C-o" #'org-open-at-point-global)
 
+(use-package japanese-holidays)
+(defvar english-holidays
+  '(
+    (holiday-fixed  3 30 "(bank) Good Friday")
+    (holiday-fixed  5  7 "(bank) Early May bank holiday (England, Wales)")
+    (holiday-fixed  8 27 "(bank) Spring bank holiday")
+    (holiday-fixed  8 28 "(bank) Summer bank holiday")
+    (holiday-fixed 12 25 "(bank) Christmas Day")
+    (holiday-fixed 12 26 "(bank) Boxing Day")))
+(defvar polish-holidays
+  '(
+     (holiday-fixed  1  6 "(bank) Trzech Króli")
+     (holiday-fixed  1 21 "Dzień Babci")
+     (holiday-fixed  1 22 "Dzień Diadka")
+     (holiday-fixed  2 22 "Ofiarowanie Pańskie (Matki Boskiej Gromnicznej)")
+     (holiday-fixed  2  8 "Tłusty Czwartek")
+     (holiday-fixed  2 10 "Ostatnia Sobota Karnawału")
+     (holiday-fixed  2 13 "Ostatki")
+     (holiday-fixed  2 14 "Walentynki")
+     (holiday-fixed  3  1 "Narodowy Dzień Pamięci Żołnierzy Wyklętych")
+     (holiday-fixed  3  8 "Międzynarodowy Dzień Kobiet")
+     (holiday-fixed  3 10 "Dzień Mężczyzn")
+     (holiday-fixed  3 20 "Początek Astronomicznej Wiosny")
+     (holiday-fixed  3 25 "Zmiana czasu z zimowego na letni")
+     (holiday-fixed  3 25 "Niedziela Palmowa")
+     (holiday-fixed  3 29 "Wielki Czwartek")
+     (holiday-fixed  3 30 "Wielki Piątek")
+     (holiday-fixed  3 31 "Wielka Sobota")
+     (holiday-fixed  4  1 "(bank) Wielkanoc")
+     (holiday-fixed  4  1 "Prima Aprilis")
+     (holiday-fixed  4  2 "(bank) Poniedziałek Wielkanocny")
+     (holiday-fixed  4  8 "Święto Bożego Miłosierdzia")
+     (holiday-fixed  4 22 "Międzynarodowy Dzień Ziemi")
+     (holiday-fixed  5  1 "(bank) Międzynarodowe Święto Pracy")
+     (holiday-fixed  5  2 "Dzień Flagi Rzeczypospolitej Polskiej")
+     (holiday-fixed  5  3 "(bank) Święto Konstytucji 3 Maja")
+     (holiday-fixed  5 13 "Wniebowstąpienie")
+     (holiday-fixed  5 20 "(bank) Zesłanie Ducha Świętego (Zielone Świątki)")
+     (holiday-fixed  5 26 "Dzień Matki")
+     (holiday-fixed  5 31 "(bank) Boże Ciało")
+     (holiday-fixed  6  1 "Międzynarodowy Dzień Dziecka")
+     (holiday-fixed  6 21 "Pierwszy Dzień Lata (najdłuższy dzień roku)")
+     (holiday-fixed  6 23 "Dzień Ojca")
+     (holiday-fixed  8  1 "Narodowy Dzień Pamięci Powstania Warszawskiego")
+     (holiday-fixed  8 15 "(bank) Święto Wojska Polskiego")
+     (holiday-fixed  8 15 "Wniebowzięcie Najświętrzej Maryi Panny")
+     (holiday-fixed  8 31 "Dzień Solidarności i Wolności")
+     (holiday-fixed  9 23 "Początek Astronomicznej Jesieni")
+     (holiday-fixed  9 30 "Dzień Chłopaka")
+     (holiday-fixed 10 14 "Dzień Nauczyciela (Dzień Edukacji Narodowej)")
+     (holiday-fixed 10 28 "Zmiana czasu z letniego na zimowy")
+     (holiday-fixed 11  1 "(bank) Wszystkich Świętych")
+     (holiday-fixed 11  2 "Dzień Zaduszny")
+     (holiday-fixed 11 11 "(bank) Narodowe Święto Niepodległości")
+     (holiday-fixed 11 29 "Andrzejki")
+     (holiday-fixed 12  4 "Barbórka (Dzień górnika, naftowca i gazownika)")
+     (holiday-fixed 12  6 "Dzień św. Mikołaja")
+     (holiday-fixed 12 21 "Początek Astronomicznej Zimy")
+     (holiday-fixed 12 24 "Wigilia Bożego Narodzenia")
+     (holiday-fixed 12 25 "(bank) Boże Narodzenie (1 dzień)")
+     (holiday-fixed 12 26 "(bank) Boże Narodzenie (2 dzień)")))
+
+(setq calendar-holidays
+  (append
+    japanese-holidays
+    polish-holidays
+    english-holidays
+    holiday-local-holidays
+    holiday-other-holidays
+    holiday-general-holidays
+    holiday-christian-holidays
+    holiday-oriental-holidays
+    holiday-solar-holidays
+    ))
+
+(setq calendar-christian-all-holidays-flag t)
+(setq holiday-bahai-holidays nil)
+(setq holiday-local-holidays nil) ; set it one day
+(setq org-agenda-include-diary t)
+
+(setq diary-number-of-entries 31)
+(setq calendar-mark-holidays-flag t)
 (setq calendar-week-start-day 1)
-(setq calendar-date-style "european")
+(setq calendar-date-style 'european)
 
 (add-hook 'calendar-load-hook
   (lambda ()

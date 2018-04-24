@@ -169,10 +169,6 @@
 (setq compare-ignore-case t)
 (setq compare-ignore-whitespace t)
 
-(setq holiday-bahai-holidays nil)
-(setq holiday-local-holidays nil) ; set it one day
-(setq org-agenda-include-diary t)
-
 (setq create-lockfiles nil) ; this should be safe as long I'm the only user of FS
 
 (defalias 'yes-or-no-p 'y-or-n-p)
