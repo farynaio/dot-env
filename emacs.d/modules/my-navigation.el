@@ -188,8 +188,7 @@
     projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :config
   (progn
-    projectile-track-known-projects-automatically nil
-    (projectile-mode 1)))
+    projectile-track-known-projects-automatically nil))
 
 (use-package counsel-projectile
   :config

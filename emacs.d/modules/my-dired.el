@@ -13,8 +13,9 @@
        "Open sunrise commander in default directory."
        (interactive)
        (make-frame-command)
-       (sunrise default-directory default-directory)
-       )
+       (sunrise default-directory default-directory))
+
+     (bind-key "<backspace>" #'sr-dired-prev-subdir sr-mode-map)
 
      ;; delete redundant window in MC mode
      (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))))

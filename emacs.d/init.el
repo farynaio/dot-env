@@ -41,6 +41,7 @@
 
 (require 'bind-key)
 (require 'autorevert)
+(require 'elisp-mode)
 
 (use-package diminish
   :config
@@ -48,8 +49,15 @@
     ;; (diminish 'editorconfig-mode)
     (diminish 'auto-revert-mode)
     ;; (diminish 'auto-highlight-symbol-mode)
-    (diminish 'undo-tree-mode)
+    (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
+
+(use-package undo-tree
+  :config
+  (progn
+    (diminish 'undo-tree-mode)
+    (setq undo-tree-visualizer-diff t)
+    ))
 
 (use-package miniedit)
 (use-package calfw)
@@ -141,6 +149,8 @@
 
 (bind-key "C-x C-SPC" 'rectangle-mark-mode)
 
+(display-time-mode nil)
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (setq
   backup-by-copying t
@@ -181,7 +191,6 @@
 (setq savehist-save-minibuffer-history 1)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
-(setq undo-tree-visualizer-diff t)
 
 (setq sentence-end-double-space nil)
 
@@ -337,7 +346,7 @@
  '(debug-on-error nil)
   '(package-selected-packages
      (quote
-       (company-php company web-mode smartparens wgrep w3m use-package synosaurus smartscan rainbow-mode popup persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dired+ diminish counsel-projectile color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
+       (japanese-holidays dockerfile-mode company-php company web-mode smartparens wgrep w3m use-package synosaurus smartscan rainbow-mode popup persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dired+ diminish counsel-projectile color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -77,6 +77,9 @@
      (advice-add #'org-archive-subtree-default :after
        (lambda () (org-save-all-org-buffers)))
 
+     (advice-add #'org-clock-in  :after (lambda (&rest args) (org-save-all-org-buffers)))
+     (advice-add #'org-clock-out :after (lambda (&rest args) (org-save-all-org-buffers)))
+
      (add-hook 'org-mode-hook
        (lambda ()
          (evil-define-key '(motion normal) org-mode-map
@@ -229,7 +232,7 @@
 
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
-(setq org-track-ordered-property-with-tag t)
+;; (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
 (setq org-use-speed-commands t)
 (setq org-src-fontify-natively t)
@@ -246,8 +249,9 @@
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
 (setq org-adapt-indentation nil)
+(setq org-hide-block-startup t)
 (setq org-list-description-max-indent 5)
-(setq org-agenda-inhibit-startup t)
+(setq org-agenda-inhibit-startup nil)
 (setq org-agenda-use-tag-inheritance nil)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
@@ -261,7 +265,7 @@
 (setq org-clock-in-resume t)
 (setq org-clock-persist-query-resume nil)
 (setq org-clock-in-switch-to-state "IN-PROCESS")
-(setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING"))
+(setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING" "DONE" "DELEGATED" "UNDOABLE"))
 (setq org-agenda-scheduled-leaders '("" ""))
 ;; (setq org-agenda-window-setup 'current-window)
 (setq org-return-follows-link nil)
@@ -290,7 +294,7 @@
   (message "No executable \"unoconv found\".")
   )
 
-(setq org-tags-exclude-from-inheritance '("project") ; prj
+(setq org-tags-exclude-from-inheritance '("project" "taskjuggler_project" "taskjuggler_resource") ; prj
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
 (setq org-capture-templates
@@ -298,22 +302,20 @@
       "* NOTE %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
       "* TODO %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
        "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
-     ("w" "New word" entry (file+headline ,my/org-languages-file-path "New")
-       "* %?
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:END:" :prepend t :empty-lines-after 1 :kill-buffer t)
+     ("w" "New word" item (file+headline ,my/org-languages-file-path "New")
+       "- %?"
+:prepend t :empty-lines-after 1 :kill-buffer t)
      ("q" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
@@ -322,9 +324,9 @@
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :STYLE: habit
-:END:" :prepend nil :empty-lines-after 1 :kill-buffer t) ; wish :prepend t
+:END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-       "* TODO %\\3 %\\1 %\\2 %? %^g
+       "* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :TITLE: %^{What Title: }
@@ -333,11 +335,11 @@
 :EFFORT: %^{What effort: }
 :RECOMMENDED: %^{Who recommended: }
 :RATING: %^{What rating: |5|4|3|2|1}
-:END:" :prepend nil :kill-buffer t)
+:END:" :prepend t :kill-buffer t)
      ("j" "Journal" entry (file ,my/org-journal-file-path)
-       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+       "* [%<%Y-%m-%d>]\n%?" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
      ("d" "Dating Journal" entry (file ,my/org-journal-dating-file-path)
-       "* [%<%Y-%m-%d>]\n%?" :prepend nil :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+       "* [%<%Y-%m-%d>]\n%?" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
      ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
        ;; "* NOTE taken on %U \\\\
     ;; %?" :prepend nil :kill-buffer t)
@@ -360,7 +362,7 @@
 :ITOLD_THEM_PHONE:
 :NOTES:
 :CREATED: [%<%Y-%m-%d>]
-:END:" :prepend nil :kill-buffer t)))
+:END:" :prepend t :kill-buffer t)))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "DELEGATED(e@/!)")

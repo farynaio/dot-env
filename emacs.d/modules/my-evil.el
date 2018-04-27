@@ -38,6 +38,8 @@
     (bind-key ", f"    #'rgrep                               evil-normal-state-map)
     (bind-key "]c"     #'git-gutter:next-hunk                evil-normal-state-map)
     (bind-key "[c"     #'git-gutter:previous-hunk            evil-normal-state-map)
+    (bind-key ", ."    #'dired-jump                          evil-normal-state-map)
+    (bind-key ", m"    #'dired-jump-other-window             evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
