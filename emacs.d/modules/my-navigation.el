@@ -195,6 +195,15 @@
   (progn
     (counsel-projectile-mode 1)))
 
+(use-package undo-tree
+  :config
+  (progn
+    (diminish 'undo-tree-mode)
+    (setq undo-tree-visualizer-diff t)
+    (evil-make-overriding-map undo-tree-visualizer-mode-map 'motion)
+    (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
+    (evil-make-overriding-map undo-tree-map 'motion)))
+
 (eval-after-load 'ediff
   '(progn
      (setq ediff-window-setup-function 'ediff-setup-windows-plain

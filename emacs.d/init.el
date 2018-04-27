@@ -52,12 +52,7 @@
     (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
 
-(use-package undo-tree
-  :config
-  (progn
-    (diminish 'undo-tree-mode)
-    (setq undo-tree-visualizer-diff t)
-    ))
+
 
 (use-package miniedit)
 (use-package calfw)
