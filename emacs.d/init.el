@@ -52,8 +52,6 @@
     (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
 
-
-
 (use-package miniedit)
 (use-package calfw)
 
@@ -78,7 +76,12 @@
 (use-package oauth2)
 
 ;; (use-package transpose-frame)
-(use-package wgrep)
+;; (use-package wgrep
+;; 	:config
+;; 	(progn
+;; 		(if (commandp 'wgrep)
+;; 				(progn
+;; 					(setq wgrep-enable-key "r")))))
 (use-package hl-todo)
 (use-package editorconfig
   :config (diminish 'editorconfig-mode))
@@ -121,7 +124,7 @@
 (require 'epa-file)
 (require 'epg-config)
 (require 'multiple-cursors)
-(require 'wgrep)
+;; (require 'wgrep)
 (require 'calfw)
 (require 're-builder)
 ;; (setq reb-re-syntax 'string)
@@ -256,10 +259,6 @@
 
 (global-set-key (kbd "C-x |") 'air-toggle-maximize-buffer)
 
-(if (commandp 'wgrep)
-  (progn
-    (setq wgrep-enable-key "r")))
-
 ;; Modes
 (global-auto-revert-mode 1)
 (blink-cursor-mode 0)
@@ -293,27 +292,31 @@
 
 (require 'grep)
 
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "auto-save-list" ,user-emacs-directory))
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "autosaves" ,user-emacs-directory))
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "backups" ,user-emacs-directory))
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "elpa" ,user-emacs-directory))
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "lisp" ,user-emacs-directory))
-(add-to-list 'grep-find-ignored-directories `(expand-file-name "tools" ,user-emacs-directory))
+;; (eval-after-load 'grep
+;; 	'(progn
+;; 		 (add-to-list 'grep-find-ignored-directories "auto-save-list")
+;; 		 (add-to-list 'grep-find-ignored-directories "autosaves")
+;; 		 (add-to-list 'grep-find-ignored-directories "backups")
+;; 		 (add-to-list 'grep-find-ignored-directories "elpa")
+;; 		 (add-to-list 'grep-find-ignored-directories "lisp")
+;; 		 (add-to-list 'grep-find-ignored-directories "tools"))
 
-(if ack-path
-  (progn
-  ;; (setq grep-command "ack --with-filename --nofilter --nogroup ")
+;; (if ack-path
+  ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
+  ;; (message "No 'ack' executable found."))
+
   ;; (setq grep-program grep-command) ; ack
     ;; (setq sr-grep-command grep-program)
     ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
     ;; "ack --with-filename --nofilter --nogroup ")
     ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
     ;; (grep-apply-setting 'grep-find-template "find <D> <X> -type f <F> -exec ack --with-filename --nofilter --nogroup '<R>' /dev/null {} +")
-    (grep-apply-setting 'grep-find-template
-      (concat "find . -type f -exec " ack-path " --with-filename --nofilter --nogroup '<R>' /dev/null {} +"))
-    )
-  (message "No 'ack' executable found.")
-  )
+
+  ;;   (grep-apply-setting 'grep-find-template
+  ;;     (concat "find . -type f -exec " ack-path " --with-filename --nofilter --nogroup '<R>' /dev/null {} +"))
+  ;;   )
+  ;; (message "No 'ack' executable found.")
+  ;; )
 
 (defun reload-config ()
 	"Reload config."
@@ -331,6 +334,12 @@
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
 
+(setq safe-local-variable-values
+  '((ispell-dictionary . "en")
+     (ispell-dictionary . "pl")))
+
+;; (prefer-coding-system 'utf-8-hfs)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -338,10 +347,9 @@
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(debug-on-error nil)
   '(package-selected-packages
      (quote
-       (japanese-holidays dockerfile-mode company-php company web-mode smartparens wgrep w3m use-package synosaurus smartscan rainbow-mode popup persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dired+ diminish counsel-projectile color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
+       (yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

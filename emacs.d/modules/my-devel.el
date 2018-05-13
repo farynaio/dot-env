@@ -1,5 +1,10 @@
+(require 'cc-mode)
+(require 'css-mode)
+
 (use-package rainbow-mode
   :diminish rainbow-mode)
+
+(use-package yaml-mode)
 
 (use-package git-gutter
   :diminish git-gutter-mode
@@ -22,6 +27,15 @@
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 (use-package smartparens)
+
+(use-package yasnippet
+  :config
+  (progn
+    (diminish yas-minor-mode)
+    (diminish yas/minor-mode)
+    (diminish yas-global-mode)
+    (diminish yas/global-mode)
+    (yas-global-mode t)))
 
 (use-package php-mode
   :config
@@ -128,7 +142,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
 
-(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map))
+(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el"))
 
 (add-hook 'find-file-hook

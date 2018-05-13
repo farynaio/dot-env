@@ -579,6 +579,7 @@ should be continued."
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-collector t)
 (add-to-list 'org-modules 'org-depend t)
+
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (use-package langtool
@@ -591,7 +592,9 @@ should be continued."
     (setq langtool-mother-tongue "en")))
 
 
-(setq safe-local-variable-values '((ispell-dictionary . "pl")))
+(setq safe-local-variable-values '(
+                                    (ispell-dictionary . "pl")
+                                    (ispell-dictionary . "en")))
 
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
@@ -604,6 +607,8 @@ should be continued."
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
+(setq ispell-extra-args '("--sug-mode=ultra"))
+
 ;; TODO it could be rather based on ring implementation (hard to add new langs)
 (defun dict-toggle ()
   "Toggle spell dictionary."
@@ -611,8 +616,7 @@ should be continued."
   (if
     (string= ispell-current-dictionary "en")
     (ispell-change-dictionary "pl")
-    (ispell-change-dictionary "en")
-    )
+    (ispell-change-dictionary "en"))
   (message (concat "Current spell language is '" ispell-current-dictionary "'.")))
 
 (provide 'my-org)

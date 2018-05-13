@@ -7,6 +7,9 @@
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
 
+(require 'tramp)
+(setq tramp-default-method "ssh")
+
 (use-package goto-last-change
   :config
   (progn
@@ -47,7 +50,7 @@
 (setq set-mark-command-repeat-pop t)
 
 (require 'framemove)
-(require 'grep)
+;; (require 'grep)
 
 (use-package neotree)
 

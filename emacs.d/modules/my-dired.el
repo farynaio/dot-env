@@ -1,24 +1,25 @@
-(require 'sunrise-commander)
+; (require 'sunrise-commander)
 
 (setq
+  dired-dwim-target t
   dired-use-ls-diredto nil
   dired-recursive-copies 'always
   dired-recursive-deletes 'always)
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 
-(eval-after-load 'sunrise-commander
-  '(progn
-     (defun mc ()
-       "Open sunrise commander in default directory."
-       (interactive)
-       (make-frame-command)
-       (sunrise default-directory default-directory))
+; (eval-after-load 'sunrise-commander
+;   '(progn
+;      (defun mc ()
+;        "Open sunrise commander in default directory."
+;        (interactive)
+;        (make-frame-command)
+;        (sunrise default-directory default-directory))
 
-     (bind-key "<backspace>" #'sr-dired-prev-subdir sr-mode-map)
+;      (bind-key "<backspace>" #'sr-dired-prev-subdir sr-mode-map)
 
-     ;; delete redundant window in MC mode
-     (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))))
+;      ;; delete redundant window in MC mode
+;      (add-hook 'sr-start-hook (lambda () (delete-window (car (last (window-list))))))))
 
 (use-package dired+
   :init

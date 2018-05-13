@@ -108,6 +108,11 @@
      ;;                           "nndraft:drafts")
      ;;                          ("Gnus")))))
 
+(eval-after-load 'mu4e
+  '(progn
+    (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
+
+(use-package org-mime)
 
 (defun gmail-archive ()
   "Archive the current or marked mails.
@@ -121,6 +126,7 @@ This moves them into the Spam folder."
   (interactive)
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
 
-(defalias 'inbox #'mu4e)
+(defalias 'mu #'mu4e)
+;; (defalias 'inbox #'mu4e)
 
 (provide 'my-email)
