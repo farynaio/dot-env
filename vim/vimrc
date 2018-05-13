@@ -17,6 +17,7 @@ Plug 'benmills/vimux'
 
 " General
 " Plug 'tpope/vim-vinegar' " TODO cherry pick this
+Plug 'easymotion/vim-easymotion'
 Plug 'adamfaryna/netrw.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-dispatch'
@@ -286,6 +287,7 @@ set path+=**
 highlight OverLength ctermfg=white guibg=#592929
 
 noremap <leader>x :Dash<cr>
+" noremap <leader><tab> :exe "normal! ="<cr>
 
 function! AfterInit() abort
   if has('autocmd')
@@ -536,6 +538,15 @@ else
     noremap y <Plug>(highlightedyank)
   endif
 endif
+
+" ================================================
+" Navigation
+" ================================================
+
+" let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+
+" noremap <leader>c <Plug>(easymotion-s)
 
 " ================================================
 " HTML
