@@ -9,6 +9,7 @@
 
 (require 'tramp)
 (setq tramp-default-method "ssh")
+(setq password-cache-expiry nil)
 
 (use-package goto-last-change
   :config

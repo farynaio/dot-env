@@ -52,6 +52,13 @@
     (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
 
+;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
+(use-package exec-path-from-shell
+  :config
+  (progn
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize))))
+
 (use-package miniedit)
 (use-package calfw)
 

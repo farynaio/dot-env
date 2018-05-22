@@ -58,6 +58,7 @@
 
 (setq
   smtpmail-smtp-service 587
+  mm-coding-system-priorities '(utf-8 utf-8-mac)
   mml2015-encrypt-to-self t
   mm-verify-option t
   mm-decrypt-option t
@@ -110,7 +111,12 @@
 
 (eval-after-load 'mu4e
   '(progn
-    (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
+     (setq
+       mu4e-get-mail-command "offlineimap -o"
+       mu4e-index-cleanup nil
+       mu4e-index-lazy-check t
+       mu4e-update-interval 300)
+     (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
 
 (use-package org-mime)
 
