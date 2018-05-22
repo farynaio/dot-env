@@ -249,6 +249,7 @@
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
 (setq org-adapt-indentation nil)
+(setq org-cycle-include-plain-lists t)
 (setq org-hide-block-startup t)
 (setq org-list-description-max-indent 5)
 (setq org-agenda-inhibit-startup nil)

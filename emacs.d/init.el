@@ -171,8 +171,19 @@
 (setq inhibit-startup-screen t)
 (setq ns-right-alternate-modifier nil)
 (setq tab-width 2)
+
+(setq undo-limit 1000)
+
 (setq
-  gc-cons-threshold 3500000
+  gc-cons-threshold (* 511 1024 1024)
+  gc-cons-percentage 0.5)
+(run-with-idle-timer 5 t #'garbage-collect)
+
+;; (setq garbage-collection-messages t)
+;; profiler-start
+;; profiler-report
+
+(setq
   bookmark-save-flag t
   show-paren-delay 0)
 
