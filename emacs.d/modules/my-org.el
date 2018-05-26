@@ -304,7 +304,7 @@
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
-     ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
+     ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Someday")
       "* TODO %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
@@ -315,8 +315,7 @@
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("w" "New word" item (file+headline ,my/org-languages-file-path "New")
-       "- %?"
-:prepend t :empty-lines-after 1 :kill-buffer t)
+       "- %?" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("q" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
@@ -463,10 +462,12 @@
       ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
          ((org-agenda-skip-function
             '(or
-               ;; (org-agenda-skip-entry-if 'todo 'done)
                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
-               (org-agenda-skip-entry-if 'notscheduled)
-               (my/org-agenda-skip-if-scheduled-later)))
+               (my/org-agenda-skip-if-scheduled-later)
+               (and
+                 (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
+                 (my/org-skip-subtree-if-priority ?A)
+                 (org-agenda-skip-entry-if 'notscheduled))))
            (org-agenda-remove-tags t)
            (org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
