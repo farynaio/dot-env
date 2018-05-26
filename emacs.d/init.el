@@ -172,7 +172,7 @@
 (setq ns-right-alternate-modifier nil)
 (setq tab-width 2)
 
-(setq undo-limit 1000)
+(setq undo-limit 10000)
 
 (setq
   gc-cons-threshold (* 511 1024 1024)

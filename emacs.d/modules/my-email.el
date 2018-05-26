@@ -114,6 +114,7 @@
      (setq
        mu4e-get-mail-command "offlineimap -o"
        mu4e-index-cleanup nil
+       mu4e-display-update-status-in-modeline t
        mu4e-index-lazy-check t
        mu4e-update-interval 300)
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
