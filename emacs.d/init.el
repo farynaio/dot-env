@@ -124,6 +124,16 @@
     (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
     (guide-key-mode 1)))
 
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LANG" "en_US.UTF-8")
+(setenv "LANGUAGE" "en_US.UTF-8")
+(setenv "LC_COLLATE" "en_US.UTF-8")
+(setenv "LC_CTYPE" "en_US.UTF-8")
+(setenv "LC_MESSAGES" "en_US.UTF-8")
+(setenv "LC_MONETARY" "en_US.UTF-8")
+(setenv "LC_NUMERIC" "en_US.UTF-8")
+(setenv "LC_TIME" "en_US.UTF-8")
+
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
