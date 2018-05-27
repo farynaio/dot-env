@@ -43,9 +43,23 @@
 ;; (require 'bookmark+)
 
 (eval-after-load 'dired-mode
-  (lambda ()
+  '(progn
+    (setq dired-hide-details-mode t)
     (define-key (kbd "t") (dired-toggle-marks)) ; toggle marks
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
-    ))
+     ))
+
+(add-hook 'dired-mode-hook 'hl-line-mode)
+
+(use-package openwith
+  :config
+  (progn
+    (setq
+      openwith-confirm-invocation nil
+      openwith-associations
+      '(("\\.pdf\\'" "open" (file))
+         ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open" (file))
+         ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "open" (file))
+      ))))
 
 (provide 'my-dired)
