@@ -208,17 +208,20 @@
 (setq org-clock-idle-time 2) ; TODO requires testing
 (setq org-lowest-priority 68)
 (setq org-highest-priority 65)
-(setq org-default-priority 65)
+(setq org-default-priority 66)
 (setq org-log-done 'time)
 
 (setq org-default-notes-file my/org-notes-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+
+(setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-refile-targets `((nil :level . 1)
                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
+                            (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
   (delq nil
@@ -304,7 +307,7 @@
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
-     ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Someday")
+     ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
       "* TODO %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
@@ -406,12 +409,7 @@
 ;;       '(("o" "At the office" tags-todo "@office"
 ;;          ((org-agenda-overriding-header "Office")))))
 
-(setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
-
-(setq my/org-active-projects
-  (list
-    (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder)
-    ))
+(setq my/org-active-projects (list my/org-project-setup-digital-agency))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"

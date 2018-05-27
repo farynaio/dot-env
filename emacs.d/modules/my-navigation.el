@@ -41,6 +41,9 @@
 (setq my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (setq my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
 (setq my/org-quotes-file-path (expand-file-name "quotes.org.gpg" org-directory))
+(setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
+(setq my/org-project-setup-digital-agency (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder))
+
 
 (use-package smartscan
   :defer t
