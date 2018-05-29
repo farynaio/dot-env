@@ -42,24 +42,18 @@
 (use-package image-dired)
 ;; (require 'bookmark+)
 
-(eval-after-load 'dired-mode
+(eval-after-load 'dired
   '(progn
-    (setq dired-hide-details-mode t)
-    (define-key (kbd "t") (dired-toggle-marks)) ; toggle marks
+     (setq dired-hide-details-mode t)
+     (setq dired-guess-shell-alist-user
+       '(("\\.pdf\\'" "open")
+          ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
+          ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "open")))
+     ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
      ))
 
 (add-hook 'dired-mode-hook 'hl-line-mode)
-
-(use-package openwith
-  :config
-  (progn
-    (setq
-      openwith-confirm-invocation nil
-      openwith-associations
-      '(("\\.pdf\\'" "open" (file))
-         ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open" (file))
-         ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "open" (file))
-      ))))
+(add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode +1)))
 
 (provide 'my-dired)
