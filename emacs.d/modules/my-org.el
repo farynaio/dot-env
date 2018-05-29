@@ -328,6 +328,20 @@
 :CREATED: [%<%Y-%m-%d>]
 :STYLE: habit
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
+     ("u" "Review" entry (file ,my/org-review-file-path)
+"* [%<%Y-%m-%d>]
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:END:
+
++ What's good:
+  + %?
+
++ What's could be better:
+
++ What to work on:
+
+" :prepend t :empty-lines-after 1 :jump-to-captured t)
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
        "* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
