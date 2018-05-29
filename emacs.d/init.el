@@ -79,6 +79,7 @@
 (require 'my-dired)
 (require 'my-notifications)
 
+
 (use-package popup)
 (use-package oauth2)
 
@@ -366,6 +367,8 @@
   '((ispell-dictionary . "en")
      (ispell-dictionary . "pl")))
 
+(display-time-mode -1)
+
 ;; (prefer-coding-system 'utf-8-hfs)
 
 (custom-set-variables
@@ -377,7 +380,7 @@
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
   '(package-selected-packages
      (quote
-       (yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
+       (openwith exec-path-from-shell yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

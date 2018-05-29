@@ -56,6 +56,12 @@
   nnir-imap-default-search-key "gmail"
   nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
 
+(setq gnus-select-method
+      '(nnimap "Mail"
+	       (nnimap-address "localhost")
+	       (nnimap-stream network)
+	       (nnimap-authenticator login)))
+
 (setq
   smtpmail-smtp-service 587
   mm-coding-system-priorities '(utf-8 utf-8-mac)
@@ -109,14 +115,64 @@
      ;;                           "nndraft:drafts")
      ;;                          ("Gnus")))))
 
+(setq mail-user-agent 'mu4e-user-agent)
+
 (eval-after-load 'mu4e
   '(progn
      (setq
+       message-send-mail-function 'smtpmail-send-it
+       message-kill-buffer-on-exit t
+       mu4e-view-prefer-html t
+       mu4e-update-interval 900
+       shr-color-visible-luminance-min 80
+       mu4e-headers-include-related t
+       mu4e-view-show-images t
        mu4e-get-mail-command "offlineimap -o"
+       ;; mu4e-attachment-dir  "/Volumes/RAM_Disk/"
+       mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
        mu4e-index-lazy-check t
+       mu4e-headers-skip-duplicates t
        mu4e-update-interval 300)
+
+     (when (fboundp 'imagemagick-register-types)
+       (imagemagick-register-types))
+
+     (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+     (add-hook 'mu4e-compose-mode-hook
+       (lambda ()
+         (set-fill-column 72)
+         ;; (local-set-key (kbd "C-c <return> C-s") 'my/sign-this-message)
+         ;; (local-set-key (kbd "C-c <return> C-e") 'my/encrypt-this-message)
+         (save-excursion
+           (goto-char (point-min))
+           (insert (concat "X-Mailer: mu4e " mu4e-mu-version "; emacs " emacs-version "\n")))))
+
+     (defun my/mu4e-set-account ()
+       "Set the account for composing a message.
+         (https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html)"
+       (let* (
+               (account
+                 ;; (if mu4e-compose-parent-message
+                 ;;   (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                 ;;     (string-match "/\\(.*?\\)/" maildir)
+                 ;;     (match-string 1 maildir))
+                 (completing-read (format "Compose with account: (%s) "
+                                    (mapconcat #'(lambda (var) (car var))
+                                      my/mu4e-account-alist "/"))
+                   (mapcar #'(lambda (var) (car var)) my/mu4e-account-alist)
+                   nil t nil nil (caar my/mu4e-account-alist))) ;)
+               (account-vars (cdr (assoc account my/mu4e-account-alist))))
+         (if account-vars
+           (mapc #'(lambda (var)
+                     (set (car var) (cadr var)))
+             account-vars)
+           (error "No email account found"))))
+     (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
+     (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
 
 (use-package org-mime)
