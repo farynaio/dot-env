@@ -221,6 +221,7 @@
                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
+                            (,my/org-project-launch-amazon-business :level . 1)
                             (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
@@ -423,7 +424,9 @@
 ;;       '(("o" "At the office" tags-todo "@office"
 ;;          ((org-agenda-overriding-header "Office")))))
 
-(setq my/org-active-projects (list my/org-project-setup-digital-agency))
+(setq my/org-active-projects (list
+                               my/org-project-setup-digital-agency
+                               my/org-project-launch-amazon-business))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"

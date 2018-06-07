@@ -64,7 +64,7 @@
 
 (setq
   smtpmail-smtp-service 587
-  mm-coding-system-priorities '(utf-8 utf-8-mac)
+  mm-coding-system-priorities '(utf-8-mac utf-8)
   mml2015-encrypt-to-self t
   mm-verify-option t
   mm-decrypt-option t
