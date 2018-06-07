@@ -285,6 +285,7 @@
 (setq org-icalendar-include-sexps t)
 (setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
+(setq org-habit-graph-column 60)
 (setq org-refile-use-outline-path t)
 
 (setq org-blank-before-new-entry nil)
