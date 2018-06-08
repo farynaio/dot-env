@@ -222,6 +222,7 @@
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
                             (,my/org-project-launch-amazon-business :level . 1)
+                            (,my/org-project-setup-freelance :level . 1)
                             (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
@@ -426,8 +427,10 @@
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-setup-digital-agency
-                               my/org-project-launch-amazon-business))
+                               my/org-project-setup-freelance
+                               my/org-project-launch-amazon-business
+                               ;; my/org-project-setup-digital-agency
+                               ))
 
 (setq org-agenda-custom-commands
   '(("co" "TODOs weekly sorted by state, priority, deadline, scheduled, alpha and effort"
