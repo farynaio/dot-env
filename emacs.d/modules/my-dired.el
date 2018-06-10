@@ -47,6 +47,7 @@
      (setq dired-hide-details-mode t)
      (setq dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
+          ("\\.html\\'" "open")
           ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
           ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "open")))
      ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks

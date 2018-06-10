@@ -37,10 +37,72 @@
       artbollocks-jargon nil)))
     ;; (add-hook 'text-mode-hook #'artbollocks-mode)))
 
+;; org agenda full month calendar
 (defun cal ()
   "Full month calendar by calfw-org-calendar."
   (interactive)
   (cfw:open-org-calendar))
+
+;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
+(defun jarfar/year-calendar (&optional year)
+  "Generate a one year calendar that can be scrolled by year in each direction.
+This is a modification of:  http://homepage3.nifty.com/oatu/emacs/calendar.html
+See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months"
+  (interactive)
+  (require 'calendar)
+  (let* (
+      (current-year (number-to-string (nth 5 (decode-time (current-time)))))
+      (month 0)
+      (year (if year year (string-to-number (format-time-string "%Y" (current-time))))))
+    (switch-to-buffer (get-buffer-create calendar-buffer))
+    (when (not (eq major-mode 'calendar-mode))
+      (calendar-mode))
+    (setq displayed-month month)
+    (setq displayed-year year)
+    (setq buffer-read-only nil)
+    (erase-buffer)
+    ;; horizontal rows
+    (dotimes (j 4)
+      ;; vertical columns
+      (dotimes (i 3)
+        (calendar-generate-month
+          (setq month (+ month 1))
+          year
+          ;; indentation / spacing between months
+          (+ 5 (* 25 i))))
+      (goto-char (point-max))
+      (insert (make-string (- 10 (count-lines (point-min) (point-max))) ?\n))
+      (widen)
+      (goto-char (point-max))
+      (narrow-to-region (point-max) (point-max)))
+    (widen)
+    (goto-char (point-min))
+    (setq buffer-read-only t)))
+
+(defun jarfar/scroll-year-calendar-forward (&optional arg event)
+  "Scroll the yearly calendar by year in a forward direction."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+  (unless arg (setq arg 0))
+  (save-selected-window
+    (if (setq event (event-start event)) (select-window (posn-window event)))
+    (unless (zerop arg)
+      (let* (
+              (year (+ displayed-year arg)))
+        (jarfar/year-calendar year)))
+    (goto-char (point-min))
+    (run-hooks 'calendar-move-hook)))
+
+(defun jarfar/scroll-year-calendar-backward (&optional arg event)
+  "Scroll the yearly calendar by year in a backward direction."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+  (jarfar/scroll-year-calendar-forward (- (or arg 1)) event))
+
+(define-key calendar-mode-map "<" 'jarfar/scroll-year-calendar-backward)
+(define-key calendar-mode-map ">" 'jarfar/scroll-year-calendar-forward)
+
+(defalias 'year-calendar #'jarfar/year-calendar)
 
 ;; (use-package org-alert
   ;; :config (org-alert-enable))
@@ -271,7 +333,8 @@
 (setq org-clock-in-resume t)
 (setq org-clock-persist-query-resume nil)
 (setq org-clock-in-switch-to-state "IN-PROCESS")
-(setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING" "DONE" "DELEGATED" "UNDOABLE"))
+;; (setq org-clock-out-when-done (list "TODO" "BLOCKED" "WAITING" "DONE" "DELEGATED" "UNDOABLE"))
+(setq org-clock-out-when-done t)
 (setq org-agenda-scheduled-leaders '("" ""))
 ;; (setq org-agenda-window-setup 'current-window)
 (setq org-return-follows-link nil)
@@ -286,7 +349,7 @@
 (setq org-icalendar-include-sexps t)
 (setq org-icalendar-store-UID t)
 (setq org-habit-show-habits-only-for-today nil)
-(setq org-habit-graph-column 60)
+(setq org-habit-graph-column 62)
 (setq org-refile-use-outline-path t)
 
 (setq org-blank-before-new-entry nil)
@@ -306,17 +369,17 @@
 
 (setq org-capture-templates
   `(("i" "Inbox" entry (file ,my/org-inbox-file-path)
-      "* NOTE %?
+"* NOTE %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
-      "* TODO %?
+"* TODO %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
-       "* %?
+"* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -325,8 +388,8 @@
      ("q" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
-       "* TODO %?
-  SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :STYLE: habit
@@ -346,7 +409,7 @@
 
 " :prepend t :empty-lines-after 1 :jump-to-captured t)
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-       "* TODO %\\3 \"%\\1\" %\\2 %? %^g
+"* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :TITLE: %^{What Title: }
@@ -366,7 +429,7 @@
      ;; ("n" "Add note to currently clocked entry" plain (clock)
      ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
      ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
-       "* %(org-contacts-template-name)
+"* %(org-contacts-template-name)
 :PROPERTIES:
 :TITLE:
 :ALIAS:
