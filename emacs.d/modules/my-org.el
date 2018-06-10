@@ -283,6 +283,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
                             (,my/org-active-file-path :level . 1)
                             (,my/org-repeatables-file-path :level . 1)
+                            (,my/org-project-trip-nottingham :level . 1)
+                            (,my/org-project-trip-edinburgh :level . 1)
                             (,my/org-project-launch-amazon-business :level . 1)
                             (,my/org-project-setup-freelance :level . 1)
                             (,my/org-project-setup-digital-agency :level . 1) ; particular projects
@@ -492,6 +494,8 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 (setq my/org-active-projects (list
                                my/org-project-setup-freelance
                                my/org-project-launch-amazon-business
+                               my/org-project-trip-edinburgh
+                               my/org-project-trip-nottingham
                                ;; my/org-project-setup-digital-agency
                                ))
 
