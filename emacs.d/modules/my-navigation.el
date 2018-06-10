@@ -11,6 +11,12 @@
 (setq tramp-default-method "ssh")
 (setq password-cache-expiry nil)
 
+(use-package move-text
+  :config
+  (progn
+    (global-set-key [(meta up)] #'move-text-up)
+    (global-set-key [(meta down)] #'move-text-down)))
+
 (use-package goto-last-change
   :config
   (progn
