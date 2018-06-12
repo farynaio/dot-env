@@ -26,13 +26,15 @@
 (setq my/tools-path "~/.emacs.d/tools/")
 (setq org-agenda-directory (expand-file-name "agenda" my/org-base-path))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
-
 (setq my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
+
 (setq my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (setq my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
 (setq my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
 (setq my/org-languages-file-path (expand-file-name "languages.org" org-agenda-directory))
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
+(setq my/org-knowledge-review-file-path (expand-file-name "knowledge_reviews.org" org-agenda-directory))
+
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
 (setq my/org-notes-file-path (expand-file-name "notes.org" org-directory))
@@ -42,13 +44,14 @@
 (setq my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-directory))
 (setq my/org-media-file-path (expand-file-name "media.org.gpg" org-directory))
 (setq my/org-tools-file-path (expand-file-name "tools.org" org-directory))
-(setq my/org-review-file-path (expand-file-name "review.org.gpg" org-directory))
+(setq my/org-review-file-path (expand-file-name "reviews.org.gpg" org-directory))
 
 (setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
 (setq my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
 (setq my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
 (setq my/org-quotes-file-path (expand-file-name "quotes.org.gpg" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
+(setq my/org-project-become-confident-pua (expand-file-name "become_confident_pua.org" my/org-projects-folder))
 (setq my/org-project-trip-nottingham (expand-file-name "trip_to_nottingham.org" my/org-projects-folder))
 (setq my/org-project-trip-edinburgh (expand-file-name "trip_to_edinburgh.org" my/org-projects-folder))
 (setq my/org-project-setup-digital-agency (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder))

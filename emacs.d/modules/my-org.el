@@ -285,6 +285,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-repeatables-file-path :level . 1)
                             (,my/org-project-trip-nottingham :level . 1)
                             (,my/org-project-trip-edinburgh :level . 1)
+                            (,my/org-project-become-confident-pua :level . 1)
                             (,my/org-project-launch-amazon-business :level . 1)
                             (,my/org-project-setup-freelance :level . 1)
                             (,my/org-project-setup-digital-agency :level . 1) ; particular projects
@@ -494,9 +495,10 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 (setq my/org-active-projects (list
                                my/org-project-setup-freelance
                                my/org-project-launch-amazon-business
+                               my/org-project-setup-digital-agency
+                               my/org-project-become-confident-pua
                                my/org-project-trip-edinburgh
                                my/org-project-trip-nottingham
-                               ;; my/org-project-setup-digital-agency
                                ))
 
 (setq org-agenda-custom-commands
@@ -563,8 +565,15 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
-            ;; (org-agenda-hide-tags-regexp "PROJECT")
-            ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+        (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+          ((org-agenda-overriding-header "Reviews:")
+            (org-agenda-skip-function 'org-review-agenda-skip)
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags t)
+            (org-agenda-cmp-user-defined 'org-review-compare)
+            (org-agenda-files (list my/org-knowledge-review-file-path))
+            ;; (org-agenda-sorting-strategy '(time-up category-keep))
+            (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
           ((org-agenda-sorting-strategy '(time-up priority-down todo-state-down effort-down habit-down))
             (org-agenda-remove-tags t)
@@ -669,6 +678,12 @@ should be continued."
 (add-to-list 'org-modules 'org-depend t)
 
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
+
+(use-package org-review
+  :config
+  (progn
+    (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)
+    ))
 
 (use-package langtool
   :init
