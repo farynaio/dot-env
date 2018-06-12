@@ -34,6 +34,7 @@
 (setq my/org-languages-file-path (expand-file-name "languages.org" org-agenda-directory))
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
 (setq my/org-knowledge-review-file-path (expand-file-name "knowledge_reviews.org" org-agenda-directory))
+(setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" org-agenda-directory))
 
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
@@ -47,7 +48,7 @@
 (setq my/org-review-file-path (expand-file-name "reviews.org.gpg" org-directory))
 
 (setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
-(setq my/org-goals-file-path (expand-file-name "goals.org.gpg" org-directory))
+(setq my/org-goals-file-path (expand-file-name "goals.org" org-directory))
 (setq my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
 (setq my/org-quotes-file-path (expand-file-name "quotes.org.gpg" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))

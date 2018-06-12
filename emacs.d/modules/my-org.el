@@ -566,6 +566,11 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
         (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+          ((org-agenda-overriding-header "Goals:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags t)
+            (org-agenda-files (list my/org-yearly-goals-file-path))))
+        (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
           ((org-agenda-overriding-header "Reviews:")
             (org-agenda-skip-function 'org-review-agenda-skip)
             (org-tags-match-list-sublevels nil)
