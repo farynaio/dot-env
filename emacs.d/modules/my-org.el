@@ -300,7 +300,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         my/org-media-file-path
          my/org-tasks-file-path))))
 
-(setq org-enforce-todo-dependencies t)
+(setq org-hide-emphasis-markers t)
+(setq org-enforce-todo-dependencies nil)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
 ;; (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)

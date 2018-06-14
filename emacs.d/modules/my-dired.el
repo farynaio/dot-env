@@ -48,8 +48,11 @@
      (setq dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
           ("\\.html\\'" "open")
+          ("\\.xlsx?m?\\'" "open")
+          ("\\.ods\\'" "open")
           ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
-          ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "open")))
+          ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
+          ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
      ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
      ))
