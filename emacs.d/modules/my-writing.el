@@ -15,4 +15,12 @@
                                              ("Whats" "What's" nil 0)
                                              ))
 
+(use-package google-translate
+  :config
+  (progn
+    (setq
+      google-translate-default-source-language "en"
+      google-translate-default-target-language "pl")
+    (bind-key ", t" #'google-translate-at-point evil-normal-state-map)))
+
 (provide 'my-writing)
