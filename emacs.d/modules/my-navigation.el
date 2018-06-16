@@ -27,6 +27,9 @@
 (setq org-agenda-directory (expand-file-name "agenda" my/org-base-path))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 (setq my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
+(setq my/drills-base-path (expand-file-name "drills" my/org-base-path))
+
+(setq my/org-english-drill-file-path (expand-file-name "english_drill.org" my/drills-base-path))
 
 (setq my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (setq my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))

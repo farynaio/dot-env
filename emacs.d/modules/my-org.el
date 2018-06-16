@@ -387,8 +387,24 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
-     ("w" "New word" item (file+headline ,my/org-languages-file-path "New")
-       "- %?" :prepend t :empty-lines-after 1 :kill-buffer t)
+     ("w" "New word" entry (file+headline ,my/org-english-drill-file-path "English drill")
+"* %\\1 %? %(org-set-tags nil t) :drill:
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d>]
+:DRILL_CARD_TYPE: twosided
+:END:
+
+Translate this word.
+
+*** English
+
+%^{What English word: }
+
+*** Polish
+
+%^{What Polish word: }
+
+" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("q" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
@@ -680,6 +696,7 @@ should be continued."
                        ))
 
 (add-to-list 'org-modules 'org-habit t)
+(add-to-list 'org-modules 'org-drill t)
 (add-to-list 'org-modules 'org-collector t)
 (add-to-list 'org-modules 'org-depend t)
 
@@ -691,41 +708,17 @@ should be continued."
     (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)
     ))
 
-(use-package langtool
-  :init
-  (progn
-    (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path)))
-  :config
-  (progn
-    (setq langtool-default-language "en-GB")
-    (setq langtool-mother-tongue "en")))
-
-
-(setq safe-local-variable-values '(
-                                    (ispell-dictionary . "pl")
-                                    (ispell-dictionary . "en")))
-
-;; mode hooks
-(setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
-
-(if (executable-find "aspell")
-  (dolist (i flyspell-mode-hooks)
-    (add-hook i #'flyspell-prog-mode)))
+;; org-drill
+(setq org-drill-use-visible-cloze-face-p t)
+(setq org-drill-hide-item-headings-p t)
+(setq org-drill-maximum-items-per-session 30)
+(setq org-drill-maximum-duration 20)
+(setq org-drill-save-buffers-after-drill-sessions-p nil)
+(setq org-drill-add-random-noise-to-intervals-p t)
+(setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
 
 (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
-
-(setq ispell-extra-args '("--sug-mode=ultra"))
-
-;; TODO it could be rather based on ring implementation (hard to add new langs)
-(defun dict-toggle ()
-  "Toggle spell dictionary."
-  (interactive)
-  (if
-    (string= ispell-current-dictionary "en")
-    (ispell-change-dictionary "pl")
-    (ispell-change-dictionary "en"))
-  (message (concat "Current spell language is '" ispell-current-dictionary "'.")))
 
 (provide 'my-org)
