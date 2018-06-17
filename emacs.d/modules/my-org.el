@@ -405,7 +405,7 @@ Translate this word.
 %^{What Polish word: }
 
 " :prepend t :empty-lines-after 1 :kill-buffer t)
-     ("q" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
+     ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
      ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
 "* TODO %?
@@ -415,7 +415,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :STYLE: habit
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("u" "Review" entry (file ,my/org-review-file-path)
-"* [%<%Y-%m-%d>]
+"* [%<%Y-%m-%d>] %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:
@@ -582,7 +582,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
-        (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+        (todo "*"
           ((org-agenda-overriding-header "Goals:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
@@ -701,6 +701,10 @@ should be continued."
 (add-to-list 'org-modules 'org-depend t)
 
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
+
+(org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
+(run-at-time t 3600 'org-agenda-to-appt)           ;; update appt list hourly
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
 
 (use-package org-review
   :config
