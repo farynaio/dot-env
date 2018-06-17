@@ -33,6 +33,7 @@
     (setq
       google-translate-default-source-language "en"
       google-translate-default-target-language "pl")
+    (bind-key ", t" #'google-translate-at-point evil-visual-state-map)
     (bind-key ", t" #'google-translate-at-point evil-normal-state-map)))
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
