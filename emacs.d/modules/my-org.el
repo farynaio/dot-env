@@ -388,13 +388,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :CREATED: [%<%Y-%m-%d>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("w" "New word" entry (file+headline ,my/org-english-drill-file-path "English drill")
-"* %\\1 %? %(org-set-tags nil t) :drill:
+"* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :DRILL_CARD_TYPE: twosided
 :END:
 
 Translate this word.
+[[https://translate.google.pl/?hl=pl#en/pl/%\\1][spelling]]
 
 *** English
 
@@ -404,6 +405,7 @@ Translate this word.
 
 %^{What Polish word: }
 
+*** Example sentence
 " :prepend t :empty-lines-after 1 :kill-buffer t)
      ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
@@ -415,7 +417,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :STYLE: habit
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("u" "Review" entry (file ,my/org-review-file-path)
-"* [%<%Y-%m-%d>] %^g
+"* [%<%Y-%m-%d $a>] %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:
@@ -424,8 +426,10 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
   + %?
 
 + What's could be better:
+  -
 
-+ What to work on:
++ Ideas for improvement:
+  +
 
 " :prepend t :empty-lines-after 1 :jump-to-captured t)
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
