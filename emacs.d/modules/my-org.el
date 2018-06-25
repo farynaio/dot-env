@@ -406,13 +406,19 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :STYLE: habit
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("u" "Review" entry (file ,my/org-review-file-path)
-"* [%<%Y-%m-%d $a>] %^g
+"* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d>]
 :END:
 
++ Plans for next week:
+  +
+
 + What's good:
   + %?
+
++ What do I learned:
+  +
 
 + What's could be better:
   -
