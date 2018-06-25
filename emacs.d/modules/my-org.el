@@ -25,18 +25,6 @@
     (setq synosaurus-backend 'synosaurus-backend-wordnet)))
     ;; (add-hook 'text-mode-hook #'synosaurus-mode)))
 
-(use-package artbollocks-mode
-  :config
-  (progn
-    (setq artbollocks-weasel-words-regex
-      (concat "\\b" (regexp-opt
-                      '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
-                                        ; test
-                         "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
-                         ) t) "\\b")
-      artbollocks-jargon nil)))
-    ;; (add-hook 'text-mode-hook #'artbollocks-mode)))
-
 ;; org agenda full month calendar
 (defun cal ()
   "Full month calendar by calfw-org-calendar."
@@ -300,7 +288,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         my/org-media-file-path
          my/org-tasks-file-path))))
 
-(setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers nil)
 (setq org-enforce-todo-dependencies nil)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
 ;; (setq org-track-ordered-property-with-tag t)
@@ -395,7 +383,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :END:
 
 Translate this word.
-[[https://translate.google.pl/?hl=pl#en/pl/%\\1][spelling]]
+[[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
+[[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
 
 *** English
 
@@ -719,11 +708,15 @@ should be continued."
 ;; org-drill
 (setq org-drill-use-visible-cloze-face-p t)
 (setq org-drill-hide-item-headings-p t)
-(setq org-drill-maximum-items-per-session 30)
+(setq org-drill-maximum-items-per-session 40)
 (setq org-drill-maximum-duration 20)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
+(setq org-drill-learn-fraction 0.45)
+
+(defalias 'drill #'org-drill)
+(defalias 'drill-resume #'org-drill-resume)
 
 (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))

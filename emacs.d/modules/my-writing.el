@@ -61,4 +61,16 @@
 
 (bind-key ", d" #'dict-toggle evil-normal-state-map)
 
+(use-package artbollocks-mode
+  :config
+  (progn
+    (setq artbollocks-weasel-words-regex
+      (concat "\\b" (regexp-opt
+                      '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
+                                        ; test
+                         "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
+                         ) t) "\\b")
+      artbollocks-jargon nil)))
+    ;; (add-hook 'text-mode-hook #'artbollocks-mode)))
+
 (provide 'my-writing)
