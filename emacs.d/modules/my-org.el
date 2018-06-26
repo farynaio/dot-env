@@ -363,22 +363,22 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   `(("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* NOTE %?
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
 "* TODO %?
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* %?
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("w" "New word" entry (file+headline ,my/org-english-drill-file-path "English drill")
 "* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :DRILL_CARD_TYPE: twosided
 :END:
 
@@ -402,13 +402,13 @@ Translate this word.
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :STYLE: habit
 :END:" :prepend t :empty-lines-after 1 :kill-buffer t)
      ("u" "Review" entry (file ,my/org-review-file-path)
 "* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :END:
 
 + Plans for next week:
@@ -430,7 +430,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
      ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
 "* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :TITLE: %^{What Title: }
 :AUTHOR: %^{What author: }
 :TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
@@ -439,9 +439,14 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :RATING: %^{What rating: |5|4|3|2|1}
 :END:" :prepend t :kill-buffer t)
      ("j" "Journal" entry (file ,my/org-journal-file-path)
-       "* [%<%Y-%m-%d>]\n%?" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+"* [%<%Y-%m-%d %a>]
+
+- English
+  - %?
+
+" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
      ("d" "Dating Journal" entry (file ,my/org-journal-dating-file-path)
-       "* [%<%Y-%m-%d>]\n%?" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+       "* [%<%Y-%m-%d %a>]\n%?" :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
      ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
        ;; "* NOTE taken on %U \\\\
     ;; %?" :prepend nil :kill-buffer t)
@@ -463,7 +468,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :ITOLD_THEM_EMAIL:
 :ITOLD_THEM_PHONE:
 :NOTES:
-:CREATED: [%<%Y-%m-%d>]
+:CREATED: [%<%Y-%m-%d %a>]
 :END:" :prepend t :kill-buffer t)))
 
 (setq org-todo-keywords
