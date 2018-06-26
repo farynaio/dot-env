@@ -10,6 +10,7 @@
                                              ("couldnt" "couldn't" nil 0)
                                              ("mustnt" "mustn't" nil 0)
                                              ("shouldnt" "shouldn't" nil 0)
+                                             ("wouldnt" "wouldn't" nil 0)
                                              ("doesnt" "doesn't" nil 0)
                                              ("didnt" "didn't" nil 0)
                                              ("thats" "that's" nil 0)

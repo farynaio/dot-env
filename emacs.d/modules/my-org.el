@@ -724,10 +724,10 @@ should be continued."
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
-(setq org-drill-learn-fraction 0.45)
+(setq org-drill-learn-fraction 0.4)
 
 (defalias 'drill #'org-drill)
-(defalias 'drill-resume #'org-drill-resume)
+(defalias 'resume-drill #'org-drill-resume)
 
 (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
