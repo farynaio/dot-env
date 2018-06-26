@@ -707,7 +707,15 @@ should be continued."
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
 (org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
-(run-at-time t 3600 'org-agenda-to-appt)           ;; update appt list hourly
+
+(defvar my/org-agenda-to-appt-timer nil)
+
+(when my/org-agenda-to-appt-timer
+  (cancel-timer my/org-agenda-to-appt-timer))
+
+;; update appt list hourly
+(setq my/org-agenda-to-appt-timer (run-at-time t 3600 'org-agenda-to-appt))
+
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
 
 (use-package org-review
