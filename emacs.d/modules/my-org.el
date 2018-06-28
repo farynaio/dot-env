@@ -394,7 +394,6 @@ Translate this word.
 
 %^{What Polish word: }
 
-*** Example sentence
 " :prepend t :empty-lines-after 1 :kill-buffer t)
      ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
       "* %?" :prepend nil :kill-buffer t)
@@ -727,12 +726,12 @@ should be continued."
 ;; org-drill
 (setq org-drill-use-visible-cloze-face-p t)
 (setq org-drill-hide-item-headings-p t)
-(setq org-drill-maximum-items-per-session 40)
-(setq org-drill-maximum-duration 20)
+(setq org-drill-maximum-items-per-session 30)
+(setq org-drill-maximum-duration 10)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
-(setq org-drill-learn-fraction 0.4)
+(setq org-drill-learn-fraction 0.25)
 
 (defalias 'drill #'org-drill)
 (defalias 'resume-drill #'org-drill-resume)
@@ -740,5 +739,7 @@ should be continued."
 (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
+
+(add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
 (provide 'my-org)

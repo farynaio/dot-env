@@ -7,10 +7,15 @@
                                              ("cant" "can't" nil 0)
                                              ("its" "it's" nil 0)
                                              ("Its" "It's" nil 0)
+                                             ("isnt" "isn't" nil 0)
                                              ("couldnt" "couldn't" nil 0)
+                                             (" have" "'ve" nil 0)
                                              ("mustnt" "mustn't" nil 0)
                                              ("shouldnt" "shouldn't" nil 0)
                                              ("wouldnt" "wouldn't" nil 0)
+                                             ("havent" "haven't" nil 0)
+                                             ("whos" "who's" nil 0)
+                                             ("everobodys" "everybody's" nil 0)
                                              ("doesnt" "doesn't" nil 0)
                                              ("didnt" "didn't" nil 0)
                                              ("thats" "that's" nil 0)
@@ -39,9 +44,8 @@
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
-(setq safe-local-variable-values '(
-                                    (ispell-dictionary . "pl")
-                                    (ispell-dictionary . "en")))
+(add-to-list 'safe-local-variable-values '(ispell-dictionary . "pl"))
+(add-to-list 'safe-local-variable-values '(ispell-dictionary . "en"))
 
 ;; mode hooks
 (setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
