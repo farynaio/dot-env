@@ -727,11 +727,11 @@ should be continued."
 (setq org-drill-use-visible-cloze-face-p t)
 (setq org-drill-hide-item-headings-p t)
 (setq org-drill-maximum-items-per-session 30)
-(setq org-drill-maximum-duration 10)
+(setq org-drill-maximum-duration 12)
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
-(setq org-drill-learn-fraction 0.25)
+(setq org-drill-learn-fraction 0.2)
 
 (defalias 'drill #'org-drill)
 (defalias 'resume-drill #'org-drill-resume)
