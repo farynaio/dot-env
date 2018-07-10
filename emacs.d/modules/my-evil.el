@@ -78,7 +78,9 @@
 
     (evil-define-key 'normal ediff-mode-map
       "[c" 'ediff-next-difference
-      "]c" 'ediff-previous-difference)))
+      "]c" 'ediff-previous-difference))
+
+  (defalias #'forward-evil-word #'forward-evil-symbol))
 
 (use-package evil-surround
   :config
@@ -89,5 +91,10 @@
   :config
   (progn
     (global-evil-matchit-mode 1)))
+
+(use-package evil-visualstar
+  :config
+  (progn
+    (global-evil-visualstar-mode)))
 
 (provide 'my-evil)
