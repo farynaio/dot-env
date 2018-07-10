@@ -163,6 +163,8 @@
 
 (add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w")))
 
+(bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
+
 (dolist (i my/devel-keymaps)
   (bind-key "C-c d" #'dash-at-point i)
   (bind-key "C-c e" #'dash-at-point-with-docset i))
