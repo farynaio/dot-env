@@ -382,7 +382,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :DRILL_CARD_TYPE: twosided
 :END:
 
-Translate this word.
 [[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
 [[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
 
@@ -731,7 +730,7 @@ should be continued."
 (setq org-drill-save-buffers-after-drill-sessions-p nil)
 (setq org-drill-add-random-noise-to-intervals-p t)
 (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
-(setq org-drill-learn-fraction 0.2)
+(setq org-drill-learn-fraction 0.3)
 
 (defalias 'drill #'org-drill)
 (defalias 'resume-drill #'org-drill-resume)
