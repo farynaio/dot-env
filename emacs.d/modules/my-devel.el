@@ -142,7 +142,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
 
-(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map))
+(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py"))
 
 (add-hook 'find-file-hook
@@ -161,9 +161,13 @@
         (when (not found)
           ))))
 
-(add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
+
+(add-hook 'python-mode-hook (lambda ()
+                              (setq tab-width 4)
+                              (setq python-indent-offset 4)))
 
 (dolist (i my/devel-keymaps)
   (bind-key "C-c d" #'dash-at-point i)
