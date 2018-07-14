@@ -14,6 +14,7 @@
                                              ("shouldnt" "shouldn't" nil 0)
                                              ("wouldnt" "wouldn't" nil 0)
                                              ("havent" "haven't" nil 0)
+                                             ("totaly" "totally" nil 0)
                                              ("whos" "who's" nil 0)
                                              ("everobodys" "everybody's" nil 0)
                                              ("doesnt" "doesn't" nil 0)
