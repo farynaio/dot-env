@@ -385,11 +385,11 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 [[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
 [[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
 
-*** English
+** English
 
 %^{What English word: }
 
-*** Polish
+** Polish
 
 %^{What Polish word: }
 
