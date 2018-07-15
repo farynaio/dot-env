@@ -106,11 +106,11 @@
 (use-package multiple-cursors)
 
 (setq custom-safe-themes t)
-(require 'color-theme-sanityinc-tomorrow)
+;; (require 'color-theme-sanityinc-tomorrow)
 
-(eval-after-load 'color-theme-sanityinc-tomorrow
-  '(progn
-    (color-theme-sanityinc-tomorrow-night)))
+;; (eval-after-load 'color-theme-sanityinc-tomorrow
+  ;; '(progn
+    ;; (color-theme-sanityinc-tomorrow-night)))
 
 (use-package persistent-scratch
   :config
@@ -369,18 +369,15 @@
 
 (display-time-mode -1)
 
-;; (prefer-coding-system 'utf-8-hfs)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
   '(package-selected-packages
      (quote
-       (google-translate org-review move-text openwith exec-path-from-shell yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode)))
+       (evil-visualstar google-translate org-review move-text openwith exec-path-from-shell yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode)))
   '(safe-local-variable-values
      (quote
        ((org-hide-emphasis-markers . t)
