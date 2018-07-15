@@ -368,6 +368,13 @@
      (ispell-dictionary . "pl")))
 
 (display-time-mode -1)
+(setq debug-on-error nil)
+
+;; themes
+;; adwaita
+;; deeper-blue
+;; tango dark
+;; wombat
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -375,14 +382,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
-  '(package-selected-packages
-     (quote
-       (evil-visualstar google-translate org-review move-text openwith exec-path-from-shell yaml-mode yasnippet org-mime wgrep web-mode w3m use-package synosaurus smartscan smartparens rainbow-mode persistent-scratch org-plus-contrib org-evil oauth2 neotree multiple-cursors miniedit magit langtool japanese-holidays ivy-hydra imenu-anywhere hl-todo guide-key goto-last-change git-gutter evil-surround evil-mu4e evil-matchit editorconfig dockerfile-mode dired+ diminish counsel-projectile company-php color-theme-sanityinc-tomorrow centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile artbollocks-mode)))
-  '(safe-local-variable-values
-     (quote
-       ((org-hide-emphasis-markers . t)
-         (ispell-dictionary . "en")
-         (ispell-dictionary . "pl")))))
+ '(safe-local-variable-values
+   (quote
+    ((org-hide-emphasis-markers . t)
+     (ispell-dictionary . "en")
+     (ispell-dictionary . "pl")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
