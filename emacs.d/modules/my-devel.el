@@ -1,5 +1,6 @@
 (require 'cc-mode)
 (require 'css-mode)
+(require 'python)
 
 (use-package rainbow-mode
   :diminish rainbow-mode)
@@ -151,7 +152,7 @@
             (buf-name (file-name-extension buffer-file-name) ))
 	    (dolist (i devel-buffers)
 	      (when (string= buf-name i)
-          (hl-line-mode)
+		(hl-line-mode)
           (hl-todo-mode)
           (auto-highlight-symbol-mode)
           (rainbow-mode)
@@ -163,11 +164,10 @@
 
 (add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 
-(bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
+(add-hook 'python-mode-hook (lambda () (setq tab-width 4)))
 
-(add-hook 'python-mode-hook (lambda ()
-                              (setq tab-width 4)
-                              (setq python-indent-offset 4)))
+(setq python-indent-offset 4)
+(bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
 
 (dolist (i my/devel-keymaps)
   (bind-key "C-c d" #'dash-at-point i)
