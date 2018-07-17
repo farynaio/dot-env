@@ -512,12 +512,12 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-setup-freelance
                                my/org-project-launch-amazon-business
-                               my/org-project-setup-digital-agency
+                               ;; my/org-project-setup-freelance
+                               ;; my/org-project-setup-digital-agency
                                my/org-project-become-confident-pua
                                my/org-project-trip-edinburgh
-                               my/org-project-trip-nottingham
+                               ;; my/org-project-trip-nottingham
                                ))
 
 (setq org-agenda-custom-commands
