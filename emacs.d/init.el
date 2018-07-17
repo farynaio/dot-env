@@ -33,6 +33,10 @@
   (package-install 'use-package))
 
 (require 'use-package)
+(require 'gnutls)
+
+(when (eq system-type 'darwin)
+  (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem"))
 
 (use-package auto-compile
   :config (auto-compile-on-load-mode))
