@@ -395,4 +395,5 @@
  '(hl-line ((t (:inherit highlight :underline nil))))
  '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
  '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
- '(org-level-4 ((t (:inherit outline-4 :foreground "red2")))))
+ '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
+ '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3")))))
