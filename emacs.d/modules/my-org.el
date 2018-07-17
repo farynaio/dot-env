@@ -559,7 +559,59 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
          (org-agenda-remove-tags t)
          (org-agenda-files my/org-active-projects)))
          ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
-         ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+     ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+     ("p" "Active places tasks"
+       ((tags "@phone"
+          ((org-agenda-overriding-header "Active Phone tasks")
+            (org-agenda-skip-function
+              '(or
+                 (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                 (my/org-agenda-skip-if-scheduled-later)
+                 ))
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags t)
+            (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         (tags "@computer"
+           ((org-agenda-overriding-header "Active Computer tasks:")
+             (org-agenda-skip-function
+               '(or
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (my/org-agenda-skip-if-scheduled-later)
+                  ))
+             (org-tags-match-list-sublevels nil)
+             (org-agenda-remove-tags t)
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         (tags "@office"
+           ((org-agenda-overriding-header "Active Office tasks:")
+             (org-agenda-skip-function
+               '(or
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (my/org-agenda-skip-if-scheduled-later)
+                  ))
+             (org-tags-match-list-sublevels nil)
+             (org-agenda-remove-tags t)
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         (tags "@home"
+           ((org-agenda-overriding-header "Active Home tasks:")
+             (org-agenda-skip-function
+               '(or
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (my/org-agenda-skip-if-scheduled-later)
+                  ))
+             (org-tags-match-list-sublevels nil)
+             (org-agenda-remove-tags t)
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         (tags "@delegate"
+           ((org-agenda-overriding-header "Active Delegate tasks:")
+             (org-agenda-skip-function
+               '(or
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (my/org-agenda-skip-if-scheduled-later)
+                  ))
+             (org-tags-match-list-sublevels nil)
+             (org-agenda-remove-tags t)
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         ))
      ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
@@ -584,6 +636,10 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
+        (tags-todo "TODO=\"WAITING\""
+          ((org-agenda-files (append org-agenda-files my/org-active-projects))
+           (org-agenda-overriding-header "Waiting:")
+           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
         (todo "*"
           ((org-agenda-overriding-header "Goals:")
             (org-tags-match-list-sublevels nil)
