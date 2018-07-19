@@ -241,6 +241,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq holiday-bahai-holidays nil)
 (setq holiday-local-holidays nil) ; set it one day
 (setq org-agenda-include-diary t)
+(setq org-agenda-search-headline-for-time nil)
 
 (setq diary-number-of-entries 31)
 (setq calendar-mark-holidays-flag t)
