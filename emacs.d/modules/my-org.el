@@ -640,6 +640,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "Waiting:")
+           (org-agenda-remove-tags t)
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
         (todo "*"
           ((org-agenda-overriding-header "Goals:")
