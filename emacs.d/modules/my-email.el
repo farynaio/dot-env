@@ -127,7 +127,9 @@
        shr-color-visible-luminance-min 80
        mu4e-headers-include-related t
        mu4e-view-show-images t
-       mu4e-get-mail-command "offlineimap -o"
+       ;; mu4e-get-mail-command "offlineimap -o"
+       ;; mu4e-get-mail-command "offlineimap"
+       mu4e-get-mail-command "true"
        ;; mu4e-attachment-dir  "/Volumes/RAM_Disk/"
        mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
