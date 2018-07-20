@@ -82,8 +82,6 @@
 (require 'my-devel)
 (require 'my-dired)
 (require 'my-notifications)
-
-
 (use-package popup)
 (use-package oauth2)
 
