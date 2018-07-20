@@ -39,6 +39,7 @@
 (setq my/org-knowledge-review-file-path (expand-file-name "knowledge_reviews.org" org-agenda-directory))
 (setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" org-agenda-directory))
 
+(setq my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org.gpg" org-directory))
 (setq my/org-notes-file-path (expand-file-name "notes.org" org-directory))
