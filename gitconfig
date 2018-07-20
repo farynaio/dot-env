@@ -5,6 +5,9 @@
 	# Blue on black is hard to read in git branch -vv: use cyan instead
 	upstream = cyan
 
+[commit]
+  cleanup = whitespace
+
 [core]
   attributesFile = ~/.gitattributes_global
 	excludesfile = ~/.gitignore_global
