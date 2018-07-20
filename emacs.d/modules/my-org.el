@@ -7,6 +7,13 @@
 
 (defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
 
+(setq org-babel-load-languages '(
+                                  (emacs-lisp . t)
+                                  (ledger . t)
+                                  (python . t)
+                                  (gnuplot . t)
+                                  ))
+
 (setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))
 
 (define-derived-mode my/taskjuggler-mode org-mode "TJ"
