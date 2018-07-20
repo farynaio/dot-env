@@ -40,6 +40,8 @@
     (bind-key "[c"     #'git-gutter:previous-hunk            evil-normal-state-map)
     (bind-key ", ."    #'dired-jump                          evil-normal-state-map)
     (bind-key ", m"    #'dired-jump-other-window             evil-normal-state-map)
+    (bind-key "C-n"    #'company-next-page                   evil-insert-state-map)
+    (bind-key "C-p"    #'company-previous-page               evil-insert-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
@@ -96,5 +98,7 @@
   :config
   (progn
     (global-evil-visualstar-mode)))
+
+(evil-declare-change-repeat 'company-complete)
 
 (provide 'my-evil)

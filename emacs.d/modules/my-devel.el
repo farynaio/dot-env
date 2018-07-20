@@ -23,7 +23,12 @@
 ;; php-auto-yasnippets
 ;; js2-mode
 
-(use-package company)
+(use-package company
+  :config
+  (progn
+    (setq company-show-numbers t)
+    (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
+
 (use-package company-php)
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
