@@ -7,9 +7,12 @@
                                              ("cant" "can't" nil 0)
                                              ("its" "it's" nil 0)
                                              ("Its" "It's" nil 0)
+                                             ("it is" "it's" nil 0)
+                                             ("It is" "It's" nil 0)
                                              ("isnt" "isn't" nil 0)
                                              ("couldnt" "couldn't" nil 0)
                                              (" have" "'ve" nil 0)
+                                             ("You are" "You're" nil 0)
                                              ("mustnt" "mustn't" nil 0)
                                              ("shouldnt" "shouldn't" nil 0)
                                              ("wouldnt" "wouldn't" nil 0)
@@ -23,6 +26,8 @@
                                              ("chinese" "Chinese" nil 0)
                                              ("whats" "what's" nil 0)
                                              ("Whats" "What's" nil 0)
+                                             ("What is" "What's" nil 0)
+                                             ("what is" "what's" nil 0)
                                              ))
 
 (use-package langtool
