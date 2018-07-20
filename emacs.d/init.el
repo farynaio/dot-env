@@ -47,11 +47,18 @@
 (require 'autorevert)
 (require 'elisp-mode)
 
+(require 'inc-dec-at-point)
+(eval-after-load 'inc-dec-at-point
+  '(progn
+     (bind-key "C-c +" #'increment-integer-at-point)
+     (bind-key "C-c -" #'decrement-integer-at-point)))
+
 (use-package diminish
   :config
   (progn
     ;; (diminish 'editorconfig-mode)
     (diminish 'auto-revert-mode)
+    (diminish 'company-mode)
     ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
