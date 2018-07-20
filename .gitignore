@@ -6,6 +6,9 @@ init.view
 
 dotenv/bash/bash_profile
 
+emacs.d/abbrev_defs
+emacs.d/history
+emacs.d/newsticker
 emacs.d/recentf
 emacs.d/bookmarks
 emacs.d/elpa
@@ -15,6 +18,9 @@ emacs.d/agenda
 emacs.d/savehist
 emacs.d/archive
 emacs.d/image-dired
+emacs.d/tools/LanguageTool
+emacs.d/tramp
+emacs.d/url/
 
 !emacs.d/agenda/shared.org
 !emacs.d/archive/shared_archive.org
