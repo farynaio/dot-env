@@ -368,12 +368,25 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
 (setq org-capture-templates `(
-  ("i" "Inbox" entry (file ,my/org-inbox-file-path)
-"* NOTE %?
+  ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
+"* %(org-contacts-template-name)
 :PROPERTIES:
+:TITLE:
+:ALIAS:
+:COMPANY:
+:ROLE:
+:EMAIL: %(org-contacts-template-email)
+:MOBILE:
+:WORK_PHONE:
+:ADDRESS:
+:URL:
+:BIRTHDAY:
+:ITOLD_THEM_EMAIL:
+:ITOLD_THEM_PHONE:
+:NOTES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:"
-:prepend t :empty-lines-after 1 :kill-buffer t)
+    :prepend t :kill-buffer t)
 
   ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
 "* CAL-IN Diet in [%<%Y-%m-%d %a>]
@@ -391,18 +404,36 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 #+TBLFM: $4=$2*$3::$LR4=vsum(@2$4..@-I$4)"
 :prepend t :empty-lines-after 1)
 
-  ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
-"* TODO %?
+  ("i" "Inbox" entry (file ,my/org-inbox-file-path)
+"* NOTE %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:END:"
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("l" "Ledger transaction" plain (file ,my/org-current-ledger-file-path)
+"%(org-read-date) * %^{Transaction name:}
+  %? £%^{Plus amount: }
+    £%^{Minus amount: }
+"
+:prenend nil :empty-lines-after 1)
+
+  ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
+"* TODO %?
+:SCHEDULED [%<%Y-%m-%d %a>]
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:END:"
+:END:
+"
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("w" "New word" entry (file+headline ,my/org-english-drill-file-path "English drill")
@@ -427,7 +458,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
-"* %?"
+"* %?
+"
 :prepend nil :kill-buffer t)
 
   ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
@@ -436,7 +468,8 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :STYLE: habit
-:END:"
+:END:
+"
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("u" "Review" entry (file ,my/org-review-file-path)
@@ -473,7 +506,8 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :EFFORT: %^{What effort: }
 :RECOMMENDED: %^{Who recommended: }
 :RATING: %^{What rating: |5|4|3|2|1}
-:END:"
+:END:
+"
 :prepend t :kill-buffer t)
 
   ("j" "Journal" entry (file ,my/org-journal-file-path)
@@ -486,7 +520,8 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
   ("d" "Dating Journal" entry (file ,my/org-journal-dating-file-path)
-"* [%<%Y-%m-%d %a>]\n%?"
+"* [%<%Y-%m-%d %a>]\n%?
+"
 :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
      ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
@@ -494,25 +529,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
     ;; %?" :prepend nil :kill-buffer t)
      ;; ("n" "Add note to currently clocked entry" plain (clock)
      ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
-  ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
-"* %(org-contacts-template-name)
-:PROPERTIES:
-:TITLE:
-:ALIAS:
-:COMPANY:
-:ROLE:
-:EMAIL: %(org-contacts-template-email)
-:MOBILE:
-:WORK_PHONE:
-:ADDRESS:
-:URL:
-:BIRTHDAY:
-:ITOLD_THEM_EMAIL:
-:ITOLD_THEM_PHONE:
-:NOTES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:"
-:prepend t :kill-buffer t)))
+))
 
 (setq org-todo-keywords
   '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
