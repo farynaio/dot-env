@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -o emacs
-
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export ANDROID_HOME="/usr/local/share/android-sdk"
@@ -31,6 +29,8 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
+
+# export PAGER="/usr/bin/less"
 
 # export PAGER="/usr/bin/less -isM -F -X +Gg $LESS"
 # export MANPAGER=$PAGER
