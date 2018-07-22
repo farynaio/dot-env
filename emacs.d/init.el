@@ -378,10 +378,10 @@
 
 (add-hook 'after-init-hook 'global-company-mode)
 
-(use-package company-emoji
-  :config
-  (progn
-    (add-to-list 'company-backends 'company-emoji)))
+;; (use-package company-emoji
+;;   :config
+;;   (progn
+;;     (add-to-list 'company-backends 'company-emoji)))
 
 (defun my/set-emoji-font (frame)
   "Adjust the font settings of FRAME so Emacs can display emoji properly."

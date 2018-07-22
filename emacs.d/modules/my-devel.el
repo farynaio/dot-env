@@ -27,8 +27,11 @@
   :config
   (progn
     (setq company-show-numbers t)
+    (setq company-minimum-prefix-length 0)
     (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
 
+(use-package company-statistics)
+(use-package company-web)
 (use-package company-php)
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
