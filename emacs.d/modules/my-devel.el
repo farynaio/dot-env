@@ -187,4 +187,22 @@
   (bind-key "C-c d" #'dash-at-point i)
   (bind-key "C-c e" #'dash-at-point-with-docset i))
 
+(use-package ledger-mode
+  :init
+  (setq ledger-clear-whole-transactions 1)
+
+  :config
+  (progn
+    (setq ledger-post-account-alignment-column 2)
+    (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+    (unbind-key "<tab>" ledger-mode-map)
+    (bind-key "C-c C-c" 'ledger-post-align-dwim ledger-mode-map)
+
+    (define-derived-mode my/ledger-mode ledger-mode "ledger"
+      "Superior major ledger mode"
+      (add-hook 'after-save-hook #'ledger-post-align-dwim nil t))
+
+    ;; (unbind-key "<TAB>" my/ledger-mode-map)
+    (add-to-list 'auto-mode-alist '("\\.dat\\'" . my/ledger-mode))))
+
 (provide 'my-devel)

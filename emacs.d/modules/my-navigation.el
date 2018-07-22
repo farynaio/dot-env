@@ -63,6 +63,9 @@
 (setq my/org-project-setup-freelance (expand-file-name "setup_freelance.org.gpg" my/org-projects-folder))
 (setq my/org-project-launch-amazon-business (expand-file-name "launch_amazon_business.org.gpg" my/org-projects-folder))
 
+(setq my/org-ledger-base-path (expand-file-name "ledger" my/org-base-path))
+(setq my/org-current-ledger-file-path (expand-file-name "2018.dat" my/org-ledger-base-path))
+
 (use-package smartscan
   :defer t
   :config

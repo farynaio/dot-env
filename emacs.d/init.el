@@ -430,6 +430,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
+ '(ledger-font-xact-highlight-face ((t nil)))
  '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
  '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
  '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
