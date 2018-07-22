@@ -35,7 +35,13 @@
 (use-package company-php)
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
-(use-package smartparens)
+
+(electric-pair-mode 1)
+(setq electric-pair-pairs '(
+                            (?\" . ?\")
+                            (?\{ . ?\})
+                            (?\( . ?\))))
+(setq electric-pair-text-pairs electric-pair-pairs)
 
 (use-package yasnippet
   :config
