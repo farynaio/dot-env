@@ -24,6 +24,8 @@
 ;; js2-mode
 
 (use-package company
+  :diminish company-mode
+
   :config
   (progn
     (setq company-show-numbers t)
