@@ -1,5 +1,7 @@
 (eval-when-compile
   (defvar oauth--token-data ())
+  (defvar url-http-method ())
+  (defvar url-http-data ())
   (defvar url-http-extra-headers ())
   (defvar url-callback-function ())
   (defvar url-callback-arguments ()))
