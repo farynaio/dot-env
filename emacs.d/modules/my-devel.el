@@ -46,11 +46,11 @@
 (use-package yasnippet
   :config
   (progn
+    (yas-global-mode t)
     (diminish yas-minor-mode)
     (diminish yas/minor-mode)
     (diminish yas-global-mode)
-    (diminish yas/global-mode)
-    (yas-global-mode t)))
+    (diminish yas/global-mode)))
 
 (use-package php-mode
   :config
