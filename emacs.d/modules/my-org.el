@@ -412,13 +412,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("l" "Ledger transaction" plain (file ,my/org-current-ledger-file-path)
-"%(org-read-date) * %^{Transaction name:}
-  %? %^{Plus amount: } GBP
-    £%^{Minus amount: } GBP
-"
-:prenend nil :empty-lines-after 1)
-
   ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
 "* TODO %?
 :SCHEDULED: [%<%Y-%m-%d %a>]
