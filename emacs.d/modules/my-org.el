@@ -414,8 +414,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
   ("l" "Ledger transaction" plain (file ,my/org-current-ledger-file-path)
 "%(org-read-date) * %^{Transaction name:}
-  %? £%^{Plus amount: }
-    £%^{Minus amount: }
+  %? %^{Plus amount: } GBP
+    £%^{Minus amount: } GBP
 "
 :prenend nil :empty-lines-after 1)
 
