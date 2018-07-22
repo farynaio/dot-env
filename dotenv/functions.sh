@@ -11,15 +11,11 @@ db-devel-backup() {
   local PASSWORD=wordpress
   local PREFIX=wp_
 
-  if [[ -e $FILE ]]; then
-    echo "Error $FILE already exists."
-  else
-    echo "Database back up started..."
+  echo "Database back up started..."
 
-    docker exec $CONTAINER /usr/bin/mysqldump --opt -Q -u $USER --password=$PASSWORD $DATABASE ${PREFIX}options ${PREFIX}posts ${PREFIX}postmeta ${PREFIX}terms ${PREFIX}term_taxonomy ${PREFIX}term_relationships ${PREFIX}termmeta > $FILE
+  docker exec $CONTAINER /usr/bin/mysqldump --opt -Q -u $USER --password=$PASSWORD $DATABASE ${PREFIX}options ${PREFIX}posts ${PREFIX}postmeta ${PREFIX}terms ${PREFIX}term_taxonomy ${PREFIX}term_relationships ${PREFIX}termmeta > $FILE
 
-    echo "Database backing up finished."
-  fi
+  echo "Database backing up finished."
 }
 
 db-devel-restore() {
