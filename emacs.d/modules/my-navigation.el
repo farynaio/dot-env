@@ -307,5 +307,8 @@ point reaches the beginning or end of the buffer, stop there."
 (global-unset-key (kbd "<end>"))
 (global-unset-key (kbd "<home>"))
 (global-unset-key (kbd "C-x C-'"))
+(global-unset-key (kbd "<S-up>"))
+(global-unset-key (kbd "<S-down>"))
+(global-unset-key (kbd "C-x <down>"))
 
 (provide 'my-navigation)
