@@ -53,7 +53,7 @@
 
 (setq my/local-config-file-path (expand-file-name "local-config.el" user-emacs-directory))
 (setq my/org-goals-file-path (expand-file-name "goals.org" org-directory))
-(setq my/org-knowledge-file-path (expand-file-name "knowledge.org.gpg" org-directory))
+(setq my/org-knowledge-file-path (expand-file-name "knowledge.org" org-directory))
 (setq my/org-quotes-file-path (expand-file-name "quotes.org.gpg" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
 (setq my/org-project-become-confident-pua (expand-file-name "become_confident_pua.org" my/org-projects-folder))
