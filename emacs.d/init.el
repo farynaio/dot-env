@@ -263,7 +263,6 @@
 ;; Mappings / Shortcuts
 (global-set-key (kbd "C-x C-b") #'ibuffer) ; list buffers for editing
 ;; (global-set-key (kbd "C-c n") #'neotree-toggle)
-(global-set-key (kbd "C-c C-r") #'air-revert-buffer-noconfirm)
 (global-set-key (kbd "C-x 4 t") #'flop-frame)
 (global-set-key (kbd "s-w") #'kill-ring-save)
 (global-set-key (kbd "C-j") #'join-line)
@@ -280,6 +279,8 @@
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
   (message (concat "Buffer '" (file-name-nondirectory buffer-file-name) "' reloaded.")))
+
+(bind-key "s-u" 'air-revert-buffer-noconfirm global-map)
 
 (defun air-toggle-maximize-buffer ()
    "Maximize buffer"
