@@ -429,7 +429,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(hl-line ((t (:inherit highlight :underline nil))))
+ '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
  '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
  '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
  '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
