@@ -50,7 +50,15 @@
                            (when msg (string-suffix-p "/Appdy.co.uk" (mu4e-message-field msg :maildir))))
              :vars '(
                       (mu4e-trash-folder . "/Appdy.co.uk/Trash")
-                      (mu4e-refile-folder . "/Appdy.co.uk/Archive")
+                      (my/mu4e-refile-rules . (("@appdy.co.uk" . "/Appdy.co.uk/Archive.Amazon")))
+                      (mu4e-refile-folder .
+                        (lambda (msg)
+                          (let* ((to (cdar (mu4e-message-field msg :to)))
+                                  (folder (or (cdar (member* to my/mu4e-refile-rules
+                                                      :test #'(lambda (x y)
+                                                                (string-match (car y) x))))
+                                            "/Appdy.co.uk/Archive")))
+                            folder)))
                       (mu4e-maildir-shortcuts .
                         (("/Appdy.co.uk/Inbox"    . ?i)
                          ("/Appdy.co.uk/Drafts"   . ?d)
