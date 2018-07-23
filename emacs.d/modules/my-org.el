@@ -421,7 +421,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
-"* %?
+"* "%?"
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
