@@ -18,7 +18,6 @@
 
 (define-derived-mode my/taskjuggler-mode org-mode "TJ"
   "Major mode for TaskJuggler projects."
-  (visual-line-mode 1)
   (add-hook 'after-save-hook #'org-taskjuggler-export-and-process nil t)
   (add-hook 'find-file-hook #'org-taskjuggler-export-process-and-open nil t)
   (add-hook 'find-file-hook

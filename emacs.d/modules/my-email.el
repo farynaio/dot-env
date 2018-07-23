@@ -173,7 +173,6 @@
              account-vars)
            (error "No email account found"))))
      (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
-     (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
 
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
 
