@@ -1,6 +1,7 @@
 (require 'cc-mode)
 (require 'css-mode)
 (require 'python)
+(require 'js)
 
 (use-package rainbow-mode
   :diminish rainbow-mode)
@@ -156,8 +157,7 @@
 (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
 
-
-(add-to-list 'auto-mode-alist '("\\.jsx$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py"))
@@ -167,16 +167,16 @@
     (let* ((found nil)
             (buf-name (file-name-extension buffer-file-name) ))
 	    (dolist (i devel-buffers)
-	      (when (string= buf-name i)
-		(hl-line-mode)
-          (hl-todo-mode)
-          (auto-highlight-symbol-mode)
-          (rainbow-mode)
-          (smartparens-mode)
-          (setq c-basic-offset 2)
-          (setq found t)))
-        (when (not found)
-          ))))
+	      (if (string= buf-name i)
+          (progn
+		        (hl-line-mode 1)
+            (hl-todo-mode 1)
+            (auto-highlight-symbol-mode 1)
+            (rainbow-mode 1)
+            (setq c-basic-offset 2))
+          )))))
+
+;; TODO modify-syntax-entry - _ for css group of modes
 
 (add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 
