@@ -412,6 +412,34 @@
 ;; light theme
 ;; adwaita
 
+(with-eval-after-load "wombat-theme"
+  (custom-theme-set-faces
+    'wombat
+    '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
+    '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
+    '(ledger-font-xact-highlight-face ((t nil)))
+    '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
+    '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
+    '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
+    '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
+    )
+  )
+
+(defvar my/current-theme 'wombat)
+
+(defun my/toggle-theme ()
+  (interactive)
+  (if (eq  my/current-theme 'wombat)
+    (progn
+      (disable-theme 'wombat)
+      (load-theme 'adwaita)
+      (setq my/current-theme 'adwaita))
+    (disable-theme 'adwaita)
+    (load-theme 'wombat)
+    (setq my/current-theme 'wombat)))
+
+(defalias 'toggle-theme #'my/toggle-theme)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -419,19 +447,36 @@
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (wombat)))
+  '(ledger-reports
+     (quote
+       (("Assets & Liabilities balance" "%(binary) -f %(ledger-file) bal Assets Liabilities")
+         (#("bal" 0 1
+             (idx 0))
+           "%(binary) -f %(ledger-file) bal")
+         (#("reg" 0 1
+             (idx 1))
+           "%(binary) -f %(ledger-file) reg")
+         (#("payee" 0 1
+             (idx 2))
+           "%(binary) -f %(ledger-file) reg @%(payee)")
+         (#("account" 0 1
+             (idx 3))
+           "%(binary) -f %(ledger-file) reg %(account)"))))
   '(safe-local-variable-values
      (quote
        ((org-hide-emphasis-markers . t)
          (ispell-dictionary . "en")
          (ispell-dictionary . "pl")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
- '(ledger-font-xact-highlight-face ((t nil)))
- '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
- '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
- '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
- '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3")))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
+;;  '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
+;;  '(ledger-font-xact-highlight-face ((t nil)))
+;;  '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
+;;  '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
+;;  '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
+;;   '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
+;;   )
