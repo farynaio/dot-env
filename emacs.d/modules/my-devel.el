@@ -206,6 +206,6 @@
       (add-hook 'after-save-hook #'ledger-post-align-dwim nil t))
 
     ;; (unbind-key "<TAB>" my/ledger-mode-map)
-    (add-to-list 'auto-mode-alist '("\\.dat\\'" . my/ledger-mode))))
+    (add-to-list 'auto-mode-alist '("\\.ledger\\'" . my/ledger-mode))))
 
 (provide 'my-devel)
