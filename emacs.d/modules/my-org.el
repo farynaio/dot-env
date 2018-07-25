@@ -394,14 +394,15 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :Weight: %^{What is my weight (pounds): } pounds
 :END:
 
-#+TBLNAME: tab
-| Food / Exercise | Calories | Quantity | Total |
-|-----------------+----------+----------+-------|
-| %?                |          |          |       |
-|-----------------+----------+----------+-------|
-| Total           |          |          |       |
-#+TBLFM: $4=$2*$3::$LR4=vsum(@2$4..@-I$4)"
-:prepend t :empty-lines-after 1)
+| Food / Exercise | Calories | Quantity |   Total |
+|-----------------+----------+----------+---------|
+| %?          |       |         |      |
+|-----------------+----------+----------+---------|
+|                 |          | Expected |    1713 |
+|                 |          |    Total | 1771.06 |
+#+TBLFM: @2$>=$2*$3::@3$>=$2*$3::@4$>=$2*$3::@5$>=$2*$3::@6$>=$2*$3::@>$4=vsum(@2..@-2)
+"
+:prepend t :empty-lines-after 1 :jump-to-captured t)
 
   ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* NOTE %?
