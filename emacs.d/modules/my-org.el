@@ -295,6 +295,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         my/org-media-file-path
          my/org-tasks-file-path))))
 
+(setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
 (setq org-enforce-todo-dependencies nil)
 (setq org-agenda-dim-blocked-tasks t) ; or "invisible"
