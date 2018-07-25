@@ -414,7 +414,13 @@
 
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
-(with-eval-after-load "wombat"
+(defvar my/current-theme nil)
+
+(defun my/set-dark-theme ()
+  (when (featurep 'adwaita-theme)
+    (disable-theme 'adwaita)
+    (unload-feature 'adwaita-theme))
+  (load-theme 'wombat)
   (custom-theme-set-faces
     'wombat
     '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
@@ -423,24 +429,31 @@
     '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
     '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
     '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
-    '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
-    )
-  )
+    '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3")))))
+  (setq my/current-theme 'wombat))
 
-(defvar my/current-theme 'wombat)
+(defun my/set-light-theme ()
+  (when (featurep 'wombat-theme)
+    (disable-theme 'wombat)
+    (unload-feature 'wombat-theme))
+  (load-theme 'adwaita)
+  (setq my/current-theme 'adwaita))
 
 (defun my/toggle-theme ()
   (interactive)
   (if (eq  my/current-theme 'wombat)
-    (progn
-      (disable-theme 'wombat)
-      (load-theme 'adwaita)
-      (setq my/current-theme 'adwaita))
-    (disable-theme 'adwaita)
-    (load-theme 'wombat)
-    (setq my/current-theme 'wombat)))
+    (my/set-light-theme)
+    (my/set-dark-theme)))
 
 (defalias 'toggle-theme #'my/toggle-theme)
+
+(my/set-dark-theme)
+
+(setq safe-local-variable-values
+  (quote
+    ((org-hide-emphasis-markers . t)
+      (ispell-dictionary . "en")
+      (ispell-dictionary . "pl"))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -463,25 +476,7 @@
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
              (idx 3))
-           "%(binary) -f %(ledger-file) reg %(account)"))))
-  '(safe-local-variable-values
-     (quote
-       ((org-hide-emphasis-markers . t)
-         (ispell-dictionary . "en")
-         (ispell-dictionary . "pl")))))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
-;;  '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
-;;  '(ledger-font-xact-highlight-face ((t nil)))
-;;  '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
-;;  '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
-;;  '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
-;;   '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
-;;   )
+           "%(binary) -f %(ledger-file) reg %(account)")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
