@@ -412,7 +412,9 @@
 ;; light theme
 ;; adwaita
 
-(with-eval-after-load "wombat-theme"
+(setq custom-theme-directory "~/.emacs.d/themes/")
+
+(with-eval-after-load "wombat"
   (custom-theme-set-faces
     'wombat
     '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
@@ -480,3 +482,9 @@
 ;;  '(org-level-4 ((t (:inherit outline-4 :foreground "red2"))))
 ;;   '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
 ;;   )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
