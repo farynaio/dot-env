@@ -418,7 +418,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
   ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
 "* TODO %?
-:SCHEDULED: [%<%Y-%m-%d %a>]
+SCHEDULED: [%<%Y-%m-%d %a>]
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
