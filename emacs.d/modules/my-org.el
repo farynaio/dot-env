@@ -395,13 +395,16 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :Weight: %^{What is my weight (pounds): } pounds
 :END:
 
-| Food / Exercise | Calories | Quantity |   Total |
-|-----------------+----------+----------+---------|
-| %?          |       |         |      |
-|-----------------+----------+----------+---------|
-|                 |          | Expected |    1713 |
-|                 |          |    Total | 1771.06 |
-#+TBLFM: @2$>=$2*$3::@3$>=$2*$3::@4$>=$2*$3::@5$>=$2*$3::@6$>=$2*$3::@>$4=vsum(@2..@-2)
+| Food / Exercise | Calories | Fat | Carbs | Protein | Fiber | Salt | Sugars | Saturates |
+|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+| breakfast       | %?       |     |       |         |       |      |        |           |
+| lunch           |          |     |       |         |       |      |        |           |
+| dinner          |          |     |       |         |       |      |        |           |
+| walking         |          |     |       |         |       |      |        |           |
+|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+| Expected        |          |     |       |         |       |      |        |           |
+| Total           |          |     |       |         |       |      |        |           |
+#+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
 
