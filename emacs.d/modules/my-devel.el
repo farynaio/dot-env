@@ -40,11 +40,11 @@
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
 (electric-pair-mode 1)
-(setq electric-pair-pairs '(
+(setq my/electric-pair-pairs '(
                             (?\" . ?\")
                             (?\{ . ?\})
                             (?\( . ?\))))
-(setq electric-pair-text-pairs electric-pair-pairs)
+(setq electric-pair-text-pairs my/electric-pair-pairs)
 
 (use-package yasnippet
   :config
