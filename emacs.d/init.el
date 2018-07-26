@@ -465,13 +465,12 @@
  '(custom-enabled-themes (quote (wombat)))
   '(ledger-reports
      (quote
-       (
-         (#("Net value balance" 0 1
-             (idx 0))
-           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
+       ((#("Net value balance" 0 1
+            (idx 0))
+          "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
          (#("Net value balance (cleared)" 0 1
-            (idx 1))
-          "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
+             (idx 1))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
          (#("bal" 0 1
              (idx 2))
            "%(binary) -f %(ledger-file) bal")
