@@ -857,4 +857,6 @@ should be continued."
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
+(smartparens-mode -1)
+
 (provide 'my-org)
