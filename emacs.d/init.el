@@ -464,18 +464,24 @@
  '(custom-enabled-themes (quote (wombat)))
   '(ledger-reports
      (quote
-       (("Assets & Liabilities balance" "%(binary) -f %(ledger-file) bal Assets Liabilities")
-         (#("bal" 0 1
+       (
+         (#("Net value balance" 0 1
              (idx 0))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
+         (#("Net value balance (cleared)" 0 1
+            (idx 1))
+          "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
+         (#("bal" 0 1
+             (idx 2))
            "%(binary) -f %(ledger-file) bal")
          (#("reg" 0 1
-             (idx 1))
+             (idx 3))
            "%(binary) -f %(ledger-file) reg")
          (#("payee" 0 1
-             (idx 2))
+             (idx 4))
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
-             (idx 3))
+             (idx 5))
            "%(binary) -f %(ledger-file) reg %(account)")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
