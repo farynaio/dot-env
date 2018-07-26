@@ -61,6 +61,7 @@
     ;; (diminish 'editorconfig-mode)
     (diminish 'auto-revert-mode)
     (diminish 'company-mode)
+    (diminish 'eldoc-mode)
     ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
