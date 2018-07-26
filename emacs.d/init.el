@@ -424,7 +424,7 @@
   (load-theme 'wombat)
   (custom-theme-set-faces
     'wombat
-    '(cursor ((t (:inherit nil :underline nil :background "blue3"))))
+    '(cursor ((t (:inherit nil :underline nil :background "White"))))
     '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
     '(ledger-font-xact-highlight-face ((t nil)))
     '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
