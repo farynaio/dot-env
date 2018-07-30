@@ -91,7 +91,10 @@
     (bind-key "C-d" #'evil-scroll-down        magit-mode-map)
     (bind-key "C-u" #'evil-scroll-up          magit-mode-map)
     (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
-    (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)))
+    (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
+
+    (add-hook 'magit-status-mode-hook (lambda () (interactive) (save-some-buffers t)))
+  ))
 
 (global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
