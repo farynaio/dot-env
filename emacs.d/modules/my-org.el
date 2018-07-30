@@ -16,8 +16,10 @@
 
 (setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))
 
-(define-derived-mode my/taskjuggler-mode org-mode "TJ"
-  "Major mode for TaskJuggler projects."
+(define-minor-mode my/taskjuggler-mode
+  "Minor mode for TaskJuggler projects."
+  :init-value nil
+  :lighter " project"
   (add-hook 'after-save-hook #'org-taskjuggler-export-and-process nil t)
   (add-hook 'find-file-hook #'org-taskjuggler-export-process-and-open nil t)
   (add-hook 'find-file-hook
@@ -116,15 +118,15 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (bind-key "M-}"         #'forward-paragraph           org-mode-map)
-     (bind-key "M-{"         #'backward-paragraph          org-mode-map)
      (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm org-mode-map)
      (bind-key "C-c l"       #'org-store-link              org-mode-map)
      (bind-key "C-."         #'imenu-anywhere              org-mode-map)
      (bind-key "C-c C-x a"   #'org-archive-subtree-default org-mode-map)
+     (bind-key "M-}"      #'forward-paragraph         org-mode-map)
+     (bind-key "M-{"      #'backward-paragraph        org-mode-map)
+     (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
+     (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
 
-    (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
-    (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
      (bind-key "C-x :"
        (lambda ()
          (interactive)
@@ -170,9 +172,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (eval-after-load 'org-agenda
   '(progn
-     (bind-key "C-c C-c" #'org-agenda-set-tags org-agenda-mode-map)
-     (bind-key "C-d" #'evil-scroll-down org-agenda-mode-map)
-     (bind-key "C-u" #'evil-scroll-up org-agenda-mode-map)))
+     (bind-key "C-c C-c"  #'org-agenda-set-tags       org-agenda-mode-map)
+     (bind-key "C-d"      #'evil-scroll-down          org-agenda-mode-map)
+     (bind-key "C-u"      #'evil-scroll-up            org-agenda-mode-map)
+  ))
 
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
