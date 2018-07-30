@@ -42,6 +42,7 @@
     (bind-key ", m"    #'dired-jump-other-window             evil-normal-state-map)
     (bind-key "C-n"    #'company-next-page                   evil-insert-state-map)
     (bind-key "C-p"    #'company-previous-page               evil-insert-state-map)
+    (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
 

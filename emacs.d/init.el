@@ -426,6 +426,19 @@
 ;; light theme
 ;; adwaita
 
+(defun my/kill-all-buffers-except-toolkit ()
+  "Kill all buffers except current one and toolkit (*Messages*, *scratch*). Close other windows."
+  (interactive)
+  (mapc 'kill-buffer (remove-if
+                       (lambda (x)
+                         (or
+                           (string-equal (buffer-name) (buffer-name x))
+                           ;; (string-equal (buffer-file-name) (buffer-file-name x))
+                           (string-equal "*Messages*" (buffer-name x))
+                           (string-equal "*scratch*" (buffer-name x))))
+                       (buffer-list)))
+  (delete-other-windows))
+
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
 (defvar my/current-theme nil)
