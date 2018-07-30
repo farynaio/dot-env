@@ -50,7 +50,7 @@
 (defun my/save-buffers-kill-terminal ()
   (interactive)
   (setq my/save-buffers-kill-terminal t)
-  (save-buffers-kill-terminal))
+  (save-buffers-kill-terminal t))
 
 (require 'bind-key)
 
