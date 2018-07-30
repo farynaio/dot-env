@@ -314,4 +314,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-unset-key (kbd "<S-down>"))
 (global-unset-key (kbd "C-x <down>"))
 
+(defalias 'qcalc #'quick-calc)
+
 (provide 'my-navigation)
