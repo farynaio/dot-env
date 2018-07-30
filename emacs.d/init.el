@@ -67,6 +67,8 @@
      (bind-key "C-c +" #'increment-integer-at-point)
      (bind-key "C-c -" #'decrement-integer-at-point)))
 
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq mode-name "elisp")))
+
 (use-package diminish
   :config
   (progn
@@ -75,7 +77,6 @@
     (diminish 'company-mode)
     (diminish 'eldoc-mode)
     ;; (diminish 'auto-highlight-symbol-mode)
-    (diminish 'emacs-lisp-mode "EL")
     (diminish 'abbrev-mode " A")))
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
