@@ -451,6 +451,8 @@ SCHEDULED: [%<%Y-%m-%d %a>]
 :END:
 
 [[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
+[[https://www.bing.com/translator?from=en&to=pl&text=%\\1][Bing Translate]]
+
 [[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
 
 ** English
