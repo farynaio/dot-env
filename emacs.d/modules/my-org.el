@@ -407,12 +407,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 | Food / Exercise | Calories | Fat | Carbs | Protein | Fiber | Salt | Sugars | Saturates |
 |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| breakfast       | %?       |     |       |         |       |      |        |           |
+| breakfast       |          |     |       |         |       |      |        |           |
 | lunch           |          |     |       |         |       |      |        |           |
 | dinner          |          |     |       |         |       |      |        |           |
 | walking         |          |     |       |         |       |      |        |           |
 |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| Expected        |          |     |       |         |       |      |        |           |
+| Expected        |     1713 |     |       |         |       |      |        |           |
 | Total           |          |     |       |         |       |      |        |           |
 #+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
 "
