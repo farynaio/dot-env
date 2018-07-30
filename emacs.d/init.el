@@ -45,7 +45,19 @@
 
 (setq load-prefer-newer t)
 
+(defvar my/save-buffers-kill-terminal-was-called nil)
+
+(defun my/save-buffers-kill-terminal ()
+  (interactive)
+  (setq my/save-buffers-kill-terminal t)
+  (save-buffers-kill-terminal))
+
 (require 'bind-key)
+
+(eval-after-load 'bind-key
+  '(progn
+     (bind-key "C-x C-c" #'my/save-buffers-kill-terminal)))
+
 (require 'autorevert)
 (require 'elisp-mode)
 

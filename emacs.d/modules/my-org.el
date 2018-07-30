@@ -25,6 +25,16 @@
       (setq-local org-taskjuggler-reports-directory (concat (file-name-sans-extension (file-name-sans-extension (file-relative-name buffer-file-name))) "_reports"))
       ) nil t))
 
+(define-minor-mode my/org-agenda-appt-mode
+  "Minor mode for org agenda updating appt"
+  :init-value nil
+  :lighter " agenda-appt"
+  (add-hook 'after-save-hook #'my/org-agenda-to-appt-if-not-terminated nil t))
+
+(defun my/org-agenda-to-appt-if-not-terminated ()
+  (unless my/save-buffers-kill-terminal-was-called
+    (org-agenda-to-appt t)))
+
 (use-package synosaurus
   :config
   (progn
@@ -820,17 +830,7 @@ should be continued."
 
 (add-hook 'org-agenda-mode-hook #'hl-line-mode)
 
-(org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
-
-(defvar my/org-agenda-to-appt-timer nil)
-
-(when my/org-agenda-to-appt-timer
-  (cancel-timer my/org-agenda-to-appt-timer))
-
-;; update appt list hourly
-(setq my/org-agenda-to-appt-timer (run-at-time t 3600 'org-agenda-to-appt))
-
-(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
+(org-agenda-to-appt t)             ;; generate the appt list from org agenda files on emacs launch
 
 (use-package org-review
   :config
