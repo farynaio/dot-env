@@ -45,19 +45,7 @@
 
 (setq load-prefer-newer t)
 
-(defvar my/save-buffers-kill-terminal-was-called nil)
-
-(defun my/save-buffers-kill-terminal ()
-  (interactive)
-  (setq my/save-buffers-kill-terminal t)
-  (save-buffers-kill-terminal t))
-
 (require 'bind-key)
-
-(eval-after-load 'bind-key
-  '(progn
-     (bind-key "C-x C-c" #'my/save-buffers-kill-terminal)))
-
 (require 'autorevert)
 (require 'elisp-mode)
 
@@ -93,6 +81,8 @@
 
 (use-package dash)
 (use-package monitor)
+(use-package popup)
+(use-package oauth2)
 
 (setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
 
@@ -101,12 +91,10 @@
 (require 'my-navigation)
 (require 'my-writing)
 (require 'my-org)
-(require 'my-email)
 (require 'my-devel)
+(require 'my-email)
 (require 'my-dired)
 (require 'my-notifications)
-(use-package popup)
-(use-package oauth2)
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
@@ -425,19 +413,6 @@
 
 ;; light theme
 ;; adwaita
-
-(defun my/kill-all-buffers-except-toolkit ()
-  "Kill all buffers except current one and toolkit (*Messages*, *scratch*). Close other windows."
-  (interactive)
-  (mapc 'kill-buffer (remove-if
-                       (lambda (x)
-                         (or
-                           (string-equal (buffer-name) (buffer-name x))
-                           ;; (string-equal (buffer-file-name) (buffer-file-name x))
-                           (string-equal "*Messages*" (buffer-name x))
-                           (string-equal "*scratch*" (buffer-name x))))
-                       (buffer-list)))
-  (delete-other-windows))
 
 (setq custom-theme-directory "~/.emacs.d/themes/")
 

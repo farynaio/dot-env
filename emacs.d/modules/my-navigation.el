@@ -88,7 +88,6 @@
 ;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
 ;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
 
-
 (use-package avy
   :config
   (progn
@@ -286,36 +285,54 @@ point reaches the beginning or end of the buffer, stop there."
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
+(defvar my/save-buffers-kill-terminal-was-called nil)
+
+(defun my/save-buffers-kill-terminal ()
+  (interactive)
+  (setq my/save-buffers-kill-terminal-was-called t)
+  (save-buffers-kill-terminal t))
+
+(defun my/kill-all-buffers-except-toolkit ()
+  "Kill all buffers except current one and toolkit (*Messages*, *scratch*). Close other windows."
+  (interactive)
+  (mapc 'kill-buffer (remove-if
+                       (lambda (x)
+                         (or
+                           (string-equal (buffer-name) (buffer-name x))
+                           ;; (string-equal (buffer-file-name) (buffer-file-name x))
+                           (string-equal "*Messages*" (buffer-name x))
+                           (string-equal "*scratch*" (buffer-name x))))
+                       (buffer-list)))
+  (delete-other-windows))
+
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-(global-set-key [remap move-beginning-of-line]
-                'my/smarter-move-beginning-of-line)
+(global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
 
+(bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
+(bind-key "C-x C-r"       #'recentf-open-files)
+(bind-key "<home>"        #'left-word)
+(bind-key "<end>"         #'right-word)
+(bind-key "C-x <left>"    #'windmove-left)
+(bind-key "C-x <right>"   #'windmove-right)
+(bind-key "C-x <up>"      #'windmove-up)
+(bind-key "C-x <down>"    #'windmove-down)
 
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-
-(global-set-key (kbd "<home>") 'left-word)
-(global-set-key (kbd "<end>") 'right-word)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-
-(global-unset-key (kbd "C-x c"))
-(global-unset-key (kbd "C-x <C-left>"))
-(global-unset-key (kbd "C-x <C-right>"))
-(global-unset-key (kbd "<kp-end>"))
-(global-unset-key (kbd "<kp-home>"))
-(global-unset-key (kbd "<end>"))
-(global-unset-key (kbd "<home>"))
-(global-unset-key (kbd "C-x C-'"))
-(global-unset-key (kbd "<S-up>"))
-(global-unset-key (kbd "<S-down>"))
-(global-unset-key (kbd "C-x <down>"))
+(unbind-key "C-x c")
+(unbind-key "C-x <C-left>")
+(unbind-key "C-x <C-right>")
+(unbind-key "<kp-end>")
+(unbind-key "<kp-home>")
+(unbind-key "<end>")
+(unbind-key "<home>")
+(unbind-key "C-x C-'")
+(unbind-key "<S-up>")
+(unbind-key "<S-down>")
+(unbind-key "C-x <down>")
 
 (defalias 'qcalc #'quick-calc)
 
