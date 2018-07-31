@@ -8,6 +8,12 @@
 
 (use-package yaml-mode)
 
+(require 'git-commit)
+
+(eval-after-load 'git-commit
+  '(progn
+      (setq git-commit-style-convention-checks nil)))
+
 (use-package git-gutter
   :diminish git-gutter-mode
   :config
