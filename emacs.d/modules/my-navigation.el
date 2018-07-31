@@ -305,6 +305,13 @@ point reaches the beginning or end of the buffer, stop there."
                        (buffer-list)))
   (delete-other-windows))
 
+(defun my/dired-jump-make-new-window ()
+  "Open new vertical window and open dired there."
+  (interactive)
+  (split-window-right)
+  (windmove-right)
+  (dired-jump))
+
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
