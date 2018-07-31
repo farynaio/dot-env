@@ -175,7 +175,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-c C-c"  #'org-agenda-set-tags       org-agenda-mode-map)
      (bind-key "C-d"      #'evil-scroll-down          org-agenda-mode-map)
      (bind-key "C-u"      #'evil-scroll-up            org-agenda-mode-map)
-  ))
+     (bind-key "s-t"      #'make-frame-command        org-agenda-mode-map)))
 
 (global-set-key (kbd "C-c c") #'org-capture)
 (global-set-key (kbd "C-x a") #'org-agenda)
