@@ -14,7 +14,7 @@
     (bind-key "TAB"    #'indent-for-tab-command              evil-normal-state-map)
     (bind-key "TAB"    #'indent-for-tab-command              evil-visual-state-map)
     (bind-key "TAB"    #'tab-to-tab-stop                     evil-insert-state-map)
-    (bind-key "/"      #'swiper                              evil-normal-state-map)
+    ;; (bind-key "/"      #'swiper                              evil-normal-state-map)
     (bind-key "C-x T"  #'my/move-current-window-to-new-frame evil-normal-state-map)
     (bind-key ", s"    #'flyspell-mode                       evil-normal-state-map)
     (bind-key ", g s"  #'magit-status                        evil-normal-state-map)
