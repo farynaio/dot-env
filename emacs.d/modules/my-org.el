@@ -306,9 +306,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       (list my/org-active-file-path
         my/org-anniversaries-file-path
         my/org-repeatables-file-path
-        my/org-projects-file-path
-        my/org-media-file-path
-         my/org-tasks-file-path))))
+        my/org-projects-file-path))))
 
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
@@ -736,8 +734,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-agenda-remove-tags t)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)
-            (org-agenda-files (append org-agenda-files my/org-active-projects))
-            ))
+            (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
