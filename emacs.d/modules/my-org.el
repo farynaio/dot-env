@@ -118,12 +118,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm org-mode-map)
-     (bind-key "C-c l"       #'org-store-link              org-mode-map)
-     (bind-key "C-."         #'imenu-anywhere              org-mode-map)
-     (bind-key "C-c C-x a"   #'org-archive-subtree-default org-mode-map)
-     (bind-key "M-}"      #'forward-paragraph         org-mode-map)
-     (bind-key "M-{"      #'backward-paragraph        org-mode-map)
+     (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm   org-mode-map)
+     (bind-key "C-c l"       #'org-store-link                org-mode-map)
+     (bind-key "C-."         #'imenu-anywhere                org-mode-map)
+     (bind-key "C-c C-x a"   #'org-archive-subtree-default   org-mode-map)
+     (bind-key "M-}"         #'forward-paragraph             org-mode-map)
+     (bind-key "M-{"         #'backward-paragraph            org-mode-map)
+
      (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
      (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
 
