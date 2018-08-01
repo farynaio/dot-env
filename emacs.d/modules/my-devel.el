@@ -99,6 +99,7 @@
     (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
     (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
 
+    (add-hook 'magit-git-mode-hook (lambda () (interactive) (read-only-mode nil)))
     (add-hook 'magit-status-mode-hook (lambda () (interactive) (save-some-buffers t)))
   ))
 
