@@ -303,7 +303,8 @@ point reaches the beginning or end of the buffer, stop there."
                            (string-equal "*Messages*" (buffer-name x))
                            (string-equal "*scratch*" (buffer-name x))))
                        (buffer-list)))
-  (delete-other-windows))
+  (delete-other-windows)
+  (delete-other-frames))
 
 (defun my/dired-jump-make-new-window ()
   "Open new vertical window and open dired there."
