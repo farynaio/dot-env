@@ -440,7 +440,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
-"* "%?"
+"* \"%?\"
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
