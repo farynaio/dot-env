@@ -124,6 +124,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-c C-x a"   #'org-archive-subtree-default   org-mode-map)
      (bind-key "M-}"         #'forward-paragraph             org-mode-map)
      (bind-key "M-{"         #'backward-paragraph            org-mode-map)
+     (bind-key "C-s"         #'counsel-grep                  org-mode-map)
 
      (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
      (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
