@@ -12,6 +12,7 @@
 (setq password-cache-expiry nil)
 
 (use-package drag-stuff
+  :diminish (drag-stuff-mode . "")
   :config
   (progn
     (drag-stuff-global-mode t)
