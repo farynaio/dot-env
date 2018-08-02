@@ -160,7 +160,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (evil-define-key '(motion normal) org-mode-map
             (kbd "C-c C-s") #'org-schedule)
-         (hl-line-mode)
+         (hl-line-mode t)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
          (abbrev-mode t)
