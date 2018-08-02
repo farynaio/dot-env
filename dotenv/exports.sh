@@ -27,8 +27,8 @@ export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="$NPM_PACKAGES/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
+export PATH="$PATH:/usr/local/opt/python/libexec/bin"
 
 # export PAGER="/usr/bin/less"
 
