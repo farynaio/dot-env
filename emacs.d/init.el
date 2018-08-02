@@ -404,6 +404,8 @@
 (add-hook 'after-make-frame-functions 'my/set-emoji-font)
 
 (display-time-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
 ;; (setq debug-on-error nil)
 
 ;; nice themes
