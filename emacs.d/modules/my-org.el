@@ -27,6 +27,12 @@
       (setq-local org-taskjuggler-reports-directory (concat (file-name-sans-extension (file-name-sans-extension (file-relative-name buffer-file-name))) "_reports"))
       ) nil t))
 
+(require 'ledger-mode)
+
+(eval-after-load 'ledger-mode
+  '(progn
+     (bind-key "C-s"         #'counsel-grep                  ledger-mode-map)))
+
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"
   :init-value nil
