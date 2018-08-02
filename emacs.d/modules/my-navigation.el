@@ -341,7 +341,7 @@ point reaches the beginning or end of the buffer, stop there."
 (unbind-key "C-x C-'")
 (unbind-key "<S-up>")
 (unbind-key "<S-down>")
-(unbind-key "C-x <down>")
+;; (unbind-key "C-x <down>")
 
 (defalias 'qcalc #'quick-calc)
 
