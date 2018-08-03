@@ -382,6 +382,16 @@
      (ispell-dictionary . "pl")))
 
 (add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'after-init-hook (lambda ()
+                             (mapc (lambda (project-root)
+                                     (remhash project-root projectile-project-type-cache)
+                                     (remhash project-root projectile-projects-cache)
+                                     (remhash project-root projectile-projects-cache-time)
+                                     (when projectile-verbose
+                                       (message "Invalidated Projectile cache for %s."
+                                         (propertize project-root 'face 'font-lock-keyword-face))))
+                               (projectile-hash-keys projectile-projects-cache))
+                             (projectile-serialize-cache)))
 
 ;; (use-package company-emoji
 ;;   :config

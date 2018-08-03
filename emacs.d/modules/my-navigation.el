@@ -220,12 +220,34 @@
     projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :config
   (progn
-    projectile-track-known-projects-automatically nil))
+    (setq projectile-track-known-projects-automatically nil)
+    (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
+
+(defun my/projectile-invalidate-cache (arg)
+  "Remove the current project's files from `projectile-projects-cache'.
+
+With a prefix argument ARG prompts for the name of the project whose cache
+to invalidate."
+  (interactive "P")
+  (let ((project-root
+         (if arg
+             (completing-read "Remove cache for: "
+                              (projectile-hash-keys projectile-projects-cache))
+           (projectile-project-root))))
+    (setq projectile-project-root-cache (make-hash-table :test 'equal))
+    (remhash project-root projectile-project-type-cache)
+    (remhash project-root projectile-projects-cache)
+    (remhash project-root projectile-projects-cache-time)
+    (projectile-serialize-cache)
+    (when projectile-verbose
+      (message "Invalidated Projectile cache for %s."
+               (propertize project-root 'face 'font-lock-keyword-face)))))
 
 (use-package counsel-projectile
   :config
   (progn
-    (counsel-projectile-mode 1)))
+    (counsel-projectile-mode 1)
+    (bind-key "C-c p i" 'my/projectile-invalidate-cache counsel-projectile-mode-map)))
 
 (use-package undo-tree
   :config
