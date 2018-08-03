@@ -4,6 +4,7 @@
 (require 'org-caldav)
 (require 'taskjuggler-mode)
 (require 'calendar)
+(require 'org-table-cell-move)
 
 (defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
 
@@ -124,13 +125,17 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (bind-key "C-c C-r"     #'air-revert-buffer-noconfirm   org-mode-map)
-     (bind-key "C-c l"       #'org-store-link                org-mode-map)
-     (bind-key "C-."         #'imenu-anywhere                org-mode-map)
-     (bind-key "C-c C-x a"   #'org-archive-subtree-default   org-mode-map)
-     (bind-key "M-}"         #'forward-paragraph             org-mode-map)
-     (bind-key "M-{"         #'backward-paragraph            org-mode-map)
-     (bind-key "C-s"         #'counsel-grep                  org-mode-map)
+     (bind-key "C-c C-r"       #'air-revert-buffer-noconfirm      org-mode-map)
+     (bind-key "C-c l"         #'org-store-link                   org-mode-map)
+     (bind-key "C-."           #'imenu-anywhere                   org-mode-map)
+     (bind-key "C-c C-x a"     #'org-archive-subtree-default      org-mode-map)
+     (bind-key "M-}"           #'forward-paragraph                org-mode-map)
+     (bind-key "M-{"           #'backward-paragraph               org-mode-map)
+     (bind-key "C-s"           #'counsel-grep                     org-mode-map)
+     (bind-key "C-M-<up>"      #'org-table-move-single-cell-up    org-mode-map)
+     (bind-key "C-M-<down>"    #'org-table-move-single-cell-down  org-mode-map)
+     (bind-key "C-M-<left>"    #'org-table-move-single-cell-left  org-mode-map)
+     (bind-key "C-M-<right>"   #'org-table-move-single-cell-right org-mode-map)
 
      (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
      (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
