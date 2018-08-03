@@ -168,7 +168,9 @@
 (use-package counsel
   :config
   (progn
-    (setq counsel-find-file-ignore-regexp "\\`\\.")
+    (setq
+      counsel-find-file-ignore-regexp "\\`\\."
+      counsel-grep-base-command "grep -E -n -i -e %s %s")
     (bind-key "C-r" #'counsel-expression-history read-expression-map)
     (bind-key "C-r" #'counsel-minibuffer-history read-expression-map)
     (bind-key "M-x" #'counsel-M-x)
