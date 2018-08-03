@@ -300,12 +300,11 @@ point reaches the beginning or end of the buffer, stop there."
   (mapc 'kill-buffer (remove-if
                        (lambda (x)
                          (or
-                           (string-equal (buffer-name) (buffer-name x))
+                           (some (lambda (window) (string-equal (buffer-name x) (buffer-name (window-buffer window)))) (window-list))
                            ;; (string-equal (buffer-file-name) (buffer-file-name x))
                            (string-equal "*Messages*" (buffer-name x))
                            (string-equal "*scratch*" (buffer-name x))))
                        (buffer-list)))
-  (delete-other-windows)
   (delete-other-frames))
 
 (defun my/dired-jump-make-new-window ()
