@@ -3,6 +3,8 @@
 (require 'python)
 (require 'js)
 
+(use-package markdown-mode)
+
 (use-package rainbow-mode
   :diminish rainbow-mode)
 
