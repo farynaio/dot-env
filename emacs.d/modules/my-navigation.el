@@ -15,6 +15,7 @@
   :diminish (drag-stuff-mode . "")
   :config
   (progn
+    (setq drag-stuff-except-modes '(org-mode))
     (drag-stuff-global-mode t)
     (drag-stuff-define-keys)))
 

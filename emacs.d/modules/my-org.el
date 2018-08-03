@@ -164,7 +164,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
          (abbrev-mode t)
-         (drag-stuff-mode -1)))))
+         ))))
 
 (eval-after-load 'org-caldav
   '(progn
