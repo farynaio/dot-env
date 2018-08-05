@@ -10,8 +10,12 @@
 
 (use-package yaml-mode)
 
-(require 'git-commit)
+(require 'git-rebase)
+(eval-after-load 'git-rebase
+  '(progn
+      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
 
+(require 'git-commit)
 (eval-after-load 'git-commit
   '(progn
       (setq git-commit-style-convention-checks nil)))
