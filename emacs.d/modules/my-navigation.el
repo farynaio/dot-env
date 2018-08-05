@@ -77,7 +77,21 @@
 (setq set-mark-command-repeat-pop t)
 
 (require 'framemove)
-;; (require 'grep)
+
+(require 'compile)
+(require 'grep)
+(require 'files)
+
+(defun my/rgrep ()
+  (interactive)
+  (if (executable-find "ack")
+    (let* ((regexp (grep-read-regexp))
+            (dir (read-directory-name "Base directory: " nil default-directory t))
+            (command (concat "ack \"" regexp "\" " dir)))
+      (unless (file-accessible-directory-p dir)
+        (error (concat "directory: '" dir "' is not accessible.")))
+	    (compilation-start command 'grep-mode))
+      (rgrep)))
 
 (use-package neotree)
 
