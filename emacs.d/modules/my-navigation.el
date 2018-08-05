@@ -104,10 +104,7 @@
 ;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
 ;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
 
-(use-package avy
-  :config
-  (progn
-    (bind-key "C-:" #'avy-goto-char evil-normal-state-map)))
+(use-package avy)
 (use-package ivy-hydra)
 (use-package ivy
   :ensure t

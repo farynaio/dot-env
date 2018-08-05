@@ -48,6 +48,7 @@
     (bind-key ", s-t"  #'delete-frame                        evil-normal-state-map)
     (bind-key "]e"     #'next-error                          evil-normal-state-map)
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
+    (bind-key ", l"    #'avy-goto-char                       evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
