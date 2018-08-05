@@ -722,21 +722,24 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
-        (tags-todo "TODO=\"IN-PROCESS\""
-          ((org-agenda-overriding-header "Active media:")
-            (org-tags-match-list-sublevels nil)
-            (org-agenda-remove-tags nil)
-            (org-agenda-files (list my/org-media-file-path))))
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "Waiting:")
            (org-agenda-remove-tags t)
+           (org-agenda-todo-keyword-format "")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
         (todo "*"
           ((org-agenda-overriding-header "Goals:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
+            (org-agenda-todo-keyword-format "")
             (org-agenda-files (list my/org-yearly-goals-file-path))))
+        (tags-todo "TODO=\"IN-PROCESS\""
+          ((org-agenda-overriding-header "Active media:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags nil)
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-media-file-path))))
         (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
           ((org-agenda-overriding-header "Reviews:")
             (org-agenda-skip-function 'org-review-agenda-skip)
