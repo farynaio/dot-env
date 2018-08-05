@@ -648,7 +648,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
      ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
      ("p" "Active places tasks"
        ((tags "@phone"
-          ((org-agenda-overriding-header "Active Phone tasks")
+          ((org-agenda-overriding-header "Active Phone tasks:")
             (org-agenda-skip-function
               '(or
                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
@@ -722,6 +722,11 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
+        (tags-todo "TODO=\"IN-PROCESS\""
+          ((org-agenda-overriding-header "Active media:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags nil)
+            (org-agenda-files (list my/org-media-file-path))))
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "Waiting:")
