@@ -50,6 +50,7 @@
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
+    (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
 
     (dolist (element my/text-modes)
       (evil-define-key '(motion normal) element
