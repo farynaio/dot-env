@@ -46,6 +46,8 @@
     (bind-key "s-t"    #'make-frame-command                  evil-normal-state-map)
     (bind-key "s-t"    #'make-frame-command                  evil-motion-state-map)
     (bind-key ", s-t"  #'delete-frame                        evil-normal-state-map)
+    (bind-key "]e"     #'next-error                          evil-normal-state-map)
+    (bind-key "[e"     #'previous-error                      evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
