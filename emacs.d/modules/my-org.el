@@ -524,7 +524,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 "* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:TITLE: %^{What Title: }
+:TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
 :EFFORT: %^{What effort: }
