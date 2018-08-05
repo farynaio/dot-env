@@ -13,6 +13,11 @@
 #   of text against a Perl regular expression.  This is only for
 #   the --type-add option.
 
+--smart-case
+--color
+--with-filename
+--nofilter
+--nogroup
 
 ### Directories to ignore
 
