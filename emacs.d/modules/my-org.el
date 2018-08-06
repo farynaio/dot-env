@@ -441,14 +441,38 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
+  ("j" "Journal" entry (file ,my/org-journal-file-path)
+"* [%<%Y-%m-%d %a>]
+
+- English
+  - %?
+
+"
+:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+
+  ("l" "Dating Log" entry (file ,my/org-journal-dating-file-path)
+"* [%<%Y-%m-%d %a>]\n%?
+"
+:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+
+  ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
+"* TODO %\\3 \"%\\1\" %\\2 %? %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
+:TITLE: \"%^{What Title: }\"
+:AUTHOR: %^{What author: }
+:TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
+:EFFORT: %^{What effort: }
+:RECOMMENDED: %^{Who recommended: }
+:RATING: %^{What rating: |5|4|3|2|1}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :kill-buffer t)
+
+  ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
+"* %?
+"
+:prepend nil :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* \"%?\"
@@ -458,40 +482,21 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("w" "New word" entry (file+headline ,my/org-english-drill-file-path "English drill")
-"* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:DRILL_CARD_TYPE: twosided
-:END:
-
-[[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
-[[https://www.bing.com/translator?from=en&to=pl&text=%\\1][Bing Translate]]
-
-[[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
-
-** English
-
-%^{What English word: }
-
-** Polish
-
-%^{What Polish word: }
-
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
-"* %?
-"
-:prepend nil :kill-buffer t)
-
   ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :STYLE: habit
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -520,33 +525,28 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
 
-  ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-"* TODO %\\3 \"%\\1\" %\\2 %? %^g
+  ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
+"* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:TITLE: \"%^{What Title: }\"
-:AUTHOR: %^{What author: }
-:TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
-:EFFORT: %^{What effort: }
-:RECOMMENDED: %^{Who recommended: }
-:RATING: %^{What rating: |5|4|3|2|1}
+:DRILL_CARD_TYPE: twosided
 :END:
+
+[[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
+[[https://www.bing.com/translator?from=en&to=pl&text=%\\1][Bing Translate]]
+
+[[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
+
+** English
+
+%^{What English word: }
+
+** Polish
+
+%^{What Polish word: }
+
 "
-:prepend t :kill-buffer t)
-
-  ("j" "Journal" entry (file ,my/org-journal-file-path)
-"* [%<%Y-%m-%d %a>]
-
-- English
-  - %?
-
-"
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
-
-  ("d" "Dating Journal" entry (file ,my/org-journal-dating-file-path)
-"* [%<%Y-%m-%d %a>]\n%?
-"
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 1 :kill-buffer t)
 
      ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
        ;; "* NOTE taken on %U \\\\
