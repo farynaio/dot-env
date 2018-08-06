@@ -57,6 +57,13 @@
     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
      ))
 
+(defun my/dired-jump-make-new-window ()
+  "Open new vertical window and open dired there."
+  (interactive)
+  (split-window-right)
+  (windmove-right)
+  (dired-jump))
+
 (add-hook 'dired-mode-hook 'hl-line-mode)
 (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode +1)))
 

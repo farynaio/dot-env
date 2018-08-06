@@ -343,12 +343,12 @@ point reaches the beginning or end of the buffer, stop there."
   (delete-other-frames)
   (message "Closed other buffers and frames."))
 
-(defun my/dired-jump-make-new-window ()
-  "Open new vertical window and open dired there."
+(defun my/clone-indirect-buffer-new-window ()
+  "Clone indirect buffer in new window."
   (interactive)
   (split-window-right)
   (windmove-right)
-  (dired-jump))
+  (clone-indirect-buffer nil t))
 
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -367,6 +367,7 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x <up>"      #'windmove-up)
 (bind-key "C-x <down>"    #'windmove-down)
 (bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
+(bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
 
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")
