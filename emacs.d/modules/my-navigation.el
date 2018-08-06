@@ -222,6 +222,14 @@
     )
   )
 
+(defun my/counsel-grep (&optional initial-input)
+  "counsel-grep version which fallback for indirect buffers."
+  (interactive)
+  (condition-case ex
+    (counsel-grep initial-input)
+    ('user-error (evil-search-forward))
+    ))
+
 (use-package projectile
   :init
   (setq
