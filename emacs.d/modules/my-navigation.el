@@ -366,6 +366,7 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x <right>"   #'windmove-right)
 (bind-key "C-x <up>"      #'windmove-up)
 (bind-key "C-x <down>"    #'windmove-down)
+(bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
 
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")
