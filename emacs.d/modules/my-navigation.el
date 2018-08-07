@@ -193,6 +193,7 @@
     (bind-key "<f2> u" #'counsel-unicode-char)
     (bind-key "C-h f" #'counsel-describe-function)
     (bind-key "C-h v" #'counsel-describe-variable)
+    (bind-key "C-h a" #'counsel-apropos)
     (bind-key "C-x r b" #'counsel-bookmark)
     ;; (global-set-key (kbd "C-c g") 'counsel-git)
     ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
