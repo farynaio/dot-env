@@ -117,8 +117,6 @@
     (bind-key "C-:" #'ivy-dired ivy-minibuffer-map)
     (bind-key "C-c o" #'ivy-occur ivy-minibuffer-map)
     (bind-key "C-'" #'ivy-avy ivy-minibuffer-map)
-    (bind-key "C-x b" #'pop-to-buffer)
-    ;; (bind-key "C-x b" #'display-buffer)
 
     (defun ivy-dired ()
       (interactive)
@@ -195,6 +193,8 @@
     (bind-key "C-h v" #'counsel-describe-variable)
     (bind-key "C-h a" #'counsel-apropos)
     (bind-key "C-x r b" #'counsel-bookmark)
+    (bind-key "C-x b" #'counsel-ibuffer)
+
     ;; (global-set-key (kbd "C-c g") 'counsel-git)
     ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
     ;; (global-set-key (kbd "C-c k") 'counsel-ack)
