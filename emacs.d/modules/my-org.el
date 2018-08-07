@@ -22,7 +22,7 @@
   :init-value nil
   :lighter " project"
   (add-hook 'after-save-hook #'org-taskjuggler-export-and-process nil t)
-  (add-hook 'find-file-hook #'org-taskjuggler-export-process-and-open nil t)
+  ;; (add-hook 'find-file-hook #'org-taskjuggler-export-process-and-open nil t)
   (add-hook 'find-file-hook
     (lambda ()
       (setq-local org-taskjuggler-reports-directory (concat (file-name-sans-extension (file-name-sans-extension (file-relative-name buffer-file-name))) "_reports"))
