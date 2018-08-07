@@ -376,6 +376,7 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x <down>"    #'windmove-down)
 (bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
 (bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
+(bind-key "s-t"           #'make-frame-command)
 
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")
