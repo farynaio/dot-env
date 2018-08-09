@@ -762,12 +762,6 @@ SCHEDULED: <%<%Y-%m-%d %a>>
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
-        (todo "*"
-          ((org-agenda-overriding-header "Goals:")
-            (org-tags-match-list-sublevels nil)
-            (org-agenda-remove-tags t)
-            (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-yearly-goals-file-path))))
         (tags-todo "TODO=\"IN-PROCESS\""
           ((org-agenda-overriding-header "Active media:")
             (org-tags-match-list-sublevels nil)
@@ -785,7 +779,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
           ((org-agenda-sorting-strategy '(time-up priority-down todo-state-down effort-down habit-down))
-            (org-agenda-remove-tags t)
+            (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
