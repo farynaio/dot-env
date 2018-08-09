@@ -4,7 +4,9 @@ alias ssh_home_server="ssh -l serwer1472142 serwer1472142.home.pl"
 alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
 alias ssh_kill_connections="kill -9 $(lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2)"
 alias ssh_zenbox='ssh -l adamfary s13.zenbox.pl'
-alias ssh_a2hosting='ssh -p 7822 root@68.66.240.93'
+alias ssh_a2hosting='ssh -p 7822 jarfar@68.66.240.93'
+alias ssh_a2hosting_root='ssh -p 7822 root@68.66.240.93'
+
 alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 alias start_mysql='mysqld_safe &'
 alias stop_mysql='mysqladmin shutdown'
