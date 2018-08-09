@@ -702,6 +702,40 @@ SCHEDULED: <%<%Y-%m-%d %a>>
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
          (org-agenda-files (list my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
+     ("g" "Goals"
+       ((tags-todo "weekly"
+          ((org-agenda-skip-function
+             '(or (my/org-skip-subtree-if-priority ?A)
+                (my/org-skip-subtree-if-habit)
+                (org-agenda-skip-if nil '(scheduled deadline))
+                (org-agenda-skip-entry-if 'todo '("DONE"))))
+            (org-agenda-overriding-header "This Week Goals:")
+            (org-tags-match-list-sublevels t)
+            (org-agenda-hide-tags-regexp "weekly")
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-yearly-goals-file-path))))
+        (tags-todo "monthly"
+          ((org-agenda-skip-function
+             '(or (my/org-skip-subtree-if-priority ?A)
+                (my/org-skip-subtree-if-habit)
+                (org-agenda-skip-if nil '(scheduled deadline))
+                (org-agenda-skip-entry-if 'todo '("DONE"))))
+            (org-agenda-overriding-header "This Monthly Goals:")
+            (org-tags-match-list-sublevels t)
+            (org-agenda-hide-tags-regexp "monthly")
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-yearly-goals-file-path))))
+        (tags-todo "yearly"
+          ((org-agenda-skip-function
+             '(or (my/org-skip-subtree-if-priority ?A)
+                (my/org-skip-subtree-if-habit)
+                (org-agenda-skip-if nil '(scheduled deadline))
+                (org-agenda-skip-entry-if 'todo '("DONE"))))
+            (org-agenda-overriding-header "This Year Goals:")
+            (org-tags-match-list-sublevels t)
+            (org-agenda-hide-tags-regexp "yearly")
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-yearly-goals-file-path))))))
      ("d" "Coprehensive agenda"
       ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
       ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
