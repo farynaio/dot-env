@@ -858,11 +858,11 @@ should be continued."
 
 (setq org-tag-alist '(
                        ("health" . ?h) ; my energy level, my looks
-                       ("fun" . ?u) ; relax, enjoy life
-                       ("career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
-                       ("family" . ?f) ; my social network, my professional network
-                       ("love" . ?l) ; my happiness, my ultimate goal, my real legacy
                        ("wealth" . ?w) ; my legacy
+                       ("career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
+                       ("relations" . ?r) ; my social network, my professional network
+                       ("fun" . ?f) ; relax, enjoy life
+
                        ("@poland" . ?n)
                        (:startgroup . nil)
                        ("@home" . ?o)
