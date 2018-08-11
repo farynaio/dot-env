@@ -194,7 +194,6 @@
     (bind-key "C-h a" #'counsel-apropos)
     (bind-key "C-x r b" #'counsel-bookmark)
     (bind-key "C-x b" #'counsel-ibuffer)
-    (bind-key "C-x C-b" #'pop-to-buffer)
 
     ;; (global-set-key (kbd "C-c g") 'counsel-git)
     ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
@@ -289,21 +288,9 @@ to invalidate."
      (add-hook 'ediff-before-setup-hook 'new-frame)
      (add-hook 'ediff-quit-hook 'delete-frame)))
 
-
-(set-register ?a (cons 'file my/org-active-file-path))
-(set-register ?t (cons 'file my/org-tasks-file-path))
-(set-register ?p (cons 'file my/org-projects-file-path))
-(set-register ?n (cons 'file my/org-anniversaries-file-path))
-(set-register ?g (cons 'file my/org-goals-file-path))
-(set-register ?k (cons 'file my/org-knowledge-file-path))
-(set-register ?i (cons 'file my/org-inbox-file-path))
-(set-register ?j (cons 'file my/org-journal-file-path))
-(set-register ?h (cons 'file my/org-repeatables-file-path)) ; repeat, habit
-(set-register ?l (cons 'file my/local-config-file-path))
-(set-register ?w (cons 'file my/org-languages-file-path))
-(set-register ?q (cons 'file my/org-quotes-file-path))
-(set-register ?t (cons 'file my/org-tools-file-path))
-(set-register ?c (cons 'file (expand-file-name "init.el" user-emacs-directory)))
+(set-register ?u (cons 'file "/ssh:jarfar@68.66.240.93#7822:/home/jarfar/public_html"))
+(set-register ?r (cons 'file "/ssh:root@68.66.240.93#7822:/var/www/html"))
+(set-register ?m (cons 'file "/ssh:root@77.55.218.117:/root"))
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -379,6 +366,7 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
 (bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
 (bind-key "s-t"           #'make-frame-command)
+(bind-key "C-x C-b"       #'pop-to-buffer)
 
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")
