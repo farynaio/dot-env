@@ -55,7 +55,7 @@
           ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
      ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
      ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
-     (bind-key "J" dired-mode-map)
+     (bind-key "J" #'dired-goto-file dired-mode-map)
 
      (evil-make-overriding-map dired-mode-map 'motion)
      (evil-make-overriding-map dired-mode-map 'normal)
