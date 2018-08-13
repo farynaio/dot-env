@@ -777,13 +777,12 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-todo-keyword-format "")
             (org-agenda-files (list my/org-media-file-path))))
         (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
-          ((org-agenda-overriding-header "Reviews:")
+          ((org-agenda-overriding-header "Active Reviews:")
             (org-agenda-skip-function 'org-review-agenda-skip)
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-cmp-user-defined 'org-review-compare)
             (org-agenda-files (list my/org-knowledge-review-file-path))
-            ;; (org-agenda-sorting-strategy '(time-up category-keep))
             (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
           ((org-agenda-sorting-strategy '(time-up priority-down todo-state-down effort-down habit-down))
