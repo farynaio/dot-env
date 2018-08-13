@@ -465,7 +465,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :CREATED: [%<%Y-%m-%d %a>]
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
-:TYPE: %^{What type: |AUDIO|BOOK|MOVIE|PODCAST}
+:TYPE: %^{What type: |AUDIO|ARTICLE|BOOK|MOVIE|PODCAST}
 :EFFORT: %^{What effort: }
 :RECOMMENDED: %^{Who recommended: }
 :RATING:
