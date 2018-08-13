@@ -87,14 +87,15 @@
 (setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
 
 ;; My modules
+(require 'my-path)
 (require 'my-evil)
-(require 'my-navigation)
 (require 'my-writing)
 (require 'my-org)
 (require 'my-devel)
 (require 'my-email)
 (require 'my-dired)
 (require 'my-notifications)
+(require 'my-navigation)
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
@@ -469,6 +470,8 @@
     ((org-hide-emphasis-markers . t)
       (ispell-dictionary . "en")
       (ispell-dictionary . "pl"))))
+
+(bind-key "C-x C-b"       #'pop-to-buffer)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
