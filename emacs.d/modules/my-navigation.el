@@ -243,6 +243,8 @@ to invalidate."
 (set-register ?u (cons 'file "/ssh:jarfar@68.66.240.93#7822:/home/jarfar/public_html"))
 (set-register ?r (cons 'file "/ssh:root@68.66.240.93#7822:/var/www/html"))
 (set-register ?m (cons 'file "/ssh:root@77.55.218.117:/root"))
+(set-register ?z (cons 'file "/ssh:adamfary@s13.zenbox.pl:~/"))
+
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
