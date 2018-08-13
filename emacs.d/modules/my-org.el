@@ -310,6 +310,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-project-become-confident-pua :level . 1)
                             (,my/org-project-launch-amazon-business :level . 1)
                             (,my/org-project-setup-freelance :level . 1)
+                            (,my/org-project-change-hosting-provider :level . 1)
+                            (,my/org-project-switch-to-self-accounting :level . 1)
                             (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
@@ -600,11 +602,15 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-launch-amazon-business
+                               my/org-project-change-hosting-provider
+                               my/org-project-switch-to-self-accounting
+
+                               ;; my/org-project-launch-amazon-business
+                               ;; my/org-project-become-confident-pua
+                               ;; my/org-project-trip-edinburgh
+
                                ;; my/org-project-setup-freelance
                                ;; my/org-project-setup-digital-agency
-                               my/org-project-become-confident-pua
-                               my/org-project-trip-edinburgh
                                ;; my/org-project-trip-nottingham
                                ))
 
