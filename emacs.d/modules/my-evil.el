@@ -51,6 +51,10 @@
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
 
+    (defvar org-mode-map (make-sparse-keymap))
+    (evil-define-key '(motion normal) org-mode-map
+      (kbd "C-c C-s") #'org-schedule)
+
     (dolist (element my/text-modes)
       (evil-define-key '(motion normal) element
         (kbd "<down>") #'evil-next-visual-line
