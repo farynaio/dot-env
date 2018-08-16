@@ -52,6 +52,12 @@
     (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
 
     (defvar org-mode-map (make-sparse-keymap))
+    (defvar mu4e:view-mode-map (make-sparse-keymap))
+    (defvar mu4e-headers-mode-map (make-sparse-keymap))
+    (defvar flyspell-mode-map (make-sparse-keymap))
+    (defvar help-mode-map (make-sparse-keymap))
+    (defvar ediff-mode-map (make-sparse-keymap))
+
     (evil-define-key '(motion normal) org-mode-map
       (kbd "C-c C-s") #'org-schedule)
 
