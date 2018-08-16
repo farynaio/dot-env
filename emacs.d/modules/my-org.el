@@ -164,9 +164,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (add-hook 'org-mode-hook
        (lambda ()
          (hl-line-mode t)
+         (abbrev-mode t)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
-         (abbrev-mode t)
+         (add-hook 'after-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t)
          ))))
 
 (eval-after-load 'org-caldav
