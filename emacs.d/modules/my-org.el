@@ -907,6 +907,12 @@ should be continued."
      (defalias 'resume-drill #'org-drill-resume)
      ))
 
+;; org-diet
+(require 'org-diet)
+(eval-after-load 'org-diet
+  '(progn
+     (setq org-diet-file my/org-diet-log-file-path)))
+
 (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
