@@ -464,9 +464,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :TYPE: %^{What type: |AUDIO|ARTICLE|BOOK|MOVIE|PODCAST}
-:EFFORT: %^{What effort: }
+:EFFORT: %^{What effort: |short|medium|big}
 :RECOMMENDED: %^{Who recommended: }
-:RATING:
 :END:
 "
 :prepend t :kill-buffer t)
