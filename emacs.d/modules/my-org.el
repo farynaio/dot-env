@@ -411,7 +411,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :NOTES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:"
-    :prepend t :kill-buffer t)
+    :prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
 "* CAL-IN Diet in [%<%Y-%m-%d %a>]
@@ -449,6 +449,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 - English
   - %?
 
+- Achieved
+  -
+
+
 "
 :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
@@ -468,12 +472,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :RECOMMENDED: %^{Who recommended: }
 :END:
 "
-:prepend t :kill-buffer t)
+:prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
 "* %?
 "
-:prepend nil :kill-buffer t)
+:prepend nil :empty-lines-after 1 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* \"%?\"
@@ -548,12 +552,6 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
-
-     ;; ("n" "Note" entry (file+headline ,my/org-notes-file-path "Notes")
-       ;; "* NOTE taken on %U \\\\
-    ;; %?" :prepend nil :kill-buffer t)
-     ;; ("n" "Add note to currently clocked entry" plain (clock)
-     ;;   "- Note taken on %U \\\\ \n  %?" :prepend nil :empty-lines-after 1)
 ))
 
 (setq org-todo-keywords
