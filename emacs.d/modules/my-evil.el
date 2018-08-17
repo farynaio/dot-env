@@ -50,6 +50,7 @@
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
+    (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
 
     (defvar org-mode-map (make-sparse-keymap))
     (defvar mu4e:view-mode-map (make-sparse-keymap))
