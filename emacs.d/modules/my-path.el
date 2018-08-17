@@ -38,8 +38,8 @@
 (setq my/org-project-setup-digital-agency (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder))
 (setq my/org-project-setup-freelance (expand-file-name "setup_freelance.org.gpg" my/org-projects-folder))
 (setq my/org-project-launch-amazon-business (expand-file-name "launch_amazon_business.org.gpg" my/org-projects-folder))
-(setq my/org-project-switch-to-self-accounting (expand-file-name "switch_to_self_accounting.org" my/org-projects-folder))
-(setq my/org-project-change-hosting-provider (expand-file-name "change_hosting_provider.org" my/org-projects-folder))
+(setq my/org-project-switch-to-self-accounting (expand-file-name "switch_to_self_accounting.org.gpg" my/org-projects-folder))
+(setq my/org-project-change-hosting-provider (expand-file-name "change_hosting_provider.org.gpg" my/org-projects-folder))
 
 (setq my/org-ledger-base-path (expand-file-name "ledger" my/org-base-path))
 
