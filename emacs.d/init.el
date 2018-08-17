@@ -419,6 +419,8 @@
 (menu-bar-mode -1)
 ;; (setq debug-on-error nil)
 
+(setq save-some-buffers-default-predicate t)
+
 ;; nice themes
 ;; deeper-blue
 ;; tango dark
