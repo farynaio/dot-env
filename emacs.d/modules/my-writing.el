@@ -46,9 +46,16 @@
   (progn
     (setq
       google-translate-default-source-language "en"
-      google-translate-default-target-language "pl")
-    (bind-key ", t" #'google-translate-at-point evil-visual-state-map)
-    (bind-key ", t" #'google-translate-at-point evil-normal-state-map)))
+      google-translate-default-target-language "pl")))
+
+(defun my/google-translate-at-point (&optional override-p)
+  (interactive "P")
+
+  (save-excursion
+    (google-translate-at-point override-p))
+
+  (when (fboundp 'evil-force-normal-state)
+    (evil-force-normal-state)))
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
