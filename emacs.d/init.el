@@ -452,7 +452,6 @@
     '(org-done ((t (:inherit nil :strike-through nil :weight normal))))
     '(org-headline-done ((t (:inherit nil :strike-through t :weight: normal))))
     '(org-agenda-done ((t (:inherit nil :strike-through t :weight normal))))
-    '(org-special-keyword ((t (:inherit nil :strike-through nil :weight normal))))
     )
 
   (setq my/current-theme 'wombat))
