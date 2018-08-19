@@ -200,8 +200,8 @@
 ;; TODO modify-syntax-entry - _ for css group of modes
 
 (add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
-
-(add-hook 'python-mode-hook (lambda () (setq tab-width 4)))
+(add-hook 'python-mode-hook (lambda () (setq-local tab-width 4)))
+(add-hook 'conf-space-mode-hook (lambda () (setq-local tab-width 2)))
 
 (setq python-indent-offset 4)
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
