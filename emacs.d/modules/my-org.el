@@ -791,7 +791,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-files (list my/org-knowledge-review-file-path))
             (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
-          ((org-agenda-sorting-strategy '(time-up priority-down todo-state-down effort-down habit-down))
+          ((org-agenda-sorting-strategy '(todo-state-down time-up priority-down effort-down habit-down))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)
