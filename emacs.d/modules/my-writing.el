@@ -54,8 +54,11 @@
   (save-excursion
     (google-translate-at-point override-p))
 
-  (when (fboundp 'evil-force-normal-state)
-    (evil-force-normal-state)))
+  (deactivate-mark)
+  (when (fboundp 'evil-exit-visual-state)
+    (evil-exit-visual-state)
+    ;; (evil-force-normal-state)
+    ))
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
 

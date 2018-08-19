@@ -51,7 +51,11 @@
     (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
-    (advice-add 'eval-region :after (lambda (&rest r) (evil-exit-visual-state)))
+    (advice-add 'eval-region :after (lambda (&rest r)
+                                      (deactivate-mark)
+                                      (when (fboundp 'evil-exit-visual-state)
+                                        (evil-exit-visual-state))))
+
     (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
 
     (defvar org-mode-map (make-sparse-keymap))
