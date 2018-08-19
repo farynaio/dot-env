@@ -438,6 +438,7 @@
     (disable-theme 'adwaita)
     (unload-feature 'adwaita-theme))
   (load-theme 'wombat)
+
   (custom-theme-set-faces
     'wombat
     '(cursor ((t (:inherit nil :underline nil :background "White"))))
@@ -447,7 +448,13 @@
     '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
     '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
     '(org-level-4 ((t (:inherit outline-4 :foreground "plum1"))))
-    '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3")))))
+    '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
+    '(org-done ((t (:inherit nil :strike-through nil :weight normal))))
+    '(org-headline-done ((t (:inherit nil :strike-through t :weight: normal))))
+    '(org-agenda-done ((t (:inherit nil :strike-through t :weight normal))))
+    '(org-special-keyword ((t (:inherit nil :strike-through nil :weight normal))))
+    )
+
   (setq my/current-theme 'wombat))
 
 (defun my/set-light-theme ()

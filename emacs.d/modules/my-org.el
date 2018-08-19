@@ -346,6 +346,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-list-description-max-indent 5)
 (setq org-agenda-inhibit-startup nil)
 (setq org-agenda-use-tag-inheritance nil)
+(setq org-agenda-fontify-priorities 'cookies)
+(setq org-fontify-done-headline t)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
 (setq org-deadline-warning-days 5)
@@ -569,15 +571,14 @@ SCHEDULED: <%<%Y-%m-%d %a>>
      (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)" "NOTE(n)")))
 
 (setq org-todo-keyword-faces
-  '(("TODO" . (:foreground "LimeGreen" :weight bold))
-     ("IN-PROCESS" . (:foreground "IndianRed1" :weight bold))
-     ("BLOCKED"    . (:foreground "OrangeRed" :weight bold))
-     ("WAITING"    . (:foreground "coral" :weight bold))
-     ("DELEGATED"  . (:foreground "coral" :weight bold))
-     ("DONE"       . (:foreground "dark grey" :weight bold))
-     ("CANCELED"   . (:foreground "dark grey" :weight bold))
-     ("UNDOABLE"   . (:foreground "dark grey" :weight bold))
-     ("NOTE")      . (:foreground "white" :weight bold)))
+  '( ("TODO"       . (:foreground "LimeGreen"   :weight bold))
+     ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
+     ("BLOCKED"    . (:foreground "OrangeRed"   :weight bold))
+     ("WAITING"    . (:foreground "coral"       :weight bold))
+     ("DELEGATED"  . (:foreground "coral"       :weight bold))
+     ("DONE"       . (:foreground "dark grey"   :weight normal))
+     ("CANCELED"   . (:foreground "dark grey"   :weight normal))
+     ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 (defun my/org-agenda-skip-all-siblings-but-first ()
