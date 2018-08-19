@@ -6,8 +6,6 @@
 (require 'calendar)
 (require 'org-table-cell-move)
 
-(defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
-
 (setq org-babel-load-languages '(
                                   (emacs-lisp . t)
                                   (ledger . t)
@@ -15,24 +13,14 @@
                                   (gnuplot . t)
                                   ))
 
-(setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))
-
-(define-minor-mode my/taskjuggler-mode
-  "Minor mode for TaskJuggler projects."
-  :init-value nil
-  :lighter " project"
-  (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t)
-  (add-hook 'after-save-hook #'org-taskjuggler-export-and-process nil t)
-  (add-hook 'find-file-hook
-    (lambda ()
-      (setq-local org-taskjuggler-reports-directory (concat (file-name-sans-extension (file-name-sans-extension (file-relative-name buffer-file-name))) "_reports"))
-      ) nil t))
-
-(require 'ledger-mode)
-
-(eval-after-load 'ledger-mode
+(eval-after-load 'taskjuggler-mode
   '(progn
-     (bind-key "C-s"         #'counsel-grep                  ledger-mode-map)))
+     (setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))))
+
+(define-derived-mode my/org-taskjuggler-mode org-mode "TJP"
+  "Major mode for TaskJuggler projects."
+  (setq-local ispell-local-dictionary: "en")
+  (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t))
 
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"
@@ -44,6 +32,7 @@
   (unless my/save-buffers-kill-terminal-was-called
     (org-agenda-to-appt t)))
 
+;; TODO what is it?
 (use-package synosaurus
   :config
   (progn

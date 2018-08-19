@@ -217,9 +217,12 @@
   :config
   (progn
     (setq ledger-post-account-alignment-column 2)
+
     (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+
     (unbind-key "<tab>" ledger-mode-map)
-    (bind-key "C-c C-c" 'ledger-post-align-dwim ledger-mode-map)
+    (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
+    (bind-key "C-s"     #'counsel-grep                  ledger-mode-map)
 
     (define-derived-mode my/ledger-mode ledger-mode "ledger"
       "Superior major ledger mode"
