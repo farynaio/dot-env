@@ -111,6 +111,9 @@
     (add-hook 'magit-status-mode-hook (lambda () (interactive) (save-some-buffers t)))
   ))
 
+(defvar magit-blame-read-only-mode-map (make-sparse-keymap))
+(use-package evil-magit)
+
 (global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
 (global-set-key (kbd "C-x g s") 'magit-status)
