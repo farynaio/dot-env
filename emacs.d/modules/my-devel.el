@@ -116,7 +116,7 @@
 
 (global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
-(global-set-key (kbd "C-x g s") 'magit-status)
+(global-set-key (kbd "C-x g s") #'magit-status)
 
 (bind-key "C-c l" 'org-store-link)
 (bind-key "C-c L" 'org-insert-link-global)
