@@ -5,8 +5,6 @@
                                              ("im" "I'm" nil 0)
                                              ("dont" "don't" nil 0)
                                              ("cant" "can't" nil 0)
-                                             ;; ("its" "it's" nil 0)
-                                             ;; ("Its" "It's" nil 0)
                                              ("it is" "it's" nil 0)
                                              ("It is" "It's" nil 0)
                                              ("isnt" "isn't" nil 0)
