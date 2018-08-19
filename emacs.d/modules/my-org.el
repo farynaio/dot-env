@@ -556,8 +556,8 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 ))
 
 (setq org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
-     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)" "NOTE(n)")))
+  '( (sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "DELEGATED(e@/!)" "NOTE(n)")
+     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
 
 (setq org-todo-keyword-faces
   '( ("TODO"       . (:foreground "LimeGreen"   :weight bold))
@@ -565,6 +565,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
      ("BLOCKED"    . (:foreground "OrangeRed"   :weight bold))
      ("WAITING"    . (:foreground "coral"       :weight bold))
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
+     ("NOTE"       . (:foreground "white"       :weight bold))
      ("DONE"       . (:foreground "dark grey"   :weight normal))
      ("CANCELED"   . (:foreground "dark grey"   :weight normal))
      ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
