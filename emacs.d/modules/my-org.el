@@ -363,6 +363,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-agenda-scheduled-leaders '("" ""))
 ;; (setq org-agenda-window-setup 'current-window)
 (setq org-return-follows-link nil)
+(setq org-link-frame-setup
+  '((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file)
+     (wl . wl-other-frame)))
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 60)
 ;; (setq org-caldav-skip-conditions '(nottodo))
