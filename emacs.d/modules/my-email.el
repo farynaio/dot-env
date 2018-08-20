@@ -35,6 +35,9 @@
   gnus-thread-indent-level 2
   gnus-sum-thread-tree-indent " "
   gnus-auto-select-first nil
+  starttls-gnutls-program "gnutls-cli"
+  starttls-extra-arguments nil
+  starttls-use-gnutls t
   gnus-auto-select-next nil
   gnus-user-date-format-alist '((t . "%d.%m.%Y %H:%M"))
   gnus-activate-level 3
