@@ -194,6 +194,7 @@
             (hl-todo-mode 1)
             (auto-highlight-symbol-mode 1)
             (rainbow-mode 1)
+            (drag-stuff-mode t)
             (setq c-basic-offset 2))
           )))))
 
