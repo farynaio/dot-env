@@ -130,6 +130,7 @@
        shr-color-visible-luminance-min 80
        mu4e-headers-include-related t
        mu4e-view-show-images t
+       mu4e-use-fancy-chars t
        ;; mu4e-get-mail-command "offlineimap -o"
        ;; mu4e-get-mail-command "offlineimap"
        mu4e-get-mail-command "true"
