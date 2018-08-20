@@ -781,11 +781,12 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-files (list my/org-knowledge-review-file-path))
             (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
-          ((org-agenda-sorting-strategy '(todo-state-down time-up priority-down effort-down habit-down))
+          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
+            (org-agenda-sorting-strategy '(time-up todo-state-up priority-down category-keep effort-down habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode t)
-            (org-agenda-files (append org-agenda-files my/org-active-projects))))
+            (org-agenda-files (append my/org-active-projects org-agenda-files))))
         (alltodo ""
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
