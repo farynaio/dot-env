@@ -15,6 +15,7 @@
   :diminish (drag-stuff-mode . "")
   :config
   (progn
+    (drag-stuff-global-mode t)
     (drag-stuff-define-keys)))
 
 (use-package goto-last-change)
