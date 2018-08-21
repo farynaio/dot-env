@@ -458,12 +458,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 - Achieved
   -
 "
-:prepend t :jump-to-captured t :empty-lines-after 3 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 2 :kill-buffer t)
 
   ("l" "Dating Log" entry (file ,my/org-journal-dating-file-path)
 "* [%<%Y-%m-%d %a>]\n%?
 "
-:prepend t :jump-to-captured t :empty-lines-after 3 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 2 :kill-buffer t)
 
   ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
 "* TODO %\\3 \"%\\1\" %\\2 %? %^g
@@ -481,7 +481,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
 "* %?
 "
-:prepend nil :empty-lines-after 3 :kill-buffer t)
+:prepend nil :empty-lines-after 2 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* \"%?\"
@@ -499,7 +499,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :STYLE: habit
 :END:
 "
-:prepend t :empty-lines-after 3 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
 "* TODO %?
@@ -508,7 +508,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 3 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("u" "Review" entry (file ,my/org-review-file-path)
 "* [%<%Y-%m-%d %a>] %^g
