@@ -282,7 +282,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-default-priority 66)
 (setq org-log-done 'time)
 
-(setq org-default-notes-file my/org-notes-file-path)
+(setq org-default-notes-file my/org-inbox-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))

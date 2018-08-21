@@ -18,7 +18,6 @@
 (defvar my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
 (defvar my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (defvar my/org-projects-file-path (expand-file-name "projects.org" org-directory))
-(defvar my/org-notes-file-path (expand-file-name "notes.org" org-directory))
 (defvar my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-directory))
 (defvar my/org-blog-file-path (expand-file-name "blog.org" org-directory))
 (defvar my/org-journal-file-path (expand-file-name "journal.org.gpg" org-directory))
