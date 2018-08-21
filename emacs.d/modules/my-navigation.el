@@ -8,7 +8,10 @@
   recentf-max-menu-items 15)
 
 (require 'tramp)
-(setq tramp-default-method "ssh")
+(setq
+  tramp-default-method "ssh"
+  tramp-inline-compress-start-size 40960)
+
 (setq password-cache-expiry nil)
 
 (use-package drag-stuff
