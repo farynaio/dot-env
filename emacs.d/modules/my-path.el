@@ -14,6 +14,7 @@
 (defvar my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
 (defvar my/org-knowledge-review-file-path (expand-file-name "knowledge_reviews.org" org-agenda-directory))
 (defvar my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" org-agenda-directory))
+(defvar my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
 
 (defvar my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
 (defvar my/org-tasks-file-path (expand-file-name "someday.org" org-directory))

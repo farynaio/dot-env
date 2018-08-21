@@ -307,7 +307,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       (list my/org-active-file-path
         my/org-anniversaries-file-path
         my/org-repeatables-file-path
-        my/org-projects-file-path))))
+        my/org-projects-file-path
+        my/org-taxes-file-path
+        ))))
 
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
