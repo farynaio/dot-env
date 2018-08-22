@@ -57,6 +57,7 @@
                                         (evil-exit-visual-state))))
 
     (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
+    (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
 
     (defvar org-mode-map (make-sparse-keymap))
     (defvar mu4e:view-mode-map (make-sparse-keymap))

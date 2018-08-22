@@ -5,6 +5,7 @@
 (require 'taskjuggler-mode)
 (require 'calendar)
 (require 'org-table-cell-move)
+(require 'org-toc)
 
 (setq org-babel-load-languages '(
                                   (emacs-lisp . t)
