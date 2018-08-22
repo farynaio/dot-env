@@ -296,8 +296,8 @@ point reaches the beginning or end of the buffer, stop there."
   "Clone indirect buffer in new window."
   (interactive)
   (split-window-right)
-  (windmove-right)
-  (clone-indirect-buffer nil t))
+  (clone-indirect-buffer nil t)
+  (windmove-left))
 
 ;; org mode conflicts resolution: windmove
 (add-hook 'org-shiftup-final-hook 'windmove-up)
