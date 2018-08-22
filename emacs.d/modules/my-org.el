@@ -349,6 +349,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-clock-report-include-clocking-task t)
 (setq org-clock-out-remove-zero-time-clocks t)
 (setq org-pretty-entities t)
+(setq org-pretty-entities-include-sub-superscripts nil)
+
 (setq org-clock-in-resume t)
 (setq org-clock-persist-query-resume nil)
 (setq org-clock-in-switch-to-state "IN-PROCESS")
@@ -559,7 +561,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 ))
 
 (setq org-todo-keywords
-  '( (sequence "TODO(t)" "IN-PROCESS(p)" "BLOCKED(b@/!)" "WAITING(w@/!)" "DELEGATED(e@/!)" "NOTE(n)")
+  '( (sequence "TODO(t)" "IN-PROCESS(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
      (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
 
 (setq org-todo-keyword-faces
