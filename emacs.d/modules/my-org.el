@@ -313,8 +313,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
-(setq org-enforce-todo-dependencies nil)
-(setq org-agenda-dim-blocked-tasks t) ; or "invisible"
+(setq org-enforce-todo-dependencies t)
+(setq org-agenda-dim-blocked-tasks t)
 ;; (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
 (setq org-use-speed-commands t)
@@ -765,6 +765,12 @@ SCHEDULED: <%<%Y-%m-%d %a>>
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "Waiting:")
+           (org-agenda-remove-tags t)
+           (org-agenda-todo-keyword-format "")
+           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
+        (tags-todo "TODO=\"BLOCKED\""
+          ((org-agenda-files (append org-agenda-files my/org-active-projects))
+           (org-agenda-overriding-header "Blocked:")
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
