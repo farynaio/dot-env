@@ -26,7 +26,7 @@
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"
   :init-value nil
-  :lighter " agenda-appt"
+  :lighter " appt"
   (add-hook 'after-save-hook #'my/org-agenda-to-appt-if-not-terminated nil t))
 
 (defun my/org-agenda-to-appt-if-not-terminated ()
