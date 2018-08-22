@@ -65,7 +65,7 @@
     (diminish 'company-mode)
     (diminish 'eldoc-mode)
     ;; (diminish 'auto-highlight-symbol-mode)
-    (diminish 'abbrev-mode " A")))
+    (diminish 'abbrev-mode)))
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 (use-package exec-path-from-shell

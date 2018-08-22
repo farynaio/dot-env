@@ -227,8 +227,8 @@
 
     (define-derived-mode my/ledger-mode ledger-mode "ledger"
       "Superior major ledger mode"
-      (hl-line-mode 1)
-      (add-hook 'after-save-hook #'ledger-post-align-dwim nil t))
+      (hl-line-mode 1))
+      ;; (add-hook 'after-save-hook #'ledger-post-align-dwim nil t))
 
     ;; (unbind-key "<TAB>" my/ledger-mode-map)
     (add-to-list 'auto-mode-alist '("\\.ledger\\'" . my/ledger-mode))))
