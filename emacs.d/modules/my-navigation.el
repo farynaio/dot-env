@@ -19,7 +19,8 @@
   :config
   (progn
     (drag-stuff-global-mode t)
-    (drag-stuff-define-keys)))
+    (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
+    (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down)))
 
 (use-package goto-last-change)
 
