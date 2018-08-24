@@ -770,10 +770,12 @@ SCHEDULED: <%<%Y-%m-%d %a>>
            (org-agenda-overriding-header "Waiting:")
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
-           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
+           (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))))
         (tags-todo "TODO=\"BLOCKED\""
           ((org-agenda-files (append org-agenda-files my/org-active-projects))
-           (org-agenda-overriding-header "Blocked:")
+            (org-agenda-overriding-header "Blocked:")
+            (org-agenda-skip-function
+              '(or (org-agenda-skip-entry-if 'notscheduled)))
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
@@ -798,15 +800,6 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (ps-number-of-columns 2)
             (ps-landscape-mode t)
             (org-agenda-files (append my/org-active-projects org-agenda-files))))
-        (alltodo ""
-          ((org-agenda-skip-function
-             '(or (my/org-skip-subtree-if-priority ?A)
-                (my/org-skip-subtree-if-habit)
-                (org-agenda-skip-if nil '(scheduled deadline))
-                (org-agenda-skip-entry-if 'todo '("IN-PROCESS" "BLOCKED" "WAITING"))))
-            (org-agenda-sorting-strategy '(priority-down effort-down category-keep alpha-up))
-            )
-          )
         )
        )
      )
