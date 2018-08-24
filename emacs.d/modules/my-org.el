@@ -326,6 +326,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;; (setq org-completion-use-ido t)
 (setq org-export-exclude-category (list "google" "private"))
 (setq org-export-babel-evaluate nil)
+(setq org-confirm-babel-evaluate (lambda (lang body) (not (string= lang "ledger"))))
 (setq org-ascii-links-to-notes nil)
 (setq org-ascii-headline-spacing '(1 . 1))
 (setq org-export-with-smart-quotes t) ; could cause problems on babel export
