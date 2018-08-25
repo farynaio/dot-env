@@ -571,7 +571,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 (setq org-todo-keyword-faces
   '( ("TODO"       . (:foreground "LimeGreen"   :weight bold))
      ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
-     ("BLOCKED"    . (:foreground "tomato3"   :weight bold))
+     ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
      ("WAITING"    . (:foreground "coral"       :weight bold))
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
      ("NOTE"       . (:foreground "white"       :weight bold))
