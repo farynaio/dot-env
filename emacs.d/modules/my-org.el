@@ -128,6 +128,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-M-<down>"    #'org-table-move-single-cell-down  org-mode-map)
      (bind-key "C-M-<left>"    #'org-table-move-single-cell-left  org-mode-map)
      (bind-key "C-M-<right>"   #'org-table-move-single-cell-right org-mode-map)
+     (bind-key "<S-tab>"       #'outline-hide-subtree             org-mode-map)
 
      (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
      (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
