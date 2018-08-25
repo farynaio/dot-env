@@ -96,6 +96,7 @@
 (require 'my-dired)
 (require 'my-notifications)
 (require 'my-navigation)
+(require 'my-www)
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
