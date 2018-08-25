@@ -7,12 +7,14 @@
 (require 'org-table-cell-move)
 (require 'org-toc)
 
-(setq org-babel-load-languages '(
-                                  (emacs-lisp . t)
-                                  (ledger . t)
-                                  (python . t)
-                                  (gnuplot . t)
-                                  ))
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '(
+     (emacs-lisp . t)
+     (ledger . t)
+     (python . t)
+     (gnuplot . t)
+     ))
 
 (eval-after-load 'taskjuggler-mode
   '(progn
