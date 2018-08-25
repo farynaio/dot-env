@@ -320,8 +320,6 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
 (bind-key "s-t"           #'make-frame-command)
 (bind-key "C-x C-b"       #'pop-to-buffer)
-(bind-key "C-d"           #'evil-scroll-down)
-(bind-key "C-u"           #'evil-scroll-up)
 
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")

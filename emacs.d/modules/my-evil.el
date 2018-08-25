@@ -7,6 +7,8 @@
   :config
   (progn
     (evil-mode 1)
+    (bind-key "C-d"    #'evil-scroll-down)
+    (bind-key "C-u"    #'evil-scroll-up)
     (bind-key "C-e"    #'move-end-of-line                    evil-normal-state-map)
     (bind-key "C-e"    #'move-end-of-line                    evil-visual-state-map)
     (bind-key "C-a"    #'my/smarter-move-beginning-of-line   evil-normal-state-map)
@@ -56,10 +58,15 @@
                                       (when (fboundp 'evil-exit-visual-state)
                                         (evil-exit-visual-state))))
 
+    (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
     (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
     (add-to-list 'evil-emacs-state-modes 'magit-mode)
+    (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
+    (add-to-list 'evil-emacs-state-modes 'mu4e-headers-mode)
+    (add-to-list 'evil-emacs-state-modes 'woman-mode)
+    (add-to-list 'evil-emacs-state-modes 'help-mode)
 
     (evil-declare-change-repeat 'company-complete)
 
