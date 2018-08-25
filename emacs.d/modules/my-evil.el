@@ -59,6 +59,7 @@
     (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
     (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
+    (add-to-list 'evil-emacs-state-modes 'magit-mode)
 
     (defvar org-mode-map (make-sparse-keymap))
     (defvar mu4e:view-mode-map (make-sparse-keymap))
