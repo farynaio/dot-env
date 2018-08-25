@@ -61,6 +61,8 @@
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
     (add-to-list 'evil-emacs-state-modes 'magit-mode)
 
+    (evil-declare-change-repeat 'company-complete)
+
     (defvar org-mode-map (make-sparse-keymap))
     (defvar mu4e:view-mode-map (make-sparse-keymap))
     (defvar mu4e-headers-mode-map (make-sparse-keymap))
