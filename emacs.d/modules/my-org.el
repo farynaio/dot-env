@@ -192,7 +192,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (holiday-fixed  3 30 "(bank) Good Friday")
     (holiday-fixed  5  7 "(bank) Early May bank holiday (England, Wales)")
     (holiday-fixed  8 27 "(bank) Spring bank holiday")
-    (holiday-fixed  8 28 "(bank) Summer bank holiday")
     (holiday-fixed 12 25 "(bank) Christmas Day")
     (holiday-fixed 12 26 "(bank) Boxing Day")))
 (defvar polish-holidays
