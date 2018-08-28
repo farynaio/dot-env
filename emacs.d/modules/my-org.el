@@ -477,6 +477,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :TYPE: %^{What type: |AUDIO|ARTICLE|BOOK|MOVIE|PODCAST}
+:WHERE: %^{Where do I have it: |none|cloud|kindle|audible}
 :EFFORT: %^{What effort: |short|medium|big}
 :RECOMMENDED: %^{Who recommended: }
 :END:
