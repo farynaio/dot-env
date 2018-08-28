@@ -478,7 +478,10 @@
   (quote
     ((org-hide-emphasis-markers . t)
       (ispell-dictionary . "en")
-      (ispell-dictionary . "pl"))))
+      (ispell-dictionary . "pl")
+      (my/language-local . pl)
+      (my/language-local . en)
+      )))
 
 (bind-key "C-x C-b"       #'pop-to-buffer)
 
