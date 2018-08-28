@@ -446,7 +446,7 @@
     '(region ((t (:inherit nil :underline nil :foreground "White" :background "RoyalBlue4"))))
     '(hl-line ((t (:inherit nil :underline nil :background "gray34"))))
     '(ledger-font-xact-highlight-face ((t nil)))
-    '(org-level-2 ((t (:inherit outline-2 :foreground "cyan2"))))
+    '(org-level-2 ((t (:inherit outline-2))))
     '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
     '(org-level-4 ((t (:inherit outline-4 :foreground "plum1"))))
     '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
