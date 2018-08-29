@@ -64,6 +64,8 @@
     (diminish 'auto-revert-mode)
     (diminish 'company-mode)
     (diminish 'eldoc-mode)
+    (diminish 'visual-line-mode)
+
     ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'abbrev-mode)))
 

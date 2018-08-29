@@ -1,3 +1,9 @@
+(require 'flyspell)
+
+(eval-after-load 'flyspell
+  '(progn
+      (diminish 'flyspell-mode "fly")))
+
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
 (setq save-abbrevs 'silently)
 
@@ -90,12 +96,8 @@
 (add-to-list 'safe-local-variable-values '(ispell-dictionary . "pl"))
 (add-to-list 'safe-local-variable-values '(ispell-dictionary . "en"))
 
-;; mode hooks
-(setq flyspell-mode-hooks '(text-mode-hook org-mode-hook))
-
-(if (executable-find "aspell")
-  (dolist (i flyspell-mode-hooks)
-    (add-hook i #'flyspell-prog-mode)))
+(when (executable-find "aspell")
+  (add-hook 'text-mode-hook #'flyspell-prog-mode))
 
 (defun my/lang-toggle ()
   "Toggle language modes."

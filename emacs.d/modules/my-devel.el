@@ -60,13 +60,10 @@
 (setq electric-pair-text-pairs my/electric-pair-pairs)
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :config
   (progn
-    (yas-global-mode t)
-    (diminish yas-minor-mode)
-    (diminish yas/minor-mode)
-    (diminish yas-global-mode)
-    (diminish yas/global-mode)))
+    (yas-global-mode 1)))
 
 (use-package php-mode
   :config
