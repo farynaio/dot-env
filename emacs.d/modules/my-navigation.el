@@ -18,6 +18,9 @@
   :diminish (drag-stuff-mode . "")
   :config
   (progn
+    (add-to-list 'drag-stuff-except-modes 'org-mode)
+    (add-to-list 'drag-stuff-except-modes 'my/org-taskjuggler-mode)
+
     (drag-stuff-global-mode 1)
     (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
     (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down)))

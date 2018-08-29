@@ -119,6 +119,20 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (outline-hide-subtree)
     (org-shifttab)))
 
+(defun my/org-metaup ()
+  (interactive)
+  (call-interactively
+    (if (org-at-heading-p)
+      'org-metaup
+      'drag-stuff-up)))
+
+(defun my/org-metadown ()
+  (interactive)
+  (call-interactively
+    (if (org-at-heading-p)
+      'org-metadown
+      'drag-stuff-down)))
+
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
@@ -134,6 +148,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-M-<left>"    #'org-table-move-single-cell-left     org-mode-map)
      (bind-key "C-M-<right>"   #'org-table-move-single-cell-right    org-mode-map)
      (bind-key "<S-tab>"       #'my/outline-hide-subtree             org-mode-map)
+     (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
+     (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
 
      (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph)
      (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph)
