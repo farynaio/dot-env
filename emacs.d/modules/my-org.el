@@ -14,6 +14,7 @@
      (ledger . t)
      (python . t)
      (gnuplot . t)
+     (shell . t)
      ))
 
 (eval-after-load 'taskjuggler-mode
