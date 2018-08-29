@@ -51,6 +51,8 @@
     (bind-key ", l"    #'avy-goto-char                       evil-normal-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-visual-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
+    (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
+    (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)
