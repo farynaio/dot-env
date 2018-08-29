@@ -161,8 +161,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (add-hook 'org-mode-hook
        (lambda ()
-         (hl-line-mode t)
-         (abbrev-mode t)
+         (hl-line-mode 1)
+         (abbrev-mode 1)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
          ))))
@@ -655,7 +655,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
            (org-agenda-span 'month)
            (org-agenda-remove-tags t)
            (ps-number-of-columns 2)
-           (ps-landscape-mode t)))))
+           (ps-landscape-mode 1)))))
      ("cp" "Active projects"
        ((tags "PROJECT"))
        ((org-agenda-overriding-header "Active Projects")
@@ -807,7 +807,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down category-keep effort-down habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
-            (ps-landscape-mode t)
+            (ps-landscape-mode 1)
             (org-agenda-files (append my/org-active-projects org-agenda-files))))
         )
        )

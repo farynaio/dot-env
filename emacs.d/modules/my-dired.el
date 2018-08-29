@@ -44,7 +44,7 @@
 
 (eval-after-load 'dired
   '(progn
-     (setq dired-hide-details-mode t)
+     (setq dired-hide-details-mode 1)
      (setq dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
           ("\\.html\\'" "open")

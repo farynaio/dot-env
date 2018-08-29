@@ -18,7 +18,7 @@
   :diminish (drag-stuff-mode . "")
   :config
   (progn
-    (drag-stuff-global-mode t)
+    (drag-stuff-global-mode 1)
     (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
     (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down)))
 
@@ -27,7 +27,7 @@
 (use-package smartscan
   :defer t
   :config
-  (global-smartscan-mode t))
+  (global-smartscan-mode 1))
 
 (bind-key "C-c p" 'pop-to-mark-command)
 (setq set-mark-command-repeat-pop t)
