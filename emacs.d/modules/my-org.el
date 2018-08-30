@@ -123,14 +123,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (defun my/org-metaup ()
   (interactive)
   (call-interactively
-    (if (org-at-heading-p)
+    (if (org-at-heading-or-item-p)
       'org-metaup
       'drag-stuff-up)))
 
 (defun my/org-metadown ()
   (interactive)
   (call-interactively
-    (if (org-at-heading-p)
+    (if (org-at-heading-or-item-p)
       'org-metadown
       'drag-stuff-down)))
 
