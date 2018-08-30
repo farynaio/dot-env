@@ -465,7 +465,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 | Total           |          |     |       |         |       |      |        |           |
 #+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
 "
-:prepend t :empty-lines-after 1 :jump-to-captured t)
+:prepend t :empty-lines-after 1 :jump-to-captured nil)
 
   ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* NOTE %?
