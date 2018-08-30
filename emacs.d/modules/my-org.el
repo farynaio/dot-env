@@ -821,7 +821,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-sorting-strategy '(user-defined-down))))
         (agenda ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
-            (org-agenda-sorting-strategy '(time-up todo-state-up priority-down category-keep effort-down habit-down alpha-up))
+            (org-agenda-sorting-strategy '(time-up priority-down todo-state-up category-keep effort-down habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
