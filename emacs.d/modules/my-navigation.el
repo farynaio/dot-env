@@ -130,7 +130,7 @@
 (use-package swiper
   :config
   (progn
-    (bind-key "C-s" #'swiper)))
+    (bind-key "C-s" #'my/swiper)))
 
 (use-package counsel
   :config
@@ -181,13 +181,27 @@
     )
   )
 
-(defun my/counsel-grep (&optional initial-input)
+(defun my/counsel-grep (&optional mark-start mark-end)
   "counsel-grep version which fallback for indirect buffers."
-  (interactive)
-  (condition-case ex
-    (counsel-grep initial-input)
-    ('user-error (evil-search-forward))
-    ))
+  (interactive "r")
+  (let (
+         ;; (regexp (if (and (numberp mark-start) (numberp mark-end))
+                   ;; (buffer-substring-no-properties mark-start mark-end)))
+         )
+    (condition-case ex
+      (counsel-grep)
+      ('user-error (evil-search-forward)))))
+
+(defun my/swiper (&optional mark-start mark-end)
+  "swiper version which fallback for indirect buffers."
+  (interactive "r")
+  (let (
+         ;; (regexp (if (and (numberp mark-start) (numberp mark-end))
+                   ;; (buffer-substring-no-properties mark-start mark-end)))
+         )
+    (condition-case ex
+      (swiper)
+      ('user-error (evil-search-forward)))))
 
 (use-package projectile
   :init
