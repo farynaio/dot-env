@@ -6,6 +6,7 @@
 (require 'calendar)
 (require 'org-table-cell-move)
 (require 'org-toc)
+(require 'reftex)
 
 (org-babel-do-load-languages
   'org-babel-load-languages
@@ -15,7 +16,15 @@
      (python . t)
      (gnuplot . t)
      (shell . t)
+     (latex . t)
      ))
+
+(use-package auctex
+  :defer t
+  :ensure t
+  )
+
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
 (eval-after-load 'taskjuggler-mode
   '(progn
@@ -336,6 +345,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         my/org-taxes-file-path
         ))))
 
+(setq
+  org-export-creator-string "Adam Faryna (appdy.co.uk)"
+  org-export-exclude-category (list "google" "private")
+  org-export-babel-evaluate t
+  org-export-with-smart-quotes t ; could cause problems on babel export
+  )
+
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
 (setq org-enforce-todo-dependencies t)
@@ -348,12 +364,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-priority-start-cycle-with-default nil)
 (setq org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
 ;; (setq org-completion-use-ido t)
-(setq org-export-exclude-category (list "google" "private"))
-(setq org-export-babel-evaluate nil)
 (setq org-confirm-babel-evaluate (lambda (lang body) (not (string= lang "ledger"))))
 (setq org-ascii-links-to-notes nil)
 (setq org-ascii-headline-spacing '(1 . 1))
-(setq org-export-with-smart-quotes t) ; could cause problems on babel export
 (setq org-icalendar-use-scheduled '(todo-start event-if-todo))
 (setq org-icalendar-use-deadline '(event-if-todo))
 (setq org-icalendar-honor-noexport-tag t) ; this is not supported in my version
