@@ -25,6 +25,7 @@
     (bind-key "h"      #'evil-first-non-blank                evil-visual-state-map)
     (bind-key "l"      #'evil-end-of-line                    evil-normal-state-map)
     (bind-key "l"      #'evil-end-of-line                    evil-visual-state-map)
+    (bind-key "v"      #'set-mark-command                    evil-normal-state-map)
     (bind-key "}"      #'forward-paragraph                   evil-motion-state-map)
     (bind-key "{"      #'backward-paragraph                  evil-motion-state-map)
     (bind-key "C-k"    #'kill-line                           evil-insert-state-map)
