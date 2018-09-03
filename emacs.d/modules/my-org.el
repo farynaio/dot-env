@@ -217,15 +217,26 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (global-set-key (kbd "C-x a") #'org-agenda)
 (bind-key "C-c C-o" #'org-open-at-point-global)
 
+(setq general-holidays
+  '(
+     (holiday-fixed 1 1 "New Year's Day")
+       (holiday-fixed 2 14 "Valentine's Day")
+       (holiday-fixed 3 17 "St. Patrick's Day")
+       (holiday-fixed 4 1 "April Fools' Day")
+       (holiday-float 5 0 2 "Mother's Day")
+       (holiday-fixed 10 31 "Halloween")
+       (holiday-float 11 4 4 "Thanksgiving")))
+
 (use-package japanese-holidays)
-(defvar english-holidays
+(setq english-holidays
   '(
     (holiday-fixed  3 30 "(bank) Good Friday")
     (holiday-fixed  5  7 "(bank) Early May bank holiday (England, Wales)")
     (holiday-fixed  8 27 "(bank) Spring bank holiday")
     (holiday-fixed 12 25 "(bank) Christmas Day")
-    (holiday-fixed 12 26 "(bank) Boxing Day")))
-(defvar polish-holidays
+     (holiday-fixed 12 26 "(bank) Boxing Day")))
+
+(setq polish-holidays
   '(
      (holiday-fixed  1  6 "(bank) Trzech Króli")
      (holiday-fixed  1 21 "Dzień Babci")
@@ -285,7 +296,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     english-holidays
     holiday-local-holidays
     holiday-other-holidays
-    holiday-general-holidays
+    general-holidays
     holiday-christian-holidays
     holiday-oriental-holidays
     holiday-solar-holidays
