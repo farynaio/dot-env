@@ -88,7 +88,6 @@
   (deactivate-mark)
   (when (fboundp 'evil-exit-visual-state)
     (evil-exit-visual-state)
-    ;; (evil-force-normal-state)
     ))
 
 (setq ispell-extra-args '("--sug-mode=ultra"))

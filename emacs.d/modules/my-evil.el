@@ -67,12 +67,14 @@
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
     (add-to-list 'evil-emacs-state-modes 'magit-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
+    (add-to-list 'evil-emacs-state-modes 'mu4e-org-mode)
+    (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-headers-mode)
     (add-to-list 'evil-emacs-state-modes 'woman-mode)
     (add-to-list 'evil-emacs-state-modes 'help-mode)
-    (add-to-list 'evil-emacs-state-modes 'debugger-mode-map)
-    (add-to-list 'evil-emacs-state-modes 'ediff-mode-map)
-    (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode-map)
+    (add-to-list 'evil-emacs-state-modes 'debugger-mode)
+    (add-to-list 'evil-emacs-state-modes 'ediff-mode)
+    (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
 
     (evil-declare-change-repeat 'company-complete)
 
