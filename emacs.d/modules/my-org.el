@@ -656,13 +656,12 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 (setq my/org-active-projects (list
                                my/org-project-change-hosting-provider
                                my/org-project-switch-to-self-accounting
+                               my/org-project-setup-freelance
+                               my/org-project-setup-digital-agency
 
                                ;; my/org-project-launch-amazon-business
                                ;; my/org-project-become-confident-pua
                                ;; my/org-project-trip-edinburgh
-
-                               ;; my/org-project-setup-freelance
-                               ;; my/org-project-setup-digital-agency
                                ;; my/org-project-trip-nottingham
                                ))
 
