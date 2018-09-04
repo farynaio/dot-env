@@ -21,8 +21,7 @@
 
 (use-package auctex
   :defer t
-  :ensure t
-  )
+  :ensure t)
 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 

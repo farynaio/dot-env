@@ -242,7 +242,6 @@
   (require 'ls-lisp)
   (setq ls-lisp-use-insert-directory-program nil))
 
-(remove-hook 'text-mode-hook #'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (setq dabbrev-friend-buffer-function '(lambda (other-buffer)
