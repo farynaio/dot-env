@@ -57,6 +57,8 @@
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
 
+    (unbind-key "SPC" evil-motion-state-map)
+
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)
                                       (deactivate-mark)
