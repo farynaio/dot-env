@@ -7,12 +7,12 @@
     (require 'org-mu4e))
   (message "'mu' not found"))
 
-(use-package evil-mu4e
-  :config
-  (progn
-    (evil-define-key 'normal mu4e-compose-mode-map (kbd "TAB") #'message-tab)
-    (evil-define-key 'normal mu4e-view-mode-map (kbd "TAB") #'shr-next-link)
-    (evil-define-key 'normal mu4e-view-mode-map (kbd "BACKTAB") #'shr-previous-link)))
+;; (use-package evil-mu4e
+;;   :config
+;;   (progn
+;;     (evil-define-key 'normal mu4e-compose-mode-map (kbd "TAB") #'message-tab)
+;;     (evil-define-key 'normal mu4e-view-mode-map (kbd "TAB") #'shr-next-link)
+;;     (evil-define-key 'normal mu4e-view-mode-map (kbd "BACKTAB") #'shr-previous-link)))
 
 ; Gnus
 (setq
@@ -122,6 +122,46 @@
 
 (eval-after-load 'mu4e
   '(progn
+     (evil-make-overriding-map mu4e-headers-mode-map 'motion)
+     (evil-make-overriding-map mu4e-headers-mode-map 'normal)
+     (evil-make-overriding-map mu4e-view-mode-map 'motion)
+     (evil-make-overriding-map mu4e-view-mode-map 'normal)
+
+     ;; main
+      (bind-key "x"         #'mu4e-kill-update-mail                    mu4e-main-mode-map)
+    ;; (,evil-mu4e-state mu4e-main-mode-map "s"               mu4e-headers-search)
+    ;; (,evil-mu4e-state mu4e-main-mode-map "b"               mu4e-headers-search-bookmark)
+    ;; (,evil-mu4e-state mu4e-main-mode-map "B"               mu4e-headers-search-bookmark-edit)
+
+     ;; view
+     (bind-key "<tab>"      #'shr-next-link                            mu4e-view-mode-map)
+     (bind-key "<backtab>"  #'shr-previous-link                        mu4e-view-mode-map)
+
+     ;; headers
+     (bind-key "RET"        #'mu4e-headers-view-message                mu4e-headers-mode-map)
+     (bind-key "q"          #'mu4e~headers-quit-buffer                 mu4e-headers-mode-map)
+     (bind-key "x"          #'mu4e-mark-execute-all                    mu4e-headers-mode-map)
+     (bind-key "a"          #'mu4e-headers-action                      mu4e-headers-mode-map)
+     (bind-key "C"          #'mu4e-compose-new                         mu4e-headers-mode-map)
+     (bind-key "F"          #'mu4e-compose-forward                     mu4e-headers-mode-map)
+     (bind-key "R"          #'mu4e-compose-reply                       mu4e-headers-mode-map)
+     (bind-key "o"          #'mu4e-headers-change-sorting              mu4e-headers-mode-map)
+     (bind-key "&"          #'mu4e-headers-mark-custom                 mu4e-headers-mode-map)
+     (bind-key "A"          #'mu4e-headers-mark-for-action             mu4e-headers-mode-map)
+     (bind-key "m"          #'mu4e-headers-mark-for-move               mu4e-headers-mode-map)
+     (bind-key "r"          #'mu4e-headers-mark-for-refile             mu4e-headers-mode-map)
+     (bind-key "D"          #'mu4e-headers-mark-for-delete             mu4e-headers-mode-map)
+     (bind-key "d"          #'mu4e-headers-mark-for-trash              mu4e-headers-mode-map)
+     (bind-key "="          #'mu4e-headers-mark-for-untrash            mu4e-headers-mode-map)
+     (bind-key "u"          #'mu4e-headers-mark-for-unmark             mu4e-headers-mode-map)
+     (bind-key "U"          #'mu4e-mark-unmark-all                     mu4e-headers-mode-map)
+     (bind-key "["          #'mu4e-headers-prev-unread                 mu4e-headers-mode-map)
+     (bind-key "]"          #'mu4e-headers-next-unread                 mu4e-headers-mode-map)
+     (bind-key "l"          #'mu4e-show-log                            mu4e-headers-mode-map)
+     (bind-key "I"          #'mu4e-headers-toggle-include-related      mu4e-headers-mode-map)
+     (bind-key "T"          #'mu4e-headers-toggle-threading            mu4e-headers-mode-map)
+     (bind-key "D"          #'mu4e-headers-toggle-skip-duplicates      mu4e-headers-mode-map)
+
      (setq
        message-send-mail-function 'smtpmail-send-it
        message-kill-buffer-on-exit t
@@ -177,8 +217,7 @@
              account-vars)
            (error "No email account found"))))
      (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
-
-     (evil-make-overriding-map mu4e-headers-mode-map 'motion)))
+     ))
 
 (use-package org-mime)
 
