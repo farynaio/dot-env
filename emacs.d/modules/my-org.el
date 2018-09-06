@@ -161,11 +161,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
 
-     (when (boundp 'org-evil-motion-forward-heading)
-       (define-key org-mode-map [remap org-evil-motion-forward-heading] #'forward-paragraph))
-
-     (when (boundp 'org-evil-motion-backward-heading)
-       (define-key org-mode-map [remap org-evil-motion-backward-heading] #'backward-paragraph))
+     (define-key org-mode-map [remap backward-paragraph] nil)
+     (define-key org-mode-map [remap forward-paragraph] nil)
 
      (bind-key "C-x :"
        (lambda ()
