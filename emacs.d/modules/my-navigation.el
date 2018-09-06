@@ -190,7 +190,10 @@
          )
     (condition-case ex
       (counsel-grep)
-      ('user-error (evil-search-forward)))))
+      (if (boundp 'evil-search-forward)
+        ('user-error (evil-search-forward))
+        (signal (car err) (cdr err))
+        ))))
 
 (defun my/swiper (&optional mark-start mark-end)
   "swiper version which fallback for indirect buffers."
@@ -201,7 +204,10 @@
          )
     (condition-case ex
       (swiper)
-      ('user-error (evil-search-forward)))))
+      (if (boundp 'evil-search-forward)
+        ('user-error (evil-search-forward))
+        (signal (car err) (cdr err))
+        ))))
 
 (use-package projectile
   :init
