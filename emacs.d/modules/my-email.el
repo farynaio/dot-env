@@ -136,6 +136,7 @@
      ;; view
      (bind-key "<tab>"      #'shr-next-link                            mu4e-view-mode-map)
      (bind-key "<backtab>"  #'shr-previous-link                        mu4e-view-mode-map)
+     (bind-key "k"          #'shr-maybe-probe-and-copy-url             mu4e-view-mode-map)
 
      ;; headers
      (bind-key "RET"        #'mu4e-headers-view-message                mu4e-headers-mode-map)
