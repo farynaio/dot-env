@@ -454,6 +454,7 @@
     '(org-done ((t (:inherit nil :strike-through nil :weight normal))))
     '(org-headline-done ((t (:inherit nil :strike-through t :weight: normal))))
     '(org-agenda-done ((t (:inherit nil :strike-through t :weight normal))))
+    '(ledger-font-payee-uncleared-face ((t (:inherit nil :foreground "gold1"))))
     )
 
   (setq my/current-theme 'wombat))
