@@ -194,7 +194,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (abbrev-mode 1)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
-         ))))
+         ))
+
+     (add-hook 'org-mode-hook
+       (lambda ()
+         (org-evil-mode -1)
+          ) t)
+     ))
 
 (eval-after-load 'org-caldav
   '(progn
