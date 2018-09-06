@@ -130,7 +130,7 @@
 (use-package swiper
   :config
   (progn
-    (bind-key "C-s" #'my/swiper)))
+    (bind-key "C-s" #'swiper)))
 
 (use-package counsel
   :config
@@ -190,20 +190,6 @@
          )
     (condition-case ex
       (counsel-grep)
-      (if (boundp 'evil-search-forward)
-        ('user-error (evil-search-forward))
-        (signal (car err) (cdr err))
-        ))))
-
-(defun my/swiper (&optional mark-start mark-end)
-  "swiper version which fallback for indirect buffers."
-  (interactive "r")
-  (let (
-         ;; (regexp (if (and (numberp mark-start) (numberp mark-end))
-                   ;; (buffer-substring-no-properties mark-start mark-end)))
-         )
-    (condition-case ex
-      (swiper)
       (if (boundp 'evil-search-forward)
         ('user-error (evil-search-forward))
         (signal (car err) (cdr err))
