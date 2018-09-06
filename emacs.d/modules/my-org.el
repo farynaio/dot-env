@@ -499,10 +499,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-
-
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("j" "Journal" entry (file ,my/org-journal-file-path)
 "* [%<%Y-%m-%d %a>]
@@ -608,7 +606,6 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 ** Polish
 
 %^{What Polish word: }
-
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 ))
