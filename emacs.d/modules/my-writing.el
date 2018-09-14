@@ -35,6 +35,7 @@
                         ("Whats" "What's" nil 0)
                         ("What is" "What's" nil 0)
                         ("what is" "what's" nil 0)
+                        ("we have" "we've" nil 0)
                         ))
 
 (defvar my/pl-abbrevs nil)
