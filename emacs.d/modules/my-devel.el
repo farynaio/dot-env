@@ -6,6 +6,13 @@
 
 (setq gud-pdb-command-name "python -m pdb ")
 
+(require 'speedbar)
+(eval-after-load 'speedbar
+  '(progn
+     (setq speedbar-show-unknown-files t)
+     ))
+(use-package sr-speedbar)
+
 (use-package flycheck)
 (use-package markdown-mode)
 (use-package vimrc-mode)
