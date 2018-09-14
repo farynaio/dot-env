@@ -3,8 +3,28 @@
 (require 'python)
 (require 'js)
 
+(setq gud-pdb-command-name "python -m pdb ")
 (use-package markdown-mode)
 (use-package vimrc-mode)
+(eval-after-load 'python
+  '(progn
+    (evil-make-overriding-map inferior-python-mode-map 'motion)
+    (evil-make-overriding-map inferior-python-mode-map 'normal)
+     ))
+
+(use-package elpy
+  :config
+  (progn
+    (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (setq elpy-rpc-backend "jedi")
+    (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+
+    (elpy-enable)
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+    ))
 
 (use-package rainbow-mode
   :diminish rainbow-mode)
@@ -192,16 +212,25 @@
             (auto-highlight-symbol-mode 1)
             (rainbow-mode 1)
             ;; (drag-stuff-mode 1)
-            (setq c-basic-offset 2))
-          )))))
+            )
+          )))) t)
+
+;; (setq c-basic-offset 2)
 
 ;; TODO modify-syntax-entry - _ for css group of modes
 
-(add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
-(add-hook 'python-mode-hook (lambda () (setq-local tab-width 4)))
-(add-hook 'conf-space-mode-hook (lambda () (setq-local tab-width 2)))
+(setq tab-width 4)
 
-(setq python-indent-offset 4)
+(add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
+(add-hook 'python-mode-hook (lambda ()
+                              (setq-local tab-width 4)
+                              (setq python-indent-offset 4)
+                              ))
+(add-hook 'conf-space-mode-hook (lambda () (setq-local tab-width 2)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local c-basic-offset 2)))
+
+(setq c-basic-offset 'set-from-style)
+
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
 
 (dolist (i my/devel-keymaps)
