@@ -27,6 +27,14 @@
     (evil-make-overriding-map inferior-python-mode-map 'normal)
      ))
 
+(require 'epa)
+
+(eval-after-load 'epa
+  '(progn
+     (evil-make-overriding-map epa-key-mode-map 'motion)
+     (evil-make-overriding-map epa-key-mode-map 'normal)
+     ))
+
 (use-package elpy
   :config
   (progn
@@ -74,7 +82,6 @@
 
 (use-package company
   :diminish company-mode
-
   :config
   (progn
     (setq company-show-numbers t)
