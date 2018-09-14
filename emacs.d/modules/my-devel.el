@@ -91,6 +91,8 @@
 (use-package company-statistics)
 (use-package company-web)
 (use-package company-php)
+(use-package company-quickhelp)
+
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
