@@ -77,6 +77,8 @@
     (add-to-list 'evil-emacs-state-modes 'debugger-mode)
     (add-to-list 'evil-emacs-state-modes 'ediff-mode)
     (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
+    (add-to-list 'evil-emacs-state-modes 'epa-key-mode)
+    (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
 
     (evil-declare-change-repeat 'company-complete)
 
