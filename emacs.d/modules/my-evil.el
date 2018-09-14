@@ -54,6 +54,7 @@
     (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
     (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
     (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
+    (bind-key ", cd"   #'my/copy-file-name-to-clipboard      evil-normal-state-map)
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
 
