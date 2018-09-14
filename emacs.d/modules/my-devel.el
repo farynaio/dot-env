@@ -2,10 +2,18 @@
 (require 'css-mode)
 (require 'python)
 (require 'js)
+(require 'gud)
 
 (setq gud-pdb-command-name "python -m pdb ")
+
+(use-package flycheck)
 (use-package markdown-mode)
 (use-package vimrc-mode)
+(use-package guess-style
+  :config
+  (progn
+    (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
+
 (eval-after-load 'python
   '(progn
     (evil-make-overriding-map inferior-python-mode-map 'motion)
