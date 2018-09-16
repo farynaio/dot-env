@@ -23,8 +23,8 @@
 
 (eval-after-load 'python
   '(progn
-    (evil-make-overriding-map inferior-python-mode-map 'motion)
-    (evil-make-overriding-map inferior-python-mode-map 'normal)
+     (evil-make-overriding-map inferior-python-mode-map 'motion)
+     (evil-make-overriding-map inferior-python-mode-map 'normal)
      ))
 
 (require 'epa)
@@ -46,7 +46,6 @@
 
     (elpy-enable)
     (add-hook 'elpy-mode-hook 'flycheck-mode)
-
     ))
 
 (use-package rainbow-mode

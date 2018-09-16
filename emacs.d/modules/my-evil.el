@@ -59,6 +59,7 @@
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
 
     (unbind-key "SPC" evil-motion-state-map)
+    (unbind-key "M-." evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)
@@ -88,6 +89,7 @@
     (defvar flyspell-mode-map (make-sparse-keymap))
     (defvar help-mode-map (make-sparse-keymap))
     (defvar ediff-mode-map (make-sparse-keymap))
+    (defvar elpy-mode-map (make-sparse-keymap))
 
     (evil-define-key '(motion normal) org-mode-map
       (kbd "C-c C-s") #'org-schedule)
@@ -127,9 +129,13 @@
 
     (evil-define-key 'normal ediff-mode-map
       "[c" 'ediff-next-difference
-      "]c" 'ediff-previous-difference))
+      "]c" 'ediff-previous-difference)
 
-  (defalias #'forward-evil-word #'forward-evil-symbol))
+    (evil-define-key '(normal motion insert visual) elpy-mode-map
+      "M-." 'xref-find-definitions
+      "M-," 'xref-pop-marker-stack)
+
+    (defalias #'forward-evil-word #'forward-evil-symbol)))
 
 (use-package evil-surround
   :config
