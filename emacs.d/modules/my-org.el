@@ -497,6 +497,39 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 "
 :prepend t :empty-lines-after 1 :jump-to-captured nil)
 
+  ("e" "Media Review" entry (file ,my/org-media-reviews-file-path)
+"* _\"%\\1\" %\\2 %?
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:TITLE: \"%^{What Title: }\"
+:AUTHOR: %^{What author: }
+:END:
+
+[[file:~/Documents/emacs/orgs/knowledge/books/\"%\\1\" %\\2.org][link]]
+
+** TODO \"%\\1\" after Week
+:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+** TODO \"%\\1\" after Month
+:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 30)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+** TODO \"%\\1\" after half Year
+:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 182)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+** TODO \"%\\1\" after Yearly
+:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 365)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
+:prepend t :empty-lines-after 1 :jump-to-captured nil :kill-buffer nil)
+
   ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* NOTE %?
 :PROPERTIES:
@@ -837,14 +870,13 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-remove-tags nil)
             (org-agenda-todo-keyword-format "")
             (org-agenda-files (list my/org-media-file-path))))
-        (tags "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+        (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
           ((org-agenda-overriding-header "Active Reviews:")
-            (org-agenda-skip-function 'org-review-agenda-skip)
-            (org-tags-match-list-sublevels nil)
+            ;; (org-agenda-skip-function 'org-review-agenda-skip)
+            ;; (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
-            (org-agenda-cmp-user-defined 'org-review-compare)
-            (org-agenda-files (list my/org-knowledge-review-file-path))
-            (org-agenda-sorting-strategy '(user-defined-down))))
+            ;; (org-agenda-cmp-user-defined 'org-review-compare)
+            (org-agenda-files (list my/org-media-reviews-file-path))))
         (agenda ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
             (org-agenda-sorting-strategy '(time-up priority-down todo-state-up category-keep effort-down habit-down alpha-up))
