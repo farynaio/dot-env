@@ -43,6 +43,13 @@
     (setq elpy-rpc-backend "jedi")
     (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
+    ;; (setq python-shell-interpreter "python"
+    ;; python-shell-interpreter-args "-i")
+
+    (bind-key "C-c C-l"   #'elpy-occur-definitions                  elpy-mode-map)
+    (bind-key "C-c C-e"   #'elpy-multiedit-python-symbol-at-point   elpy-mode-map)
+    (bind-key "C-c C-r f" #'elpy-format-code                        elpy-mode-map)
+    (bind-key "C-c C-r r" #'elpy-refactor                           elpy-mode-map)
 
     (elpy-enable)
     (add-hook 'elpy-mode-hook 'flycheck-mode)

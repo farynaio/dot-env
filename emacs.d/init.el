@@ -496,6 +496,8 @@
 
 (bind-key "C-x C-b"       #'pop-to-buffer)
 
+(advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

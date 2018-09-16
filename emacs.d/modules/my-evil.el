@@ -80,6 +80,7 @@
     (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
     (add-to-list 'evil-emacs-state-modes 'epa-key-mode)
     (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
+    (add-to-list 'evil-emacs-state-modes 'xref--xref-buffer-mode)
 
     (evil-declare-change-repeat 'company-complete)
 
