@@ -4,6 +4,8 @@
 (require 'js)
 (require 'gud)
 
+(use-package realgud)
+
 (setq gud-pdb-command-name "python -m pdb ")
 
 (require 'speedbar)
