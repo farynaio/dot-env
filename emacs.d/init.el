@@ -99,6 +99,7 @@
 (require 'my-notifications)
 (require 'my-navigation)
 (require 'my-www)
+(require 'my-irc)
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
