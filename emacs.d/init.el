@@ -417,6 +417,8 @@
 ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
 (add-hook 'after-make-frame-functions 'my/set-emoji-font)
 
+(visual-line-mode 1)
+
 (display-time-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
