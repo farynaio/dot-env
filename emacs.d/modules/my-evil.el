@@ -133,7 +133,7 @@
       "[c" 'ediff-next-difference
       "]c" 'ediff-previous-difference)
 
-    (evil-define-key '(normal motion insert visual) elpy-mode-map
+    (evil-define-key '(normal motion visual) elpy-mode-map
       "M-." 'xref-find-definitions
       "M-," 'xref-pop-marker-stack)
 
