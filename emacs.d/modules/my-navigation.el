@@ -253,6 +253,7 @@ to invalidate."
      (add-hook 'ediff-quit-hook 'delete-frame)))
 
 (set-register ?m (cons 'file "/ssh:root@77.55.218.117:/var/www"))
+(set-register ?a (cons 'file "/ssh:root@77.55.219.47:/root"))
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
