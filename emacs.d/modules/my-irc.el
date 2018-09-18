@@ -1,11 +1,21 @@
 (require 'erc)
+(require 'erc-services)
 
 (eval-after-load 'erc
   '(progn
      (setq
-       erc-nick "jarfar"
-       erc-away-nickname "jarfar"
-       erc-email-userid "jarfar")
+       erc-nick "jarfaros"
+       erc-away-nickname "jarfaros"
+       erc-email-userid "adamfaryna@gmail.com"
+       erc-prompt-for-nickserv-password nil
+       erc-format-nick-function 'erc-format-@nick
+       erc-nick-uniquifier "_"
+       erc-prompt-for-password nil)
+
+     (setq
+       erc-kill-server-buffer-on-quit t
+       erc-kill-queries-on-quit t
+       erc-rename-buffers t)
 
      (add-to-list 'erc-modules 'autojoin t)
      (add-to-list 'erc-modules 'button t)
@@ -24,4 +34,10 @@
      (add-to-list 'erc-modules 'ring t)
      (add-to-list 'erc-modules 'stamp t)
      (add-to-list 'erc-modules 'track t)
+
+     (evil-set-initial-state 'erc-mode 'emacs)
+
+     (defalias 'irc #'erc)
      ))
+
+(provide 'my-irc)
