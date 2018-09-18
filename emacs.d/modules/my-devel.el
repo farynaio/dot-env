@@ -27,7 +27,12 @@
   '(progn
      (evil-make-overriding-map inferior-python-mode-map 'motion)
      (evil-make-overriding-map inferior-python-mode-map 'normal)
+     (bind-key "C-d"  #'evil-scroll-down inferior-python-mode-map)
      ))
+
+(require 'comint)
+(add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
+(add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
 
 (require 'epa)
 
@@ -45,8 +50,9 @@
     (setq elpy-rpc-backend "jedi")
     (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
-    ;; (setq python-shell-interpreter "python"
-    ;; python-shell-interpreter-args "-i")
+    ;; (setq
+      ;; python-shell-interpreter "python"
+      ;; python-shell-interpreter-args "-i")
 
     (bind-key "C-c C-l"   #'elpy-occur-definitions                  elpy-mode-map)
     (bind-key "C-c C-e"   #'elpy-multiedit-python-symbol-at-point   elpy-mode-map)
