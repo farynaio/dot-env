@@ -1,6 +1,9 @@
 (setq my/file-name-handler-alist file-name-handler-alist)
-(setq gc-cons-threshold 402653184
-  gc-cons-percentage 0.6
+(setq
+  gc-cons-threshold (* 511 1024 1024)
+  gc-cons-percentage 0.5
+  ;; gc-cons-threshold 402653184
+  ;; gc-cons-percentage 0.6
   file-name-handler-alist nil)
 
 (eval-when-compile
@@ -183,8 +186,8 @@
       (my/language-local . en)))
 
 (setq
-  gc-cons-threshold 16777216
-  gc-cons-percentage 0.1
+  ;; gc-cons-threshold 16777216
+  ;; gc-cons-percentage 0.1
   file-name-handler-alist my/file-name-handler-alist)
 
 (custom-set-variables

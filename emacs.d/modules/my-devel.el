@@ -1,5 +1,7 @@
 (require 'cc-mode)
 (require 'css-mode)
+(require 'js)
+(require 'js2-mode)
 (require 'elisp-mode)
 (require 'python)
 (require 'js)
@@ -10,48 +12,105 @@
 (require 'git-rebase)
 (require 'dash-at-point)
 
+;; (use-package json-mode) ; not sure if js-mode is aren't good enough
+;; (use-package indium) ; inspector for node
+
+;; (use-package counsel-etags) ; it's crazy slow
+(use-package emmet-mode
+  :config
+  (progn
+    (setq
+      emmet-expand-jsx-className? t
+      emmet-self-closing-tag-style " /"
+      ;; emmet-indent-after-insert nil
+      ;; emmet-move-cursor-between-quotes t
+      ;; emmet-move-cursor-after-expanding nil
+      )))
 (use-package realgud)
 (use-package yaml-mode)
 (use-package markdown-mode)
 (use-package vimrc-mode)
-(use-package flycheck)
-
+(use-package flycheck
+  :config
+  (progn
+    (push 'javascript-jshint flycheck-disabled-checkers)))
 ;; (use-package git-timemachine)
+(use-package web-beautify)
 
+;; nvm ; replaces shell nvm
+;; prodigy ; manage external services
+;; skewer-mode
 ;; quickrun
 ;; expand-region.el
 ;; restclient.el
 ;; php-auto-yasnippets
-;; js2-mode
+
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
 
 (eval-after-load 'gud
   '(progn
-     (setq gud-pdb-command-name "python -m pdb ")
-     ))
+     (setq gud-pdb-command-name "python -m pdb ")))
 
 (use-package rainbow-delimiters)
+(use-package js2-refactor
+  :diminish js2-refactor-mode)
+(use-package tide
+  :diminish tide-mode)
+
+(setq
+  js2-skip-preprocessor-directives t
+  js2-highlight-external-variables nil
+  js2-mode-show-parse-errors nil
+  js2-strict-missing-semi-warning nil)
 
 (use-package rjsx-mode
   :config
   (progn
-    (setq
-      js2-skip-preprocessor-directives t
-      js2-highlight-external-variables nil
-      js2-mode-show-parse-errors nil
-      js2-strict-missing-semi-warning nil
-      )
-
     (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
-
-
     (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
-
-    (add-hook 'js2-mode-hook
-      (lambda ()
-        (flycheck-mode 1)
-        (rainbow-delimiters-mode 1)
-        ))
     ))
+
+(add-hook 'js-mode-hook
+  (lambda ()
+    (flycheck-mode 1)
+    (js2-refactor-mode 1)
+    (rainbow-delimiters-mode 1)
+    (evil-local-set-key 'normal (kbd "M-.") #'js2r-toggle-function-expression-and-declaration)
+    (evil-local-set-key 'normal (kbd "M-,") #'js2r-toggle-function-expression-and-declaration)
+    (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
+
+(add-hook 'js2-mode-hook
+  (lambda ()
+    (tide-setup)))
+
+(defhydra hydra-js-refactoring ()
+  "JS refactoring"
+  ("n"  hydra-js-refactoring-node/body "node" :exit t)
+  ("e"  hydra-js-refactoring-extract/body "extract" :exit t)
+  ("m"  hydra-js-refactoring-rename/body "rename" :exit t)
+  ("r"  hydra-js-refactoring-replace/body "replace" :exit t))
+
+(defhydra hydra-js-refactoring-node ()
+  "JS refactoring node"
+  ("e" #'js2r-expand-node-at-point "expand 'node'")
+  ("c" #'js2r-contract-node-at-point "contract 'node'"))
+
+(defhydra hydra-js-refactoring-extract ()
+  "JS refactoring extract"
+  ("v" #'js2r-extract-var "var")
+  ("l" #'js2r-extract-let "let")
+  ("c" #'js2r-extract-const "const")
+  ("f" #'js2r-extract-function "function")
+  ("m" #'js2r-extract-method "method"))
+
+(defhydra hydra-js-refactoring-rename ()
+  "JS refactoring rename"
+  ("v" #'js2r-rename-var "var"))
+
+(defhydra hydra-js-refactoring-replace ()
+  "JS refactoring replace"
+  ("t" #'js2r-var-to-this "'var' which 'this'"))
 
 ;; (use-package guess-style
   ;; :config
@@ -137,12 +196,6 @@
                             (?\{ . ?\})
                             (?\( . ?\))))
 (setq electric-pair-text-pairs my/electric-pair-pairs)
-
-(use-package yasnippet
-  :diminish yas-minor-mode
-  :config
-  (progn
-    (yas-global-mode 1)))
 
 (use-package php-mode
   :config

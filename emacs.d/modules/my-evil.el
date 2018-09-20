@@ -31,6 +31,7 @@
     (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
     (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
     (bind-key ", cd"   #'my/copy-file-name-to-clipboard      evil-normal-state-map)
+    (bind-key ", i"    #'hydra-insert/body                   evil-normal-state-map)
     (bind-key "C-w"    #'evil-delete-char                    evil-visual-state-map)
     (bind-key "h"      #'evil-first-non-blank                evil-normal-state-map)
     (bind-key "h"      #'evil-first-non-blank                evil-visual-state-map)

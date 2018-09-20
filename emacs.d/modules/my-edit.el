@@ -6,6 +6,7 @@
 (require 'epg-config)
 (require 'hippie-exp)
 
+(use-package hydra)
 ;; (use-package monitor)
 (use-package popup)
 (use-package miniedit)
@@ -27,6 +28,16 @@
     ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'abbrev-mode)))
 
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config
+  (progn
+    (yas-global-mode 1)))
+
+(defhydra hydra-insert ()
+  "Insert"
+  ("s" #'yas-insert-snippet "snippet"))
+
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
 
@@ -44,6 +55,7 @@
     (guide-key-mode 1)))
 
 (use-package editorconfig
+  :diminish editorconfig-mode
   :config
   (progn
     (editorconfig-mode 1)))
@@ -116,8 +128,7 @@
   ;; (message "No 'ack' executable found.")
   ;; )
 
-
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; (eval-after-load 'grep
 ;; 	'(progn
@@ -245,7 +256,6 @@
 (global-auto-revert-mode 1)
 (show-paren-mode 1)
 (visual-line-mode 1)
-;; (delete-selection-mode 1)
 
 (blink-cursor-mode -1)
 (tooltip-mode -1)
