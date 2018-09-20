@@ -1,23 +1,58 @@
 (require 'cc-mode)
 (require 'css-mode)
+(require 'elisp-mode)
 (require 'python)
 (require 'js)
+(require 'sql)
+(require 'comint)
 (require 'gud)
+(require 'epa)
+(require 'git-rebase)
+(require 'dash-at-point)
 
 (use-package realgud)
-
-(setq gud-pdb-command-name "python -m pdb ")
-
-(require 'speedbar)
-(eval-after-load 'speedbar
-  '(progn
-     (setq speedbar-show-unknown-files t)
-     ))
-(use-package sr-speedbar)
-
-(use-package flycheck)
+(use-package yaml-mode)
 (use-package markdown-mode)
 (use-package vimrc-mode)
+(use-package flycheck)
+
+;; (use-package git-timemachine)
+
+;; quickrun
+;; expand-region.el
+;; restclient.el
+;; php-auto-yasnippets
+;; js2-mode
+
+(eval-after-load 'gud
+  '(progn
+     (setq gud-pdb-command-name "python -m pdb ")
+     ))
+
+(use-package rainbow-delimiters)
+
+(use-package rjsx-mode
+  :config
+  (progn
+    (setq
+      js2-skip-preprocessor-directives t
+      js2-highlight-external-variables nil
+      js2-mode-show-parse-errors nil
+      js2-strict-missing-semi-warning nil
+      )
+
+    (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
+
+
+    (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
+
+    (add-hook 'js2-mode-hook
+      (lambda ()
+        (flycheck-mode 1)
+        (rainbow-delimiters-mode 1)
+        ))
+    ))
+
 ;; (use-package guess-style
   ;; :config
   ;; (progn
@@ -30,11 +65,8 @@
      (bind-key "C-d"  #'evil-scroll-down inferior-python-mode-map)
      ))
 
-(require 'comint)
 (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
 (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
-
-(require 'epa)
 
 (eval-after-load 'epa
   '(progn
@@ -61,14 +93,13 @@
 
     (elpy-enable)
     (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+    (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
     ))
 
 (use-package rainbow-mode
   :diminish rainbow-mode)
 
-(use-package yaml-mode)
-
-(require 'git-rebase)
 (eval-after-load 'git-rebase
   '(progn
       (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
@@ -83,16 +114,6 @@
   :config
   (progn
     (global-git-gutter-mode +1)))
-
-;; (use-package git-timemachine)
-
-(require 'dash-at-point)
-
-;; quickrun
-;; expand-region.el
-;; restclient.el
-;; php-auto-yasnippets
-;; js2-mode
 
 (use-package company
   :diminish company-mode
@@ -233,7 +254,7 @@
 (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 (add-hook 'ediff-quit-hook 'my-ediff-qh)
 
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py" "el.gz"))
@@ -257,15 +278,16 @@
 
 ;; TODO modify-syntax-entry - _ for css group of modes
 
-(setq tab-width 4)
-
 (add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 (add-hook 'python-mode-hook (lambda ()
                               (setq-local tab-width 4)
                               (setq python-indent-offset 4)
                               ))
 (add-hook 'conf-space-mode-hook (lambda () (setq-local tab-width 2)))
-(add-hook 'emacs-lisp-mode-hook (lambda () (setq-local c-basic-offset 2)))
+(add-hook 'emacs-lisp-mode-hook
+  (lambda ()
+    (setq mode-name "elisp")
+    (setq-local c-basic-offset 2)))
 
 (setq c-basic-offset 'set-from-style)
 
@@ -296,6 +318,14 @@
 
     ;; (unbind-key "<TAB>" my/ledger-mode-map)
     (add-to-list 'auto-mode-alist '("\\.ledger\\'" . my/ledger-mode))))
+
+;; blogging
+;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
+;; (require 'ox-publish)
+;; (setq org-html-coding-system 'utf-8-unix)
+;; (setq org-html-head-include-default-style nil)
+;; (setq org-html-head-include-scripts nil)
+;; (setq org-html-validation-link nil)
 
 ;; https://stackoverflow.com/a/6255409/346921
 (defun my/reformat-xml ()

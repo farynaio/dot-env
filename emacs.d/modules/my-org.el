@@ -7,6 +7,7 @@
 (require 'org-table-cell-move)
 (require 'org-toc)
 (require 'reftex)
+(use-package hl-todo)
 
 (org-babel-do-load-languages
   'org-babel-load-languages
@@ -1008,6 +1009,8 @@ should be continued."
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
+
+;; (add-hook 'org-babel-after-execute-hook 'my/buffer-messages-tail)
 
 (smartparens-mode -1)
 

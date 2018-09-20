@@ -4,8 +4,8 @@
 (eval-after-load 'erc
   '(progn
      (setq
-       erc-nick "jarfaros"
-       erc-away-nickname "jarfaros"
+       erc-nick "jarfaro"
+       erc-away-nickname "jarfaro"
        erc-email-userid "adamfaryna@gmail.com"
        erc-prompt-for-nickserv-password nil
        erc-format-nick-function 'erc-format-@nick

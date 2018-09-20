@@ -8,9 +8,15 @@
   recentf-max-menu-items 15)
 
 (require 'tramp)
-(setq
-  tramp-default-method "ssh"
-  tramp-inline-compress-start-size 40960)
+
+(eval-after-load 'tramp
+  '(progn
+     (setq
+       tramp-default-method "ssh"
+       tramp-inline-compress-start-size 40960
+       tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/"
+       tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
+     ))
 
 (setq password-cache-expiry nil)
 
