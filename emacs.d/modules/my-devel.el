@@ -17,6 +17,7 @@
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
+  :diminish emmet-mode
   :config
   (progn
     (setq
