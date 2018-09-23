@@ -45,6 +45,16 @@ $0`(yas-escape-text yas-selected-text)`")
   ("n" #'yas-new-snippet "new")
   ("e" #'yas-visit-snippet-file "edit"))
 
+(use-package company
+  :diminish company-mode
+  :config
+  (progn
+    (setq
+      company-show-numbers t
+      company-tooltip-align-annotations t
+      company-minimum-prefix-length 0
+      company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
+
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
 

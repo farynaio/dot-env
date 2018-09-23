@@ -181,14 +181,6 @@
   (progn
     (global-git-gutter-mode +1)))
 
-(use-package company
-  :diminish company-mode
-  :config
-  (progn
-    (setq company-show-numbers t)
-    (setq company-minimum-prefix-length 0)
-    (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
-
 (use-package company-statistics)
 (use-package company-web)
 (use-package company-php)
@@ -221,8 +213,6 @@
     (setq web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
       web-mode-code-indent-offset 2)))
-
-(add-hook 'php-mode-hook #'company-mode)
 
 (use-package magit
   :diminish magit-auto-revert-mode
