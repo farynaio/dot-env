@@ -1,0 +1,13 @@
+# name: Stateless component
+# key: sless
+# --
+import React from "react"
+
+const $1 = (\{$2\}) => {
+
+  return {
+  
+  }
+}
+
+export default $1

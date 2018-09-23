@@ -1,0 +1,4 @@
+# name: export
+# key: export
+# --
+export default $0

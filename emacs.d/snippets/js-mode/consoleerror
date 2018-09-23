@@ -1,0 +1,4 @@
+# name: console.log(...)
+# key: cr
+# --
+console.error($0)
