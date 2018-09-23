@@ -140,7 +140,7 @@
   compilation-always-kill t
   compilation-ask-about-save nil
   compilation-scroll-output t
-  confirm-nonexistent-file-or-buffer t
+  confirm-nonexistent-file-or-buffer nil
   idle-update-delay 2
   minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
   history-length 500
