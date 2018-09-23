@@ -42,6 +42,10 @@
 ;; (use-package git-timemachine)
 (use-package web-beautify)
 
+(eval-after-load 'js
+  '(progn
+     (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))))
+
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
 ;; skewer-mode
