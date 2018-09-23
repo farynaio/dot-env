@@ -25,7 +25,12 @@
       ;; emmet-indent-after-insert nil
       ;; emmet-move-cursor-between-quotes t
       ;; emmet-move-cursor-after-expanding nil
-      )))
+      )
+
+    (add-hook 'sgml-mode-hook 'emmet-mode)
+    (add-hook 'css-mode-hook  'emmet-mode)
+    (add-hook 'rjsx-mode-hook 'emmet-mode)
+    ))
 (use-package realgud)
 (use-package yaml-mode)
 (use-package markdown-mode)
@@ -45,8 +50,6 @@
 ;; restclient.el
 ;; php-auto-yasnippets
 
-(add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook  'emmet-mode)
 
 (eval-after-load 'gud
   '(progn
