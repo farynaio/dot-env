@@ -174,6 +174,13 @@
 	(load-file (expand-file-name "init.el" user-emacs-directory))
   (message "Config reloaded."))
 
+(setq company-backends '())
+(push 'company-tide company-backends)
+(push 'company-files company-backends)
+(push 'company-bbdb company-backends)
+(push 'company-dabbrev company-backends)
+(push '(company-dabbrev-code company-gtags company-etags company-keywords) company-backends)
+
 (global-linum-mode 1)
 
 (display-time-mode -1)

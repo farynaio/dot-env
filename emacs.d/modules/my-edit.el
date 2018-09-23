@@ -33,8 +33,8 @@
   :config
   (progn
     (setq yas-new-snippet-default
-"# name: $1
-# key: ${2:${1:$(yas--key-from-desc yas-text)}}
+"# name: $2
+# key: $1
 # --
 $0`(yas-escape-text yas-selected-text)`")
     (yas-global-mode 1)))
