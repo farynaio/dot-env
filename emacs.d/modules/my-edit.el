@@ -32,11 +32,18 @@
   :diminish yas-minor-mode
   :config
   (progn
+    (setq yas-new-snippet-default
+"# name: $1
+# key: ${2:${1:$(yas--key-from-desc yas-text)}}
+# --
+$0`(yas-escape-text yas-selected-text)`")
     (yas-global-mode 1)))
 
-(defhydra hydra-insert ()
-  "Insert"
-  ("s" #'yas-insert-snippet "snippet"))
+(defhydra hydra-snippet ()
+  "Snippet"
+  ("s" #'yas-insert-snippet "insert")
+  ("n" #'yas-new-snippet "new")
+  ("e" #'yas-visit-snippet-file "edit"))
 
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
