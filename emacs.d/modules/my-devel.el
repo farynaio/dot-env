@@ -63,7 +63,14 @@
 (use-package js2-refactor
   :diminish js2-refactor-mode)
 (use-package tide
-  :diminish tide-mode)
+  :diminish tide-mode
+  :config
+  (progn
+    (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
+    (bind-key "C-c C-l"   #'tide-references                  tide-mode-map)
+    ;; (bind-key "C-c C-e")
+
+    ))
 
 (setq
   js2-skip-preprocessor-directives t
@@ -87,9 +94,8 @@
     (evil-local-set-key 'normal (kbd "M-,") #'js2r-toggle-function-expression-and-declaration)
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
 
-(add-hook 'js2-mode-hook
-  (lambda ()
-    (tide-setup)))
+(add-hook 'js2-mode-hook #'tide-setup)
+;; (add-hook 'before-save-hook #'tide-format-before-save)
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
