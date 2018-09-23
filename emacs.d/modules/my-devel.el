@@ -338,7 +338,10 @@
 
 ;; TODO modify-syntax-entry - _ for css group of modes
 
-(add-hook 'prog-mode-hook (lambda () (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
+(add-hook 'prog-mode-hook (lambda ()
+                            (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
+                            (setq-local local-abbrev-table nil)
+                            ))
 (add-hook 'python-mode-hook (lambda ()
                               (setq-local tab-width 4)
                               (setq python-indent-offset 4)

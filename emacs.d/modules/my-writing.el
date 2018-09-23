@@ -102,6 +102,7 @@
 (defun my/lang-toggle ()
   "Toggle language modes."
   (interactive)
+  (unless (derived-mode-p 'prog-mode)
     (let (
            (new-mode (symbol-function
                        (cond
@@ -112,7 +113,7 @@
                        ))
            )
       (my/lang-modes-deactivate)
-      (funcall new-mode 1)))
+      (funcall new-mode 1))))
 
 (add-hook 'find-file-hook #'my/lang-toggle)
 
