@@ -128,10 +128,6 @@
                          ) t) "\\b")
       artbollocks-jargon nil)))
 
-(add-hook 'text-mode-hook
-  (lambda ()
-    (abbrev-mode 1)
-    (turn-on-visual-line-mode)
-    ))
+(add-hook 'text-mode-hook 'abbrev-mode)
 
 (provide 'my-writing)

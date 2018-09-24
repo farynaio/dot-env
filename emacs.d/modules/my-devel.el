@@ -48,7 +48,6 @@
       (shell-command (format "%s -e %s" my/ctags-path current-file-path))
       (message (format "Tags for file %s updated." current-file)))))
 
-(add-hook 'after-save-hook #'my/ctags-update)
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
@@ -448,5 +447,6 @@
       (goto-char beg)
       (indent-region beg end nil))))
 
+(add-hook 'after-save-hook #'my/ctags-update)
 
 (provide 'my-devel)
