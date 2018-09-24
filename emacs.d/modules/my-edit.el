@@ -272,7 +272,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (column-number-mode 1)
 (global-auto-revert-mode 1)
 (show-paren-mode 1)
-(visual-line-mode 1)
+(global-visual-line-mode 1)
 
 (blink-cursor-mode -1)
 (tooltip-mode -1)
