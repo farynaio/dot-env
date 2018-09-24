@@ -58,6 +58,7 @@
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
+    (bind-key "C-]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)

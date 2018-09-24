@@ -422,6 +422,13 @@
 ;; (setq org-html-head-include-scripts nil)
 ;; (setq org-html-validation-link nil)
 
+(defun my/evil-jump-to-tag-other-buffer ()
+  (interactive)
+  (save-excursion
+    (evil-window-vsplit)
+    (windmove-right)
+    (evil-jump-to-tag)))
+
 ;; https://stackoverflow.com/a/6255409/346921
 (defun my/reformat-xml ()
   "Reformats xml to make it readable (respects current selection)."
