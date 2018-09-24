@@ -102,9 +102,12 @@
   :config
   (progn
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
+
     (bind-key "C-c C-l"   #'tide-references                  tide-mode-map)
     ;; (bind-key "C-c C-e")
 
+    (evil-make-overriding-map tide-references-mode-map 'motion)
+    (evil-make-overriding-map tide-references-mode-map 'normal)
     ))
 
 (setq
@@ -125,8 +128,6 @@
     (flycheck-mode 1)
     (js2-refactor-mode 1)
     (rainbow-delimiters-mode 1)
-    (evil-local-set-key 'normal (kbd "M-.") #'js2r-toggle-function-expression-and-declaration)
-    (evil-local-set-key 'normal (kbd "M-,") #'js2r-toggle-function-expression-and-declaration)
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
 
 (add-hook 'js2-mode-hook #'tide-setup)

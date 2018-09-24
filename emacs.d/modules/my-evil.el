@@ -17,6 +17,7 @@
     (bind-key "TAB"    #'indent-for-tab-command              evil-visual-state-map)
     (bind-key "TAB"    #'tab-to-tab-stop                     evil-insert-state-map)
     (bind-key "C-x T"  #'my/move-current-window-to-new-frame evil-normal-state-map)
+    (bind-key ", ]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
     (bind-key ", ."    #'dired-jump                          evil-normal-state-map)
     (bind-key ", m"    #'my/dired-jump-make-new-window       evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
@@ -58,7 +59,8 @@
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
-    (bind-key "C-]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
+
+    (unbind-key "M-." evil-normal-state-map)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)
@@ -91,6 +93,7 @@
     (defvar help-mode-map (make-sparse-keymap))
     (defvar ediff-mode-map (make-sparse-keymap))
     (defvar elpy-mode-map (make-sparse-keymap))
+    (defvar js2-mode-map (make-sparse-keymap))
 
     (evil-define-key '(motion normal) org-mode-map
       (kbd "C-c C-s") #'org-schedule)
@@ -133,6 +136,10 @@
       "]c" 'ediff-previous-difference)
 
     (evil-define-key '(normal motion visual) elpy-mode-map
+      "M-." 'xref-find-definitions
+      "M-," 'xref-pop-marker-stack)
+
+    (evil-define-key '(normal motion visual) js2-mode-map
       "M-." 'xref-find-definitions
       "M-," 'xref-pop-marker-stack)
 
