@@ -15,6 +15,7 @@
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
 
+(setq tags-add-tables nil)
 (setq my/ctags-path "/usr/local/bin/ctags")
 
 (unless (executable-find my/ctags-path)
@@ -26,7 +27,7 @@
   (let ((project-root (projectile-project-root)))
     (if project-root
       (progn
-        (shell-command (format "%s -e -f -R %s" my/ctags-path project-root))
+        (start-process "ctags" nil (format "%s -e -f -R %s" my/ctags-path project-root))
         (my/visit-project-ctags)
         (message "Tags build successfully."))
       (message "Cannot generate TAGS, not a projectile project."))))
@@ -45,9 +46,8 @@
           (current-file-path (buffer-file-name (current-buffer)))
           (tags-file (concat project-root "TAGS")))
     (when (and project-root (file-readable-p tags-file))
-      (shell-command (format "%s -e %s" my/ctags-path current-file-path))
+      (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
-
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
