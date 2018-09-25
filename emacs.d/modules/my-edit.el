@@ -39,7 +39,6 @@
     (diminish 'eldoc-mode)
     (diminish 'visual-line-mode)
     (diminish 'editorconfig-mode)
-    ;; (diminish 'auto-highlight-symbol-mode)
     (diminish 'abbrev-mode)))
 
 (use-package yasnippet
@@ -94,10 +93,12 @@ $0`(yas-escape-text yas-selected-text)`")
 (use-package centered-cursor-mode)
 
 (use-package auto-highlight-symbol
+  :diminish auto-highlight-symbol-mode
   :config
   (progn
-    (diminish 'auto-highlight-symbol-mode)
-    (setq ahs-idle-interval 0)))
+    (setq
+      ahs-case-fold-search nil
+      ahs-idle-interval 0)))
 
 (require 'speedbar)
 (eval-after-load 'speedbar
