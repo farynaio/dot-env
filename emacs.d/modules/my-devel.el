@@ -55,7 +55,6 @@
   :config
   (progn
     (setq
-      emmet-expand-jsx-className? t
       emmet-self-closing-tag-style " /"
       ;; emmet-indent-after-insert nil
       ;; emmet-move-cursor-between-quotes t
@@ -121,7 +120,8 @@
   (progn
     (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
     (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
-    ))
+
+    (add-hook 'rjsx-mode-hook (lambda () (setq-local emmet-expand-jsx-className? t)))))
 
 (add-hook 'js-mode-hook
   (lambda ()
