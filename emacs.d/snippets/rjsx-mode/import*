@@ -1,0 +1,4 @@
+# name: import * as ...
+# key: import*
+# --
+import * as $1 from "./$1"

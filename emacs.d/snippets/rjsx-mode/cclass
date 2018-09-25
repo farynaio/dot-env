@@ -1,0 +1,25 @@
+# name: connected statefull component
+# key: cclass
+# --
+import React, { Component } from "react"
+import { connect } from "react-redux"
+
+class $1 extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      $0
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+})
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)($1)

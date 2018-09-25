@@ -1,0 +1,19 @@
+# name: connected stateless component
+# key: cless
+# --
+import React from "react"
+import { connect } from "react-redux"
+
+const $1 = (\{$2\}) => {
+  return (
+    $0
+  )
+}
+
+const mapStateToProps = (state) => ({
+})
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)($1)
