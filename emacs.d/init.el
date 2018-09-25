@@ -179,6 +179,7 @@
 (push 'company-files company-backends)
 (push 'company-bbdb company-backends)
 (push 'company-dabbrev company-backends)
+(push 'company-css company-backends)
 (push '(company-dabbrev-code company-gtags company-etags company-keywords) company-backends)
 
 (global-linum-mode 1)
