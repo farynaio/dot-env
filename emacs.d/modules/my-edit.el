@@ -16,6 +16,20 @@
 (use-package neotree)
 (use-package multiple-cursors)
 
+(setq hippie-expand-try-functions-list '())
+(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
+(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
+(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-from-kill t)
+(add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t)
+(add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
+(add-to-list 'hippie-expand-try-functions-list 'try-expand-list t)
+(add-to-list 'hippie-expand-try-functions-list 'try-expand-line t)
+
+(defadvice hippie-expand (around hippie-expand-case-fold)
+  "Try to do case-sensitive matching (not effective with all functions)."
+  (let ((case-fold-search nil))
+    ad-do-it))
+
 (use-package diminish
   :config
   (progn
