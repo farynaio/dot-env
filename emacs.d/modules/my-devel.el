@@ -12,6 +12,13 @@
 (require 'git-rebase)
 (require 'dash-at-point)
 
+;; nvm ; replaces shell nvm
+;; prodigy ; manage external services
+;; skewer-mode
+;; quickrun
+;; expand-region.el
+;; restclient.el
+
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
 
@@ -55,16 +62,11 @@
   :config
   (progn
     (setq
-      emmet-self-closing-tag-style " /"
-      ;; emmet-indent-after-insert nil
-      ;; emmet-move-cursor-between-quotes t
-      ;; emmet-move-cursor-after-expanding nil
-      )
-
+      emmet-self-closing-tag-style " /")
     (add-hook 'sgml-mode-hook 'emmet-mode)
     (add-hook 'css-mode-hook  'emmet-mode)
-    (add-hook 'rjsx-mode-hook 'emmet-mode)
-    ))
+    (add-hook 'rjsx-mode-hook 'emmet-mode)))
+
 (use-package realgud)
 (use-package yaml-mode)
 (use-package markdown-mode)
@@ -72,7 +74,9 @@
 (use-package flycheck
   :config
   (progn
-    (push 'javascript-jshint flycheck-disabled-checkers)))
+    (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
+    (add-to-list 'flycheck-disabled-checkers 'javascript-jscs)
+    ))
 ;; (use-package git-timemachine)
 (use-package web-beautify)
 
@@ -80,18 +84,11 @@
   '(progn
      (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))))
 
-;; nvm ; replaces shell nvm
-;; prodigy ; manage external services
-;; skewer-mode
-;; quickrun
-;; expand-region.el
-;; restclient.el
-;; php-auto-yasnippets
-
 (eval-after-load 'css-mode
   '(progn
      (add-hook 'css-mode-hook
        (lambda ()
+         (make-variable-buffer-local 'company-backends)
          (add-to-list 'company-backends 'company-css)
          ))))
 
@@ -113,7 +110,6 @@
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
     (bind-key "C-c C-l"   #'tide-references                  tide-mode-map)
-    ;; (bind-key "C-c C-e")
 
     (evil-make-overriding-map tide-references-mode-map 'motion)
     (evil-make-overriding-map tide-references-mode-map 'normal)
@@ -141,7 +137,6 @@
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
 
 (add-hook 'js2-mode-hook #'tide-setup)
-;; (add-hook 'before-save-hook #'tide-format-before-save)
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
@@ -289,17 +284,6 @@
     (add-hook 'magit-status-mode-hook (lambda () (interactive) (save-some-buffers t)))
   ))
 
-;; (defvar magit-blame-read-only-mode-map (make-sparse-keymap))
-;; (use-package evil-magit)
-
-(global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
-(global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
-(global-set-key (kbd "C-x g s") #'magit-status)
-
-(bind-key "C-c l" 'org-store-link)
-(bind-key "C-c L" 'org-insert-link-global)
-(bind-key "C-c O" 'org-open-at-point-global)
-
 (setq vc-follow-symlinks t)
 
 ;; VCS / git
@@ -368,11 +352,9 @@
 	    (dolist (i devel-buffers)
 	      (if (string= buf-name i)
           (progn
-		        (hl-line-mode 1)
             (hl-todo-mode 1)
             (auto-highlight-symbol-mode 1)
             (rainbow-mode 1)
-            ;; (drag-stuff-mode 1)
             )
           )))) t)
 
@@ -418,18 +400,12 @@
     (setq ledger-post-account-alignment-column 2)
 
     (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+    (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
 
     (unbind-key "<tab>" ledger-mode-map)
     (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
     (bind-key "C-s"     #'counsel-grep                  ledger-mode-map)
-
-    (define-derived-mode my/ledger-mode ledger-mode "ledger"
-      "Superior major ledger mode"
-      (hl-line-mode 1))
-      ;; (add-hook 'after-save-hook #'ledger-post-align-dwim nil t))
-
-    ;; (unbind-key "<TAB>" my/ledger-mode-map)
-    (add-to-list 'auto-mode-alist '("\\.ledger\\'" . my/ledger-mode))))
+    ))
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
@@ -465,6 +441,12 @@
       (goto-char beg)
       (indent-region beg end nil))))
 
-(add-hook 'after-save-hook #'my/ctags-update)
+(global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
+(global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
+(global-set-key (kbd "C-x g s") #'magit-status)
+
+(bind-key "C-c l" 'org-store-link)
+(bind-key "C-c L" 'org-insert-link-global)
+(bind-key "C-c O" 'org-open-at-point-global)
 
 (provide 'my-devel)

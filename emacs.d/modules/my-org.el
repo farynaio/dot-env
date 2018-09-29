@@ -188,16 +188,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (add-hook 'org-mode-hook
        (lambda ()
-         (hl-line-mode 1)
-         (abbrev-mode 1)
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
          ))
-
-     (add-hook 'org-mode-hook
-       (lambda ()
-         (org-evil-mode -1)
-          ) t)
      ))
 
 (eval-after-load 'org-caldav
@@ -973,7 +966,10 @@ should be continued."
 (add-to-list 'org-modules 'org-collector t)
 (add-to-list 'org-modules 'org-depend t)
 
-(add-hook 'org-agenda-mode-hook #'hl-line-mode)
+(add-hook 'org-agenda-mode-hook
+  (lambda ()
+    (linum-mode -1)
+    (visual-line-mode 1)) t)
 
 (org-agenda-to-appt t)             ;; generate the appt list from org agenda files on emacs launch
 

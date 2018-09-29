@@ -17,7 +17,7 @@
     (bind-key "TAB"    #'indent-for-tab-command              evil-visual-state-map)
     (bind-key "TAB"    #'tab-to-tab-stop                     evil-insert-state-map)
     (bind-key "C-x T"  #'my/move-current-window-to-new-frame evil-normal-state-map)
-    (bind-key ", ]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
+    (bind-key "M-]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
     (bind-key ", ."    #'dired-jump                          evil-normal-state-map)
     (bind-key ", m"    #'my/dired-jump-make-new-window       evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)

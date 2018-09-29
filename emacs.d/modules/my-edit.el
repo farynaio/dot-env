@@ -39,6 +39,7 @@
     (diminish 'eldoc-mode)
     (diminish 'visual-line-mode)
     (diminish 'editorconfig-mode)
+    (diminish 'js-mode "JS")
     (diminish 'abbrev-mode)))
 
 (use-package yasnippet
@@ -118,6 +119,8 @@ $0`(yas-escape-text yas-selected-text)`")
 (epa-file-enable)
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
+(setq visual-line-fringe-indicators '(left-curly-arrow nil))
+
 (setq
   fill-column 80
   hscroll-margin  1
@@ -130,7 +133,7 @@ $0`(yas-escape-text yas-selected-text)`")
   compare-ignore-whitespace t
   sentence-end-double-space nil
   tab-width 2
-  undo-limit 1000
+  ;; undo-limit 1000
   visible-bell nil
   ring-bell-function 'ignore
   show-paren-delay 0
@@ -279,15 +282,11 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "s-u"             #'air-revert-buffer-noconfirm)
 (bind-key "M-%"             #'query-replace-regexp)
 
-;; (global-set-key (kbd "s-w") #'kill-ring-save)
-
-;; (when (executable-find "curl")
-;;   (setq helm-google-suggest-use-curl-p t))
-
 (column-number-mode 1)
 (global-auto-revert-mode 1)
 (show-paren-mode 1)
 (global-visual-line-mode 1)
+(global-hl-line-mode 1)
 
 (blink-cursor-mode -1)
 (tooltip-mode -1)
