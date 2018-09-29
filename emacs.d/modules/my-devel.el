@@ -88,6 +88,12 @@
 ;; restclient.el
 ;; php-auto-yasnippets
 
+(eval-after-load 'css-mode
+  '(progn
+     (add-hook 'css-mode-hook
+       (lambda ()
+         (add-to-list 'company-backends 'company-css)
+         ))))
 
 (eval-after-load 'gud
   '(progn
@@ -100,6 +106,10 @@
   :diminish tide-mode
   :config
   (progn
+    (add-hook 'tide-mode-hook
+      (lambda ()
+        (add-to-list 'company-backends 'company-tide)))))
+
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
     (bind-key "C-c C-l"   #'tide-references                  tide-mode-map)
@@ -371,9 +381,16 @@
 ;; TODO modify-syntax-entry - _ for css group of modes
 
 (add-hook 'prog-mode-hook (lambda ()
+                            (make-variable-buffer-local 'company-backends)
+                            (add-to-list 'company-backends 'company-gtags t)
+                            (add-to-list 'company-backends 'company-etags t)
+                            (add-to-list 'company-backends 'company-keywords)
+                            (abbrev-mode -1)
+
                             (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
                             (setq-local local-abbrev-table nil)
                             ))
+
 (add-hook 'python-mode-hook (lambda ()
                               (setq-local tab-width 4)
                               (setq python-indent-offset 4)

@@ -190,6 +190,9 @@
 
      (add-hook 'mu4e-compose-mode-hook
        (lambda ()
+         (make-variable-buffer-local 'company-backends)
+         (add-to-list 'company-backends 'company-bbdb)
+
          (set-fill-column 72)
          ;; (local-set-key (kbd "C-c <return> C-s") 'my/sign-this-message)
          ;; (local-set-key (kbd "C-c <return> C-e") 'my/encrypt-this-message)
