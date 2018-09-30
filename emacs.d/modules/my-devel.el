@@ -88,7 +88,6 @@
   '(progn
      (add-hook 'css-mode-hook
        (lambda ()
-         (make-variable-buffer-local 'company-backends)
          (add-to-list 'company-backends 'company-css)
          ))))
 
@@ -105,7 +104,7 @@
   (progn
     (add-hook 'tide-mode-hook
       (lambda ()
-        (add-to-list 'company-backends 'company-tide)))))
+        (add-to-list 'company-backends 'company-tide)))
 
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
