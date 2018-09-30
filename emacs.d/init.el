@@ -196,8 +196,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes (quote (wombat)))
+  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+  '(custom-enabled-themes (quote (wombat)))
   '(ledger-reports
      (quote
        ((#("Net value balance" 0 1
@@ -206,18 +206,34 @@
          (#("Net value balance (cleared)" 0 1
              (idx 1))
            "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
-         (#("bal" 0 1
+         (#("Net value balance (uncleared)" 0 1
              (idx 2))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
+         (#("bal" 0 1
+             (idx 3))
            "%(binary) -f %(ledger-file) bal")
          (#("reg" 0 1
-             (idx 3))
+             (idx 4))
            "%(binary) -f %(ledger-file) reg")
          (#("payee" 0 1
-             (idx 4))
+             (idx 5))
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
-             (idx 5))
-           "%(binary) -f %(ledger-file) reg %(account)")))))
+             (idx 6))
+           "%(binary) -f %(ledger-file) reg %(account)"))))
+  '(safe-local-variable-values
+     (quote
+       ((eval progn
+          (add-hook
+            (quote js-mode-hook)
+            (lambda nil
+              (flycheck-mode -1))
+            t))
+         (org-hide-emphasis-markers . t)
+         (ispell-dictionary . "en")
+         (ispell-dictionary . "pl")
+         (my/language-local . pl)
+         (my/language-local . en)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
