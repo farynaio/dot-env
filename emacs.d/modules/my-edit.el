@@ -288,6 +288,11 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-visual-line-mode 1)
 (global-hl-line-mode 1)
 
+(advice-add 'visual-line-mode :around
+  (lambda (orig-fun &rest args)
+    (unless (memq major-mode (list 'org-agenda-mode))
+      (apply orig-fun args))))
+
 (blink-cursor-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)

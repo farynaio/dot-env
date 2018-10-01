@@ -966,11 +966,6 @@ should be continued."
 (add-to-list 'org-modules 'org-collector t)
 (add-to-list 'org-modules 'org-depend t)
 
-(add-hook 'org-agenda-mode-hook
-  (lambda ()
-    (linum-mode -1)
-    (visual-line-mode 1)) t)
-
 (org-agenda-to-appt t)             ;; generate the appt list from org agenda files on emacs launch
 
 (use-package org-review
