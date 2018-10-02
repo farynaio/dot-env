@@ -148,7 +148,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "M-}"           #'forward-paragraph                   org-mode-map)
      (bind-key "M-{"           #'backward-paragraph                  org-mode-map)
      (bind-key "C-s"           #'evil-search-forward                 org-mode-map)
-     ;; (bind-key "C-s"           #'my/counsel-grep                     org-mode-map)
      (bind-key "C-M-<up>"      #'org-table-move-single-cell-up       org-mode-map)
      (bind-key "C-M-<down>"    #'org-table-move-single-cell-down     org-mode-map)
      (bind-key "C-M-<left>"    #'org-table-move-single-cell-left     org-mode-map)
@@ -156,6 +155,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<S-tab>"       #'my/outline-hide-subtree             org-mode-map)
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
+
+     (define-key org-mode-map [remap backward-paragraph] nil)
+     (define-key org-mode-map [remap forward-paragraph] nil)
 
      (bind-key "C-x :"
        (lambda ()
