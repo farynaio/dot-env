@@ -281,6 +281,10 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c C-<"         #'mc/mark-all-like-this)
 (bind-key "s-u"             #'air-revert-buffer-noconfirm)
 (bind-key "M-%"             #'query-replace-regexp)
+(bind-key "C-c j"           #'org-clock-goto) ;; jump to current task from anywhere
+(bind-key "C-c C-o"         #'org-open-at-point-global)
+(bind-key "C-c c"           #'org-capture)
+(bind-key "C-c a"           #'org-agenda)
 
 (column-number-mode 1)
 (global-auto-revert-mode 1)
@@ -293,6 +297,7 @@ $0`(yas-escape-text yas-selected-text)`")
     (unless (memq major-mode (list 'org-agenda-mode))
       (apply orig-fun args))))
 
+(smartparens-mode -1)
 (blink-cursor-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)

@@ -118,11 +118,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (defalias 'year-calendar #'jarfar/year-calendar)
 
-;; (use-package org-alert
-  ;; :config (org-alert-enable))
-
-(bind-key "C-c j" 'org-clock-goto) ;; jump to current task from anywhere
-
 (defun my/outline-hide-subtree ()
   (interactive)
   (if (org-at-heading-p)
@@ -161,9 +156,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<S-tab>"       #'my/outline-hide-subtree             org-mode-map)
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
-
-     (define-key org-mode-map [remap backward-paragraph] nil)
-     (define-key org-mode-map [remap forward-paragraph] nil)
 
      (bind-key "C-x :"
        (lambda ()
@@ -204,18 +196,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
     (org-remove-file org-caldav-inbox)))
 
-(use-package org-evil)
-
 (eval-after-load 'org-agenda
   '(progn
      (bind-key "C-c C-c"  #'org-agenda-set-tags       org-agenda-mode-map)
      (bind-key "C-d"      #'evil-scroll-down          org-agenda-mode-map)
      (bind-key "C-u"      #'evil-scroll-up            org-agenda-mode-map)
      (bind-key "s-t"      #'make-frame-command        org-agenda-mode-map)))
-
-(global-set-key (kbd "C-c c") #'org-capture)
-(global-set-key (kbd "C-x a") #'org-agenda)
-(bind-key "C-c C-o" #'org-open-at-point-global)
 
 (setq general-holidays
   '(
@@ -299,8 +285,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     general-holidays
     holiday-christian-holidays
     holiday-oriental-holidays
-    holiday-solar-holidays
-    ))
+    holiday-solar-holidays))
 
 (setq calendar-christian-all-holidays-flag t)
 (setq holiday-bahai-holidays nil)
@@ -971,8 +956,7 @@ should be continued."
 (use-package org-review
   :config
   (progn
-    (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)
-    ))
+    (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)))
 
 (eval-after-load 'org-drill
   '(progn
@@ -1000,9 +984,5 @@ should be continued."
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
-
-;; (add-hook 'org-babel-after-execute-hook 'my/buffer-messages-tail)
-
-(smartparens-mode -1)
 
 (provide 'my-org)

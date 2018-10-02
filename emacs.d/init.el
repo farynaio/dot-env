@@ -186,11 +186,20 @@
 (setq company-backends '(company-capf company-dabbrev-code company-dabbrev))
 
 (setq safe-local-variable-values
-    '((org-hide-emphasis-markers . t)
-      (ispell-dictionary . "en")
-      (ispell-dictionary . "pl")
-      (my/language-local . pl)
-      (my/language-local . en)))
+  '(
+     (org-hide-emphasis-markers . t)
+     (ispell-dictionary . "en")
+     (ispell-dictionary . "pl")
+     (my/language-local . pl)
+     (my/language-local . en)
+     (org-use-property-inheritance . t)
+     (org-confirm-babel-evaluate)
+     (eval progn
+       (add-hook
+         (quote js-mode-hook)
+        (lambda nil
+           (flycheck-mode -1))
+         t ))))
 
 (setq
   ;; gc-cons-threshold 16777216
@@ -202,8 +211,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
-  '(custom-enabled-themes (quote (wombat)))
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(custom-enabled-themes (quote (wombat)))
   '(ledger-reports
      (quote
        ((#("Net value balance" 0 1
@@ -226,20 +235,7 @@
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
              (idx 6))
-           "%(binary) -f %(ledger-file) reg %(account)"))))
-  '(safe-local-variable-values
-     (quote
-       ((eval progn
-          (add-hook
-            (quote js-mode-hook)
-            (lambda nil
-              (flycheck-mode -1))
-            t))
-         (org-hide-emphasis-markers . t)
-         (ispell-dictionary . "en")
-         (ispell-dictionary . "pl")
-         (my/language-local . pl)
-         (my/language-local . en)))))
+           "%(binary) -f %(ledger-file) reg %(account)")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
