@@ -367,7 +367,7 @@
                             (add-to-list 'company-backends 'company-etags t)
                             (add-to-list 'company-backends 'company-keywords)
                             (abbrev-mode -1)
-
+                            (linum-mode 1)
                             (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
                             (setq-local local-abbrev-table nil)
                             ))

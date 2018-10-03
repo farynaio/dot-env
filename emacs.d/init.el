@@ -174,13 +174,6 @@
 	(load-file (expand-file-name "init.el" user-emacs-directory))
   (message "Config reloaded."))
 
-(global-linum-mode 1)
-
-(advice-add 'linum-mode :around
-  (lambda (orig-fun &rest args)
-    (unless (memq major-mode (list 'org-agenda-mode))
-      (apply orig-fun args))))
-
 (display-time-mode -1)
 
 (setq company-backends '(company-capf company-dabbrev-code company-dabbrev))
