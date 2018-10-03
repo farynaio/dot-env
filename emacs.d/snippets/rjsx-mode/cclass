@@ -1,5 +1,6 @@
 # name: connected statefull component
 # key: cclass
+# condition: (looking-back "^cclass" nil)
 # --
 import React, { Component } from "react"
 import { connect } from "react-redux"

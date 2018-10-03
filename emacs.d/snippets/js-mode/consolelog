@@ -1,4 +1,4 @@
 # name: console.log(...)
-# key: cl
+# key: consolel
 # --
 console.log($0)

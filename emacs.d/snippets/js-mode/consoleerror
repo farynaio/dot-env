@@ -1,4 +1,4 @@
 # name: console.error(...)
-# key: ce
+# key: consolee
 # --
 console.error($0)

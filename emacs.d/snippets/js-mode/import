@@ -1,4 +1,5 @@
 # name: import
 # key: import
+# condition: (looking-back "^import" nil)
 # --
 import { $1 } from "$2"

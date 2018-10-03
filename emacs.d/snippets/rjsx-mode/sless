@@ -1,5 +1,6 @@
 # name: Stateless component
 # key: sless
+# condition: (looking-back "^sless" nil)
 # --
 import React from "react"
 

@@ -1,5 +1,6 @@
 # name: connected stateless component
 # key: cless
+# condition: (looking-back "^cless_" nil)
 # --
 import React from "react"
 import { connect } from "react-redux"

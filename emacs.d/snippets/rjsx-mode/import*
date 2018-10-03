@@ -1,4 +1,5 @@
 # name: import * as ...
 # key: import*
+# condition: (looking-back "^import*" nil)
 # --
 import * as $1 from "./$1"

@@ -1,5 +1,6 @@
 # name: react component class
 # key: class
+# condition: (looking-back "^class" nil)
 # --
 import React, { Component } from "react"
 
