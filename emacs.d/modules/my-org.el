@@ -492,22 +492,22 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) ni
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 ** TODO \"%\\1\" after month
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 30)) nil t)
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 ** TODO \"%\\1\" after half year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 182)) nil t)
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 ** TODO \"%\\1\" after year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 365)) nil t)
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 1 :jump-to-captured nil :kill-buffer nil)
+:prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
   ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* NOTE %?
@@ -545,7 +545,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 365)) 
 :RECOMMENDED: %^{Who recommended: }
 :END:
 "
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+:prepend t :jump-to-captured nil :empty-lines-after 1 :kill-buffer t)
 
   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
 "* %?
