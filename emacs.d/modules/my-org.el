@@ -485,9 +485,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :END:
-
 [[file:~/Documents/emacs/orgs/knowledge/books/\"%\\1\" %\\2.org][link]]
-
 ** TODO \"%\\1\" after week
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
 :PROPERTIES:
@@ -823,28 +821,28 @@ SCHEDULED: <%<%Y-%m-%d %a>>
                  (my/org-skip-subtree-if-priority ?A)
                  (org-agenda-skip-entry-if 'notscheduled))))
            (org-agenda-remove-tags t)
-           (org-agenda-files (append org-agenda-files my/org-active-projects))
            (org-agenda-overriding-header "High-priority unfinished tasks:")
-           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
+           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
+           (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags "PROJECT"
           ((org-agenda-overriding-header "Active projects:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
         (tags-todo "TODO=\"WAITING\""
-          ((org-agenda-files (append org-agenda-files my/org-active-projects))
-           (org-agenda-overriding-header "Waiting:")
-           (org-agenda-remove-tags t)
-           (org-agenda-todo-keyword-format "")
-           (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))))
+          ((org-agenda-overriding-header "Waiting:")
+            (org-agenda-remove-tags t)
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
+            (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags-todo "TODO=\"BLOCKED\""
-          ((org-agenda-files (append org-agenda-files my/org-active-projects))
-            (org-agenda-overriding-header "Blocked:")
+          ((org-agenda-overriding-header "Blocked:")
             (org-agenda-skip-function
               '(or (org-agenda-skip-entry-if 'notscheduled)))
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
-           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))))
+            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up)))
+            (org-agenda-files (append org-agenda-files my/org-active-projects)))
         (tags-todo "TODO=\"IN-PROCESS\""
           ((org-agenda-overriding-header "Active media:")
             (org-tags-match-list-sublevels nil)
@@ -853,10 +851,8 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-files (list my/org-media-file-path))))
         (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
           ((org-agenda-overriding-header "Active Reviews:")
-            ;; (org-agenda-skip-function 'org-review-agenda-skip)
-            ;; (org-tags-match-list-sublevels nil)
+            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
             (org-agenda-remove-tags t)
-            ;; (org-agenda-cmp-user-defined 'org-review-compare)
             (org-agenda-files (list my/org-media-reviews-file-path))))
         (agenda ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
