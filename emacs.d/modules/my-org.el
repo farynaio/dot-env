@@ -488,23 +488,23 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 [[file:~/Documents/emacs/orgs/knowledge/books/\"%\\1\" %\\2.org][link]]
 
-** TODO \"%\\1\" after Week
-:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
+** TODO \"%\\1\" after week
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after Month
-:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 30)) nil t)
+** TODO \"%\\1\" after month
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 30)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after half Year
-:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 182)) nil t)
+** TODO \"%\\1\" after half year
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 182)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after Yearly
-:SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 365)) nil t)
+** TODO \"%\\1\" after year
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 365)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
