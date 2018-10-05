@@ -6,6 +6,7 @@ init.view
 
 dotenv/bash/bash_profile
 
+emacs.d/tramp-persistency.el
 emacs.d/abbrev_defs
 emacs.d/history
 emacs.d/newsticker
