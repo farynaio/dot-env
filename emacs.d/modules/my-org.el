@@ -1,12 +1,24 @@
-(use-package calfw-org)
+(require 'taskjuggler-mode)
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-caldav)
-(require 'taskjuggler-mode)
-(require 'calendar)
-(require 'org-table-cell-move)
 (require 'org-toc)
-(require 'reftex)
+(require 'org-habit)
+(require 'org-drill)
+(require 'org-collector)
+(require 'org-depend)
+(require 'org-eww)
+(require 'org-checklist)
+(require 'org-table-cell-move)
+
+(add-to-list 'org-modules 'org-habit t)
+(add-to-list 'org-modules 'org-drill t)
+(add-to-list 'org-modules 'org-collector t)
+(add-to-list 'org-modules 'org-depend t)
+(add-to-list 'org-modules 'org-eww t)
+(add-to-list 'org-modules 'org-checklist t)
+
+(use-package calfw-org)
 (use-package hl-todo)
 
 (org-babel-do-load-languages
@@ -39,6 +51,8 @@
   :init-value nil
   :lighter " appt"
   (add-hook 'after-save-hook #'my/org-agenda-to-appt-if-not-terminated nil t))
+
+(defvar my/save-buffers-kill-terminal-was-called nil)
 
 (defun my/org-agenda-to-appt-if-not-terminated ()
   (unless my/save-buffers-kill-terminal-was-called
@@ -943,12 +957,6 @@ should be continued."
                        ("@computer" . ?m)
                        (:endgroup . nil)
                        ))
-
-(add-to-list 'org-modules 'org-habit t)
-(add-to-list 'org-modules 'org-drill t)
-(add-to-list 'org-modules 'org-collector t)
-(add-to-list 'org-modules 'org-depend t)
-
 (org-agenda-to-appt t)             ;; generate the appt list from org agenda files on emacs launch
 
 (use-package org-review
