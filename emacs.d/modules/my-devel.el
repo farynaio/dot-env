@@ -447,13 +447,6 @@
       (goto-char beg)
       (indent-region beg end nil))))
 
-(global-set-key (kbd "C-c p") #'git-gutter:previous-hunk)
-(global-set-key (kbd "C-c n") #'git-gutter:next-hunk)
-(global-set-key (kbd "C-x g s") #'magit-status)
-
-(bind-key "C-c l" 'org-store-link)
-(bind-key "C-c L" 'org-insert-link-global)
-(bind-key "C-c O" 'org-open-at-point-global)
 (add-hook 'mmm-mode-hook
           (lambda ()
             (set-face-background 'mmm-default-submode-face nil)))
