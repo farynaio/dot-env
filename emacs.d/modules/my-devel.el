@@ -1,3 +1,4 @@
+(require 'mmm-mode)
 (require 'cc-mode)
 (require 'css-mode)
 (require 'js)
@@ -140,6 +141,8 @@
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
 
 (add-hook 'js2-mode-hook #'tide-setup)
+
+(use-package vue-mode)
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
@@ -451,5 +454,8 @@
 (bind-key "C-c l" 'org-store-link)
 (bind-key "C-c L" 'org-insert-link-global)
 (bind-key "C-c O" 'org-open-at-point-global)
+(add-hook 'mmm-mode-hook
+          (lambda ()
+            (set-face-background 'mmm-default-submode-face nil)))
 
 (provide 'my-devel)
