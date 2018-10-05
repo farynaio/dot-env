@@ -70,7 +70,11 @@
 (use-package realgud)
 (use-package yaml-mode)
 (use-package markdown-mode)
-(use-package vimrc-mode)
+(use-package vimrc-mode
+  :config
+  (progn
+    (add-to-list 'auto-mode-alist '("\\vimrc\\'" . vimrc-mode))))
+
 (use-package flycheck
   :config
   (progn
