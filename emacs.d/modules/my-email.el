@@ -162,6 +162,8 @@
      (bind-key "I"          #'mu4e-headers-toggle-include-related      mu4e-headers-mode-map)
      (bind-key "T"          #'mu4e-headers-toggle-threading            mu4e-headers-mode-map)
      (bind-key "D"          #'mu4e-headers-toggle-skip-duplicates      mu4e-headers-mode-map)
+     (bind-key "s"          #'mu4e-headers-search                      mu4e-headers-mode-map)
+     (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
 
      (setq
        message-send-mail-function 'smtpmail-send-it
@@ -170,8 +172,10 @@
        mu4e-update-interval 900
        shr-color-visible-luminance-min 80
        mu4e-headers-include-related t
+       mu4e-view-show-addresses t
        mu4e-view-show-images t
        mu4e-use-fancy-chars t
+       ;; mu4e-change-filenames-when-moving t
        ;; mu4e-get-mail-command "offlineimap -o"
        ;; mu4e-get-mail-command "offlineimap"
        mu4e-get-mail-command "true"
