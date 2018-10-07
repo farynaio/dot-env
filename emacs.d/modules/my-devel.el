@@ -144,6 +144,11 @@
 
 (use-package vue-mode)
 
+(defhydra hydra-projectile ()
+  "Projectile"
+  ("r" #'projectile-remove-known-project "remove project")
+  ("a" #'projectile-add-known-project "add project"))
+
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
   ("n"  hydra-js-refactoring-node/body "node" :exit t)
