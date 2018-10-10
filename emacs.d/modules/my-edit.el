@@ -299,6 +299,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (show-paren-mode 1)
 (global-visual-line-mode 1)
 (global-hl-line-mode 1)
+(delete-selection-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
