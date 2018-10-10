@@ -12,6 +12,7 @@
 (require 'epa)
 (require 'git-rebase)
 (require 'dash-at-point)
+(require 'vc-git)
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
@@ -148,6 +149,15 @@
   "Projectile"
   ("r" #'projectile-remove-known-project "remove project")
   ("a" #'projectile-add-known-project "add project"))
+
+(defhydra hydra-git ()
+  "git"
+  ("s" #'magit-status "status")
+  ("f" #'hydra-git-file/body "file" :exit t))
+
+(defhydra hydra-git-file ()
+  "git file"
+  ("l" #'magit-log-buffer-file "show file log"))
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
