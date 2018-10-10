@@ -5,13 +5,13 @@
 (require 'js2-mode)
 (require 'elisp-mode)
 (require 'python)
-(require 'js)
 (require 'sql)
 (require 'comint)
 (require 'gud)
 (require 'epa)
 (require 'git-rebase)
 (require 'dash-at-point)
+(require 'prog-mode)
 (require 'vc-git)
 
 ;; nvm ; replaces shell nvm
@@ -23,6 +23,8 @@
 
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
+
+(setq shift-select-mode nil)
 
 (setq tags-add-tables nil)
 (setq my/ctags-path "/usr/local/bin/ctags")
