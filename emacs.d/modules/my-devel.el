@@ -311,7 +311,6 @@
   ))
 
 (setq vc-follow-symlinks t)
-
 ;; VCS / git
 (setq ediff-split-window-function (if (> (frame-width) 150)
 				      'split-window-horizontally
