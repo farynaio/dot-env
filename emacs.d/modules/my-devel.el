@@ -60,6 +60,8 @@
       (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
+(use-package pug-mode)
+
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
   :diminish emmet-mode
