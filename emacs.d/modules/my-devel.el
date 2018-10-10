@@ -92,7 +92,8 @@
 
 (eval-after-load 'js
   '(progn
-     (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))))
+     (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
+     (setq js-indent-level 2)))
 
 (eval-after-load 'css-mode
   '(progn
