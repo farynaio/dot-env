@@ -468,4 +468,6 @@
           (lambda ()
             (set-face-background 'mmm-default-submode-face nil)))
 
+(bind-key "C-s"     #'counsel-grep                  prog-mode-map)
+
 (provide 'my-devel)
