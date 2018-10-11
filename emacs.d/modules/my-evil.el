@@ -73,6 +73,7 @@
     (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
     (add-to-list 'evil-emacs-state-modes 'magit-mode)
+    (add-to-list 'evil-emacs-state-modes 'magit-log-mode)
     (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-org-mode)
