@@ -13,6 +13,7 @@
 (require 'dash-at-point)
 (require 'prog-mode)
 (require 'vc-git)
+(require 'sh-script)
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
@@ -431,6 +432,8 @@
     (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
     (bind-key "C-s"     #'counsel-grep                  ledger-mode-map)
     ))
+
+(setq sh-basic-offset 4)
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
