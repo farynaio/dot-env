@@ -205,26 +205,10 @@
            (insert (concat "X-Mailer: mu4e " mu4e-mu-version "; emacs " emacs-version "\n")))))
 
      (defun my/mu4e-set-account ()
-       "Set the account for composing a message.
-         (https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html)"
-       (let* (
-               (account
-                 ;; (if mu4e-compose-parent-message
-                 ;;   (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                 ;;     (string-match "/\\(.*?\\)/" maildir)
-                 ;;     (match-string 1 maildir))
-                 (completing-read (format "Compose with account: (%s) "
-                                    (mapconcat #'(lambda (var) (car var))
-                                      my/mu4e-account-alist "/"))
-                   (mapcar #'(lambda (var) (car var)) my/mu4e-account-alist)
-                   nil t nil nil (caar my/mu4e-account-alist))) ;)
-               (account-vars (cdr (assoc account my/mu4e-account-alist))))
-         (if account-vars
-           (mapc #'(lambda (var)
-                     (set (car var) (cadr var)))
-             account-vars)
-           (error "No email account found"))))
+       "Set the account for composing a message."
+       user-mail-address)
      (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
+     (advice-add 'mu4e-message :around #'my/advice-around-skip)
      ))
 
 (use-package org-mime)

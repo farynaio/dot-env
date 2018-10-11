@@ -275,6 +275,8 @@ $0`(yas-escape-text yas-selected-text)`")
       (delete-window))
     (display-buffer-pop-up-frame buffer nil)))
 
+(defun my/advice-around-skip (orig-fun &rest args) "")
+
 (bind-key "C-x C-SPC"       #'rectangle-mark-mode)
 (bind-key "C-x C-b"         #'pop-to-buffer)
 (bind-key "M-/"             #'hippie-expand)
