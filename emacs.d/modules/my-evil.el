@@ -88,6 +88,7 @@
 
     (evil-declare-change-repeat 'company-complete)
 
+    (defvar epa-key-mode-map (make-sparse-keymap))
     (defvar org-mode-map (make-sparse-keymap))
     (defvar mu4e:view-mode-map (make-sparse-keymap))
     (defvar mu4e-headers-mode-map (make-sparse-keymap))
@@ -96,6 +97,9 @@
     (defvar ediff-mode-map (make-sparse-keymap))
     (defvar elpy-mode-map (make-sparse-keymap))
     (defvar js2-mode-map (make-sparse-keymap))
+
+    (evil-make-overriding-map epa-key-mode-map 'motion)
+    (evil-make-overriding-map epa-key-mode-map 'normal)
 
     (evil-define-key '(motion normal) org-mode-map
       (kbd "C-c C-s") #'org-schedule)

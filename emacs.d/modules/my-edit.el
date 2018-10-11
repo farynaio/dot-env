@@ -7,6 +7,7 @@
 (require 'hippie-exp)
 (require 'calendar)
 (require 'reftex)
+(require 'epa)
 
 (use-package hydra)
 ;; (use-package monitor)
