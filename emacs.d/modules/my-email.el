@@ -168,8 +168,10 @@
      (setq
        message-send-mail-function 'smtpmail-send-it
        message-kill-buffer-on-exit t
+       mu4e-compose-context-policy 'ask
        mu4e-view-prefer-html t
        mu4e-update-interval 900
+       mu4e-compose-in-new-frame t
        shr-color-visible-luminance-min 80
        mu4e-headers-include-related t
        mu4e-view-show-addresses t
@@ -226,6 +228,5 @@ This moves them into the Spam folder."
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
 
 (defalias 'mu #'mu4e)
-;; (defalias 'inbox #'mu4e)
 
 (provide 'my-email)
