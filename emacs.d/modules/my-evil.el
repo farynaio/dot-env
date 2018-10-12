@@ -2,6 +2,7 @@
   :init
   (progn
     (setq
+      evil-want-fine-undo t
       evil-want-C-u-scroll t
       evil-want-C-i-jump nil))
   :config

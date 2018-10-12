@@ -242,13 +242,14 @@ to invalidate."
     (bind-key "C-c p i" 'my/projectile-invalidate-cache counsel-projectile-mode-map)))
 
 (use-package undo-tree
+  :diminish (undo-tree-mode . "")
   :config
   (progn
-    (diminish 'undo-tree-mode)
     (setq undo-tree-visualizer-diff t)
     (evil-make-overriding-map undo-tree-visualizer-mode-map 'motion)
     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
-    (evil-make-overriding-map undo-tree-map 'motion)))
+    (evil-make-overriding-map undo-tree-map 'motion)
+    ))
 
 (eval-after-load 'ediff
   '(progn
