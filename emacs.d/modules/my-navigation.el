@@ -324,10 +324,8 @@ point reaches the beginning or end of the buffer, stop there."
   (if (or (my/buffer-tramp-p) (string= major-mode "dired-mode"))
     (if (fboundp 'evil-search-forward)
       (apply 'evil-search-forward args)
-      (apply 'search-forward args)
-      )
-    )
-  (apply orig-fun args))
+      (apply 'search-forward args))
+    (apply orig-fun args)))
 
 (advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
