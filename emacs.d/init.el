@@ -96,6 +96,7 @@
 (require 'my-www)
 (require 'my-irc)
 (require 'my-theme)
+(require 'my-cleanup)
 
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))

@@ -161,7 +161,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-c C-x a"     #'org-archive-subtree-default         org-mode-map)
      (bind-key "M-}"           #'forward-paragraph                   org-mode-map)
      (bind-key "M-{"           #'backward-paragraph                  org-mode-map)
-     (bind-key "C-s"           #'evil-search-forward                 org-mode-map)
      (bind-key "C-M-<up>"      #'org-table-move-single-cell-up       org-mode-map)
      (bind-key "C-M-<down>"    #'org-table-move-single-cell-down     org-mode-map)
      (bind-key "C-M-<left>"    #'org-table-move-single-cell-left     org-mode-map)

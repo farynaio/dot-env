@@ -320,33 +320,4 @@ point reaches the beginning or end of the buffer, stop there."
 
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
 
-(bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
-(bind-key "C-x C-r"       #'recentf-open-files)
-(bind-key "<home>"        #'left-word)
-(bind-key "<end>"         #'right-word)
-(bind-key "C-x <left>"    #'windmove-left)
-(bind-key "C-x <right>"   #'windmove-right)
-(bind-key "C-x <up>"      #'windmove-up)
-(bind-key "C-x <down>"    #'windmove-down)
-(bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
-(bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
-(bind-key "s-t"           #'make-frame-command)
-(bind-key "C-x C-b"       #'pop-to-buffer)
-(bind-key "C-d"           #'evil-scroll-down)
-(bind-key "C-u"           #'evil-scroll-up)
-
-(unbind-key "C-x c")
-(unbind-key "C-x <C-left>")
-(unbind-key "C-x <C-right>")
-(unbind-key "<kp-end>")
-(unbind-key "<kp-home>")
-(unbind-key "<end>")
-(unbind-key "<home>")
-(unbind-key "C-x C-'")
-(unbind-key "<S-up>")
-(unbind-key "<S-down>")
-;; (unbind-key "C-x <down>")
-
-(defalias 'qcalc #'quick-calc)
-
 (provide 'my-navigation)

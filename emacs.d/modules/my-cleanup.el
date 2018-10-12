@@ -1,0 +1,13 @@
+(unbind-key "C-x c")
+(unbind-key "C-x <C-left>")
+(unbind-key "C-x <C-right>")
+(unbind-key "<kp-end>")
+(unbind-key "<kp-home>")
+(unbind-key "<end>")
+(unbind-key "<home>")
+(unbind-key "C-x C-'")
+(unbind-key "<S-up>")
+(unbind-key "<S-down>")
+;; (unbind-key "C-x <down>")
+
+(provide 'my-cleanup)
