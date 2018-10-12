@@ -296,6 +296,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c O"           #'org-open-at-point-global)
 (bind-key "C-c p"           #'git-gutter:previous-hunk)
 (bind-key "C-c n"           #'git-gutter:next-hunk)
+(bind-key "C-s"             #'counsel-grep)
 
 (column-number-mode 1)
 (global-auto-revert-mode 1)

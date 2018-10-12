@@ -133,11 +133,6 @@
     )
   )
 
-(use-package swiper
-  :config
-  (progn
-    (bind-key "C-s" #'swiper)))
-
 (use-package counsel
   :config
   (progn
