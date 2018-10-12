@@ -539,12 +539,12 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 - Achieved
   -
 "
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
 
   ("l" "Dating Log" entry (file ,my/org-journal-dating-file-path)
 "* [%<%Y-%m-%d %a>]\n%?
 "
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
 
   ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
 "* TODO %\\3 \"%\\1\" %\\2 %? %^g
