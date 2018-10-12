@@ -23,6 +23,7 @@
     (bind-key ", m"    #'my/dired-jump-make-new-window       evil-normal-state-map)
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
+    (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
     (bind-key ", s"    #'flyspell-mode                       evil-normal-state-map)
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
     (bind-key ", x t"  #'delete-frame                        evil-normal-state-map)
@@ -89,16 +90,6 @@
     (add-to-list 'evil-emacs-state-modes 'erc-mode)
 
     (evil-declare-change-repeat 'company-complete)
-
-    (defvar epa-key-mode-map (make-sparse-keymap))
-    (defvar org-mode-map (make-sparse-keymap))
-    (defvar mu4e:view-mode-map (make-sparse-keymap))
-    (defvar mu4e-headers-mode-map (make-sparse-keymap))
-    (defvar flyspell-mode-map (make-sparse-keymap))
-    (defvar help-mode-map (make-sparse-keymap))
-    (defvar ediff-mode-map (make-sparse-keymap))
-    (defvar elpy-mode-map (make-sparse-keymap))
-    (defvar js2-mode-map (make-sparse-keymap))
 
     (evil-make-overriding-map epa-key-mode-map 'motion)
     (evil-make-overriding-map epa-key-mode-map 'normal)

@@ -84,8 +84,8 @@
 
 ;; My modules
 (require 'my-path)
-(require 'my-evil)
 (require 'my-edit)
+(require 'my-evil)
 (require 'my-writing)
 (require 'my-org)
 (require 'my-devel)

@@ -234,6 +234,10 @@ $0`(yas-escape-text yas-selected-text)`")
           try-complete-lisp-symbol))
      ))
 
+(defhydra hydra-buffer ()
+  "Buffer"
+  ("i" #'ibuffer "ibuffer"))
+
 ;; (defun my/buffer-messages-tail ()
   ;; (let ((messages (get-buffer "*Messages*")))
     ;; (unless (eq (current-buffer) messages)
@@ -284,6 +288,16 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defun my/advice-around-skip (orig-fun &rest args) "")
 
+(defvar epa-key-mode-map (make-sparse-keymap))
+(defvar org-mode-map (make-sparse-keymap))
+(defvar mu4e:view-mode-map (make-sparse-keymap))
+(defvar mu4e-headers-mode-map (make-sparse-keymap))
+(defvar flyspell-mode-map (make-sparse-keymap))
+(defvar help-mode-map (make-sparse-keymap))
+(defvar ediff-mode-map (make-sparse-keymap))
+(defvar elpy-mode-map (make-sparse-keymap))
+(defvar js2-mode-map (make-sparse-keymap))
+
 (bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
 (bind-key "C-x C-r"       #'recentf-open-files)
 (bind-key "<home>"        #'left-word)
@@ -318,6 +332,8 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c p"           #'git-gutter:previous-hunk)
 (bind-key "C-c n"           #'git-gutter:next-hunk)
 (bind-key "C-s"             #'counsel-grep)
+
+(bind-key "C-s"             #'evil-search-forward help-mode-map)
 
 (defalias 'qcalc #'quick-calc)
 
