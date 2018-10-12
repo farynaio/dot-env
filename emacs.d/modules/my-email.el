@@ -164,6 +164,7 @@
      (bind-key "D"          #'mu4e-headers-toggle-skip-duplicates      mu4e-headers-mode-map)
      (bind-key "s"          #'mu4e-headers-search                      mu4e-headers-mode-map)
      (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
+     (bind-key "U"          #'mu4e-update-mail-and-index               mu4e-headers-mode-map)
 
      (setq
        message-send-mail-function 'smtpmail-send-it
