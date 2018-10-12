@@ -282,6 +282,7 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defun my/buffer-tramp-p ()
   "Returns t if buffer is tramp buffer."
+  ; file-remote-p
   (interactive)
   (let ((name (buffer-file-name)))
     (and name (string-prefix-p "/ssh:" name))))
