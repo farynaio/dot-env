@@ -276,6 +276,12 @@ $0`(yas-escape-text yas-selected-text)`")
       (delete-window))
     (display-buffer-pop-up-frame buffer nil)))
 
+(defun my/buffer-tramp-p ()
+  "Returns t if buffer is tramp buffer."
+  (interactive)
+  (let ((name (buffer-file-name)))
+    (and name (string-prefix-p "/ssh:" name))))
+
 (defun my/advice-around-skip (orig-fun &rest args) "")
 
 (bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)

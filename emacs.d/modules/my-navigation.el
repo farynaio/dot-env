@@ -1,3 +1,4 @@
+(require 'tramp)
 (require 'recentf)
 
 (eval-after-load 'recentf
@@ -6,8 +7,6 @@
 
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
-
-(require 'tramp)
 
 (eval-after-load 'tramp
   '(progn
@@ -319,5 +318,17 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
+
+(defun my/counsel-grep-fallback (orig-fun &rest args)
+  "Fallback counsel-grep to evil-search-forward if exists if not search-forward."
+  (if (or (my/buffer-tramp-p) (string= major-mode "dired-mode"))
+    (if (fboundp 'evil-search-forward)
+      (apply 'evil-search-forward args)
+      (apply 'search-forward args)
+      )
+    )
+  (apply orig-fun args))
+
+(advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
 (provide 'my-navigation)
