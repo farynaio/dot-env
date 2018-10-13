@@ -14,6 +14,7 @@
 (require 'prog-mode)
 (require 'vc-git)
 (require 'sh-script)
+(require 'conf-mode)
 (require 'ruby-mode)
 
 ;; nvm ; replaces shell nvm
@@ -404,7 +405,11 @@
                               (setq-local tab-width 4)
                               (setq python-indent-offset 4)
                               ))
-(add-hook 'conf-space-mode-hook (lambda () (setq-local tab-width 2)))
+(add-hook 'conf-space-mode-hook (lambda ()
+                                  (setq-local tab-width 4)
+                                  (setq-local c-basic-offset 2)
+                                  (setq-local indent-line-function #'insert-tab)
+                                  (setq-local indent-tabs-mode t)))
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (setq mode-name "elisp")
