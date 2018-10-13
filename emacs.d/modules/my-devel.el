@@ -155,8 +155,16 @@
 
 (defhydra hydra-projectile ()
   "Projectile"
-  ("r" #'projectile-remove-known-project "remove project")
-  ("a" #'projectile-add-known-project "add project"))
+  ("p" #'hydra-projectile-project/body "project" :exit t)
+  ("t" #'projectile-find-tag "find tag")
+  ("o" #'projectile-find-other-file "find other file")
+  ("f" #'projectile-find-file "find file")
+  ("r" #'projectile-replace-regexp "replace"))
+
+(defhydra hydra-projectile-project ()
+  "Projectile project"
+  ("a" #'projectile-add-known-project "add")
+  ("r" #'projectile-remove-known-project "remove"))
 
 (defhydra hydra-git ()
   "git"
