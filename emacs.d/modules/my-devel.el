@@ -444,7 +444,6 @@
 
     (unbind-key "<tab>" ledger-mode-map)
     (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
-    (bind-key "C-s"     #'counsel-grep                  ledger-mode-map)
     ))
 
 (setq sh-basic-offset 4)
@@ -486,7 +485,5 @@
 (add-hook 'mmm-mode-hook
           (lambda ()
             (set-face-background 'mmm-default-submode-face nil)))
-
-(bind-key "C-s"     #'counsel-grep                  prog-mode-map)
 
 (provide 'my-devel)
