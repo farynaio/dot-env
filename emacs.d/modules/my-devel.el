@@ -14,6 +14,7 @@
 (require 'prog-mode)
 (require 'vc-git)
 (require 'sh-script)
+(require 'ruby-mode)
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
