@@ -181,19 +181,25 @@
     )
   )
 
-(defun my/counsel-grep (&optional mark-start mark-end)
-  "counsel-grep version which fallback for indirect buffers."
-  (interactive "r")
-  (let (
-         ;; (regexp (if (and (numberp mark-start) (numberp mark-end))
-                   ;; (buffer-substring-no-properties mark-start mark-end)))
-         )
-    (condition-case ex
-      (counsel-grep)
-      (if (boundp 'evil-search-forward)
-        ('user-error (evil-search-forward))
-        (signal (car err) (cdr err))
-        ))))
+(use-package swiper)
+
+(defun my/counsel-grep-fallback (orig-fun &rest args)
+  "Fallback counsel-grep to evil-search-forward if exists if not search-forward."
+
+  (when (or (string= major-mode "dired-mode") (string= major-mode "help-mode") (string= "*scratch*" (buffer-name)))
+    (if (fboundp 'swiper)
+      (apply 'swiper args)
+      (if (fboundp 'evil-search-forward)
+        (apply 'evil-search-forward args)
+        (apply 'search-forward args))))
+
+  (if (my/buffer-tramp-p)
+    (if (fboundp 'evil-search-forward)
+      (apply 'evil-search-forward args)
+      (apply 'search-forward args))
+    (apply orig-fun args)))
+
+(advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
 (use-package projectile
   :init
@@ -318,15 +324,5 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
-
-(defun my/counsel-grep-fallback (orig-fun &rest args)
-  "Fallback counsel-grep to evil-search-forward if exists if not search-forward."
-  (if (or (my/buffer-tramp-p) (string= major-mode "dired-mode"))
-    (if (fboundp 'evil-search-forward)
-      (apply 'evil-search-forward args)
-      (apply 'search-forward args))
-    (apply orig-fun args)))
-
-(advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
 (provide 'my-navigation)
