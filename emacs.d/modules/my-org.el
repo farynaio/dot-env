@@ -528,7 +528,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 2 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer nil)
 
   ("j" "Journal" entry (file ,my/org-journal-file-path)
 "* [%<%Y-%m-%d %a>]
@@ -539,7 +539,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 - Achieved
   -
 "
-:prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
   ("l" "Dating Log" entry (file ,my/org-journal-dating-file-path)
 "* [%<%Y-%m-%d %a>]\n%?
