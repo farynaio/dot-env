@@ -822,6 +822,14 @@ SCHEDULED: <%<%Y-%m-%d %a>>
             (org-agenda-hide-tags-regexp "yearly")
             (org-agenda-todo-keyword-format "")
             (org-agenda-files (list my/org-yearly-goals-file-path))))))
+     ("f" "Tasks finished"
+       ((agenda ""
+          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("DONE" "UNDOABLE" "CANCELED")))
+            (org-agenda-log-mode-items '(closed))
+            (org-agenda-overriding-header "Tasks finished this week:")
+            (org-agenda-files (append org-agenda-files my/org-active-projects (list my/org-archive-tasks-path)))
+            (org-agenda-start-on-weekday 1)
+            ))))
      ("d" "Coprehensive agenda"
       ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
       ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
