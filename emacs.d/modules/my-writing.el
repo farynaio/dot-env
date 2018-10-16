@@ -19,6 +19,7 @@
                         ("couldnt" "couldn't" nil 0)
                         (" have" "'ve" nil 0)
                         ("You are" "You're" nil 0)
+                        ("arent" "aren't" nil 0)
                         ("mustnt" "mustn't" nil 0)
                         ("shouldnt" "shouldn't" nil 0)
                         ("wouldnt" "wouldn't" nil 0)
