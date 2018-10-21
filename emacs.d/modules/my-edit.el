@@ -9,6 +9,8 @@
 (require 'reftex)
 (require 'epa)
 
+(setq-default mode-require-final-newline nil)
+
 (use-package hydra)
 ;; (use-package monitor)
 (use-package popup)
@@ -124,17 +126,18 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
+
 (setq
   fill-column 80
   hscroll-margin  1
   hscroll-step 1
   scroll-conservatively 1001 ;; should be 0?
   scroll-preserve-screen-position t ;; ?
-  require-final-newline t
   word-wrap t
   compare-ignore-case t
   compare-ignore-whitespace t
   sentence-end-double-space nil
+  require-final-newline nil
   tab-width 2
   ;; undo-limit 1000
   visible-bell nil
