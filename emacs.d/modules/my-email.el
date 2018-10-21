@@ -56,6 +56,7 @@
   message-send-mail-function 'smtpmail-send-it
   send-mail-function 'smtpmail-send-it
   smtpmail-smtp-server "smtp.gmail.com"
+  smtpmail-stream-type 'ssl
   nnir-imap-default-search-key "gmail"
   nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
 
@@ -177,7 +178,7 @@
        mu4e-headers-include-related t
        mu4e-view-show-addresses t
        mu4e-view-show-images t
-       mu4e-use-fancy-chars t
+       ;; mu4e-use-fancy-chars t
        ;; mu4e-change-filenames-when-moving t
        ;; mu4e-get-mail-command "offlineimap -o"
        ;; mu4e-get-mail-command "offlineimap"
@@ -189,6 +190,9 @@
        mu4e-index-lazy-check t
        mu4e-headers-skip-duplicates t
        mu4e-update-interval 300)
+
+     (setq
+       smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
 
      (when (fboundp 'imagemagick-register-types)
        (imagemagick-register-types))
