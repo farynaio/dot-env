@@ -302,6 +302,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (defvar ediff-mode-map (make-sparse-keymap))
 (defvar elpy-mode-map (make-sparse-keymap))
 (defvar js2-mode-map (make-sparse-keymap))
+(defvar eshell-mode-map (make-sparse-keymap))
 
 (bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
 (bind-key "C-x C-r"       #'recentf-open-files)
