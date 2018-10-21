@@ -51,6 +51,7 @@
   :diminish yas-minor-mode
   :config
   (progn
+    ;; (add-to-list 'yas-key-syntaxes "w w")
     (setq yas-new-snippet-default
 "# name: $2
 # key: $1

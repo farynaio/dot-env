@@ -4,6 +4,6 @@
 try {
   $1
 
-} catch (error) {
+} catch (err) {
   $2
 }

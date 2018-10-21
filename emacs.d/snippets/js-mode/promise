@@ -1,0 +1,6 @@
+# name: create new Promise JS
+# key: Promise
+# --
+new Promise(function(resolve, reject) {
+  $0
+})

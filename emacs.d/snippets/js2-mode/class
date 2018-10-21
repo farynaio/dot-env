@@ -1,0 +1,12 @@
+# name: basic class
+# key: class
+# condition: (looking-back "^class" nil)
+# --
+
+class $1 extends$2 {
+  constructor() {
+    $3
+  }
+}
+
+module.exports = $1
