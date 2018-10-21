@@ -71,6 +71,9 @@
                                       (when (fboundp 'evil-exit-visual-state)
                                         (evil-exit-visual-state))))
 
+    (evil-set-initial-state 'eshell-mode 'emacs)
+
+    (add-to-list 'evil-emacs-state-modes 'eshell-mode)
     (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
     (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
     (add-to-list 'evil-emacs-state-modes 'eww-mode)
