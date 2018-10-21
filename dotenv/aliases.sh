@@ -28,3 +28,4 @@ alias ta="TERM=screen-256color-bce tmux -2 attach || TERM=screen-256color-bce tm
 alias tnew="TERM=screen-256color-bce tmux -2 new -s "
 alias tls="tmux ls "
 alias tkill="tmux kill-session -t "
+alias download_page="wget -p -k "
