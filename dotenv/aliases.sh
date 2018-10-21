@@ -28,4 +28,4 @@ alias ta="TERM=screen-256color-bce tmux -2 attach || TERM=screen-256color-bce tm
 alias tnew="TERM=screen-256color-bce tmux -2 new -s "
 alias tls="tmux ls "
 alias tkill="tmux kill-session -t "
-alias download_page="wget -p -k "
+alias download_page="wget -E -H -k -K --random-wait -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' -e robots=off -p "
