@@ -2,6 +2,7 @@
 (setq my/tools-path "~/.emacs.d/tools/")
 (setq org-agenda-directory (expand-file-name "agenda" my/org-base-path))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
+(setq my/org-topics-directory (expand-file-name "topics" my/org-base-path))
 (setq my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
 (setq my/drills-base-path (expand-file-name "drills" my/org-base-path))
 
@@ -19,6 +20,7 @@
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-agenda-directory))
 
+(setq my/org-ideas-file-path (expand-file-name "ideas.org" my/org-topics-directory))
 (setq my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org" org-directory))
