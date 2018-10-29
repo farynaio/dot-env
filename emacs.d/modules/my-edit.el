@@ -127,7 +127,6 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
-
 (setq
   fill-column 80
   hscroll-margin  1
@@ -139,6 +138,7 @@ $0`(yas-escape-text yas-selected-text)`")
   compare-ignore-whitespace t
   sentence-end-double-space nil
   require-final-newline nil
+  revert-without-query '(".*")
   tab-width 2
   ;; undo-limit 1000
   visible-bell nil
