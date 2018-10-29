@@ -122,6 +122,8 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; 				(progn
 ;; 					(setq wgrep-enable-key "r")))))
 
+(set-language-environment "UTF-8")
+
 (epa-file-enable)
 (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
