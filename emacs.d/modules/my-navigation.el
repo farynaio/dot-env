@@ -13,6 +13,7 @@
      (setq
        tramp-default-method "ssh"
        tramp-inline-compress-start-size 40960
+       tramp-chunksize 500
        tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/"
        tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
      ))
