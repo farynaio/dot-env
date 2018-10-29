@@ -179,7 +179,7 @@
        mu4e-view-show-addresses t
        mu4e-view-show-images t
        ;; mu4e-use-fancy-chars t
-       ;; mu4e-change-filenames-when-moving t
+       mu4e-change-filenames-when-moving t
        ;; mu4e-get-mail-command "offlineimap -o"
        ;; mu4e-get-mail-command "offlineimap"
        mu4e-get-mail-command "true"
