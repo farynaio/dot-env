@@ -23,6 +23,7 @@
 (setenv "LC_MONETARY" "en_US.UTF-8")
 (setenv "LC_NUMERIC" "en_US.UTF-8")
 (setenv "LC_TIME" "en_US.UTF-8")
+(setenv "SHELL" "/bin/bash")
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
