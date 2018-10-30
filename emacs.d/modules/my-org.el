@@ -361,6 +361,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   org-export-creator-string "Adam Faryna (appdy.co.uk)"
   org-export-exclude-category (list "google" "private")
   org-export-babel-evaluate t
+  org-export-preserve-breaks nil
+  org-export-with-toc nil
   org-export-with-smart-quotes t ; could cause problems on babel export
   )
 

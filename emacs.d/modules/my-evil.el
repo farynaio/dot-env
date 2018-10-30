@@ -123,6 +123,9 @@
       "C-d" #'evil-scroll-down
       "C-u" #'evil-scroll-up)
 
+    (evil-define-key '(visual) mu4e-compose-mode-map
+      "H" #'org-mime-htmlize)
+
     (evil-define-key 'normal flyspell-mode-map
       "[s" 'flyspell-goto-next-error
       "]s" 'flyspell-goto-next-error)
