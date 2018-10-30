@@ -150,6 +150,9 @@ $0`(yas-escape-text yas-selected-text)`")
   save-some-buffers-default-predicate t
   help-window-select t)
 
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
 (setq ack-path (executable-find "ack"))
 
 (defalias 'yes-or-no-p 'y-or-n-p)

@@ -55,9 +55,7 @@
   message-directory "~/.Mail/"
   message-send-mail-function 'smtpmail-send-it
   send-mail-function 'smtpmail-send-it
-  smtpmail-smtp-server "smtp.gmail.com"
   smtpmail-stream-type 'ssl
-  nnir-imap-default-search-key "gmail"
   nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
 
 (setq gnus-select-method
@@ -170,14 +168,35 @@
      (setq
        message-send-mail-function 'smtpmail-send-it
        message-kill-buffer-on-exit t
+       message-forward-before-signature nil
+       message-draft-coding-system 'utf-8
+       message-cite-function 'message-cite-original
+       ;; message-cite-function 'message-cite-original-without-signature
+       message-cite-style 'message-cite-style-gmail)
+
+     (setq
+       smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+       smtpmail-queue-mail nil
+       smtpmail-queue-dir "~/Maildir/queue/cur")
+
+     (setq
+       shr-color-visible-luminance-min 80)
+
+     (setq
        mu4e-compose-context-policy 'ask
        mu4e-view-prefer-html t
+       mu4e-view-html-plaintext-ratio-heuristic 5
        mu4e-update-interval 900
-       mu4e-compose-in-new-frame t
-       shr-color-visible-luminance-min 80
+       mu4e-compose-in-new-frame nil
        mu4e-headers-include-related t
        mu4e-view-show-addresses t
        mu4e-view-show-images t
+       mu4e-headers-date-format "%Y/%m/%d %H:%M %Z"
+       mu4e-view-scroll-to-next nil
+       mu4e-headers-fields '((:human-date . 22)
+                              (:flags . 6)
+                              (:from . 22)
+                              (:subject))
        ;; mu4e-use-fancy-chars t
        mu4e-change-filenames-when-moving t
        ;; mu4e-get-mail-command "offlineimap -o"
@@ -188,11 +207,10 @@
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
        mu4e-index-lazy-check t
-       mu4e-headers-skip-duplicates t
-       mu4e-update-interval 300)
+       mu4e-headers-skip-duplicates t)
 
-     (setq
-       smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
+     (add-to-list 'mu4e-view-actions
+       '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
      (when (fboundp 'imagemagick-register-types)
        (imagemagick-register-types))
