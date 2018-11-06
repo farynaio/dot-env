@@ -21,6 +21,7 @@
     (bind-key "M-]"    #'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
     (bind-key ", ."    #'dired-jump                          evil-normal-state-map)
     (bind-key ", m"    #'my/dired-jump-make-new-window       evil-normal-state-map)
+    (bind-key ", n"    #'minimap-mode                        evil-normal-state-map)
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)

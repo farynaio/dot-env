@@ -17,6 +17,11 @@
 (require 'conf-mode)
 (require 'ruby-mode)
 
+(use-package minimap
+  :config
+  (progn
+    (setq minimap-window-location 'right)))
+
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
 ;; skewer-mode
