@@ -170,6 +170,26 @@
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
 
 (add-hook 'js2-mode-hook #'tide-setup)
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
+
+;; (use-package robe
+  ;; :config
+  ;; (progn
+  ;;   (add-hook 'robe-mode-hook (lambda ()
+                                ;; (robe-start)
+  ;;                               (make-variable-buffer-local 'company-backends)
+  ;;                               (add-to-list 'company-backends 'company-robe t)))
+  ;;   (add-hook 'ruby-mode-hook 'robe-mode)
+  ;;   ))
+;; (use-package inf-ruby)
+
+(use-package projectile-rails
+  :config
+  (progn
+    (add-hook 'ruby-mode-hook
+      (lambda ()
+        (when (projectile-mode)
+          (projectile-rails-on))))))
 
 (use-package vue-mode)
 
@@ -417,7 +437,7 @@
 
 ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
 
-(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map))
+(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py" "el.gz"))
 
 (add-hook 'find-file-hook
