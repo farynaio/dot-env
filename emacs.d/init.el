@@ -216,9 +216,10 @@
  '(custom-enabled-themes (quote (wombat)))
   '(ledger-reports
      (quote
-       ((#("Net value balance" 0 1
-            (idx 0))
-          "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
+       (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
+         (#("Net value balance" 0 1
+             (idx 0))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
          (#("Net value balance (cleared)" 0 1
              (idx 1))
            "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
@@ -236,7 +237,10 @@
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
              (idx 6))
-           "%(binary) -f %(ledger-file) reg %(account)")))))
+           "%(binary) -f %(ledger-file) reg %(account)"))))
+  '(org-agenda-files
+     (quote
+       ("~/Documents/emacs/orgs/brainstorm.org" "/Users/devil/Documents/emacs/agenda/active.org" "/Users/devil/Documents/emacs/agenda/anniversaries.org" "/Users/devil/Documents/emacs/agenda/repeat.org" "/Users/devil/Documents/emacs/orgs/projects.org" "/Users/devil/Documents/emacs/agenda/taxes.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
