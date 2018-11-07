@@ -16,11 +16,16 @@
 (require 'sh-script)
 (require 'conf-mode)
 (require 'ruby-mode)
+(require 'dns-mode)
 
 (use-package minimap
   :config
   (progn
     (setq minimap-window-location 'right)))
+
+(eval-after-load 'dns-mode
+  '(progn
+     (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
