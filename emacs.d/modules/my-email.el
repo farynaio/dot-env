@@ -7,13 +7,6 @@
     (require 'org-mu4e))
   (message "'mu' not found"))
 
-;; (use-package evil-mu4e
-;;   :config
-;;   (progn
-;;     (evil-define-key 'normal mu4e-compose-mode-map (kbd "TAB") #'message-tab)
-;;     (evil-define-key 'normal mu4e-view-mode-map (kbd "TAB") #'shr-next-link)
-;;     (evil-define-key 'normal mu4e-view-mode-map (kbd "BACKTAB") #'shr-previous-link)))
-
 ; Gnus
 (setq
   gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
@@ -35,44 +28,20 @@
   gnus-thread-indent-level 2
   gnus-sum-thread-tree-indent " "
   gnus-auto-select-first nil
-  starttls-gnutls-program "gnutls-cli"
-  starttls-extra-arguments nil
-  starttls-use-gnutls t
   gnus-auto-select-next nil
   gnus-user-date-format-alist '((t . "%d.%m.%Y %H:%M"))
-  gnus-activate-level 3
-  message-default-charset `utf-8
-  ;; gnus-default-adaptive-score-alist
-  ;; '((gnus-unread-mark)
-  ;;    (gnus-ticked-mark (subject 10))
-  ;;    (gnus-killed-mark (subject -5))
-  ;;    (gnus-catchup-mark (subject -1)))
-                                        ; gnus-select-method '(nnnil "")
-
   gnus-summary-line-format "%D%U%R%z%I%(%[%4L: %-23,23f%]%) %s\n"
-
-  ;; gnus-parameters '(
-  message-directory "~/.Mail/"
-  message-send-mail-function 'smtpmail-send-it
-  send-mail-function 'smtpmail-send-it
-  smtpmail-stream-type 'ssl
-  nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
-
-(setq gnus-select-method
-      '(nnimap "Mail"
-	       (nnimap-address "localhost")
-	       (nnimap-stream network)
-	       (nnimap-authenticator login)))
+  gnus-activate-level 3
+  gnus-select-method
+  '(nnimap "Mail"
+	   (nnimap-address "localhost")
+	   (nnimap-stream network)
+	   (nnimap-authenticator login)))
 
 (setq
-  smtpmail-smtp-service 587
-  mm-coding-system-priorities '(utf-8-mac utf-8)
-  mml2015-encrypt-to-self t
-  mm-verify-option t
-  mm-decrypt-option t
-  mml2015-use 'epg
-  mml2015-encrypt-to-self t
-  mml2015-sign-with-sender t)
+  starttls-gnutls-program "gnutls-cli"
+  starttls-extra-arguments nil
+  starttls-use-gnutls t)
 
 (if (executable-find "w3m")
   (use-package w3m
@@ -165,7 +134,25 @@
      (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
      (bind-key "U"          #'mu4e-update-mail-and-index               mu4e-headers-mode-map)
 
+     (setq send-mail-function 'smtpmail-send-it)
+
+     (setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
+
      (setq
+       mm-coding-system-priorities '(utf-8-mac utf-8)
+       mm-decrypt-option t
+       mm-verify-option t)
+
+     (setq
+       mml2015-encrypt-to-self t
+       mml2015-use 'epg
+       mml2015-encrypt-to-self t
+       mml2015-sign-with-sender t)
+
+     (setq
+       message-send-mail-function 'smtpmail-send-it
+       message-directory "~/.Mail/"
+       message-default-charset `utf-8
        message-send-mail-function 'smtpmail-send-it
        message-kill-buffer-on-exit t
        message-forward-before-signature nil
@@ -177,6 +164,8 @@
      (setq
        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
        smtpmail-queue-mail nil
+       smtpmail-smtp-service 587
+       smtpmail-stream-type 'ssl
        smtpmail-queue-dir "~/Maildir/queue/cur")
 
      (setq
@@ -199,10 +188,7 @@
                               (:subject))
        ;; mu4e-use-fancy-chars t
        mu4e-change-filenames-when-moving t
-       ;; mu4e-get-mail-command "offlineimap -o"
-       ;; mu4e-get-mail-command "offlineimap"
        mu4e-get-mail-command "true"
-       ;; mu4e-attachment-dir  "/Volumes/RAM_Disk/"
        mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
