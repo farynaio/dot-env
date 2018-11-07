@@ -505,7 +505,7 @@
     (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
     ))
 
-(setq sh-basic-offset 4)
+(setq sh-basic-offset 2)
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
