@@ -172,17 +172,25 @@
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
-  ("a" #'projectile-add-known-project "add")
-  ("r" #'projectile-remove-known-project "remove"))
+  ("a" #'projectile-add-known-project "add" :exit t)
+  ("r" #'projectile-remove-known-project "remove" :exit t))
 
 (defhydra hydra-git ()
   "git"
+  ("b" #'hydra-git-blame/body "blame" :exit t)
   ("s" #'magit-status "status")
+  ("c" #'magit-checkout "checkout")
   ("f" #'hydra-git-file/body "file" :exit t))
 
 (defhydra hydra-git-file ()
   "git file"
-  ("l" #'magit-log-buffer-file "show file log"))
+  ("l" #'magit-log-buffer-file "show file log")
+  ("c" #'magit-file-checkout "checkout file"))
+
+(defhydra hydra-git-blame ()
+  "git blame"
+  ("o" #'magit-blame "on")
+  ("f" #'magit-blame-mode "off"))
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
