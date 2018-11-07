@@ -37,6 +37,12 @@
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
 
+(when (eq system-type 'gnu/linux)
+  (defun my/crontab-e ()
+    (interactive)
+    (with-editor-async-shell-command "crontab -e"))
+  (defalias 'crontab-e #'my/crontab-e))
+
 (setq shift-select-mode nil)
 
 (setq tags-add-tables nil)
