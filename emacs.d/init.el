@@ -24,11 +24,14 @@
 (setenv "LC_NUMERIC" "en_US.UTF-8")
 (setenv "LC_TIME" "en_US.UTF-8")
 (setenv "SHELL" "/bin/bash")
+;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
+;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
+;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
 (add-to-list 'exec-path "/usr/local/bin")
 
 (require 'package)
