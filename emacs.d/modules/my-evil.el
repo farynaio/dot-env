@@ -149,6 +149,12 @@
       "M-." 'xref-find-definitions
       "M-," 'xref-pop-marker-stack)
 
+    (evil-define-key 'normal web-mode-map
+      (kbd ", t") #'my/toggle-php-flavor-mode)
+
+    (evil-define-key 'normal php-mode-map
+      (kbd ", t") #'my/toggle-php-flavor-mode)
+
     (defalias #'forward-evil-word #'forward-evil-symbol)))
 
 (use-package evil-surround

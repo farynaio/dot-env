@@ -92,6 +92,10 @@
 (use-package flycheck
   :config
   (progn
+    (setq
+      flymake-phpcs-show-rule t
+      flycheck-phpcs-standard "WordPress")
+
     (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
     (add-to-list 'flycheck-disabled-checkers 'javascript-jscs)
     ))
@@ -291,6 +295,8 @@
     (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
     (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))))
 
+(add-hook 'php-mode-hook #'flycheck-mode-on-safe)
+
 (use-package web-mode
   :config
   (progn
@@ -298,10 +304,19 @@
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))
-    (setq web-mode-markup-indent-offset 2
+    (setq
+      web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
-      web-mode-code-indent-offset 2)))
+      web-mode-code-indent-offset 2)
+    (bind-key "backtab" #'indent-relative web-mode-map)))
+
+(defun my/toggle-php-flavor-mode ()
+  (interactive)
+  "Toggle mode between PHP & Web-Mode Helper modes"
+  (cond ((string= major-mode "php-mode")
+         (web-mode))
+        ((string= major-mode "web-mode")
+         (php-mode))))
 
 (use-package magit
   :diminish magit-auto-revert-mode
