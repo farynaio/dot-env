@@ -334,16 +334,18 @@
     (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
     (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))))
 
-(add-hook 'php-mode-hook #'flycheck-mode-on-safe)
-
 (use-package web-mode
   :config
   (progn
+    (bind-key "C-c C-n" #'web-mode-tag-end web-mode-map)
+    (bind-key "C-c C-p" #'web-mode-tag-beginning web-mode-map)
+
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
     (setq
+      web-mode-engines-alist '(("php" . "\\.php\\'"))
       web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
       web-mode-code-indent-offset 2)
