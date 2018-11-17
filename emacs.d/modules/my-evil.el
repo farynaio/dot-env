@@ -155,6 +155,9 @@
     (evil-define-key 'normal php-mode-map
       (kbd ", t") #'my/toggle-php-flavor-mode)
 
+    (evil-define-key 'normal prog-mode-map
+      (kbd ", c") #'flycheck-mode)
+
     (defalias #'forward-evil-word #'forward-evil-symbol)))
 
 (use-package evil-surround

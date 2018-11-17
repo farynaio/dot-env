@@ -164,7 +164,6 @@
 
 (add-hook 'js-mode-hook
   (lambda ()
-    (flycheck-mode 1)
     (js2-refactor-mode 1)
     (rainbow-delimiters-mode 1)
     (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
