@@ -11,6 +11,7 @@
 
 (setq my/org-english-drill-file-path (expand-file-name "english_drill.org" my/drills-base-path))
 
+(setq my/org-girls-file-path (expand-file-name "girls.org" org-agenda-directory))
 (setq my/org-active-file-path (expand-file-name "active.org" org-agenda-directory))
 (setq my/org-repeatables-file-path (expand-file-name "repeat.org" org-agenda-directory))
 (setq my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))

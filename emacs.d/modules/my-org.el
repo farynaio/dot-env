@@ -626,6 +626,40 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
 
+  ("g" "Girl" entry (file ,my/org-girls-file-path)
+"* %\\1
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+
+Name: %^{Name: }
+From: %^{From: }
+Where she live: %^{Where she live: }
+Will stay 'till: %^{Will stay 'till: }
+Contact: %^{Contact: }
+Birthday: %^{Birthday: }
+Blood type/flavour: %^{Blood type: }
+%?
+- What she do
+
+- Her interest
+
+- She have been/seen
+
+- Family/siblings
+
+- Music
+
+- Movies
+
+- Spare Time
+
+- Sport
+
+- I Was with her in
+"
+:prepend t :empty-lines-after 1 :jump-to-captured t)
+
   ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
 "* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
 :PROPERTIES:
