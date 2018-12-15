@@ -202,7 +202,7 @@
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
-  ("a" #'projectile-add-known-project "add" :exit t)
+  ("a" #'my/projectile-add-known-project "add" :exit t)
   ("r" #'projectile-remove-known-project "remove" :exit t))
 
 (defhydra hydra-git ()

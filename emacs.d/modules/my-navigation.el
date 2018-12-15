@@ -216,6 +216,12 @@
     (setq projectile-track-known-projects-automatically nil)
     (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
 
+(defun my/projectile-add-know-project (project-root)
+  ""
+  (interactive)
+  (projectile-add-known-project project-root)
+  (projectile-cleanup-known-projects))
+
 (defun my/projectile-invalidate-cache (arg)
   "Remove the current project's files from `projectile-projects-cache'.
 
