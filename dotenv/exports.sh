@@ -6,6 +6,8 @@ export ANDROID_HOME="/usr/local/share/android-sdk"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export EDITOR="/usr/bin/vim"
+# export EDITOR="/usr/loca/bin/emacsclient -c -a emacs"
+export VISUAL="/usr/local/bin/emacs"
 export SED=`which sed`
 export MU_HOME="~/Maildir"
 
