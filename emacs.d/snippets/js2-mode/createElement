@@ -1,0 +1,4 @@
+# name: document.createElement()
+# key: createe
+# --
+var $1 = document.createElement("$2");

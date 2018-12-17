@@ -1,0 +1,16 @@
+# name: tern project
+# --
+{
+  "libs": [
+  ],
+  "loadEagerly": [
+    "./**/*.js"
+  ],
+  "dontLoad": [
+    "./node_modules/"
+  ],
+  "plugins": {
+    "node": {},
+    "es_modules": {}
+  }
+}
