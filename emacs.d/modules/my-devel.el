@@ -81,7 +81,7 @@
       (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
-(use-package pug-mode)
+(use-package jade-mode)
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
@@ -419,7 +419,11 @@
       web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
       web-mode-code-indent-offset 2)
-    (bind-key "backtab" #'indent-relative web-mode-map)))
+    (bind-key "<backtab>" #'indent-relative web-mode-map)))
+
+(add-hook #'web-mode-hook
+  (lambda ()
+    (emmet-mode 1)))
 
 (defun my/toggle-php-flavor-mode ()
   (interactive)
