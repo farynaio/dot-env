@@ -20,6 +20,7 @@
 (use-package with-editor)  ; dependency for other package
 (use-package neotree)
 (use-package multiple-cursors)
+(use-package emojify)
 
 (setq hippie-expand-try-functions-list '())
 (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
@@ -214,7 +215,6 @@ $0`(yas-escape-text yas-selected-text)`")
      (bind-key "C-c +" #'increment-integer-at-point)
      (bind-key "C-c -" #'decrement-integer-at-point)))
 
-(add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'after-init-hook (lambda ()
                              (mapc (lambda (project-root)
                                      (remhash project-root projectile-project-type-cache)
@@ -355,6 +355,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-visual-line-mode 1)
 (global-hl-line-mode 1)
 (global-company-mode 1)
+(global-emojify-mode 1)
 (delete-selection-mode 1)
 
 (advice-add 'visual-line-mode :around
