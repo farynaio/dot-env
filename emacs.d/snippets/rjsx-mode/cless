@@ -1,6 +1,6 @@
 # name: connected stateless component
 # key: cless
-# condition: (looking-back "^cless_" nil)
+# condition: (looking-back "^cless" nil)
 # --
 import React from "react"
 import { connect } from "react-redux"
@@ -11,10 +11,14 @@ const $1 = (\{$2\}) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-})
+const mapStateToProps = (state) => {
+  return {
+  }
+}
 
-const mapDispatchToProps = (dispatch) => ({
-})
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)($1)

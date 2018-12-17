@@ -215,6 +215,7 @@
   (progn
     (setq projectile-track-known-projects-automatically nil)
     (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
+    (add-to-list 'projectile-globally-ignored-directories '"node-modules")
     (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
 
 (defun my/projectile-add-known-project (project-root)
