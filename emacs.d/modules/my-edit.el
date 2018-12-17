@@ -345,7 +345,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c O"           #'org-open-at-point-global)
 (bind-key "C-c p"           #'git-gutter:previous-hunk)
 (bind-key "C-c n"           #'git-gutter:next-hunk)
-(bind-key "C-s"             #'counsel-grep)
+(bind-key "C-s"             #'evil-search-forward) ;; counsel-grep
 
 (defalias 'qcalc #'quick-calc)
 

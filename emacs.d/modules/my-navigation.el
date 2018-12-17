@@ -187,18 +187,18 @@
 (defun my/counsel-grep-fallback (orig-fun &rest args)
   "Fallback counsel-grep to evil-search-forward if exists if not search-forward."
 
-  (if (or (string= major-mode "dired-mode") (string= major-mode "org-mode") (string= major-mode "help-mode") (string= "*scratch*" (buffer-name)) (string= "*Org Agenda*" (buffer-name)) (string-match ".gpg\\'" (buffer-name)))
-    (if (fboundp 'swiper)
-      (apply 'swiper args)
-      (if (fboundp 'evil-search-forward)
-        (apply 'evil-search-forward args)
-        (apply 'search-forward args)))
-
-  (if (my/buffer-tramp-p)
+  (when (my/buffer-tramp-p)
     (if (fboundp 'evil-search-forward)
       (apply 'evil-search-forward args)
-      (apply 'search-forward args))
-    (apply orig-fun args))))
+      (apply 'search-forward args)))
+    ;; (apply orig-fun args))
+
+  ;; (if (or (string= major-mode "dired-mode") (string= major-mode "org-mode") (string= major-mode "help-mode") (string= "*scratch*" (buffer-name)) (string= "*Org Agenda*" (buffer-name)) (string-match ".gpg\\'" (buffer-name)))
+  (if (fboundp 'swiper)
+    (apply 'swiper args)
+    (if (fboundp 'evil-search-forward)
+      (apply 'evil-search-forward args)
+      (apply 'search-forward args))))
 
 (advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
