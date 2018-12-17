@@ -214,11 +214,12 @@
   :config
   (progn
     (setq projectile-track-known-projects-automatically nil)
+    (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
     (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
 
-(defun my/projectile-add-know-project (project-root)
+(defun my/projectile-add-known-project (project-root)
   ""
-  (interactive)
+  (interactive (list (read-directory-name "Add to known projects: ")))
   (projectile-add-known-project project-root)
   (projectile-cleanup-known-projects))
 
