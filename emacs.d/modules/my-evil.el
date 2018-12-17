@@ -25,11 +25,10 @@
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
-    (bind-key ", s"    #'flyspell-mode                       evil-normal-state-map)
+    (bind-key ", d"    #'hydra-language/body                 evil-normal-state-map)
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
     (bind-key ", x t"  #'delete-frame                        evil-normal-state-map)
     (bind-key ", c d"  #'my/copy-file-name                   evil-normal-state-map)
-    (bind-key ", l"    #'avy-goto-char                       evil-normal-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-visual-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
     (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
@@ -73,6 +72,7 @@
                                         (evil-exit-visual-state))))
 
     (evil-set-initial-state 'eshell-mode 'emacs)
+    (evil-set-initial-state 'profiler-report-mode 'emacs)
 
     (add-to-list 'evil-emacs-state-modes 'eshell-mode)
     (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
