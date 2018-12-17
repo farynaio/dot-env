@@ -62,6 +62,8 @@
         (message "Tags build successfully."))
       (message "Cannot generate TAGS, not a projectile project."))))
 
+(defalias 'ctags #'my/ctags-build)
+
 (defun my/visit-project-ctags ()
   (interactive)
   (let ((project-root (projectile-project-root)))
