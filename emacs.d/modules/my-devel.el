@@ -125,13 +125,46 @@
          (add-to-list 'company-backends 'company-css)
          ))))
 
+(use-package xref-js2)
+
+(add-hook 'js-mode-hook
+  (lambda ()
+    (js2-refactor-mode 1)
+    (rainbow-delimiters-mode 1)
+    (add-hook 'js2-mode-hook (lambda ()
+                               (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
+                               (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))))
+
 (eval-after-load 'gud
   '(progn
      (setq gud-pdb-command-name "python -m pdb ")))
 
 (use-package rainbow-delimiters)
+
+(eval-after-load 'js2-mode
+  '(progn
+     (setq js2-strict-inconsistent-return-warning nil)))
+
 (use-package js2-refactor
-  :diminish js2-refactor-mode)
+  :diminish js2-refactor-mode
+  :config
+  (progn
+     (bind-key "C-k" #'js2r-kill js2-mode-map)))
+
+;; (use-package tern
+;;   :config
+;;   (progn
+;;     (add-hook 'tern-mode-hook
+;;       (lambda ()
+;;         (add-to-list 'company-backends 'company-tern)))))
+
+;; (use-package company-tern)
+
+(add-hook 'js2-mode-hook
+  (lambda ()
+    ;; (tern-mode 1)
+    (emmet-mode 1)))
+
 (use-package tide
   :diminish tide-mode
   :config
@@ -154,22 +187,45 @@
   js2-mode-show-parse-errors nil
   js2-strict-missing-semi-warning nil)
 
+(use-package prettier-js
+  :config
+  (progn
+    (setq prettier-js-args '(
+                              "--no-semi" "false"
+                              "--trailing-comma" "none"
+                              "--bracket-spacing" "false"
+                              "--jsx-bracket-same-line" "true"
+                              ))))
+
 (use-package rjsx-mode
   :config
   (progn
     (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
     (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
 
-    (add-hook 'rjsx-mode-hook (lambda () (setq-local emmet-expand-jsx-className? t)))))
+    (add-hook 'rjsx-mode-hook (lambda ()
+                                ;; (prettier-js-mode -1)
+                                (setq-local emmet-expand-jsx-className? t)))))
 
-(add-hook 'js-mode-hook
-  (lambda ()
-    (js2-refactor-mode 1)
-    (rainbow-delimiters-mode 1)
-    (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))
+;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
+;;   "Workaround 'sgml-mode' and follow airbnb component style."
+;;   (save-match-data
+;;      (save-excursion
+;;        (goto-char (line-beginning-position))
+;;        (when (looking-at "^\\( +\\)\/?> *$")
+;;          (let ((empty-spaces (match-string 1)))
+;;            (while (search-forward empty-spaces      (line-end-position) t)
+;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
 
-(add-hook 'js2-mode-hook #'tide-setup)
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
+(defun my/tide-setup ()
+  ""
+  (unless (tide-current-server)
+    (tide-restart-server))
+  (tide-mode))
+
+;; (add-hook 'js2-mode-hook #'my/tide-setup)
+;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
 
 ;; (use-package robe
   ;; :config
@@ -198,12 +254,25 @@
   ("t" #'projectile-find-tag "find tag")
   ("o" #'projectile-find-other-file "find other file")
   ("f" #'projectile-find-file "find file")
-  ("r" #'projectile-replace-regexp "replace"))
+  ("r" #'projectile-replace-regexp "replace")
+  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers"))
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
   ("a" #'my/projectile-add-known-project "add" :exit t)
   ("r" #'projectile-remove-known-project "remove" :exit t))
+
+(defhydra hydra-js-search ()
+  "JS search"
+  ("p" #'my/rgrep "grep")
+  ("s" #'tern-find-definition "find JS definition")
+  ("t" #'tern-find-definition-by-name "find JS definition by name"))
+;; (define-key tern-mode-keymap [(control ?c) (control ?r)] 'tern-rename-variable)
+
+(defhydra hydra-language ()
+  "Languages"
+  ("s" #'flyspell-mode "flyspell-mode toggle")
+  ("d" #'my/lang-toggle "language toggle"))
 
 (defhydra hydra-git ()
   "git"
