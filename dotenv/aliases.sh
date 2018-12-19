@@ -8,6 +8,7 @@ alias ssh_a2hosting='ssh -p 7822 jarfar@68.66.240.93'
 alias ssh_a2hosting_root='ssh -p 7822 root@68.66.240.93'
 alias ssh_marcin='ssh root@77.55.218.117'
 alias ssh_adam='ssh root@77.55.219.47'
+alias ssh_no_time_for_cooking='ssh -i ~/.keys/NoTimeForCooking.pem ubuntu@ec2-18-130-92-167.eu-west-2.compute.amazonaws.com'
 
 alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 alias start_mysql='mysqld_safe &'
