@@ -249,6 +249,7 @@ to invalidate."
 (use-package counsel-projectile
   :config
   (progn
+    (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
     (counsel-projectile-mode 1)))
 
 (use-package undo-tree
