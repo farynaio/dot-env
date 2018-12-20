@@ -235,8 +235,7 @@ to invalidate."
   (interactive "P")
   (let ((project-root
          (if arg
-             (completing-read "Remove cache for: "
-                              (projectile-hash-keys projectile-projects-cache))
+             (completing-read "Remove cache for: " projectile-projects-cache)
            (projectile-project-root))))
     (setq projectile-project-root-cache (make-hash-table :test 'equal))
     (remhash project-root projectile-project-type-cache)
@@ -250,8 +249,7 @@ to invalidate."
 (use-package counsel-projectile
   :config
   (progn
-    (counsel-projectile-mode 1)
-    (bind-key "C-c p i" 'my/projectile-invalidate-cache counsel-projectile-mode-map)))
+    (counsel-projectile-mode 1)))
 
 (use-package undo-tree
   :diminish (undo-tree-mode . "")

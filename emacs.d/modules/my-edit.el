@@ -223,7 +223,7 @@ $0`(yas-escape-text yas-selected-text)`")
                                      (when projectile-verbose
                                        (message "Invalidated Projectile cache for %s."
                                          (propertize project-root 'face 'font-lock-keyword-face))))
-                               (projectile-hash-keys projectile-projects-cache))
+                               projectile-known-projects)
                              (projectile-serialize-cache)))
 
 (eval-after-load 'hippie-exp
@@ -365,7 +365,6 @@ $0`(yas-escape-text yas-selected-text)`")
     (unless (memq major-mode (list 'org-agenda-mode))
       (apply orig-fun args))))
 
-(smartparens-mode -1)
 (blink-cursor-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)

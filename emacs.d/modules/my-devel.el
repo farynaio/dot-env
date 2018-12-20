@@ -1,22 +1,26 @@
-(require 'mmm-mode)
 (require 'cc-mode)
 (require 'css-mode)
 (require 'js)
-(require 'js2-mode)
 (require 'elisp-mode)
 (require 'python)
 (require 'sql)
 (require 'comint)
 (require 'gud)
 (require 'epa)
-(require 'git-rebase)
-(require 'dash-at-point)
+;; (require 'git-rebase)
 (require 'prog-mode)
 (require 'vc-git)
 (require 'sh-script)
 (require 'conf-mode)
 (require 'ruby-mode)
 (require 'dns-mode)
+
+;; (use-package mmm-mode
+;;   :config
+;;   (progn
+;;     (add-hook 'mmm-mode-hook
+;;       (lambda ()
+;;         (set-face-background 'mmm-default-submode-face nil)))))
 
 (use-package minimap
   :config
@@ -33,6 +37,11 @@
 ;; quickrun
 ;; expand-region.el
 ;; restclient.el
+
+(use-package js2-mode
+  :config
+  (progn
+    (setq js2-strict-inconsistent-return-warning nil)))
 
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
@@ -137,15 +146,29 @@
                                (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
                                (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))))
 
+(use-package lsp-mode
+  :config
+  (progn
+    (require 'lsp-clients)
+  ))
+(use-package lsp-ui)
+(use-package company-lsp)
+
+(use-package typescript-mode
+  :config
+  (progn
+    (add-hook 'typescript-mode-hook
+      (lambda ()
+        (lsp-mode 1)
+        (lsp-ui-mode 1)
+        (make-variable-buffer-local 'company-backends)
+        (add-to-list 'company-backends 'company-lsp t)))))
+
 (eval-after-load 'gud
   '(progn
      (setq gud-pdb-command-name "python -m pdb ")))
 
 (use-package rainbow-delimiters)
-
-(eval-after-load 'js2-mode
-  '(progn
-     (setq js2-strict-inconsistent-return-warning nil)))
 
 (use-package js2-refactor
   :diminish js2-refactor-mode
@@ -372,9 +395,9 @@
   '(progn
       (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
 
-(require 'git-commit)
-(eval-after-load 'git-commit
-  '(progn
+(use-package git-commit
+  :config
+  (progn
       (setq git-commit-style-convention-checks nil)))
 
 (use-package git-gutter
@@ -562,9 +585,12 @@
 
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
 
-(dolist (i my/devel-keymaps)
-  (bind-key "C-c d" #'dash-at-point i)
-  (bind-key "C-c e" #'dash-at-point-with-docset i))
+(use-package dash-at-point
+  :config
+  (progn
+    (dolist (i my/devel-keymaps)
+      (bind-key "C-c d" #'dash-at-point i)
+      (bind-key "C-c e" #'dash-at-point-with-docset i))))
 
 (use-package ledger-mode
   :init
@@ -616,9 +642,5 @@
         (replace-match ">\n<" t t))
       (goto-char beg)
       (indent-region beg end nil))))
-
-(add-hook 'mmm-mode-hook
-          (lambda ()
-            (set-face-background 'mmm-default-submode-face nil)))
 
 (provide 'my-devel)
