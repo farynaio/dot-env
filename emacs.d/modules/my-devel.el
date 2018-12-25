@@ -283,6 +283,7 @@
   ("o" #'projectile-find-other-file "find other file")
   ("f" #'projectile-find-file "find file")
   ("r" #'projectile-replace-regexp "replace")
+  ("i" #'projectile-invalidate-cache "invalidate cache")
   ("b" #'modi/kill-non-project-buffers "kill unrelated buffers"))
 
 (defhydra hydra-projectile-project ()
