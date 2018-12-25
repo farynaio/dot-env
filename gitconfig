@@ -6,7 +6,7 @@
 	upstream = cyan
 
 [commit]
-  cleanup = whitespace
+  cleanup = default
 
 [core]
   attributesFile = ~/.gitattributes_global
