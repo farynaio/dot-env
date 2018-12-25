@@ -163,8 +163,7 @@
   (progn
     (add-hook 'typescript-mode-hook
       (lambda ()
-        (lsp-mode 1)
-        (lsp-ui-mode 1)
+        (lsp)
         (make-variable-buffer-local 'company-backends)
         (add-to-list 'company-backends 'company-lsp t)))))
 
