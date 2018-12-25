@@ -305,9 +305,12 @@
 
 (defhydra hydra-git ()
   "git"
-  ("b" #'hydra-git-blame/body "blame" :exit t)
+  ;; ("b" #'hydra-git-blame/body "blame" :exit t)
+  ("g" #'magit-blame-popup "blame")
   ("s" #'magit-status "status")
   ("c" #'magit-checkout "checkout")
+  ("b" #'magit-branch-popup "branch")
+  ("t" #'magit-stash-popup "stash")
   ("f" #'hydra-git-file/body "file" :exit t))
 
 (defhydra hydra-git-file ()
