@@ -150,8 +150,12 @@
   :config
   (progn
     (require 'lsp-clients)
-  ))
-(use-package lsp-ui)
+    (setq
+      lsp-inhibit-message t
+      lsp-hover-enabled nil
+      lsp-signature-enabled nil
+      lsp-enable-snippet nil
+      lsp-auto-guess-root t)))
 (use-package company-lsp)
 
 (use-package typescript-mode
