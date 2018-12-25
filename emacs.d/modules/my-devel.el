@@ -551,9 +551,9 @@
 	    (dolist (i devel-buffers)
 	      (if (string= buf-name i)
           (progn
-            (hl-todo-mode 1)
-            (auto-highlight-symbol-mode 1)
-            (rainbow-mode 1)
+            ;; (hl-todo-mode 1)
+            ;; (auto-highlight-symbol-mode 1)
+            ;; (rainbow-mode 1)
             )
           )))) t)
 
@@ -566,6 +566,9 @@
                             (add-to-list 'company-backends 'company-gtags t)
                             (add-to-list 'company-backends 'company-etags t)
                             (add-to-list 'company-backends 'company-keywords)
+                            (hl-todo-mode 1)
+                            (auto-highlight-symbol-mode 1)
+                            (rainbow-mode 1)
                             (abbrev-mode -1)
                             (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
                             (setq-local local-abbrev-table nil)
