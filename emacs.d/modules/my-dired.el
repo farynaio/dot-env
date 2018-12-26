@@ -68,6 +68,9 @@
   (windmove-right)
   (dired-jump))
 
-(add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode +1)))
+(add-hook 'dired-mode-hook
+  (lambda ()
+    (dired-hide-details-mode 1)
+    (hl-line-mode 1)))
 
 (provide 'my-dired)
