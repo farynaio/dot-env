@@ -7,6 +7,7 @@
 
 [commit]
   cleanup = default
+  status = false
 
 [core]
   attributesFile = ~/.gitattributes_global
