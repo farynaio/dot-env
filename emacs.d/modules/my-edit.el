@@ -151,6 +151,8 @@ $0`(yas-escape-text yas-selected-text)`")
   save-some-buffers-default-predicate t
   help-window-select t)
 
+(modify-syntax-entry ?_ "w")
+
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
