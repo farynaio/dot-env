@@ -71,6 +71,8 @@
                                       (when (fboundp 'evil-exit-visual-state)
                                         (evil-exit-visual-state))))
 
+    ;; (add-to-list 'evil-overriding-maps 'ediff-mode-map)
+
     (evil-set-initial-state 'eshell-mode 'emacs)
     (evil-set-initial-state 'profiler-report-mode 'emacs)
 
@@ -86,12 +88,15 @@
     (add-to-list 'evil-emacs-state-modes 'woman-mode)
     (add-to-list 'evil-emacs-state-modes 'help-mode)
     (add-to-list 'evil-emacs-state-modes 'debugger-mode)
-    (add-to-list 'evil-emacs-state-modes 'ediff-mode)
+    ;; (add-to-list 'evil-emacs-state-modes 'ediff-mode)
     (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
     (add-to-list 'evil-emacs-state-modes 'epa-key-mode)
     (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
     (add-to-list 'evil-emacs-state-modes 'xref--xref-buffer-mode)
     (add-to-list 'evil-emacs-state-modes 'erc-mode)
+
+    ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
+    ;; (setq evil-emacs-state-modes nil)
 
     (evil-declare-change-repeat 'company-complete)
 
@@ -137,9 +142,9 @@
       "s-TAB" 'backward-button
       "TAB" 'forward-button)
 
-    (evil-define-key 'normal ediff-mode-map
-      "[c" 'ediff-next-difference
-      "]c" 'ediff-previous-difference)
+    ;; (evil-define-key 'normal ediff-mode-map
+    ;;   "[c" 'ediff-next-difference
+    ;;   "]c" 'ediff-previous-difference)
 
     (evil-define-key '(normal motion visual) elpy-mode-map
       "M-." 'xref-find-definitions

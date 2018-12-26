@@ -1,5 +1,6 @@
 (require 'tramp)
 (require 'recentf)
+(require 'ediff)
 
 (eval-after-load 'recentf
   '(progn
@@ -266,13 +267,68 @@ to invalidate."
     (evil-make-overriding-map undo-tree-map 'motion)
     ))
 
-(eval-after-load 'ediff
-  '(progn
-     (setq ediff-window-setup-function 'ediff-setup-windows-plain
-       ediff-forward-word-function 'forward-char
-       ediff-use-toolbar-p nil)
-     (add-hook 'ediff-before-setup-hook 'new-frame)
-     (add-hook 'ediff-quit-hook 'delete-frame)))
+(setq
+  ediff-window-setup-function 'ediff-setup-windows-plain
+  ediff-forward-word-function 'forward-char)
+
+(setq ediff-split-window-function
+  (if (> (frame-width) 150)
+		'split-window-horizontally
+		'split-window-vertically))
+
+(add-hook 'ediff-before-setup-hook 'new-frame)
+(add-hook 'ediff-quit-hook 'delete-frame)
+
+;; Bring back window configuration after ediff quits
+(defvar my-ediff-bwin-config nil "Window configuration before ediff.")
+(defcustom my-ediff-bwin-reg ?b
+  "*Register to be set up to hold `my-ediff-bwin-config'
+    configuration.")
+
+(defvar my-ediff-awin-config nil "Window configuration after ediff.")
+(defcustom my-ediff-awin-reg ?e
+  "*Register to be used to hold `my-ediff-awin-config' window
+    configuration.")
+
+(defun my-ediff-bsh ()
+  "Function to be called before any buffers or window setup for
+    ediff."
+  (setq my-ediff-bwin-config (current-window-configuration))
+  (when (characterp my-ediff-bwin-reg)
+    (set-register my-ediff-bwin-reg
+		  (list my-ediff-bwin-config (point-marker)))))
+
+(defun my-ediff-ash ()
+  "Function to be called after buffers and window setup for ediff."
+  (setq my-ediff-awin-config (current-window-configuration))
+  (when (characterp my-ediff-awin-reg)
+    (set-register my-ediff-awin-reg
+		  (list my-ediff-awin-config (point-marker)))))
+
+(defun my-ediff-qh ()
+  "Function to be called when ediff quits."
+  (when my-ediff-bwin-config
+    (set-window-configuration my-ediff-bwin-config)))
+
+(add-hook 'ediff-load-hook
+	  (lambda ()
+	    (add-hook 'ediff-before-setup-hook
+		      (lambda ()
+			      (setq ediff-saved-window-configuration (current-window-configuration))))
+	    (let ((restore-window-configuration
+		          (lambda ()
+		            (set-window-configuration ediff-saved-window-configuration))))
+	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
+	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
+
+(add-hook 'ediff-startup-hook
+	  (lambda ()
+	    (select-frame-by-name "Ediff")
+	    (set-frame-size(selected-frame) 40 10)))
+
+(add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
+(add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
+(add-hook 'ediff-quit-hook 'my-ediff-qh)
 
 (set-register ?m (cons 'file "/ssh:root@77.55.218.117:/var/www"))
 (set-register ?a (cons 'file "/ssh:root@77.55.219.47:/root"))
