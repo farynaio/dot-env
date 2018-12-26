@@ -307,24 +307,15 @@
 
 (defhydra hydra-git ()
   "git"
-  ;; ("b" #'hydra-git-blame/body "blame" :exit t)
-  ("g" #'magit-blame-popup "blame")
+  ("g" #'magit-blame "blame")
+  ("e" #'magit-ediff-popup "ediff")
   ("s" #'magit-status "status")
   ("c" #'magit-checkout "checkout")
   ("b" #'magit-branch-popup "branch")
   ("d" #'magit-diff-popup "diff")
   ("t" #'magit-stash-popup "stash")
-  ("f" #'hydra-git-file/body "file" :exit t))
-
-(defhydra hydra-git-file ()
-  "git file"
-  ("l" #'magit-log-buffer-file "show file log")
-  ("c" #'magit-file-checkout "checkout file"))
-
-(defhydra hydra-git-blame ()
-  "git blame"
-  ("o" #'magit-blame "on")
-  ("f" #'magit-blame-mode "off"))
+  ("l" #'magit-log-popup "log")
+  ("f" #'magit-log-buffer-file-popup "file log"))
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
@@ -477,6 +468,19 @@
       magit-diff-paint-whitespace nil
       magit-diff-hide-trailing-cr-characters t)
 
+    (setq magit-blame-styles
+      '(
+         (margin
+           (margin-format " %s%f" " %C %a" " %H")
+           (margin-width . 42)
+           (margin-face . magit-blame-margin)
+           (margin-body-face magit-blame-dimmed))
+         (headings
+          (heading-format . "%-20a %C %s
+"))))
+
+    (add-to-list 'magit-blame-disable-modes 'evil-mode)
+
     (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "{"   #'evil-backward-paragraph magit-mode-map)
@@ -486,8 +490,9 @@
     (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
     (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
 
-    (add-hook 'magit-git-mode-hook (lambda () (interactive) (read-only-mode nil)))
-    (add-hook 'magit-status-mode-hook (lambda () (interactive) (save-some-buffers t)))
+    (add-hook 'magit-ediff-quit-hook 'delete-frame)
+    (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
+    (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
   ))
 
 (setq vc-follow-symlinks t)
