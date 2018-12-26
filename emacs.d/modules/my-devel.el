@@ -141,10 +141,12 @@
 (add-hook 'js-mode-hook
   (lambda ()
     (js2-refactor-mode 1)
-    (rainbow-delimiters-mode 1)
-    (add-hook 'js2-mode-hook (lambda ()
-                               (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
-                               (evil-local-set-key 'normal (kbd ",r")  #'hydra-js-refactoring/body)))))
+    (rainbow-delimiters-mode 1)))
+
+(add-hook 'js2-mode-hook
+  (lambda ()
+    (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
+    (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)))
 
 (use-package lsp-mode
   :config
@@ -310,6 +312,7 @@
   ("s" #'magit-status "status")
   ("c" #'magit-checkout "checkout")
   ("b" #'magit-branch-popup "branch")
+  ("d" #'magit-diff-popup "diff")
   ("t" #'magit-stash-popup "stash")
   ("f" #'hydra-git-file/body "file" :exit t))
 
@@ -471,8 +474,8 @@
     (setq
       magit-completing-read-function 'ivy-completing-read
       magit-item-highlight-face 'bold
-      ;; magit-repo-dirs-depth 1
-      )
+      magit-diff-paint-whitespace nil
+      magit-diff-hide-trailing-cr-characters t)
 
     (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
@@ -488,61 +491,6 @@
   ))
 
 (setq vc-follow-symlinks t)
-;; VCS / git
-(setq ediff-split-window-function (if (> (frame-width) 150)
-				      'split-window-horizontally
-				    'split-window-vertically))
-
-;; Bring back window configuration after ediff quits
-(defvar my-ediff-bwin-config nil "Window configuration before ediff.")
-(defcustom my-ediff-bwin-reg ?b
-  "*Register to be set up to hold `my-ediff-bwin-config'
-    configuration.")
-
-(defvar my-ediff-awin-config nil "Window configuration after ediff.")
-(defcustom my-ediff-awin-reg ?e
-  "*Register to be used to hold `my-ediff-awin-config' window
-    configuration.")
-
-(defun my-ediff-bsh ()
-  "Function to be called before any buffers or window setup for
-    ediff."
-  (setq my-ediff-bwin-config (current-window-configuration))
-  (when (characterp my-ediff-bwin-reg)
-    (set-register my-ediff-bwin-reg
-		  (list my-ediff-bwin-config (point-marker)))))
-
-(defun my-ediff-ash ()
-  "Function to be called after buffers and window setup for ediff."
-  (setq my-ediff-awin-config (current-window-configuration))
-  (when (characterp my-ediff-awin-reg)
-    (set-register my-ediff-awin-reg
-		  (list my-ediff-awin-config (point-marker)))))
-
-(defun my-ediff-qh ()
-  "Function to be called when ediff quits."
-  (when my-ediff-bwin-config
-    (set-window-configuration my-ediff-bwin-config)))
-
-(add-hook 'ediff-load-hook
-	  (lambda ()
-	    (add-hook 'ediff-before-setup-hook
-		      (lambda ()
-			(setq ediff-saved-window-configuration (current-window-configuration))))
-	    (let ((restore-window-configuration
-		   (lambda ()
-		     (set-window-configuration ediff-saved-window-configuration))))
-	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
-	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
-(add-hook 'ediff-startup-hook
-	  (lambda ()
-	    (select-frame-by-name "Ediff")
-	    (set-frame-size(selected-frame) 40 10)))
-(add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
-(add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
-(add-hook 'ediff-quit-hook 'my-ediff-qh)
-
-;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-mode))
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
 (setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py" "el.gz"))
@@ -560,32 +508,32 @@
             )
           )))) t)
 
-;; (setq c-basic-offset 2)
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (make-variable-buffer-local 'company-backends)
+    (add-to-list 'company-backends 'company-gtags t)
+    (add-to-list 'company-backends 'company-etags t)
+    (add-to-list 'company-backends 'company-keywords)
+    (hl-todo-mode 1)
+    (auto-highlight-symbol-mode 1)
+    (rainbow-mode 1)
+    (abbrev-mode -1)
+    (setq-local local-abbrev-table nil)
+    ))
 
-;; TODO modify-syntax-entry - _ for css group of modes
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq-local tab-width 4)
+    (setq python-indent-offset 4)
+    ))
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (make-variable-buffer-local 'company-backends)
-                            (add-to-list 'company-backends 'company-gtags t)
-                            (add-to-list 'company-backends 'company-etags t)
-                            (add-to-list 'company-backends 'company-keywords)
-                            (hl-todo-mode 1)
-                            (auto-highlight-symbol-mode 1)
-                            (rainbow-mode 1)
-                            (abbrev-mode -1)
-                            (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
-                            (setq-local local-abbrev-table nil)
-                            ))
+(add-hook 'conf-space-mode-hook
+  (lambda ()
+    (setq-local tab-width 4)
+    (setq-local c-basic-offset 2)
+    (setq-local indent-line-function #'insert-tab)
+    (setq-local indent-tabs-mode t)))
 
-(add-hook 'python-mode-hook (lambda ()
-                              (setq-local tab-width 4)
-                              (setq python-indent-offset 4)
-                              ))
-(add-hook 'conf-space-mode-hook (lambda ()
-                                  (setq-local tab-width 4)
-                                  (setq-local c-basic-offset 2)
-                                  (setq-local indent-line-function #'insert-tab)
-                                  (setq-local indent-tabs-mode t)))
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (setq mode-name "elisp")

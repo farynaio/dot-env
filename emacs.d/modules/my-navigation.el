@@ -21,7 +21,10 @@
 (setq password-cache-expiry nil)
 
 (use-package anzu
-  :diminish (anzu-mode . ""))
+  :diminish (anzu-mode . "")
+  :config
+  (progn
+    (global-anzu-mode 1)))
 
 (use-package drag-stuff
   :diminish (drag-stuff-mode . "")
