@@ -607,6 +607,16 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
+  ("a" "Waiting" entry (file+headline ,my/org-active-file-path "Tasks")
+"* WAITING %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+
   ("u" "Review" entry (file ,my/org-review-file-path)
 "* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
