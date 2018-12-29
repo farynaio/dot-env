@@ -313,7 +313,7 @@
   ("c" #'magit-checkout "checkout")
   ("b" #'magit-branch-popup "branch")
   ("d" #'magit-diff-popup "diff")
-  ("t" #'magit-stash-popup "stash")
+  ("z" #'magit-stash-popup "stash")
   ("l" #'magit-log-popup "log")
   ("f" #'magit-log-buffer-file-popup "file log"))
 
