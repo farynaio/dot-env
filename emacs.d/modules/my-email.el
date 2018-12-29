@@ -14,7 +14,9 @@
   gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject ; is it needed?
   ;; gnus-use-adaptive-scoring t
   gnus-inhibit-slow-scoring "^nntp[+:]"
-  gnus-agent nil
+  ;; gnus-agent nil
+  gnus-use-correct-string-widths nil
+  gnus-check-new-newsgroups nil
   gnus-asynchronous t
   gnus-message-archive-group nil
   gnus-use-cache t ; cache everything
@@ -101,10 +103,17 @@
     ;; (,evil-mu4e-state mu4e-main-mode-map "b"               mu4e-headers-search-bookmark)
     ;; (,evil-mu4e-state mu4e-main-mode-map "B"               mu4e-headers-search-bookmark-edit)
 
+     (unbind-key "g" mu4e-view-mode-map)
+
      ;; view
      (bind-key "<tab>"      #'shr-next-link                            mu4e-view-mode-map)
      (bind-key "<backtab>"  #'shr-previous-link                        mu4e-view-mode-map)
      (bind-key "k"          #'shr-maybe-probe-and-copy-url             mu4e-view-mode-map)
+     (bind-key "/"          #'evil-search-forward                      mu4e-view-mode-map)
+     (bind-key "G"          #'end-of-buffer                            mu4e-view-mode-map)
+     (bind-key "gg"         #'beginning-of-buffer                      mu4e-view-mode-map)
+     (bind-key "}"          #'forward-paragraph                        mu4e-view-mode-map)
+     (bind-key "{"          #'backward-paragraph                       mu4e-view-mode-map)
 
      ;; headers
      (bind-key "RET"        #'mu4e-headers-view-message                mu4e-headers-mode-map)
@@ -133,6 +142,10 @@
      (bind-key "s"          #'mu4e-headers-search                      mu4e-headers-mode-map)
      (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
      (bind-key "U"          #'mu4e-update-mail-and-index               mu4e-headers-mode-map)
+     (bind-key "n"          #'evil-search-next                         mu4e-headers-mode-map)
+     (bind-key "p"          #'evil-search-previous                     mu4e-headers-mode-map)
+     (bind-key "/"          #'evil-search-forward                      mu4e-headers-mode-map)
+
 
      (setq send-mail-function 'smtpmail-send-it)
 
@@ -169,14 +182,25 @@
        smtpmail-queue-dir "~/Maildir/queue/cur")
 
      (setq
-       shr-color-visible-luminance-min 80)
+       shr-inhibit-images t
+       shr-use-colors nil
+       shr-use-fonts nil
+       shr-color-visible-distance-min 80
+       shr-color-visible-luminance-min 5)
 
      (setq
+       mu4e-user-mail-address-list '("adamfaryna@gmail.com" "adamfaryna@appdy.co.uk")
        mu4e-compose-context-policy 'ask
-       mu4e-view-prefer-html t
-       mu4e-view-html-plaintext-ratio-heuristic 5
-       mu4e-update-interval 900
+       mu4e-view-prefer-html nil
+       mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
+       ;; mu4e-view-html-plaintext-ratio-heuristic 5
+       ;; mu4e-update-interval 900
        mu4e-compose-in-new-frame nil
+       mu4e-html2text-command 'mu4e-shr2text
+       ;; mu4e-html2text-command "w3m -dump -dump_extra -T text/html"
+       mu4e-headers-results-limit 100
+       mu4e-cache-maildir-list t
+       mu4e-compose-dont-reply-to-self t
        mu4e-headers-include-related t
        mu4e-view-show-addresses t
        mu4e-view-show-images t
