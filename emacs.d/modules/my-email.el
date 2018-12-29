@@ -181,6 +181,7 @@
        mu4e-user-mail-address-list '("adamfaryna@gmail.com" "adamfaryna@appdy.co.uk")
        mu4e-compose-context-policy 'ask
        mu4e-view-prefer-html t
+       mu4e-confirm-quit nil
        mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
        ;; mu4e-view-html-plaintext-ratio-heuristic 5
        ;; mu4e-update-interval 900
