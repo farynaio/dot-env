@@ -45,25 +45,6 @@
   starttls-extra-arguments nil
   starttls-use-gnutls t)
 
-(if (executable-find "w3m")
-  (use-package w3m
-    :config (progn
-              (setq
-                w3m-default-display-inline-images t
-                w3m-use-cookies t
-                mm-text-html-renderer 'w3m
-                w3m-coding-system 'utf-8
-                w3m-file-coding-system 'utf-8
-                w3m-file-name-coding-system 'utf-8
-                w3m-input-coding-system 'utf-8
-                w3m-output-coding-system 'utf-8
-                w3m-terminal-coding-system 'utf-8)
-
-              (if (string= system-type "darwin")
-                (setq process-connection-type nil))
-              ))
-  (message (concat "Executable 'w3m' not found!")))
-
 (add-hook 'gnus-summary-mode-hook (lambda ()
                                     (local-set-key "y" 'gmail-archive)
                                     (local-set-key "$" 'gmail-report-spam)))
@@ -114,6 +95,10 @@
      (bind-key "gg"         #'beginning-of-buffer                      mu4e-view-mode-map)
      (bind-key "}"          #'forward-paragraph                        mu4e-view-mode-map)
      (bind-key "{"          #'backward-paragraph                       mu4e-view-mode-map)
+     (bind-key "v"          #'set-mark-command                         mu4e-view-mode-map)
+     (bind-key "y"          #'evil-yank                                mu4e-view-mode-map)
+     (bind-key "w"          #'evil-forward-word-begin                  mu4e-view-mode-map)
+     (bind-key "b"          #'evil-backward-word-begin                 mu4e-view-mode-map)
 
      ;; headers
      (bind-key "RET"        #'mu4e-headers-view-message                mu4e-headers-mode-map)
@@ -135,6 +120,8 @@
      (bind-key "U"          #'mu4e-mark-unmark-all                     mu4e-headers-mode-map)
      (bind-key "["          #'mu4e-headers-prev-unread                 mu4e-headers-mode-map)
      (bind-key "]"          #'mu4e-headers-next-unread                 mu4e-headers-mode-map)
+     (bind-key "G"          #'end-of-buffer                            mu4e-headers-mode-map)
+     (bind-key "gg"         #'beginning-of-buffer                      mu4e-headers-mode-map)
      (bind-key "l"          #'mu4e-show-log                            mu4e-headers-mode-map)
      (bind-key "I"          #'mu4e-headers-toggle-include-related      mu4e-headers-mode-map)
      (bind-key "T"          #'mu4e-headers-toggle-threading            mu4e-headers-mode-map)
@@ -143,9 +130,11 @@
      (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
      (bind-key "U"          #'mu4e-update-mail-and-index               mu4e-headers-mode-map)
      (bind-key "n"          #'evil-search-next                         mu4e-headers-mode-map)
-     (bind-key "p"          #'evil-search-previous                     mu4e-headers-mode-map)
+     (bind-key "N"          #'evil-search-previous                     mu4e-headers-mode-map)
      (bind-key "/"          #'evil-search-forward                      mu4e-headers-mode-map)
-
+     (bind-key "*"          #'evil-search-word-forward                 mu4e-headers-mode-map)
+     (bind-key "#"          #'evil-search-word-backward                mu4e-headers-mode-map)
+     (bind-key "x"          #'my/mu4e-mark-execute-all-no-confirm      mu4e-headers-mode-map)
 
      (setq send-mail-function 'smtpmail-send-it)
 
@@ -191,7 +180,7 @@
      (setq
        mu4e-user-mail-address-list '("adamfaryna@gmail.com" "adamfaryna@appdy.co.uk")
        mu4e-compose-context-policy 'ask
-       mu4e-view-prefer-html nil
+       mu4e-view-prefer-html t
        mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
        ;; mu4e-view-html-plaintext-ratio-heuristic 5
        ;; mu4e-update-interval 900
@@ -259,6 +248,11 @@ This moves them into the All Mail folder."
 This moves them into the Spam folder."
   (interactive)
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
+
+(defun my/mu4e-mark-execute-all-no-confirm ()
+  "Execute all marks without confirmation."
+  (interactive)
+  (mu4e-mark-execute-all 'no-confirm))
 
 (defalias 'mu #'mu4e)
 
