@@ -217,6 +217,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-d"      #'evil-scroll-down          org-agenda-mode-map)
      (bind-key "C-u"      #'evil-scroll-up            org-agenda-mode-map)
      (bind-key "s-t"      #'make-frame-command        org-agenda-mode-map)
+     (bind-key "n"        #'evil-search-next          org-agenda-mode-map)
+     (bind-key "N"        #'evil-search-previous      org-agenda-mode-map)
+     (bind-key "*"        #'evil-search-word-forward  org-agenda-mode-map)
 
      (add-hook 'org-agenda-mode-hook
        (lambda ()
