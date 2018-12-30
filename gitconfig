@@ -137,6 +137,8 @@
   sd = stash show -p
   mt = mergetool
   dt = difftool
+  parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
+
 [user]
 	name = Adam Faryna
 	email = adamfaryna@appdy.net
