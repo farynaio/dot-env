@@ -7,6 +7,8 @@
   dired-recursive-deletes 'always)
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
+(bind-key "n" #'evil-search-next                         dired-mode-map)
+(bind-key "N" #'evil-search-previous                     dired-mode-map)
 
 ; (eval-after-load 'sunrise-commander
 ;   '(progn
