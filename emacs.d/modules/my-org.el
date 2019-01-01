@@ -571,7 +571,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :TYPE: %^{What type: |AUDIO|ARTICLE|BOOK|MOVIE|PODCAST}
-:WHERE: %^{Where do I have it: |none|cloud|kindle|audible}
+:WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book}
 :EFFORT: %^{What effort: |short|medium|big}
 :RECOMMENDED: %^{Who recommended: }
 :END:
