@@ -373,6 +373,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   org-export-with-smart-quotes t ; could cause problems on babel export
   )
 
+(setq org-archive-reversed-order t)
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
 (setq org-enforce-todo-dependencies t)
@@ -474,7 +475,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :END:"
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("s" "Business Idea" entry+headline (file ,my/org-ideas-file-path "New")
+  ("s" "Business Idea" entry (file ,my/org-ideas-file-path)
 "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
@@ -744,6 +745,7 @@ Blood type/flavour: %^{Blood type: }
 
 (setq my/org-active-projects (list
                                my/org-project-setup-digital-agency
+                               my/org-project-setup-career-it-blog
 
                                ;; my/org-project-launch-amazon-business
                                ;; my/org-project-become-confident-pua
