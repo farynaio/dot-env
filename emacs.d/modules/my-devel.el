@@ -494,15 +494,15 @@
     (bind-key "C-u" #'evil-scroll-up          magit-mode-map)
     (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
     (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
+    (bind-key "/"   #'evil-search-forward     magit-revision-mode-map)
+    (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
+    (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
 
     (add-hook 'magit-ediff-quit-hook 'delete-frame)
     (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
     (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
   ))
 
-    (bind-key "/"   #'evil-search-forward     magit-revision-mode-map)
-    (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
-    (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
 (setq vc-follow-symlinks t)
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
@@ -552,12 +552,12 @@
     (setq mode-name "elisp")
     (setq-local c-basic-offset 2)))
 
-(setq c-basic-offset 'set-from-style)
-
 (eval-after-load 'prog-mode
   '(progn
     (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
      ))
+
+(setq c-basic-offset 'set-from-style)
 
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
 
