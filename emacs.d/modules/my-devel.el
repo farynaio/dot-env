@@ -313,8 +313,9 @@
   "git"
   ("g" #'magit-blame "blame")
   ("e" #'magit-ediff-popup "ediff")
+  ("c" #'vc-resolve-conflicts "conflicts")
   ("s" #'magit-status "status")
-  ("c" #'magit-checkout "checkout")
+  ("o" #'magit-checkout "checkout")
   ("b" #'magit-branch-popup "branch")
   ("d" #'magit-diff-popup "diff")
   ("z" #'magit-stash-popup "stash")
