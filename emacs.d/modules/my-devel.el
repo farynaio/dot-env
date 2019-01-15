@@ -495,6 +495,9 @@
     (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
   ))
 
+    (bind-key "/"   #'evil-search-forward     magit-revision-mode-map)
+    (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
+    (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
 (setq vc-follow-symlinks t)
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
