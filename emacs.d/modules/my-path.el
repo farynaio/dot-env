@@ -21,7 +21,7 @@
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-agenda-directory))
 
-(setq my/org-ideas-file-path (expand-file-name "ideas.org" my/org-topics-directory))
+(setq my/org-ideas-file-path (expand-file-name "ideas.org.gpg" my/org-topics-directory))
 (setq my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org" org-directory))
@@ -48,6 +48,7 @@
 (setq my/org-project-launch-amazon-business (expand-file-name "launch_amazon_business.org.gpg" my/org-projects-folder))
 (setq my/org-project-switch-to-self-accounting (expand-file-name "switch_to_self_accounting.org.gpg" my/org-projects-folder))
 (setq my/org-project-change-hosting-provider (expand-file-name "change_hosting_provider.org.gpg" my/org-projects-folder))
+(setq my/org-project-launch-diy-app (expand-file-name "launch_diy_app.org.gpg" my/org-projects-folder))
 
 (setq my/org-ledger-base-path (expand-file-name "ledger" my/org-base-path))
 (setq my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")

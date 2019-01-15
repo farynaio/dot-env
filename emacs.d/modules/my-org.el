@@ -746,7 +746,7 @@ Blood type/flavour: %^{Blood type: }
 (setq my/org-active-projects (list
                                my/org-project-setup-digital-agency
                                my/org-project-setup-career-it-blog
-
+                               my/org-project-launch-diy-app
                                ;; my/org-project-launch-amazon-business
                                ;; my/org-project-become-confident-pua
                                ;; my/org-project-trip-edinburgh
@@ -1052,10 +1052,6 @@ should be continued."
 (eval-after-load 'org-diet
   '(progn
      (setq org-diet-file my/org-diet-log-file-path)))
-
-(add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
-(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
