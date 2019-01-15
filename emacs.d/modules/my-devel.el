@@ -41,6 +41,7 @@
 (use-package js2-mode
   :config
   (progn
+    ;; (modify-syntax-entry ?_ "w" js2-mode-syntax-table)
     (setq js2-strict-inconsistent-return-warning nil)))
 
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
@@ -131,6 +132,7 @@
 
 (eval-after-load 'css-mode
   '(progn
+     ;; (modify-syntax-entry ?_ "w" css-mode-syntax-table)
      (add-hook 'css-mode-hook
        (lambda ()
          (add-to-list 'company-backends 'company-css)
@@ -165,6 +167,8 @@
   (progn
     (add-hook 'typescript-mode-hook
       (lambda ()
+    ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
+
         (lsp)
         (make-variable-buffer-local 'company-backends)
         (add-to-list 'company-backends 'company-lsp t)))))
@@ -548,6 +552,11 @@
     (setq-local c-basic-offset 2)))
 
 (setq c-basic-offset 'set-from-style)
+
+(eval-after-load 'prog-mode
+  '(progn
+    (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
+     ))
 
 (bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
 
