@@ -133,6 +133,11 @@
                          ) t) "\\b")
       artbollocks-jargon nil)))
 
+(defhydra hydra-japanese ()
+  "Japanese"
+  ("k" #'japanese-katakana-region "katakana")
+  ("h" #'japanese-hiragana-region "hiragana"))
+
 (add-hook 'text-mode-hook 'abbrev-mode)
 
 (provide 'my-writing)
