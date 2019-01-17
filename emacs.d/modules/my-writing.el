@@ -8,12 +8,6 @@
      (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
      (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
      (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
-
-     (when (executable-find "aspell")
-       (dolist (hook '(text-mode-hook))
-         (add-hook hook (lambda () (flyspell-prog-mode 1))))
-       (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-         (add-hook hook (lambda () (flyspell-prog-mode -1)))))
      ))
 
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))

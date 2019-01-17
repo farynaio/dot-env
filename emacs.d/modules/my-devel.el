@@ -525,6 +525,8 @@
 (add-hook 'prog-mode-hook
   (lambda ()
     (make-variable-buffer-local 'company-backends)
+    (setq-local local-abbrev-table nil)
+
     (add-to-list 'company-backends 'company-gtags t)
     (add-to-list 'company-backends 'company-etags t)
     (add-to-list 'company-backends 'company-keywords)
@@ -532,7 +534,9 @@
     (auto-highlight-symbol-mode 1)
     (rainbow-mode 1)
     (abbrev-mode -1)
-    (setq-local local-abbrev-table nil)
+
+     (when (executable-find "aspell")
+       (flyspell-prog-mode))
     ))
 
 (add-hook 'python-mode-hook
