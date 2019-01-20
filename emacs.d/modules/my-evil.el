@@ -104,6 +104,7 @@
     (evil-declare-change-repeat 'company-complete)
 
     (evil-make-overriding-map epa-key-mode-map 'motion)
+    (evil-make-overriding-map epa-key-mode-map 'state)
     (evil-make-overriding-map epa-key-mode-map 'normal)
 
     (evil-define-key '(motion normal) org-mode-map
