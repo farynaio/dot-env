@@ -171,7 +171,13 @@
     (evil-define-key 'normal prog-mode-map
       (kbd ", c") #'flycheck-mode)
 
-    (defalias #'forward-evil-word #'forward-evil-symbol)))
+    (defalias #'forward-evil-word #'forward-evil-symbol)
+
+    (add-hook #'evil-insert-state-entry-hook
+      (lambda ()
+        (when current-input-method
+          (deactivate-input-method))))
+    ))
 
 (use-package evil-surround
   :config
