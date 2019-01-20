@@ -420,13 +420,6 @@
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
-(electric-pair-mode 1)
-(setq my/electric-pair-pairs '(
-                            (?\" . ?\")
-                            (?\{ . ?\})
-                            (?\( . ?\))))
-(setq electric-pair-text-pairs my/electric-pair-pairs)
-
 (use-package php-mode
   :config
   (progn
@@ -507,20 +500,6 @@
 (setq vc-follow-symlinks t)
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
-(setq devel-buffers '("js" "jsx" "vim" "json" "java" "inc" "phtml" "php" "css" "scss" "html" "md" "xml" "rb" "el" "py" "el.gz"))
-
-(add-hook 'find-file-hook
-  (lambda ()
-    (let* ((found nil)
-            (buf-name (file-name-extension buffer-file-name) ))
-	    (dolist (i devel-buffers)
-	      (if (string= buf-name i)
-          (progn
-            ;; (hl-todo-mode 1)
-            ;; (auto-highlight-symbol-mode 1)
-            ;; (rainbow-mode 1)
-            )
-          )))) t)
 
 (add-hook 'prog-mode-hook
   (lambda ()
