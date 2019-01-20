@@ -151,6 +151,14 @@ $0`(yas-escape-text yas-selected-text)`")
   save-some-buffers-default-predicate t
   help-window-select t)
 
+(setq electric-pair-text-pairs
+  '(
+     (?\" . ?\")
+     (?\{ . ?\})
+     (?\( . ?\))))
+
+(setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
+
 (modify-syntax-entry ?_ "w")
 
 (when (fboundp 'imagemagick-register-types)
@@ -362,6 +370,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-company-mode 1)
 ;; (global-emojify-mode 1)
 (delete-selection-mode 1)
+(electric-pair-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
