@@ -77,6 +77,7 @@
     (evil-set-initial-state 'eshell-mode 'emacs)
     (evil-set-initial-state 'profiler-report-mode 'emacs)
     (evil-set-initial-state 'help-mode 'emacs)
+    (evil-set-initial-state 'woman-mode 'emacs)
 
     (add-to-list 'evil-emacs-state-modes 'eshell-mode)
     (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
@@ -87,7 +88,7 @@
     (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
     (add-to-list 'evil-emacs-state-modes 'mu4e-org-mode)
-    (add-to-list 'evil-emacs-state-modes 'woman-mode)
+    ;; (add-to-list 'evil-emacs-state-modes 'woman-mode)
     ;; (add-to-list 'evil-emacs-state-modes 'help-mode)
     (add-to-list 'evil-emacs-state-modes 'debugger-mode)
     ;; (add-to-list 'evil-emacs-state-modes 'ediff-mode)
