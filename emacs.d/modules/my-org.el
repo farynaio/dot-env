@@ -169,6 +169,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
 
+     (unbind-key "C-'" org-mode-map)
+
      (define-key org-mode-map [remap backward-paragraph] nil)
      (define-key org-mode-map [remap forward-paragraph] nil)
 
