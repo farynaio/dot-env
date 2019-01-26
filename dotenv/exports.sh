@@ -14,6 +14,7 @@ export MU_HOME="~/Maildir"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/bin"
 export NODE_PATH=$NODE_PATH:$NPM_PACKAGES/lib/node_modules
+export LEDGER_FILE="/Users/devil/Dropbox/emacs/ledger/private.ledger.gpg"
 
 if [[ -e $HOME/bin ]]; then
   export PATH="$HOME/bin:$PATH"
