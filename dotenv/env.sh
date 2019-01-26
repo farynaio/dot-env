@@ -17,19 +17,17 @@ checkport() {
 }
 
 if [[ -z $USER_NAME ]]; then
-  echo "No $USER_NAME provided!"
+  echo "No USER_NAME provided!"
 else
   git config --global user.name "$USER_NAME"
 fi
 
 if [[ -z $EMAIL ]]; then
-  echo "No $EMAIL provided!"
+  echo "No EMAIL provided!"
 else
   git config --global user.email "$EMAIL"
 fi
 
-if [[ -z $SIGNING_KEY ]]; then
-  echo "No $SIGNING_KEY provided!"
-else
+if [[ -n $SIGNING_KEY ]]; then
   git config --global user.signingkey "$SIGNING_KEY"
 fi
