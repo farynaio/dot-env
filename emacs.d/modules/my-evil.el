@@ -4,7 +4,9 @@
     (setq
       evil-want-fine-undo t
       evil-want-C-u-scroll t
-      evil-want-C-i-jump nil))
+      evil-want-C-i-jump nil
+      evil-search-module 'evil-search
+      ))
   :config
   (progn
     (evil-mode 1)
