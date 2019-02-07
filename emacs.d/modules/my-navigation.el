@@ -1,6 +1,7 @@
 (require 'tramp)
 (require 'recentf)
 (require 'ediff)
+(require 'help)
 
 (eval-after-load 'recentf
   '(progn
@@ -8,6 +9,13 @@
 
 (setq recentf-max-saved-items 200
   recentf-max-menu-items 15)
+
+(eval-after-load 'help
+  '(progn
+     (bind-key "v" #'set-mark-command help-mode-map)
+     (bind-key "C-w =" #'balance-windows help-mode-map)
+     (bind-key "n" #'evil-search-next help-mode-map)
+     (bind-key "N" #'evil-search-previous help-mode-map)))
 
 (eval-after-load 'tramp
   '(progn
