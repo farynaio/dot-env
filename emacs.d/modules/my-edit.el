@@ -160,6 +160,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
 
 (modify-syntax-entry ?_ "w")
+(modify-syntax-entry ?- "w")
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
@@ -355,7 +356,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c n"           #'git-gutter:next-hunk)
 (bind-key "C-s"             #'evil-search-forward) ;; counsel-grep
 
-(bind-key "/"               #'evil-search-forward       help-mode-map)
+(bind-key "C-w q"           #'evil-quit)
 
 (unbind-key "C-M-i" emacs-lisp-mode-map)
 

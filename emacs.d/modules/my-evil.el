@@ -1,3 +1,5 @@
+(require help)
+
 (use-package evil
   :init
   (progn
@@ -39,6 +41,7 @@
     (bind-key ", i"    #'hydra-snippet/body                  evil-normal-state-map)
     (bind-key ", p"    #'hydra-projectile/body               evil-normal-state-map)
     (bind-key ", j"    #'hydra-japanese/body                 evil-visual-state-map)
+    (bind-key ", /"    #'evil-ex-nohighlight                 evil-normal-state-map)
     (bind-key "C-w"    #'evil-delete-char                    evil-visual-state-map)
     (bind-key "h"      #'evil-first-non-blank                evil-normal-state-map)
     (bind-key "h"      #'evil-first-non-blank                evil-visual-state-map)

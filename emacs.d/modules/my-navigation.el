@@ -12,10 +12,11 @@
 
 (eval-after-load 'help
   '(progn
-     (bind-key "v" #'set-mark-command help-mode-map)
-     (bind-key "C-w =" #'balance-windows help-mode-map)
-     (bind-key "n" #'evil-search-next help-mode-map)
-     (bind-key "N" #'evil-search-previous help-mode-map)))
+     (bind-key "/"          #'evil-search-forward       help-mode-map)
+     (bind-key "v"          #'set-mark-command          help-mode-map)
+     (bind-key "C-w ="      #'balance-windows           help-mode-map)
+     (bind-key "n"          #'evil-search-next          help-mode-map)
+     (bind-key "N"          #'evil-search-previous      help-mode-map)))
 
 (eval-after-load 'tramp
   '(progn
