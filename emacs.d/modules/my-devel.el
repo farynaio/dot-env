@@ -304,11 +304,6 @@
   ("t" #'tern-find-definition-by-name "find JS definition by name"))
 ;; (define-key tern-mode-keymap [(control ?c) (control ?r)] 'tern-rename-variable)
 
-(defhydra hydra-language ()
-  "Languages"
-  ("s" #'flyspell-mode "flyspell-mode toggle")
-  ("d" #'my/lang-toggle "language toggle"))
-
 (defhydra hydra-git ()
   "git"
   ("g" #'magit-blame "blame")

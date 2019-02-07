@@ -27,13 +27,13 @@
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
-    (bind-key ", d"    #'hydra-language/body                 evil-normal-state-map)
+    (bind-key ", w"    #'hydra-writting/body                 evil-normal-state-map)
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
     (bind-key ", x t"  #'delete-frame                        evil-normal-state-map)
     (bind-key ", c d"  #'my/copy-file-name                   evil-normal-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-visual-state-map)
     (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
-    (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
+    ;; (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
     (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
     (bind-key ", cd"   #'my/copy-file-name-to-clipboard      evil-normal-state-map)
     (bind-key ", i"    #'hydra-snippet/body                  evil-normal-state-map)
@@ -59,6 +59,8 @@
     (bind-key "<up>"   #'evil-previous-visual-line           evil-motion-state-map)
     (bind-key "]c"     #'git-gutter:next-hunk                evil-normal-state-map)
     (bind-key "[c"     #'git-gutter:previous-hunk            evil-normal-state-map)
+    (bind-key "[l"     #'langtool-goto-previous-error        evil-normal-state-map)
+    (bind-key "]l"     #'langtool-goto-next-error            evil-normal-state-map)
     (bind-key "C-n"    #'company-next-page                   evil-insert-state-map)
     (bind-key "C-p"    #'company-previous-page               evil-insert-state-map)
     (bind-key "]e"     #'next-error                          evil-normal-state-map)
@@ -139,12 +141,10 @@
       "H" #'org-mime-htmlize)
 
     (evil-define-key 'normal flyspell-mode-map
-      "[s" 'flyspell-goto-next-error
-      "]s" 'flyspell-goto-next-error)
-
-      "]s" 'flyspell-goto-next-error
-      "]l" 'langtool-goto-previous-error
-      "]l" 'langtool-goto-next-error)
+      ;; (kbd "[s") 'flyspell-goto-next-error
+      ;; (kbd "]s") 'flyspell-goto-next-error
+      (kbd "[l") #'langtool-goto-previous-error
+      (kbd "]l") #'langtool-goto-next-error)
 
     ;; (evil-define-key '(motion normal) help-mode-map
     ;;   "l" 'help-go-back

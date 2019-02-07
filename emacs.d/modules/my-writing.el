@@ -1,5 +1,6 @@
 (require 'text-mode)
 (require 'flyspell)
+(require 'smart-quotes)
 
 (eval-after-load 'flyspell
   '(progn
@@ -97,7 +98,6 @@
 (add-to-list 'safe-local-variable-values '(ispell-dictionary . "pl"))
 (add-to-list 'safe-local-variable-values '(ispell-dictionary . "en"))
 
-
 (defun my/lang-toggle ()
   "Toggle language modes."
   (interactive)
@@ -131,6 +131,14 @@
   "Japanese"
   ("k" #'japanese-katakana-region "katakana")
   ("h" #'japanese-hiragana-region "hiragana"))
+
+(defhydra hydra-writting ()
+  "Spellcheck"
+  ("s" #'flyspell-mode "flyspell toggle")
+  ("q" #'smart-quotes-mode "smart quotes toggle")
+  ("t" #'my/lang-toggle "language toggle")
+  ("c" #'langtool-check-buffer "langtool check")
+  ("d" #'langtool-check-done "langtool done"))
 
 (add-hook 'text-mode-hook 'abbrev-mode)
 
