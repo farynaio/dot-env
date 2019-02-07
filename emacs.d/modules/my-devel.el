@@ -308,11 +308,13 @@
   "git"
   ("g" #'magit-blame "blame")
   ("e" #'magit-ediff-popup "ediff")
-  ("c" #'vc-resolve-conflicts "conflicts")
+  ;; ("c" #'vc-resolve-conflicts "conflicts") ;; this could be better -> magit?
+  ;; ("b" #'magit-bisect-popup "bisect") ;; find a commit that introduces the bug
   ("s" #'magit-status "status")
   ("o" #'magit-checkout "checkout")
   ("b" #'magit-branch-popup "branch")
   ("d" #'magit-diff-popup "diff")
+  ("h" #'magit-diff-buffer-file "diff file")
   ("z" #'magit-stash-popup "stash")
   ("l" #'magit-log-popup "log")
   ("f" #'magit-log-buffer-file-popup "file log"))
@@ -460,6 +462,7 @@
       magit-completing-read-function 'ivy-completing-read
       magit-item-highlight-face 'bold
       magit-diff-paint-whitespace nil
+      magit-ediff-dwim-show-on-hunks t
       magit-diff-hide-trailing-cr-characters t)
 
     (setq magit-blame-styles
@@ -487,7 +490,7 @@
     (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
     (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
 
-    (add-hook 'magit-ediff-quit-hook 'delete-frame)
+    ;; (add-hook 'magit-ediff-quit-hook 'delete-frame)
     (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
     (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
   ))
