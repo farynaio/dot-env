@@ -4,7 +4,9 @@
   dired-dwim-target t
   dired-use-ls-diredto nil
   dired-recursive-copies 'always
-  dired-recursive-deletes 'always)
+  dired-recursive-deletes 'always
+  dired-listing-switches "-alh"
+  )
 
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 (bind-key "n" #'evil-search-next                         dired-mode-map)
