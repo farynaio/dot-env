@@ -135,7 +135,9 @@
 
 (eval-after-load 'css-mode
   '(progn
-     ;; (modify-syntax-entry ?_ "w" css-mode-syntax-table)
+     (modify-syntax-entry ?- "w" css-mode-syntax-table)
+     (modify-syntax-entry ?- "w" scss-mode-syntax-table)
+
      (add-hook 'css-mode-hook
        (lambda ()
          (add-to-list 'company-backends 'company-css)
