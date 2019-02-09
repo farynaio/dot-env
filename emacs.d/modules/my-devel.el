@@ -91,7 +91,10 @@
       (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
-(use-package jade-mode)
+(use-package jade-mode
+  :config
+  (progn
+    (add-hook 'jade-mode-hook 'auto-highlight-symbol-mode)))
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
