@@ -16,7 +16,14 @@
      (bind-key "v"          #'set-mark-command          help-mode-map)
      (bind-key "C-w ="      #'balance-windows           help-mode-map)
      (bind-key "n"          #'evil-search-next          help-mode-map)
-     (bind-key "N"          #'evil-search-previous      help-mode-map)))
+     (bind-key "N"          #'evil-search-previous      help-mode-map)
+     (bind-key "w"          #'evil-forward-word-begin   help-mode-map)
+     (bind-key "e"          #'evil-forward-word-end     help-mode-map)
+     (bind-key "E"          #'evil-forward-WORD-end     help-mode-map)
+     (bind-key "b"          #'evil-backward-word-begin  help-mode-map)
+     (bind-key "B"          #'evil-backward-WORD-begin  help-mode-map)
+     (bind-key "y"          #'evil-yank                 help-mode-map)
+     ))
 
 (eval-after-load 'tramp
   '(progn
