@@ -28,6 +28,7 @@
     (bind-key ", n"    #'minimap-mode                        evil-normal-state-map)
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
+    (bind-key ", f"    #'my/rgrep                            evil-visual-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
     (bind-key ", w"    #'hydra-writting/body                 evil-normal-state-map)
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
