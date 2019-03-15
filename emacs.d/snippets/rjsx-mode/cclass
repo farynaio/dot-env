@@ -2,10 +2,11 @@
 # key: cclass
 # condition: (looking-back "^cclass" nil)
 # --
-import React, { Component } from "react"
+import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 
-class $1 extends Component {
+
+class $1 extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -22,9 +23,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)($1)
+export default connect(mapStateToProps)($1)
