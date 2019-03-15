@@ -41,7 +41,8 @@
   :diminish (anzu-mode . "")
   :config
   (progn
-    (global-anzu-mode 1)))
+    (global-anzu-mode 1)
+    (bind-key "M-%" #'anzu-query-replace-regexp)))
 
 (use-package drag-stuff
   :diminish (drag-stuff-mode . "")

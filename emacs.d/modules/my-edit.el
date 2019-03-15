@@ -343,7 +343,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-<"             #'mc/mark-previous-like-this)
 (bind-key "C-c C-<"         #'mc/mark-all-like-this)
 (bind-key "s-u"             #'air-revert-buffer-noconfirm)
-(bind-key "M-%"             #'query-replace-regexp)
 (bind-key "C-c j"           #'org-clock-goto) ;; jump to current task from anywhere
 (bind-key "C-c C-o"         #'org-open-at-point-global)
 (bind-key "C-c c"           #'org-capture)
