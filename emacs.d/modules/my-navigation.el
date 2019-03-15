@@ -237,6 +237,9 @@
     projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :config
   (progn
+    (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
+    ;; (setq projectile-generic-command "fd . -0")
+    (setq projectile-tags-command "ctags -R -e .")
     (setq projectile-track-known-projects-automatically nil)
     (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
     (add-to-list 'projectile-globally-ignored-directories '"node-modules")
@@ -269,11 +272,10 @@ to invalidate."
       (message "Invalidated Projectile cache for %s."
                (propertize project-root 'face 'font-lock-keyword-face)))))
 
-(use-package counsel-projectile
-  :config
-  (progn
-    (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
-    (counsel-projectile-mode 1)))
+;; (use-package counsel-projectile
+;;   :config
+;;   (progn
+;;     (counsel-projectile-mode 1)))
 
 (use-package undo-tree
   :diminish (undo-tree-mode . "")
@@ -284,6 +286,11 @@ to invalidate."
     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
     (evil-make-overriding-map undo-tree-map 'motion)
     ))
+
+(use-package ag
+  :config
+  (progn
+    (setq ag-reuse-buffers 't)))
 
 (setq
   ediff-window-setup-function 'ediff-setup-windows-plain
