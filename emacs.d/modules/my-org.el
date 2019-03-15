@@ -168,6 +168,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<S-tab>"       #'my/outline-hide-subtree             org-mode-map)
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
+     ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
 
      (unbind-key "C-'" org-mode-map)
 

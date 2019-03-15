@@ -150,6 +150,10 @@
       (kbd "[l") #'langtool-goto-previous-error
       (kbd "]l") #'langtool-goto-next-error)
 
+    (evil-define-key 'normal org-mode-map
+      (kbd "<tab>") #'org-cycle
+      (kbd "TAB")   #'org-cycle)
+
     ;; (evil-define-key '(motion normal) help-mode-map
     ;;   "l" 'help-go-back
     ;;   "r" 'help-go-forward
