@@ -159,8 +159,10 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
 
-(modify-syntax-entry ?_ "w")
-(modify-syntax-entry ?- "w")
+(add-hook 'after-change-major-mode-hook
+  (lambda ()
+    (modify-syntax-entry ?_ "w")
+    (modify-syntax-entry ?- "w")))
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
