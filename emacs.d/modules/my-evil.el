@@ -204,6 +204,8 @@
   (progn
     (global-evil-visualstar-mode)))
 
+(use-package evil-anzu)
+
 (evil-declare-change-repeat 'company-complete)
 
 (provide 'my-evil)
