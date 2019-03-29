@@ -59,7 +59,7 @@
 (setq my/ctags-path "/usr/local/bin/ctags")
 
 (unless (executable-find my/ctags-path)
-  (message concat "Warning no ctags available!"))
+  (message (concat "Warning no ctags available!")))
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()
