@@ -11,6 +11,10 @@
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 (bind-key "n" #'evil-search-next                         dired-mode-map)
 (bind-key "N" #'evil-search-previous                     dired-mode-map)
+(bind-key "<" #'beginning-of-buffer                      dired-mode-map)
+(bind-key ">" #'end-of-buffer                            dired-mode-map)
+(bind-key "n" #'evil-ex-search-next                      dired-mode-map)
+(bind-key "N" #'evil-ex-search-previous                  dired-mode-map)
 
 ; (eval-after-load 'sunrise-commander
 ;   '(progn
