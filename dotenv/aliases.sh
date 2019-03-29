@@ -22,6 +22,7 @@ alias mc=". /usr/local/Cellar/midnight-commander/4.8.20/libexec/mc/mc-wrapper.sh
 alias f="/usr/local/bin/zsh "
 alias g="git "
 alias y="yarn "
+alias z="zsh "
 # alias f="fish -l"
 # alias subl="mvim +NERDTree "
 # alias tmux="TERM=screen-256color-bce tmux -2 a || tmux new "
