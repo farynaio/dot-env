@@ -357,8 +357,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (bind-key "C-c n"           #'git-gutter:next-hunk)
 (bind-key "C-s"             #'evil-search-forward) ;; counsel-grep
 
-(bind-key "C-w q"           #'evil-quit)
-
 (unbind-key "C-M-i" emacs-lisp-mode-map)
 
 (defalias 'qcalc #'quick-calc)
