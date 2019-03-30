@@ -6,7 +6,6 @@
 (require 'sql)
 (require 'comint)
 (require 'gud)
-(require 'epa)
 ;; (require 'git-rebase)
 (require 'prog-mode)
 (require 'vc-git)
@@ -366,12 +365,6 @@
 
 (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
 (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
-
-(eval-after-load 'epa
-  '(progn
-     (evil-make-overriding-map epa-key-mode-map 'motion)
-     (evil-make-overriding-map epa-key-mode-map 'normal)
-     ))
 
 (use-package elpy
   :config

@@ -2,12 +2,9 @@
 (require 're-builder)
 (require 'grep)
 (require 'inc-dec-at-point)
-(require 'epa-file)
-(require 'epg-config)
 (require 'hippie-exp)
 (require 'calendar)
 (require 'reftex)
-(require 'epa)
 
 (setq-default mode-require-final-newline nil)
 
@@ -124,9 +121,6 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; 					(setq wgrep-enable-key "r")))))
 
 (set-language-environment "UTF-8")
-
-(epa-file-enable)
-(setq epa-file-cache-passphrase-for-symmetric-encryption t)
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 

@@ -103,6 +103,7 @@
 (require 'my-irc)
 (require 'my-theme)
 (require 'my-shell)
+(require 'my-encrypt)
 (require 'my-cleanup)
 
 (when (file-exists-p my/local-config-file-path)
