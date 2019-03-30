@@ -4,7 +4,12 @@
 
 (eval-after-load 'epa
   '(progn
-     (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+     (setenv "GPG_AGENT_INFO" nil)
+
+     (setq
+       epa-pinentry-mode 'loopback
+       epa-file-cache-passphrase-for-symmetric-encryption t
+       )
 
      (epa-file-enable)
      (evil-make-overriding-map epa-key-mode-map 'motion)
