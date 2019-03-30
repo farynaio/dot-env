@@ -37,6 +37,8 @@ if which rbenv > /dev/null; then
   export PATH="$HOME/.rbenv/shims:$PATH"
 fi
 
+export GPG_TTY=$(tty)
+
 # export PAGER="/usr/bin/less -isM -F -X +Gg $LESS"
 # export MANPAGER=$PAGER
 # export GIT_PAGER=$PAGER
