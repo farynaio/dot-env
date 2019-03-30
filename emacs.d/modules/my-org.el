@@ -484,7 +484,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 0 :kill-buffer t)
+:prepend t :empty-lines-after 0 :kill-buffer nil)
 
   ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
 "* CAL-IN Diet in [%<%Y-%m-%d %a>]
