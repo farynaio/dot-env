@@ -95,7 +95,7 @@
   find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
   rl = reflog --pretty=format:\"%Cred%h%Creset %C(auto)%gd%Creset %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset\" --abbrev-commit
   # lf = log -u
-  a = add
+  a = add --all
   ap = add --all -p
   dl = "!git ll -1" # diff last commit
   dr  = "!f() { git diff "$1"^.."$1"; }; f " # show diff of the revision
