@@ -478,7 +478,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :END:"
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("s" "Business Idea" entry (file ,my/org-ideas-file-path)
+  ("s" "Business Idea" entry (file+headline ,my/org-ideas-file-path "Ideas")
 "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
