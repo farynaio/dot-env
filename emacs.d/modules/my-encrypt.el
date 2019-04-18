@@ -4,9 +4,10 @@
 
 (eval-after-load 'epa
   '(progn
-     (setenv "GPG_AGENT_INFO" nil)
+     ;; (setenv "GPG_AGENT_INFO" nil)
 
      (setq
+       epa-file-encrypt-to "adamfaryna@gmail.com"
        epa-pinentry-mode 'loopback
        epa-file-cache-passphrase-for-symmetric-encryption t
        )

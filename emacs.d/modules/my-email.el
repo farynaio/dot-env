@@ -1,4 +1,5 @@
 (defvar my/mu4e-local-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e")
+(require 'smtpmail)
 
 (if (file-directory-p my/mu4e-local-path)
   (progn
@@ -167,6 +168,7 @@
        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
        smtpmail-queue-mail nil
        smtpmail-smtp-service 587
+       ;; smtpmail-stream-type 'starttls
        smtpmail-stream-type 'ssl
        smtpmail-queue-dir "~/Maildir/queue/cur")
 

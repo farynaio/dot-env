@@ -13,6 +13,7 @@
 (require 'conf-mode)
 (require 'ruby-mode)
 (require 'dns-mode)
+(require 'company-graphql)
 
 ;; (use-package mmm-mode
 ;;   :config
@@ -152,7 +153,8 @@
 (add-hook 'js2-mode-hook
   (lambda ()
     (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
-    (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)))
+    (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)
+    ))
 
 (use-package lsp-mode
   :config
@@ -169,13 +171,14 @@
 (use-package typescript-mode
   :config
   (progn
-    (add-hook 'typescript-mode-hook
-      (lambda ()
     ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
-        (lsp)
-        (make-variable-buffer-local 'company-backends)
-        (add-to-list 'company-backends 'company-lsp t)))))
+    (add-hook 'typescript-mode-hook
+      (lambda ()
+        ;; (lsp)
+        ;; (make-variable-buffer-local 'company-backends)
+        ;; (add-to-list 'company-backends 'company-lsp t)
+        ))))
 
 (eval-after-load 'gud
   '(progn
@@ -228,12 +231,17 @@
 (use-package prettier-js
   :config
   (progn
-    (setq prettier-js-args '(
-                              "--no-semi" "false"
-                              "--trailing-comma" "none"
-                              "--bracket-spacing" "false"
-                              "--jsx-bracket-same-line" "true"
-                              ))))
+    (setq prettier-js-args
+      '(
+         "--no-semi" "false"
+         "--trailing-comma" "none"
+         "--bracket-spacing" "true"
+         "--jsx-bracket-same-line" "true"
+         ))
+
+    (add-hook 'js2-mode-hook (lambda ()))
+
+    ))
 
 (use-package rjsx-mode
   :config
@@ -444,6 +452,8 @@
   (lambda ()
     (emmet-mode 1)))
 
+(use-package graphql-mode)
+
 (defun my/toggle-php-flavor-mode ()
   (interactive)
   "Toggle mode between PHP & Web-Mode Helper modes"
@@ -502,9 +512,13 @@
     (make-variable-buffer-local 'company-backends)
     (setq-local local-abbrev-table nil)
 
+    (add-to-list 'company-backends 'company-graphql t)
     (add-to-list 'company-backends 'company-gtags t)
     (add-to-list 'company-backends 'company-etags t)
     (add-to-list 'company-backends 'company-keywords)
+
+    (setq-local company-backends (delete 'company-dabbrev company-backends))
+
     (hl-todo-mode 1)
     (auto-highlight-symbol-mode 1)
     (rainbow-mode 1)

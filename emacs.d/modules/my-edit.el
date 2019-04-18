@@ -5,6 +5,8 @@
 (require 'hippie-exp)
 (require 'calendar)
 (require 'reftex)
+(require 'flyspell)
+(require 'face-remap)
 
 (setq-default mode-require-final-newline nil)
 
@@ -67,6 +69,8 @@ $0`(yas-escape-text yas-selected-text)`")
   :diminish company-mode
   :config
   (progn
+    (global-company-mode 1)
+
     (setq
       company-show-numbers t
       company-tooltip-align-annotations t
@@ -194,8 +198,69 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; 		 (add-to-list 'grep-find-ignored-directories "lisp")
 ;; 		 (add-to-list 'grep-find-ignored-directories "tools"))
 
-(setq
-  bookmark-save-flag t)
+;; (add-hook 'minibuffer-inactive-mode-hook
+;;   (lambda ()
+;;     (message (buffer-name (current-buffer)))
+;;     ))
+
+;; (advice-add 'text-scale-adjust )
+
+(defun my/quail-setup-overlays-advice (orig-fun &rest args)
+  (let ((res (apply orig-fun args))
+         (buf-guidence (get-buffer " *Quail-guidance*"))
+         (buf-completions (get-buffer "*Quail Completions*")))
+	  ;; (overlay-put quail-overlay 'display 'underline)
+	  ;; (overlay-put quail-conv-overlay 'display 'underline)
+
+    (dolist
+      (buf (list buf-guidence buf-completions))
+      (when (bufferp buf)
+        ;; (message (buffer-name buf))
+        (with-current-buffer buf
+          (set (make-local-variable 'face-remapping-alist)
+            `((default :height 3))))))
+    res))
+
+;; (advice-add 'quail-setup-overlays :after #'my/quail-setup-overlays-advice)
+;; (advice-add 'quail-show-guidance :around #'my/quail-setup-overlays-advice)
+
+(defun my/list-frames (orig-fun &rest args)
+  (let ((res (apply orig-fun args)))
+    (message "here")
+    (frame-list)
+    (res))
+  )
+
+;; (advice-add 'quail-make-guidance-frame :around #'my/list-frames)
+
+(defun my/minibuffer-setup ()
+  (let* (
+          ;; (buf (buffer-name (window-buffer (minibuffer-selected-window))))
+          (buf (window-buffer (minibuffer-selected-window)))
+          (amount (buffer-local-value 'text-scale-mode-amount buf))
+          (amount-new
+            (cond
+              ((= amount 1) 1)
+              ((= amount 0) 1)
+              ((> amount 1) (* 0.75 amount))
+              ((<= amount 0) 1))))
+
+    (set (make-local-variable 'face-remapping-alist)
+      `((default :height ,(float amount-new))))
+    ))
+
+;; (add-hook 'minibuffer-setup-hook 'my/minibuffer-setup)
+
+    ;; (dolist
+      ;; (buf (list "*Quail Completions*" "*code-conversion-work*" " *code-conversion-work*" " *Minibuf-0*" " *Minibuf-1*" " *Echo Area 0*" " *Echo Area 1*"))
+      ;; (when (get-buffer buf)
+
+    ;; (when (string= (buffer-name buf) "*Quail Completions*") ;; " *Minibuf-0*" " *Minibuf-1*" " *Echo Area 0*" " *Echo Area 1*")
+      ;; (with-current-buffer buf
+      ;; (setq-local face-remapping-alist '((default (:height 1))))))))
+
+
+(setq bookmark-save-flag t)
 
 ;; (use-package company-emoji
 ;;   :config
@@ -310,7 +375,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (defvar mu4e:view-mode-map (make-sparse-keymap))
 (defvar mu4e-headers-mode-map (make-sparse-keymap))
 (defvar mu4e-compose-mode-map (make-sparse-keymap))
-(defvar flyspell-mode-map (make-sparse-keymap))
+;; (defvar flyspell-mode-map (make-sparse-keymap))
 (defvar elpy-mode-map (make-sparse-keymap))
 (defvar js2-mode-map (make-sparse-keymap))
 (defvar eshell-mode-map (make-sparse-keymap))
@@ -359,7 +424,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-auto-revert-mode 1)
 (show-paren-mode 1)
 (global-visual-line-mode 1)
-(global-company-mode 1)
 ;; (global-emojify-mode 1)
 (delete-selection-mode 1)
 (electric-pair-mode 1)
@@ -374,5 +438,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (when window-system (tool-bar-mode -1))
+
+(add-to-list 'same-window-buffer-names "*SQL*")
 
 (provide 'my-edit)

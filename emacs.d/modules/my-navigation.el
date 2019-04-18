@@ -23,6 +23,8 @@
      (bind-key "b"          #'evil-backward-word-begin  help-mode-map)
      (bind-key "B"          #'evil-backward-WORD-begin  help-mode-map)
      (bind-key "y"          #'evil-yank                 help-mode-map)
+     (bind-key "gg"         #'evil-goto-first-line      help-mode-map)
+     (bind-key "G"          #'evil-goto-line            help-mode-map)
      ))
 
 (eval-after-load 'tramp
@@ -242,6 +244,9 @@
     (setq projectile-tags-command "ctags -R -e .")
     (setq projectile-track-known-projects-automatically nil)
     (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
+
+    (projectile-global-mode 1)
+
     (add-to-list 'projectile-globally-ignored-directories '"node-modules")
     (add-to-list 'projectile-globally-ignored-directories '"dist")
     (add-to-list 'projectile-globally-ignored-directories '"target")
@@ -296,12 +301,12 @@ to invalidate."
   ediff-window-setup-function 'ediff-setup-windows-plain
   ediff-forward-word-function 'forward-char)
 
-(setq ediff-split-window-function
-  (if (> (frame-width) 150)
-		'split-window-horizontally
-		'split-window-vertically))
+;; (setq ediff-split-window-function
+;;   (if (> (frame-width) 150)
+;; 		'split-window-horizontally
+;; 		'split-window-vertically))
 
-(add-hook 'ediff-before-setup-hook 'new-frame)
+;; (add-hook 'ediff-before-setup-hook 'new-frame)
 (add-hook 'ediff-quit-hook 'delete-frame)
 
 ;; Bring back window configuration after ediff quits
@@ -335,25 +340,25 @@ to invalidate."
   (when my-ediff-bwin-config
     (set-window-configuration my-ediff-bwin-config)))
 
-(add-hook 'ediff-load-hook
-	  (lambda ()
-	    (add-hook 'ediff-before-setup-hook
-		      (lambda ()
-			      (setq ediff-saved-window-configuration (current-window-configuration))))
-	    (let ((restore-window-configuration
-		          (lambda ()
-		            (set-window-configuration ediff-saved-window-configuration))))
-	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
-	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
+;; (add-hook 'ediff-load-hook
+;; 	  (lambda ()
+;; 	    (add-hook 'ediff-before-setup-hook
+;; 		      (lambda ()
+;; 			      (setq ediff-saved-window-configuration (current-window-configuration))))
+;; 	    (let ((restore-window-configuration
+;; 		          (lambda ()
+;; 		            (set-window-configuration ediff-saved-window-configuration))))
+;; 	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
+;; 	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
 
-(add-hook 'ediff-startup-hook
-	  (lambda ()
-	    (select-frame-by-name "Ediff")
-	    (set-frame-size(selected-frame) 40 10)))
+;; (add-hook 'ediff-startup-hook
+;; 	  (lambda ()
+;; 	    (select-frame-by-name "Ediff")
+;; 	    (set-frame-size(selected-frame) 40 10)))
 
-(add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
-(add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
-(add-hook 'ediff-quit-hook 'my-ediff-qh)
+;; (add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
+;; (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
+;; (add-hook 'ediff-quit-hook 'my-ediff-qh)
 
 (set-register ?m (cons 'file "/ssh:root@77.55.218.117:/var/www"))
 (set-register ?a (cons 'file "/ssh:root@77.55.219.47:/root"))
