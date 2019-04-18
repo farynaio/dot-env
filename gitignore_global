@@ -11,3 +11,5 @@ coverage
 .#*
 #*
 dist/
+.env.development
+.env.production
