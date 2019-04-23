@@ -560,6 +560,13 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 
 - Achieved
   -
+
+- people
+  -
+
+- knowledge
+  -
+
 "
 :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
