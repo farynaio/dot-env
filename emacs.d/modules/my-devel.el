@@ -144,8 +144,21 @@
 
 (eval-after-load 'js
   '(progn
+     (setq js-indent-level 2)
      (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
-     (setq js-indent-level 2)))
+     (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
+
+     (add-hook 'js-mode-hook
+       (lambda ()
+         (add-hook 'before-save-hook
+           (lambda ()
+             (save-excursion
+               (indent-region (point-min) (point-max))
+               (untabify (point-min) (point-max))
+               )
+             ) nil t)
+         ))
+     ))
 
 (eval-after-load 'css-mode
   '(progn
@@ -154,8 +167,10 @@
 
      (add-hook 'css-mode-hook
        (lambda ()
+         ;; (flycheck-mode -1)
          (add-to-list 'company-backends 'company-css)
-         ))))
+         ) nil t)
+     ))
 
 (use-package xref-js2)
 
@@ -169,6 +184,13 @@
     (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
     (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)
     ))
+
+(if (executable-find "eslint_d")
+  (use-package eslintd-fix
+    :config
+    (progn
+      (add-hook 'js2-mode-hook #'eslintd-fix-mode)))
+  (message "No executable 'eslint_d' found"))
 
 (use-package lsp-mode
   :config
@@ -204,7 +226,7 @@
   :diminish js2-refactor-mode
   :config
   (progn
-     (bind-key "C-k" #'js2r-kill js2-mode-map)))
+    (bind-key "C-k" #'js2r-kill js2-mode-map)))
 
 ;; (use-package tern
 ;;   :config
@@ -222,9 +244,9 @@
   (progn
     (add-hook 'tide-mode-hook
       (lambda ()
-                (add-to-list 'company-backends 'company-tide)
-                (add-hook 'before-save-hook 'tide-format-before-save nil t)
-                ))
+        (add-to-list 'company-backends 'company-tide)
+        (add-hook 'before-save-hook 'tide-format-before-save nil t)
+        ))
 
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
@@ -253,18 +275,17 @@
          "--jsx-bracket-same-line" "true"
          ))
 
-    (add-hook 'js2-mode-hook (lambda ()))
-
+    (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
     ))
 
 (use-package rjsx-mode
   :config
   (progn
     (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
-    (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
+    (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
 
+    ;; (add-hook 'rjsx-mode-hook #'prettier-js-mode)
     (add-hook 'rjsx-mode-hook (lambda ()
-                                ;; (prettier-js-mode -1)
                                 (setq-local emmet-expand-jsx-className? t)))))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
@@ -288,14 +309,14 @@
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
 
 ;; (use-package robe
-  ;; :config
-  ;; (progn
-  ;;   (add-hook 'robe-mode-hook (lambda ()
-                                ;; (robe-start)
-  ;;                               (make-variable-buffer-local 'company-backends)
-  ;;                               (add-to-list 'company-backends 'company-robe t)))
-  ;;   (add-hook 'ruby-mode-hook 'robe-mode)
-  ;;   ))
+;; :config
+;; (progn
+;;   (add-hook 'robe-mode-hook (lambda ()
+;; (robe-start)
+;;                               (make-variable-buffer-local 'company-backends)
+;;                               (add-to-list 'company-backends 'company-robe t)))
+;;   (add-hook 'ruby-mode-hook 'robe-mode)
+;;   ))
 ;; (use-package inf-ruby)
 
 (use-package projectile-rails
@@ -307,6 +328,18 @@
           (projectile-rails-on))))))
 
 (use-package vue-mode)
+
+(defhydra hydra-tide ()
+  "Tide"
+  ("i" #'tide-organize-imports "Organize imports")
+  ("r" #'tide-refactor "Refactor")
+  ("f" #'tide-fix "Fix")
+  ("r" #'tide-rename-file "Rename file")
+  ("e" #'tide-error-at-point "Error at point")
+  ("o" #'tide-references "References")
+  ("d" #'tide-documentation-at-point "Show docs")
+  ("x" #'tide-restart-server "Restart server")
+  )
 
 (defhydra hydra-projectile ()
   "Projectile"
@@ -374,9 +407,9 @@
   ("t" #'js2r-var-to-this "'var' which 'this'"))
 
 ;; (use-package guess-style
-  ;; :config
-  ;; (progn
-    ;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
+;; :config
+;; (progn
+;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
 
 (eval-after-load 'python
   '(progn
@@ -397,8 +430,8 @@
     (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
     ;; (setq
-      ;; python-shell-interpreter "python"
-      ;; python-shell-interpreter-args "-i")
+    ;; python-shell-interpreter "python"
+    ;; python-shell-interpreter-args "-i")
 
     (bind-key "C-c C-l"   #'elpy-occur-definitions                  elpy-mode-map)
     (bind-key "C-c C-e"   #'elpy-multiedit-python-symbol-at-point   elpy-mode-map)
@@ -416,12 +449,12 @@
 
 (eval-after-load 'git-rebase
   '(progn
-      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
+     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
 
 (use-package git-commit
   :config
   (progn
-      (setq git-commit-style-convention-checks nil)))
+    (setq git-commit-style-convention-checks nil)))
 
 (use-package git-gutter
   :diminish git-gutter-mode
@@ -470,9 +503,9 @@
   "Toggle mode between PHP & Web-Mode Helper modes."
   (interactive)
   (cond ((string= major-mode "php-mode")
-         (web-mode))
-        ((string= major-mode "web-mode")
-         (php-mode))))
+          (web-mode))
+    ((string= major-mode "web-mode")
+      (php-mode))))
 
 (use-package magit
   :diminish magit-auto-revert-mode
@@ -493,7 +526,7 @@
            (margin-face . magit-blame-margin)
            (margin-body-face magit-blame-dimmed))
          (headings
-          (heading-format . "%-20a %C %s
+           (heading-format . "%-20a %C %s
 "))))
 
     (add-to-list 'magit-blame-disable-modes 'evil-mode)
@@ -513,7 +546,7 @@
     ;; (add-hook 'magit-ediff-quit-hook 'delete-frame)
     (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
     (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
-  ))
+    ))
 
 (setq vc-follow-symlinks t)
 
@@ -541,8 +574,8 @@
     (abbrev-mode -1)
 
 
-     (when (executable-find "aspell")
-       (flyspell-prog-mode))
+    (when (executable-find "aspell")
+      (flyspell-prog-mode))
     ) t)
 
 (add-hook 'python-mode-hook
@@ -617,11 +650,11 @@
   (interactive)
   (save-excursion
     (let ((beg (point-min))
-          (end (point-max)))
+           (end (point-max)))
       (if (and mark-active transient-mark-mode)
-          (progn
-            (setq beg (min (point) (mark)))
-            (setq end (max (point) (mark))))
+        (progn
+          (setq beg (min (point) (mark)))
+          (setq end (max (point) (mark))))
         (widen))
       (setq end (copy-marker end t))
       (goto-char beg)

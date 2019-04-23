@@ -37,8 +37,6 @@
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
     (bind-key ", x t"  #'delete-frame                        evil-normal-state-map)
     (bind-key ", c d"  #'my/copy-file-name                   evil-normal-state-map)
-    (bind-key ", t"    #'my/google-translate-at-point        evil-visual-state-map)
-    (bind-key ", t"    #'my/google-translate-at-point        evil-normal-state-map)
     ;; (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
     (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
     (bind-key ", cd"   #'my/copy-file-name-to-clipboard      evil-normal-state-map)
@@ -152,6 +150,9 @@
       (kbd "<tab>") #'org-cycle
       (kbd "TAB")   #'org-cycle)
 
+    (evil-define-key '(visual normal) org-mode-map
+      ",t"  #'my/google-translate-at-point)
+
     ;; (evil-define-key '(motion normal) help-mode-map
     ;;   "l" 'help-go-back
     ;;   "r" 'help-go-forward
@@ -171,14 +172,17 @@
       "M-," 'xref-pop-marker-stack)
 
     (evil-define-key 'normal web-mode-map
-      ", t" #'my/toggle-php-flavor-mode)
+      ",t" #'my/toggle-php-flavor-mode)
 
     (evil-define-key 'normal php-mode-map
-      ", t" #'my/toggle-php-flavor-mode)
+      ",t" #'my/toggle-php-flavor-mode)
 
     (evil-define-key 'normal prog-mode-map
-      ", c" #'flycheck-mode
-      ", e" #'flycheck-list-errors)
+      ",c" #'flycheck-mode
+      ",e" #'flycheck-list-errors)
+
+    (evil-define-key 'normal tide-mode-map
+      ",t" #'hydra-tide/body)
 
     (defalias #'forward-evil-word #'forward-evil-symbol)
 
