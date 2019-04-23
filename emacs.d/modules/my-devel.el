@@ -13,7 +13,7 @@
 (require 'conf-mode)
 (require 'ruby-mode)
 (require 'dns-mode)
-(require 'company-graphql)
+;; (require 'company-graphql)
 
 ;; (use-package mmm-mode
 ;;   :config
@@ -42,7 +42,10 @@
   :config
   (progn
     ;; (modify-syntax-entry ?_ "w" js2-mode-syntax-table)
-    (setq js2-strict-inconsistent-return-warning nil)))
+    (setq js2-strict-inconsistent-return-warning nil)
+
+    (add-hook 'js2-mode-hook #'emmet-mode)
+    ))
 
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
@@ -122,9 +125,20 @@
       flymake-phpcs-show-rule t
       flycheck-phpcs-standard "WordPress")
 
-    (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
-    (add-to-list 'flycheck-disabled-checkers 'javascript-jscs)
+    ;; (flycheck-add-next-checker 'javascript-tide 'append)
+    (flycheck-add-mode #'typescript-tslint #'tide-mode)
+    (flycheck-add-mode #'javascript-eslint #'js2-mode)
+
+    (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
     ))
+
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :config
+    (progn
+      (exec-path-from-shell-initialize)
+      )))
+
 ;; (use-package git-timemachine)
 (use-package web-beautify)
 
@@ -201,10 +215,6 @@
 
 ;; (use-package company-tern)
 
-(add-hook 'js2-mode-hook
-  (lambda ()
-    ;; (tern-mode 1)
-    (emmet-mode 1)))
 
 (use-package tide
   :diminish tide-mode
@@ -212,14 +222,18 @@
   (progn
     (add-hook 'tide-mode-hook
       (lambda ()
-        (add-to-list 'company-backends 'company-tide)))
+                (add-to-list 'company-backends 'company-tide)
+                (add-hook 'before-save-hook 'tide-format-before-save nil t)
+                ))
 
     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
-    (bind-key "C-c C-l"   #'tide-references                  tide-mode-map)
+    (bind-key "C-c C-l" #'tide-references tide-mode-map)
 
     (evil-make-overriding-map tide-references-mode-map 'motion)
     (evil-make-overriding-map tide-references-mode-map 'normal)
+
+    (add-hook 'js2-mode-hook #'tide-setup)
     ))
 
 (setq
@@ -392,7 +406,7 @@
     (bind-key "C-c C-r r" #'elpy-refactor                           elpy-mode-map)
 
     (elpy-enable)
-    (add-hook 'elpy-mode-hook 'flycheck-mode)
+    ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
     (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
     ))
@@ -446,17 +460,15 @@
       web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
       web-mode-code-indent-offset 2)
-    (bind-key "<backtab>" #'indent-relative web-mode-map)))
+    (bind-key "<backtab>" #'indent-relative web-mode-map))
 
-(add-hook #'web-mode-hook
-  (lambda ()
-    (emmet-mode 1)))
+  (add-hook #'web-mode-hook #'emmet-mode))
 
-(use-package graphql-mode)
+;; (use-package graphql-mode)
 
 (defun my/toggle-php-flavor-mode ()
+  "Toggle mode between PHP & Web-Mode Helper modes."
   (interactive)
-  "Toggle mode between PHP & Web-Mode Helper modes"
   (cond ((string= major-mode "php-mode")
          (web-mode))
         ((string= major-mode "web-mode")
@@ -512,21 +524,26 @@
     (make-variable-buffer-local 'company-backends)
     (setq-local local-abbrev-table nil)
 
-    (add-to-list 'company-backends 'company-graphql t)
+    ;; (add-to-list 'company-backends 'company-graphql t)
     (add-to-list 'company-backends 'company-gtags t)
     (add-to-list 'company-backends 'company-etags t)
     (add-to-list 'company-backends 'company-keywords)
 
     (setq-local company-backends (delete 'company-dabbrev company-backends))
 
+    (make-variable-buffer-local 'flycheck-check-syntax-automatically)
+    (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
+
+    (flycheck-mode 1)
     (hl-todo-mode 1)
     (auto-highlight-symbol-mode 1)
     (rainbow-mode 1)
     (abbrev-mode -1)
 
+
      (when (executable-find "aspell")
        (flyspell-prog-mode))
-    ))
+    ) t)
 
 (add-hook 'python-mode-hook
   (lambda ()
@@ -544,12 +561,12 @@
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (setq mode-name "elisp")
+    (flycheck-mode -1)
     (setq-local c-basic-offset 2)))
 
 (eval-after-load 'prog-mode
   '(progn
-    (modify-syntax-entry ?_ "w" prog-mode-syntax-table)
-     ))
+     (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 
 (setq c-basic-offset 'set-from-style)
 

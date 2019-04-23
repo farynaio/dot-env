@@ -27,10 +27,13 @@
     (bind-key ", m"    #'my/dired-jump-make-new-window       evil-normal-state-map)
     (bind-key ", n"    #'minimap-mode                        evil-normal-state-map)
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
-    (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
-    (bind-key ", f"    #'my/rgrep                            evil-visual-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
     (bind-key ", w"    #'hydra-writting/body                 evil-normal-state-map)
+    (bind-key ", i"    #'hydra-snippet/body                  evil-normal-state-map)
+    (bind-key ", p"    #'hydra-projectile/body               evil-normal-state-map)
+    (bind-key ", j"    #'hydra-japanese/body                 evil-visual-state-map)
+    (bind-key ", f"    #'my/rgrep                            evil-normal-state-map)
+    (bind-key ", f"    #'my/rgrep                            evil-visual-state-map)
     (bind-key ", x b"  #'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
     (bind-key ", x t"  #'delete-frame                        evil-normal-state-map)
     (bind-key ", c d"  #'my/copy-file-name                   evil-normal-state-map)
@@ -39,9 +42,6 @@
     ;; (bind-key ", d"    #'my/lang-toggle                      evil-normal-state-map)
     (bind-key ", a"    #'artbollocks-mode                    evil-normal-state-map)
     (bind-key ", cd"   #'my/copy-file-name-to-clipboard      evil-normal-state-map)
-    (bind-key ", i"    #'hydra-snippet/body                  evil-normal-state-map)
-    (bind-key ", p"    #'hydra-projectile/body               evil-normal-state-map)
-    (bind-key ", j"    #'hydra-japanese/body                 evil-visual-state-map)
     (bind-key ", /"    #'evil-ex-nohighlight                 evil-normal-state-map)
     (bind-key "C-w"    #'evil-delete-char                    evil-visual-state-map)
     (bind-key "h"      #'evil-first-non-blank                evil-normal-state-map)
@@ -171,13 +171,14 @@
       "M-," 'xref-pop-marker-stack)
 
     (evil-define-key 'normal web-mode-map
-      (kbd ", t") #'my/toggle-php-flavor-mode)
+      ", t" #'my/toggle-php-flavor-mode)
 
     (evil-define-key 'normal php-mode-map
-      (kbd ", t") #'my/toggle-php-flavor-mode)
+      ", t" #'my/toggle-php-flavor-mode)
 
     (evil-define-key 'normal prog-mode-map
-      (kbd ", c") #'flycheck-mode)
+      ", c" #'flycheck-mode
+      ", e" #'flycheck-list-errors)
 
     (defalias #'forward-evil-word #'forward-evil-symbol)
 
