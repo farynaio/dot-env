@@ -1,0 +1,4 @@
+# name: PHP error_log(var_dump())
+# key: errorld
+# --
+error_log('$1:' . var_dump($1));
