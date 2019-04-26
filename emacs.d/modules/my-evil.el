@@ -182,7 +182,9 @@
       ",e" #'flycheck-list-errors)
 
     (evil-define-key 'normal tide-mode-map
-      ",t" #'hydra-tide/body)
+      ",t" #'hydra-tide/body
+      "M-." #'tide-jump-to-implementation
+      "M-," #'tide-jump-back)
 
     (defalias #'forward-evil-word #'forward-evil-symbol)
 

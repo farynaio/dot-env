@@ -104,8 +104,7 @@
   :diminish emmet-mode
   :config
   (progn
-    (setq
-      emmet-self-closing-tag-style " /")
+    (setq emmet-self-closing-tag-style " /")
     (add-hook 'sgml-mode-hook 'emmet-mode)
     (add-hook 'css-mode-hook  'emmet-mode)
     (add-hook 'rjsx-mode-hook 'emmet-mode)))
@@ -484,6 +483,7 @@
 
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
@@ -572,7 +572,7 @@
     (auto-highlight-symbol-mode 1)
     (rainbow-mode 1)
     (abbrev-mode -1)
-
+    (flyspell-mode -1)
 
     (when (executable-find "aspell")
       (flyspell-prog-mode))
