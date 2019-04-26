@@ -63,7 +63,8 @@ $0`(yas-escape-text yas-selected-text)`")
   "Snippet"
   ("s" #'yas-insert-snippet "insert")
   ("n" #'yas-new-snippet "new")
-  ("e" #'yas-visit-snippet-file "edit"))
+  ("e" #'yas-visit-snippet-file "edit")
+  ("r" #'yas-reload-all "reload"))
 
 (use-package company
   :diminish company-mode
