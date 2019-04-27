@@ -513,10 +513,16 @@
   (progn
     (setq
       magit-completing-read-function 'ivy-completing-read
+      magit-refresh-status-buffer nil
       magit-item-highlight-face 'bold
       magit-diff-paint-whitespace nil
       magit-ediff-dwim-show-on-hunks t
       magit-diff-hide-trailing-cr-characters t)
+
+    (setq auto-revert-buffer-list-filter
+      'magit-auto-revert-repository-buffers-p)
+
+    (setq vc-handled-backends (delq 'Git vc-handled-backends))
 
     (setq magit-blame-styles
       '(
