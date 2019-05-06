@@ -28,6 +28,7 @@
     (bind-key ", n"    #'minimap-mode                        evil-normal-state-map)
     (bind-key ", g"    #'hydra-git/body                      evil-normal-state-map)
     (bind-key ", b"    #'hydra-buffer/body                   evil-normal-state-map)
+    (bind-key ", l"    #'sr-speedbar-toggle                  evil-normal-state-map)
     (bind-key ", w"    #'hydra-writting/body                 evil-normal-state-map)
     (bind-key ", i"    #'hydra-snippet/body                  evil-normal-state-map)
     (bind-key ", p"    #'hydra-projectile/body               evil-normal-state-map)
