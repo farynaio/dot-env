@@ -419,7 +419,6 @@
 --ignore-dir=dist
 --ignore-dir=target
 --ignore-dir=build
---ignore-dir=assets
 --ignore-dir=compiled
 --ignore-dir=.compiled
 --ignore-dir=docs
