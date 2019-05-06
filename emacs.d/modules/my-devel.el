@@ -595,6 +595,7 @@
     (make-variable-buffer-local 'flycheck-check-syntax-automatically)
     (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
+    (subword-mode 1)
     (flycheck-mode 1)
     (hl-todo-mode 1)
     (auto-highlight-symbol-mode 1)
