@@ -580,32 +580,31 @@
 
 (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
 
-(add-hook 'prog-mode-hook
-  (lambda ()
-    (make-variable-buffer-local 'company-backends)
-    (setq-local local-abbrev-table nil)
+(defun my/prog-mode-hook()
+  (make-variable-buffer-local 'company-backends)
 
-    ;; (add-to-list 'company-backends 'company-graphql t)
-    (add-to-list 'company-backends 'company-gtags t)
-    (add-to-list 'company-backends 'company-etags t)
-    (add-to-list 'company-backends 'company-keywords)
+  ;; (add-to-list 'company-backends 'company-graphql t)
+  (add-to-list 'company-backends 'company-gtags t)
+  (add-to-list 'company-backends 'company-etags t)
+  (add-to-list 'company-backends 'company-keywords)
 
-    (setq-local company-backends (delete 'company-dabbrev company-backends))
+  (setq-local company-backends (delete 'company-dabbrev company-backends))
 
-    (make-variable-buffer-local 'flycheck-check-syntax-automatically)
-    (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
+  (make-variable-buffer-local 'flycheck-check-syntax-automatically)
+  (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
-    (subword-mode 1)
-    (flycheck-mode 1)
-    (hl-todo-mode 1)
-    (auto-highlight-symbol-mode 1)
-    (rainbow-mode 1)
-    (abbrev-mode -1)
-    (flyspell-mode -1)
+  (flycheck-mode 1)
+  (hl-todo-mode 1)
+  (auto-highlight-symbol-mode 1)
+  (rainbow-mode 1)
+  (abbrev-mode -1)
+  (flyspell-mode -1)
 
-    (when (executable-find "aspell")
-      (flyspell-prog-mode))
-    ) t)
+  (when (executable-find "aspell")
+    (flyspell-prog-mode))
+  )
+
+(add-hook 'prog-mode-hook 'my/prog-mode-hook t)
 
 (add-hook 'python-mode-hook
   (lambda ()
@@ -625,10 +624,6 @@
     (setq mode-name "elisp")
     (flycheck-mode -1)
     (setq-local c-basic-offset 2)))
-
-(eval-after-load 'prog-mode
-  '(progn
-     (modify-syntax-entry ?_ "w" prog-mode-syntax-table)))
 
 (setq c-basic-offset 'set-from-style)
 

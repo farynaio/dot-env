@@ -160,8 +160,8 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (add-hook 'after-change-major-mode-hook
   (lambda ()
-    (modify-syntax-entry ?_ "w")
-    (modify-syntax-entry ?- "w")))
+    (modify-syntax-entry ?_ "w" (syntax-table))
+    (modify-syntax-entry ?- "w" (syntax-table))))
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
