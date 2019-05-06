@@ -469,11 +469,32 @@
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
+(defun my-toggle-php-flavor-mode ()
+  (interactive)
+  "Toggle mode between PHP & Web-Mode Helper modes"
+  (cond ((string= mode-name "PHP")
+         (web-mode))
+        ((string= mode-name "Web")
+         (php-mode))))
+
 (use-package php-mode
   :config
   (progn
     (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-    (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))))
+    (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+
+    (defun my-php-mode-hook ()
+      (make-variable-buffer-local 'company-backends)
+      (add-to-list 'company-backends 'company-ac-php-backend t)
+      (setq php-template-compatibility nil))
+
+    (bind-key "<f5>" 'my/toggle-php-flavor-mode php-mode-map)
+    (add-hook 'php-mode-hook 'my-php-mode-hook)))
+
+(use-package ac-php
+  :config
+  (progn
+    (setq ac-sources '(ac-source-php ))))
 
 (use-package web-mode
   :config
@@ -483,7 +504,7 @@
 
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+    ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
@@ -493,7 +514,8 @@
       web-mode-markup-indent-offset 2
       web-mode-css-indent-offset 2
       web-mode-code-indent-offset 2)
-    (bind-key "<backtab>" #'indent-relative web-mode-map))
+    (bind-key "<backtab>" #'indent-relative web-mode-map)
+    (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map))
 
   (add-hook #'web-mode-hook #'emmet-mode))
 
