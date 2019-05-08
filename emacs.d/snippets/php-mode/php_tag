@@ -1,0 +1,4 @@
+# name: PHP tag
+# key: <?p
+# --
+<?php $0 ?>
