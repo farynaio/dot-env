@@ -53,6 +53,7 @@
 (eval-after-load 'dired
   '(progn
      (setq dired-hide-details-mode 1)
+     (setq find-name-arg "-iregex")
      (setq dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
           ("\\.html\\'" "open")
@@ -64,6 +65,7 @@
      ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
      ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
      (bind-key "J" #'dired-goto-file dired-mode-map)
+     (bind-key "C-s" #'find-name-dired dired-mode-map)
 
      (evil-make-overriding-map dired-mode-map 'motion)
      (evil-make-overriding-map dired-mode-map 'normal)
