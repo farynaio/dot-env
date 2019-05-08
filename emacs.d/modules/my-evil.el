@@ -87,6 +87,9 @@
     (evil-set-initial-state 'profiler-report-mode 'emacs)
     (evil-set-initial-state 'help-mode 'emacs)
     (evil-set-initial-state 'woman-mode 'emacs)
+    (evil-set-initial-state 'geben-context-mode 'emacs)
+    (evil-set-initial-state 'geben-backtrace-mode 'emacs)
+    (evil-set-initial-state 'geben-backtrace-mode 'emacs)
 
     (add-to-list 'evil-emacs-state-modes 'eshell-mode)
     (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
@@ -186,6 +189,9 @@
       ",t" #'hydra-tide/body
       "M-." #'tide-jump-to-implementation
       "M-," #'tide-jump-back)
+
+    (evil-define-key 'normal php-mode-map
+      ",d" 'hydra-php-debug/body)
 
     (defalias #'forward-evil-word #'forward-evil-symbol)
 

@@ -405,6 +405,12 @@
   "JS refactoring replace"
   ("t" #'js2r-var-to-this "'var' which 'this'"))
 
+(defhydra hydra-php-debug ()
+  "PHP debug"
+  ("a" #'geben-add-current-line-to-predefined-breakpoints "add brk")
+  ("s" #'geben "start")
+  ("q" #'geben-end "end"))
+
 ;; (use-package guess-style
 ;; :config
 ;; (progn
@@ -489,7 +495,14 @@
       (setq php-template-compatibility nil))
 
     (bind-key "<f5>" 'my/toggle-php-flavor-mode php-mode-map)
-    (add-hook 'php-mode-hook 'my-php-mode-hook)))
+    (add-hook 'php-mode-hook 'my-php-mode-hook)
+    (add-hook 'php-mode-hook #'emmet-mode)))
+
+(use-package geben
+  :config
+  (progn
+    (add-hook 'geben-mode-hook 'evil-emacs-state)
+    ))
 
 (use-package ac-php
   :config
