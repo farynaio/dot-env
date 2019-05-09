@@ -125,10 +125,6 @@
   savehist-save-minibuffer-history 1
   savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
-(when (eq system-type 'darwin)
-  (require 'ls-lisp)
-  (setq ls-lisp-use-insert-directory-program nil))
-
 (setq dabbrev-friend-buffer-function '(lambda (other-buffer)
                                         (< (buffer-size other-buffer) (* 1 1024 1024))))
 (setq mac-command-modifier 'super)

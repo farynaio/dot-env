@@ -8,6 +8,13 @@
   dired-listing-switches "-alh"
   )
 
+(when (eq system-type 'darwin)
+  (require 'ls-lisp)
+  (setq
+    ls-lisp-dirs-first t
+    ls-lisp-use-insert-directory-program nil
+    ))
+
 (bind-key "C-c -" #'diredp-up-directory-reuse-dir-buffer dired-mode-map)
 (bind-key "n" #'evil-search-next                         dired-mode-map)
 (bind-key "N" #'evil-search-previous                     dired-mode-map)
