@@ -2,9 +2,11 @@
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-export ANDROID_HOME="/usr/local/share/android-sdk"
-export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+
+export ANDROID_HOME="/Users/devil/Development/Java/sdk-android"
+export ANDROID_SDK_ROOT="/Users/devil/Development/Java/sdk-android"
 export JAVA_HOME=$(/usr/libexec/java_home)
+
 export EDITOR="/usr/bin/vim"
 # export EDITOR="/usr/loca/bin/emacsclient -c -a emacs"
 export VISUAL="/usr/local/bin/emacs"
