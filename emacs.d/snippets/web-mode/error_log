@@ -1,4 +1,4 @@
 # name: PHP error_log()
 # key: errorl
 # --
-error_log('$1: ' . $1);
+error_log('$1: ' . print_r($1));
