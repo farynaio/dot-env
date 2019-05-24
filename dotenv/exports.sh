@@ -3,9 +3,12 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-export ANDROID_HOME="/Users/devil/Development/Java/sdk-android"
-export ANDROID_SDK_ROOT="/Users/devil/Development/Java/sdk-android"
-export JAVA_HOME=$(/usr/libexec/java_home)
+export ANDROID_HOME="$HOME/Development/Java/sdk-android"
+export ANDROID_SDK_ROOT="$HOME/Development/Java/sdk-android"
+
+if [[ -e /usr/libexec/java_home ]]; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
 
 export EDITOR="/usr/bin/vim"
 # export EDITOR="/usr/loca/bin/emacsclient -c -a emacs"
@@ -16,7 +19,7 @@ export MU_HOME="~/Maildir"
 export NPM_PACKAGES="$HOME/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/bin"
 export NODE_PATH=$NODE_PATH:$NPM_PACKAGES/lib/node_modules
-export LEDGER_FILE="/Users/devil/Dropbox/emacs/ledger/private.ledger.gpg"
+export LEDGER_FILE="$HOME/Dropbox/emacs/ledger/private.ledger.gpg"
 
 if [[ -e $HOME/bin ]]; then
   export PATH="$HOME/bin:$PATH"
@@ -27,7 +30,7 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/share/android-sdk/tools/bin:$PATH"
 export PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
-export PATH="/Users/devil/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.npm-packages/bin:$PATH"
 export PATH="$NPM_PACKAGES/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
