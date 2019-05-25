@@ -43,6 +43,7 @@
   (progn
     ;; (modify-syntax-entry ?_ "w" js2-mode-syntax-table)
     (setq js2-strict-inconsistent-return-warning nil)
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode) t)
 
     (add-hook 'js2-mode-hook #'emmet-mode)
     ))
@@ -141,22 +142,25 @@
 ;; (use-package git-timemachine)
 (use-package web-beautify)
 
+(define-minor-mode my/auto-indent-mode
+  "Auto indent buffer on save."
+  :init-value nil
+
+  (add-hook 'before-save-hook
+    (lambda ()
+      (save-excursion
+        (indent-region (point-min) (point-max))
+        (untabify (point-min) (point-max))
+        )
+      ) nil t))
+
 (eval-after-load 'js
   '(progn
      (setq js-indent-level 2)
      (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
      (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
-     (add-hook 'js-mode-hook
-       (lambda ()
-         (add-hook 'before-save-hook
-           (lambda ()
-             (save-excursion
-               (indent-region (point-min) (point-max))
-               (untabify (point-min) (point-max))
-               )
-             ) nil t)
-         ))
+     (add-hook 'js-mode-hook 'my/auto-indent-mode)
      ))
 
 (eval-after-load 'css-mode
@@ -188,7 +192,8 @@
   (use-package eslintd-fix
     :config
     (progn
-      (add-hook 'js2-mode-hook #'eslintd-fix-mode)))
+      (add-hook 'rjsx-mode-hook #'eslintd-fix-mode)
+      ))
   (message "No executable 'eslint_d' found"))
 
 (use-package lsp-mode
@@ -201,6 +206,7 @@
       lsp-signature-enabled nil
       lsp-enable-snippet nil
       lsp-auto-guess-root t)))
+
 (use-package company-lsp)
 
 (use-package typescript-mode
@@ -254,7 +260,7 @@
     (evil-make-overriding-map tide-references-mode-map 'motion)
     (evil-make-overriding-map tide-references-mode-map 'normal)
 
-    (add-hook 'js2-mode-hook #'tide-setup)
+    (add-hook 'rjsx-mode-hook #'tide-setup)
     ))
 
 (setq
@@ -274,18 +280,23 @@
          "--jsx-bracket-same-line" "true"
          ))
 
-    (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
+    ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
     ))
 
 (use-package rjsx-mode
   :config
   (progn
     (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
-    (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
+    ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
 
-    ;; (add-hook 'rjsx-mode-hook #'prettier-js-mode)
-    (add-hook 'rjsx-mode-hook (lambda ()
-                                (setq-local emmet-expand-jsx-className? t)))))
+    (defun my/rjsx-mode-setup ()
+      ""
+      (prettier-js-mode 1)
+      (setq-local emmet-expand-jsx-className? t)
+      )
+
+    (add-hook 'rjsx-mode-hook #'my/rjsx-mode-setup)
+    ))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
@@ -305,7 +316,6 @@
 
 ;; (add-hook 'js2-mode-hook #'my/tide-setup)
 ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode))
 
 ;; (use-package robe
 ;; :config
@@ -475,13 +485,13 @@
 (use-package dockerfile-mode
   :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
-(defun my-toggle-php-flavor-mode ()
+(defun my/toggle-php-flavor-mode ()
   (interactive)
   "Toggle mode between PHP & Web-Mode Helper modes"
   (cond ((string= mode-name "PHP")
-         (web-mode))
-        ((string= mode-name "Web")
-         (php-mode))))
+          (web-mode))
+    ((string= mode-name "Web")
+      (php-mode))))
 
 (use-package php-mode
   :config
@@ -522,15 +532,14 @@
     (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (setq
-      web-mode-engines-alist '(("php" . "\\.php\\'"))
-      web-mode-markup-indent-offset 2
-      web-mode-css-indent-offset 2
-      web-mode-code-indent-offset 2)
+    (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
+    (setq-default web-mode-markup-indent-offset tab-width)
+    (setq-default web-mode-css-indent-offset tab-width)
+    (setq-default web-mode-code-indent-offset tab-width)
     (bind-key "<backtab>" #'indent-relative web-mode-map)
-    (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map))
-
-  (add-hook #'web-mode-hook #'emmet-mode))
+    (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map)
+    (add-hook #'web-mode-hook #'emmet-mode)
+    ))
 
 ;; (use-package graphql-mode)
 

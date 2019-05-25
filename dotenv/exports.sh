@@ -38,7 +38,7 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
 export PATH="$PATH:/usr/local/opt/python/libexec/bin"
 
-if which rbenv > /dev/null; then
+if hash rbenv &> /dev/null; then
   export PATH="$HOME/.rbenv/shims:$PATH"
 fi
 

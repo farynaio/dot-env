@@ -6,7 +6,7 @@ export SIGNING_KEY=""
 
 source $HOME/.dotenv/env.sh
 
-if command -v 'brew' 2>/dev/null; then
+if hash brew &> /dev/null; then
   if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
   fi
