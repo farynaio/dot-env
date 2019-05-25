@@ -22,6 +22,7 @@
 (bind-key ">" #'end-of-buffer                            dired-mode-map)
 (bind-key "n" #'evil-ex-search-next                      dired-mode-map)
 (bind-key "N" #'evil-ex-search-previous                  dired-mode-map)
+(bind-key "W" #'my/dired-copy-dirname-as-kill            dired-mode-map)
 
 ; (eval-after-load 'sunrise-commander
 ;   '(progn
@@ -84,6 +85,12 @@
   (split-window-right)
   (windmove-right)
   (dired-jump))
+
+(defun my/dired-copy-dirname-as-kill ()
+  "Copy the current directory into the kill ring."
+  (interactive)
+  (message (format "Path '%s' copied to clipboard." default-directory))
+  (kill-new default-directory))
 
 (add-hook 'dired-mode-hook
   (lambda ()
