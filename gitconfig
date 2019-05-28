@@ -74,6 +74,9 @@
 	# Recursively traverse untracked directories to display all contents
   showUntrackedFiles = all
 
+[submodule]
+  recurse = true
+
 [tag]
 	# Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
 	sort = version:refname
@@ -137,6 +140,7 @@
   sd = stash show -p
   mt = mergetool
   dt = difftool
+  subu = submodule update --recursive --remote
   parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
 
 [user]
