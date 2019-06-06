@@ -7,6 +7,7 @@
 (require 'reftex)
 (require 'flyspell)
 (require 'face-remap)
+(require 'tramp)
 
 (setq-default mode-require-final-newline nil)
 
@@ -370,6 +371,10 @@ $0`(yas-escape-text yas-selected-text)`")
     (and name (string-prefix-p "/ssh:" name))))
 
 (defun my/advice-around-skip (orig-fun &rest args) "")
+
+(defun sudo-dired ()
+  (interactive)
+  (dired "/sudo::/"))
 
 (defvar epa-key-mode-map (make-sparse-keymap))
 (defvar org-mode-map (make-sparse-keymap))
