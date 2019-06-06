@@ -3,7 +3,7 @@
 source $HOME/.dotenv/exports.sh
 source $HOME/.dotenv/aliases.sh
 
-if command -v 'docker-machine' 2>/dev/null; then
+if hash docker-machine 2> /dev/null; then
   eval "$(docker-machine env default &>/dev/null)"
 fi
 
