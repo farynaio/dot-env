@@ -1,0 +1,4 @@
+# name: error_log()
+# key: error
+# --
+error_log('$0');
