@@ -550,7 +550,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 2 :kill-buffer nil)
+:prepend t :empty-lines-after 1 :kill-buffer nil)
 
   ("j" "Journal" entry (file ,my/org-journal-file-path)
 "* [%<%Y-%m-%d %a>]
