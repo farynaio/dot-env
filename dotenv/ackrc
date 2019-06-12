@@ -441,3 +441,4 @@
 --ignore-file=match:Session.vim
 --ignore-file=match:package-lock.json
 --ignore-file=ext:log
+--ignore-file=ext:pot
