@@ -168,12 +168,15 @@
      (modify-syntax-entry ?- "w" css-mode-syntax-table)
      (modify-syntax-entry ?- "w" scss-mode-syntax-table)
 
-     (add-hook 'css-mode-hook
-       (lambda ()
-         ;; (flycheck-mode -1)
-         (add-to-list 'company-backends 'company-css)
-         ) nil t)
-     ))
+     (defun my/css-mode-hook()
+       ;; (flycheck-mode -1)
+       (setq tab-width 2)
+       (setq c-basic-offset 2)
+       (setq indent-tabs-mode nil)
+       (add-to-list 'company-backends 'company-css)
+       )
+
+     (add-hook 'css-mode-hook 'my/css-mode-hook)))
 
 (use-package xref-js2)
 
@@ -614,6 +617,10 @@
 
   (make-variable-buffer-local 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
+
+  (setq-local tab-width 2)
+  (setq-local c-basic-offset 2)
+  (setq-local indent-tabs-mode nil)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
