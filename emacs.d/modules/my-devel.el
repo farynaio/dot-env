@@ -167,6 +167,7 @@
   '(progn
      (modify-syntax-entry ?- "w" css-mode-syntax-table)
      (modify-syntax-entry ?- "w" scss-mode-syntax-table)
+     (setq css-indent-offset 2)
 
      (defun my/css-mode-hook()
        ;; (flycheck-mode -1)
@@ -620,7 +621,6 @@
 
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
-  (setq-local indent-tabs-mode nil)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)

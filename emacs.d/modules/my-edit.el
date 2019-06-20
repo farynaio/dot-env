@@ -130,6 +130,8 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
+(setq-default indent-tabs-mode nil)
+
 (setq
   fill-column 80
   hscroll-margin  1
