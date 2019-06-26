@@ -161,10 +161,13 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
 
-(add-hook 'after-change-major-mode-hook
-  (lambda ()
-    (modify-syntax-entry ?_ "w" (syntax-table))
-    (modify-syntax-entry ?- "w" (syntax-table))))
+(defun my/set-syntax-entry ()
+  ""
+  (when (not (eq major-mode "php-mode"))
+    (modify-syntax-entry ?- "w" (syntax-table)))
+  (modify-syntax-entry ?_ "w" (syntax-table)))
+
+(add-hook 'after-change-major-mode-hook #'my/set-syntax-entry)
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
