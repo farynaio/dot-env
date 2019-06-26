@@ -1,0 +1,24 @@
+# name: class
+# key: class
+# --
+
+class $1 {
+
+  static function instance() {
+    static $instance = null;
+
+    if ($instance === null) {
+      $instance = new $1;
+    }
+
+    return $instance;
+  }
+
+  function __construct($2) {
+    $3
+  }
+
+  function __destruct() {
+    $4
+  }
+}
