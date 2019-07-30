@@ -580,6 +580,9 @@
     (setq-default web-mode-code-indent-offset tab-width)
     (bind-key "<backtab>" #'indent-relative web-mode-map)
     (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map)
+    (modify-syntax-entry ?_ "w" web-mode-syntax-table)
+    (modify-syntax-entry ?$ "w" web-mode-syntax-table)
+    (modify-syntax-entry ?- "w" web-mode-syntax-table)
     (add-hook #'web-mode-hook #'emmet-mode)
     ))
 
@@ -690,6 +693,8 @@
   (lambda ()
     (setq mode-name "elisp")
     (flycheck-mode -1)
+    (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
+
     (setq-local c-basic-offset 2)))
 
 (setq c-basic-offset 'set-from-style)
