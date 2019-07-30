@@ -149,8 +149,10 @@
   (add-hook 'before-save-hook
     (lambda ()
       (save-excursion
-        (indent-region (point-min) (point-max))
-        (untabify (point-min) (point-max))
+        (unless (eq dtrt-indent-mode t)
+          (indent-region (point-min) (point-max))
+          (untabify (point-min) (point-max))
+          )
         )
       ) nil t))
 

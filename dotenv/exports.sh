@@ -37,6 +37,8 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="$HOME/Dropbox/devel/scripts:$PATH"
 export PATH="$PATH:/usr/local/opt/python/libexec/bin"
+export PATH="$PATH:~/Library/Python/3.7/bin"
+export PATH="/usr/local/opt/node@10/bin:$PATH"
 
 if hash rbenv &> /dev/null; then
   export PATH="$HOME/.rbenv/shims:$PATH"
