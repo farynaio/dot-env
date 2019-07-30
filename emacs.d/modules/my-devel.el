@@ -521,6 +521,8 @@
       (make-variable-buffer-local 'company-backends)
       (add-to-list 'company-backends 'company-ac-php-backend t)
       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
+      (modify-syntax-entry ?_ "w" php-mode-syntax-table)
+      (modify-syntax-entry ?$ "w" php-mode-syntax-table)
       (setq php-template-compatibility nil))
 
     (defun my-php-symbol-lookup ()
