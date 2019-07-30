@@ -2,6 +2,10 @@
 # key: class
 # --
 
+<?php
+
+defined( 'ABSPATH' ) or die('No script kiddies please!');
+
 class $1 {
 
   static function instance() {
@@ -22,3 +26,5 @@ class $1 {
     $4
   }
 }
+
+?>
