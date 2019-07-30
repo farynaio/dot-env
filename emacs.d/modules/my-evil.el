@@ -86,6 +86,7 @@
     (evil-set-initial-state 'eshell-mode 'emacs)
     (evil-set-initial-state 'profiler-report-mode 'emacs)
     (evil-set-initial-state 'help-mode 'emacs)
+    (evil-set-initial-state 'finder-mode 'emacs)
     (evil-set-initial-state 'woman-mode 'emacs)
     (evil-set-initial-state 'geben-context-mode 'emacs)
     (evil-set-initial-state 'geben-backtrace-mode 'emacs)
