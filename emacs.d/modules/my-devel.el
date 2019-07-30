@@ -520,7 +520,17 @@
     (defun my-php-mode-hook ()
       (make-variable-buffer-local 'company-backends)
       (add-to-list 'company-backends 'company-ac-php-backend t)
+      (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
       (setq php-template-compatibility nil))
+
+    (defun my-php-symbol-lookup ()
+      (interactive)
+      (let ((symbol (symbol-at-point)))
+        (if (not symbol)
+          (message "No symbol at point.")
+
+          (browse-url (concat "http://php.net/manual-lookup.php?pattern="
+                        (symbol-name symbol))))))
 
     (bind-key "<f5>" 'my/toggle-php-flavor-mode php-mode-map)
     (add-hook 'php-mode-hook 'my-php-mode-hook)
