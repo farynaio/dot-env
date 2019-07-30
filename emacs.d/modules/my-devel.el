@@ -344,6 +344,17 @@
 
 (use-package vue-mode)
 
+(use-package dtrt-indent
+  :diminish "dtrt"
+  )
+
+(defun my/dtrt-indent-mode-toggle ()
+  "Toggle dtrt-indent mode."
+  (interactive)
+  (if (eq dtrt-indent-mode t)
+    (dtrt-indent-mode -1)
+    (dtrt-indent-mode 1)))
+
 (defhydra hydra-tide ()
   "Tide"
   ("i" #'tide-organize-imports "Organize imports")
@@ -364,7 +375,8 @@
   ("f" #'projectile-find-file "find file")
   ("r" #'projectile-replace-regexp "replace")
   ("i" #'projectile-invalidate-cache "invalidate cache")
-  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers"))
+  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers")
+  ("d" #'my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle"))
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
