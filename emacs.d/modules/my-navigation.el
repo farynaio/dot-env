@@ -360,9 +360,6 @@ to invalidate."
 ;; (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
 ;; (add-hook 'ediff-quit-hook 'my-ediff-qh)
 
-(set-register ?m (cons 'file "/ssh:root@77.55.218.117:/var/www"))
-(set-register ?a (cons 'file "/ssh:root@77.55.219.47:/root"))
-
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
