@@ -111,3 +111,6 @@ unsetopt share_history
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# fix emacs tramp login issue
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
