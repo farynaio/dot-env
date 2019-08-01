@@ -1,6 +1,7 @@
 #!/bin/sh
 
 alias ls="ls -G "
+alias ports="netstat -tulpn"
 
 if $(is_darwin); then
   alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
