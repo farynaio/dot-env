@@ -159,7 +159,7 @@
 (eval-after-load 'js
   '(progn
      (setq js-indent-level 2)
-     (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
+     ;; (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
      (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
      (add-hook 'js-mode-hook 'my/auto-indent-mode)
