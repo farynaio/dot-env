@@ -10,6 +10,10 @@ if $(is_darwin); then
   alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
 fi
 
+if $(is_linux); then
+  alias iptables_reload="iptables-restore < /etc/iptables"
+fi
+
 if $(command_exists "mysqld_safe"); then
   alias start_mysql='mysqld_safe &'
   alias stop_mysql='mysqladmin shutdown'
