@@ -53,3 +53,8 @@ checkport() {
   netstat -ltnp | grep -w ':$1'
   # lsof -nP -iTCP:$1 | grep LISTEN
 }
+
+command_exists() {
+  [ -x "$(command -v $1)" ] && result=true || result=false
+  echo $result
+}
