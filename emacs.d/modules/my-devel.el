@@ -27,6 +27,19 @@
   (progn
     (setq minimap-window-location 'right)))
 
+(eval-after-load 'conf-mode
+  '(progn
+     (defun my/conf-mode-setup ()
+       (setq-local tab-width 2)
+       (setq-local c-basic-offset 2)
+       (modify-syntax-entry ?_ "w" (syntax-table))
+       (modify-syntax-entry ?- "w" (syntax-table))
+       (hl-todo-mode 1)
+       (auto-highlight-symbol-mode 1))
+
+      (add-hook 'conf-mode-hook #'my/conf-mode-setup)
+     ))
+
 (eval-after-load 'dns-mode
   '(progn
      (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
@@ -167,8 +180,6 @@
 
 (eval-after-load 'css-mode
   '(progn
-     (modify-syntax-entry ?- "w" css-mode-syntax-table)
-     (modify-syntax-entry ?- "w" scss-mode-syntax-table)
      (setq css-indent-offset 2)
 
      (defun my/css-mode-hook()
@@ -176,9 +187,9 @@
        (setq tab-width 2)
        (setq c-basic-offset 2)
        (setq indent-tabs-mode nil)
-       (add-to-list 'company-backends 'company-css)
-       )
-
+       (modify-syntax-entry ?_ "w" (syntax-table))
+       (modify-syntax-entry ?$ "w" (syntax-table))
+       (add-to-list 'company-backends 'company-css))
      (add-hook 'css-mode-hook 'my/css-mode-hook)))
 
 (use-package xref-js2)
