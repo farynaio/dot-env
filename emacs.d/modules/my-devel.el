@@ -521,8 +521,8 @@
       (make-variable-buffer-local 'company-backends)
       (add-to-list 'company-backends 'company-ac-php-backend t)
       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
-      (modify-syntax-entry ?_ "w" php-mode-syntax-table)
-      (modify-syntax-entry ?$ "w" php-mode-syntax-table)
+      (modify-syntax-entry ?_ "w" (syntax-table))
+      (modify-syntax-entry ?$ "w" (syntax-table))
       (setq php-template-compatibility nil))
 
     (defun my-php-symbol-lookup ()
@@ -580,10 +580,15 @@
     (setq-default web-mode-code-indent-offset tab-width)
     (bind-key "<backtab>" #'indent-relative web-mode-map)
     (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map)
-    (modify-syntax-entry ?_ "w" web-mode-syntax-table)
-    (modify-syntax-entry ?$ "w" web-mode-syntax-table)
-    (modify-syntax-entry ?- "w" web-mode-syntax-table)
     (add-hook #'web-mode-hook #'emmet-mode)
+
+    (defun my/web-mode-setup ()
+      (modify-syntax-entry ?_ "w" (syntax-table))
+      (modify-syntax-entry ?- "w" (syntax-table))
+      (modify-syntax-entry ?$ "w" (syntax-table)))
+
+    (add-hook #'web-mode-hook #'my/web-mode-setup)
+
     ))
 
 ;; (use-package graphql-mode)
