@@ -2,6 +2,11 @@
 
 alias ls="ls -G "
 alias ports="netstat -tulpn"
+alias ports_opened='netstat -pln'
+alias ls='ls --color '
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
 
 if $(is_darwin); then
   alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
@@ -13,6 +18,8 @@ fi
 
 if $(is_linux); then
   alias iptables_reload="iptables -F; iptables-restore < /etc/iptables/rules.v4"
+  alias apt_installed='apt list --installed '
+  alias services_status='service --status-all'
 fi
 
 if $(command_exists "mysqld_safe"); then
