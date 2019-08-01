@@ -20,6 +20,7 @@ if $(is_linux); then
   alias iptables_reload="iptables -F; iptables-restore < /etc/iptables/rules.v4"
   alias apt_installed='apt list --installed '
   alias services_status='service --status-all'
+  alias services_enabled='systemctl list-unit-files | grep enabled'
 fi
 
 if $(command_exists "mysqld_safe"); then
