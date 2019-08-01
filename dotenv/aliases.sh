@@ -11,7 +11,7 @@ if $(is_darwin); then
 fi
 
 if $(is_linux); then
-  alias iptables_reload="iptables-restore < /etc/iptables"
+  alias iptables_reload="iptables-restore < /etc/iptables/rules.v4"
 fi
 
 if $(command_exists "mysqld_safe"); then
