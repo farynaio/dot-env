@@ -33,3 +33,23 @@ db-devel-restore() {
     echo "File $FILE doesn't exists."
   fi
 }
+
+is_darwin() {
+  [[ $(uname -s) == 'Darwin' ]] && result=true || result=false
+  echo $result
+}
+
+is_linux() {
+  [[ $(uname -s) == 'Linux' ]] && result=true || result=false
+  echo $result
+}
+
+checkport() {
+  if [[ -z $1 ]]; then
+    echo "No port specified!"
+    return 1
+  fi
+
+  netstat -ltnp | grep -w ':$1'
+  # lsof -nP -iTCP:$1 | grep LISTEN
+}
