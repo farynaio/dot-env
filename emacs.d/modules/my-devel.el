@@ -194,10 +194,14 @@
 
 (use-package xref-js2)
 
-(add-hook 'js-mode-hook
-  (lambda ()
-    (js2-refactor-mode 1)
-    (rainbow-delimiters-mode 1)))
+(eval-after-load 'js-mode
+  '(progn
+     (defun my/js-mode-hook ()
+       (js2-refactor-mode 1)
+       (modify-syntax-entry ?_ "w" (syntax-table))
+       (modify-syntax-entry ?$ "w" (syntax-table))
+       (rainbow-delimiters-mode 1))
+     (add-hook 'js-mode-hook #'my/js-mode-hook)))
 
 (add-hook 'js2-mode-hook
   (lambda ()
