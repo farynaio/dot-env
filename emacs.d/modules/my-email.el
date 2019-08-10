@@ -142,7 +142,7 @@
      (setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
 
      (setq
-       mm-coding-system-priorities '(utf-8-mac utf-8)
+       mm-coding-system-priorities '(utf-8 utf-8-mac)
        mm-decrypt-option t
        mm-verify-option t)
 
@@ -155,14 +155,20 @@
      (setq
        message-send-mail-function 'smtpmail-send-it
        message-directory "~/.Mail/"
-       message-default-charset `utf-8
+       message-default-charset 'utf-8
        message-send-mail-function 'smtpmail-send-it
        message-kill-buffer-on-exit t
        message-forward-before-signature nil
        message-draft-coding-system 'utf-8
+       ;; message-inhibit-body-encoding t
+       ;; message-send-coding-system 'binary
+       ;; message-send-coding-system 'utf-8
+       ;; message-send-coding-system
        message-cite-function 'message-cite-original
        ;; message-cite-function 'message-cite-original-without-signature
        message-cite-style 'message-cite-style-gmail)
+
+     (add-to-list 'mm-body-charset-encoding-alist '(utf-8 . base64))
 
      (setq
        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
