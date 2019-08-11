@@ -12,7 +12,6 @@ fi
 
 export EDITOR="/usr/bin/vim"
 # export EDITOR="/usr/loca/bin/emacsclient -c -a emacs"
-export VISUAL="/usr/local/bin/emacs"
 export SED=`which sed`
 export MU_HOME="~/Maildir"
 
