@@ -409,7 +409,7 @@
   "git"
   ("g" #'magit-blame "blame")
   ("e" #'magit-ediff-popup "ediff")
-  ;; ("c" #'vc-resolve-conflicts "conflicts") ;; this could be better -> magit?
+  ("c" #'vc-resolve-conflicts "conflicts") ;; this could be better -> magit?
   ;; ("b" #'magit-bisect-popup "bisect") ;; find a commit that introduces the bug
   ("s" #'magit-status "status")
   ("o" #'magit-checkout "checkout")
