@@ -225,22 +225,23 @@
 
      (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
-     (add-hook 'mu4e-compose-mode-hook
-       (lambda ()
+     (defun my/mu4e-compose-mode-hook ()
          (make-variable-buffer-local 'company-backends)
          (add-to-list 'company-backends 'company-bbdb)
 
          (set-fill-column 72)
-         ;; (local-set-key (kbd "C-c <return> C-s") 'my/sign-this-message)
-         ;; (local-set-key (kbd "C-c <return> C-e") 'my/encrypt-this-message)
          (save-excursion
            (goto-char (point-min))
-           (insert (concat "X-Mailer: mu4e " mu4e-mu-version "; emacs " emacs-version "\n")))))
+           (insert (concat "X-Mailer: mu4e " mu4e-mu-version "; emacs " emacs-version "\n"))
+           ))
+
+     (add-hook 'mu4e-compose-mode-hook #'my/mu4e-compose-mode-hook)
 
      (defun my/mu4e-set-account ()
        "Set the account for composing a message."
        user-mail-address)
      (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
+
      (advice-add 'mu4e-message :around #'my/advice-around-skip)
      ))
 
