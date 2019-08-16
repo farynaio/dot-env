@@ -307,7 +307,7 @@ to invalidate."
 ;; 		'split-window-vertically))
 
 ;; (add-hook 'ediff-before-setup-hook 'new-frame)
-(add-hook 'ediff-quit-hook 'delete-frame)
+;; (add-hook 'ediff-quit-hook 'delete-frame)
 
 ;; Bring back window configuration after ediff quits
 (defvar my-ediff-bwin-config nil "Window configuration before ediff.")

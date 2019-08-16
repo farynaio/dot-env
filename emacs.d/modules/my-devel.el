@@ -646,17 +646,22 @@
 
     (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
+    (bind-key "|"   #'evil-window-set-width   magit-mode-map)
     (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "{"   #'evil-backward-paragraph magit-mode-map)
     (bind-key "["   #'evil-backward-paragraph magit-mode-map)
     (bind-key "C-d" #'evil-scroll-down        magit-mode-map)
     (bind-key "C-u" #'evil-scroll-up          magit-mode-map)
+    (bind-key "C-s" #'isearch-forward         magit-mode-map)
+    (bind-key "="   #'balance-windows         magit-mode-map)
+    (bind-key "C-w" #'my/copy-diff-region     magit-mode-map)
     (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
     (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
-    (bind-key "/"   #'evil-search-forward     magit-revision-mode-map)
+    (bind-key "C-s" #'isearch-forward         magit-revision-mode-map)
     (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
     (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
+    (bind-key "="   #'balance-windows         magit-revision-mode-map)
 
     ;; (add-hook 'magit-ediff-quit-hook 'delete-frame)
     (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
@@ -778,5 +783,13 @@
         (replace-match ">\n<" t t))
       (goto-char beg)
       (indent-region beg end nil))))
+
+(defun my/copy-diff-region ()
+  "Copy diff region without + or - markers."
+  (interactive)
+  (deactivate-mark)
+  (let ((text (buffer-substring-no-properties
+               (region-beginning) (region-end))))
+    (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text))))
 
 (provide 'my-devel)
