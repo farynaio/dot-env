@@ -245,7 +245,7 @@
     (setq projectile-track-known-projects-automatically nil)
     (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
 
-    (projectile-global-mode 1)
+    (projectile-mode 1)
 
     (add-to-list 'projectile-globally-ignored-directories '"node-modules")
     (add-to-list 'projectile-globally-ignored-directories '"dist")
