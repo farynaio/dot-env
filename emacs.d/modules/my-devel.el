@@ -54,10 +54,8 @@
 (use-package js2-mode
   :config
   (progn
-    ;; (modify-syntax-entry ?_ "w" js2-mode-syntax-table)
     (setq js2-strict-inconsistent-return-warning nil)
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode) t)
-
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
     (add-hook 'js2-mode-hook #'emmet-mode)
     ))
 
@@ -175,7 +173,12 @@
      ;; (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
      (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
-     (add-hook 'js-mode-hook 'my/auto-indent-mode)
+    (defun my/js-mode-hook()
+      (modify-syntax-entry ?_ "w" (syntax-table))
+      (modify-syntax-entry ?$ "w" (syntax-table)))
+
+     (add-hook 'js-mode-hook #'my/js-mode-hook)
+     (add-hook 'js-mode-hook #'my/auto-indent-mode)
      ))
 
 (eval-after-load 'css-mode
@@ -198,9 +201,10 @@
   '(progn
      (defun my/js-mode-hook ()
        (js2-refactor-mode 1)
+       (rainbow-delimiters-mode 1)
        (modify-syntax-entry ?_ "w" (syntax-table))
        (modify-syntax-entry ?$ "w" (syntax-table))
-       (rainbow-delimiters-mode 1))
+       )
      (add-hook 'js-mode-hook #'my/js-mode-hook)))
 
 (add-hook 'js2-mode-hook
