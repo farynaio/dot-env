@@ -541,6 +541,7 @@
       (add-to-list 'company-backends 'company-ac-php-backend t)
       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
       (modify-syntax-entry ?_ "w" (syntax-table))
+      (modify-syntax-entry ?- "w" (syntax-table))
       (modify-syntax-entry ?$ "w" (syntax-table))
       (setq php-template-compatibility nil))
 
