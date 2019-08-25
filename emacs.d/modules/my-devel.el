@@ -651,6 +651,10 @@
 
     (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
+    (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
+    (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
+    (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
+
     (bind-key "|"   #'evil-window-set-width   magit-mode-map)
     (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
     (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
