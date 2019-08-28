@@ -39,9 +39,11 @@
                        (user-mail-address . "gmail-address")
                        (smtpmail-smtp-user . "gmail-address")
                        (smtpmail-local-domain . "gmail.com")
-                       (mu4e-sent-messages-behavior . 'delete)
+                       (mu4e-sent-messages-behavior . delete)
                        (smtpmail-default-smtp-server . "smtp.gmail.com")
                        (smtpmail-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-stream-type . starttls)
                       (message-signature-file . "~/.signature_gmail")))
 
           ,(make-mu4e-context
