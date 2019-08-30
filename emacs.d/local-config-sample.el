@@ -80,6 +80,7 @@
                        (smtpmail-local-domain         . "smtp.appdy.co.uk")
                        (smtpmail-default-smtp-server  . "smtp.appdy.co.uk")
                        (smtpmail-smtp-server          . "smtp.appdy.co.uk")
+                       (smtpmail-stream-type          . starttls)
                        (message-signature-file        . "~/.signature_appdy")
                        ))
 
