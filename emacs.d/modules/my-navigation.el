@@ -179,6 +179,17 @@
     (bind-key "C-h a" #'counsel-apropos)
     (bind-key "C-x r b" #'counsel-bookmark)
     (bind-key "C-x b" #'counsel-ibuffer)
+    (bind-key "C-x C-b" #'my/counsel-ibuffer-other-window)
+
+    (defun my/counsel-ibuffer-other-window (&optional name)
+      "Use ibuffer to switch to another buffer.
+NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
+      (interactive)
+      (setq counsel-ibuffer--buffer-name (or name "*Ibuffer*"))
+      (ivy-read "Switch to buffer: " (counsel-ibuffer--get-buffers)
+        :history 'counsel-ibuffer-history
+        :action #'counsel-ibuffer-visit-buffer-other-window
+        :caller 'counsel-ibuffer))
 
     ;; (global-set-key (kbd "C-c g") 'counsel-git)
     ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
