@@ -632,6 +632,11 @@
       magit-ediff-dwim-show-on-hunks t
       magit-diff-hide-trailing-cr-characters t)
 
+    (setq magit-display-file-buffer-function
+      (lambda (buffer)
+        (setq current-prefix-arg t)
+        (magit-display-file-buffer-traditional buffer)))
+
     (setq auto-revert-buffer-list-filter
       'magit-auto-revert-repository-buffers-p)
 
