@@ -7,8 +7,10 @@ ZSH_DOT="$DOTENV/zsh/"
 # emacs mode
 bindkey -e
 
-source $HOME/.dotenv/env.sh
-source $ZSH_DOT/utils.sh
+source $HOME/.dotenv/shell.sh
+
+# source $HOME/.dotenv/env.sh
+# source $ZSH_DOT/utils.sh
 # source $ZSH_DOT/history.sh
 # source $ZSH_DOT/vimify.sh
 

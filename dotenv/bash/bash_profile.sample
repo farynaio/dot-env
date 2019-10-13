@@ -4,7 +4,7 @@ export USER_NAME=""
 export EMAIL=""
 export SIGNING_KEY=""
 
-source $HOME/.dotenv/env.sh
+source $HOME/.dotenv/shell.sh
 
 if $(is_darwin); then
   if command -v brew > /dev/null 2>&1; then
