@@ -22,6 +22,10 @@
 ;;       (lambda ()
 ;;         (set-face-background 'mmm-default-submode-face nil)))))
 
+(define-derived-mode guest-mode fundamental-mode "guest"
+  "major mode for guest editing."
+  (editorconfig-mode -1))
+
 (use-package minimap
   :config
   (progn
