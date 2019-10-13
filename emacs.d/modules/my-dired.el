@@ -77,6 +77,12 @@
 
      (evil-make-overriding-map dired-mode-map 'motion)
      (evil-make-overriding-map dired-mode-map 'normal)
+
+     (defun my/dired-mode-setup ()
+       (dired-hide-details-mode 1)
+       (hl-line-mode 1))
+
+     (add-hook 'dired-mode-hook #'my/dired-mode-setup)
      ))
 
 (defun my/dired-jump-make-new-window ()
@@ -92,9 +98,7 @@
   (message (format "Path '%s' copied to clipboard." default-directory))
   (kill-new default-directory))
 
-(add-hook 'dired-mode-hook
-  (lambda ()
-    (dired-hide-details-mode 1)
-    (hl-line-mode 1)))
+
+
 
 (provide 'my-dired)
