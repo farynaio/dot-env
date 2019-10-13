@@ -7,6 +7,8 @@ init.view
 
 dotenv/bash/bash_profile
 
+emacs.d/.emacs.desktop
+
 emacs.d/tramp-autosaves
 emacs.d/tramp-persistency.el
 emacs.d/abbrev_defs
