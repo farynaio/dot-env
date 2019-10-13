@@ -7,4 +7,6 @@
 
 (defalias 'esh 'eshell)
 
+(setq explicit-shell-file-name "/bin/ksh")
+
 (provide 'my-shell)

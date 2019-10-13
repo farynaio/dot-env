@@ -23,7 +23,7 @@
 (setenv "LC_MONETARY" "en_US.UTF-8")
 (setenv "LC_NUMERIC" "en_US.UTF-8")
 (setenv "LC_TIME" "en_US.UTF-8")
-(setenv "SHELL" "/bin/bash")
+(setenv "SHELL" "/bin/ksh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
