@@ -151,6 +151,7 @@ if [[ -e ~/.local.sh ]]; then
   source ~/.local.sh
 fi
 
+alias z="zsh"
 alias ports="netstat -tulpn"
 alias ports_opened='netstat -pln'
 alias rm='rm -i '
