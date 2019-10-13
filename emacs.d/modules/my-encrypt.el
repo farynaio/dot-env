@@ -8,7 +8,7 @@
 
      (setq
        epa-file-encrypt-to "adamfaryna@gmail.com"
-       epa-pinentry-mode 'loopback
+       ;; epa-pinentry-mode 'loopback
        epa-file-cache-passphrase-for-symmetric-encryption t
        )
 
