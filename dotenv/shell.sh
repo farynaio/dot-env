@@ -21,6 +21,38 @@ if [[ -n $SIGNING_KEY ]]; then
   git config --global user.signingkey "$SIGNING_KEY"
 fi
 
+smart-resize() {
+  if [[ $# < 3 ]]; then
+    echo 'All parameters are required.'
+    echo 'Usage <input-file> <output-width> <output-dir> [quality]'
+    return 1
+  fi
+
+  if ! hash mogrify 2>/dev/null; then
+    echo 'ImageMagic is not installed!'
+    return 1
+  fi
+
+  if [ ! -d "$3" ]; then
+    echo "Directory $3 not exists, creating one."
+    mkdir -p $3
+  fi
+
+  quality=$4
+  
+  if [ -z "$quality" ]; then
+    quality=82
+  fi
+
+  eval "mogrify -path $3 -filter Triangle -define filter:support=2 -thumbnail $2 -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality $quality -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB $1"
+
+  if [ $? != 0 ]; then
+    echo "Image $3 process error!"
+    return 1
+  fi
+
+  echo "Image $3 processed successfully!"
+}
 
 docker-ip() {
   # docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
