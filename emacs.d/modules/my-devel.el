@@ -634,7 +634,8 @@
       magit-item-highlight-face 'bold
       magit-diff-paint-whitespace nil
       magit-ediff-dwim-show-on-hunks t
-      magit-diff-hide-trailing-cr-characters t)
+      magit-diff-hide-trailing-cr-characters t
+      magit-bury-buffer-function 'magit-mode-quit-window)
 
     (setq magit-display-file-buffer-function
       (lambda (buffer)
