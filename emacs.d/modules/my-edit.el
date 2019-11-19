@@ -443,6 +443,7 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; (global-emojify-mode 1)
 (delete-selection-mode 1)
 (electric-pair-mode 1)
+(global-hl-line-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
