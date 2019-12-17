@@ -624,8 +624,11 @@
     ((string= major-mode "web-mode")
       (php-mode))))
 
+(use-package transient)
+
 (use-package magit
   :diminish magit-auto-revert-mode
+  :after (transient)
   :config
   (progn
     (setq
