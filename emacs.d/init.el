@@ -34,6 +34,8 @@
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
 (add-to-list 'exec-path "/usr/local/bin")
 
+(setq package-check-signature nil)
+
 (require 'package)
 (unless (assoc-default "melpa" package-archives)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/")))
