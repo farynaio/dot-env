@@ -514,7 +514,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :prepend t :empty-lines-after 1 :jump-to-captured nil)
 
   ("e" "Media Review" entry (file ,my/org-media-reviews-file-path)
-"* _\"%\\1\" %\\2 %?
+"** _\"%\\1\" %\\2 %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :TITLE: \"%^{What Title: }\"
@@ -544,15 +544,15 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
-  ("i" "Inbox" entry (file ,my/org-inbox-file-path)
-"* NOTE %?
+  ("i" "Inbox" entry (file+headline ,my/org-inbox-file-path "Inbox")
+"** NOTE %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer nil)
 
-  ("j" "Journal" entry (file ,my/org-journal-file-path)
+  ("j" "Journal" entry (file+headline ,my/org-journal-file-path "Journal")
 "* [%<%Y-%m-%d %a>]
 
 - English
@@ -570,7 +570,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
 
-  ("l" "Dating Log" entry (file ,my/org-journal-dating-file-path)
+  ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
 "
 :prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
@@ -631,7 +631,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
 
-  ("u" "Review" entry (file ,my/org-review-file-path)
+  ("u" "Review life" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
@@ -654,7 +654,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
 
-  ("g" "Girl" entry (file ,my/org-girls-file-path)
+  ("g" "Girl" entry (file+headline ,my/org-girls-file-path "Girls")
 "* %\\1
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
@@ -803,6 +803,20 @@ Blood type/flavour: %^{Blood type: }
          (org-agenda-files my/org-active-projects)))
          ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
      ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
+
+     ("b" "Active media"
+        ((tags-todo "TODO=\"IN-PROCESS\""
+          ((org-agenda-overriding-header "Active media:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags nil)
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-media-file-path))))
+        (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+          ((org-agenda-overriding-header "Active Reviews:")
+            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
+            (org-agenda-remove-tags t)
+            (org-agenda-files (list my/org-media-reviews-file-path)))))
+       )
      ("p" "Active places tasks"
        ((tags "@phone"
           ((org-agenda-overriding-header "Active Phone tasks:")
@@ -913,39 +927,28 @@ Blood type/flavour: %^{Blood type: }
                  (my/org-skip-subtree-if-priority ?A)
                  (org-agenda-skip-entry-if 'notscheduled))))
            (org-agenda-remove-tags t)
-           (org-agenda-overriding-header "High-priority unfinished tasks:")
+           (org-agenda-overriding-header "HIGH-PRIORITY TASKS:")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
            (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags "PROJECT"
-          ((org-agenda-overriding-header "Active projects:")
+          ((org-agenda-overriding-header "ACTIVE PROJECTS:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
         (tags-todo "TODO=\"WAITING\""
-          ((org-agenda-overriding-header "Waiting:")
+          ((org-agenda-overriding-header "WAITING TASKS:")
             (org-agenda-remove-tags t)
             (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags-todo "TODO=\"BLOCKED\""
-          ((org-agenda-overriding-header "Blocked:")
+          ((org-agenda-overriding-header "BLOCKED TASKS:")
             (org-agenda-skip-function
               '(or (org-agenda-skip-entry-if 'notscheduled)))
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up)))
             (org-agenda-files (append org-agenda-files my/org-active-projects)))
-        (tags-todo "TODO=\"IN-PROCESS\""
-          ((org-agenda-overriding-header "Active media:")
-            (org-tags-match-list-sublevels nil)
-            (org-agenda-remove-tags nil)
-            (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-media-file-path))))
-        (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
-          ((org-agenda-overriding-header "Active Reviews:")
-            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
-            (org-agenda-remove-tags t)
-            (org-agenda-files (list my/org-media-reviews-file-path))))
         (agenda ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
             (org-agenda-sorting-strategy '(time-up priority-down todo-state-up category-keep effort-down habit-down alpha-up))
