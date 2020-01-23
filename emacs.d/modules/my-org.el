@@ -350,12 +350,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-project-trip-nottingham :level . 1)
                             (,my/org-project-trip-edinburgh :level . 1)
                             (,my/org-project-become-confident-pua :level . 1)
-                            (,my/org-project-launch-amazon-business :level . 1)
-                            (,my/org-project-setup-freelance :level . 1)
+                            (,my/org-project-service-arbitrage :level . 1)
+                            ;; (,my/org-project-launch-amazon-business :level . 1)
+                            ;; (,my/org-project-setup-freelance :level . 1)
                             ;; (,my/org-project-change-hosting-provider :level . 1)
-                            (,my/org-project-setup-digital-agency :level . 1)
+                            ;; (,my/org-project-setup-digital-agency :level . 1)
+                            (,my/org-project-guru :level . 1)
                             (,my/org-project-switch-to-self-accounting :level . 1)
-                            (,my/org-project-setup-digital-agency :level . 1) ; particular projects
+                            ;; (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
 (setq org-agenda-files
   (delq nil
@@ -754,9 +756,10 @@ Blood type/flavour: %^{Blood type: }
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-setup-digital-agency
-                               my/org-project-setup-career-it-blog
-                               my/org-project-launch-diy-app
+                               my/org-project-service-arbitrage
+                               ;; my/org-project-setup-digital-agency
+                               ;; my/org-project-setup-career-it-blog
+                               ;; my/org-project-launch-diy-app
                                ;; my/org-project-launch-amazon-business
                                ;; my/org-project-become-confident-pua
                                ;; my/org-project-trip-edinburgh
