@@ -13,6 +13,7 @@
 (require 'conf-mode)
 (require 'ruby-mode)
 (require 'dns-mode)
+(require 'smerge-mode)
 ;; (require 'company-graphql)
 
 ;; (use-package mmm-mode
@@ -30,6 +31,14 @@
   :config
   (progn
     (setq minimap-window-location 'right)))
+
+(eval-after-load 'smerge-mode
+  '(progn
+     (defun my/smerge-mode-setup ()
+       (bind-key "[w" #'smerge-prev smerge-mode-map)
+       (bind-key "]w" #'smerge-next smerge-mode-map))
+     (add-hook 'smerge-mode-hook #'my/smerge-mode-setup)
+     ))
 
 (eval-after-load 'conf-mode
   '(progn
