@@ -444,6 +444,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (delete-selection-mode 1)
 (electric-pair-mode 1)
 (global-hl-line-mode 1)
+(rainbow-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)

@@ -721,7 +721,6 @@
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)
-  (rainbow-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
 
