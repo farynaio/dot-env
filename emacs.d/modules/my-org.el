@@ -556,7 +556,6 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 
   ("j" "Journal" entry (file+headline ,my/org-journal-file-path "Journal")
 "* [%<%Y-%m-%d %a>]
-
 - English
   - %?
 
@@ -635,7 +634,6 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-
   ("u" "Review life" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
@@ -654,7 +652,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 + What's could be better:
   -
 
-+ Ideas for improvement:
++ Plan for improvement:
   +
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
