@@ -109,7 +109,10 @@ $0`(yas-escape-text yas-selected-text)`")
   (progn
     (setq
       ahs-case-fold-search nil
-      ahs-idle-interval 0)))
+      ahs-idle-interval 0)
+    (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
+    (unbind-key "<M-left>" auto-highlight-symbol-mode-map)
+    ))
 
 (require 'speedbar)
 (eval-after-load 'speedbar
