@@ -47,6 +47,7 @@
 
 (setq my/org-project-guru (expand-file-name "guru.org.gpg" my/org-projects-folder))
 (setq my/org-project-service-arbitrage (expand-file-name "service_arbitrage.org.gpg" my/org-projects-folder))
+(setq my/org-project-best-offers-club (expand-file-name "best_offers_club.org.gpg" my/org-projects-folder))
 ;; (setq my/org-project-setup-digital-agency (expand-file-name "setup_digital_agency.org.gpg" my/org-projects-folder))
 ;; (setq my/org-project-setup-career-it-blog (expand-file-name "setup_career_it_blog.org.gpg" my/org-projects-folder))
 ;; (setq my/org-project-setup-freelance (expand-file-name "setup_freelance.org.gpg" my/org-projects-folder))
