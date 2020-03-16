@@ -70,8 +70,8 @@
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
-    (bind-key "M-right" #'right-word                         evil-normal-state-map)
-    (bind-key "M-left" #'left-word                           evil-normal-state-map)
+    (bind-key "<M-right>" #'right-word                         evil-normal-state-map)
+    (bind-key "<M-left>" #'left-word                           evil-normal-state-map)
 
     ;; (bind-key ",\\"    #'skk-mode                            evil-normal-state-map)
 
