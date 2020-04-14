@@ -22,7 +22,7 @@
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-agenda-directory))
 
-(setq my/org-diet-log-file-path (expand-file-name "diet.org" org-directory))
+(setq my/org-diet-log-file-path (expand-file-name "health/diet.org" org-directory))
 (setq my/org-tasks-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org" org-directory))
 (setq my/org-blog-file-path (expand-file-name "blog_post_ideas.org" org-gpg-directory))
