@@ -221,7 +221,8 @@ if $(command_exists "vim"); then
 fi
 
 if $(command_exists "mc"); then
-  alias mc=". /usr/local/Cellar/midnight-commander/4.8.22/libexec/mc/mc-wrapper.sh"
+  mc_version=`\mc --version|head -1|cut -d' ' -f4`
+  alias mc=". /usr/local/Cellar/midnight-commander/${mc_version}/libexec/mc/mc-wrapper.sh"
 fi
 
 if $(command_exists "zsh"); then
