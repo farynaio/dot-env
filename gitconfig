@@ -22,6 +22,7 @@
 	# Don't consider trailing space change as a cause for merge conflicts
 	whitespace = -trailing-space
 	filemode = false
+	precomposeUnicode = true
 
 [diff]
   tool = vimdiff
