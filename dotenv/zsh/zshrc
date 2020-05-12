@@ -115,3 +115,7 @@ unsetopt share_history
 
 # fix emacs tramp login issue
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
