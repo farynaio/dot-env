@@ -95,6 +95,7 @@
     (evil-set-initial-state 'geben-backtrace-mode 'emacs)
     (evil-set-initial-state 'geben-breakpoint-list-mode 'emacs)
     (evil-set-initial-state 'epa-key-list-mode 'emacs)
+    (evil-set-initial-state 'image-mode 'emacs)
 
     (add-to-list 'evil-emacs-state-modes 'eshell-mode)
     (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
