@@ -242,10 +242,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq english-holidays
   '(
     (holiday-fixed  3 30 "(bank) Good Friday")
-    (holiday-fixed  5  7 "(bank) Early May bank holiday (England, Wales)")
+    (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
+    (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
+    (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
+    (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
     (holiday-fixed  8 27 "(bank) Spring bank holiday")
+    (holiday-fixed  9 31 "(bank) Summer bank holiday")
     (holiday-fixed 12 25 "(bank) Christmas Day")
-     (holiday-fixed 12 26 "(bank) Boxing Day")))
+     (holiday-fixed 12 28 "(bank) Boxing Day")))
 
 (setq polish-holidays
   '(
