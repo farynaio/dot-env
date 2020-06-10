@@ -1,12 +1,14 @@
 ; (require 'sunrise-commander)
 
-(setq
-  dired-dwim-target t
-  dired-use-ls-diredto nil
-  dired-recursive-copies 'always
-  dired-recursive-deletes 'always
-  dired-listing-switches "-alh"
-  )
+(setq dired-dwim-target t)
+(setq dired-use-ls-diredto nil)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+(setq dired-listing-switches "-alh")
+
+(when (file-executable-p "/usr/local/bin/gls")
+  (setq insert-directory-program "/usr/local/bin/gls")
+  (setq dired-listing-switches "-alh1v"))
 
 (when (eq system-type 'darwin)
   (require 'ls-lisp)
