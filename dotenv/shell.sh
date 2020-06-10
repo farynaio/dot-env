@@ -207,6 +207,10 @@ if $(is_linux); then
   alias ls='ls --color '
 fi
 
+if $(command_exists "gls"); then
+  alias ls='/usr/local/bin/gls --color -h --group-directories-first -1v'
+fi
+
 if $(command_exists "mysqld_safe"); then
   alias start_mysql='mysqld_safe &'
   alias stop_mysql='mysqladmin shutdown'
