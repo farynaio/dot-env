@@ -759,8 +759,6 @@
 
 (setq c-basic-offset 'set-from-style)
 
-(bind-key "C-c C-r" #'air-revert-buffer-noconfirm python-mode-map)
-
 (use-package dash-at-point
   :config
   (progn

@@ -155,7 +155,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (bind-key "C-c C-r"       #'air-revert-buffer-noconfirm         org-mode-map)
      (bind-key "C-c l"         #'org-store-link                      org-mode-map)
      (bind-key "C-."           #'imenu-anywhere                      org-mode-map)
      (bind-key "C-c C-x a"     #'org-archive-subtree-default         org-mode-map)
@@ -222,13 +221,15 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (eval-after-load 'org-agenda
   '(progn
-     (bind-key "C-c C-c"  #'org-agenda-set-tags       org-agenda-mode-map)
-     (bind-key "C-d"      #'evil-scroll-down          org-agenda-mode-map)
-     (bind-key "C-u"      #'evil-scroll-up            org-agenda-mode-map)
-     (bind-key "s-t"      #'make-frame-command        org-agenda-mode-map)
-     (bind-key "n"        #'evil-search-next          org-agenda-mode-map)
-     (bind-key "N"        #'evil-search-previous      org-agenda-mode-map)
-     (bind-key "*"        #'evil-search-word-forward  org-agenda-mode-map)
+     (bind-key "C-c C-c"  #'org-agenda-set-tags         org-agenda-mode-map)
+     (bind-key "C-d"      #'evil-scroll-down            org-agenda-mode-map)
+     (bind-key "C-u"      #'evil-scroll-up              org-agenda-mode-map)
+     (bind-key "s-t"      #'make-frame-command          org-agenda-mode-map)
+     (bind-key "n"        #'evil-search-next            org-agenda-mode-map)
+     (bind-key "N"        #'evil-search-previous        org-agenda-mode-map)
+     (bind-key "*"        #'evil-search-word-forward    org-agenda-mode-map)
+     (bind-key "\\w"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
+     (bind-key "\\c"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
 
      (add-hook 'org-agenda-mode-hook
        (lambda ()
@@ -456,7 +457,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-habit-graph-column 62)
 (setq org-refile-use-outline-path t)
 
-(setq org-blank-before-new-entry nil)
+;; (setq org-blank-before-new-entry nil)
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 (setq org-odt-preferred-output-format "doc")
 (setq org-agenda-start-on-weekday nil)

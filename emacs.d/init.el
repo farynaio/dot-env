@@ -51,7 +51,7 @@
   (package-refresh-contents))
 
 (setq
-  use-package-verbose t
+  use-package-verbose nil
   use-package-always-ensure t)
 
 (unless (package-installed-p 'org-plus-contrib)
