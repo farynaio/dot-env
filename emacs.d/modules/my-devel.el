@@ -692,6 +692,9 @@
     (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
     (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
     (bind-key "="   #'balance-windows         magit-revision-mode-map)
+    (bind-key "\\w" #'ace-jump-word-mode      magit-status-mode-map)
+    (bind-key "\\c" #'ace-jump-mode           magit-status-mode-map)
+    (bind-key "\\a" #'ido-imenu-anywhere      magit-status-mode-map)
 
     ;; (add-hook 'magit-ediff-quit-hook 'delete-frame)
     (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))

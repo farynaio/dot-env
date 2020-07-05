@@ -187,6 +187,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
+     ;; org mode conflicts resolution: windmove
+     (add-hook 'org-shiftup-final-hook 'windmove-up)
+     ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
+     ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
+     (add-hook 'org-shiftright-final-hook 'windmove-right)
+
      (advice-add #'org-refile :after
        (lambda (&rest args) (org-save-all-org-buffers)))
 

@@ -70,12 +70,30 @@
     (bind-key "[e"     #'previous-error                      evil-normal-state-map)
     (bind-key "<"      #'beginning-of-buffer                 evil-normal-state-map)
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
+    (bind-key "<home>" #'evil-first-non-blank              evil-normal-state-map)
+    (bind-key "<home>" #'evil-first-non-blank              evil-visual-state-map)
+    (bind-key "<end>" #'evil-end-of-line                  evil-normal-state-map)
+    (bind-key "<end>" #'evil-end-of-line                  evil-visual-state-map)
     ;; (bind-key "<M-right>" #'right-word                         evil-normal-state-map)
     ;; (bind-key "<M-left>" #'left-word                           evil-normal-state-map)
 
     ;; (bind-key ",\\"    #'skk-mode                            evil-normal-state-map)
 
     (unbind-key "M-." evil-normal-state-map)
+    (unbind-key "\\" evil-motion-state-map)
+
+    (define-key global-map (kbd "C-f") 'universal-argument)
+    (define-key universal-argument-map (kbd "C-u") nil)
+    (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+    ;; (define-key global-map (kbd "C-u") 'kill-whole-line)
+
+    (eval-after-load 'evil-maps
+      '(progn
+         (define-key evil-motion-state-map (kbd "C-f") nil)
+         (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)))
+
+    ;; (define-key evil-normal-state-map "c" nil)
+    ;; (define-key evil-motion-state-map "cu" 'universal-argument)
 
     (add-hook 'with-editor-mode-hook 'evil-insert-state)
     (advice-add 'eval-region :after (lambda (&rest r)
@@ -198,6 +216,15 @@
 
     (evil-define-key 'normal php-mode-map
       ",d" 'hydra-php-debug/body)
+
+    ;; https://www.emacswiki.org/emacs/Evil#toc12
+    ;; Brings back the access to RET and SPC in some modes.
+    ;; (defun my-move-key (keymap-from keymap-to key)
+    ;;   "Moves key binding from one keymap to another, deleting from the old location. "
+    ;;   (define-key keymap-to key (lookup-key keymap-from key))
+    ;;   (define-key keymap-from key nil))
+    ;; (my-move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
+    ;; (my-move-key evil-motion-state-map evil-normal-state-map " ")
 
     (defalias #'forward-evil-word #'forward-evil-symbol)
 

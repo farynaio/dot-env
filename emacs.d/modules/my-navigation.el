@@ -89,6 +89,15 @@
 
 (setq default-directory "~/.emacs.d")
 
+(use-package ace-jump-mode
+  :config
+  (progn
+    (when (fboundp 'evil-mode)
+      (bind-key "\\w" #'ace-jump-word-mode  evil-motion-state-map)
+      (bind-key "\\c" #'ace-jump-mode       evil-motion-state-map)
+      (bind-key "\\a" #'ivy-imenu-anywhere  evil-motion-state-map)
+      )))
+
 ;; (setq display-buffer-alist
 ;;   '(
 ;;      ("^.+\\.org\\(\\.gpg\\)?$"
@@ -400,6 +409,11 @@ point reaches the beginning or end of the buffer, stop there."
 (setq windmove-wrap-around t)
 (setq framemove-hook-into-windmove t)
 
+;; https://gist.github.com/magnars/2350388
+;; Set mark to make it easy to jump back.
+(defadvice ido-imenu (before push-mark activate)
+  (push-mark))
+
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
 (defun my/save-buffers-kill-terminal ()
@@ -453,12 +467,6 @@ point reaches the beginning or end of the buffer, stop there."
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
-
-;; org mode conflicts resolution: windmove
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
 
 (global-set-key (kbd "C-x |") #'my/toggle-window-split)
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
