@@ -16,7 +16,6 @@
 (use-package popup)
 (use-package miniedit)
 (use-package calfw)
-(use-package imenu-anywhere)
 (use-package with-editor)  ; dependency for other package
 (use-package neotree)
 (use-package multiple-cursors)
@@ -81,6 +80,13 @@ $0`(yas-escape-text yas-selected-text)`")
 
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
+
+;; (use-package imenu-anywhere
+;;   :config
+;;   (progn
+;;     (when (fboundp 'evil-mode)
+;;       (bind-key "\\a" #'ivy-imenu-anywhere  evil-motion-state-map)
+;;     )))
 
 (use-package persistent-scratch
   :config

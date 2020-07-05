@@ -89,14 +89,14 @@
 
 (setq default-directory "~/.emacs.d")
 
-(use-package ace-jump-mode
-  :config
-  (progn
-    (when (fboundp 'evil-mode)
-      (bind-key "\\w" #'ace-jump-word-mode  evil-motion-state-map)
-      (bind-key "\\c" #'ace-jump-mode       evil-motion-state-map)
-      (bind-key "\\a" #'ivy-imenu-anywhere  evil-motion-state-map)
-      )))
+;; (use-package ace-jump-mode
+;;   :config
+;;   (progn
+;;     (when (fboundp 'evil-mode)
+;;       (bind-key "\\w" #'ace-jump-word-mode  evil-motion-state-map)
+;;       (bind-key "\\c" #'ace-jump-mode       evil-motion-state-map)
+;;       (bind-key "\\a" #'ivy-imenu-anywhere  evil-motion-state-map)
+;;       )))
 
 ;; (setq display-buffer-alist
 ;;   '(
@@ -105,7 +105,14 @@
 ;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
 ;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
 
-(use-package avy)
+(use-package avy
+  :config
+  (progn
+    (when (fboundp 'evil-mode)
+      (bind-key "\\w" #'avy-goto-word-or-subword-1  evil-motion-state-map)
+      (bind-key "\\c" #'avy-goto-char               evil-motion-state-map)
+      )))
+
 (use-package ivy-hydra)
 (use-package ivy
   :ensure t
@@ -161,14 +168,12 @@
          (dired-mode . ivy-subdir)
          (org-mode . org-level-4)))
 
-    (setq
-      ;; ivy-use-virtual-buffers t
-      ivy-height 10
-      ivy-use-selectable-prompt t
-      ivy-count-format "(%d/%d) "
-      ivy-re-builders-alist '((t   . ivy--regex-ignore-order)))
-    )
-  )
+    (setq ivy-height 15)
+    (setq ivy-use-selectable-prompt t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-use-virtual-buffer t)
+    (setq ivy-re-builders-alist '((t   . ivy--regex-ignore-order)))
+    ))
 
 (use-package counsel
   :config
@@ -191,6 +196,9 @@
     (bind-key "C-x r b" #'counsel-bookmark)
     (bind-key "C-x b" #'counsel-ibuffer)
     (bind-key "C-x C-b" #'my/counsel-ibuffer-other-window)
+
+    (when (fboundp 'evil-mode)
+      (bind-key "\\a" #'counsel-imenu  evil-motion-state-map))
 
     (defun my/counsel-ibuffer-other-window (&optional name)
       "Use ibuffer to switch to another buffer.
