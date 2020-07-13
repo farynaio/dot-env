@@ -17,7 +17,7 @@
 (setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
 (setq my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
 (setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
-(setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
+(setq my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
 (setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-directory))
@@ -31,7 +31,7 @@
 
 (setq my/org-ideas-file-path (expand-file-name "ideas.org.gpg" my/org-topics-directory))
 (setq my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-gpg-directory))
-(setq my/org-journal-file-path (expand-file-name "journal.org.gpg" org-gpg-directory))
+(setq my/org-journal-file-path (expand-file-name "journal.org" org-directory))
 (setq my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-gpg-directory))
 (setq my/org-review-file-path (expand-file-name "reviews.org.gpg" org-gpg-directory))
 

@@ -209,16 +209,16 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          ))
      ))
 
-(eval-after-load 'org-caldav
-  '(progn
-    (setq org-caldav-url 'google)
-    (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
-    (setq org-caldav-delete-calendar-entries 'always)
-    (setq org-caldav-delete-org-entries 'never)
-    (setq org-caldav-save-directory my/tmp-base-path)
-    (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-    (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
-    (org-remove-file org-caldav-inbox)))
+;; (eval-after-load 'org-caldav
+;;   '(progn
+;;     (setq org-caldav-url 'google)
+;;     (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
+;;     (setq org-caldav-delete-calendar-entries 'always)
+;;     (setq org-caldav-delete-org-entries 'never)
+;;     (setq org-caldav-save-directory my/tmp-base-path)
+;;     (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
+;;     (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
+;;     (org-remove-file org-caldav-inbox)))
 
 (eval-after-load 'org-agenda
   '(progn
@@ -231,6 +231,16 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "*"        #'evil-search-word-forward    org-agenda-mode-map)
      (bind-key "\\w"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
      (bind-key "\\c"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
+
+     (setq org-agenda-files
+       (delq nil
+         (mapcar (lambda (x) (and x (file-exists-p x) x))
+           (list
+             my/org-tasks-file-path
+             my/org-anniversaries-file-path
+             my/org-projects-file-path
+             ))
+         ))
 
      (add-hook 'org-agenda-mode-hook
        (lambda ()
@@ -370,14 +380,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-project-switch-to-self-accounting :level . 1)
                             ;; (,my/org-project-setup-digital-agency :level . 1) ; particular projects
                             (,my/org-projects-file-path :level . 1)))
-(setq org-agenda-files
-  (delq nil
-    (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list
-        my/org-tasks-file-path
-        my/org-anniversaries-file-path
-        my/org-projects-file-path
-        ))))
 
 (setq
   org-export-creator-string "Adam Faryna (appdy.co.uk)"
