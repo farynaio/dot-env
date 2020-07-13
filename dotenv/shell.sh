@@ -39,7 +39,7 @@ smart-resize() {
   fi
 
   quality=$4
-  
+
   if [ -z "$quality" ]; then
     quality=82
   fi
@@ -118,9 +118,6 @@ command_exists() {
 
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-
-export ANDROID_HOME="$HOME/Development/Java/sdk-android"
-export ANDROID_SDK_ROOT="$HOME/Development/Java/sdk-android"
 
 if [[ -e /usr/libexec/java_home ]]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
