@@ -357,8 +357,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-refile-targets `((nil :level . 1)
                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
-                            (,my/org-active-file-path :level . 1)
-                            (,my/org-repeatables-file-path :level . 1)
                             (,my/org-project-trip-nottingham :level . 1)
                             (,my/org-project-trip-edinburgh :level . 1)
                             (,my/org-project-become-confident-pua :level . 1)
@@ -375,11 +373,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-agenda-files
   (delq nil
     (mapcar (lambda (x) (and x (file-exists-p x) x))
-      (list my/org-active-file-path
+      (list
+        my/org-tasks-file-path
         my/org-anniversaries-file-path
-        my/org-repeatables-file-path
         my/org-projects-file-path
-        my/org-taxes-file-path
         ))))
 
 (setq
@@ -620,7 +617,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("r" "Repeatable" entry (file+headline ,my/org-repeatables-file-path "Repeatables")
+  ("r" "Repeatable" entry (file+headline ,my/org-tasks-file-path "Repeatables")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
@@ -630,7 +627,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("t" "Todo" entry (file+headline ,my/org-active-file-path "Tasks")
+  ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
@@ -639,7 +636,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("a" "Waiting" entry (file+headline ,my/org-active-file-path "Tasks")
+  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* WAITING %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
@@ -891,7 +888,7 @@ Blood type/flavour: %^{Blood type: }
      ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
-         (org-agenda-files (list my/org-active-file-path my/org-tasks-file-path my/org-projects-file-path))))
+         (org-agenda-files (list my/org-tasks-file-path my/org-projects-file-path))))
      ("g" "Goals"
        ((tags-todo "weekly"
           ((org-agenda-skip-function
@@ -1045,6 +1042,7 @@ should be continued."
                        ("career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
                        ("relations" . ?r) ; my social network, my professional network
                        ("fun" . ?f) ; relax, enjoy life
+                       ("tax" . ?t)
 
                        ("@poland" . ?n)
                        (:startgroup . nil)
