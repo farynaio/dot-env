@@ -619,7 +619,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("r" "Repeatable" entry (file+headline ,my/org-tasks-file-path "Repeatables")
+  ("r" "Repeatable" entry (file+headline ,my/org-tasks-file-path "Repeatable")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
@@ -638,7 +638,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
+  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Waiting")
 "* WAITING %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
@@ -770,8 +770,8 @@ Blood type/flavour: %^{Blood type: }
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-service-arbitrage
-                               my/org-project-best-offers-club
+                               ;; my/org-project-service-arbitrage
+                               ;; my/org-project-best-offers-club
                                ;; my/org-project-setup-digital-agency
                                ;; my/org-project-setup-career-it-blog
                                ;; my/org-project-launch-diy-app
