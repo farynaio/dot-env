@@ -241,12 +241,44 @@
          (#("account" 0 1
              (idx 6))
            "%(binary) -f %(ledger-file) reg %(account)"))))
-  '(org-agenda-files
+  '(package-selected-packages
      (quote
-       ("~/Documents/emacs/orgs/brainstorm.org" "/Users/devil/Documents/emacs/agenda/active.org" "/Users/devil/Documents/emacs/agenda/anniversaries.org" "/Users/devil/Documents/emacs/agenda/repeat.org" "/Users/devil/Documents/emacs/orgs/projects.org" "/Users/devil/Documents/emacs/agenda/taxes.org")))
+       (all-the-icons yaml-mode xref-js2 which-key web-mode web-beautify w3m w3 vue-mode vimrc-mode use-package transient tide synosaurus sr-speedbar smartscan rjsx-mode request realgud rainbow-mode rainbow-delimiters projectile-rails prettier-js po-mode persistent-scratch org-review org-plus-contrib org-mime oauth2 neotree minimap miniedit markdown-mode magit ledger-mode langtool js2-refactor japanese-holidays jade-mode ivy-hydra imenu-anywhere hl-todo guide-key graphql-mode goto-last-change google-translate git-gutter geben exec-path-from-shell evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy editorconfig dtrt-indent drag-stuff dockerfile-mode diminish dash-at-point counsel-projectile company-web company-statistics company-quickhelp company-php company-lsp company-box centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile auctex artbollocks-mode ag ace-jump-mode ac-php)))
+  '(safe-local-variable-values
+     (quote
+       ((eval progn
+          (add-to-list
+            (quote auto-mode-alist)
+            (quote
+              ("\\.jsx?\\'" . rjsx-mode))))
+         (eval progn
+           (add-to-list
+             (quote auto-mode-alist)
+             (quote
+               ("\\.jsx?\\'" . js2-mode))))
+         (org-hide-emphasis-markers . t)
+         (ispell-dictionary . "en")
+         (ispell-dictionary . "pl")
+         (my/language-local . pl)
+         (my/language-local . en)
+         (org-use-property-inheritance . t)
+         (org-confirm-babel-evaluate)
+         (eval progn
+           (add-hook
+             (quote js-mode-hook)
+             (lambda nil
+               (flycheck-mode -1))
+             t))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cursor ((t (:inherit nil :background "White" :underline nil)))))
+ '(company-box-selection ((t (:inherit company-tooltip-selection))))
+ '(company-preview-search ((t (:inherit company-preview :background "red"))))
+ '(company-scrollbar-bg ((t (:background "systemBlueColor"))))
+ '(company-scrollbar-fg ((t (:background "gray40"))))
+ '(company-template-field ((t (:background "gray40" :foreground "white"))))
+ '(company-tooltip ((t (:background "gray40" :foreground "white"))))
+ '(company-tooltip-common ((t (:foreground "white"))))
+ '(company-tooltip-selection ((t (:background "systemBlueColor")))))
