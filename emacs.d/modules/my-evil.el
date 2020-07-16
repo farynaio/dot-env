@@ -133,6 +133,8 @@
     (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
     (add-to-list 'evil-emacs-state-modes 'xref--xref-buffer-mode)
     (add-to-list 'evil-emacs-state-modes 'erc-mode)
+    (add-to-list 'evil-emacs-state-modes 'custom-mode)
+
 
     ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
     ;; (setq evil-emacs-state-modes nil)
