@@ -640,7 +640,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 
   ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Waiting")
 "* WAITING %?
-SCHEDULED: <%<%Y-%m-%d %a>>
+DEADLINE: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
@@ -956,6 +956,7 @@ Blood type/flavour: %^{Blood type: }
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-overriding-header "WAITING TASKS:")
             (org-agenda-remove-tags t)
+            (org-agenda-skip-function 'my/org-agenda-skip-deadline-if-not-today)
             (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -978,6 +979,22 @@ Blood type/flavour: %^{Blood type: }
        )
      )
   )
+
+;; https://emacs.stackexchange.com/a/30194/18445
+(defun my/org-agenda-skip-deadline-if-not-today ()
+"If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+  (ignore-errors
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (deadline-day
+            (time-to-days
+              (org-time-string-to-time
+                (org-entry-get nil "DEADLINE"))))
+          (now (time-to-days (current-time))))
+       (and deadline-day
+            (not (= deadline-day now))
+            subtree-end))))
 
 (defun my/org-calendar-export-limit ()
   "Limit the export to items that have a date, time and a range. Also exclude certain categories."
