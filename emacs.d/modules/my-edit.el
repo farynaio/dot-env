@@ -67,8 +67,6 @@ $0`(yas-escape-text yas-selected-text)`")
   ("e" #'yas-visit-snippet-file "edit")
   ("r" #'yas-reload-all "reload"))
 
-(use-package all-the-icons)
-
 (use-package company
   :diminish company-mode
   :config
@@ -80,23 +78,6 @@ $0`(yas-escape-text yas-selected-text)`")
     (setq company-tooltip-align-annotations t)
     (setq company-minimum-prefix-length 0)
     (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
-
-;; this mode looks broken
-;; (use-package company-box
-;;   :hook (company-mode . company-box-mode)
-;;   :diminish company-box-mode
-;;   :config
-;;   (progn
-;;     (setq company-box-icons-functions '(company-box-icons--lsp company-box-icons--elisp company-box-icons--acph))
-;;     (setq company-box-doc-delay 0.2)
-;;     (setq company-box-show-single-candidate t)
-;;     (setq company-box-icons-alist 'company-box-icons-all-the-icons)
-;;     (setq company-box-color-icon t)
-;;     (setq company-box--icon-offset 10)
-;;     (setq company-box-backends-colors '((company-yasnippet . (:candidate "yellow" :annotation some-face))
-;;                                         (company-elisp . (:icon "yellow" :selected (:background "orange" :foreground "black")))
-;;                                          (company-dabbrev . "white")))
-;;          ))
 
 (use-package which-key
   :config
