@@ -183,6 +183,8 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
 
+(setq auto-save-visited-interval 10)
+
 ;; (defun my/set-syntax-entry ()
 ;;   ""
 ;;   (when (and (not (eq major-mode "php-mode")) (not (eq major-mode "web-mode")))
