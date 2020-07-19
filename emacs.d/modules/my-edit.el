@@ -409,12 +409,6 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (add-hook 'focus-out-hook 'my/save-all)
 
-(use-package real-auto-save
-  :config
-  (progn
-    (setq real-auto-save-interval 5)
-    (real-auto-save-mode 1)))
-
 (defvar epa-key-mode-map (make-sparse-keymap))
 (defvar org-mode-map (make-sparse-keymap))
 (defvar mu4e:view-mode-map (make-sparse-keymap))
@@ -472,6 +466,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (electric-pair-mode 1)
 (global-hl-line-mode 1)
 (rainbow-mode 1)
+(auto-save-visited-mode)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
