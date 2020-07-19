@@ -479,4 +479,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-x |") #'my/toggle-window-split)
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
 
+(bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
+
 (provide 'my-navigation)

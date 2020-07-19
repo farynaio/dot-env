@@ -422,6 +422,18 @@ $0`(yas-escape-text yas-selected-text)`")
   (interactive)
   (dired "/sudo::/"))
 
+(defun my/save-all ()
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'my/save-all)
+
+(use-package real-auto-save
+  :config
+  (progn
+    (setq real-auto-save-interval 5)
+    (real-auto-save-mode 1)))
+
 (defvar epa-key-mode-map (make-sparse-keymap))
 (defvar org-mode-map (make-sparse-keymap))
 (defvar mu4e:view-mode-map (make-sparse-keymap))
@@ -434,7 +446,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (defvar php-mode-map (make-sparse-keymap))
 (defvar web-mode-map (make-sparse-keymap))
 
-(bind-key "C-x C-c"       #'my/save-buffers-kill-terminal)
 (bind-key "C-x C-r"       #'recentf-open-files)
 (bind-key "<home>"        #'left-word)
 (bind-key "<end>"         #'right-word)
