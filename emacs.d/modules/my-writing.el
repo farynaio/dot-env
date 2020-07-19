@@ -17,6 +17,7 @@
 (defvar my/en-abbrevs nil)
 (define-abbrev-table 'my/en-abbrevs '(
                         ("im" "I'm" nil 0)
+                        ("am i" "am I" nil 0)
                         ("dont" "don't" nil 0)
                         ("cant" "can't" nil 0)
                         ("aint" "ain't" nil 0)
