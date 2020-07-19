@@ -866,7 +866,7 @@ Blood type/flavour: %^{Blood type: }
              (org-tags-match-list-sublevels nil)
              (org-agenda-remove-tags t)
              (org-agenda-files (append org-agenda-files my/org-active-projects))))
-         (tags "@home"
+         (tags-todo "@home"
            ((org-agenda-overriding-header "Active Home tasks:")
              (org-agenda-skip-function
                '(or
