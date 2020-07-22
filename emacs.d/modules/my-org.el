@@ -152,6 +152,11 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       'org-metadown
       'drag-stuff-down)))
 
+(defhydra my/hydra-org ()
+  "org navigation"
+  ("s" #'counsel-org-goto "goto heading")
+  ("a" #'counsel-org-file "browse attachments"))
+
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
@@ -169,6 +174,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
      (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
      ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
+
+     (bind-key "C-x ," #'my/hydra-org/body org-mode-map)
 
      (unbind-key "C-'" org-mode-map)
 
