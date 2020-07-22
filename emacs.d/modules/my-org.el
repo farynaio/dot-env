@@ -176,6 +176,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
 
      (bind-key "C-x ," #'my/hydra-org/body org-mode-map)
+     (bind-key "C-x C-," #'my/hydra-org/body org-mode-map)
 
      (unbind-key "C-'" org-mode-map)
 
