@@ -72,8 +72,9 @@
     (bind-key ">"      #'end-of-buffer                       evil-normal-state-map)
     (bind-key "<home>" #'evil-first-non-blank                evil-normal-state-map)
     (bind-key "<home>" #'evil-first-non-blank                evil-visual-state-map)
-    (bind-key "<end>" #'evil-end-of-line                     evil-normal-state-map)
-    (bind-key "<end>" #'evil-end-of-line                     evil-visual-state-map)
+    (bind-key "<end>"  #'evil-end-of-line                     evil-normal-state-map)
+    (bind-key "<end>"  #'evil-end-of-line                     evil-visual-state-map)
+    (bind-key ", /"    #'keyboard-quit                       evil-visual-state-map)
     ;; (bind-key "<M-right>" #'right-word                         evil-normal-state-map)
     ;; (bind-key "<M-left>" #'left-word                           evil-normal-state-map)
 
