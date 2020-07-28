@@ -578,19 +578,18 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 
   ("j" "Journal" entry (file+headline ,my/org-journal-file-path "Journal")
 "* [%<%Y-%m-%d %a>]
-- English
-  - %?
+%?
 
-- Achieved
+- English
   -
 
-- people
+- what new people I meet today
   -
 
 - knowledge
   -
 
-- I did today
+- what I did today
   -
 
 "
