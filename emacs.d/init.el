@@ -111,6 +111,7 @@
 (require 'my-shell)
 (require 'my-encrypt)
 (require 'my-cleanup)
+(require 'my-rss)
 
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
