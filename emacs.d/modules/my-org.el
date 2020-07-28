@@ -155,7 +155,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (defhydra my/hydra-org ()
   "org navigation"
   ("s" #'counsel-org-goto "goto heading")
-  ("a" #'counsel-org-file "browse attachments"))
+  ("a" #'counsel-org-file "browse attachments")
+  ("t" #'org-toggle-timestamp-type "timestamp toggle")
+  )
 
 (eval-after-load 'org
   '(progn
