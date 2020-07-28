@@ -1018,7 +1018,7 @@ should be continued."
                 (org-entry-get nil "DEADLINE"))))
           (now (time-to-days (current-time))))
        (and deadline-day
-            (not (= deadline-day now))
+            (not (<= deadline-day now))
             subtree-end))))
 
 (defun my/org-calendar-export-limit ()
