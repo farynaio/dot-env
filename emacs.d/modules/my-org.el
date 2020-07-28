@@ -398,6 +398,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   org-export-with-smart-quotes t ; could cause problems on babel export
   )
 
+(setq org-group-tag nil)
 (setq org-archive-reversed-order t)
 (setq org-startup-folded t)
 (setq org-hide-emphasis-markers nil)
@@ -428,7 +429,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-fontify-done-headline t)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
-(setq org-deadline-warning-days 5)
+(setq org-deadline-warning-days 14)
 ;; (setq org-tags-column -100)
 (setq org-reverse-note-order t)
 (setq org-global-properties '(("Effort_ALL" . "0:05 0:15 0:30 1:00 2:00 4:00")))
