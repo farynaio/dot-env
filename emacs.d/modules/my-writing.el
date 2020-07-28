@@ -22,6 +22,7 @@
                         ("cant" "can't" nil 0)
                         ("aint" "ain't" nil 0)
                         ("isnt" "isn't" nil 0)
+                        ("wont" "won't" nil 0)
                         ("couldnt" "couldn't" nil 0)
                         ("You are" "You're" nil 0)
                         ("you are" "you're" nil 0)
