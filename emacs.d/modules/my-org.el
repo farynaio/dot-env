@@ -1087,6 +1087,7 @@ should be continued."
                        ("relations" . ?r) ; my social network, my professional network
                        ("fun" . ?f) ; relax, enjoy life
                        ("tax" . ?t)
+                       ("service" . ?s)
 
                        ("@poland" . ?n)
                        (:startgroup . nil)
