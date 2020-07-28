@@ -44,7 +44,6 @@
     (diminish 'eldoc-mode)
     (diminish 'visual-line-mode)
     (diminish 'editorconfig-mode)
-    (diminish 'company-box-mode)
     (diminish 'js-mode "JS")
     (diminish 'abbrev-mode)))
 
