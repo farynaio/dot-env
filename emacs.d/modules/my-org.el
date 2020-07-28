@@ -546,7 +546,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :TITLE: \"%^{What Title: }\"
 :AUTHOR: %^{What author: }
 :END:
-[[file:~/Documents/emacs/orgs/knowledge/books/\"%\\1\" %\\2.org][link]]
+[[file:~/Documents/emacs/orgs/archive/books/\"%\\1\" %\\2.org][link]]
 ** TODO \"%\\1\" after week
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
 :PROPERTIES:
