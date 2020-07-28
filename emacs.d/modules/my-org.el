@@ -845,6 +845,21 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags t)
             (org-agenda-files (list my/org-media-reviews-file-path)))))
        )
+
+     ("f" "Done media"
+        ((todo "DONE"
+          ((org-agenda-overriding-header "Done media:")
+            (org-tags-match-list-sublevels nil)
+            (org-agenda-remove-tags nil)
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-media-file-path))))
+        (tags-todo "-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+          ((org-agenda-overriding-header "Active Reviews:")
+            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
+            (org-agenda-remove-tags t)
+            (org-agenda-files (list my/org-media-reviews-file-path)))))
+       )
+
      ("p" "Active places tasks"
        ((tags "@phone"
           ((org-agenda-overriding-header "Active Phone tasks:")
