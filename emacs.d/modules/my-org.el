@@ -1084,6 +1084,38 @@ should be continued."
         (>= scheduled-seconds now)
         subtree-end))))
 
+(defun jarfar/org-state-canceled-timestamp-toggle ()
+  "Toggle active/inactive SCHEDULED or DEADLINE timestamp Remove SCHEDULED-cookie is switching state to WAITING."
+  (save-excursion
+    (let ((state (org-get-todo-state)))
+      (cond
+        ((equal state "CANCELED")
+          (when (and
+                  (org-get-deadline-time (point))
+                  (search-forward-regexp "DEADLINE: .*" nil t)
+                  (org-at-timestamp-p 'agenda))
+            (org-toggle-timestamp-type))
+          (when (and
+                  (org-get-scheduled-time (point))
+                  (search-forward-regexp "SCHEDULED: .*" nil t)
+                  (org-at-timestamp-p 'agenda))
+            (org-toggle-timestamp-type)))
+        ((equal state "TODO")
+          (when (and
+                  (org-get-deadline-time (point))
+                  (search-forward-regexp "DEADLINE: .*" nil t)
+                  (equal (char-to-string (char-before)) "]"))
+            (org-toggle-timestamp-type))
+          (when (and
+                  (org-get-scheduled-time (point))
+                  (search-forward-regexp "SCHEDULED: .*" nil t)
+                  (equal (char-to-string (char-before)) "]"))
+            (org-toggle-timestamp-type)))))
+    (when (equal (buffer-name (current-buffer)) "*Org Agenda*")
+      (with-current-buffer "*Org Agenda*" (org-agenda-redo)))))
+
+(add-hook 'org-after-todo-state-change-hook 'jarfar/org-state-canceled-timestamp-toggle)
+
 (org-clock-persistence-insinuate)
 
 (setq org-tag-alist '(
