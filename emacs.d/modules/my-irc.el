@@ -3,19 +3,17 @@
 
 (eval-after-load 'erc
   '(progn
-     (setq
-       erc-nick "jarfaro"
-       erc-away-nickname "jarfaro"
-       erc-email-userid "adamfaryna@gmail.com"
-       erc-prompt-for-nickserv-password nil
-       erc-format-nick-function 'erc-format-@nick
-       erc-nick-uniquifier "_"
-       erc-prompt-for-password nil)
+     (setq erc-nick "jarfar")
+     (setq erc-away-nickname "jarfar")
+     (setq erc-email-userid "adamfaryna@gmail.com")
+     (setq erc-prompt-for-nickserv-password nil)
+     (setq erc-format-nick-function 'erc-format-@nick)
+     (setq erc-nick-uniquifier "_")
+     (setq erc-prompt-for-password nil)
 
-     (setq
-       erc-kill-server-buffer-on-quit t
-       erc-kill-queries-on-quit t
-       erc-rename-buffers t)
+     (setq erc-kill-server-buffer-on-quit t)
+     (setq erc-kill-queries-on-quit t)
+     (setq erc-rename-buffers t)
 
      (add-to-list 'erc-modules 'autojoin t)
      (add-to-list 'erc-modules 'button t)
