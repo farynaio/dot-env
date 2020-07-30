@@ -197,6 +197,15 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
+     (defun jarfar/org-update-all-statistics-cookies ()
+       "Update all statistics cookies in org buffer."
+       (when (string-equal major-mode "org-mode")
+         (org-update-statistics-cookies t)))
+
+     (add-hook 'buffer-list-update-hook 'jarfar/org-update-all-statistics-cookies)
+
+     (advice-add 'save-buffer :before (lambda (&rest args) (jarfar/org-update-all-statistics-cookies)))
+
      ;; org mode conflicts resolution: windmove
      (add-hook 'org-shiftup-final-hook 'windmove-up)
      ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
