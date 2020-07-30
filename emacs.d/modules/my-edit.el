@@ -176,6 +176,7 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq electric-pair-text-pairs
   '(
+     (?\' . ?\')
      (?\" . ?\")
      (?\{ . ?\})
      (?\( . ?\))))
@@ -458,7 +459,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-visual-line-mode 1)
 ;; (global-emojify-mode 1)
 (delete-selection-mode 1)
-(electric-pair-mode 1)
 (global-hl-line-mode 1)
 (rainbow-mode 1)
 (auto-save-visited-mode)
