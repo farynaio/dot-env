@@ -44,7 +44,8 @@
 
 (define-derived-mode my/org-taskjuggler-mode org-mode "TJP"
   "Major mode for TaskJuggler projects."
-  (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t))
+  ;; (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t)
+  )
 
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"
