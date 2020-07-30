@@ -107,11 +107,12 @@
 
 (use-package avy
   :config
-  (progn
-    (when (fboundp 'evil-mode)
-      (bind-key "\\w" #'avy-goto-word-or-subword-1  evil-motion-state-map)
-      (bind-key "\\c" #'avy-goto-char               evil-motion-state-map)
-      )))
+  (bind-key "\\c" #'avy-goto-char help-mode-map)
+  (bind-key "\\w" #'avy-goto-word-or-subword-1 help-mode-map)
+
+  (when (fboundp 'evil-mode)
+    (bind-key "\\w" #'avy-goto-word-or-subword-1  evil-motion-state-map)
+    (bind-key "\\c" #'avy-goto-char               evil-motion-state-map)))
 
 (use-package ivy-hydra)
 (use-package ivy
