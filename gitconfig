@@ -71,7 +71,7 @@
   rebase = preserve
 
 [push]
-  default = upstream
+	default = current
 	# When pushing, also push tags whose commit-ishs are now reachable upstream
   followTags = true
   recurseSubmodules = on-demand
