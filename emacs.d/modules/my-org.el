@@ -397,7 +397,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-project-become-confident-pua :level . 1)
                             (,my/org-project-service-arbitrage :level . 1)
                             (,my/org-project-best-offers-club :level . 1)
-                            (,my/org-project-indie-dev :regexp . "Tasks$")
+                            (,my/org-project-indie-dev :regexp . "Tasks.*\[%\]")
                             ;; (,my/org-project-launch-amazon-business :level . 1)
                             ;; (,my/org-project-setup-freelance :level . 1)
                             ;; (,my/org-project-change-hosting-provider :level . 1)
@@ -990,7 +990,7 @@ Blood type/flavour: %^{Blood type: }
            (org-agenda-overriding-header "HIGH-PRIORITY TASKS:")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
            (org-agenda-files (append org-agenda-files my/org-active-projects))))
-        (tags "PROJECT"
+        (tags "PROJECT_ACTIVE"
           ((org-agenda-overriding-header "ACTIVE PROJECTS:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
