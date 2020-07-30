@@ -138,13 +138,14 @@
     (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
     (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
 
-    (evil-make-overriding-map edebug-mode-map '(normal motion))
-    (add-hook 'edebug-mode-hook 'evil-normalize-keymaps)
-
     ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
     ;; (setq evil-emacs-state-modes nil)
 
     (evil-declare-change-repeat 'company-complete)
+
+    (with-eval-after-load 'edebug
+      (evil-make-overriding-map edebug-mode-map '(normal motion))
+      (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
 
     (evil-define-key '(motion normal) org-mode-map
       (kbd "C-c C-s") #'org-schedule)
