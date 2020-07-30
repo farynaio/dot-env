@@ -215,8 +215,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (add-hook 'org-mode-hook
        (lambda ()
          (setq-local paragraph-start "[:graph:]+$")
-         (setq-local paragraph-separate "[:space:]*$")
-         ))
+         (setq-local paragraph-separate "[:space:]*$")))
+
+     ;; refresh agenda after adding new task via org-capture
+     (add-hook 'org-capture-after-finalize-hook
+       (lambda ()
+         (save-excursion
+           (when (get-buffer "*Org Agenda*")
+             (with-current-buffer "*Org Agenda*" (org-agenda-redo))))))
      ))
 
 ;; (eval-after-load 'org-caldav
