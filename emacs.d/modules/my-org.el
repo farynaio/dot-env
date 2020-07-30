@@ -988,7 +988,7 @@ Blood type/flavour: %^{Blood type: }
                  (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
                  (my/org-skip-subtree-if-priority ?A)
                  (org-agenda-skip-entry-if 'notscheduled))))
-           (org-agenda-remove-tags t)
+           (org-agenda-remove-tags nil)
            (org-agenda-overriding-header "HIGH-PRIORITY TASKS:")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
            (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -1006,14 +1006,17 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags-todo "TODO=\"BLOCKED\""
           ((org-agenda-overriding-header "BLOCKED TASKS:")
-            (org-agenda-skip-function
-              '(or (org-agenda-skip-entry-if 'notscheduled)))
+            (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up)))
             (org-agenda-files (append org-agenda-files my/org-active-projects)))
         (agenda ""
-          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("WAITING")))
+          ((org-agenda-skip-function
+             '(or
+                (org-agenda-skip-entry-if 'todo '("WAITING"))
+                (my/org-skip-subtree-if-priority ?A)
+                ))
             (org-agenda-sorting-strategy '(time-up priority-down todo-state-up category-keep effort-down habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
