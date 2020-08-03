@@ -567,7 +567,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 "
 :prepend t :empty-lines-after 1 :jump-to-captured nil)
 
-  ("e" "Media Review" entry (file ,my/org-media-reviews-file-path)
+  ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
 "** _\"%\\1\" %\\2 %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
