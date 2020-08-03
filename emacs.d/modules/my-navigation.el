@@ -271,6 +271,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :config
   (progn
     (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
+    (bind-key "C-c p F" #'projectile-find-file-other-window projectile-mode-map)
     ;; (setq projectile-generic-command "fd . -0")
     (setq projectile-tags-command "ctags -R -e .")
     (setq projectile-track-known-projects-automatically nil)
