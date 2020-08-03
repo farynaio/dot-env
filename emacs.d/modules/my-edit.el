@@ -173,6 +173,7 @@ $0`(yas-escape-text yas-selected-text)`")
   help-window-select t)
 
 (setq x-underline-at-descent-line t)
+(setq confirm-kill-processe nil)
 
 (setq process-connection-type nil)
 
