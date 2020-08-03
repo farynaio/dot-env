@@ -5,6 +5,9 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 (setq dired-listing-switches "-alh")
+(setq dired-deletion-confirmer 'y-or-n-p)
+(setq delete-by-moving-to-trash t)
+(setq trash-directory "~/.Trash")
 
 (when (file-executable-p "/usr/local/bin/gls")
   (setq insert-directory-program "/usr/local/bin/gls")
