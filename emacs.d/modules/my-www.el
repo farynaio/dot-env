@@ -2,6 +2,9 @@
 
 (eval-after-load 'eww
   '(progn
+     (setq url-cookie-trusted-urls '())
+     (setq url-cookie-untrusted-urls '(".*"))
+
      (bind-key "/"   #'evil-search-forward eww-mode-map)
      (bind-key "C-s" #'evil-search-forward eww-mode-map)
      (bind-key "}" #'forward-paragraph eww-mode-map)
