@@ -197,6 +197,7 @@
     (bind-key "C-x r b" #'counsel-bookmark)
     (bind-key "C-x b" #'counsel-ibuffer)
     (bind-key "C-x C-b" #'my/counsel-ibuffer-other-window)
+    (bind-key "C-x C-r" #'counsel-recentf)
 
     (when (fboundp 'evil-mode)
       (bind-key "\\a" #'counsel-imenu  evil-motion-state-map))
