@@ -565,22 +565,22 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :AUTHOR: %^{What author: }
 :END:
 [[file:~/Documents/emacs/orgs/archive/books/\"%\\1\" %\\2.org][link]]
-** TODO \"%\\1\" after week
+*** TODO \"%\\1\" after week
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after month
+*** TODO \"%\\1\" after month
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after half year
+*** TODO \"%\\1\" after half year
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-** TODO \"%\\1\" after year
+*** TODO \"%\\1\" after year
 SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
