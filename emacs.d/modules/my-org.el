@@ -198,15 +198,25 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
+     (defun jarfar/org-tasks-refile-targets-local ()
+       "Set local 'org-refile-targets for specific org files with tasks."
+       (setq-local org-refile-targets `((,my/org-tasks-file-path :regexp . "Tasks$"))))
+
      (defun jarfar/org-projects-set-refile-targets-local ()
        "Set local 'org-refile-targets for project org files."
        (setq-local org-refile-targets `((,my/org-tasks-file-path :regexp . "Projects$"))))
 
-     (dir-locals-set-class-variables 'projects-directory
+     (dir-locals-set-class-variables 'jarfar/projects-directory
        '((nil . (
           (eval . (progn (jarfar/org-projects-set-refile-targets-local)))
           ))))
-     (dir-locals-set-directory-class my/org-projects-folder 'projects-directory)
+     (dir-locals-set-directory-class my/org-projects-folder 'jarfar/projects-directory)
+
+     (dir-locals-set-class-variables 'jarfar/org-directory
+       '((nil . (
+          (eval . (progn (jarfar/org-tasks-refile-targets-local)))
+          ))))
+     (dir-locals-set-directory-class org-directory 'jarfar/org-directory)
 
      ;; org mode conflicts resolution: windmove
      (add-hook 'org-shiftup-final-hook 'windmove-up)
