@@ -409,7 +409,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                             (,my/org-project-become-confident-pua :level . 1)
                             (,my/org-project-service-arbitrage :level . 1)
                             (,my/org-project-best-offers-club :level . 1)
-                            (,my/org-project-indie-dev :regexp . "Tasks.*\[%\]")
+                            (,my/org-project-indie-dev :tag . "PROJECT_ACTIVE")
                             ;; (,my/org-project-launch-amazon-business :level . 1)
                             ;; (,my/org-project-setup-freelance :level . 1)
                             ;; (,my/org-project-change-hosting-provider :level . 1)
