@@ -1134,6 +1134,48 @@ should be continued."
 
 (add-hook 'org-after-todo-state-change-hook 'jarfar/org-state-canceled-timestamp-toggle)
 
+;; https://www.emacswiki.org/emacs/ReverseParagraphs
+(defun jarfar/org-reverse-paragraphs-order ()
+  (interactive)
+  "Reverse the order of paragraphs in a region.
+From a program takes two point or marker arguments, BEG and END."
+  (interactive)
+  (let ((beg (point-min)) (end (point-max)) (mid))
+    (when (> beg end)
+      (setq mid end end beg beg mid))
+    (save-excursion
+      ;; the last paragraph might be missing a trailing newline
+      (goto-char end)
+      (setq end (point-marker))
+      ;; the real work.
+      (goto-char beg)
+      (let (paragraphs fix-newline)
+        (while (< beg end)
+          ;; skip to the beginning of the next paragraph instead of
+          ;; remaining on the position separating the two paragraphs
+          (when (= 0 (forward-paragraph 1))
+            (goto-char (1+ (match-end 0))))
+          (when (> (point) end)
+            (goto-char end))
+          (setq paragraphs (cons (buffer-substring beg (point))
+                             paragraphs))
+          (delete-region beg (point)))
+        ;; if all but the last paragraph end with two newlines, add a
+        ;; newline to the last paragraph
+        (when (and (null (delete 2 (mapcar (lambda (s)
+                                             (when (string-match "\n+$" s -2)
+                                               (length (match-string 0 s))))
+                                     (cdr paragraphs))))
+                (when (string-match "\n+$" (car paragraphs) -2)
+                  (= 1 (length (match-string 0 (car paragraphs))))))
+          (setq fix-newline t)
+          (setcar paragraphs (concat (car paragraphs) "\n")))
+        ;; insert paragraphs
+        (dolist (par paragraphs)
+          (insert par))
+        (when fix-newline
+          (delete-char -1))))))
+
 (org-clock-persistence-insinuate)
 
 (setq org-tag-alist '(
