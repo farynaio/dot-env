@@ -15,7 +15,7 @@
 
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
 (setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
-(setq my/org-anniversaries-file-path (expand-file-name "anniversaries.org" org-agenda-directory))
+(setq my/org-events-file-path (expand-file-name "events.org" org-agenda-directory))
 (setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
 (setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))

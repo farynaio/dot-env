@@ -263,7 +263,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (mapcar (lambda (x) (and x (file-exists-p x) x))
            (list
              my/org-tasks-file-path
-             ;; my/org-anniversaries-file-path
+             ;; my/org-events-file-path
              ;; my/org-projects-file-path
              ))
          ))
@@ -387,6 +387,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (setq org-default-notes-file my/org-inbox-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
+(setq org-contacts-birthday-format "%h (%Y)")
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 
@@ -1019,15 +1020,25 @@ Blood type/flavour: %^{Blood type: }
                 (org-agenda-skip-entry-if 'todo '("WAITING"))
                 (my/org-skip-subtree-if-priority ?A)
                 ))
-           (org-agenda-sorting-strategy '(time-up todo-state-down priority-down effort-down habit-down alpha-up))
+            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
+           (org-agenda-sorting-strategy '(time-up user-defined-up todo-state-down priority-down effort-down category-keep  habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
-            (org-agenda-files (append org-agenda-files my/org-active-projects `(,my/org-anniversaries-file-path)))))
+            (org-agenda-files (append org-agenda-files my/org-active-projects `(,my/org-events-file-path)))))
         )
        )
      )
   )
+
+(defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
+  ""
+  (let* ((pla (get-text-property 0 "CATEGORY" a))
+          (plb (get-text-property 0 "CATEGORY" b))
+          (pla (string-equal pla "Birthday"))
+          (plb (string-equal plb "Birthday"))
+          )
+    (if (and pla plb) 0 (if pla -1 1))))
 
 ;; https://emacs.stackexchange.com/a/30194/18445
 (defun my/org-agenda-skip-deadline-if-not-today ()
