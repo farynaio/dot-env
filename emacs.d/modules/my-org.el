@@ -1186,6 +1186,7 @@ From a program takes two point or marker arguments, BEG and END."
                        ("fun" . ?f) ; relax, enjoy life
                        ("tax" . ?t)
                        ("service" . ?s)
+                       ("saw" . ?a)
                        ("work" . ?j)
 
                        ("@poland" . ?n)
