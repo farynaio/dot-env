@@ -96,6 +96,11 @@
 
 ;; My modules
 (require 'my-path)
+
+(when (file-exists-p my/local-config-file-path)
+  (message (concat "Loading " my/local-config-file-path "..."))
+  (load my/local-config-file-path))
+
 (require 'my-edit)
 (require 'my-evil)
 (require 'my-writing)
@@ -112,10 +117,6 @@
 (require 'my-encrypt)
 (require 'my-cleanup)
 (require 'my-rss)
-
-(when (file-exists-p my/local-config-file-path)
-  (message (concat "Loading " my/local-config-file-path "..."))
-  (load my/local-config-file-path))
 
 ;; (setq
   ;; gc-cons-threshold (* 511 1024 1024)
