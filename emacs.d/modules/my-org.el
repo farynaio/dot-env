@@ -1019,7 +1019,7 @@ Blood type/flavour: %^{Blood type: }
                 (org-agenda-skip-entry-if 'todo '("WAITING"))
                 (my/org-skip-subtree-if-priority ?A)
                 ))
-           (org-agenda-sorting-strategy '(todo-state-down time-up priority-down effort-down habit-down alpha-up))
+           (org-agenda-sorting-strategy '(time-up todo-state-down priority-down effort-down habit-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
