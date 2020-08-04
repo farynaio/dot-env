@@ -246,17 +246,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
              (with-current-buffer "*Org Agenda*" (org-agenda-redo))))))
      ))
 
-;; (eval-after-load 'org-caldav
-;;   '(progn
-;;     (setq org-caldav-url 'google)
-;;     (setq org-caldav-files (directory-files org-agenda-directory t "^[^.][^#]*\\.org"))
-;;     (setq org-caldav-delete-calendar-entries 'always)
-;;     (setq org-caldav-delete-org-entries 'never)
-;;     (setq org-caldav-save-directory my/tmp-base-path)
-;;     (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-;;     (setq org-caldav-inbox (expand-file-name "google.org.gpg" org-agenda-directory))
-;;     (org-remove-file org-caldav-inbox)))
-
 (eval-after-load 'org-agenda
   '(progn
      (bind-key "C-c C-c"  #'org-agenda-set-tags         org-agenda-mode-map)
@@ -274,8 +263,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (mapcar (lambda (x) (and x (file-exists-p x) x))
            (list
              my/org-tasks-file-path
-             my/org-anniversaries-file-path
-             my/org-projects-file-path
+             ;; my/org-anniversaries-file-path
+             ;; my/org-projects-file-path
              ))
          ))
 
@@ -1034,7 +1023,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
-            (org-agenda-files (append my/org-active-projects org-agenda-files))))
+            (org-agenda-files (append org-agenda-files my/org-active-projects `(,my/org-anniversaries-file-path)))))
         )
        )
      )
@@ -1155,6 +1144,7 @@ should be continued."
                        ("fun" . ?f) ; relax, enjoy life
                        ("tax" . ?t)
                        ("service" . ?s)
+                       ("work" . ?j)
 
                        ("@poland" . ?n)
                        (:startgroup . nil)
@@ -1194,6 +1184,34 @@ should be continued."
 (eval-after-load 'org-diet
   '(progn
      (setq org-diet-file my/org-diet-log-file-path)))
+
+
+(use-package org-caldav
+  :config
+  (progn
+    (setq org-caldav-url 'google)
+    (setq org-caldav-delete-calendar-entries 'always)
+    (setq org-caldav-delete-org-entries 'never)
+    (setq org-caldav-files org-agenda-files)
+    (setq org-caldav-sync-direction 'org->cal)
+
+    (setq org-caldav-save-directory my/caldav-directory)
+    (make-directory org-caldav-save-directory t)
+
+    (setq org-caldav-backup-file "/tmp/emacs/org-caldav-backup.org")
+    (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
+    (setq org-caldav-select-tags '("work"))
+    (setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
+    (setq org-caldav-show-sync-result nil)
+    ;; (org-remove-file org-caldav-inbox)
+
+    (defun jarfar/org-caldav-delete-everything ()
+      "Delete all entries from remote calendar."
+      (interactive)
+      (org-caldav-delete-everything t))
+
+    (defalias 'caldav-sync #'org-caldav-sync)
+    ))
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 

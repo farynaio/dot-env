@@ -1,11 +1,11 @@
 (setq my/org-base-path "~/Documents/emacs")
 (setq my/tools-path "~/.emacs.d/tools/")
 (setq my/fast-path "~/.emacs.d/fast/")
+(setq my/caldav-directory "~/.emacs.d/caldav")
 (setq org-agenda-directory (expand-file-name "agenda" my/org-base-path))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 (setq org-gpg-directory (expand-file-name "private" my/org-base-path))
 (setq my/org-topics-directory (expand-file-name "topics" my/org-base-path))
-(setq my/tmp-base-path (expand-file-name "tmp" my/org-base-path))
 (setq my/drills-base-path (expand-file-name "drills" my/org-base-path))
 
 (setq my/org-archive-path (expand-file-name "archive" my/org-base-path))
