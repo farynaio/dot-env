@@ -11,6 +11,7 @@
 
 ;; Mu
 (setq user-mail-address "")
+(defvar my/mu4e-local-path "/usr/local/Cellar/mu/1.0_1/share/emacs/site-lisp/mu/mu4e")
 
 (eval-after-load 'mu4e
   '(progn

@@ -1,4 +1,3 @@
-(defvar my/mu4e-local-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e")
 (require 'smtpmail)
 
 (if (file-directory-p my/mu4e-local-path)
