@@ -1023,7 +1023,7 @@ Blood type/flavour: %^{Blood type: }
                 ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
             ;; (org-agenda-sorting-strategy '(time-up user-defined-down priority-up))
-            (org-agenda-sorting-strategy '(time-up todo-state-down user-defined-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
+            (org-agenda-sorting-strategy '(time-up user-defined-down habit-down todo-state-down priority-down deadline-up scheduled-up effort-down alpha-up))
             ;; (org-agenda-sorting-strategy '(priority-down))
             ;; (org-agenda-sorting-strategy '())
             (org-agenda-remove-tags nil)
