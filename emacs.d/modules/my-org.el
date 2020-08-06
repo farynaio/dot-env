@@ -1019,27 +1019,33 @@ Blood type/flavour: %^{Blood type: }
           ((org-agenda-skip-function
              '(or
                 (org-agenda-skip-entry-if 'todo '("WAITING"))
-                (my/org-skip-subtree-if-priority ?A)
+                ;; (my/org-skip-subtree-if-priority ?A)
                 ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
-           (org-agenda-sorting-strategy '(time-up user-defined-up todo-state-down priority-down effort-down category-keep  habit-down alpha-up))
+            (org-agenda-sorting-strategy '(time-up todo-state-down user-defined-down habit-down priority-up deadline-up scheduled-up effort-down alpha-up))
+            ;; (org-agenda-sorting-strategy '(priority-down))
+            ;; (org-agenda-sorting-strategy '())
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
-            (org-agenda-files (append org-agenda-files my/org-active-projects `(,my/org-events-file-path)))))
+            (org-agenda-files (append org-agenda-files `(,my/org-events-file-path)))))
         )
        )
      )
   )
 
 (defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
-  ""
+  "Org Agenda user function to sort categories against other categories. The birthday category is considered to be behind other category by default."
   (let* ((pla (get-text-property 0 "CATEGORY" a))
           (plb (get-text-property 0 "CATEGORY" b))
           (pla (string-equal pla "Birthday"))
           (plb (string-equal plb "Birthday"))
           )
-    (if (and pla plb) 0 (if pla -1 1))))
+    (if (or (and pla plb) (and (not pla) (not plb)))
+      0
+      (if pla
+        1
+        -1))))
 
 ;; https://emacs.stackexchange.com/a/30194/18445
 (defun my/org-agenda-skip-deadline-if-not-today ()
