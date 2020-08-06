@@ -1022,7 +1022,8 @@ Blood type/flavour: %^{Blood type: }
                 ;; (my/org-skip-subtree-if-priority ?A)
                 ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
-            (org-agenda-sorting-strategy '(time-up todo-state-down user-defined-down habit-down priority-up deadline-up scheduled-up effort-down alpha-up))
+            ;; (org-agenda-sorting-strategy '(time-up user-defined-down priority-up))
+            (org-agenda-sorting-strategy '(time-up todo-state-down user-defined-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
             ;; (org-agenda-sorting-strategy '(priority-down))
             ;; (org-agenda-sorting-strategy '())
             (org-agenda-remove-tags nil)
@@ -1042,9 +1043,9 @@ Blood type/flavour: %^{Blood type: }
           (plb (string-equal plb "Birthday"))
           )
     (if (or (and pla plb) (and (not pla) (not plb)))
-      0
+      nil
       (if pla
-        1
+        +1
         -1))))
 
 ;; https://emacs.stackexchange.com/a/30194/18445
