@@ -1,3 +1,4 @@
+;; (setq debug-on-error t)
 (setq my/file-name-handler-alist file-name-handler-alist)
 (setq
   gc-cons-threshold (* 511 1024 1024)
@@ -62,7 +63,6 @@
 
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)                ;; if you use :diminish
 (require 'bind-key)
 
 (require 'gnutls)

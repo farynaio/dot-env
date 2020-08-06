@@ -1,10 +1,8 @@
 (require 'taskjuggler-mode)
 (require 'org-agenda)
 (require 'org-contacts)
-(require 'org-caldav)
 (require 'org-toc)
 (require 'org-habit)
-(require 'org-drill)
 (require 'org-collector)
 (require 'org-depend)
 (require 'org-eww)
@@ -255,6 +253,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "n"        #'evil-search-next            org-agenda-mode-map)
      (bind-key "N"        #'evil-search-previous        org-agenda-mode-map)
      (bind-key "*"        #'evil-search-word-forward    org-agenda-mode-map)
+     (bind-key "'"        #'org-agenda-filter-by-tag    org-agenda-mode-map)
+
+     (unbind-key "\\" org-agenda-mode-map)
      (bind-key "\\w"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
      (bind-key "\\c"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
 
@@ -1218,8 +1219,9 @@ From a program takes two point or marker arguments, BEG and END."
   (progn
     (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)))
 
-(eval-after-load 'org-drill
-  '(progn
+(use-package org-drill
+  :config
+  (progn
      (setq org-drill-use-visible-cloze-face-p t)
      (setq org-drill-hide-item-headings-p t)
      (setq org-drill-maximum-items-per-session 30)

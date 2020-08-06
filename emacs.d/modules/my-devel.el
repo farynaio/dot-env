@@ -509,9 +509,6 @@
     (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
     ))
 
-(use-package rainbow-mode
-  :diminish rainbow-mode)
-
 (eval-after-load 'git-rebase
   '(progn
      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))

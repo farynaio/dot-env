@@ -21,6 +21,9 @@
 (use-package multiple-cursors)
 (use-package emojify)
 
+(use-package rainbow-mode
+  :diminish rainbow-mode)
+
 (setq hippie-expand-try-functions-list '())
 (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
 (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
