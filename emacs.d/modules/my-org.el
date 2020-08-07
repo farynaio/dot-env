@@ -9,6 +9,8 @@
 (require 'org-checklist)
 (require 'org-table-cell-move)
 
+(make-directory my/org-base-path t)
+
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-drill t)
 (add-to-list 'org-modules 'org-collector t)
@@ -1252,6 +1254,7 @@ From a program takes two point or marker arguments, BEG and END."
 
 
 (use-package org-caldav
+  :after org
   :config
   (progn
     (setq org-caldav-url 'google)
@@ -1321,4 +1324,5 @@ From a program takes two point or marker arguments, BEG and END."
 
 ;;     (defalias 'journal 'jarfar/org-journal-open-journal)
 ;;     ))
+
 (provide 'my-org)
