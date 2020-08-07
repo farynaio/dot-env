@@ -1280,4 +1280,45 @@ From a program takes two point or marker arguments, BEG and END."
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
+;; (use-package org-journal
+;;   :after org
+;;   :config
+;;   (progn
+;;     (setq org-journal-file-type 'yearly)
+;;     (setq org-journal-dir (expand-file-name "roam/journal" my/org-base-path))
+
+;;     (make-directory org-journal-dir t)
+
+;;     (setq org-journal-file-format "%Y.org")
+;;     (setq org-journal-date-format "%Y-%m-%d, %A")
+;;     (setq org-journal-encrypt-journal nil)
+;;     (setq org-journal-enable-cache nil)
+
+;;     (defun jarfar/org-journal-find-location ()
+;;       ;;; (org-journal-new-entry t)
+;;       (goto-char (point-min)))
+
+;;     (add-to-list 'org-capture-templates '("j" "Journal entry" entry (function jarfar/org-journal-find-location)
+;;                                            "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?"
+;;                                            :prepend t :jump-to-captured nil :empty-lines-after 1 :kill-buffer nil
+;;                                            ))
+
+;;     (defun jarfar/org-journal-file-header-func (time)
+;;       "Custom function to create journal header."
+;;       (concat
+;;         (pcase org-journal-file-type
+;;           (`daily "#+TITLE: Daily Journal#")
+;;           (`weekly "#+TITLE: Weekly Journal#")
+;;           (`monthly "#+TITLE: Monthly Journal")
+;;           (`yearly "#+TITLE: Yearly Journal"))))
+
+;;     (setq org-journal-file-header 'jarfar/org-journal-file-header-func)
+
+;;     (defun jarfar/org-journal-open-journal ()
+;;       "Open journal."
+;;       (interactive)
+;;       (org-journal-new-entry t))
+
+;;     (defalias 'journal 'jarfar/org-journal-open-journal)
+;;     ))
 (provide 'my-org)
