@@ -259,16 +259,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "\\w"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
      (bind-key "\\c"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
 
-     (setq org-agenda-files
-       (delq nil
-         (mapcar (lambda (x) (and x (file-exists-p x) x))
-           (list
-             my/org-tasks-file-path
-             ;; my/org-events-file-path
-             ;; my/org-projects-file-path
-             ))
-         ))
-
      (add-hook 'org-agenda-mode-hook
        (lambda ()
          (hl-line-mode 1)))))
@@ -391,6 +381,18 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-contacts-birthday-format "%h (%Y)")
 ;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+
+(setq org-agenda-files
+  ;; (delq nil
+  ;; (mapcar (lambda (x) (and x (file-exists-p x) x))
+  `(
+     ,my/org-tasks-file-path
+     ;; "~/Documents/emacs/agenda/foo.org"
+     ;; "~/Documents/emacs/agenda/bar.org"
+     ;; my/org-events-file-path
+     ;; my/org-projects-file-path
+     ))
+;; ))
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 (setq org-refile-targets `(
