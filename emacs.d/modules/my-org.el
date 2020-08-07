@@ -447,6 +447,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-agenda-inhibit-startup nil)
 (setq org-agenda-use-tag-inheritance nil)
 (setq org-agenda-fontify-priorities 'cookies)
+(setq org-agenda-log-mode-item '(closed clock state))
 (setq org-fontify-done-headline t)
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-done-with-time nil)
