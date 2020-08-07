@@ -1023,10 +1023,7 @@ Blood type/flavour: %^{Blood type: }
                 ;; (my/org-skip-subtree-if-priority ?A)
                 ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
-            ;; (org-agenda-sorting-strategy '(time-up user-defined-down priority-up))
             (org-agenda-sorting-strategy '(time-up user-defined-down habit-down todo-state-down priority-down deadline-up scheduled-up effort-down alpha-up))
-            ;; (org-agenda-sorting-strategy '(priority-down))
-            ;; (org-agenda-sorting-strategy '())
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
@@ -1038,16 +1035,18 @@ Blood type/flavour: %^{Blood type: }
 
 (defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
   "Org Agenda user function to sort categories against other categories. The birthday category is considered to be behind other category by default."
-  (let* ((pla (get-text-property 0 "CATEGORY" a))
-          (plb (get-text-property 0 "CATEGORY" b))
+  (let* (
+          (pla (get-text-property 0 'org-category a))
+          (plb (get-text-property 0 'org-category b))
           (pla (string-equal pla "Birthday"))
           (plb (string-equal plb "Birthday"))
           )
     (if (or (and pla plb) (and (not pla) (not plb)))
       nil
       (if pla
-        +1
-        -1))))
+        -1
+        +1))))
+
 
 ;; https://emacs.stackexchange.com/a/30194/18445
 (defun my/org-agenda-skip-deadline-if-not-today ()
