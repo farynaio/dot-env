@@ -1,4 +1,6 @@
+(setq my/emacs-directory "~/.emacs.d")
 (setq my/org-base-path "~/Documents/emacs")
+(setq my/org-roam-directory (expand-file-name "~/Dropbox/roam"))
 (setq my/tools-path "~/.emacs.d/tools/")
 (setq my/fast-path "~/.emacs.d/fast/")
 (setq my/caldav-directory "~/.emacs.d/caldav")

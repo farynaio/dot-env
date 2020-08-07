@@ -137,6 +137,7 @@
     (add-to-list 'evil-emacs-state-modes 'custom-mode)
     (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
     (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+    (add-to-list 'evil-emacs-state-modes 'jarfar/org-roam-side-mode)
 
     ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
     ;; (setq evil-emacs-state-modes nil)

@@ -1324,5 +1324,97 @@ From a program takes two point or marker arguments, BEG and END."
 
 ;;     (defalias 'journal 'jarfar/org-journal-open-journal)
 ;;     ))
+(use-package org-roam
+  :after org
+  :diminish (org-roam-mode . "roam")
+  :config
+  (progn
+    (setq jarfar/org-roam-directory my/org-roam-directory)
+    (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
+    (setq org-roam-directory jarfar/org-roam-directory)
+    (setq org-roam-graph-viewer "/usr/bin/open")
+    ;; org-roam-index-file
+
+    (make-directory jarfar/org-roam-directory t)
+
+    (setq org-roam-capture-templates
+      '(
+         ("d" "default" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n"
+           :unnarrowed t)
+
+         ))
+
+    (defhydra jarfar/hydra-org-roam ()
+      "org-roam"
+      ("r" #'org-roam "org-roam")
+      ("l" #'org-roam-buffer-toggle-display "Toggle sidebar")
+      ("i" #'org-roam-insert "Insert note")
+      ("f" #'org-roam-find-file "Find file")
+      ("b" #'org-roam-switch-to-buffer "Switch buffer")
+      ("d" #'org-roam-find-directory "Find dir")
+      ("s" #'counsel-org-goto "goto heading")
+      ("a" #'counsel-org-file "browse attachments")
+      ("t" #'org-toggle-timestamp-type "timestamp toggle")
+      )
+
+    ;; faces
+    ;; org-roam-link
+    ;; org-roam-link-current
+
+    (org-roam-mode 1)
+
+    (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
+      "Keymap for `jarfar/org-roam-side-mode'.")
+
+    (define-minor-mode jarfar/org-roam-side-mode
+      "Minor mode for org-roam side org buffer."
+      :init-value nil
+      :keymap jarfar/org-roam-side-mode-map)
+
+    (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
+      "Keymap for `jarfar/org-roam-side-mode'.")
+
+    (define-minor-mode jarfar/org-roam-mode
+      "Minor mode for org-roam org buffers."
+      :init-value nil
+      :keymap jarfar/org-roam-mode-map)
+
+    (bind-key "C-x ," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
+    (bind-key "C-x C-," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
+
+    (defun jarfar/org-roam-mode-hook-org-ram ()
+      (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
+        (jarfar/org-roam-mode 1))
+
+      (when (string-equal (buffer-name) "*org-roam*")
+        (jarfar/org-roam-side-mode 1)))
+
+    (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-org-ram)
+
+    (defalias 'roam #'org-roam)
+    ))
+
+(use-package company-org-roam
+  :after org-roam
+  :config
+  (progn
+    (defun jarfar/org-roam-mode-hook-company-org-ram ()
+      (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
+        (make-variable-buffer-local 'company-backends)
+        (add-to-list 'company-backends 'company-org-roam t)))
+
+    (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-company-org-ram)
+    ))
+
+(use-package deft
+  :after org-roam
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory jarfar/org-roam-directory))
 
 (provide 'my-org)
