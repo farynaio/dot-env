@@ -1026,7 +1026,7 @@ Blood type/flavour: %^{Blood type: }
                 ;; (my/org-skip-subtree-if-priority ?A)
                 ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
-            (org-agenda-sorting-strategy '(time-up user-defined-down habit-down todo-state-down priority-down deadline-up scheduled-up effort-down alpha-up))
+            (org-agenda-sorting-strategy '(time-up user-defined-down todo-state-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
