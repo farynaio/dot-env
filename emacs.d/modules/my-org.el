@@ -1333,7 +1333,11 @@ From a program takes two point or marker arguments, BEG and END."
     (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
     (setq org-roam-directory jarfar/org-roam-directory)
     (setq org-roam-graph-viewer "/usr/bin/open")
-    ;; org-roam-index-file
+    (setq org-roam-dailies-capture-templates '(("d" "daily" plain (function org-roam-capture--get-point) ""
+                                                 :immediate-finish t
+                                                 :file-name "dailies/%<%Y-%m-%d>"
+                                                 :head "#+TITLE: %<%Y-%m-%d>")))
+    ; org-roam-index-file
 
     (make-directory jarfar/org-roam-directory t)
 
@@ -1348,17 +1352,13 @@ From a program takes two point or marker arguments, BEG and END."
          ))
 
     (defhydra jarfar/hydra-org-roam ()
-      "org-roam"
-      ("r" #'org-roam "org-roam")
-      ("l" #'org-roam-buffer-toggle-display "Toggle sidebar")
-      ("i" #'org-roam-insert "Insert note")
-      ("f" #'org-roam-find-file "Find file")
-      ("b" #'org-roam-switch-to-buffer "Switch buffer")
-      ("d" #'org-roam-find-directory "Find dir")
-      ("s" #'counsel-org-goto "goto heading")
-      ("a" #'counsel-org-file "browse attachments")
-      ("t" #'org-toggle-timestamp-type "timestamp toggle")
-      )
+      "org roam"
+      ("r" #'org-roam "org-roam" :exit t)
+      ("k" #'org-roam-buffer-toggle-display "Toggle sidebar" :exit t)
+      ("l" #'org-roam-insert "Insert" :exit t)
+      ("f" #'org-roam-find-file "Find file" :exit t)
+      ("b" #'org-roam-switch-to-buffer "Switch buffer" :exit t)
+      ("d" #'org-roam-find-directory "Find dir" :exit t))
 
     ;; faces
     ;; org-roam-link
@@ -1382,17 +1382,20 @@ From a program takes two point or marker arguments, BEG and END."
       :init-value nil
       :keymap jarfar/org-roam-mode-map)
 
-    (bind-key "C-x ," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
-    (bind-key "C-x C-," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
+    ;; (bind-key ", ." #'deft jarfar/org-roam-mode-map)
+
+    ;; (bind-key "C-x ," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
+    ;; (bind-key "C-x C-," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
 
     (defun jarfar/org-roam-mode-hook-org-ram ()
       (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
         (jarfar/org-roam-mode 1))
-
       (when (string-equal (buffer-name) "*org-roam*")
         (jarfar/org-roam-side-mode 1)))
 
     (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-org-ram)
+
+    (bind-key "C-c v" #'jarfar/hydra-org-roam/body)
 
     (defalias 'roam #'org-roam)
     ))

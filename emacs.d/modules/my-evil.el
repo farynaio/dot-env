@@ -138,6 +138,7 @@
     (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
     (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
     (add-to-list 'evil-emacs-state-modes 'jarfar/org-roam-side-mode)
+    (add-to-list 'evil-emacs-state-modes 'deft-mode)
 
     ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
     ;; (setq evil-emacs-state-modes nil)
@@ -225,6 +226,9 @@
 
     (evil-define-key 'normal php-mode-map
       ",d" 'hydra-php-debug/body)
+
+    (evil-define-key 'normal jarfar/org-roam-mode-map
+      ",." #'deft)
 
     ;; https://www.emacswiki.org/emacs/Evil#toc12
     ;; Brings back the access to RET and SPC in some modes.
