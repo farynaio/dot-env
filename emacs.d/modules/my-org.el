@@ -1336,7 +1336,11 @@ From a program takes two point or marker arguments, BEG and END."
                                                  :immediate-finish t
                                                  :file-name "dailies/%<%Y-%m-%d>"
                                                  :head "#+TITLE: %<%Y-%m-%d>")))
-    ; org-roam-index-file
+    ;; TODO config
+    ;; org-roam-index-file
+    ;; org-roam-directory
+    ;; org-roam-graph-viewer
+    ;; org-roam-ref-capture-templates
 
     (make-directory jarfar/org-roam-directory t)
 
@@ -1398,6 +1402,9 @@ From a program takes two point or marker arguments, BEG and END."
 
     (defalias 'roam #'org-roam)
     ))
+
+;; TODO config
+;; (use-package org-roam-server)
 
 (use-package company-org-roam
   :after org-roam
