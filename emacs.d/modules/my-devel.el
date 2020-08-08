@@ -724,7 +724,7 @@
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)
-  (electric-pair-mode 1)
+  (electric-pair-local-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
 
