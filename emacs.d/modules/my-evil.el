@@ -228,7 +228,9 @@
       ",d" 'hydra-php-debug/body)
 
     (evil-define-key 'normal jarfar/org-roam-mode-map
-      ",." #'deft)
+      ",m" #'deft
+      ",." #'dired-jump
+      )
 
     ;; https://www.emacswiki.org/emacs/Evil#toc12
     ;; Brings back the access to RET and SPC in some modes.
