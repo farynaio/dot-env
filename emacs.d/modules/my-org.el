@@ -1318,12 +1318,47 @@ From a program takes two point or marker arguments, BEG and END."
 
     (setq org-roam-capture-templates
       '(
-         ("d" "default" plain (function org-roam--capture-get-point)
+         ("d" "Default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "%<%Y%m%d%H%M%S>"
            :head "#+title: ${title}\n"
-           :unnarrowed t)
+           :unnarrowed t
+           :kill-buffer t)
 
+         ("g" "Guru summary" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "guru/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n[[file:../20200808013718.org][#guru]]"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("c" "Course summary" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "course/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n[[file:../20200808190413.org][#course]]"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("b" "Book summary" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "book/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n[[file:../20200808190603.org][#book]]"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("a" "Article summary" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "article/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n[[file:../20200808191708.org][#article]]"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("t" "Topic" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "topic/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n[[file:../20200808193209.org][#topic]]"
+           :unnarrowed t
+           :kill-buffer t)
          ))
 
     (defhydra jarfar/hydra-org-roam ()
