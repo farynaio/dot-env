@@ -126,6 +126,8 @@
 ;; profiler-start
 ;; profiler-report
 
+(server-start)
+
 (savehist-mode 1)
 (setq savehist-file "~/.emacs.d/savehist"
   history-length t

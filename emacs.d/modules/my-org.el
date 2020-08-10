@@ -8,6 +8,7 @@
 (require 'org-eww)
 (require 'org-checklist)
 (require 'org-table-cell-move)
+(require 'org-protocol)
 
 (make-directory my/org-base-path t)
 
@@ -1303,7 +1304,15 @@ From a program takes two point or marker arguments, BEG and END."
     ;; org-roam-index-file
     ;; org-roam-directory
     ;; org-roam-graph-viewer
-    ;; org-roam-ref-capture-templates
+
+    (setq org-roam-capture-ref-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point)
+          "%?"
+          :file-name "website/${slug}"
+          :head "#+TITLE: ${title}
+    #+ROAM_KEY: ${ref}
+    - source :: ${ref}"
+          :unnarrowed t)))
 
     (make-directory jarfar/org-roam-directory t)
 
