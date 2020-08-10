@@ -1210,6 +1210,7 @@ From a program takes two point or marker arguments, BEG and END."
                        ("service" . ?s)
                        ("saw" . ?a)
                        ("work" . ?j)
+                       ("pua" . ?u)
 
                        ("@poland" . ?n)
                        (:startgroup . nil)
