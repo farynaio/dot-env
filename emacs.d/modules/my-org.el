@@ -1410,8 +1410,17 @@ From a program takes two point or marker arguments, BEG and END."
     (defalias 'roam #'org-roam)
     ))
 
-;; TODO config
-;; (use-package org-roam-server)
+(use-package org-roam-server
+  :config
+  (setq org-roam-server-host "127.0.0.1")
+  (setq org-roam-server-port 3333)
+  (setq org-roam-server-export-inline-images t)
+  (setq org-roam-server-authenticate nil)
+  (setq org-roam-server-network-poll t)
+  (setq org-roam-server-network-arrows nil)
+  (setq org-roam-server-network-label-truncate t)
+  (setq org-roam-server-network-label-truncate-length 60)
+  (setq org-roam-server-network-label-wrap-length 20))
 
 (use-package company-org-roam
   :after org-roam
