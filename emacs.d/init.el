@@ -7,6 +7,8 @@
   ;; gc-cons-percentage 0.6
   file-name-handler-alist nil)
 
+(setq confirm-kill-processes nil)
+
 (eval-when-compile
   (defvar oauth--token-data ())
   (defvar url-http-method ())
