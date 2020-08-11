@@ -1295,15 +1295,12 @@ From a program takes two point or marker arguments, BEG and END."
     (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
     (setq org-roam-directory jarfar/org-roam-directory)
     (setq org-roam-graph-viewer "/usr/bin/open")
-    (setq org-roam-tag-sources '(prop first-directory))
+    (setq org-roam-db-gc-threshold 107164466)
+    (setq org-roam-tag-sources '(prop))
     (setq org-roam-dailies-capture-templates '(("d" "daily" plain (function org-roam-capture--get-point) ""
                                                  :immediate-finish t
                                                  :file-name "dailies/%<%Y-%m-%d>"
                                                  :head "#+TITLE: %<%Y-%m-%d>")))
-    ;; TODO config
-    ;; org-roam-index-file
-    ;; org-roam-directory
-    ;; org-roam-graph-viewer
 
     (setq org-roam-capture-ref-templates
       '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -1328,35 +1325,63 @@ From a program takes two point or marker arguments, BEG and END."
          ("g" "Guru summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "guru/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n[[file:../20200808013718.org][#guru]]"
+           :head "#+title: ${title}\n#roam_tags: guru-"
            :unnarrowed t
            :kill-buffer t)
 
          ("c" "Course summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n[[file:../20200808190413.org][#course]]"
+           :head "#+title: ${title}\n#+roam_tags: course-"
            :unnarrowed t
            :kill-buffer t)
 
          ("b" "Book summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n[[file:../20200808190603.org][#book]]"
+           :head "#+title: ${title}\n#+roam_tags: book-"
            :unnarrowed t
            :kill-buffer t)
 
          ("a" "Article summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n[[file:../20200808191708.org][#article]]"
+           :head "#+title: ${title}\n#+roam_tags: article-"
            :unnarrowed t
            :kill-buffer t)
 
          ("t" "Topic" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "topic/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n[[file:../20200808193209.org][#topic]]"
+           :head "#+title: ${title}\n"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("p" "Programming" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "programming/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("r" "Travel" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "travel/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("u" "Business" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "business/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n"
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("m" "Marketing" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "marketing/%<%Y%m%d%H%M%S>"
+           :head "#+title: ${title}\n#+roam_tags: marketing-"
            :unnarrowed t
            :kill-buffer t)
          ))
@@ -1429,7 +1454,7 @@ From a program takes two point or marker arguments, BEG and END."
     (defun jarfar/org-roam-mode-hook-company-org-ram ()
       (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
         (make-variable-buffer-local 'company-backends)
-        (add-to-list 'company-backends 'company-org-roam t)))
+        (add-to-list 'company-backends 'company-org-roam)))
 
     (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-company-org-ram)
     ))
