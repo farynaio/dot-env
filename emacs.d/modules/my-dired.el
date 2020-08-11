@@ -6,6 +6,7 @@
 (setq dired-recursive-deletes 'always)
 (setq dired-listing-switches "-alh")
 (setq dired-deletion-confirmer 'y-or-n-p)
+(setq dired-clean-confirm-killing-deleted-buffer nil)
 (setq delete-by-moving-to-trash t)
 (setq trash-directory "~/.Trash")
 
