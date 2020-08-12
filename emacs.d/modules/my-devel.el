@@ -720,6 +720,13 @@
 
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
+  (setq-local electric-pair-text-pairs
+    '(
+       (?\' . ?\')
+       (?\" . ?\")
+       (?\{ . ?\})
+       (?\( . ?\))
+       (?\[ . ?\])))
 
   (flycheck-mode 1)
   (hl-todo-mode 1)

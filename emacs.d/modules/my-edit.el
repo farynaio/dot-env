@@ -8,6 +8,7 @@
 (require 'flyspell)
 (require 'face-remap)
 (require 'tramp)
+(require 'elec-pair)
 
 (setq-default mode-require-final-newline nil)
 
@@ -177,17 +178,19 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq x-underline-at-descent-line t)
 (setq confirm-kill-processe nil)
-
 (setq process-connection-type nil)
 
-(setq electric-pair-text-pairs
-  '(
-     (?\' . ?\')
-     (?\" . ?\")
-     (?\{ . ?\})
-     (?\( . ?\))))
-
-(setq electric-pair-inhibit-predicate #'electric-pair-conservative-inhibit)
+(eval-after-load 'elec-pair
+  '(progn
+     (setq electric-pair-text-pairs '())
+     (setq electric-pair-text-syntax-table '())
+     (setq electric-pair-pairs '(
+                                  (?\{ . ?\})
+                                  (?\( . ?\))
+                                  (?\[ . ?\])
+                                  ))
+     (electric-pair-mode 1)
+     ))
 
 (setq auto-save-visited-interval 10)
 
