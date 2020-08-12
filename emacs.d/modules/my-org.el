@@ -1310,10 +1310,8 @@ From a program takes two point or marker arguments, BEG and END."
     (setq org-roam-capture-ref-templates
       '(("r" "ref" plain (function org-roam-capture--get-point)
           "%?"
-          :file-name "website/${slug}"
-          :head "#+TITLE: ${title}
-    #+ROAM_KEY: ${ref}
-    - source :: ${ref}"
+          :file-name "website/%<%Y%m%d%H%M%S>"
+          :head "#+title: ${title}\n#+roam_key: ${ref}"
           :unnarrowed t)))
 
     (make-directory jarfar/org-roam-directory t)
