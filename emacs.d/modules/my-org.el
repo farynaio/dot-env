@@ -1328,28 +1328,28 @@ From a program takes two point or marker arguments, BEG and END."
          ("g" "Guru summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "guru/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#roam_tags: guru-"
+           :head "#+title: ${title}\n#roam_tags: "
            :unnarrowed t
            :kill-buffer t)
 
          ("c" "Course summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: course-"
+           :head "#+title: ${title}\n#+roam_tags: "
            :unnarrowed t
            :kill-buffer t)
 
          ("b" "Book summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: book-"
+           :head "#+title: ${title}\n#+roam_tags: "
            :unnarrowed t
            :kill-buffer t)
 
          ("a" "Article summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: article-"
+           :head "#+title: ${title}\n#+roam_tags: "
            :unnarrowed t
            :kill-buffer t)
 
@@ -1384,7 +1384,7 @@ From a program takes two point or marker arguments, BEG and END."
          ("m" "Marketing" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "marketing/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: marketing-"
+           :head "#+title: ${title}\n#+roam_tags: "
            :unnarrowed t
            :kill-buffer t)
          ))
