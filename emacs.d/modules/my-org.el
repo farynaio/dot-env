@@ -1311,7 +1311,7 @@ From a program takes two point or marker arguments, BEG and END."
       '(("r" "ref" plain (function org-roam-capture--get-point)
           "%?"
           :file-name "website/%<%Y%m%d%H%M%S>"
-          :head "#+title: ${title}\n#+roam_key: ${ref}"
+          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_KEY: ${ref}\n\n- tags :: "
           :unnarrowed t)))
 
     (make-directory jarfar/org-roam-directory t)
@@ -1321,70 +1321,70 @@ From a program takes two point or marker arguments, BEG and END."
          ("d" "Default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("g" "Guru summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "guru/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#roam_tags: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("c" "Course summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("b" "Book summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("a" "Article summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("t" "Topic" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "topic/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("p" "Programming" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "programming/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("r" "Travel" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "travel/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("u" "Business" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "business/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("m" "Marketing" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "marketing/%<%Y%m%d%H%M%S>"
-           :head "#+title: ${title}\n#+roam_tags: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
            :unnarrowed t
            :kill-buffer t)
          ))
@@ -1518,7 +1518,8 @@ it can be passed in POS."
 
   (defun zp/org-set-last-modified ()
     "Update the LAST_MODIFIED file property in the preamble."
-    (when (derived-mode-p 'org-mode)
+    ;; (when (derived-mode-p 'org-mode)
+    (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
       (zp/org-set-time-file-property "LAST_MODIFIED")))
 
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
