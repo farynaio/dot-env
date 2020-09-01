@@ -192,7 +192,7 @@ $0`(yas-escape-text yas-selected-text)`")
      (electric-pair-mode 1)
      ))
 
-(setq auto-save-visited-interval 10)
+(setq auto-save-visited-interval 20)
 
 ;; (defun my/set-syntax-entry ()
 ;;   ""
