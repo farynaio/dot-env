@@ -195,8 +195,10 @@
     (bind-key "C-h v" #'counsel-describe-variable)
     (bind-key "C-h a" #'counsel-apropos)
     (bind-key "C-x r b" #'counsel-bookmark)
-    (bind-key "C-x b" #'counsel-ibuffer)
-    (bind-key "C-x C-b" #'my/counsel-ibuffer-other-window)
+    ;; (bind-key "C-x b" #'counsel-ibuffer)
+    (bind-key "C-x b" #'counsel-switch-buffer)
+    (bind-key "C-x C-b" #'counsel-switch-buffer-other-window)
+    ;; (bind-key "C-x C-b" #'my/counsel-ibuffer-other-window)
     (bind-key "C-x C-r" #'counsel-recentf)
 
     (when (fboundp 'evil-mode)
