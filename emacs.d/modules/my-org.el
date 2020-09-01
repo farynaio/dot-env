@@ -1425,11 +1425,6 @@ From a program takes two point or marker arguments, BEG and END."
       :init-value nil
       :keymap jarfar/org-roam-mode-map)
 
-    ;; (bind-key ", ." #'deft jarfar/org-roam-mode-map)
-
-    ;; (bind-key "C-x ," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
-    ;; (bind-key "C-x C-," #'jarfar/hydra-org-roam/body jarfar/org-roam-mode-map)
-
     (defun jarfar/org-roam-mode-hook-org-ram ()
       (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
         (jarfar/org-roam-mode 1))
