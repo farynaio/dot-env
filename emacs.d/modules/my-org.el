@@ -390,6 +390,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 
 (setq org-hide-leading-stars t)
+(setq org-startup-indented t)
 
 (setq org-agenda-files
   ;; (delq nil
