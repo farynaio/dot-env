@@ -164,6 +164,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   '(progn
      (setq org-startup-with-inline-images nil)
      (setq org-blank-before-new-entry '((heading . auto) (plain-list-item . nil)))
+     (setq org-hide-emphasis-markers t)
+
      (bind-key "C-c l"         #'org-store-link                      org-mode-map)
      (bind-key "C-."           #'imenu-anywhere                      org-mode-map)
      (bind-key "C-c C-x a"     #'org-archive-subtree-default         org-mode-map)
