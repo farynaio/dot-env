@@ -632,7 +632,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
   -
 
 "
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer t)
+:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer nil)
 
   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
@@ -1340,21 +1340,21 @@ From a program takes two point or marker arguments, BEG and END."
          ("c" "Course summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("b" "Book summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: \n- recommended-by :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("a" "Article summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: "
            :unnarrowed t
            :kill-buffer t)
 
