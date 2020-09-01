@@ -402,13 +402,13 @@
 (defhydra hydra-projectile ()
   "Projectile"
   ("p" #'hydra-projectile-project/body "project" :exit t)
-  ("t" #'projectile-find-tag "find tag")
-  ("o" #'projectile-find-other-file "find other file")
-  ("f" #'projectile-find-file "find file")
-  ("r" #'projectile-replace-regexp "replace")
-  ("i" #'projectile-invalidate-cache "invalidate cache")
-  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers")
-  ("d" #'my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle"))
+  ("t" #'projectile-find-tag "find tag" :exit t)
+  ("o" #'projectile-find-other-file "find other file" :exit t)
+  ("f" #'projectile-find-file "find file" :exit t)
+  ("r" #'projectile-replace-regexp "replace" :exit t)
+  ("i" #'projectile-invalidate-cache "invalidate cache" :exit t)
+  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers" :exit t)
+  ("d" #'my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle" :exit t))
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
