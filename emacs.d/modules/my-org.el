@@ -1524,6 +1524,24 @@ it can be passed in POS."
     (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
       (zp/org-set-time-file-property "LAST_MODIFIED")))
 
+(use-package ivy-rich
+  :config
+  (progn
+    (ivy-rich-mode 1)
+    (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+
+    (defun my/ivy-switch-buffer-org-roam-title (candidate)
+      (if (ivy-rich-switch-buffer-user-buffer-p candidate)
+        (let ((file (buffer-file-name (get-buffer candidate))))
+          (if (org-roam--org-roam-file-p file)
+            (org-roam--get-title-or-slug file)
+            ""))
+        ""))
+
+    (add-to-list 'ivy-rich-display-transformers-list 'my/ivy-switch-buffer-org-roam-title)
+    ))
+
+
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
 
 (provide 'my-org)
