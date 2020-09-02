@@ -600,12 +600,21 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
   ("i" "Inbox" entry (file+headline ,my/org-inbox-file-path "Inbox")
-"** NOTE %?
+"* TODO %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer nil)
+
+  ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
 
   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
@@ -645,15 +654,6 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :STYLE: habit
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
