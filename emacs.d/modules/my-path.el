@@ -4,7 +4,7 @@
 (setq my/org-roam-journal-directory (expand-file-name "journal" my/org-roam-directory))
 (setq my/tools-path (expand-file-name "tools" my/org-base-path))
 (setq my/fast-path (expand-file-name "fast" "~/Dropbox/emacs"))
-(setq org-agenda-directory (expand-file-name "agenda" "~/Dropbox/emacs"))
+(setq org-agenda-directory (expand-file-name "easy-access/agenda" my/org-roam-directory))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 (setq org-gpg-directory (expand-file-name "private" my/org-base-path))
 (setq my/org-topics-directory (expand-file-name "topics" my/org-base-path))
@@ -23,13 +23,13 @@
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
 (setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
+(setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe_someday.org" org-agenda-directory))
 
 (setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
 (setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-directory))
 
 (setq my/org-diet-log-file-path (expand-file-name "health/diet.org" org-directory))
-(setq my/org-tasks-someday-file-path (expand-file-name "someday.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org" org-directory))
 (setq my/org-blog-file-path (expand-file-name "blog_post_ideas.org" org-gpg-directory))
 (setq my/org-media-file-path (expand-file-name "media.org" org-directory))
