@@ -599,10 +599,20 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
+  ("b" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
+"* TODO %?
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
   ("i" "Inbox" entry (file+headline ,my/org-inbox-file-path "Inbox")
 "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer nil)
@@ -612,6 +622,16 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("y" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
+"* TODO %?
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -648,7 +668,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("r" "Repeatable" entry (file+headline ,my/org-tasks-file-path "Repeatable")
+  ("r" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
