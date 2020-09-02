@@ -1,6 +1,7 @@
 (setq my/emacs-directory "~/.emacs.d")
 (setq my/org-base-path "~/Documents/emacs")
 (setq my/org-roam-directory (expand-file-name "~/Dropbox/roam"))
+(setq my/org-roam-journal-directory (expand-file-name "journal" my/org-roam-directory))
 (setq my/tools-path (expand-file-name "tools" my/org-base-path))
 (setq my/fast-path (expand-file-name "fast" "~/Dropbox/emacs"))
 (setq org-agenda-directory (expand-file-name "agenda" "~/Dropbox/emacs"))
