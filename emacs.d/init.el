@@ -128,6 +128,14 @@
 ;; profiler-start
 ;; profiler-report
 
+(defun jarfar/open-buffers-on-startup ()
+  (when (file-exists-p "~/.emacs.d/init.el")
+    (find-file "~/.emacs.d/init.el"))
+  (when (fboundp 'org-roam-dailies-today)
+    (org-roam-dailies-today)))
+
+(add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
+
 (server-start)
 
 (savehist-mode 1)
