@@ -129,6 +129,9 @@
 ;; profiler-report
 
 (defun jarfar/open-buffers-on-startup ()
+  (when (fboundp 'org-agenda)
+    (org-agenda t "d")
+    (org-agenda-quit))
   (when (file-exists-p "~/.emacs.d/init.el")
     (find-file "~/.emacs.d/init.el"))
   (when (fboundp 'org-roam-dailies-today)
