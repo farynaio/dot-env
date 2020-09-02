@@ -490,7 +490,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (wl . wl-other-frame)))
 (setq org-icalendar-timezone "Europe/London") ; or nil
 (setq org-icalendar-alarm-time 60)
-;; (setq org-caldav-skip-conditions '(nottodo))
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-file-regexp ".*org\(.gpg\)?$")
 
@@ -1240,35 +1239,6 @@ From a program takes two point or marker arguments, BEG and END."
 (eval-after-load 'org-diet
   '(progn
      (setq org-diet-file my/org-diet-log-file-path)))
-
-
-(use-package org-caldav
-  :after org
-  :config
-  (progn
-    (setq org-caldav-url 'google)
-    (setq org-caldav-delete-calendar-entries 'always)
-    (setq org-caldav-delete-org-entries 'never)
-    (setq org-caldav-files org-agenda-files)
-    (setq org-caldav-sync-direction 'org->cal)
-
-    (setq org-caldav-save-directory my/caldav-directory)
-    (make-directory org-caldav-save-directory t)
-
-    (setq org-caldav-backup-file "/tmp/emacs/org-caldav-backup.org")
-    (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
-    (setq org-caldav-select-tags '("work"))
-    (setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
-    (setq org-caldav-show-sync-result nil)
-    ;; (org-remove-file org-caldav-inbox)
-
-    (defun jarfar/org-caldav-delete-everything ()
-      "Delete all entries from remote calendar."
-      (interactive)
-      (org-caldav-delete-everything t))
-
-    (defalias 'caldav-sync #'org-caldav-sync)
-    ))
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
