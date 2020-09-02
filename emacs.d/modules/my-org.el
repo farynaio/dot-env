@@ -202,23 +202,19 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (defun jarfar/org-tasks-refile-targets-local ()
        "Set local 'org-refile-targets for specific org files with tasks."
-       (setq-local org-refile-targets `((,my/org-tasks-file-path :regexp . "Tasks$"))))
+       (setq-local org-refile-targets
+         `(
+            (,my/org-backlog-file-path :maxlevel . 1)
+            (,my/org-inbox-file-path :maxlevel . 1)
+            (,my/org-tasks-file-path :maxlevel . 1)
+            (,my/org-taxes-file-path :maxlevel . 1)
+            )))
 
-     (defun jarfar/org-projects-set-refile-targets-local ()
-       "Set local 'org-refile-targets for project org files."
-       (setq-local org-refile-targets `((,my/org-tasks-file-path :regexp . "Projects$"))))
-
-     (dir-locals-set-class-variables 'jarfar/projects-directory
-       '((nil . (
-          (eval . (progn (jarfar/org-projects-set-refile-targets-local)))
-          ))))
-     (dir-locals-set-directory-class my/org-projects-folder 'jarfar/projects-directory)
-
-     (dir-locals-set-class-variables 'jarfar/org-directory
+     (dir-locals-set-class-variables 'jarfar/org-agenda-dir-class
        '((nil . (
           (eval . (progn (jarfar/org-tasks-refile-targets-local)))
           ))))
-     (dir-locals-set-directory-class org-directory 'jarfar/org-directory)
+     (dir-locals-set-directory-class org-agenda-directory 'jarfar/org-agenda-dir-class)
 
      ;; org mode conflicts resolution: windmove
      (add-hook 'org-shiftup-final-hook 'windmove-up)

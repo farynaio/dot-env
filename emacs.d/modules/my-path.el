@@ -15,12 +15,15 @@
 (setq my/org-english-drill-file-path (expand-file-name "english_drill.org" my/drills-base-path))
 
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
-(setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
+
+(setq my/org-backlog-file-path (expand-file-name "backlog.org" org-agenda-directory))
 (setq my/org-events-file-path (expand-file-name "events.org" org-agenda-directory))
-(setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
-(setq my/org-inbox-file-path (expand-file-name "inbox.org" org-directory))
-(setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))
+(setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
+(setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
+
+(setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
+(setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-directory))
 
 (setq my/org-diet-log-file-path (expand-file-name "health/diet.org" org-directory))
@@ -42,10 +45,10 @@
 (setq my/org-quotes-file-path (expand-file-name "quotes.org" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
 
+;; Projects
 (setq my/org-project-become-confident-pua (expand-file-name "become_confident_pua.org" my/org-projects-folder))
 (setq my/org-project-trip-nottingham (expand-file-name "trip_to_nottingham.org" my/org-projects-folder))
 (setq my/org-project-trip-edinburgh (expand-file-name "trip_to_edinburgh.org" my/org-projects-folder))
-
 (setq my/org-project-guru (expand-file-name "guru.org.gpg" my/org-projects-folder))
 (setq my/org-project-service-arbitrage (expand-file-name "service_arbitrage.org.gpg" my/org-projects-folder))
 (setq my/org-project-best-offers-club (expand-file-name "best_offers_club.org.gpg" my/org-projects-folder))
