@@ -790,7 +790,7 @@ Blood type/flavour: %^{Blood type: }
 ;;          ((org-agenda-overriding-header "Office")))))
 
 (setq my/org-active-projects (list
-                               my/org-project-indie-dev
+                               ;; my/org-project-indie-dev
                                ;; my/org-project-service-arbitrage
                                ;; my/org-project-best-offers-club
                                ;; my/org-project-setup-digital-agency
@@ -843,18 +843,32 @@ Blood type/flavour: %^{Blood type: }
          ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
      ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
 
-     ("b" "Active media"
-        ((tags-todo "TODO=\"IN-PROCESS\""
-          ((org-agenda-overriding-header "Active media:")
-            (org-tags-match-list-sublevels nil)
+     ;; ("b" "Active media"
+     ;;    ((tags-todo "TODO=\"IN-PROCESS\""
+     ;;      ((org-agenda-overriding-header "Active media:")
+     ;;        (org-tags-match-list-sublevels nil)
+     ;;        (org-agenda-remove-tags nil)
+     ;;        (org-agenda-todo-keyword-format "")
+     ;;        (org-agenda-files (list my/org-media-file-path))))
+     ;;    (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
+     ;;      ((org-agenda-overriding-header "Active Reviews:")
+     ;;        (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
+     ;;        (org-agenda-remove-tags t)
+     ;;        (org-agenda-files (list my/org-media-reviews-file-path)))))
+     ;;   )
+
+     ("i" "Inbox"
+        ((tags "*"
+          ((org-agenda-overriding-header "Inbox")
             (org-agenda-remove-tags nil)
-            (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-media-file-path))))
-        (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
-          ((org-agenda-overriding-header "Active Reviews:")
-            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
-            (org-agenda-remove-tags t)
-            (org-agenda-files (list my/org-media-reviews-file-path)))))
+            (org-agenda-files (list my/org-inbox-file-path)))))
+       )
+
+     ("b" "Backlog"
+        ((tags "*"
+          ((org-agenda-overriding-header "Backlog")
+            (org-agenda-remove-tags nil)
+            (org-agenda-files (list my/org-backlog-file-path)))))
        )
 
      ("f" "Done media"
@@ -1014,7 +1028,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
-            (org-agenda-files (append org-agenda-files `(,my/org-events-file-path)))))
+            (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path)))))
         )
        )
      )
