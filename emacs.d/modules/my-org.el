@@ -1311,6 +1311,7 @@ From a program takes two point or marker arguments, BEG and END."
                                                  :immediate-finish t
                                                  :file-name "dailies/%<%Y-%m-%d>"
                                                  :head "#+TITLE: %<%Y-%m-%d>")))
+    (make-directory jarfar/org-roam-directory t)
 
     (setq org-roam-capture-ref-templates
       '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -1319,7 +1320,26 @@ From a program takes two point or marker arguments, BEG and END."
           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_KEY: ${ref}\n\n- tags :: "
           :unnarrowed t)))
 
-    (make-directory jarfar/org-roam-directory t)
+    (setq org-roam-dailies-capture-templates
+      '(("d" "daily" plain (function org-roam-capture--get-point)
+          ""
+          :immediate-finish t
+          :file-name "journal/%<%Y-%m-%d>"
+          :head "#+TITLE: %<%Y-%m-%d>
+#+ROAM_TAGS: private
+
+
+
+- English
+  -
+
+- what I did today
+  -
+
+- changes to make
+  -
+
+")))
 
     (setq org-roam-capture-templates
       '(
