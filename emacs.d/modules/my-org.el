@@ -1346,70 +1346,126 @@ From a program takes two point or marker arguments, BEG and END."
          ("d" "Default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("g" "Guru summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "guru/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("c" "Course summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U\n#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags ::
+- author ::
+- progress-status :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("b" "Book summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: \n- recommended-by :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags ::
+- author ::
+- recommended-by ::
+- progress-status :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("a" "Article summary" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: \n- author :: \n- progress-status :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags ::
+- author ::
+- progress-status :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("t" "Topic" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "topic/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("p" "Programming" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "programming/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("r" "Travel" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "travel/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("u" "Business" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "business/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
 
          ("m" "Marketing" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "marketing/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_TAGS: \n\n- tags :: "
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_TAGS:
+
+- tags :: "
            :unnarrowed t
            :kill-buffer t)
          ))
