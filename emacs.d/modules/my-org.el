@@ -612,28 +612,6 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 1 :kill-buffer nil)
 
-  ("j" "Journal" entry (file+headline ,my/org-journal-file-path "Journal")
-"* [%<%Y-%m-%d %a>]
-%?
-
-- English
-  -
-
-- what new people I meet today
-  -
-
-- knowledge
-  -
-
-- what I did today
-  -
-
-- changes to make
-  -
-
-"
-:prepend t :jump-to-captured t :empty-lines-after 1 :kill-buffer nil)
-
   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
 "
