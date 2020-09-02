@@ -1572,5 +1572,12 @@ it can be passed in POS."
     (add-to-list 'ivy-rich-display-transformers-list 'my/ivy-switch-buffer-org-roam-title)
     ))
 
+(use-package org-journal
+  :init
+  (setq org-journal-prefix-key "C-c j ")
+  :config
+  (setq org-journal-dir my/org-roam-journal-directory)
+  (setq org-journal-date-format "%Y-%m-%d")
+  )
 
 (provide 'my-org)
