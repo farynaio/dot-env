@@ -1259,17 +1259,13 @@ From a program takes two point or marker arguments, BEG and END."
   (progn
     (require 'org-roam-protocol)
 
-    (setq jarfar/org-roam-directory my/org-roam-directory)
     (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
-    (setq org-roam-directory jarfar/org-roam-directory)
+    (setq org-roam-directory my/org-roam-directory)
     (setq org-roam-graph-viewer "/usr/bin/open")
     (setq org-roam-db-gc-threshold 107164466)
     (setq org-roam-tag-sources '(prop))
-    (setq org-roam-dailies-capture-templates '(("d" "daily" plain (function org-roam-capture--get-point) ""
-                                                 :immediate-finish t
-                                                 :file-name "dailies/%<%Y-%m-%d>"
-                                                 :head "#+TITLE: %<%Y-%m-%d>")))
-    (make-directory jarfar/org-roam-directory t)
+
+    (make-directory my/org-roam-directory t)
 
     (setq org-roam-capture-ref-templates
       '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -1461,7 +1457,7 @@ From a program takes two point or marker arguments, BEG and END."
       :keymap jarfar/org-roam-mode-map)
 
     (defun jarfar/org-roam-mode-hook-org-ram ()
-      (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
+      (when (string-prefix-p my/org-roam-directory buffer-file-name)
         (jarfar/org-roam-mode 1))
       (when (string-equal (buffer-name) "*org-roam*")
         (jarfar/org-roam-side-mode 1)))
@@ -1490,7 +1486,7 @@ From a program takes two point or marker arguments, BEG and END."
   :config
   (progn
     (defun jarfar/org-roam-mode-hook-company-org-ram ()
-      (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
+      (when (string-prefix-p my/org-roam-directory buffer-file-name)
         (make-variable-buffer-local 'company-backends)
         (add-to-list 'company-backends 'company-org-roam)))
 
@@ -1503,59 +1499,61 @@ From a program takes two point or marker arguments, BEG and END."
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
-  (deft-directory jarfar/org-roam-directory))
+  (deft-directory my/org-roam-directory))
 
-  ;;--------------------------
-  ;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
-  ;;--------------------------
-
-  (defun zp/org-find-time-file-property (property &optional anywhere)
-    "Return the position of the time file PROPERTY if it exists.
+;;--------------------------
+;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+;;--------------------------
+(defun zp/org-find-time-file-property (property &optional anywhere)
+  "Return the position of the time file PROPERTY if it exists.
 When ANYWHERE is non-nil, search beyond the preamble."
-    (save-excursion
-      (goto-char (point-min))
-      (let ((first-heading
-             (save-excursion
-               (re-search-forward org-outline-regexp-bol nil t))))
-        (when (re-search-forward (format "^#\\+%s:" property)
-                                 (if anywhere nil first-heading)
-                                 t)
-          (point)))))
+  (save-excursion
+    (goto-char (point-min))
+    (let ((first-heading
+            (save-excursion
+              (re-search-forward org-outline-regexp-bol nil t))))
+      (when (re-search-forward (format "^#\\+%s:" property)
+              (if anywhere nil first-heading)
+              t)
+        (point)))))
 
-  (defun zp/org-has-time-file-property-p (property &optional anywhere)
-    "Return the position of time file PROPERTY if it is defined.
+(defun zp/org-has-time-file-property-p (property &optional anywhere)
+  "Return the position of time file PROPERTY if it is defined.
 As a special case, return -1 if the time file PROPERTY exists but
 is not defined."
-    (when-let ((pos (zp/org-find-time-file-property property anywhere)))
-      (save-excursion
-        (goto-char pos)
-        (if (and (looking-at-p " ")
-                 (progn (forward-char)
-                        (org-at-timestamp-p 'lax)))
-            pos
-          -1))))
+  (when-let ((pos (zp/org-find-time-file-property property anywhere)))
+    (save-excursion
+      (goto-char pos)
+      (if (and (looking-at-p " ")
+            (progn (forward-char)
+              (org-at-timestamp-p 'lax)))
+        pos
+        -1))))
 
-  (defun zp/org-set-time-file-property (property &optional anywhere pos)
-    "Set the time file PROPERTY in the preamble.
+(defun zp/org-set-time-file-property (property &optional anywhere pos)
+  "Set the time file PROPERTY in the preamble.
 When ANYWHERE is non-nil, search beyond the preamble.
 If the position of the file PROPERTY has already been computed,
 it can be passed in POS."
-    (when-let ((pos (or pos
-                        (zp/org-find-time-file-property property))))
-      (save-excursion
-        (goto-char pos)
-        (if (looking-at-p " ")
-            (forward-char)
-          (insert " "))
-        (delete-region (point) (line-end-position))
-        (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
-          (insert now)))))
+  (when-let ((pos (or pos
+                    (zp/org-find-time-file-property property))))
+    (save-excursion
+      (goto-char pos)
+      (if (looking-at-p " ")
+        (forward-char)
+        (insert " "))
+      (delete-region (point) (line-end-position))
+      (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+        (insert now)))))
 
-  (defun zp/org-set-last-modified ()
-    "Update the LAST_MODIFIED file property in the preamble."
-    ;; (when (derived-mode-p 'org-mode)
-    (when (string-prefix-p jarfar/org-roam-directory buffer-file-name)
-      (zp/org-set-time-file-property "LAST_MODIFIED")))
+(defun zp/org-set-last-modified ()
+  "Update the LAST_MODIFIED file property in the preamble."
+  ;; (when (derived-mode-p 'org-mode)
+  (when (string-prefix-p my/org-roam-directory buffer-file-name)
+    (zp/org-set-time-file-property "LAST_MODIFIED")))
+
+(add-hook 'before-save-hook #'zp/org-set-last-modified)
+
 
 (use-package ivy-rich
   :config
@@ -1574,7 +1572,5 @@ it can be passed in POS."
     (add-to-list 'ivy-rich-display-transformers-list 'my/ivy-switch-buffer-org-roam-title)
     ))
 
-
-(add-hook 'before-save-hook #'zp/org-set-last-modified)
 
 (provide 'my-org)
