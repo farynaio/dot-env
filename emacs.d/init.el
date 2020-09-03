@@ -107,6 +107,7 @@
 (require 'my-evil)
 (require 'my-writing)
 (require 'my-org)
+;; (require 'my-org-caldav)
 (require 'my-navigation)
 (require 'my-devel)
 (require 'my-email)
