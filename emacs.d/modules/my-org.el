@@ -432,7 +432,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-group-tag nil)
 (setq org-archive-reversed-order t)
 (setq org-startup-folded t)
-(setq org-hide-emphasis-markers nil)
 (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t)
 ;; (setq org-track-ordered-property-with-tag t)
@@ -1289,7 +1288,7 @@ From a program takes two point or marker arguments, BEG and END."
     (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
     (setq org-roam-directory my/org-roam-directory)
     (setq org-roam-graph-viewer "/usr/bin/open")
-    (setq org-roam-db-gc-threshold 107164466)
+    (setq org-roam-db-gc-threshold most-positive-fixnum)
     (setq org-roam-tag-sources '(prop))
 
     (make-directory my/org-roam-directory t)
