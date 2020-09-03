@@ -885,14 +885,14 @@ Blood type/flavour: %^{Blood type: }
        )
 
      ("b" "Backlog"
-        ((tags "*"
+        ((todo "TODO"
           ((org-agenda-overriding-header "Backlog")
             (org-agenda-remove-tags nil)
             (org-agenda-files (list my/org-backlog-file-path)))))
        )
 
      ("y" "Maybe / Someday"
-        ((tags "*"
+        ((todo "TODO"
           ((org-agenda-overriding-header "Maybe / Someday")
             (org-agenda-remove-tags nil)
             (org-agenda-files (list my/org-tasks-maybe-someday-file-path)))))
