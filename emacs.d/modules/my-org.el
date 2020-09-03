@@ -1297,7 +1297,14 @@ From a program takes two point or marker arguments, BEG and END."
       '(("r" "ref" plain (function org-roam-capture--get-point)
           "%?"
           :file-name "website/%<%Y%m%d%H%M%S>"
-          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n#+ROAM_KEY: ${ref}\n\n- tags :: "
+          :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_KEY: ${ref}
+#+ROAM_TAGS:
+
+- progress-status ::
+- tags :: "
           :unnarrowed t)))
 
     (setq org-roam-dailies-capture-templates
@@ -1445,6 +1452,19 @@ From a program takes two point or marker arguments, BEG and END."
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
+- tags :: "
+           :unnarrowed t
+           :kill-buffer t)
+
+         ("r" "web" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "website/%<%Y%m%d%H%M%S>"
+           :head "#+TITLE: ${title}
+#+CREATED: %U
+#+LAST_MODIFIED: %U
+#+ROAM_KEY: ${ref}
+
+- progress-status ::
 - tags :: "
            :unnarrowed t
            :kill-buffer t)
