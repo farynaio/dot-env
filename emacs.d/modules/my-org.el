@@ -891,6 +891,13 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-files (list my/org-backlog-file-path)))))
        )
 
+     ("y" "Maybe / Someday"
+        ((tags "*"
+          ((org-agenda-overriding-header "Maybe / Someday")
+            (org-agenda-remove-tags nil)
+            (org-agenda-files (list my/org-tasks-maybe-someday-file-path)))))
+       )
+
      ("f" "Done media"
         ((todo "DONE"
           ((org-agenda-overriding-header "Done media:")
