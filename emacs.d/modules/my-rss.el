@@ -12,7 +12,9 @@
 (use-package elfeed-org
   :config
   (elfeed-org)
-  (setq rmh-elfeed-org-files (list "~/Dropbox/emacs/orgs/rss_feeds.org")))
+  (setq rmh-elfeed-org-files (list "~/.elfeed/feeds.org")))
+
+(use-package elfeed-web)
 
 ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
 ;;functions to support syncing .elfeed between machines
