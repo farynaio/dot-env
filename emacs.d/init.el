@@ -31,6 +31,12 @@
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
 
+(when (string-equal system-type "darwin")
+  (when (file-accessible-directory-p "/Applications/Firefox.app/Contents/MacOS")
+    (setenv "PATH" (concat (getenv "HOME") "/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
+    (setq exec-path (cons "/Applications/Firefox.app/Contents/MacOS" exec-path))
+    (setq browse-url-generic-program "firefox")))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
