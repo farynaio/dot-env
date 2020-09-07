@@ -180,17 +180,18 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
 
-(eval-after-load 'elec-pair
-  '(progn
-     (setq electric-pair-text-pairs '())
-     (setq electric-pair-text-syntax-table '())
-     (setq electric-pair-pairs '(
-                                  (?\{ . ?\})
-                                  (?\( . ?\))
-                                  (?\[ . ?\])
-                                  ))
-     (electric-pair-mode 1)
-     ))
+; https://www.emacswiki.org/emacs/ElectricPair
+(defun jarfar/electric-pair ()
+  "If at end of line, insert character pair without surrounding spaces.
+    Otherwise, just insert the typed character."
+  (interactive)
+  (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+
+(define-key text-mode-map "\"" 'jarfar/electric-pair)
+(define-key text-mode-map "'" 'jarfar/electric-pair)
+(define-key text-mode-map "(" 'jarfar/electric-pair)
+(define-key text-mode-map "[" 'jarfar/electric-pair)
+(define-key text-mode-map "{" 'jarfar/electric-pair)
 
 (setq auto-save-visited-interval 20)
 

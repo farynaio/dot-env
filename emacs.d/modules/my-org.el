@@ -237,10 +237,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
-
-         (setq-local electric-pair-inhibit-predicate
-           (lambda (c)
-             (if (char-equal c ?\") t (electric-pair-default-inhibit c))))
          ))
 
      ;; refresh agenda after adding new task via org-capture

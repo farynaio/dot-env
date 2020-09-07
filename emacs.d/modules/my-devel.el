@@ -720,18 +720,16 @@
 
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
-  (setq-local electric-pair-text-pairs
-    '(
-       (?\' . ?\')
-       (?\" . ?\")
-       (?\{ . ?\})
-       (?\( . ?\))
-       (?\[ . ?\])))
+
+  (define-key prog-mode-map "\'" 'jarfar/electric-pair)
+  (define-key prog-mode-map "\"" 'jarfar/electric-pair)
+  (define-key prog-mode-map "{" 'jarfar/electric-pair)
+  (define-key prog-mode-map "(" 'jarfar/electric-pair)
+  (define-key prog-mode-map "[" 'jarfar/electric-pair)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)
-  (electric-pair-local-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
 
