@@ -4,6 +4,12 @@
       '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
         ("." . browse-url-default-browser)))
 
+; https://noonker.github.io/posts/2020-04-22-elfeed/
+(defun jarfar/youtube-download (url)
+  "Downloads the URL in an async shell"
+  (let ((default-directory "~/Documents/bibliography/videos"))
+    (async-shell-command (format "youtube-dl %s" url))))
+
 (defun jarfar/browse-url-mpv (url &optional single)
   (start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
