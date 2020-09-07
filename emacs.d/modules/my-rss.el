@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package elfeed
   :bind (:map elfeed-search-mode-map
               ("A" . my/elfeed-show-all)
