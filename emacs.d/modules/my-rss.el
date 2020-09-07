@@ -130,13 +130,6 @@ MYTAG"
 (define-key elfeed-show-mode-map (kbd "B") 'elfeed-show-eww-open)
 (define-key elfeed-search-mode-map (kbd "B") 'elfeed-search-eww-open)
 
-(setq browse-url-browser-function
-      '(("https:\\/\\/www\\.youtu\\.*be." . browse-url-mpv)
-        ("." . browse-url-default-browser)))
-
-(defun browse-url-mpv (url &optional single)
-  (start-process "mpv" nil "mpv" (shell-quote-argument url)))
-
 (defhydra jarfar/hydra-elfeed ()
   "Elfeed"
   ("b" (elfeed-search-set-filter "+business") "Show Business" :exit t)

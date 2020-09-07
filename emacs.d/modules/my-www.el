@@ -1,5 +1,12 @@
 (require 'eww)
 
+(setq browse-url-browser-function
+      '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+        ("." . browse-url-default-browser)))
+
+(defun jarfar/browse-url-mpv (url &optional single)
+  (start-process "mpv" nil "mpv" (shell-quote-argument url)))
+
 (eval-after-load 'eww
   '(progn
      (setq url-cookie-trusted-urls '())
