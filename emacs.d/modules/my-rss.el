@@ -105,10 +105,12 @@
 (defun jarfar/elfeed-tag-selection-as-junk ()
   "Returns a function that tags an elfeed entry or selection as mytag."
   (interactive)
+  (elfeed-search-untag-all-unread)
+  (previous-line)
   (elfeed-search-toggle-all 'junk))
 
 (define-key elfeed-search-mode-map "l" 'jarfar/elfeed-tag-selection-as-readlater)
-(define-key elfeed-search-mode-map "d" 'jarfar/elfeed-tag-selection-as-junk)
+(define-key elfeed-search-mode-map "j" 'jarfar/elfeed-tag-selection-as-junk)
 
 (defun elfeed-show-eww-open (&optional use-generic-p)
   "open with eww"
