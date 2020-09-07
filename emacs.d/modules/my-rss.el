@@ -139,6 +139,7 @@
   ("f" (elfeed-search-set-filter "+finances") "Show Finances" :exit t)
   ("m" (elfeed-search-set-filter "+social") "Show Social Media" :exit t)
   ("y" (elfeed-search-set-filter "+crypto") "Show Crypto" :exit t)
+  ("n" (elfeed-search-set-filter "+news") "Show News" :exit t)
   )
 
 (defalias 'rss #'my/elfeed-load-db-and-open)
