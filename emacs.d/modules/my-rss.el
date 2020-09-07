@@ -103,17 +103,18 @@
 (define-key elfeed-show-mode-map (kbd "SPC") 'elfeed-scroll-up-command)
 (define-key elfeed-show-mode-map (kbd "S-SPC") 'elfeed-scroll-down-command)
 
-(defun elfeed-tag-selection-as (mytag)
-    "Returns a function that tags an elfeed entry or selection as
-MYTAG"
+(defun jarfar/elfeed-tag-selection-as-readlater ()
+  "Returns a function that tags an elfeed entry or selection as mytag."
   (interactive)
-    (lambda ()
-      "Toggle a tag on an Elfeed search selection"
-      (interactive)
-      (elfeed-search-toggle-all mytag)))
+  (elfeed-search-toggle-all 'readlater))
 
-(define-key elfeed-search-mode-map "l" (elfeed-tag-selection-as 'readlater))
-(define-key elfeed-search-mode-map "d" (elfeed-tag-selection-as 'junk))
+(defun jarfar/elfeed-tag-selection-as-junk ()
+  "Returns a function that tags an elfeed entry or selection as mytag."
+  (interactive)
+  (elfeed-search-toggle-all 'junk))
+
+(define-key elfeed-search-mode-map "l" 'jarfar/elfeed-tag-selection-as-readlater)
+(define-key elfeed-search-mode-map "d" 'jarfar/elfeed-tag-selection-as-junk)
 
 (defun elfeed-show-eww-open (&optional use-generic-p)
   "open with eww"
