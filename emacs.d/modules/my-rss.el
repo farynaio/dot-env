@@ -8,6 +8,8 @@
           ("q" . my/elfeed-save-db-and-bury))
   :config
   (setq elfeed-search-filter "+unread -readlater -junk")
+  ;; (setq elfeed-search-trailing-width 30)
+  (setq elfeed-search-title-max-width 115)
   )
 
 (use-package elfeed-goodies
