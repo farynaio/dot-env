@@ -2,8 +2,9 @@
 
 (use-package elfeed
   :bind (:map elfeed-search-mode-map
-              ("A" . my/elfeed-show-all)
-              ("D" . my/elfeed-show-daily)
+          ("f" . jarfar/hydra-elfeed/body)
+          ("A" . my/elfeed-show-all)
+          ("D" . my/elfeed-show-daily)
           ("q" . my/elfeed-save-db-and-bury))
   :config
   (setq elfeed-search-filter "+unread -readlater -junk")
@@ -135,6 +136,22 @@ MYTAG"
 
 (defun browse-url-mpv (url &optional single)
   (start-process "mpv" nil "mpv" (shell-quote-argument url)))
+
+(defhydra jarfar/hydra-elfeed ()
+  "Elfeed"
+  ("b" (elfeed-search-set-filter "+business") "Show Business" :exit t)
+  ("k" (elfeed-search-set-filter "+marketing") "Show Marketing" :exit t)
+  ("e" (elfeed-search-set-filter "+entr") "Show Entr" :exit t)
+  ("s" (elfeed-search-set-filter "+startup") "Show Startup" :exit t)
+  ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking" :exit t)
+  ("a" (elfeed-search-set-filter "+saas") "Show SaaS" :exit t)
+  ("o" (elfeed-search-set-filter "+seo") "Show SEO" :exit t)
+  ("l" (elfeed-search-set-filter "+blog") "Show Blogging" :exit t)
+  ("c" (elfeed-search-set-filter "+copy") "Show Copywriting" :exit t)
+  ("f" (elfeed-search-set-filter "+finances") "Show Finances" :exit t)
+  ("m" (elfeed-search-set-filter "+social") "Show Social Media" :exit t)
+  ("y" (elfeed-search-set-filter "+crypto") "Show Crypto" :exit t)
+  )
 
 (defalias 'rss #'my/elfeed-load-db-and-open)
 
