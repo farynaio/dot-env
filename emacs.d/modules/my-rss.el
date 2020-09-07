@@ -61,7 +61,80 @@
   (elfeed-db-save)
   (elfeed-db-compact))
 
-(add-hook 'kill-emacs-hook  #'my/elfeed-kill)
+;; (add-hook 'kill-emacs-hook  #'my/elfeed-kill)
+;; https://noonker.github.io/posts/2020-04-22-elfeed/
+(defun yt-dl-it (url)
+  "Downloads the URL in an async shell"
+  (let ((default-directory "~/Videos"))
+    (async-shell-command (format "youtube-dl %s" url))))
+
+;; https://noonker.github.io/posts/2020-04-22-elfeed/
+(defun elfeed-youtube-dl (&optional use-generic-p)
+  "Youtube-DL link"
+  (interactive "P")
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unread)
+             when (elfeed-entry-link entry)
+             do (yt-dl-it it))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (use-region-p) (forward-line))))
+
+(define-key elfeed-search-mode-map (kbd "d") 'elfeed-youtube-dl)
+
+
+(defun elfeed-scroll-up-command (&optional arg)
+  "Scroll up or go to next feed item in Elfeed"
+  (interactive "^P")
+  (let ((scroll-error-top-bottom nil))
+    (condition-case-unless-debug nil
+        (scroll-up-command arg)
+      (error (elfeed-show-next)))))
+
+(defun elfeed-scroll-down-command (&optional arg)
+  "Scroll up or go to next feed item in Elfeed"
+  (interactive "^P")
+  (let ((scroll-error-top-bottom nil))
+    (condition-case-unless-debug nil
+        (scroll-down-command arg)
+      (error (elfeed-show-prev)))))
+
+(define-key elfeed-show-mode-map (kbd "SPC") 'elfeed-scroll-up-command)
+(define-key elfeed-show-mode-map (kbd "S-SPC") 'elfeed-scroll-down-command)
+
+(defun elfeed-tag-selection-as (mytag)
+    "Returns a function that tags an elfeed entry or selection as
+MYTAG"
+  (interactive)
+    (lambda ()
+      "Toggle a tag on an Elfeed search selection"
+      (interactive)
+      (elfeed-search-toggle-all mytag)))
+
+(define-key elfeed-search-mode-map "l" (elfeed-tag-selection-as 'readlater))
+(define-key elfeed-search-mode-map "d" (elfeed-tag-selection-as 'junk))
+
+(defun elfeed-show-eww-open (&optional use-generic-p)
+  "open with eww"
+  (interactive "P")
+  (let ((browse-url-browser-function #'eww-browse-url))
+    (elfeed-show-visit use-generic-p)))
+
+(defun elfeed-search-eww-open (&optional use-generic-p)
+  "open with eww"
+  (interactive "P")
+  (let ((browse-url-browser-function #'eww-browse-url))
+    (elfeed-search-browse-url use-generic-p)))
+
+(define-key elfeed-show-mode-map (kbd "B") 'elfeed-show-eww-open)
+(define-key elfeed-search-mode-map (kbd "B") 'elfeed-search-eww-open)
+
+(setq browse-url-browser-function
+      '(("https:\\/\\/www\\.youtu\\.*be." . browse-url-mpv)
+        ("." . browse-url-default-browser)))
+
+(defun browse-url-mpv (url &optional single)
+  (start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
 (defalias 'rss #'my/elfeed-load-db-and-open)
 
