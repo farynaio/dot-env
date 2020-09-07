@@ -2,12 +2,21 @@
   :bind (:map elfeed-search-mode-map
               ("A" . my/elfeed-show-all)
               ("D" . my/elfeed-show-daily)
-              ("q" . my/elfeed-save-db-and-bury)))
+          ("q" . my/elfeed-save-db-and-bury))
+  :config
+  (setq elfeed-search-filter "+unread -readlater -junk")
+  )
 
 (use-package elfeed-goodies
   :config
-  (elfeed-goodies/setup)
-  (setq elfeed-goodies/entry-pane-position 'bottom))
+  ;; (elfeed-goodies/setup)
+  (setq elfeed-goodies/entry-pane-position 'bottom)
+  (setq elfeed-show-entry-switch #'elfeed-goodies/switch-pane)
+  (setq elfeed-show-entry-delete #'elfeed-goodies/delete-pane)
+
+  (define-key elfeed-show-mode-map "n" #'elfeed-goodies/split-show-next)
+  (define-key elfeed-show-mode-map "p" #'elfeed-goodies/split-show-prev)
+  )
 
 (use-package elfeed-org
   :config
