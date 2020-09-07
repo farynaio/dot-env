@@ -166,6 +166,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (setq org-blank-before-new-entry '((heading . auto) (plain-list-item . nil)))
      (setq org-hide-emphasis-markers t)
      (setq org-agenda-start-with-log-mode t)
+     (setq org-src-preserve-indentation t)
 
      (bind-key "C-c l"         #'org-store-link                      org-mode-map)
      (bind-key "C-."           #'imenu-anywhere                      org-mode-map)
