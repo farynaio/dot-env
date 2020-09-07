@@ -471,6 +471,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (global-hl-line-mode 1)
 (rainbow-mode 1)
 (auto-save-visited-mode)
+(auto-compression-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
