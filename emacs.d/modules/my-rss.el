@@ -58,31 +58,23 @@
   (bookmark-jump "elfeed-daily"))
 
 (defun my/elfeed-kill ()
-  ""
+  "Elfeed custom cleanup on exit."
   (elfeed-db-save)
   (elfeed-db-compact))
 
-;; (add-hook 'kill-emacs-hook  #'my/elfeed-kill)
 ;; https://noonker.github.io/posts/2020-04-22-elfeed/
-(defun yt-dl-it (url)
-  "Downloads the URL in an async shell"
-  (let ((default-directory "~/Videos"))
-    (async-shell-command (format "youtube-dl %s" url))))
-
-;; https://noonker.github.io/posts/2020-04-22-elfeed/
-(defun elfeed-youtube-dl (&optional use-generic-p)
+(defun elfeed-youtube-download (&optional use-generic-p)
   "Youtube-DL link"
   (interactive "P")
   (let ((entries (elfeed-search-selected)))
     (cl-loop for entry in entries
              do (elfeed-untag entry 'unread)
              when (elfeed-entry-link entry)
-             do (yt-dl-it it))
+             do (jarfar/youtube-download it))
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
-(define-key elfeed-search-mode-map (kbd "d") 'elfeed-youtube-dl)
-
+(define-key elfeed-search-mode-map (kbd "d") 'elfeed-youtube-download)
 
 (defun elfeed-scroll-up-command (&optional arg)
   "Scroll up or go to next feed item in Elfeed"
