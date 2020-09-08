@@ -75,6 +75,10 @@
 
 (require 'gnutls)
 
+(setq enable-local-eval t)
+(setq safe-local-eval-forms (list))
+(add-to-list 'safe-local-eval-forms '(progn (jarfar/org-tasks-refile-targets-local)))
+
 (when (eq system-type 'darwin)
   (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem"))
 
