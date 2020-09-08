@@ -1,15 +1,14 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package elfeed
-  :bind (:map elfeed-search-mode-map
-          ("f" . jarfar/hydra-elfeed-filter/body)
-          ("A" . my/elfeed-show-all)
-          ("D" . my/elfeed-show-daily)
-          ("q" . my/elfeed-save-db-and-bury))
   :config
   (setq elfeed-search-filter "+unread -readlater -junk")
-  ;; (setq elfeed-search-trailing-width 30)
   (setq elfeed-search-title-max-width 115)
+
+  (bind-key "f" 'jarfar/hydra-elfeed-filter/body elfeed-search-mode-map)
+  (bind-key "A" 'my/elfeed-show-all elfeed-search-mode-map)
+  (bind-key "D" 'my/elfeed-show-daily elfeed-search-mode-map)
+  (bind-key "q" 'my/elfeed-save-db-and-bury elfeed-search-mode-map)
   )
 
 (use-package elfeed-goodies
@@ -83,7 +82,7 @@
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
-(define-key elfeed-search-mode-map (kbd "d") 'elfeed-youtube-download)
+(bind-key "d" 'elfeed-youtube-download elfeed-search-mode-map)
 
 (defun elfeed-scroll-up-command (&optional arg)
   "Scroll up or go to next feed item in Elfeed"
@@ -117,8 +116,8 @@
   (previous-line)
   (elfeed-search-toggle-all 'junk))
 
-(define-key elfeed-search-mode-map "l" 'jarfar/elfeed-tag-selection-as-readlater)
-(define-key elfeed-search-mode-map "j" 'jarfar/elfeed-tag-selection-as-junk)
+(bind-key "l" 'jarfar/elfeed-tag-selection-as-readlater elfeed-search-mode-map)
+(bind-key "j" 'jarfar/elfeed-tag-selection-as-junk elfeed-search-mode-map)
 
 (defun elfeed-show-eww-open (&optional use-generic-p)
   "open with eww"
@@ -132,8 +131,8 @@
   (let ((browse-url-browser-function #'eww-browse-url))
     (elfeed-search-browse-url use-generic-p)))
 
-(define-key elfeed-show-mode-map (kbd "B") 'elfeed-show-eww-open)
-(define-key elfeed-search-mode-map (kbd "B") 'elfeed-search-eww-open)
+(bind-key "B" 'elfeed-show-eww-open elfeed-show-mode-map)
+(bind-key "B" 'elfeed-search-eww-open elfeed-search-mode-map)
 
 (defhydra jarfar/hydra-elfeed-filter ()
   "Elfeed"
