@@ -7,6 +7,53 @@
     (require 'org-mu4e))
   (message "'mu' not found"))
 
+(setq send-mail-function 'smtpmail-send-it)
+
+(setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
+
+(setq
+  mm-coding-system-priorities '(utf-8 utf-8-mac)
+  mm-decrypt-option t
+  mm-verify-option t)
+
+(setq
+  mml2015-encrypt-to-self t
+  mml2015-use 'epg
+  mml2015-encrypt-to-self t
+  mml2015-sign-with-sender t)
+
+(setq
+  message-send-mail-function 'smtpmail-send-it
+  message-directory "~/.Mail/"
+  message-default-charset 'utf-8
+  message-kill-buffer-on-exit t
+  message-forward-before-signature nil
+  message-draft-coding-system 'utf-8
+  ;; message-inhibit-body-encoding t
+  ;; message-send-coding-system 'binary
+  ;; message-send-coding-system 'utf-8
+  ;; message-send-coding-system
+  message-cite-function 'message-cite-original
+  ;; message-cite-function 'message-cite-original-without-signature
+  message-cite-style 'message-cite-style-gmail)
+
+(add-to-list 'mm-body-charset-encoding-alist '(utf-8 . base64))
+
+(setq
+  smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+  smtpmail-queue-mail nil
+  ;; smtpmail-smtp-service 587
+  ;; smtpmail-stream-type 'starttls
+  ;; smtpmail-stream-type 'ssl
+  smtpmail-queue-dir "~/Maildir/queue/cur")
+
+(setq
+  shr-inhibit-images t
+  shr-use-colors nil
+  shr-use-fonts nil
+  shr-color-visible-distance-min 80
+  shr-color-visible-luminance-min 5)
+
 ; Gnus
 (setq
   gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]"
@@ -45,6 +92,9 @@
   starttls-extra-arguments nil
   starttls-use-gnutls t)
 
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
 (add-hook 'gnus-summary-mode-hook (lambda ()
                                     (local-set-key "y" 'gmail-archive)
                                     (local-set-key "$" 'gmail-report-spam)))
@@ -69,7 +119,6 @@
      ;;                           "nndraft:drafts")
      ;;                          ("Gnus")))))
 
-(setq mail-user-agent 'mu4e-user-agent)
 
 (eval-after-load 'mu4e
   '(progn
@@ -79,7 +128,7 @@
      (evil-make-overriding-map mu4e-view-mode-map 'normal)
 
      ;; main
-      (bind-key "x"         #'mu4e-kill-update-mail                    mu4e-main-mode-map)
+     (bind-key "x"         #'mu4e-kill-update-mail                    mu4e-main-mode-map)
     ;; (,evil-mu4e-state mu4e-main-mode-map "s"               mu4e-headers-search)
     ;; (,evil-mu4e-state mu4e-main-mode-map "b"               mu4e-headers-search-bookmark)
     ;; (,evil-mu4e-state mu4e-main-mode-map "B"               mu4e-headers-search-bookmark-edit)
@@ -136,53 +185,12 @@
      (bind-key "#"          #'evil-search-word-backward                mu4e-headers-mode-map)
      (bind-key "x"          #'my/mu4e-mark-execute-all-no-confirm      mu4e-headers-mode-map)
 
-     (setq send-mail-function 'smtpmail-send-it)
+     (defun my/mu4e-mark-execute-all-no-confirm ()
+       "Execute all marks without confirmation."
+       (interactive)
+       (mu4e-mark-execute-all 'no-confirm))
 
-     (setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
-
-     (setq
-       mm-coding-system-priorities '(utf-8 utf-8-mac)
-       mm-decrypt-option t
-       mm-verify-option t)
-
-     (setq
-       mml2015-encrypt-to-self t
-       mml2015-use 'epg
-       mml2015-encrypt-to-self t
-       mml2015-sign-with-sender t)
-
-     (setq
-       message-send-mail-function 'smtpmail-send-it
-       message-directory "~/.Mail/"
-       message-default-charset 'utf-8
-       message-send-mail-function 'smtpmail-send-it
-       message-kill-buffer-on-exit t
-       message-forward-before-signature nil
-       message-draft-coding-system 'utf-8
-       ;; message-inhibit-body-encoding t
-       ;; message-send-coding-system 'binary
-       ;; message-send-coding-system 'utf-8
-       ;; message-send-coding-system
-       message-cite-function 'message-cite-original
-       ;; message-cite-function 'message-cite-original-without-signature
-       message-cite-style 'message-cite-style-gmail)
-
-     (add-to-list 'mm-body-charset-encoding-alist '(utf-8 . base64))
-
-     (setq
-       smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-       smtpmail-queue-mail nil
-       smtpmail-smtp-service 587
-       ;; smtpmail-stream-type 'starttls
-       smtpmail-stream-type 'ssl
-       smtpmail-queue-dir "~/Maildir/queue/cur")
-
-     (setq
-       shr-inhibit-images t
-       shr-use-colors nil
-       shr-use-fonts nil
-       shr-color-visible-distance-min 80
-       shr-color-visible-luminance-min 5)
+     (setq mail-user-agent 'mu4e-user-agent)
 
      (setq
        mu4e-user-mail-address-list '("adamfaryna@gmail.com" "adamfaryna@appdy.co.uk")
@@ -219,9 +227,6 @@
      (add-to-list 'mu4e-view-actions
        '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
-     (when (fboundp 'imagemagick-register-types)
-       (imagemagick-register-types))
-
      (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
      (defun my/mu4e-compose-mode-hook ()
@@ -242,6 +247,8 @@
      (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
 
      (advice-add 'mu4e-message :around #'my/advice-around-skip)
+
+     (defalias 'mu #'mu4e)
      ))
 
 (use-package org-mime)
@@ -257,12 +264,5 @@ This moves them into the All Mail folder."
 This moves them into the Spam folder."
   (interactive)
   (gnus-summary-move-article nil "nnimap+imap.gmail.com:[Gmail]/Spam"))
-
-(defun my/mu4e-mark-execute-all-no-confirm ()
-  "Execute all marks without confirmation."
-  (interactive)
-  (mu4e-mark-execute-all 'no-confirm))
-
-(defalias 'mu #'mu4e)
 
 (provide 'my-email)
