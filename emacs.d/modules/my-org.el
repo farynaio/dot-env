@@ -207,7 +207,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (setq-local org-refile-targets
          `(
             (,my/org-backlog-file-path :maxlevel . 1)
-            (,my/org-inbox-file-path :maxlevel . 1)
+            (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
             (,my/org-tasks-file-path :maxlevel . 1)
             (,my/org-taxes-file-path :maxlevel . 1)
             )))
