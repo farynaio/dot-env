@@ -154,6 +154,32 @@
   ("j" (elfeed-search-set-filter "+junk") "Show Junk" :exit t)
   )
 
+;; (defun jarfar/elfeed-to-mail-compose (subject &optional body)
+;;   (interactive "sRSS: ")
+;;   (elfeed-search-untag-all-unread)
+;;   (previous-line)
+;;   (elfeed-search-tag-all 'mail)
+
+;;   (compose-mail-other-window user-mail-address (concat "RSS: " subject))
+;;   (message body)
+;;   (when body
+;;     (mail-text)
+;;     (insert body))
+;;   (message-send-and-exit))
+
+;; (defun jarfar/elfeed-to-mail (&optional use-generic-p)
+;;   "Mail this to myself for later reading"
+;;   (interactive "P")
+;;   (let ((entries (elfeed-search-selected)))
+;;     (cl-loop for entry in entries
+;;              do (elfeed-untag entry 'unread)
+;;              when (elfeed-entry-title entry)
+;;              do (jarfar/elfeed-to-mail-compose it (elfeed-entry-link entry)))
+;;     (mapc #'elfeed-search-update-entry entries)
+;;     (unless (use-region-p) (forward-line))))
+
+;; (bind-key "m" 'jarfar/elfeed-to-mail elfeed-search-mode-map)
+
 (defalias 'rss #'my/elfeed-load-db-and-open)
 
 (provide 'my-rss)
