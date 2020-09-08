@@ -2,7 +2,7 @@
 
 (use-package elfeed
   :bind (:map elfeed-search-mode-map
-          ("f" . jarfar/hydra-elfeed/body)
+          ("f" . jarfar/hydra-elfeed-filter/body)
           ("A" . my/elfeed-show-all)
           ("D" . my/elfeed-show-daily)
           ("q" . my/elfeed-save-db-and-bury))
@@ -13,6 +13,7 @@
   )
 
 (use-package elfeed-goodies
+  :after elfeed
   :config
   ;; (elfeed-goodies/setup)
   (setq elfeed-goodies/entry-pane-position 'bottom)
@@ -24,11 +25,13 @@
   )
 
 (use-package elfeed-org
+  :after elfeed
   :config
   (elfeed-org)
   (setq rmh-elfeed-org-files (list "~/.elfeed/feeds.org")))
 
-(use-package elfeed-web)
+(use-package elfeed-web
+  :after elfeed)
 
 ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
 ;;functions to support syncing .elfeed between machines
@@ -40,6 +43,10 @@
   (elfeed-update)
   (elfeed-search-update--force)
   (elfeed))
+
+(defun jarfar/elfeed-update ()
+  (elfeed-update)
+  (elfeed-web-update))
 
 ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
 ;;write to disk when quiting
@@ -105,7 +112,8 @@
 (defun jarfar/elfeed-tag-selection-as-junk ()
   "Returns a function that tags an elfeed entry or selection as mytag."
   (interactive)
-  (elfeed-search-untag-all-unread)
+  ;; (elfeed-search-untag-all-unread)
+  (elfeed-search-toggle-all 'unread)
   (previous-line)
   (elfeed-search-toggle-all 'junk))
 
@@ -127,7 +135,7 @@
 (define-key elfeed-show-mode-map (kbd "B") 'elfeed-show-eww-open)
 (define-key elfeed-search-mode-map (kbd "B") 'elfeed-search-eww-open)
 
-(defhydra jarfar/hydra-elfeed ()
+(defhydra jarfar/hydra-elfeed-filter ()
   "Elfeed"
   ("b" (elfeed-search-set-filter "+business") "Show Business" :exit t)
   ("k" (elfeed-search-set-filter "+marketing") "Show Marketing" :exit t)
@@ -136,12 +144,14 @@
   ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking" :exit t)
   ("a" (elfeed-search-set-filter "+saas") "Show SaaS" :exit t)
   ("o" (elfeed-search-set-filter "+seo") "Show SEO" :exit t)
-  ("l" (elfeed-search-set-filter "+blog") "Show Blogging" :exit t)
+  ("g" (elfeed-search-set-filter "+blog") "Show Blogging" :exit t)
   ("c" (elfeed-search-set-filter "+copy") "Show Copywriting" :exit t)
   ("f" (elfeed-search-set-filter "+finances") "Show Finances" :exit t)
   ("m" (elfeed-search-set-filter "+social") "Show Social Media" :exit t)
   ("y" (elfeed-search-set-filter "+crypto") "Show Crypto" :exit t)
   ("n" (elfeed-search-set-filter "+news") "Show News" :exit t)
+  ("l" (elfeed-search-set-filter "+readlater") "Show Read Later" :exit t)
+  ("j" (elfeed-search-set-filter "+junk") "Show Junk" :exit t)
   )
 
 (defalias 'rss #'my/elfeed-load-db-and-open)
