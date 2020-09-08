@@ -1683,4 +1683,15 @@ it can be passed in POS."
   (setq org-journal-date-format "%Y-%m-%d")
   )
 
+(defun jarfar/org-link-copy (&optional arg)
+  "Extract URL from org-mode link and add it to kill ring."
+  (interactive "P")
+  (let* ((link (org-element-lineage (org-element-context) '(link) t))
+          (type (org-element-property :type link))
+          (url (org-element-property :path link))
+          (url (concat type ":" url)))
+    (kill-new url)
+    (message (concat "Copied URL: " url))))
+
+(bind-key "C-x C-l" 'jarfar/org-link-copy org-mode-map)
 (provide 'my-org)
