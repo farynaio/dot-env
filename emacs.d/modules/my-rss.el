@@ -162,6 +162,7 @@
 
       (message-send-and-exit)
       (elfeed-tag entry 'mail)
+      (elfeed-untag entry 'unread)
       )))
 
 (defun jarfar/elfeed-tag-toggle-ok ()
