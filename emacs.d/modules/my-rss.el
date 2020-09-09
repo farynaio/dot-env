@@ -121,9 +121,18 @@
 
     (cl-loop for entry in entries
       when (elfeed-entry-title entry)
-      when (and (elfeed-tagged-p 'unread entry) (elfeed-tagged-p 'ok entry))
+      if (elfeed-tagged-p 'unread entry)
+      if (elfeed-tagged-p 'ok entry)
+      if (elfeed-tagged-p 'mail entry)
+      do (message "The email for entry was already send. No email send now.")
+      else
       do (jarfar/elfeed-send-emails-processing entry)
+      else
+      do (message "The entry is not tagged as 'ok'. No email send now.")
+      else
+      do (message "The entry is already read. No email send now.")
       )
+
     (mapc #'elfeed-search-update-entry entries))
   (elfeed-search-update--force)
   )
@@ -135,7 +144,7 @@
          (title (elfeed-entry-title entry))
          (name (elfeed-feed-title (elfeed-entry-feed entry)))
          )
-    (compose-mail user-mail-address (format "RSS: [%s] %s" name title) nil nil)
+    (compose-mail elfeed-email-destination (format "RSS: [%s] %s" name title) nil nil)
 
     (when link
       (mail-text)
