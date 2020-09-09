@@ -18,6 +18,9 @@
   (bind-key "d" 'elfeed-youtube-download elfeed-search-mode-map)
   (bind-key "o" 'jarfar/elfeed-tag-toggle-ok elfeed-search-mode-map)
   (bind-key "j" 'jarfar/elfeed-tag-toggle-junk elfeed-search-mode-map)
+
+  (bind-key "m" 'jarfar/elfeed-send-emails elfeed-search-mode-map)
+  (bind-key "M" (lambda () (interactive) (jarfar/elfeed-send-emails t)) elfeed-search-mode-map)
   )
 
 (use-package elfeed-goodies
@@ -104,78 +107,76 @@
         (scroll-down-command arg)
       (error (elfeed-show-prev)))))
 
+(defun jarfar/elfeed-send-emails (&optional all)
+  (interactive)
+  (let ((entries (if all
+                   (progn
+                     (elfeed-search-first-entry)
+                     (set-mark-command nil)
+                     (elfeed-search-last-entry)
+                     (elfeed-search-selected))
+                   (elfeed-search-selected)
+                   )))
+    (when (use-region-p) (deactivate-mark))
+
+    (cl-loop for entry in entries
+      when (elfeed-entry-title entry)
+      when (and (elfeed-tagged-p 'unread entry) (elfeed-tagged-p 'ok entry))
+      do (jarfar/elfeed-send-emails-processing entry)
+      )
+    (mapc #'elfeed-search-update-entry entries))
+  (elfeed-search-update--force)
+  )
+
+(defun jarfar/elfeed-send-emails-processing (entry)
+  (interactive)
+  (let (
+         (link (elfeed-entry-link entry))
+         (title (elfeed-entry-title entry))
+         (name (elfeed-feed-title (elfeed-entry-feed entry)))
+         )
+    (compose-mail user-mail-address (format "RSS: [%s] %s" name title) nil nil)
+
+    (when link
+      (mail-text)
+      (let* ((type (elfeed-entry-content-type entry))
+              (content (elfeed-deref (elfeed-entry-content entry))))
+        (if content
+          (progn
+            (insert "<#multipart type=alternative>")
+            (insert "<#part type=text/plain>")
+            (insert content)
+            (insert "\n----\n")
+            (insert (concat "Link to article: " link "\n"))
+
+            (when (eq type 'html)
+              (insert "<#part type=text/html>")
+              (insert content)
+              (insert "<br>----<br>")
+              (insert (concat "Link to article: " link "<br>"))
+              )
+            (insert "<#/multipart>")
+            )
+          (insert (propertize "(empty)\n" 'face 'italic)))
+        )
+
+      (message-send-and-exit)
+      (elfeed-tag entry 'mail)
+      )))
+
 (defun jarfar/elfeed-tag-toggle-ok ()
   "Toggle tag 'ok' on an entry or entries, and send email with the content."
   (interactive)
-
-  (let ((entries (elfeed-search-selected)))
-    (elfeed-search-untag-all 'unread)
-    (elfeed-search-untag-all 'junk)
-    (elfeed-search-toggle-all 'ok)
-
-    (cl-loop for entry in entries
-      ;; do (elfeed-untag entry 'unread)
-      ;; do (elfeed-untag entry 'junk)
-      when (elfeed-entry-title entry)
-      do (jarfar/elfeed-tag-toggle-ok-processing it entry))
-    (mapc #'elfeed-search-update-entry entries)
-    ;; (unless (use-region-p) (next-line) )
-    )
-  )
-
-(defun jarfar/elfeed-tag-toggle-ok-processing (subject entry)
-  (interactive)
-  (unless (elfeed-tagged-p 'mail entry)
-    (elfeed-search-tag-all 'mail)
-
-    (let ((link (elfeed-entry-link entry)))
-      (compose-mail user-mail-address (concat "RSS: " subject) nil nil)
-
-      (when link
-        (mail-text)
-
-        (let* ((type (elfeed-entry-content-type entry))
-                (content (elfeed-deref (elfeed-entry-content entry))))
-
-          (if content
-            (progn
-              (insert "<#multipart type=alternative>")
-              (insert "<#part type=text/plain>")
-              (insert content)
-              (insert "\n----\n")
-              (insert (concat "Link to article: " link "\n"))
-
-              (when (eq type 'html)
-                (insert "<#part type=text/html>")
-                (insert content)
-                (insert "<br>----<br>")
-                (insert (concat "Link to article: " link "<br>"))
-                )
-              (insert "<#/multipart>")
-              )
-            (insert (propertize "(empty)\n" 'face 'italic)))
-          )
-
-        (message-send-and-exit)
-        ))))
+  (elfeed-search-untag-all 'junk)
+  (elfeed-search-toggle-all 'ok)
+  (unless (use-region-p) (next-line)))
 
 (defun jarfar/elfeed-tag-toggle-junk ()
   (interactive)
-  (let* (
-          (is-region (use-region-p))
-          (entry (if is-region nil (elfeed-search-selected t)))
-          (is-unread (if is-region nil (elfeed-tagged-p 'unread entry)))
-          )
-
-    (elfeed-search-untag-all 'ok)
-    (elfeed-search-untag-all-unread)
-    (elfeed-search-toggle-all 'junk)
-
-    (unless is-region
-      (when is-unread
-        (next-line)))
-    )
-  )
+  (elfeed-search-untag-all 'ok)
+  (elfeed-search-untag-all-unread)
+  (elfeed-search-toggle-all 'junk)
+  (unless (use-region-p) (next-line)))
 
 (defun elfeed-show-eww-open (&optional use-generic-p)
   "open with eww"
