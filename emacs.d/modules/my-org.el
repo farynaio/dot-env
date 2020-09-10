@@ -878,6 +878,8 @@ Blood type/flavour: %^{Blood type: }
         ((tags "*"
           ((org-agenda-overriding-header "Inbox")
             (org-agenda-remove-tags nil)
+            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-inbox-file-path)))))
        )
 
@@ -885,6 +887,8 @@ Blood type/flavour: %^{Blood type: }
         ((todo "TODO"
           ((org-agenda-overriding-header "Backlog")
             (org-agenda-remove-tags nil)
+            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-backlog-file-path)))))
        )
 
@@ -892,7 +896,18 @@ Blood type/flavour: %^{Blood type: }
         ((todo "TODO"
           ((org-agenda-overriding-header "Maybe / Someday")
             (org-agenda-remove-tags nil)
+            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-tasks-maybe-someday-file-path)))))
+       )
+
+     ("x" "FOO"
+        ((todo "TODO"
+          ((org-agenda-overriding-header "FOO")
+            (org-agenda-remove-tags nil)
+            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-sorting-strategy '(user-defined-down alpha-up))
+            (org-agenda-files (list (expand-file-name "~/Dropbox/emacs/agenda/foo.org"))))))
        )
 
      ("f" "Done media"
@@ -1072,6 +1087,22 @@ Blood type/flavour: %^{Blood type: }
         -1
         +1))))
 
+(defun jarfar/org-agenda-cmp-user-defined-created-date (a b)
+  "Org Agenda user function to sort tasks based on CREATED property."
+  (let* (
+          (time-a (org-entry-get (get-text-property 0 'org-marker a) "CREATED"))
+          (time-b (org-entry-get (get-text-property 0 'org-marker b) "CREATED"))
+          (time-a (if time-a (org-time-string-to-time time-a) nil))
+          (time-b (if time-b (org-time-string-to-time time-b) nil)))
+
+    (if (and time-a time-b)
+      (if (org-time< time-a time-b)
+        -1
+        (if (org-time> time-a time-b)
+          1
+          nil))
+      (if time-a time-a time-b)
+      )))
 
 ;; https://emacs.stackexchange.com/a/30194/18445
 (defun my/org-agenda-skip-deadline-if-not-today ()
