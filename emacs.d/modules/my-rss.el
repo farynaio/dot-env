@@ -131,7 +131,7 @@
       do (message "The entry is not tagged as 'ok'. No email send now.")
       else
       do (message "The entry is already read. No email send now.")
-      )
+     )
 
     (mapc #'elfeed-search-update-entry entries))
   (elfeed-search-update--force)
