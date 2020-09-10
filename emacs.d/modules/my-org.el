@@ -1181,9 +1181,7 @@ should be continued."
 ;; https://www.emacswiki.org/emacs/ReverseParagraphs
 (defun jarfar/org-reverse-paragraphs-order ()
   (interactive)
-  "Reverse the order of paragraphs in a region.
-From a program takes two point or marker arguments, BEG and END."
-  (interactive)
+  "Reverse the order of paragraphs in a region. From a program takes two point or marker arguments, BEG and END."
   (let ((beg (point-min)) (end (point-max)) (mid))
     (when (> beg end)
       (setq mid end end beg beg mid))
