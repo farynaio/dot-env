@@ -1090,18 +1090,16 @@ Blood type/flavour: %^{Blood type: }
 (defun jarfar/org-agenda-cmp-user-defined-created-date (a b)
   "Org Agenda user function to sort tasks based on CREATED property."
   (let* (
-          (time-a (org-entry-get (get-text-property 0 'org-marker a) "CREATED"))
-          (time-b (org-entry-get (get-text-property 0 'org-marker b) "CREATED"))
-          (time-a (if time-a (org-time-string-to-time time-a) nil))
-          (time-b (if time-b (org-time-string-to-time time-b) nil)))
+          (marker-a (get-text-property 0 'org-marker a))
+          (marker-b (get-text-property 0 'org-marker b))
+          (time-a (if marker-a (org-entry-get marker-a "CREATED") nil))
+          (time-b (if marker-b (org-entry-get marker-b "CREATED") nil)))
 
     (if (and time-a time-b)
       (if (org-time< time-a time-b)
         -1
-        (if (org-time> time-a time-b)
-          1
-          nil))
-      (if time-a time-a time-b)
+        (if (org-time> time-a time-b) 1 nil))
+      (if time-a -1 1)
       )))
 
 ;; https://emacs.stackexchange.com/a/30194/18445
