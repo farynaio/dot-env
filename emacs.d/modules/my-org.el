@@ -1034,7 +1034,7 @@ Blood type/flavour: %^{Blood type: }
                  (my/org-skip-subtree-if-priority ?A)
                  (org-agenda-skip-entry-if 'notscheduled))))
            (org-agenda-remove-tags nil)
-           (org-agenda-overriding-header "HIGH-PRIORITY TASKS:")
+           (org-agenda-overriding-header "TASKS IN PROGRESS:")
            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
            (org-agenda-files (append org-agenda-files my/org-active-projects))))
         (tags "PROJECT_ACTIVE"
