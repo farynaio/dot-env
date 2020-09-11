@@ -675,7 +675,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Waiting")
+  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* WAITING %?
 DEADLINE: <%<%Y-%m-%d %a>>
 :PROPERTIES:
