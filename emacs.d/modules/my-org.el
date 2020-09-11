@@ -1721,4 +1721,18 @@ it can be passed in POS."
     (message (concat "Copied URL: " url))))
 
 (bind-key "C-x C-l" 'jarfar/org-link-copy org-mode-map)
+;; https://emacs.stackexchange.com/a/48385/18445
+(defun jarfar/print-duplicate-headings ()
+  "Print duplicate headings from the current org buffer."
+  (interactive)
+  (with-output-to-temp-buffer "*temp-out*"
+    (let ((header-list '())) ; start with empty list
+      (org-element-map (org-element-parse-buffer) 'headline
+        (lambda (x)
+          (let ((header (org-element-property :raw-value x)))
+            (when (-contains? header-list header)
+              (princ header)
+              (terpri))
+            (push header header-list)))))))
+
 (provide 'my-org)
