@@ -415,6 +415,12 @@ $0`(yas-escape-text yas-selected-text)`")
   (interactive)
   (dired "/sudo::/"))
 
+(defun my/reinstall-package (pkg)
+  (interactive (list (intern (completing-read "Reinstall package: " (mapcar #'car package-alist)))))
+  (unload-feature pkg)
+  (package-reinstall pkg)
+  (require pkg))
+
 (defvar epa-key-mode-map (make-sparse-keymap))
 (defvar org-mode-map (make-sparse-keymap))
 (defvar mu4e:view-mode-map (make-sparse-keymap))
