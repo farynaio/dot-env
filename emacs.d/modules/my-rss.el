@@ -121,16 +121,15 @@
 
     (cl-loop for entry in entries
       when (elfeed-entry-title entry)
-      if (elfeed-tagged-p 'unread entry)
-      if (elfeed-tagged-p 'ok entry)
+      ;; if (elfeed-tagged-p 'unread entry)
       if (elfeed-tagged-p 'mail entry)
       do (message "The email for entry was already send. No email send now.")
       else
       do (jarfar/elfeed-send-emails-processing entry)
-      else
-      do (message "The entry is not tagged as 'ok'. No email send now.")
-      else
-      do (message "The entry is already read. No email send now.")
+      ;; else
+      ;; do (message "The entry is not tagged as 'ok'. No email send now.")
+      ;; else
+      ;; do (message "The entry is already read. No email send now.")
      )
 
     (mapc #'elfeed-search-update-entry entries))
@@ -171,6 +170,7 @@
 
       (message-send-and-exit)
       (elfeed-tag entry 'mail)
+      (elfeed-tag entry 'ok)
       (elfeed-untag entry 'unread)
       )))
 
