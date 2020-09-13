@@ -22,6 +22,8 @@
 (use-package calfw-org)
 (use-package hl-todo)
 
+(require 'ob-python)
+
 (org-babel-do-load-languages
   'org-babel-load-languages
   '(
@@ -32,6 +34,12 @@
      (shell . t)
      (latex . t)
      ))
+
+(setq org-babel-python-command "python3")
+
+(use-package ob-async
+  :config
+  (setq ob-async-no-async-languages-alist '("ipython")))
 
 (use-package auctex
   :defer t
