@@ -225,6 +225,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
           (eval . (progn (jarfar/org-tasks-refile-targets-local)))
           ))))
      (dir-locals-set-directory-class org-agenda-directory 'jarfar/org-agenda-dir-class)
+     (add-hook 'org-agenda-mode-hook 'jarfar/org-tasks-refile-targets-local)
 
      ;; org mode conflicts resolution: windmove
      (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -409,22 +410,17 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;; ))
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
-(setq org-refile-targets `(
-                            (,my/org-tasks-file-path :level . 1) ; pool of tasks
-                            (,my/org-project-trip-nottingham :level . 1)
-                            (,my/org-project-trip-edinburgh :level . 1)
-                            (,my/org-project-become-confident-pua :level . 1)
-                            (,my/org-project-service-arbitrage :level . 1)
-                            (,my/org-project-best-offers-club :level . 1)
-                            (,my/org-project-indie-dev :tag . "PROJECT_ACTIVE")
-                            ;; (,my/org-project-launch-amazon-business :level . 1)
-                            ;; (,my/org-project-setup-freelance :level . 1)
-                            ;; (,my/org-project-change-hosting-provider :level . 1)
-                            ;; (,my/org-project-setup-digital-agency :level . 1)
-                            (,my/org-project-guru :level . 1)
-                            (,my/org-project-switch-to-self-accounting :level . 1)
-                            ;; (,my/org-project-setup-digital-agency :level . 1) ; particular projects
-                            (,my/org-projects-file-path :level . 1)))
+;; (setq org-refile-targets `(
+;;                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
+;;                             (,my/org-project-trip-nottingham :level . 1)
+;;                             (,my/org-project-trip-edinburgh :level . 1)
+;;                             (,my/org-project-become-confident-pua :level . 1)
+;;                             (,my/org-project-service-arbitrage :level . 1)
+;;                             (,my/org-project-best-offers-club :level . 1)
+;;                             (,my/org-project-indie-dev :tag . "PROJECT_ACTIVE")
+;;                             (,my/org-project-guru :level . 1)
+;;                             (,my/org-project-switch-to-self-accounting :level . 1)
+;;                             (,my/org-projects-file-path :level . 1)))
 
 (setq
   org-export-creator-string "Adam Faryna (appdy.co.uk)"
