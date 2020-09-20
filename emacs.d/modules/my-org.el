@@ -609,7 +609,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("i" "Inbox" entry (file+headline ,my/org-inbox-file-path "Inbox")
+  ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* %?
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
