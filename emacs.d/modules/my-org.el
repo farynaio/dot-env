@@ -1032,19 +1032,20 @@ Blood type/flavour: %^{Blood type: }
             ))))
      ("d" "Coprehensive agenda"
       ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
-      ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
-         ((org-agenda-skip-function
-            '(or
-               (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
-               (my/org-agenda-skip-if-scheduled-later)
-               (and
-                 (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
-                 (my/org-skip-subtree-if-priority ?A)
-                 (org-agenda-skip-entry-if 'notscheduled))))
-           (org-agenda-remove-tags nil)
-           (org-agenda-overriding-header "TASKS IN PROGRESS:")
-           (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
-           (org-agenda-files (append org-agenda-files my/org-active-projects))))
+       ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
+          ((org-agenda-skip-function
+             '(or
+                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
+                ;; (my/org-agenda-skip-if-scheduled-later)
+                (and
+                  (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
+                  (my/org-skip-subtree-if-priority ?A)
+                  ;; (org-agenda-skip-entry-if 'notscheduled)
+                  )))
+            (org-agenda-remove-tags nil)
+            (org-agenda-overriding-header "TASKS IN PROGRESS:")
+            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
+            (org-agenda-files (append org-agenda-files  my/org-active-projects `(,my/org-taxes-file-path)))))
         (tags "PROJECT_ACTIVE"
           ((org-agenda-overriding-header "ACTIVE PROJECTS:")
             (org-tags-match-list-sublevels nil)
@@ -1077,7 +1078,7 @@ Blood type/flavour: %^{Blood type: }
             (ps-landscape-mode 1)
             (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path)))))
         )
-       )
+     )
      )
   )
 
