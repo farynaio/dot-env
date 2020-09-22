@@ -133,16 +133,16 @@
 
 (defhydra hydra-japanese ()
   "Japanese"
-  ("k" #'japanese-katakana-region "katakana")
-  ("h" #'japanese-hiragana-region "hiragana"))
+  ("k" #'japanese-katakana-region "katakana" :exit t)
+  ("h" #'japanese-hiragana-region "hiragana" :exit t))
 
 (defhydra hydra-writting ()
   "Spellcheck"
-  ("s" #'flyspell-mode "flyspell toggle")
-  ("q" #'smart-quotes-mode "smart quotes toggle")
-  ("t" #'my/lang-toggle "language toggle")
-  ("c" #'langtool-check-buffer "langtool check")
-  ("d" #'langtool-check-done "langtool done"))
+  ("s" #'flyspell-mode "flyspell toggle" :exit t)
+  ("q" #'smart-quotes-mode "smart quotes toggle" :exit t)
+  ("t" #'my/lang-toggle "language toggle" :exit t)
+  ("c" #'langtool-check-buffer "langtool check" :exit t)
+  ("d" #'langtool-check-done "langtool done" :exit t))
 
 (add-hook 'text-mode-hook 'abbrev-mode)
 

@@ -65,10 +65,10 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defhydra hydra-snippet ()
   "Snippet"
-  ("s" #'yas-insert-snippet "insert")
-  ("n" #'yas-new-snippet "new")
-  ("e" #'yas-visit-snippet-file "edit")
-  ("r" #'yas-reload-all "reload"))
+  ("s" #'yas-insert-snippet "insert" :exit t)
+  ("n" #'yas-new-snippet "new" :exit t)
+  ("e" #'yas-visit-snippet-file "edit" :exit t)
+  ("r" #'yas-reload-all "reload" :exit t))
 
 (use-package company
   :diminish company-mode
@@ -358,7 +358,7 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defhydra hydra-buffer ()
   "Buffer"
-  ("i" #'ibuffer "ibuffer"))
+  ("i" #'ibuffer "ibuffer" :exit t))
 
 ;; (defun my/buffer-messages-tail ()
   ;; (let ((messages (get-buffer "*Messages*")))

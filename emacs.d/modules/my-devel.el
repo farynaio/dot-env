@@ -389,14 +389,14 @@
 
 (defhydra hydra-tide ()
   "Tide"
-  ("i" #'tide-organize-imports "Organize imports")
-  ("r" #'tide-refactor "Refactor")
-  ("f" #'tide-fix "Fix")
-  ("r" #'tide-rename-file "Rename file")
-  ("e" #'tide-error-at-point "Error at point")
-  ("o" #'tide-references "References")
-  ("d" #'tide-documentation-at-point "Show docs")
-  ("x" #'tide-restart-server "Restart server")
+  ("i" #'tide-organize-imports "Organize imports" :exit t)
+  ("r" #'tide-refactor "Refactor" :exit t)
+  ("f" #'tide-fix "Fix" :exit t)
+  ("r" #'tide-rename-file "Rename file" :exit t)
+  ("e" #'tide-error-at-point "Error at point" :exit t)
+  ("o" #'tide-references "References" :exit t)
+  ("d" #'tide-documentation-at-point "Show docs" :exit t)
+  ("x" #'tide-restart-server "Restart server" :exit t)
   )
 
 (defhydra hydra-projectile ()
@@ -417,25 +417,25 @@
 
 (defhydra hydra-js-search ()
   "JS search"
-  ("p" #'my/rgrep "grep")
-  ("s" #'tern-find-definition "find JS definition")
-  ("t" #'tern-find-definition-by-name "find JS definition by name"))
+  ("p" #'my/rgrep "grep" :exit t)
+  ("s" #'tern-find-definition "find JS definition" :exit t)
+  ("t" #'tern-find-definition-by-name "find JS definition by name" :exit t))
 ;; (define-key tern-mode-keymap [(control ?c) (control ?r)] 'tern-rename-variable)
 
 (defhydra hydra-git ()
   "git"
-  ("g" #'magit-blame "blame")
-  ("e" #'magit-ediff-popup "ediff")
-  ("c" #'vc-resolve-conflicts "conflicts") ;; this could be better -> magit?
+  ("g" #'magit-blame "blame" :exit t)
+  ("e" #'magit-ediff-popup "ediff" :exit t)
+  ("c" #'vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
   ;; ("b" #'magit-bisect-popup "bisect") ;; find a commit that introduces the bug
-  ("s" #'magit-status "status")
-  ("o" #'magit-checkout "checkout")
-  ("b" #'magit-branch-popup "branch")
-  ("d" #'magit-diff-popup "diff")
-  ("h" #'magit-diff-buffer-file "diff file")
-  ("z" #'magit-stash-popup "stash")
-  ("l" #'magit-log-popup "log")
-  ("f" #'magit-log-buffer-file-popup "file log"))
+  ("s" #'magit-status "status" :exit t)
+  ("o" #'magit-checkout "checkout" :exit t)
+  ("b" #'magit-branch-popup "branch" :exit t)
+  ("d" #'magit-diff-popup "diff" :exit t)
+  ("h" #'magit-diff-buffer-file "diff file" :exit t)
+  ("z" #'magit-stash-popup "stash" :exit t)
+  ("l" #'magit-log-popup "log" :exit t)
+  ("f" #'magit-log-buffer-file-popup "file log" :exit t))
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
@@ -446,30 +446,30 @@
 
 (defhydra hydra-js-refactoring-node ()
   "JS refactoring node"
-  ("e" #'js2r-expand-node-at-point "expand 'node'")
-  ("c" #'js2r-contract-node-at-point "contract 'node'"))
+  ("e" #'js2r-expand-node-at-point "expand 'node'" :exit t)
+  ("c" #'js2r-contract-node-at-point "contract 'node'" :exit t))
 
 (defhydra hydra-js-refactoring-extract ()
   "JS refactoring extract"
-  ("v" #'js2r-extract-var "var")
-  ("l" #'js2r-extract-let "let")
-  ("c" #'js2r-extract-const "const")
-  ("f" #'js2r-extract-function "function")
-  ("m" #'js2r-extract-method "method"))
+  ("v" #'js2r-extract-var "var" :exit t)
+  ("l" #'js2r-extract-let "let" :exit t)
+  ("c" #'js2r-extract-const "const" :exit t)
+  ("f" #'js2r-extract-function "function" :exit t)
+  ("m" #'js2r-extract-method "method" :exit t))
 
 (defhydra hydra-js-refactoring-rename ()
   "JS refactoring rename"
-  ("v" #'js2r-rename-var "var"))
+  ("v" #'js2r-rename-var "var" :exit t))
 
 (defhydra hydra-js-refactoring-replace ()
   "JS refactoring replace"
-  ("t" #'js2r-var-to-this "'var' which 'this'"))
+  ("t" #'js2r-var-to-this "'var' which 'this'" :exit t))
 
 (defhydra hydra-php-debug ()
   "PHP debug"
-  ("a" #'geben-add-current-line-to-predefined-breakpoints "add brk")
-  ("s" #'geben "start")
-  ("q" #'geben-end "end"))
+  ("a" #'geben-add-current-line-to-predefined-breakpoints "add brk" :exit t)
+  ("s" #'geben "start" :exit t)
+  ("q" #'geben-end "end" :exit t))
 
 ;; (use-package guess-style
 ;; :config
