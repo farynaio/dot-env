@@ -602,6 +602,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 
   ("b" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
 "* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
@@ -611,6 +612,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 
   ("i" "Inbox" entry (file ,my/org-inbox-file-path)
 "* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
@@ -630,6 +632,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 
   ("y" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
 "* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
