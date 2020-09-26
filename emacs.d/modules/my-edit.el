@@ -187,11 +187,19 @@ $0`(yas-escape-text yas-selected-text)`")
   (interactive)
   (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
 
-(define-key text-mode-map "\"" 'jarfar/electric-pair)
-(define-key text-mode-map "'" 'jarfar/electric-pair)
-(define-key text-mode-map "(" 'jarfar/electric-pair)
-(define-key text-mode-map "[" 'jarfar/electric-pair)
-(define-key text-mode-map "{" 'jarfar/electric-pair)
+(setq jarfar/pairs '(?\" ?\( ?\[ ?\{))
+
+(defun jarfar/backward-delete-char-untabify ()
+  ""
+  (interactive)
+  (let ((char-current (char-after))
+         (char-next (following-char)))
+    (if (and (char-equal char-current char-next) (memq char-current jarfar/pairs))
+      (progn (right-char) (delete-char -2))
+      (backward-delete-char-untabify 1))))
+
+(dolist (elt jarfar/pairs)
+  (define-key text-mode-map (char-to-string elt) 'jarfar/electric-pair))
 
 (setq auto-save-visited-interval 20)
 

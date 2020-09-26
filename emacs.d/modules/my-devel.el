@@ -716,16 +716,20 @@
   (setq-local company-backends (delete 'company-dabbrev company-backends))
 
   (make-variable-buffer-local 'flycheck-check-syntax-automatically)
+  (make-variable-buffer-local 'jarfar/pairs)
+
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq-local jarfar/pairs '("\"" "'" "(" "[" "{"))
 
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
 
-  (define-key prog-mode-map "\'" 'jarfar/electric-pair)
-  (define-key prog-mode-map "\"" 'jarfar/electric-pair)
-  (define-key prog-mode-map "{" 'jarfar/electric-pair)
-  (define-key prog-mode-map "(" 'jarfar/electric-pair)
-  (define-key prog-mode-map "[" 'jarfar/electric-pair)
+  ;; (define-key prog-mode-map "\'" 'jarfar/electric-pair)
+  ;; (define-key prog-mode-map "\"" 'jarfar/electric-pair)
+  ;; (define-key prog-mode-map "{" 'jarfar/electric-pair)
+  ;; (define-key prog-mode-map "(" 'jarfar/electric-pair)
+  ;; (define-key prog-mode-map "[" 'jarfar/electric-pair)
+  (define-key prog-mode-map "'" 'jarfar/electric-pair)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
