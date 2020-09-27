@@ -196,7 +196,7 @@ $0`(yas-escape-text yas-selected-text)`")
   (interactive)
   (let ((char-current (char-before))
          (char-next (char-after)))
-    (if (and (characterp char-current) (char-equal char-current char-next) (memq char-current jarfar/pairs-alist))
+    (if (and (characterp char-current) (characterp char-next) (char-equal char-current char-next) (memq char-current jarfar/pairs-alist))
       (progn (right-char) (delete-char -2))
       (backward-delete-char-untabify 1))))
 

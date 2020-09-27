@@ -1216,7 +1216,7 @@ should be continued."
 (add-hook 'org-after-todo-state-change-hook 'jarfar/org-state-canceled-timestamp-toggle)
 
 ;; https://www.emacswiki.org/emacs/ReverseParagraphs
-(defun jarfar/org-reverse-paragraphs-order ()
+(defun jarfar/reverse-org-paragraphs-order ()
   (interactive)
   "Reverse the order of paragraphs in a region. From a program takes two point or marker arguments, BEG and END."
   (let ((beg (point-min)) (end (point-max)) (mid))
