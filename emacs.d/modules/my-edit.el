@@ -180,7 +180,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
 
-(setq jarfar/pairs-alist '(?\" ?\( ?\[ ?\{))
+(setq jarfar/pairs-alist '(?\" ?\( ?\[ ?\)))
 
 ; https://www.emacswiki.org/emacs/ElectricPair
 (defun jarfar/electric-pair ()
@@ -188,16 +188,14 @@ $0`(yas-escape-text yas-selected-text)`")
     Otherwise, just insert the typed character."
   (interactive)
   (let (parens-require-spaces) (insert-pair)))
-  ;; (if (char-equal (char-after) (char-before)) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
-  ;; (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
 
 (defun jarfar/backward-delete-char-untabify ()
   ""
   (interactive)
   (let ((char-current (char-before))
          (char-next (char-after)))
-    (if (and (characterp char-current) (characterp char-next) (char-equal char-current char-next) (memq char-current jarfar/pairs-alist))
-      (progn (right-char) (delete-char -2))
+    (if (and (characterp char-current) (memq char-current jarfar/pairs-alist))
+      (progn (left-char) (delete-pair))
       (backward-delete-char-untabify 1))))
 
 (dolist (elt jarfar/pairs-alist)
