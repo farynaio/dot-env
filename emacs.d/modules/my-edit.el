@@ -180,7 +180,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
 
-(setq jarfar/pairs-alist '(?\" ?\( ?\[ ?\)))
+(setq jarfar/pairs-alist '(?\" ?\( ?\[))
 
 ; https://www.emacswiki.org/emacs/ElectricPair
 (defun jarfar/electric-pair ()
