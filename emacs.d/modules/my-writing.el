@@ -46,6 +46,9 @@
                     ("chinese" "Chinese" nil 0)
                     ("whats" "what's" nil 0)
                     ("Whats" "What's" nil 0)
+                    ("Well" "We'll" nil 0)
+                    ("theyre" "they're" nil 0)
+                    ("Lets" "Let's" nil 0)
                     ))
 
 (defvar my/pl-abbrevs nil)
