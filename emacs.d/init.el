@@ -302,11 +302,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-box-selection ((t (:inherit company-tooltip-selection))))
- '(company-preview-search ((t (:inherit company-preview :background "red"))))
- '(company-scrollbar-bg ((t (:background "systemBlueColor"))))
- '(company-scrollbar-fg ((t (:background "gray40"))))
- '(company-template-field ((t (:background "gray40" :foreground "white"))))
- '(company-tooltip ((t (:background "gray40" :foreground "white"))))
- '(company-tooltip-common ((t (:foreground "white"))))
- '(company-tooltip-selection ((t (:background "systemBlueColor")))))
+ '(cursor ((t (:inherit nil :background "gray82" :underline nil))))
+ '(hl-line ((t (:inherit nil :background "gray34" :underline nil)))))
