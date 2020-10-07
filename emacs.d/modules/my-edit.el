@@ -9,6 +9,7 @@
 (require 'face-remap)
 (require 'tramp)
 (require 'elec-pair)
+(require 'subr-x)
 
 (setq-default mode-require-final-newline nil)
 
@@ -180,25 +181,32 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
 
-(setq jarfar/pairs-alist '(?\" ?\( ?\[))
+(setq jarfar/pairs-hash-table (make-hash-table :test 'equal))
+
+(when (gethash ?\" jarfar/pairs-hash-table)
+  (puthash ?\" ?\" jarfar/pairs-hash-table))
+(when (gethash ?\( jarfar/pairs-hash-table)
+  (puthash ?\( ?\) jarfar/pairs-hash-table))
+(when (gethash ?\( jarfar/pairs-hash-table)
+  (puthash ?\[ ?\] jarfar/pairs-hash-table))
 
 ; https://www.emacswiki.org/emacs/ElectricPair
 (defun jarfar/electric-pair ()
   "If at end of line, insert character pair without surrounding spaces.
-    Otherwise, just insert the typed character."
+   Otherwise, just insert the typed character."
   (interactive)
   (let (parens-require-spaces) (insert-pair)))
 
 (defun jarfar/backward-delete-char-untabify ()
   ""
   (interactive)
-  (let ((char-current (char-before))
-         (char-next (char-after)))
-    (if (and (characterp char-current) (memq char-current jarfar/pairs-alist))
+  (let* ((char-current (char-before))
+          (char-next (char-after)))
+    (if (and (characterp char-current) (equal char-next (gethash char-current jarfar/pairs-hash-table)))
       (progn (left-char) (delete-pair))
       (backward-delete-char-untabify 1))))
 
-(dolist (elt jarfar/pairs-alist)
+(dolist (elt (hash-table-keys jarfar/pairs-hash-table))
   (define-key text-mode-map (char-to-string elt) 'jarfar/electric-pair))
 
 (setq auto-save-visited-interval 20)
