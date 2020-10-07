@@ -183,11 +183,11 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (setq jarfar/pairs-hash-table (make-hash-table :test 'equal))
 
-(when (gethash ?\" jarfar/pairs-hash-table)
+(when (null (gethash ?\" jarfar/pairs-hash-table))
   (puthash ?\" ?\" jarfar/pairs-hash-table))
-(when (gethash ?\( jarfar/pairs-hash-table)
+(when (null (gethash ?\( jarfar/pairs-hash-table))
   (puthash ?\( ?\) jarfar/pairs-hash-table))
-(when (gethash ?\( jarfar/pairs-hash-table)
+(when (null (gethash ?\[ jarfar/pairs-hash-table))
   (puthash ?\[ ?\] jarfar/pairs-hash-table))
 
 ; https://www.emacswiki.org/emacs/ElectricPair
@@ -201,8 +201,9 @@ $0`(yas-escape-text yas-selected-text)`")
   ""
   (interactive)
   (let* ((char-current (char-before))
-          (char-next (char-after)))
-    (if (and (characterp char-current) (equal char-next (gethash char-current jarfar/pairs-hash-table)))
+          (char-next (char-after))
+          (val-current (if (characterp char-current) (gethash char-current jarfar/pairs-hash-table))))
+    (if (equal char-next val-current)
       (progn (left-char) (delete-pair))
       (backward-delete-char-untabify 1))))
 
