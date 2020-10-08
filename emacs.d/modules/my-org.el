@@ -1567,7 +1567,7 @@ should be continued."
     (defun jarfar/org-roam-mode-hook-company-org-ram ()
       (when (string-prefix-p my/org-roam-directory buffer-file-name)
         (make-variable-buffer-local 'company-backends)
-        (add-to-list 'company-backends 'company-org-roam)))
+        (add-to-list 'company-backends 'company-capf)))
 
     (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-company-org-ram)
     ))
