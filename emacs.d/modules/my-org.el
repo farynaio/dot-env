@@ -1318,7 +1318,7 @@ should be continued."
   (progn
     (require 'org-roam-protocol)
 
-    (setq org-roam-db-location (expand-file-name "roam.sqlite" my/emacs-directory))
+    (setq org-roam-db-location (expand-file-name "roam.sqlite" "~/"))
     (setq org-roam-directory my/org-roam-directory)
     (setq org-roam-graph-viewer "/usr/bin/open")
     (setq org-roam-db-gc-threshold most-positive-fixnum)
