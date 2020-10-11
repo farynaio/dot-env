@@ -1743,4 +1743,29 @@ it can be passed in POS."
               (terpri))
             (push header header-list)))))))
 
+;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
+(defun ndk/heading-title ()
+   "Get the heading title."
+   (save-excursion
+     (if (not (org-at-heading-p))
+       (org-previous-visible-heading 1))
+     (org-element-property :title (org-element-at-point))))
+
+(defun ndk/org-breadcrumbs ()
+   "Get the chain of headings from the top level down
+    to the current heading."
+   (let ((breadcrumbs (org-format-outline-path
+                         (org-get-outline-path)
+                         (1- (frame-width))
+                         nil "->"))
+         (title (ndk/heading-title)))
+     (if (string-empty-p breadcrumbs)
+         title
+       (format "%s->%s" breadcrumbs title))))
+
+(defun ndk/set-header-line-format()
+  (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
+
+(add-hook 'org-mode-hook #'ndk/set-header-line-format)
+
 (provide 'my-org)
