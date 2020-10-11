@@ -263,28 +263,29 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 (advice-add #'counsel-grep :around #'my/counsel-grep-fallback)
 
 (use-package projectile
-  :init
-  (setq
-    projectile-completion-system 'ivy
-    projectile-indexing-method 'alien
-    projectile-enable-caching t
-    projectile-verbose nil
-    projectile-do-log nil
-    projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   :config
   (progn
     (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
     (bind-key "C-c p F" #'projectile-find-file-other-window projectile-mode-map)
+
+    (setq
+     projectile-completion-system 'ivy
+     projectile-indexing-method 'native
+     projectile-enable-caching t
+     projectile-verbose nil
+     projectile-do-log nil
+     projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+
     ;; (setq projectile-generic-command "fd . -0")
     (setq projectile-tags-command "ctags -R -e .")
     (setq projectile-track-known-projects-automatically nil)
-    (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf"  "*.class"))
+    (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+    (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+    (setq projectile-globally-ignored-directories
+          (append '("node-modules" "dist" "target") projectile-globally-ignored-directories))
 
     (projectile-mode 1)
 
-    (add-to-list 'projectile-globally-ignored-directories '"node-modules")
-    (add-to-list 'projectile-globally-ignored-directories '"dist")
-    (add-to-list 'projectile-globally-ignored-directories '"target")
     (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
 
 (defun my/projectile-add-known-project (project-root)
