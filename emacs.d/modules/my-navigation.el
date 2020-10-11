@@ -270,7 +270,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 
     (setq
      projectile-completion-system 'ivy
-     projectile-indexing-method 'native
+     projectile-indexing-method 'hybrid
      projectile-enable-caching t
      projectile-verbose nil
      projectile-do-log nil
