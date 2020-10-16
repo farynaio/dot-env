@@ -136,6 +136,7 @@
   fe = fetch
   fea = fetch -a
   ci = commit
+  cie = commit --allow-empty
   co = checkout
   br = branch
   brr = branch -r
