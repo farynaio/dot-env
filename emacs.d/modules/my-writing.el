@@ -52,6 +52,7 @@
                     ("hows" "how's" nil 0)
                     ("Ill" "I'll" nil 0)
                     ("youve" "you've" nil 0)
+                    ("youll" "you'll" nil 0)
                     ))
 
 (defvar my/pl-abbrevs nil)
