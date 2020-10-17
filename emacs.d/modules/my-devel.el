@@ -69,8 +69,12 @@
   (progn
     (setq js2-strict-inconsistent-return-warning nil)
     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-hook 'js2-mode-hook #'emmet-mode)
-    ))
+    (add-hook 'js2-mode-hook #'emmet-mode)))
+
+;; Use binaries in node_modules
+(use-package add-node-modules-path
+  :config
+  (add-hook 'js2-mode-hook 'add-node-modules-path))
 
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
