@@ -513,6 +513,11 @@
     (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
     ))
 
+(use-package terraform-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+
 (eval-after-load 'git-rebase
   '(progn
      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
