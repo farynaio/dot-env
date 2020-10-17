@@ -511,6 +511,22 @@
     ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
     (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
+
+    ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
+    ;; Prevent Elpy from overriding Windmove shortcuts
+    ;; (eval-after-load "elpy"
+    ;;   '(cl-dolist (key '("M-<up>" "M-<down>" "M-<left>" "M-<right>"))
+    ;;      (define-key elpy-mode-map (kbd key) nil)))
+
+    ;; Prevent Elpy from overriding standard cursor movements
+    ;; (eval-after-load "elpy"
+    ;;   '(cl-dolist (key '("C-<left>" "C-<right>"))
+    ;;      (define-key elpy-mode-map (kbd key) nil)))
+
+    (when (executable-find "black")
+      (add-hook 'elpy-mode-hook
+                (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t))))
+    
     ))
 
 (use-package terraform-mode
