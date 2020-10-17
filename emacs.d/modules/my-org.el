@@ -618,7 +618,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer nil)
+:prepend t :empty-lines-after 2 :kill-buffer nil)
 
   ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
@@ -628,7 +628,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("y" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
 "* TODO %?
@@ -638,7 +638,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
@@ -670,7 +670,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("r" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
@@ -680,7 +680,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :STYLE: habit
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* WAITING %?
@@ -689,7 +689,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("u" "Review life" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>] %^g
@@ -746,7 +746,7 @@ Blood type/flavour: %^{Blood type: }
 
 - I Was with her in
 "
-:prepend t :empty-lines-after 1 :jump-to-captured t)
+:prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
 "* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
