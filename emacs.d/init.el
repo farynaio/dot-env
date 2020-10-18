@@ -283,30 +283,31 @@
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (wombat)))
- '(ledger-reports
-   (quote
-    (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
-     (#("Net value balance" 0 1
-        (idx 0))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
-     (#("Net value balance (cleared)" 0 1
-        (idx 1))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
-     (#("Net value balance (uncleared)" 0 1
-        (idx 2))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
-     (#("bal" 0 1
-        (idx 3))
-      "%(binary) -f %(ledger-file) bal")
-     (#("reg" 0 1
-        (idx 4))
-      "%(binary) -f %(ledger-file) reg")
-     (#("payee" 0 1
-        (idx 5))
-      "%(binary) -f %(ledger-file) reg @%(payee)")
-     (#("account" 0 1
-        (idx 6))
-      "%(binary) -f %(ledger-file) reg %(account)")))))
+  '(ledger-reports
+     (quote
+       (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
+         (#("Net value balance" 0 1
+             (idx 0))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
+         (#("Net value balance (cleared)" 0 1
+             (idx 1))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
+         (#("Net value balance (uncleared)" 0 1
+             (idx 2))
+           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
+         (#("bal" 0 1
+             (idx 3))
+           "%(binary) -f %(ledger-file) bal")
+         (#("reg" 0 1
+             (idx 4))
+           "%(binary) -f %(ledger-file) reg")
+         (#("payee" 0 1
+             (idx 5))
+           "%(binary) -f %(ledger-file) reg @%(payee)")
+         (#("account" 0 1
+             (idx 6))
+           "%(binary) -f %(ledger-file) reg %(account)"))))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
