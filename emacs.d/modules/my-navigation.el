@@ -264,29 +264,41 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 
 (use-package projectile
   :config
-  (progn
-    (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
-    (bind-key "C-c p F" #'projectile-find-file-other-window projectile-mode-map)
+  (bind-key "C-c p" #'projectile-command-map projectile-mode-map)
+  (bind-key "C-c p F" #'projectile-find-file-other-window projectile-mode-map)
 
-    (setq
-     projectile-completion-system 'ivy
-     projectile-indexing-method 'hybrid
-     projectile-enable-caching t
-     projectile-verbose nil
-     projectile-do-log nil
-     projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (setq
+   projectile-completion-system 'ivy
+   projectile-indexing-method 'hybrid
+   projectile-enable-caching t
+   projectile-verbose nil
+   projectile-do-log nil
+   projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
 
-    ;; (setq projectile-generic-command "fd . -0")
-    (setq projectile-tags-command "ctags -R -e .")
-    (setq projectile-track-known-projects-automatically nil)
-    (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-    (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-    (setq projectile-globally-ignored-directories
-          (append '("node-modules" "dist" "target") projectile-globally-ignored-directories))
+  ;; (setq projectile-generic-command "fd . -0")
+  (setq projectile-tags-command "ctags -R -e .")
+  (setq projectile-track-known-projects-automatically nil)
+  (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (setq projectile-globally-ignored-directories
+        (append '("node-modules" "dist" "target") projectile-globally-ignored-directories))
 
-    (projectile-mode 1)
+  (projectile-mode 1)
 
-    (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))))
+  (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+
+  (add-hook 'after-init-hook
+            (lambda ()
+              (mapc (lambda (project-root)
+                      (remhash project-root projectile-project-type-cache)
+                      (remhash project-root projectile-projects-cache)
+                      (remhash project-root projectile-projects-cache-time)
+                      (when projectile-verbose
+                        (message "Invalidated Projectile cache for %s."
+                                 (propertize project-root 'face 'font-lock-keyword-face))))
+                    projectile-known-projects)
+              (projectile-serialize-cache)))
+  )
 
 (defun my/projectile-add-known-project (project-root)
   ""

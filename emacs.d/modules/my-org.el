@@ -1548,6 +1548,11 @@ should be continued."
     (defalias 'roam #'org-roam)
     ))
 
+(eval-after-load 'org-roam
+  '(progn
+    (when (fboundp 'org-roam-dailies-today) (org-roam-dailies-today))
+  ))
+
 (use-package org-roam-server
   :config
   (setq org-roam-server-host "127.0.0.1")

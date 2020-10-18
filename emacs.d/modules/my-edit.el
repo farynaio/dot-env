@@ -345,17 +345,6 @@ $0`(yas-escape-text yas-selected-text)`")
      (bind-key "C-c +" #'increment-integer-at-point)
      (bind-key "C-c -" #'decrement-integer-at-point)))
 
-(add-hook 'after-init-hook (lambda ()
-                             (mapc (lambda (project-root)
-                                     (remhash project-root projectile-project-type-cache)
-                                     (remhash project-root projectile-projects-cache)
-                                     (remhash project-root projectile-projects-cache-time)
-                                     (when projectile-verbose
-                                       (message "Invalidated Projectile cache for %s."
-                                         (propertize project-root 'face 'font-lock-keyword-face))))
-                               projectile-known-projects)
-                             (projectile-serialize-cache)))
-
 (eval-after-load 'hippie-exp
   '(progn
      (setq hippie-expand-try-functions-list
