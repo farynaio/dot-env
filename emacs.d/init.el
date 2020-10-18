@@ -1,7 +1,6 @@
-;; (setq debug-on-error t)
 (setq my/file-name-handler-alist file-name-handler-alist)
 (setq
-  gc-cons-threshold (* 511 1024 1024)
+  gc-cons-threshold (* 1024 1024 1024)
   gc-cons-percentage 0.5
   ;; gc-cons-threshold 402653184
   ;; gc-cons-percentage 0.6
@@ -52,8 +51,8 @@
   (add-to-list 'package-archives '("elpa" . "https://orgmode.org/elpa/") t))
 (unless (assoc-default "gnu" package-archives)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(unless (assoc-default "tromey" package-archives)
-  (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))
+;; (unless (assoc-default "tromey" package-archives)
+;;   (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))
 (package-initialize)
 
 (unless package-archive-contents
@@ -266,58 +265,30 @@
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (wombat)))
-  '(ledger-reports
-     (quote
-       (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
-         (#("Net value balance" 0 1
-             (idx 0))
-           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
-         (#("Net value balance (cleared)" 0 1
-             (idx 1))
-           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
-         (#("Net value balance (uncleared)" 0 1
-             (idx 2))
-           "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
-         (#("bal" 0 1
-             (idx 3))
-           "%(binary) -f %(ledger-file) bal")
-         (#("reg" 0 1
-             (idx 4))
-           "%(binary) -f %(ledger-file) reg")
-         (#("payee" 0 1
-             (idx 5))
-           "%(binary) -f %(ledger-file) reg @%(payee)")
-         (#("account" 0 1
-             (idx 6))
-           "%(binary) -f %(ledger-file) reg %(account)"))))
-  '(package-selected-packages
-     (quote
-       (all-the-icons yaml-mode xref-js2 which-key web-mode web-beautify w3m w3 vue-mode vimrc-mode use-package transient tide synosaurus sr-speedbar smartscan rjsx-mode request realgud rainbow-mode rainbow-delimiters projectile-rails prettier-js po-mode persistent-scratch org-review org-plus-contrib org-mime oauth2 neotree minimap miniedit markdown-mode magit ledger-mode langtool js2-refactor japanese-holidays jade-mode ivy-hydra imenu-anywhere hl-todo guide-key graphql-mode goto-last-change google-translate git-gutter geben exec-path-from-shell evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy editorconfig dtrt-indent drag-stuff dockerfile-mode diminish dash-at-point counsel-projectile company-web company-statistics company-quickhelp company-php company-lsp company-box centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile auctex artbollocks-mode ag ace-jump-mode ac-php)))
-  '(safe-local-variable-values
-     (quote
-       ((eval progn
-          (add-to-list
-            (quote auto-mode-alist)
-            (quote
-              ("\\.jsx?\\'" . rjsx-mode))))
-         (eval progn
-           (add-to-list
-             (quote auto-mode-alist)
-             (quote
-               ("\\.jsx?\\'" . js2-mode))))
-         (org-hide-emphasis-markers . t)
-         (ispell-dictionary . "en")
-         (ispell-dictionary . "pl")
-         (my/language-local . pl)
-         (my/language-local . en)
-         (org-use-property-inheritance . t)
-         (org-confirm-babel-evaluate)
-         (eval progn
-           (add-hook
-             (quote js-mode-hook)
-             (lambda nil
-               (flycheck-mode -1))
-             t))))))
+ '(ledger-reports
+   (quote
+    (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
+     (#("Net value balance" 0 1
+        (idx 0))
+      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
+     (#("Net value balance (cleared)" 0 1
+        (idx 1))
+      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
+     (#("Net value balance (uncleared)" 0 1
+        (idx 2))
+      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
+     (#("bal" 0 1
+        (idx 3))
+      "%(binary) -f %(ledger-file) bal")
+     (#("reg" 0 1
+        (idx 4))
+      "%(binary) -f %(ledger-file) reg")
+     (#("payee" 0 1
+        (idx 5))
+      "%(binary) -f %(ledger-file) reg @%(payee)")
+     (#("account" 0 1
+        (idx 6))
+      "%(binary) -f %(ledger-file) reg %(account)")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
