@@ -671,11 +671,6 @@
       magit-diff-hide-trailing-cr-characters t
       magit-bury-buffer-function 'magit-mode-quit-window)
 
-    (setq magit-display-file-buffer-function
-      (lambda (buffer)
-        (setq current-prefix-arg t)
-        (magit-display-file-buffer-traditional buffer)))
-
     (setq auto-revert-buffer-list-filter
       'magit-auto-revert-repository-buffers-p)
 
