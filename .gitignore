@@ -28,6 +28,7 @@ emacs.d/tramp
 emacs.d/url/
 emacs.d/eshell
 emacs.d/emojis
+emacs.d/geben
 
 !emacs.d/agenda/shared.org
 !emacs.d/archive/shared_archive.org
