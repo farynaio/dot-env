@@ -118,6 +118,8 @@
     (setq langtool-default-language "en-GB")
     (setq langtool-mother-tongue "en")))
 
+(setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L")
+
 (use-package google-translate
   :config
   (progn
