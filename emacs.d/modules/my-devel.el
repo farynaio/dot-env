@@ -761,9 +761,7 @@
   (auto-highlight-symbol-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
-
-  (when (executable-find "aspell")
-    (flyspell-prog-mode))
+  (flyspell-prog-mode)
   )
 
 (add-hook 'prog-mode-hook 'my/prog-mode-hook t)

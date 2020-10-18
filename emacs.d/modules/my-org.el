@@ -1773,4 +1773,10 @@ it can be passed in POS."
 
 (add-hook 'org-mode-hook #'ndk/set-header-line-format)
 
+(eval-after-load 'my-org
+  '(progn
+     (org-agenda t "d")
+     (org-agenda-quit)
+     ))
+
 (provide 'my-org)

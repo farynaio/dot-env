@@ -5,7 +5,6 @@
 (require 'hippie-exp)
 (require 'calendar)
 (require 'reftex)
-(require 'flyspell)
 (require 'face-remap)
 (require 'tramp)
 (require 'elec-pair)

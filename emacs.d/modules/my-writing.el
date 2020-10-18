@@ -1,14 +1,42 @@
 (require 'text-mode)
-(require 'flyspell)
+;; (require 'flyspell)
 (require 'smart-quotes)
+
+;; (if (executable-find "hunspell")
+;;     (progn
+;;       (setenv "DICPATH" (concat (getenv "HOME") "/Documents/Dropbox/devel/spelling"))
+;;       (setq ispell-program-name (executable-find "hunspell")))
+;;   (message "'hunspell' not installed!"))
 
 (eval-after-load 'flyspell
   '(progn
      (diminish 'flyspell-mode "fly")
 
-     (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" . ":END:"))
-     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
+     ;; (setenv "DICTIONARY" "en")
+
+     ;; (setq ispell-local-dictionary "en")
+     ;; (setq ispell-local-dictionary-alist '(
+     ;;                                       ("en"
+     ;;                                               "[[:alpha:]]"
+     ;;                                               "[^[:alpha:]]"
+     ;;                                               "[']"
+     ;;                                               t
+     ;;                                               ("-d" "en_US")
+     ;;                                               nil
+     ;;                                               utf-8)
+     ;;                                       ("pl"
+     ;;                                               "[[:alpha:]]"
+     ;;                                               "[^[:alpha:]]"
+     ;;                                               "[']"
+     ;;                                               t
+     ;;                                               ("-d" "pl")
+     ;;                                               nil
+     ;;                                               utf-8)
+     ;;                                       ))
+     
+     (pushnew '(":PROPERTIES:" ":END:") ispell-skip-region-alist)
+     (pushnew '("#\\+BEGIN_SRC" . "#\\+END_SRC") ispell-skip-region-alist)
+     (pushnew '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)
      ))
 
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
@@ -109,9 +137,6 @@
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
-(add-to-list 'safe-local-variable-values '(ispell-dictionary . "pl"))
-(add-to-list 'safe-local-variable-values '(ispell-dictionary . "en"))
-
 (defun my/lang-toggle ()
   "Toggle language modes."
   (interactive)
@@ -150,7 +175,7 @@
   "Spellcheck"
   ("s" #'flyspell-mode "flyspell toggle" :exit t)
   ("q" #'smart-quotes-mode "smart quotes toggle" :exit t)
-  ("t" #'my/lang-toggle "language toggle" :exit t)
+  ("l" #'my/lang-toggle "language toggle" :exit t)
   ("c" #'langtool-check-buffer "langtool check" :exit t)
   ("d" #'langtool-check-done "langtool done" :exit t))
 

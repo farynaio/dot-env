@@ -113,23 +113,42 @@
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
 
-(require 'my-edit)
-(require 'my-evil)
-(require 'my-writing)
-(require 'my-org)
-;; (require 'my-org-caldav)
-(require 'my-navigation)
-(require 'my-devel)
-(require 'my-email)
-(require 'my-dired)
-(require 'my-notifications)
-(require 'my-www)
-(require 'my-irc)
-(require 'my-theme)
-(require 'my-shell)
-(require 'my-encrypt)
-(require 'my-cleanup)
-(require 'my-rss)
+(setq
+ my-edit-activate t
+ my-writing-activate t
+ my-evil-activate t
+ my-org-activate t
+ my-navigation-activate t
+ my-devel-activate t
+ my-email-activate t
+ my-dired-activate t
+ my-notifications-activate t
+ my-www-activate t
+ my-irc-activate t
+ my-theme-activate t
+ my-shell-activate t
+ my-encrypt-activate t
+ my-cleanup-activate t
+ my-rss-activate t
+ my-org-caldav-activate nil)
+ 
+(when my-edit-activate (require 'my-edit))
+(when my-evil-activate (require 'my-evil))
+(when my-writing-activate (require 'my-writing))
+(when my-org-activate (require 'my-org))
+(when my-org-caldav-activate (require 'my-org-caldav))
+(when my-navigation-activate (require 'my-navigation))
+(when my-devel-activate (require 'my-devel))
+(when my-email-activate (require 'my-email))
+(when my-dired-activate (require 'my-dired))
+(when my-notifications-activate (require 'my-notifications))
+(when my-www-activate (require 'my-www))
+(when my-irc-activate (require 'my-irc))
+(when my-theme-activate (require 'my-theme))
+(when my-shell-activate (require 'my-shell))
+(when my-encrypt-activate (require 'my-encrypt))
+(when my-cleanup-activate (require 'my-cleanup))
+(when my-rss-activate (require 'my-rss))
 
 ;; (setq
   ;; gc-cons-threshold (* 511 1024 1024)
@@ -139,18 +158,13 @@
 ;; profiler-start
 ;; profiler-report
 
+(server-start)
+
 (defun jarfar/open-buffers-on-startup ()
-  (when (fboundp 'org-agenda)
-    (org-agenda t "d")
-    (org-agenda-quit))
   (when (file-exists-p "~/.emacs.d/init.el")
-    (find-file "~/.emacs.d/init.el"))
-  (when (fboundp 'org-roam-dailies-today)
-    (org-roam-dailies-today)))
+    (find-file "~/.emacs.d/init.el")))
 
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
-
-(server-start)
 
 (savehist-mode 1)
 (setq savehist-file "~/.emacs.d/savehist"
@@ -197,15 +211,22 @@
   auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
+(add-hook 'desktop-save-mode-hook 'jarfar/desktop-config)
+
+(defun jarfar/desktop-config ()
+  "Configure desktop-save mode."
+
+  (when desktop-save-mode
+    (pushnew 'dired-mode desktop-modes-not-to-save)
+    (pushnew 'Info-mode desktop-modes-not-to-save)
+    (pushnew 'info-lookup-mode desktop-modes-not-to-save)
+    (setq desktop-buffers-not-to-save
+          (concat "\\("
+                  "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
+                  "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
+                  "\\)$"))))
+  
 ;; (desktop-save-mode 1)
-(add-to-list 'desktop-modes-not-to-save 'dired-mode)
-(add-to-list 'desktop-modes-not-to-save 'Info-mode)
-(add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
-(setq desktop-buffers-not-to-save
-  (concat "\\("
-    "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
-    "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
-    "\\)$"))
 
 (defun reload-config ()
 	"Reload config."
@@ -222,8 +243,8 @@
      (org-hide-emphasis-markers . t)
      (ispell-dictionary . "en")
      (ispell-dictionary . "pl")
-     (my/language-local . pl)
-     (my/language-local . en)
+     (my/language-local . "pl")
+     (my/language-local . "en")
      (org-use-property-inheritance . t)
      (org-confirm-babel-evaluate)
      (eval progn
