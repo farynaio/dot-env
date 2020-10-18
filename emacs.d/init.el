@@ -112,25 +112,43 @@
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
 
+(defvar my-edit-activate nil)
+(defvar my-writing-activate nil)
+(defvar my-evil-activate nil)
+(defvar my-org-activate nil)
+(defvar my-navigation-activate nil)
+(defvar my-devel-activate nil)
+(defvar my-email-activate nil)
+(defvar my-dired-activate nil)
+(defvar my-notifications-activate nil)
+(defvar my-www-activate nil)
+(defvar my-irc-activate nil)
+(defvar my-theme-activate nil)
+(defvar my-shell-activate nil)
+(defvar my-encrypt-activate nil)
+(defvar my-cleanup-activate nil)
+(defvar my-rss-activate nil)
+(defvar my-org-caldav-activate nil)
+
 (setq
  my-edit-activate t
- my-writing-activate t
+ my-writing-activate nil
  my-evil-activate t
  my-org-activate t
  my-navigation-activate t
  my-devel-activate t
- my-email-activate t
+ my-email-activate nil
  my-dired-activate t
- my-notifications-activate t
- my-www-activate t
- my-irc-activate t
- my-theme-activate t
- my-shell-activate t
- my-encrypt-activate t
- my-cleanup-activate t
- my-rss-activate t
+ my-notifications-activate nil
+ my-www-activate nil
+ my-irc-activate nil
+ my-theme-activate nil
+ my-shell-activate nil
+ my-encrypt-activate nil
+ my-cleanup-activate nil
+ my-rss-activate nil
  my-org-caldav-activate nil)
- 
+
 (when my-edit-activate (require 'my-edit))
 (when my-evil-activate (require 'my-evil))
 (when my-writing-activate (require 'my-writing))
@@ -224,7 +242,7 @@
                   "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
                   "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
                   "\\)$"))))
-  
+
 ;; (desktop-save-mode 1)
 
 (defun reload-config ()
