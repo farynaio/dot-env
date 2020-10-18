@@ -2,7 +2,7 @@
 
 (use-package elfeed
   :config
-  (setq elfeed-search-filter "+unread -skip -ok -junk")
+  (setq elfeed-search-filter "+unread -skip -ok -junk -indie")
   (setq elfeed-search-title-max-width 115)
   (setq elfeed-search-remain-on-entry t)
 
