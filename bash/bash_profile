@@ -1,0 +1,10 @@
+# -*- mode: conf -*-
+
+# load shopify-app-cli, but only if present and the shell is interactive
+if [[ -f "/Users/devil/.shopify-app-cli/shopify.sh"  ]] && [[ hB == *i* ]]; then
+  source "/Users/devil/.shopify-app-cli/shopify.sh"
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 2>&1  # This loads nvm bash_completion
