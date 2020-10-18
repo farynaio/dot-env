@@ -8,6 +8,8 @@
 
 (setq confirm-kill-processes nil)
 
+(setq exec-path-from-shell-check-startup-files nil)
+
 (eval-when-compile
   (defvar oauth--token-data ())
   (defvar url-http-method ())
