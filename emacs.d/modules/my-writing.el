@@ -1,6 +1,7 @@
 (require 'text-mode)
 ;; (require 'flyspell)
 (require 'smart-quotes)
+(require 'cl)
 
 ;; (if (executable-find "hunspell")
 ;;     (progn
