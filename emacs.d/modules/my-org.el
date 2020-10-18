@@ -1734,6 +1734,43 @@ it can be passed in POS."
     (message (concat "Copied URL: " url))))
 
 (bind-key "C-x C-l" 'jarfar/org-link-copy org-mode-map)
+
+;; (eval-after-load 'bibtex
+;;   '(progn
+;;       (setq bibtex-autokey-year-length 4)
+;;       (setq bibtex-autokey-name-year-separator "-")
+;;       (setq bibtex-autokey-year-title-separator "-")
+;;       (setq bibtex-autokey-titleword-separator "-")
+;;       (setq bibtex-autokey-titlewords 2)
+;;       (setq bibtex-autokey-titlewords-stretch 1)
+;;       (setq bibtex-autokey-titleword-length 5)
+;;      ))
+
+;; (use-package org-ref
+;;   :config
+;;   (require 'org-ref-pdf)
+;;   (require 'org-ref-url-utils)
+;;   (setq org-ref-completion-library 'org-ref-ivy-cite)
+
+;;   (setq org-ref-bibliography-notes "~/Documents/bibliography/notes.org")
+;;   (setq org-ref-default-bibliography '("~/Documents/bibliography/references.bib"))
+;;   (setq org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/")
+
+;;   (unless (file-exists-p org-ref-pdf-directory)
+;;     (make-directory org-ref-pdf-directory t))
+;;   )
+
+;; (setq org-latex-pdf-process
+;;       '("pdflatex -interaction nonstopmode -output-directory %o %f"
+;; 	"bibtex %b"
+;; 	"pdflatex -interaction nonstopmode -output-directory %o %f"
+;; 	"pdflatex -interaction nonstopmode -output-directory %o %f"))
+
+;; (setq org-latex-default-packages-alist
+;;   (-remove-item
+;;     '("" "hyperref" nil)
+;;     org-latex-default-packages-alist))
+
 ;; https://emacs.stackexchange.com/a/48385/18445
 (defun jarfar/print-duplicate-headings ()
   "Print duplicate headings from the current org buffer."
