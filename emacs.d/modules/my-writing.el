@@ -33,7 +33,7 @@
      ;;                                               nil
      ;;                                               utf-8)
      ;;                                       ))
-     
+
      (pushnew '(":PROPERTIES:" ":END:") ispell-skip-region-alist)
      (pushnew '("#\\+BEGIN_SRC" . "#\\+END_SRC") ispell-skip-region-alist)
      (pushnew '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)

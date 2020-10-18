@@ -1,4 +1,5 @@
 (require 'smtpmail)
+(require 'cl)
 
 (if (file-directory-p my/mu4e-local-path)
   (progn

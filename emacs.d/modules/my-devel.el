@@ -241,7 +241,7 @@
 (use-package lsp-mode
   :config
   (progn
-    (require 'lsp-clients)
+    ;; (require 'lsp-clients)
     (setq
       lsp-inhibit-message t
       lsp-hover-enabled nil
@@ -526,7 +526,7 @@
     (when (executable-find "black")
       (add-hook 'elpy-mode-hook
                 (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t))))
-    
+
     ))
 
 (use-package terraform-mode
