@@ -38,7 +38,7 @@
   ;; message-cite-function 'message-cite-original-without-signature
   message-cite-style 'message-cite-style-gmail)
 
-(add-to-list 'mm-body-charset-encoding-alist '(utf-8 . base64))
+(pushnew '(utf-8 . base64) mm-body-charset-encoding-alist)
 
 (setq
   smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
