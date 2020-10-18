@@ -484,6 +484,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (rainbow-mode 1)
 (auto-save-visited-mode)
 (auto-compression-mode 1)
+(reveal-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
