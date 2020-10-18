@@ -736,28 +736,25 @@
   (setq-local company-backends (delete 'company-dabbrev company-backends))
 
   (make-variable-buffer-local 'flycheck-check-syntax-automatically)
-  (make-variable-buffer-local 'jarfar/pairs)
+  (make-variable-buffer-local 'jarfar/pairs-hash-table)
+
+  (when (null (gethash ?\' jarfar/pairs-hash-table))
+    (puthash ?\' ?\' jarfar/pairs-hash-table))
+
+  (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
+    (define-key prog-mode-map (char-to-string elt) 'jarfar/electric-pair))
 
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
-  (setq-local jarfar/pairs '("\"" "'" "(" "[" "{"))
 
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
-
-  ;; (define-key prog-mode-map "\'" 'jarfar/electric-pair)
-  ;; (define-key prog-mode-map "\"" 'jarfar/electric-pair)
-  ;; (define-key prog-mode-map "{" 'jarfar/electric-pair)
-  ;; (define-key prog-mode-map "(" 'jarfar/electric-pair)
-  ;; (define-key prog-mode-map "[" 'jarfar/electric-pair)
-  (define-key prog-mode-map "'" 'jarfar/electric-pair)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
-  (flyspell-prog-mode)
-  )
+  (flyspell-prog-mode))
 
 (add-hook 'prog-mode-hook 'my/prog-mode-hook t)
 
