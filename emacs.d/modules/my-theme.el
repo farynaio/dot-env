@@ -18,8 +18,9 @@
 
   (custom-theme-set-faces
     'wombat
-    '(cursor ((t (:inherit nil :underline nil :background "White"))))
-    '(region ((t (:inherit nil :underline nil :foreground "White" :background "RoyalBlue4"))))
+    '(cursor ((t (:inherit nil :underline nil :background "gray82"))))
+    '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8"))))
+    ;; '(region ((t (:inherit nil :underline nil :foreground "White" :background "RoyalBlue4"))))
     '(hl-line ((t (:inherit nil :background "gray34"))))
     '(ledger-font-xact-highlight-face ((t nil)))
     '(org-level-2 ((t (:inherit outline-2 :foreground "LightGoldenrod2"))))
