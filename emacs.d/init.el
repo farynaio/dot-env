@@ -134,21 +134,21 @@
 
 (setq
  my-edit-activate t
- my-writing-activate nil
+ my-writing-activate t
  my-evil-activate t
  my-org-activate t
  my-navigation-activate t
  my-devel-activate t
- my-email-activate nil
+ my-email-activate t
  my-dired-activate t
- my-notifications-activate nil
- my-www-activate nil
- my-irc-activate nil
- my-theme-activate nil
- my-shell-activate nil
- my-encrypt-activate nil
- my-cleanup-activate nil
- my-rss-activate nil
+ my-notifications-activate t
+ my-www-activate t
+ my-irc-activate t
+ my-theme-activate t
+ my-shell-activate t
+ my-encrypt-activate t
+ my-cleanup-activate t
+ my-rss-activate t
  my-org-caldav-activate nil)
 
 (when my-edit-activate (require 'my-edit))
