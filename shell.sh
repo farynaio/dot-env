@@ -188,7 +188,8 @@ alias mv='mv -i '
 
 if $(is_darwin); then
   alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
-  alias ssh_kill_connections="kill -9 $(lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2)"
+  # alias ssh_kill_connections="kill -9 $(lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2)"
+  alias ssh_kill_connections="lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2 | kill -9"
   alias emacs_find_package='find /Applications/Emacs.app -regex '
   alias hosts_clean="sudo dscacheutil -flushcache"
   alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
