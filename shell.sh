@@ -149,6 +149,7 @@ export PATH="$HOME/Dropbox/devel/scripts:$PATH"
 export PATH="$PATH:/usr/local/opt/python/libexec/bin"
 export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 export PATH="/usr/local/opt/node@10/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
 
 if hash rbenv &> /dev/null; then
   export PATH="$HOME/.rbenv/shims:$PATH"
