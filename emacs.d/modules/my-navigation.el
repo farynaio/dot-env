@@ -7,7 +7,8 @@
   '(progn
     (recentf-mode 1)))
 
-(setq recentf-max-saved-items 200
+(setq
+  recentf-max-saved-items 200
   recentf-max-menu-items 15)
 
 (eval-after-load 'help
