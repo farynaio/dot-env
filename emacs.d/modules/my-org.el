@@ -1643,6 +1643,8 @@ it can be passed in POS."
 (use-package ivy-rich
   :config
   (progn
+    (setq ivy-rich-parse-remote-buffer nil)
+
     (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
     (defun jarfar/ivy-rich-switch-buffer-icon (candidate)
