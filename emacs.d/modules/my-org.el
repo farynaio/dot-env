@@ -1510,8 +1510,14 @@ should be continued."
       ("l" #'org-roam-insert "Insert" :exit t)
       ("j" #'org-roam-dailies-date "Journal" :exit t)
       ("f" #'org-roam-find-file "Find file" :exit t)
+      ("F" #'jarfar/org-roam-find-file-other-window "Find file" :exit t)
       ("b" #'org-roam-switch-to-buffer "Switch buffer" :exit t)
       ("d" #'org-roam-find-directory "Find dir" :exit t))
+
+    (defun jarfar/org-roam-find-file-other-window (&rest args)
+      (interactive)
+      (let ((org-roam-find-file-function #'find-file-other-window))
+        (apply #'org-roam-find-file args)))
 
     ;; faces
     ;; org-roam-link
