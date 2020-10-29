@@ -188,6 +188,8 @@ $0`(yas-escape-text yas-selected-text)`")
   (puthash ?\( ?\) jarfar/pairs-hash-table))
 (when (null (gethash ?\[ jarfar/pairs-hash-table))
   (puthash ?\[ ?\] jarfar/pairs-hash-table))
+(when (null (gethash ?\' jarfar/pairs-hash-table))
+  (puthash ?\{ ?\} jarfar/pairs-hash-table))
 
 ; https://www.emacswiki.org/emacs/ElectricPair
 (defun jarfar/electric-pair ()
