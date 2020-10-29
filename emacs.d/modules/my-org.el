@@ -1649,7 +1649,9 @@ it can be passed in POS."
 (use-package ivy-rich
   :config
   (progn
-    (setq ivy-rich-parse-remote-buffer nil)
+    (setq
+      ivy-rich-parse-remote-buffer nil
+      ivy-rich-path-style 'full)
 
     (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
