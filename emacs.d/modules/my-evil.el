@@ -76,6 +76,7 @@
     (bind-key "<end>"  #'evil-end-of-line                    evil-visual-state-map)
     (bind-key ", /"    #'keyboard-quit                       evil-visual-state-map)
     (bind-key "DEL"    #'jarfar/backward-delete-char-untabify  evil-insert-state-map)
+    (bind-key ", s"    #'my/flip-symbol                      evil-normal-state-map)
     ;; (bind-key "<M-right>" #'right-word                         evil-normal-state-map)
     ;; (bind-key "<M-left>" #'left-word                           evil-normal-state-map)
 

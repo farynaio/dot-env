@@ -1,3 +1,4 @@
+(require 'dash)
 (require 'autorevert)
 (require 're-builder)
 (require 'grep)
@@ -136,6 +137,21 @@ $0`(yas-escape-text yas-selected-text)`")
      (setq speedbar-show-unknown-files t)))
 
 (use-package sr-speedbar)
+
+(defvar my/flip-symbol-alist
+  '(("true" . "false")
+    ("false" . "true"))
+  "symbols to be quick flipped when editing")
+
+(defun my/flip-symbol ()
+  "I don't want to type here, just do it for me."
+  (interactive)
+  (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
+          (sym (buffer-substring-no-properties beg end)))
+    (when (member sym (cl-loop for cell in my/flip-symbol-alist
+                               collect (car cell)))
+      (delete-region beg end)
+      (insert (alist-get sym my/flip-symbol-alist "" nil 'equal)))))
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
