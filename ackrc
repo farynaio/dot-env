@@ -417,8 +417,10 @@
 --ignore-dir=node_modules
 --ignore-dir=__snapshots__
 --ignore-dir=dist
+--ignore-dir=public
 --ignore-dir=target
 --ignore-dir=build
+--ignore-dir=_gen
 --ignore-dir=compiled
 --ignore-dir=.compiled
 --ignore-dir=docs
