@@ -8,6 +8,7 @@
       evil-want-C-u-scroll t
       evil-want-C-i-jump nil
       evil-search-module 'evil-search
+      evil-undo-system 'undo-fu
       ))
   :config
   (progn

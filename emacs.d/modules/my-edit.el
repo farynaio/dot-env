@@ -40,6 +40,8 @@
   (let ((case-fold-search nil))
     ad-do-it))
 
+(use-package undo-fu)
+
 (use-package diminish
   :config
   (progn
