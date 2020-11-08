@@ -439,7 +439,7 @@
   ("h" #'magit-diff-buffer-file "diff file" :exit t)
   ("z" #'magit-stash-popup "stash" :exit t)
   ("l" #'magit-log-popup "log" :exit t)
-  ("f" #'magit-log-buffer-file-popup "file log" :exit t))
+  ("f" #'magit-log-buffer-file "file log" :exit t))
 
 (defhydra hydra-js-refactoring ()
   "JS refactoring"
