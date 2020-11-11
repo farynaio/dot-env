@@ -171,7 +171,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (setq org-blank-before-new-entry '((heading . auto) (plain-list-item . auto)))
+     (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
      (setq org-hide-emphasis-markers t)
      (setq org-agenda-start-with-log-mode t)
      (setq org-src-preserve-indentation t)
@@ -1721,7 +1721,16 @@ it can be passed in POS."
              (ivy-rich-package-install-summary
                (:face font-lock-doc-face))))))
 
-    (ivy-rich-mode 1)
+    (define-minor-mode ivy-rich-local-mode
+      "Toggle ivy-rich mode locally."
+      :global nil
+      (if ivy-rich-local-mode
+        (unless ivy-rich--original-display-transformers-list
+          (ivy-rich-set-display-transformer))
+        (ivy-rich-unset-display-transformer)))
+
+    (add-hook 'org-mode-hook (lambda () (ivy-rich-local-mode 1)))
+    ;; (ivy-rich-mode 1)
     ))
 
 (use-package org-journal
