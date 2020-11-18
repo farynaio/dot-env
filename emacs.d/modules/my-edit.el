@@ -229,7 +229,20 @@ $0`(yas-escape-text yas-selected-text)`")
 (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
   (define-key text-mode-map (char-to-string elt) 'jarfar/electric-pair))
 
-(setq auto-save-visited-interval 20)
+(setq auto-save-visited-interval 60)
+
+; https://emacs.stackexchange.com/questions/10932/how-do-you-disable-the-buffer-end-beginning-warnings-in-the-minibuffer/20039#20039
+(defun my/command-error-function (data context caller)
+  "Ignore the buffer-read-only, beginning-of-buffer,
+end-of-buffer signals; pass the rest to the default handler."
+  (when (not (memq (car data) '(
+                                 ;; buffer-read-only
+                                 beginning-of-buffer
+                                 end-of-buffer)))
+    (command-error-default-function data context caller)))
+
+(setq command-error-function #'my/command-error-function)
+
 
 ;; (defun my/set-syntax-entry ()
 ;;   ""
