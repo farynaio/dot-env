@@ -1326,6 +1326,12 @@ should be continued."
 
     (make-directory my/org-roam-directory t)
 
+    (add-hook 'after-save-hook
+      (lambda ()
+        (let ((bname (buffer-name (current-buffer))))
+          (when (string-equal bname "*org-roam*")
+            (org-roam-buffer-update)))))
+
     (setq org-roam-capture-ref-templates
       '(("r" "ref" plain (function org-roam-capture--get-point)
           "%?"
