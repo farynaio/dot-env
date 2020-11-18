@@ -194,6 +194,7 @@ $0`(yas-escape-text yas-selected-text)`")
   save-some-buffers-default-predicate t
   help-window-select t)
 
+(setq create-lockfiles nil)
 (setq x-underline-at-descent-line t)
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
