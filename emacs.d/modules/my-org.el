@@ -1323,7 +1323,9 @@ should be continued."
     (setq org-roam-graph-viewer "/usr/bin/open")
     (setq org-roam-db-gc-threshold most-positive-fixnum)
     (setq org-roam-tag-sources '(prop))
-
+    (setq org-roam-update-db-idle-second 60)
+    (setq org-roam-verbose nil)
+;;
     (make-directory my/org-roam-directory t)
 
     (add-hook 'after-save-hook
