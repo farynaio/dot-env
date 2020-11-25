@@ -171,10 +171,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (eval-after-load 'org
   '(progn
      (setq org-startup-with-inline-images nil)
-     (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+     (setq org-blank-before-new-entry '((heading . t) (plain-list-item . nil)))
      (setq org-hide-emphasis-markers t)
      (setq org-agenda-start-with-log-mode t)
      (setq org-src-preserve-indentation t)
+     (setq org-list-end-re "^$")
+     (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
 
      (bind-key "C-c l"         #'org-store-link                      org-mode-map)
      (bind-key "C-."           #'imenu-anywhere                      org-mode-map)
