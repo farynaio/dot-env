@@ -124,10 +124,12 @@
 
 (use-package google-translate
   :config
-  (progn
-    (setq
-      google-translate-default-source-language "en"
-      google-translate-default-target-language "pl")))
+  (setq
+    google-translate-default-source-language "en"
+    google-translate-default-target-language "pl"
+    google-translate-backend-method 'curl)
+
+  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130)))
 
 (defun my/google-translate-at-point (&optional override-p)
   (interactive "P")
