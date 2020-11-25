@@ -26,6 +26,7 @@
 (use-package rainbow-mode
   :diminish rainbow-mode)
 
+(setq hippie-expand-verbose nil)
 (setq hippie-expand-try-functions-list '())
 (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
 (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
@@ -195,6 +196,9 @@ $0`(yas-escape-text yas-selected-text)`")
   help-window-select t)
 
 (setq create-lockfiles nil)
+
+(setq echo-keystrokes 0)
+
 (setq x-underline-at-descent-line t)
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
