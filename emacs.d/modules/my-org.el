@@ -1820,19 +1820,37 @@ it can be passed in POS."
        (org-previous-visible-heading 1))
      (org-element-property :title (org-element-at-point))))
 
-(defun ndk/org-breadcrumbs ()
-   "Get the chain of headings from the top level down
-    to the current heading."
-   (let ((breadcrumbs (org-format-outline-path
-                         (org-get-outline-path)
-                         (1- (frame-width))
-                         nil "->"))
-         (title (ndk/heading-title)))
-     (if (string-empty-p breadcrumbs)
-         title
-       (format "%s->%s" breadcrumbs title))))
+;; (defun ndk/org-breadcrumbs ()
+;;   "Get the chain of headings from the top level down to the current heading."
+;;   (let ((breadcrumbs (org-format-outline-path
+;;                        (org-get-outline-path)
+;;                        (1- (frame-width))
+;;                        nil "->"))
+;;          (title (ndk/heading-title)))
 
-(defun ndk/set-header-line-format()
+;;     (if title
+;;       (if (string-empty-p breadcrumbs)
+;;         title
+;;         (format "%s->%s" breadcrumbs title))
+;;       (org-roam--extract-titles-title))))
+
+(defun ndk/org-breadcrumbs ()
+  "Get the chain of headings from the top level down to the current heading."
+  (let* ((breadcrumbs (org-format-outline-path
+                       (org-get-outline-path)
+                       (1- (frame-width))
+                       nil "->"))
+          (title (ndk/heading-title))
+          (filename (car (org-roam--extract-titles-title)))
+          (filename (if filename filename (buffer-name))))
+
+    (if title
+      (if (string-empty-p breadcrumbs)
+        (format "[%s] %s" filename title)
+        (format "[%s] %s->%s" filename breadcrumbs title))
+      (org-roam--extract-titles-title))))
+
+(defun ndk/set-header-line-format ()
   (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
 
 (add-hook 'org-mode-hook #'ndk/set-header-line-format)
