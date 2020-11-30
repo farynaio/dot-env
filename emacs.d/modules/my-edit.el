@@ -520,7 +520,7 @@ end-of-buffer signals; pass the rest to the default handler."
 (delete-selection-mode 1)
 (global-hl-line-mode 1)
 (rainbow-mode 1)
-(auto-save-visited-mode)
+;; (auto-save-visited-mode)
 (auto-compression-mode 1)
 (reveal-mode 1)
 
