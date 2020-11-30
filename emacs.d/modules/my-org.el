@@ -220,6 +220,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
             (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
             (,my/org-tasks-file-path :maxlevel . 1)
             (,my/org-taxes-file-path :maxlevel . 1)
+            (,my/org-temp-file-path :maxlevel . 1)
             )))
 
      (dir-locals-set-class-variables 'jarfar/org-agenda-dir-class

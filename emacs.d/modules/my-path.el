@@ -23,6 +23,7 @@
 (setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
 (setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
+(setq my/org-temp-file-path (expand-file-name "temp.org" org-agenda-directory))
 (setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe_someday.org" org-agenda-directory))
 
 (setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
