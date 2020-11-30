@@ -83,6 +83,8 @@
                     ("youve" "you've" nil 0)
                     ("youll" "you'll" nil 0)
                     ("theres" "there's" nil 0)
+                    ("Weve" "We've" nil 0)
+                    ("elses" "else's" nil 0)
                     ))
 
 (defvar my/pl-abbrevs nil)
