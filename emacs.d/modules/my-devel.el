@@ -906,4 +906,32 @@ in whole buffer.  With neither, delete comments on current line."
           (while (re-search-forward "\n\n+" nil "move")
             (replace-match "\n")))))))
 
+(defun jarfar/wp-gutenberg-to-md ()
+  (interactive)
+  (save-excursion
+
+    (beginning-of-buffer)
+    (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\).*?-->\n?" nil t)
+      (replace-match "" nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "</?p>" nil t)
+      (replace-match "" nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "</h[1-6]>" nil t)
+      (replace-match "" nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "<h2>" nil t)
+      (replace-match "## " nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "<h3>" nil t)
+      (replace-match "### " nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "</?code>" nil t)
+      (replace-match "`" nil nil))))
+
 (provide 'my-devel)
