@@ -1,4 +1,4 @@
-(require 'text-mode)
+;; (require 'text-mode)
 ;; (require 'flyspell)
 (require 'smart-quotes)
 (require 'cl)
@@ -37,8 +37,7 @@
 
      (pushnew '(":PROPERTIES:" ":END:") ispell-skip-region-alist)
      (pushnew '("#\\+BEGIN_SRC" . "#\\+END_SRC") ispell-skip-region-alist)
-     (pushnew '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)
-     ))
+     (pushnew '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)))
 
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
 (setq save-abbrevs 'silently)
@@ -58,8 +57,6 @@
                     ("youre" "you're" nil 0)
                     ("Youd" "You'd" nil 0)
                     ("youd" "you'd" nil 0)
-                    ;; ("Were" "We're" nil 0)
-                    ;; ("were" "we're" nil 0)
                     ("arent" "aren't" nil 0)
                     ("mustnt" "mustn't" nil 0)
                     ("shouldnt" "shouldn't" nil 0)
@@ -75,9 +72,7 @@
                     ("chinese" "Chinese" nil 0)
                     ("whats" "what's" nil 0)
                     ("Whats" "What's" nil 0)
-                    ;; ("Well" "We'll" nil 0)
                     ("theyre" "they're" nil 0)
-                    ;; ("Lets" "Let's" nil 0)
                     ("hows" "how's" nil 0)
                     ("Ill" "I'll" nil 0)
                     ("youve" "you've" nil 0)
@@ -115,22 +110,18 @@
 
 (use-package langtool
   :init
-  (progn
-    (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path)))
+  (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
   :config
-  (progn
-    (setq langtool-default-language "en-GB")
-    (setq langtool-mother-tongue "en")))
+  (setq langtool-default-language "en-GB")
+  (setq langtool-mother-tongue "en"))
 
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L")
 
 (use-package google-translate
   :config
-  (setq
-    google-translate-default-source-language "en"
-    google-translate-default-target-language "pl"
-    google-translate-backend-method 'curl)
-
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "pl")
+  (setq google-translate-backend-method 'curl)
   (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130)))
 
 (defun my/google-translate-at-point (&optional override-p)
@@ -161,31 +152,31 @@
       (my/lang-modes-deactivate)
       (funcall new-mode 1))))
 
-(add-hook 'find-file-hook #'my/lang-toggle)
+(add-hook 'find-file-hook 'my/lang-toggle)
 
 (use-package artbollocks-mode
+  :commands artbollocks-mode
   :config
-  (progn
-    (setq artbollocks-weasel-words-regex
-      (concat "\\b" (regexp-opt
-                      '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
+  (setq artbollocks-weasel-words-regex
+    (concat "\\b" (regexp-opt
+                    '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
                                         ; test
-                         "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
-                         ) t) "\\b")
-      artbollocks-jargon nil)))
+                       "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
+                       ) t) "\\b")
+    artbollocks-jargon nil))
 
 (defhydra hydra-japanese ()
   "Japanese"
-  ("k" #'japanese-katakana-region "katakana" :exit t)
-  ("h" #'japanese-hiragana-region "hiragana" :exit t))
+  ("k" 'japanese-katakana-region "katakana" :exit t)
+  ("h" 'japanese-hiragana-region "hiragana" :exit t))
 
 (defhydra hydra-writting ()
   "Spellcheck"
-  ("s" #'flyspell-mode "flyspell toggle" :exit t)
-  ("q" #'smart-quotes-mode "smart quotes toggle" :exit t)
-  ("l" #'my/lang-toggle "language toggle" :exit t)
-  ("c" #'langtool-check-buffer "langtool check" :exit t)
-  ("d" #'langtool-check-done "langtool done" :exit t))
+  ("s" 'flyspell-mode "flyspell toggle" :exit t)
+  ("q" 'smart-quotes-mode "smart quotes toggle" :exit t)
+  ("l" 'my/lang-toggle "language toggle" :exit t)
+  ("c" 'langtool-check-buffer "langtool check" :exit t)
+  ("d" 'langtool-check-done "langtool done" :exit t))
 
 (add-hook 'text-mode-hook 'abbrev-mode)
 

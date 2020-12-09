@@ -1,33 +1,102 @@
-(require 'dash)
+;; (require 'dash)
 (require 'autorevert)
 (require 're-builder)
-(require 'grep)
-(require 'inc-dec-at-point)
-(require 'calendar)
-(require 'reftex)
-(require 'face-remap)
+;; (require 'calendar)
+;; (require 'reftex)
+;; (require 'face-remap)
 (require 'conf-mode)
-(require 'tramp)
-(require 'elec-pair)
-(require 'subr-x)
+;; (require 'tramp)
+;; (require 'elec-pair)
+;; (require 'subr-x)
+(require 'vc-git)
+;; (require 'git-rebase)
 
 (setq-default mode-require-final-newline nil)
 
+;; (use-package git-timemachine)
+
+(eval-after-load 'git-rebase
+  '(progn
+     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
+
+(use-package git-commit
+  :config
+  (setq git-commit-style-convention-checks nil))
+
+(use-package git-gutter
+  :diminish git-gutter-mode
+  :bind (("C-c p" . 'git-gutter:previous-hunk)
+          ("C-c n" . 'git-gutter:next-hunk))
+  :config
+  (global-git-gutter-mode +1))
+(use-package magit
+  :diminish magit-auto-revert-mode
+  :after (transient)
+  :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
+          (magit-status-mode . (lambda () (save-some-buffers t))))
+  :bind (:map magit-mode-map
+          ("|" . evil-window-set-width)
+          ("}" . evil-forward-paragraph)
+          ("]" . evil-forward-paragraph)
+          ("{" . evil-backward-paragraph)
+          ("[" . evil-backward-paragraph)
+          ("C-d" . evil-scroll-down)
+          ("C-u" . evil-scroll-up)
+          ("C-s" . isearch-forward)
+          ("=" . balance-windows)
+          ("C-w" . my/copy-diff-region)
+          :map magit-hunk-section-map
+          ("r" . magit-reverse)
+          ("v" . evil-visual-char)
+          :map magit-revision-mode-map
+          ("C-s" . isearch-forward)
+          ("n" . evil-search-next)
+          ("p" . evil-search-previous)
+          ("=" . balance-windows)
+          :map magit-status-mode-map
+          ("\\w" . avy-goto-word-or-subword-1)
+          ("\\c" . avy-goto-char))
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq magit-refresh-status-buffer nil)
+  (setq magit-item-highlight-face 'bold)
+  (setq magit-diff-paint-whitespace nil)
+  (setq magit-ediff-dwim-show-on-hunks t)
+  (setq magit-diff-hide-trailing-cr-characters t)
+  (setq magit-bury-buffer-function 'magit-mode-quit-window)
+
+  (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
+  (setq magit-blame-styles
+    '(
+       (margin
+         (margin-format " %s%f" " %C %a" " %H")
+         (margin-width . 42)
+         (margin-face . magit-blame-margin)
+         (margin-body-face magit-blame-dimmed))
+       (headings
+         (heading-format . "%-20a %C %s
+"))))
+
+  (add-to-list 'magit-blame-disable-modes 'evil-mode)
+
+  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
+  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent))
+
+(setq vc-follow-symlinks t)
+
 (use-package hydra)
 ;; (use-package monitor)
-(use-package popup)
-(use-package miniedit)
-(use-package calfw)
+;; (use-package popup)
+;; (use-package miniedit)
+;; (use-package calfw)
 (use-package with-editor)  ; dependency for other package
-(use-package neotree)
-(use-package multiple-cursors)
+;; (use-package neotree)
+;; (use-package multiple-cursors)
 (use-package emojify)
 
-(use-package rainbow-mode
-  :diminish rainbow-mode)
-
 (require 'hippie-exp)
-
 (eval-after-load 'hippie-exp
   '(progn
      (setq hippie-expand-try-functions-list
@@ -45,6 +114,7 @@
           try-complete-lisp-symbol))
      (setq hippie-expand-verbose nil)
      (setq hippie-expand-try-functions-list '())
+     (bind-key "M-/" 'hippie-expand)
      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-from-kill t)
@@ -139,6 +209,21 @@ $0`(yas-escape-text yas-selected-text)`")
 ;;   '(progn
 ;;      (setq speedbar-show-unknown-files t)))
 ;; (use-package sr-speedbar)
+
+(defhydra hydra-git ()
+  "git"
+  ("g" #'magit-blame "blame" :exit t)
+  ("e" #'magit-ediff-popup "ediff" :exit t)
+  ("c" #'vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
+  ;; ("b" #'magit-bisect-popup "bisect") ;; find a commit that introduces the bug
+  ("s" #'magit-status "status" :exit t)
+  ("o" #'magit-checkout "checkout" :exit t)
+  ("b" #'magit-branch-popup "branch" :exit t)
+  ("d" #'magit-diff-popup "diff" :exit t)
+  ("h" #'magit-diff-buffer-file "diff file" :exit t)
+  ("z" #'magit-stash-popup "stash" :exit t)
+  ("l" #'magit-log-popup "log" :exit t)
+  ("f" #'magit-log-buffer-file "file log" :exit t))
 
 (defvar my/flip-symbol-alist
   '(("true" . "false")
@@ -289,6 +374,7 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; (require 'grep)
 ;; (eval-after-load 'grep
 ;; 	'(progn
 ;; 		 (add-to-list 'grep-find-ignored-directories "auto-save-list")
@@ -382,10 +468,11 @@ end-of-buffer signals; pass the rest to the default handler."
 ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
 ;; (add-hook 'after-make-frame-functions 'my/set-emoji-font)
 
+(require 'inc-dec-at-point)
 (eval-after-load 'inc-dec-at-point
   '(progn
-     (bind-key "C-c +" #'increment-integer-at-point)
-     (bind-key "C-c -" #'decrement-integer-at-point)))
+     (bind-key "C-c +" 'increment-integer-at-point)
+     (bind-key "C-c -" 'decrement-integer-at-point)))
 
 (defhydra hydra-buffer ()
   "Buffer"
@@ -474,29 +561,13 @@ end-of-buffer signals; pass the rest to the default handler."
 (bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
 (bind-key "C-x 4 c"       'my/clone-indirect-buffer-new-window)
 (bind-key "s-t"           'make-frame-command)
-(bind-key "C-d"           'evil-scroll-down)
-(bind-key "C-u"           'evil-scroll-up)
 
-(bind-key "C-x C-SPC"       'rectangle-mark-mode)
-(bind-key "M-/"             'hippie-expand)
-(bind-key "C->"             'mc/mark-next-like-this)
-(bind-key "C-<"             'mc/mark-previous-like-this)
-(bind-key "C-c C-<"         'mc/mark-all-like-this)
-(bind-key "s-u"             'air-revert-buffer-noconfirm)
-(bind-key "C-c j"           'org-clock-goto) ;; jump to current task from anywhere
-(bind-key "C-c C-o"         'org-open-at-point-global)
-;; (bind-key "C-c O"           #'org-open-at-point-global)
-(bind-key "C-c c"           'org-capture)
-(bind-key "C-c a"           'org-agenda)
-(bind-key "C-x a"           'org-agenda)
-(bind-key "C-c l"           'org-store-link)
-(bind-key "C-c L"           'org-insert-link-global)
-(bind-key "C-c p"           'git-gutter:previous-hunk)
-(bind-key "C-c n"           'git-gutter:next-hunk)
-(bind-key "C-s"             'evil-search-forward) ;; counsel-grep
-
-(unbind-key "C-M-i" emacs-lisp-mode-map)
-(unbind-key "C-x C-l" global-map)
+(bind-key "C-x C-SPC"     'rectangle-mark-mode)
+(bind-key "C->"           'mc/mark-next-like-this)
+(bind-key "C-<"           'mc/mark-previous-like-this)
+(bind-key "C-c C-<"       'mc/mark-all-like-this)
+(bind-key "s-u"           'air-revert-buffer-noconfirm)
+;; (bind-key "C-c O"      'org-open-at-point-global)
 
 (defalias 'qcalc 'quick-calc)
 
@@ -507,7 +578,6 @@ end-of-buffer signals; pass the rest to the default handler."
 (global-emojify-mode 1)
 (delete-selection-mode 1)
 (global-hl-line-mode 1)
-(rainbow-mode 1)
 ;; (auto-save-visited-mode)
 (auto-compression-mode 1)
 (reveal-mode 1)

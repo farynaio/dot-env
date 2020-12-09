@@ -1,11 +1,10 @@
-(require 'taskjuggler-mode)
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-toc)
 (require 'org-habit)
 (require 'org-collector)
-(require 'org-depend)
-(require 'org-eww)
+;; (require 'org-depend)
+;; (require 'org-eww)
 (require 'org-checklist)
 (require 'org-table-cell-move)
 (require 'org-protocol)
@@ -15,8 +14,8 @@
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-drill t)
 (add-to-list 'org-modules 'org-collector t)
-(add-to-list 'org-modules 'org-depend t)
-(add-to-list 'org-modules 'org-eww t)
+;; (add-to-list 'org-modules 'org-depend t)
+;; (add-to-list 'org-modules 'org-eww t)
 (add-to-list 'org-modules 'org-checklist t)
 
 (use-package calfw-org)
@@ -42,19 +41,8 @@
   (setq ob-async-no-async-languages-alist '("ipython")))
 
 (use-package auctex
-  :defer t
-  :ensure t)
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-
-(eval-after-load 'taskjuggler-mode
-  '(progn
-     (setq org-taskjuggler-process-command (concat my/ruby-gems-path "tj3 --silent --no-color --output-dir %o %f"))))
-
-(define-derived-mode my/org-taskjuggler-mode org-mode "TJP"
-  "Major mode for TaskJuggler projects."
-  ;; (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t)
-  )
+  :hook (LaTeX-mode . turn-on-reftex)
+  :defer t)
 
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"
@@ -67,13 +55,6 @@
 (defun my/org-agenda-to-appt-if-not-terminated ()
   (unless my/save-buffers-kill-terminal-was-called
     (org-agenda-to-appt t)))
-
-;; TODO what is it?
-(use-package synosaurus
-  :config
-  (progn
-    (setq synosaurus-backend 'synosaurus-backend-wordnet)))
-    ;; (add-hook 'text-mode-hook #'synosaurus-mode)))
 
 ;; org agenda full month calendar
 (defun cal ()
@@ -183,18 +164,27 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
           ("1." . "-")
           ))
 
-     (bind-key "C-c l"         #'org-store-link                      org-mode-map)
-     (bind-key "C-."           #'imenu-anywhere                      org-mode-map)
-     (bind-key "C-c C-x a"     #'org-archive-subtree-default         org-mode-map)
-     (bind-key "M-}"           #'forward-paragraph                   org-mode-map)
-     (bind-key "M-{"           #'backward-paragraph                  org-mode-map)
-     (bind-key "C-M-<up>"      #'org-table-move-single-cell-up       org-mode-map)
-     (bind-key "C-M-<down>"    #'org-table-move-single-cell-down     org-mode-map)
-     (bind-key "C-M-<left>"    #'org-table-move-single-cell-left     org-mode-map)
-     (bind-key "C-M-<right>"   #'org-table-move-single-cell-right    org-mode-map)
-     (bind-key "<S-tab>"       #'my/outline-hide-subtree             org-mode-map)
-     (bind-key "<M-up>"        #'my/org-metaup                       org-mode-map)
-     (bind-key "<M-down>"      #'my/org-metadown                     org-mode-map)
+     (bind-key "C-c l"         'org-store-link                      org-mode-map)
+     (bind-key "C-."           'imenu-anywhere                      org-mode-map)
+     (bind-key "C-c C-x a"     'org-archive-subtree-default         org-mode-map)
+     (bind-key "M-}"           'forward-paragraph                   org-mode-map)
+     (bind-key "M-{"           'backward-paragraph                  org-mode-map)
+     (bind-key "C-M-<up>"      'org-table-move-single-cell-up       org-mode-map)
+     (bind-key "C-M-<down>"    'org-table-move-single-cell-down     org-mode-map)
+     (bind-key "C-M-<left>"    'org-table-move-single-cell-left     org-mode-map)
+     (bind-key "C-M-<right>"   'org-table-move-single-cell-right    org-mode-map)
+     (bind-key "<S-tab>"       'my/outline-hide-subtree             org-mode-map)
+     (bind-key "<M-up>"        'my/org-metaup                       org-mode-map)
+     (bind-key "<M-down>"      'my/org-metadown                     org-mode-map)
+     (bind-key "C-c c"         'org-capture)
+     (bind-key "C-c a"         'org-agenda)
+     (bind-key "C-x a"         'org-agenda)
+     (bind-key "C-c l"         'org-store-link)
+     (bind-key "C-c L"         'org-insert-link-global)
+     (bind-key "C-c j"          'org-clock-goto) ;; jump to current task from anywhere
+     (bind-key "C-c C-o"        'org-open-at-point-global)
+
+
      ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
 
      (bind-key "C-x ," #'my/hydra-org/body org-mode-map)
@@ -442,7 +432,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-group-tag nil)
 (setq org-archive-reversed-order t)
 (setq org-startup-folded t)
-(setq org-enforce-todo-dependencies t)
+;; (setq org-enforce-todo-dependencies t)
 (setq org-agenda-dim-blocked-tasks t)
 ;; (setq org-track-ordered-property-with-tag t)
 (setq org-use-property-inheritance t)
@@ -1576,6 +1566,7 @@ should be continued."
   ))
 
 (use-package org-roam-server
+  :after org-roam
   :config
   (setq org-roam-server-host "127.0.0.1")
   (setq org-roam-server-port 3333)
@@ -1589,15 +1580,12 @@ should be continued."
 
 (use-package company-org-roam
   :after org-roam
+  :hook (org-mode . jarfar/org-roam-mode-hook-company-org-ram)
   :config
-  (progn
-    (defun jarfar/org-roam-mode-hook-company-org-ram ()
-      (when (string-prefix-p my/org-roam-directory buffer-file-name)
-        (make-variable-buffer-local 'company-backends)
-        (add-to-list 'company-backends 'company-capf)))
-
-    (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-company-org-ram)
-    ))
+  (defun jarfar/org-roam-mode-hook-company-org-ram ()
+    (when (string-prefix-p my/org-roam-directory buffer-file-name)
+      (make-variable-buffer-local 'company-backends)
+      (add-to-list 'company-backends 'company-capf))))
 
 (use-package deft
   :after org-roam
@@ -1662,101 +1650,13 @@ it can be passed in POS."
 
 (use-package all-the-icons)
 
-(use-package ivy-rich
-  :config
-  (progn
-    (setq
-      ivy-rich-parse-remote-buffer nil
-      ivy-rich-path-style 'full)
-
-    (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-
-    (defun jarfar/ivy-rich-switch-buffer-icon (candidate)
-      (with-current-buffer
-        (get-buffer candidate)
-        (let ((icon (all-the-icons-icon-for-mode major-mode)))
-          (if (symbolp icon)
-            (all-the-icons-icon-for-mode 'fundamental-mode)
-            icon))))
-
-    (defun jarfar/ivy-switch-buffer-org-roam-title (candidate)
-      (if (ivy-rich-switch-buffer-user-buffer-p candidate)
-        (let ((file (buffer-file-name (get-buffer candidate))))
-          (if (org-roam--org-roam-file-p file)
-            (condition-case nil
-              (org-roam--get-title-or-slug file)
-              (error ""))
-            ""))
-        ""))
-
-    (setq ivy-rich-display-transformers-list
-      '(ivy-switch-buffer
-         (:columns
-           ((jarfar/ivy-rich-switch-buffer-icon (:width 2))
-             (ivy-rich-candidate (:width 30))
-             (jarfar/ivy-switch-buffer-org-roam-title (:width 40))
-             (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
-           :predicate (lambda (cand) (get-buffer cand)))
-         counsel-find-file
-         (:columns
-           ((ivy-read-file-transformer)
-             (ivy-rich-counsel-find-file-truename
-               (:face font-lock-doc-face))))
-         counsel-M-x
-         (:columns
-           ((counsel-M-x-transformer
-              (:width 40))
-             (ivy-rich-counsel-function-docstring
-               (:face font-lock-doc-face))))
-         counsel-describe-function
-         (:columns
-           ((counsel-describe-function-transformer
-              (:width 40))
-             (ivy-rich-counsel-function-docstring
-               (:face font-lock-doc-face))))
-         counsel-describe-variable
-         (:columns
-           ((counsel-describe-variable-transformer
-              (:width 40))
-             (ivy-rich-counsel-variable-docstring
-               (:face font-lock-doc-face))))
-         counsel-recentf
-         (:columns
-           ((ivy-rich-candidate
-              (:width 0.8))
-             (ivy-rich-file-last-modified-time
-               (:face font-lock-comment-face))))
-         package-install
-         (:columns
-           ((ivy-rich-candidate
-              (:width 30))
-             (ivy-rich-package-version
-               (:width 16 :face font-lock-comment-face))
-             (ivy-rich-package-archive-summary
-               (:width 7 :face font-lock-builtin-face))
-             (ivy-rich-package-install-summary
-               (:face font-lock-doc-face))))))
-
-    (define-minor-mode ivy-rich-local-mode
-      "Toggle ivy-rich mode locally."
-      :global nil
-      (if ivy-rich-local-mode
-        (unless ivy-rich--original-display-transformers-list
-          (ivy-rich-set-display-transformer))
-        (ivy-rich-unset-display-transformer)))
-
-    (add-hook 'org-mode-hook (lambda () (ivy-rich-local-mode 1)))
-    ;; (ivy-rich-mode 1)
-    ))
-
 (use-package org-journal
   :after org-roam
   :init
   (setq org-journal-prefix-key "C-c j ")
   :config
   (setq org-journal-dir my/org-roam-journal-directory)
-  (setq org-journal-date-format "%Y-%m-%d")
-  )
+  (setq org-journal-date-format "%Y-%m-%d"))
 
 (defun jarfar/org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
@@ -1866,7 +1766,6 @@ it can be passed in POS."
 (eval-after-load 'my-org
   '(progn
      (org-agenda t "d")
-     (org-agenda-quit)
-     ))
+     (org-agenda-quit)))
 
 (provide 'my-org)

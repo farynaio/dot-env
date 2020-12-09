@@ -1,45 +1,45 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package elfeed
+  :bind (:map elfeed-show-mode-map
+          ("SPC" . 'elfeed-scroll-up-command)
+          ("S-SPC" . 'elfeed-scroll-down-command)
+          ("B" . 'elfeed-show-eww-open)
+          :map elfeed-search-mode-map
+          ("B" . 'elfeed-search-eww-open)
+          ("f" . 'jarfar/hydra-elfeed-filter/body)
+          ("A" . 'my/elfeed-show-all)
+          ("D" . 'my/elfeed-show-daily)
+          ("q" . 'my/elfeed-save-db-and-bury)
+          ("d" . 'elfeed-youtube-download)
+          ("o" . 'jarfar/elfeed-tag-toggle-ok)
+          ("j" . 'jarfar/elfeed-tag-toggle-junk)
+          ("m" . 'jarfar/elfeed-send-emails)
+          ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
   (setq elfeed-search-filter "+unread -skip -ok -junk -indie")
   (setq elfeed-search-title-max-width 115)
-  (setq elfeed-search-remain-on-entry t)
-
-  (define-key elfeed-show-mode-map (kbd "SPC") 'elfeed-scroll-up-command)
-  (define-key elfeed-show-mode-map (kbd "S-SPC") 'elfeed-scroll-down-command)
-  (bind-key "B" 'elfeed-show-eww-open elfeed-show-mode-map)
-  (bind-key "B" 'elfeed-search-eww-open elfeed-search-mode-map)
-
-  (bind-key "f" 'jarfar/hydra-elfeed-filter/body elfeed-search-mode-map)
-  (bind-key "A" 'my/elfeed-show-all elfeed-search-mode-map)
-  (bind-key "D" 'my/elfeed-show-daily elfeed-search-mode-map)
-  (bind-key "q" 'my/elfeed-save-db-and-bury elfeed-search-mode-map)
-  (bind-key "d" 'elfeed-youtube-download elfeed-search-mode-map)
-  (bind-key "o" 'jarfar/elfeed-tag-toggle-ok elfeed-search-mode-map)
-  (bind-key "j" 'jarfar/elfeed-tag-toggle-junk elfeed-search-mode-map)
-
-  (bind-key "m" 'jarfar/elfeed-send-emails elfeed-search-mode-map)
-  (bind-key "M" (lambda () (interactive) (jarfar/elfeed-send-emails t)) elfeed-search-mode-map)
-  )
+  (setq elfeed-search-remain-on-entry t))
 
 (use-package elfeed-goodies
+  :after elfeed
+  :bind (:map elfeed-show-mode-map
+          ("n" . 'elfeed-goodies/split-show-next)
+          ("p" . 'elfeed-goodies/split-show-prev))
   :config
   ;; (elfeed-goodies/setup)
   (setq elfeed-goodies/entry-pane-position 'bottom)
-  (setq elfeed-show-entry-switch #'elfeed-goodies/switch-pane)
-  (setq elfeed-show-entry-delete #'elfeed-goodies/delete-pane)
-
-  (define-key elfeed-show-mode-map "n" #'elfeed-goodies/split-show-next)
-  (define-key elfeed-show-mode-map "p" #'elfeed-goodies/split-show-prev)
-  )
+  (setq elfeed-show-entry-switch 'elfeed-goodies/switch-pane)
+  (setq elfeed-show-entry-delete 'elfeed-goodies/delete-pane))
 
 (use-package elfeed-org
+  :after (org elfeed)
   :config
   (elfeed-org)
   (setq rmh-elfeed-org-files (list "~/.elfeed/feeds.org")))
 
-(use-package elfeed-web)
+(use-package elfeed-web
+  :after elfeed)
 
 ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
 ;;functions to support syncing .elfeed between machines
@@ -216,8 +216,7 @@
   ("y" (elfeed-search-set-filter "+crypto") "Show Crypto" :exit t)
   ("n" (elfeed-search-set-filter "+news") "Show News" :exit t)
   ("l" (elfeed-search-set-filter "+ok") "Show Read Later" :exit t)
-  ("j" (elfeed-search-set-filter "+junk") "Show Junk" :exit t)
-  )
+  ("j" (elfeed-search-set-filter "+junk") "Show Junk" :exit t))
 
 ;; (bind-key "m" 'jarfar/elfeed-to-mail elfeed-search-mode-map)
 

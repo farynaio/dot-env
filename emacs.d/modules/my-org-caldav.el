@@ -24,7 +24,6 @@
       (interactive)
       (org-caldav-delete-everything t))
 
-    (defalias 'caldav-sync #'org-caldav-sync)
-    ))
+    (defalias 'caldav-sync #'org-caldav-sync)))
 
 (provide 'my-org-cal-dav)

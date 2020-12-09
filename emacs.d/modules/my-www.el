@@ -1,8 +1,8 @@
 (require 'eww)
 
 (setq browse-url-browser-function
-      '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
-        ("." . browse-url-default-browser)))
+  '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+     ("." . browse-url-default-browser)))
 
 ; https://noonker.github.io/posts/2020-04-22-elfeed/
 (defun jarfar/youtube-download (url)

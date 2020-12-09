@@ -56,9 +56,9 @@
 
 (my/set-dark-theme)
 
-(setq
-  custom-safe-themes t
-  default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+(setq custom-safe-themes t)
+(setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+
 (set-face-attribute 'default nil :font default-font)
 
 (provide 'my-theme)

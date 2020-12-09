@@ -1,8 +1,7 @@
-(require 'erc)
-(require 'erc-services)
-
 (eval-after-load 'erc
   '(progn
+     (require 'erc)
+     (require 'erc-services)
      (setq erc-nick "jarfar")
      (setq erc-away-nickname "jarfar")
      (setq erc-email-userid "adamfaryna@gmail.com")
@@ -33,9 +32,9 @@
      (add-to-list 'erc-modules 'stamp t)
      (add-to-list 'erc-modules 'track t)
 
-     (evil-set-initial-state 'erc-mode 'emacs)
+     (when (fboundp 'evil-set-initial-state)
+       (evil-set-initial-state 'erc-mode 'emacs))
 
-     (defalias 'irc #'erc)
-     ))
+     (defalias 'irc #'erc)))
 
 (provide 'my-irc)

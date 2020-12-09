@@ -72,7 +72,7 @@
 
 (eval-when-compile
   (require 'use-package))
-(require 'bind-key)
+
 
 (require 'gnutls)
 
@@ -93,10 +93,9 @@
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 (use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
   :config
-  (progn
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize))))
+  (exec-path-from-shell-initialize))
 
 (use-package oauth2)
 
@@ -131,25 +130,27 @@
 (defvar my-cleanup-activate nil)
 (defvar my-rss-activate nil)
 (defvar my-org-caldav-activate nil)
+(defvar my-taskjuggler nil)
 
 (setq
- my-edit-activate t
- my-writing-activate t
- my-evil-activate t
- my-org-activate t
- my-navigation-activate t
- my-devel-activate t
- my-email-activate t
- my-dired-activate t
- my-notifications-activate t
- my-www-activate t
- my-irc-activate t
- my-theme-activate t
- my-shell-activate t
- my-encrypt-activate t
- my-cleanup-activate t
- my-rss-activate t
- my-org-caldav-activate nil)
+  my-edit-activate t
+  my-writing-activate t
+  my-evil-activate t
+  my-org-activate t
+  my-navigation-activate t
+  ;; my-devel-activate t
+  my-email-activate nil
+  my-dired-activate t
+  my-notifications-activate t
+  my-www-activate nil
+  my-irc-activate t
+  my-theme-activate t
+  my-shell-activate t
+  my-encrypt-activate t
+  my-cleanup-activate t
+  my-rss-activate t
+  my-org-caldav-activate nil
+  my-taskjuggler nil)
 
 (when my-edit-activate (require 'my-edit))
 (when my-evil-activate (require 'my-evil))
@@ -309,11 +310,15 @@
          (#("account" 0 1
              (idx 6))
            "%(binary) -f %(ledger-file) reg %(account)"))))
- '(package-selected-packages nil))
+  '(package-selected-packages
+     (quote
+       (lsp-treemacs lsp-ivy eglot ac-js2 toml-mode register-list org-roam undo-fu parrot highlight yaml-mode xref-js2 which-key web-mode web-beautify vue-mode vimrc-mode use-package undo-tree tide terraform-mode synosaurus sr-speedbar smartscan rjsx-mode realgud rainbow-mode rainbow-delimiters projectile-rails prettier-js persistent-scratch org-roam-server org-review org-plus-contrib org-mime org-journal org-drill ob-async oauth2 neotree minimap miniedit magit ledger-mode langtool js2-refactor japanese-holidays jade-mode ivy-rich ivy-hydra hl-todo guide-key goto-last-change google-translate git-gutter geben exec-path-from-shell evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy elfeed-web elfeed-org elfeed-goodies editorconfig dtrt-indent drag-stuff dockerfile-mode diminish deft dash-at-point counsel company-web company-statistics company-quickhelp company-php company-org-roam company-lsp centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile auctex artbollocks-mode all-the-icons ag add-node-modules-path ac-php))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:inherit nil :background "gray82" :underline nil))))
- '(hl-line ((t (:inherit nil :background "gray34" :underline nil)))))
+ '(hl-line ((t (:background "gray32"))))
+ '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
+ '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8")))))

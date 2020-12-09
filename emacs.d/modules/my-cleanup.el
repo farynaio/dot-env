@@ -8,6 +8,7 @@
 (unbind-key "C-x C-'")
 (unbind-key "<S-up>")
 (unbind-key "<S-down>")
+(unbind-key "C-x C-l")
 ;; (unbind-key "C-x <down>")
 
 (provide 'my-cleanup)

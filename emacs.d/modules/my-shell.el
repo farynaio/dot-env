@@ -1,5 +1,3 @@
-(require 'eshell)
-
 ;; (eval-after-load 'eshell
   ;; '(progn
      ;; (evil-make-overriding-map eshell-mode-map 'motion)
