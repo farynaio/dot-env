@@ -5,3 +5,6 @@ org-journal.cache
 roam.sqlite
 backups
 autosaves
+.lsp-session-*
+ac-comphist.dat
+recent~
