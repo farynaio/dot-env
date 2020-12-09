@@ -27,10 +27,9 @@
   "major mode for guest editing."
   (editorconfig-mode -1))
 
-(use-package minimap
-  :config
-  (progn
-    (setq minimap-window-location 'right)))
+;; (use-package minimap
+;;   :config
+;;   (setq minimap-window-location 'right))
 
 (eval-after-load 'smerge-mode
   '(progn
@@ -180,30 +179,23 @@
 (use-package yaml-mode)
 (use-package markdown-mode)
 (use-package vimrc-mode
-  :config
-  (progn
-    (add-to-list 'auto-mode-alist '("\\vimrc\\'" . vimrc-mode))))
+  :mode ("\\vimrc\\'" . vimrc-mode)
+  :interpreter ("vim" . vimrc-mode))
 
 (use-package flycheck
   :config
-  (progn
-    (setq
-      flymake-phpcs-show-rule t
-      flycheck-phpcs-standard "WordPress")
+  (setq flymake-phpcs-show-rule t)
+  (setq flycheck-phpcs-standard "WordPress")
 
-    ;; (flycheck-add-next-checker 'javascript-tide 'append)
-    (flycheck-add-mode #'typescript-tslint #'tide-mode)
-    (flycheck-add-mode #'javascript-eslint #'js2-mode)
+  ;; (flycheck-add-next-checker 'javascript-tide 'append)
+  (flycheck-add-mode 'typescript-tslint 'tide-mode)
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
 
-    (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-    ))
-
-(when (memq window-system '(mac ns x))
-  (use-package exec-path-from-shell
-    :config
-    (progn
-      (exec-path-from-shell-initialize)
-      )))
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; (use-package git-timemachine)
 
@@ -270,10 +262,7 @@
 
 (if (executable-find "eslint_d")
   (use-package eslintd-fix
-    :config
-    (progn
-      (add-hook 'rjsx-mode-hook #'eslintd-fix-mode)
-      ))
+    :hook (rjsx-mode . eslintd-fix-mode))
   (message "No executable 'eslint_d' found"))
 
 (use-package lsp-mode
@@ -317,7 +306,6 @@
 (use-package typescript-mode
   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
   :config
-  (progn
     ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
     ;; (add-hook 'typescript-mode-hook
@@ -326,7 +314,7 @@
         ;; (make-local-variable 'company-backends)
         ;; (add-to-list 'company-backends 'company-lsp t)
         ;; )))
-  ))
+  )
 
 (eval-after-load 'gud
   '(progn
@@ -334,11 +322,9 @@
 
 (use-package rainbow-delimiters)
 
-(use-package js2-refactor
-  :diminish js2-refactor-mode
-  :config
-  (progn
-    (bind-key "C-k" #'js2r-kill js2-mode-map)))
+;; (use-package js2-refactor
+;;   :diminish js2-refactor-mode
+;;   :bind (:map js2-mode-map . ("C-k" js2r-kill)))
 
 ;; (use-package tern
 ;;   :config
@@ -373,32 +359,27 @@
 
 (use-package prettier-js
   :config
-  (progn
-    (setq prettier-js-args
-      '(
-         "--no-semi" "false"
-         "--trailing-comma" "none"
-         "--bracket-spacing" "true"
-         "--jsx-bracket-same-line" "true"
-         ))
+  (setq prettier-js-args
+    '(
+       "--no-semi" "false"
+       "--trailing-comma" "none"
+       "--bracket-spacing" "true"
+       "--jsx-bracket-same-line" "true"
+       ))
 
-    ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
-    ))
+  ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
+  )
 
 (use-package rjsx-mode
+  :hook (rjsx-mode . my/rjsx-mode-setup)
+  :bind (:map rjsx-mode-map
+          ("<" . rjsx-electric-lt))
   :config
-  (progn
-    (bind-key "<" #'rjsx-electric-lt rjsx-mode-map)
     ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
-
-    (defun my/rjsx-mode-setup ()
-      ""
-      (prettier-js-mode 1)
-      (setq-local emmet-expand-jsx-className? t)
-      )
-
-    (add-hook 'rjsx-mode-hook #'my/rjsx-mode-setup)
-    ))
+  (defun my/rjsx-mode-setup ()
+    ""
+    (prettier-js-mode 1)
+    (setq-local emmet-expand-jsx-className? t)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
@@ -410,11 +391,11 @@
 ;;            (while (search-forward empty-spaces      (line-end-position) t)
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
 
-(defun my/tide-setup ()
-  ""
-  (unless (tide-current-server)
-    (tide-restart-server))
-  (tide-mode))
+;; (defun my/tide-setup ()
+;;   ""
+;;   (unless (tide-current-server)
+;;     (tide-restart-server))
+;;   (tide-mode))
 
 ;; (add-hook 'js2-mode-hook #'my/tide-setup)
 ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
@@ -431,18 +412,12 @@
 ;; (use-package inf-ruby)
 
 (use-package projectile-rails
-  :config
-  (progn
-    (add-hook 'ruby-mode-hook
-      (lambda ()
-        (when (projectile-mode)
-          (projectile-rails-on))))))
+  :hook (ruby-mode . (lambda () (when (projectile-mode) (projectile-rails-on)))))
 
 (use-package vue-mode)
 
 (use-package dtrt-indent
-  :diminish "dtrt"
-  )
+  :diminish "dtrt")
 
 (defun my/dtrt-indent-mode-toggle ()
   "Toggle dtrt-indent mode."
@@ -460,8 +435,7 @@
   ("e" #'tide-error-at-point "Error at point" :exit t)
   ("o" #'tide-references "References" :exit t)
   ("d" #'tide-documentation-at-point "Show docs" :exit t)
-  ("x" #'tide-restart-server "Restart server" :exit t)
-  )
+  ("x" #'tide-restart-server "Restart server" :exit t))
 
 (defhydra hydra-projectile ()
   "Projectile"
@@ -551,48 +525,45 @@
 (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
 
 (use-package elpy
+  :bind (:map elpy-mode-map
+          ("C-c C-l" . elpy-occur-definitions)
+          ("C-c C-e" . elpy-multiedit-python-symbol-at-point)
+          ("C-c C-r f" . elpy-format-code)
+          ("C-c C-r r" . elpy-refactor))
   :config
-  (progn
-    (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (setq elpy-rpc-backend "jedi")
-    (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
-    ;; (setq
-    ;; python-shell-interpreter "python"
-    ;; python-shell-interpreter-args "-i")
+  (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (setq elpy-rpc-backend "jedi")
+  (setq python-shell-interpreter "ipython")
+  (setq python-shell-interpreter-args "-i --simple-prompt")
+  ;; (setq
+  ;; python-shell-interpreter "python"
+  ;; python-shell-interpreter-args "-i")
 
-    (bind-key "C-c C-l"   #'elpy-occur-definitions                  elpy-mode-map)
-    (bind-key "C-c C-e"   #'elpy-multiedit-python-symbol-at-point   elpy-mode-map)
-    (bind-key "C-c C-r f" #'elpy-format-code                        elpy-mode-map)
-    (bind-key "C-c C-r r" #'elpy-refactor                           elpy-mode-map)
+  (elpy-enable)
+  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-    (elpy-enable)
-    ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
 
-    (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
+  ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
+  ;; Prevent Elpy from overriding Windmove shortcuts
+  ;; (eval-after-load "elpy"
+  ;;   '(cl-dolist (key '("M-<up>" "M-<down>" "M-<left>" "M-<right>"))
+  ;;      (define-key elpy-mode-map (kbd key) nil)))
 
-    ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
-    ;; Prevent Elpy from overriding Windmove shortcuts
-    ;; (eval-after-load "elpy"
-    ;;   '(cl-dolist (key '("M-<up>" "M-<down>" "M-<left>" "M-<right>"))
-    ;;      (define-key elpy-mode-map (kbd key) nil)))
+  ;; Prevent Elpy from overriding standard cursor movements
+  ;; (eval-after-load "elpy"
+  ;;   '(cl-dolist (key '("C-<left>" "C-<right>"))
+  ;;      (define-key elpy-mode-map (kbd key) nil)))
 
-    ;; Prevent Elpy from overriding standard cursor movements
-    ;; (eval-after-load "elpy"
-    ;;   '(cl-dolist (key '("C-<left>" "C-<right>"))
-    ;;      (define-key elpy-mode-map (kbd key) nil)))
-
-    (when (executable-find "black")
-      (add-hook 'elpy-mode-hook
-                (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t))))
-
-    ))
+  (when (executable-find "black")
+    (add-hook 'elpy-mode-hook
+      (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))))
 
 (use-package terraform-mode
+  :hook (terraform-mode . terraform-format-on-save-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode))
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
 
 (eval-after-load 'git-rebase
   '(progn
@@ -600,14 +571,12 @@
 
 (use-package git-commit
   :config
-  (progn
-    (setq git-commit-style-convention-checks nil)))
+  (setq git-commit-style-convention-checks nil))
 
 (use-package git-gutter
   :diminish git-gutter-mode
   :config
-  (progn
-    (global-git-gutter-mode +1)))
+  (global-git-gutter-mode +1))
 
 (use-package company-statistics)
 (use-package company-web)
@@ -615,7 +584,8 @@
 (use-package company-quickhelp)
 
 (use-package dockerfile-mode
-  :config (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
+  :config
+  (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
 
 (defun my/toggle-php-flavor-mode ()
   (interactive)
@@ -646,18 +616,18 @@
                           (vector (current-column))))
                       (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro)
                         (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close))))
-  :bind ("<f5>" . my/toggle-php-flavor-mode)
+  :bind (:map php-mode-map
+          ("<f5>" . my/toggle-php-flavor-mode))
   :config
-  (progn
-    (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-    (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+  (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+  (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
-    (defun my-php-symbol-lookup ()
-      (interactive)
-      (let ((symbol (symbol-at-point)))
-        (if (not symbol)
-          (message "No symbol at point.")
-          (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol))))))))
+  (defun my-php-symbol-lookup ()
+    (interactive)
+    (let ((symbol (symbol-at-point)))
+      (if (not symbol)
+        (message "No symbol at point.")
+        (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol)))))))
 
 (use-package geben
   :hook (geben-mode . evil-emacs-state))
@@ -672,6 +642,11 @@
                       (modify-syntax-entry ?- "w" (syntax-table))
                        (modify-syntax-entry ?$ "w" (syntax-table))))
           (web-mode . emmet-mode))
+  :bind (:map web-mode-map
+          ("C-c C-n" . web-mode-tag-end)
+          ("C-c C-p" . web-mode-tag-beginning)
+          ("<backtab>" . indent-relative)
+          ("<f5>" . my/toggle-php-flavor-mode))
   :config
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -684,11 +659,7 @@
   (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
   (setq-default web-mode-markup-indent-offset tab-width)
   (setq-default web-mode-css-indent-offset tab-width)
-  (setq-default web-mode-code-indent-offset tab-width)
-  (bind-key "C-c C-n" 'web-mode-tag-end web-mode-map)
-  (bind-key "C-c C-p" 'web-mode-tag-beginning web-mode-map)
-  (bind-key "<backtab>" 'indent-relative web-mode-map)
-  (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map))
+  (setq-default web-mode-code-indent-offset tab-width))
 
 ;; (use-package graphql-mode)
 
@@ -705,66 +676,57 @@
 (use-package magit
   :diminish magit-auto-revert-mode
   :after (transient)
+  :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
+          (magit-status-mode . (lambda () (save-some-buffers t))))
+  :bind (:map magit-mode-map
+          ("|" . evil-window-set-width)
+          ("}" . evil-forward-paragraph)
+          ("]" . evil-forward-paragraph)
+          ("{" . evil-backward-paragraph)
+          ("[" . evil-backward-paragraph)
+          ("C-d" . evil-scroll-down)
+          ("C-u" . evil-scroll-up)
+          ("C-s" . isearch-forward)
+          ("=" . balance-windows)
+          ("C-w" . my/copy-diff-region)
+          :map magit-hunk-section-map
+          ("r" . magit-reverse)
+          ("v" . evil-visual-char)
+          :map magit-revision-mode-map
+          ("C-s" . isearch-forward)
+          ("n" . evil-search-next)
+          ("p" . evil-search-previous)
+          ("=" . balance-windows)
+          :map magit-status-mode-map
+          ("\\w" . avy-goto-word-or-subword-1)
+          ("\\c" . avy-goto-char))
   :config
-  (progn
-    (setq
-      magit-completing-read-function 'ivy-completing-read
-      magit-refresh-status-buffer nil
-      magit-item-highlight-face 'bold
-      magit-diff-paint-whitespace nil
-      magit-ediff-dwim-show-on-hunks t
-      magit-diff-hide-trailing-cr-characters t
-      magit-bury-buffer-function 'magit-mode-quit-window)
+  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq magit-refresh-status-buffer nil)
+  (setq magit-item-highlight-face 'bold)
+  (setq magit-diff-paint-whitespace nil)
+  (setq magit-ediff-dwim-show-on-hunks t)
+  (setq magit-diff-hide-trailing-cr-characters t)
+  (setq magit-bury-buffer-function 'magit-mode-quit-window)
 
-    (setq auto-revert-buffer-list-filter
-      'magit-auto-revert-repository-buffers-p)
-
-    (setq vc-handled-backends (delq 'Git vc-handled-backends))
-
-    (setq magit-blame-styles
-      '(
-         (margin
-           (margin-format " %s%f" " %C %a" " %H")
-           (margin-width . 42)
-           (margin-face . magit-blame-margin)
-           (margin-body-face magit-blame-dimmed))
-         (headings
-           (heading-format . "%-20a %C %s
+  (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
+  (setq magit-blame-styles
+    '(
+       (margin
+         (margin-format " %s%f" " %C %a" " %H")
+         (margin-width . 42)
+         (margin-face . magit-blame-margin)
+         (margin-body-face magit-blame-dimmed))
+       (headings
+         (heading-format . "%-20a %C %s
 "))))
 
-    (add-to-list 'magit-blame-disable-modes 'evil-mode)
+  (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
-    (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
-    (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
-    (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
-
-    (bind-key "|"   #'evil-window-set-width   magit-mode-map)
-    (bind-key "}"   #'evil-forward-paragraph  magit-mode-map)
-    (bind-key "]"   #'evil-forward-paragraph  magit-mode-map)
-    (bind-key "{"   #'evil-backward-paragraph magit-mode-map)
-    (bind-key "["   #'evil-backward-paragraph magit-mode-map)
-    (bind-key "C-d" #'evil-scroll-down        magit-mode-map)
-    (bind-key "C-u" #'evil-scroll-up          magit-mode-map)
-    (bind-key "C-s" #'isearch-forward         magit-mode-map)
-    (bind-key "="   #'balance-windows         magit-mode-map)
-    (bind-key "C-w" #'my/copy-diff-region     magit-mode-map)
-    (bind-key "r"   #'magit-reverse           magit-hunk-section-map)
-    (bind-key "v"   #'evil-visual-char        magit-hunk-section-map)
-    (bind-key "C-s" #'isearch-forward         magit-revision-mode-map)
-    (bind-key "n"   #'evil-search-next        magit-revision-mode-map)
-    (bind-key "p"   #'evil-search-previous    magit-revision-mode-map)
-    (bind-key "="   #'balance-windows         magit-revision-mode-map)
-    (bind-key "\\w" #'avy-goto-word-or-subword-1  magit-status-mode-map)
-    (bind-key "\\c" #'avy-goto-char               magit-status-mode-map)
-
-        ;; (when (fboundp 'evil-mode)
-      ;; (bind-key "\\a" #'counsel-imenu  evil-motion-state-map))
-
-
-    ;; (add-hook 'magit-ediff-quit-hook 'delete-frame)
-    (add-hook 'magit-git-mode-hook (lambda () (read-only-mode nil)))
-    (add-hook 'magit-status-mode-hook (lambda () (save-some-buffers t)))
-    ))
+  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
+  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent))
 
 (setq vc-follow-symlinks t)
 
@@ -831,14 +793,14 @@
 ;;     (bind-key "C-c e" #'dash-at-point-with-docset i)))
 
 (use-package ledger-mode
+  :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
   :init
   (setq ledger-clear-whole-transactions 1)
   :config
   (setq ledger-post-account-alignment-column 2)
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
   (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
-  (unbind-key "<tab>" ledger-mode-map)
-  (bind-key "C-c C-c" #'ledger-post-align-dwim ledger-mode-map))
+  (unbind-key "<tab>" ledger-mode-map))
 
 (use-package toml-mode)
 
@@ -948,7 +910,6 @@ in whole buffer.  With neither, delete comments on current line."
 (defun jarfar/wp-gutenberg-to-md ()
   (interactive)
   (save-excursion
-
     (beginning-of-buffer)
     (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\|code\\|preformatted\\).*?-->\n?" nil t)
       (replace-match "" nil nil))
