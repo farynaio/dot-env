@@ -84,7 +84,7 @@ $0`(yas-escape-text yas-selected-text)`")
     (setq company-idle-delay 0.0)
     (setq company-show-numbers t)
     (setq company-tooltip-align-annotations t)
-    (setq company-minimum-prefix-length 0)
+    (setq company-minimum-prefix-length 1)
     (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
 
 (use-package which-key
