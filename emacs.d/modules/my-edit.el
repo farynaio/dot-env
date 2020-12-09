@@ -7,6 +7,7 @@
 (require 'calendar)
 (require 'reftex)
 (require 'face-remap)
+(require 'conf-mode)
 (require 'tramp)
 (require 'elec-pair)
 (require 'subr-x)
@@ -233,6 +234,9 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
   (define-key text-mode-map (char-to-string elt) 'jarfar/electric-pair))
+
+(dolist (elt (hash-table-keys jarfar/pairs-hash-table))
+  (define-key conf-mode-map (char-to-string elt) 'jarfar/electric-pair))
 
 (setq auto-save-visited-interval 60)
 
