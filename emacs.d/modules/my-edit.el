@@ -3,7 +3,6 @@
 (require 're-builder)
 (require 'grep)
 (require 'inc-dec-at-point)
-(require 'hippie-exp)
 (require 'calendar)
 (require 'reftex)
 (require 'face-remap)
@@ -27,20 +26,37 @@
 (use-package rainbow-mode
   :diminish rainbow-mode)
 
-(setq hippie-expand-verbose nil)
-(setq hippie-expand-try-functions-list '())
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-from-kill t)
-(add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t)
-(add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-list t)
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-line t)
+(require 'hippie-exp)
 
-(defadvice hippie-expand (around hippie-expand-case-fold)
-  "Try to do case-sensitive matching (not effective with all functions)."
-  (let ((case-fold-search nil))
-    ad-do-it))
+(eval-after-load 'hippie-exp
+  '(progn
+     (setq hippie-expand-try-functions-list
+       '(
+          ;;yas-hippie-try-expand ; requires yasnippet plugin
+          try-expand-all-abbrevs
+          try-complete-file-name-partially
+          try-complete-file-name
+          try-expand-dabbrev
+          try-expand-dabbrev-from-kill
+          try-expand-dabbrev-all-buffers
+          try-expand-list
+          try-expand-line
+          try-complete-lisp-symbol-partially
+          try-complete-lisp-symbol))
+     (setq hippie-expand-verbose nil)
+     (setq hippie-expand-try-functions-list '())
+     (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-from-kill t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-expand-list t)
+     (add-to-list 'hippie-expand-try-functions-list 'try-expand-line t)
+
+     (defadvice hippie-expand (around hippie-expand-case-fold)
+       "Try to do case-sensitive matching (not effective with all functions)."
+       (let ((case-fold-search nil))
+         ad-do-it))))
 
 (use-package undo-fu)
 
@@ -49,7 +65,6 @@
   (progn
     ;; (diminish 'editorconfig-mode)
     (diminish 'auto-revert-mode)
-    (diminish 'company-mode)
     (diminish 'eldoc-mode)
     (diminish 'visual-line-mode)
     (diminish 'editorconfig-mode)
@@ -89,9 +104,8 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (use-package which-key
   :config
-  (progn
-    (setq which-key-idle-delay 0.8)
-    (which-key-mode)))
+  (setq which-key-idle-delay 0.8)
+  (which-key-mode))
 
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
@@ -105,42 +119,26 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (use-package persistent-scratch
   :config
-  (progn
-    (persistent-scratch-setup-default)))
-
-(use-package guide-key
-  :defer t
-  :diminish guide-key-mode
-  :config
-  (progn
-    (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c"))
-    (guide-key-mode 1)))
+  (persistent-scratch-setup-default))
 
 (use-package editorconfig
   :diminish editorconfig-mode
   :config
-  (progn
-    (editorconfig-mode 1)))
-
-(use-package centered-cursor-mode)
+  (editorconfig-mode 1))
 
 (use-package auto-highlight-symbol
   :diminish auto-highlight-symbol-mode
   :config
-  (progn
-    (setq
-      ahs-case-fold-search nil
-      ahs-idle-interval 0)
+    (setq ahs-case-fold-search nil)
+    (setq ahs-idle-interval 0)
     (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
-    (unbind-key "<M-left>" auto-highlight-symbol-mode-map)
-    ))
+    (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
 
-(require 'speedbar)
-(eval-after-load 'speedbar
-  '(progn
-     (setq speedbar-show-unknown-files t)))
-
-(use-package sr-speedbar)
+;; (require 'speedbar)
+;; (eval-after-load 'speedbar
+;;   '(progn
+;;      (setq speedbar-show-unknown-files t)))
+;; (use-package sr-speedbar)
 
 (defvar my/flip-symbol-alist
   '(("true" . "false")
@@ -389,23 +387,6 @@ end-of-buffer signals; pass the rest to the default handler."
      (bind-key "C-c +" #'increment-integer-at-point)
      (bind-key "C-c -" #'decrement-integer-at-point)))
 
-(eval-after-load 'hippie-exp
-  '(progn
-     (setq hippie-expand-try-functions-list
-       '(
-          ;;yas-hippie-try-expand ; requires yasnippet plugin
-          try-expand-all-abbrevs
-          try-complete-file-name-partially
-          try-complete-file-name
-          try-expand-dabbrev
-          try-expand-dabbrev-from-kill
-          try-expand-dabbrev-all-buffers
-          try-expand-list
-          try-expand-line
-          try-complete-lisp-symbol-partially
-          try-complete-lisp-symbol))
-     ))
-
 (defhydra hydra-buffer ()
   "Buffer"
   ("i" #'ibuffer "ibuffer" :exit t))
@@ -483,41 +464,41 @@ end-of-buffer signals; pass the rest to the default handler."
 (defvar php-mode-map (make-sparse-keymap))
 (defvar web-mode-map (make-sparse-keymap))
 
-(bind-key "C-x C-r"       #'recentf-open-files)
-(bind-key "<home>"        #'left-word)
-(bind-key "<end>"         #'right-word)
-(bind-key "C-x <left>"    #'windmove-left)
-(bind-key "C-x <right>"   #'windmove-right)
-(bind-key "C-x <up>"      #'windmove-up)
-(bind-key "C-x <down>"    #'windmove-down)
+(bind-key "C-x C-r"       'recentf-open-files)
+(bind-key "<home>"        'left-word)
+(bind-key "<end>"         'right-word)
+(bind-key "C-x <left>"    'windmove-left)
+(bind-key "C-x <right>"   'windmove-right)
+(bind-key "C-x <up>"      'windmove-up)
+(bind-key "C-x <down>"    'windmove-down)
 (bind-key "C-x s"         (lambda () (interactive) (save-some-buffers t)))
-(bind-key "C-x 4 c"       #'my/clone-indirect-buffer-new-window)
-(bind-key "s-t"           #'make-frame-command)
-(bind-key "C-d"           #'evil-scroll-down)
-(bind-key "C-u"           #'evil-scroll-up)
+(bind-key "C-x 4 c"       'my/clone-indirect-buffer-new-window)
+(bind-key "s-t"           'make-frame-command)
+(bind-key "C-d"           'evil-scroll-down)
+(bind-key "C-u"           'evil-scroll-up)
 
-(bind-key "C-x C-SPC"       #'rectangle-mark-mode)
-(bind-key "M-/"             #'hippie-expand)
-(bind-key "C->"             #'mc/mark-next-like-this)
-(bind-key "C-<"             #'mc/mark-previous-like-this)
-(bind-key "C-c C-<"         #'mc/mark-all-like-this)
-(bind-key "s-u"             #'air-revert-buffer-noconfirm)
-(bind-key "C-c j"           #'org-clock-goto) ;; jump to current task from anywhere
-(bind-key "C-c C-o"         #'org-open-at-point-global)
+(bind-key "C-x C-SPC"       'rectangle-mark-mode)
+(bind-key "M-/"             'hippie-expand)
+(bind-key "C->"             'mc/mark-next-like-this)
+(bind-key "C-<"             'mc/mark-previous-like-this)
+(bind-key "C-c C-<"         'mc/mark-all-like-this)
+(bind-key "s-u"             'air-revert-buffer-noconfirm)
+(bind-key "C-c j"           'org-clock-goto) ;; jump to current task from anywhere
+(bind-key "C-c C-o"         'org-open-at-point-global)
 ;; (bind-key "C-c O"           #'org-open-at-point-global)
-(bind-key "C-c c"           #'org-capture)
-(bind-key "C-c a"           #'org-agenda)
-(bind-key "C-x a"           #'org-agenda)
-(bind-key "C-c l"           #'org-store-link)
-(bind-key "C-c L"           #'org-insert-link-global)
-(bind-key "C-c p"           #'git-gutter:previous-hunk)
-(bind-key "C-c n"           #'git-gutter:next-hunk)
-(bind-key "C-s"             #'evil-search-forward) ;; counsel-grep
+(bind-key "C-c c"           'org-capture)
+(bind-key "C-c a"           'org-agenda)
+(bind-key "C-x a"           'org-agenda)
+(bind-key "C-c l"           'org-store-link)
+(bind-key "C-c L"           'org-insert-link-global)
+(bind-key "C-c p"           'git-gutter:previous-hunk)
+(bind-key "C-c n"           'git-gutter:next-hunk)
+(bind-key "C-s"             'evil-search-forward) ;; counsel-grep
 
 (unbind-key "C-M-i" emacs-lisp-mode-map)
 (unbind-key "C-x C-l" global-map)
 
-(defalias 'qcalc #'quick-calc)
+(defalias 'qcalc 'quick-calc)
 
 (column-number-mode 1)
 (global-auto-revert-mode 1)
