@@ -59,17 +59,57 @@
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
-;; skewer-mode
 ;; quickrun
 ;; expand-region.el
 ;; restclient.el
 
-(use-package js2-mode
-  :config
-  (progn
-    (setq js2-strict-inconsistent-return-warning nil)
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-hook 'js2-mode-hook #'emmet-mode)))
+;; (use-package simple-httpd
+;;   :config
+;;   (setq httpd-root "~/Sites"))
+
+;; (use-package skewer-mode)
+
+;; TODO update and make JS2 minor mode to js-mode
+;; (use-package js2-mode
+;;   :config
+;; (setq
+;;   js2-skip-preprocessor-directives t
+;;   js2-highlight-external-variables nil
+;;   js2-mode-show-parse-errors nil
+;;   js2-strict-missing-semi-warning nil)
+;;     (setq js2-strict-inconsistent-return-warning nil)
+;;     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;;     (add-hook 'js2-mode-hook #'emmet-mode))
+
+;; (use-package eglot
+;;   :config
+;;   (add-to-list 'eglot-server-programs '(js2-mode . ("typescript-language-server" "--stdio"))))
+
+;; (require 'ac-js2)
+;; (eval-after-load 'ac-js2
+;;   '(progn
+;;      (setq ac-js2-evaluate-calls nil)
+
+;;      (add-hook 'js2-mode-hook 'jarfar/js2-init t)
+;;      (add-hook 'js2-mode-hook 'skewer-mode t)
+;;      ;; (add-hook 'js2-mode-hook 'jarfar/run-skewer-once t)
+;;      (add-hook 'js2-mode-hook 'jarfar/js2-company-mode-init t)
+;;      (add-hook 'js2-mode-hook 'ac-js2-mode t)
+
+;;      (defun jarfar/js2-init ()
+;;        (message "jarfar/js2-init run")
+;;        (setq-local browse-url-browser-function 'browse-url-chrome))
+
+;;      (defun jarfar/js2-company-mode-init ()
+;;        (message "jarfar/js2-company-mode-init run")
+;;        (make-local-variable 'company-backends)
+;;        (add-to-list 'company-backends 'ac-js2-company))
+
+;;      (defun jarfar/run-skewer-once ()
+;;        (message "jarfar/run-skewer-once run")
+;;        (run-skewer)
+;;        (remove-hook 'js2-mode-hook 'jarfar/run-skewer-once))
+;;      ))
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
@@ -124,19 +164,17 @@
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package jade-mode
-  :config
-  (progn
-    (add-hook 'jade-mode-hook 'auto-highlight-symbol-mode)))
+  :hook (jade-mode . auto-highlight-symbol-mode))
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
   :diminish emmet-mode
+  :hook (
+          (sgml-mode . emmet-mode)
+          (css-mode . emmet-mode)
+          (rjsx-mode . emmet-mode))
   :config
-  (progn
-    (setq emmet-self-closing-tag-style " /")
-    (add-hook 'sgml-mode-hook 'emmet-mode)
-    (add-hook 'css-mode-hook  'emmet-mode)
-    (add-hook 'rjsx-mode-hook 'emmet-mode)))
+  (setq emmet-self-closing-tag-style " /"))
 
 (use-package realgud)
 (use-package yaml-mode)
@@ -168,6 +206,8 @@
       )))
 
 ;; (use-package git-timemachine)
+
+;; beautifier
 (use-package web-beautify)
 
 (define-minor-mode my/auto-indent-mode
@@ -187,16 +227,14 @@
 (eval-after-load 'js
   '(progn
      (setq js-indent-level 2)
-     ;; (add-to-list 'auto-mode-alist '("\\rc\\'" . js-mode))
      (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
     (defun my/js-mode-hook()
       (modify-syntax-entry ?_ "w" (syntax-table))
       (modify-syntax-entry ?$ "w" (syntax-table)))
 
-     (add-hook 'js-mode-hook #'my/js-mode-hook)
-     (add-hook 'js-mode-hook #'my/auto-indent-mode)
-     ))
+     (add-hook 'js-mode-hook 'my/js-mode-hook)
+     (add-hook 'js-mode-hook 'my/auto-indent-mode)))
 
 (eval-after-load 'css-mode
   '(progn
@@ -212,23 +250,23 @@
        (add-to-list 'company-backends 'company-css))
      (add-hook 'css-mode-hook 'my/css-mode-hook)))
 
-(use-package xref-js2)
+;; (use-package xref-js2)
 
-(eval-after-load 'js-mode
-  '(progn
-     (defun my/js-mode-hook ()
-       (js2-refactor-mode 1)
-       (rainbow-delimiters-mode 1)
-       (modify-syntax-entry ?_ "w" (syntax-table))
-       (modify-syntax-entry ?$ "w" (syntax-table))
-       )
-     (add-hook 'js-mode-hook #'my/js-mode-hook)))
+;; (eval-after-load 'js-mode
+;;   '(progn
+;;      (defun my/js-mode-hook ()
+;;        (js2-refactor-mode 1)
+;;        (rainbow-delimiters-mode 1)
+;;        (modify-syntax-entry ?_ "w" (syntax-table))
+;;        (modify-syntax-entry ?$ "w" (syntax-table))
+;;        )
+;;      (add-hook 'js-mode-hook #'my/js-mode-hook)))
 
-(add-hook 'js2-mode-hook
-  (lambda ()
-    (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
-    (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)
-    ))
+;; (add-hook 'js2-mode-hook
+;;   (lambda ()
+;;     (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
+;;     (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)
+;;     ))
 
 (if (executable-find "eslint_d")
   (use-package eslintd-fix
@@ -239,29 +277,56 @@
   (message "No executable 'eslint_d' found"))
 
 (use-package lsp-mode
+  :hook ((web-mode . lsp-deferred)
+          (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
+  :commands (lsp lsp-deferred)
   :config
-  (progn
-    ;; (require 'lsp-clients)
-    (setq
-      lsp-inhibit-message t
-      lsp-hover-enabled nil
-      lsp-signature-enabled nil
-      lsp-enable-snippet nil
-      lsp-auto-guess-root t)))
+  (setq lsp-enable-completion-at-point nil)
+  (setq lsp-inhibit-message t)
+  (setq lsp-hover-enabled nil)
+  (setq lsp-signature-enabled nil)
+  (setq lsp-enable-snippet nil)
+  (setq lsp-auto-guess-root t)
+  (setq read-process-output-max (* 1024 1024))
+  (setq lsp-prefer-capf t)
+  (setq lsp-eslint-server-command
+    '("node"
+       "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js"
+       "--stdio"))
+  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
+
+;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
+;; (use-package dap-mode)
+
+(use-package lsp-ui
+	:commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-position 'top)
+  (setq lsp-ui-doc-header t))
+
+(use-package lsp-ivy
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list
+  :config
+  (lsp-treemacs-sync-mode 1))
 
 (use-package company-lsp)
 
 (use-package typescript-mode
+  :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
   :config
   (progn
     ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
-    (add-hook 'typescript-mode-hook
-      (lambda ()
+    ;; (add-hook 'typescript-mode-hook
+    ;;   (lambda ()
         ;; (lsp)
-        ;; (make-variable-buffer-local 'company-backends)
+        ;; (make-local-variable 'company-backends)
         ;; (add-to-list 'company-backends 'company-lsp t)
-        ))))
+        ;; )))
+  ))
 
 (eval-after-load 'gud
   '(progn
@@ -285,31 +350,26 @@
 ;; (use-package company-tern)
 
 
-(use-package tide
-  :diminish tide-mode
-  :config
-  (progn
-    (add-hook 'tide-mode-hook
-      (lambda ()
-        (add-to-list 'company-backends 'company-tide)
-        (add-hook 'before-save-hook 'tide-format-before-save nil t)
-        ))
+;; (use-package tide
+;;   :diminish tide-mode
+;;   :config
+;;   (progn
+;;     (add-hook 'tide-mode-hook
+;;       (lambda ()
+;;         (add-to-list 'company-backends 'company-tide)
+;;         (add-hook 'before-save-hook 'tide-format-before-save nil t)
+;;         ))
 
-    (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
+;;     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
-    (bind-key "C-c C-l" #'tide-references tide-mode-map)
+;;     (bind-key "C-c C-l" #'tide-references tide-mode-map)
 
-    (evil-make-overriding-map tide-references-mode-map 'motion)
-    (evil-make-overriding-map tide-references-mode-map 'normal)
+;;     (evil-make-overriding-map tide-references-mode-map 'motion)
+;;     (evil-make-overriding-map tide-references-mode-map 'normal)
 
-    (add-hook 'rjsx-mode-hook #'tide-setup)
-    ))
+;;     (add-hook 'rjsx-mode-hook #'tide-setup)
+;;     ))
 
-(setq
-  js2-skip-preprocessor-directives t
-  js2-highlight-external-variables nil
-  js2-mode-show-parse-errors nil
-  js2-strict-missing-semi-warning nil)
 
 (use-package prettier-js
   :config
@@ -364,7 +424,7 @@
 ;; (progn
 ;;   (add-hook 'robe-mode-hook (lambda ()
 ;; (robe-start)
-;;                               (make-variable-buffer-local 'company-backends)
+;;                               (make-local-variable 'company-backends)
 ;;                               (add-to-list 'company-backends 'company-robe t)))
 ;;   (add-hook 'ruby-mode-hook 'robe-mode)
 ;;   ))
@@ -566,84 +626,69 @@
       (php-mode))))
 
 (use-package php-mode
+  :hook ((php-mode . emmet-mode)
+          (php-mode . (lambda ()
+                       (make-local-variable 'company-backends)
+                       (add-to-list 'company-backends 'company-ac-php-backend t)
+                       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
+                       (modify-syntax-entry ?_ "w" (syntax-table))
+                       (modify-syntax-entry ?$ "w" (syntax-table))
+                       (setq php-template-compatibility nil)
+                       ))
+          (php-mode . (lambda ()
+                      (defun ywb-php-lineup-arglist-intro (langelem)
+                        (save-excursion
+                          (goto-char (cdr langelem))
+                          (vector (+ (current-column) c-basic-offset))))
+                      (defun ywb-php-lineup-arglist-close (langelem)
+                        (save-excursion
+                          (goto-char (cdr langelem))
+                          (vector (current-column))))
+                      (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro)
+                        (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close))))
+  :bind ("<f5>" . my/toggle-php-flavor-mode)
   :config
   (progn
     (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
     (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-
-    (defun my-php-mode-hook ()
-      (make-variable-buffer-local 'company-backends)
-      (add-to-list 'company-backends 'company-ac-php-backend t)
-      (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
-      (modify-syntax-entry ?_ "w" (syntax-table))
-      (modify-syntax-entry ?$ "w" (syntax-table))
-      (setq php-template-compatibility nil))
 
     (defun my-php-symbol-lookup ()
       (interactive)
       (let ((symbol (symbol-at-point)))
         (if (not symbol)
           (message "No symbol at point.")
-
-          (browse-url (concat "http://php.net/manual-lookup.php?pattern="
-                        (symbol-name symbol))))))
-
-    (bind-key "<f5>" 'my/toggle-php-flavor-mode php-mode-map)
-    (add-hook 'php-mode-hook 'my-php-mode-hook)
-    (add-hook 'php-mode-hook #'emmet-mode)))
-
-(add-hook 'php-mode-hook (lambda ()
-    (defun ywb-php-lineup-arglist-intro (langelem)
-      (save-excursion
-        (goto-char (cdr langelem))
-        (vector (+ (current-column) c-basic-offset))))
-    (defun ywb-php-lineup-arglist-close (langelem)
-      (save-excursion
-        (goto-char (cdr langelem))
-        (vector (current-column))))
-    (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro)
-    (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close)))
+          (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol))))))))
 
 (use-package geben
-  :config
-  (progn
-    (add-hook 'geben-mode-hook 'evil-emacs-state)
-    ))
+  :hook (geben-mode . evil-emacs-state))
 
-(use-package ac-php
-  :config
-  (progn
-    (setq ac-sources '(ac-source-php ))))
+;; (use-package ac-php
+;;   :config
+;;   (setq ac-sources '(ac-source-php )))
 
 (use-package web-mode
+  :hook ((web-mode . (lambda ()
+                      (modify-syntax-entry ?_ "w" (syntax-table))
+                      (modify-syntax-entry ?- "w" (syntax-table))
+                       (modify-syntax-entry ?$ "w" (syntax-table))))
+          (web-mode . emmet-mode))
   :config
-  (progn
-    (bind-key "C-c C-n" #'web-mode-tag-end web-mode-map)
-    (bind-key "C-c C-p" #'web-mode-tag-beginning web-mode-map)
-
-    (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-    ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
-    (setq-default web-mode-markup-indent-offset tab-width)
-    (setq-default web-mode-css-indent-offset tab-width)
-    (setq-default web-mode-code-indent-offset tab-width)
-    (bind-key "<backtab>" #'indent-relative web-mode-map)
-    (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map)
-    (add-hook #'web-mode-hook #'emmet-mode)
-
-    (defun my/web-mode-setup ()
-      (modify-syntax-entry ?_ "w" (syntax-table))
-      (modify-syntax-entry ?- "w" (syntax-table))
-      (modify-syntax-entry ?$ "w" (syntax-table)))
-
-    (add-hook #'web-mode-hook #'my/web-mode-setup)
-
-    ))
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
+  (setq-default web-mode-markup-indent-offset tab-width)
+  (setq-default web-mode-css-indent-offset tab-width)
+  (setq-default web-mode-code-indent-offset tab-width)
+  (bind-key "C-c C-n" 'web-mode-tag-end web-mode-map)
+  (bind-key "C-c C-p" 'web-mode-tag-beginning web-mode-map)
+  (bind-key "<backtab>" 'indent-relative web-mode-map)
+  (bind-key "<f5>" 'my/toggle-php-flavor-mode web-mode-map))
 
 ;; (use-package graphql-mode)
 
@@ -723,20 +768,19 @@
 
 (setq vc-follow-symlinks t)
 
-(setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
-
-(defun my/prog-mode-hook()
-  (make-variable-buffer-local 'company-backends)
+(defun my/prog-mode-hook ()
+  (make-local-variable 'company-backends)
 
   ;; (add-to-list 'company-backends 'company-graphql t)
+  (add-to-list 'company-backends 'company-lsp t)
   (add-to-list 'company-backends 'company-gtags t)
   (add-to-list 'company-backends 'company-etags t)
   (add-to-list 'company-backends 'company-keywords)
 
   (setq-local company-backends (delete 'company-dabbrev company-backends))
 
-  (make-variable-buffer-local 'flycheck-check-syntax-automatically)
-  (make-variable-buffer-local 'jarfar/pairs-hash-table)
+  (make-local-variable 'flycheck-check-syntax-automatically)
+  (make-local-variable 'jarfar/pairs-hash-table)
 
   (when (null (gethash ?\' jarfar/pairs-hash-table))
     (puthash ?\' ?\' jarfar/pairs-hash-table))
@@ -761,8 +805,7 @@
 (add-hook 'python-mode-hook
   (lambda ()
     (setq-local tab-width 4)
-    (setq python-indent-offset 4)
-    ))
+    (setq python-indent-offset 4)))
 
 (add-hook 'conf-space-mode-hook
   (lambda ()
@@ -776,32 +819,28 @@
     (setq mode-name "elisp")
     (flycheck-mode -1)
     (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
-
     (setq-local c-basic-offset 2)))
 
 (setq c-basic-offset 'set-from-style)
 
-(use-package dash-at-point
-  :config
-  (progn
-    (dolist (i my/devel-keymaps)
-      (bind-key "C-c d" #'dash-at-point i)
-      (bind-key "C-c e" #'dash-at-point-with-docset i))))
+;; (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
+;; (use-package dash-at-point
+;;   :config
+;;   (dolist (i my/devel-keymaps)
+;;     (bind-key "C-c d" #'dash-at-point i)
+;;     (bind-key "C-c e" #'dash-at-point-with-docset i)))
 
 (use-package ledger-mode
   :init
   (setq ledger-clear-whole-transactions 1)
-
   :config
-  (progn
-    (setq ledger-post-account-alignment-column 2)
+  (setq ledger-post-account-alignment-column 2)
+  (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+  (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
+  (unbind-key "<tab>" ledger-mode-map)
+  (bind-key "C-c C-c" #'ledger-post-align-dwim ledger-mode-map))
 
-    (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
-    (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
-
-    (unbind-key "<tab>" ledger-mode-map)
-    (bind-key "C-c C-c" #'ledger-post-align-dwim        ledger-mode-map)
-    ))
+(use-package toml-mode)
 
 (setq sh-basic-offset 2)
 
@@ -911,7 +950,11 @@ in whole buffer.  With neither, delete comments on current line."
   (save-excursion
 
     (beginning-of-buffer)
-    (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\).*?-->\n?" nil t)
+    (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\|code\\|preformatted\\).*?-->\n?" nil t)
+      (replace-match "" nil nil))
+
+    (beginning-of-buffer)
+    (while (re-search-forward "<!-- /?wp:\\(qubely\\|html\\).*?-->\n?" nil t)
       (replace-match "" nil nil))
 
     (beginning-of-buffer)
