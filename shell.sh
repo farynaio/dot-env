@@ -151,6 +151,10 @@ export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 export PATH="/usr/local/opt/node@10/bin:$PATH"
 export PATH="$PATH:$HOME/go/bin"
 
+if [[ $(command_exists "npm")  && -x `npm root -g` ]]; then
+  export PATH="$PATH:$(npm root -g)/../../bin"
+fi
+
 if hash rbenv &> /dev/null; then
   export PATH="$HOME/.rbenv/shims:$PATH"
 fi
