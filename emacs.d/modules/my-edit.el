@@ -204,6 +204,9 @@ $0`(yas-escape-text yas-selected-text)`")
 (setq confirm-kill-processe nil)
 (setq process-connection-type nil)
 
+(when (string-equal system-type "darwin")
+  (setq browse-url-chrome-program "chrome"))
+
 (setq jarfar/pairs-hash-table (make-hash-table :test 'equal))
 
 (when (null (gethash ?\" jarfar/pairs-hash-table))
