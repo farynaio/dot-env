@@ -90,6 +90,7 @@ $0`(yas-escape-text yas-selected-text)`")
   (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash)))
 
 (use-package which-key
+  :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.8)
   (which-key-mode))

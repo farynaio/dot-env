@@ -9,9 +9,16 @@
 ;;       (setq ispell-program-name (executable-find "hunspell")))
 ;;   (message "'hunspell' not installed!"))
 
+(setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
+(setq save-abbrevs 'silently)
+
+(setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
+
+(add-hook 'text-mode-hook 'abbrev-mode)
+
 (eval-after-load 'flyspell
   '(progn
-     (diminish 'flyspell-mode "fly")
+     (diminish 'flyspell-mode "Fly")
 
      ;; (setenv "DICTIONARY" "en")
 
@@ -38,9 +45,6 @@
      (pushnew '(":PROPERTIES:" ":END:") ispell-skip-region-alist)
      (pushnew '("#\\+BEGIN_SRC" . "#\\+END_SRC") ispell-skip-region-alist)
      (pushnew '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)))
-
-(setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
-(setq save-abbrevs 'silently)
 
 (defvar my/en-abbrevs nil)
 (define-abbrev-table
@@ -115,8 +119,6 @@
   (setq langtool-default-language "en-GB")
   (setq langtool-mother-tongue "en"))
 
-(setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L")
-
 (use-package google-translate
   :config
   (setq google-translate-default-source-language "en")
@@ -177,7 +179,5 @@
   ("l" 'my/lang-toggle "language toggle" :exit t)
   ("c" 'langtool-check-buffer "langtool check" :exit t)
   ("d" 'langtool-check-done "langtool done" :exit t))
-
-(add-hook 'text-mode-hook 'abbrev-mode)
 
 (provide 'my-writing)

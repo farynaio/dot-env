@@ -584,7 +584,7 @@
 
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
-    (setq mode-name "elisp")
+    (setq mode-name "Elisp")
     (setq-local c-basic-offset 2)
     (flycheck-mode -1)
     (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
