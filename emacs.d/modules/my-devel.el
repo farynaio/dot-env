@@ -1,17 +1,14 @@
-(require 'cc-mode)
+;; (require 'cc-mode)
 (require 'css-mode)
 (require 'js)
-(require 'elisp-mode)
-(require 'python)
-(require 'sql)
-(require 'comint)
-(require 'gud)
-(require 'prog-mode)
-(require 'sh-script)
-(require 'conf-mode)
-(require 'ruby-mode)
-(require 'dns-mode)
-(require 'smerge-mode)
+;; (require 'elisp-mode)
+;; (require 'sql)
+;; (require 'gud)
+;; (require 'prog-mode)
+;; (require 'sh-script)
+;; (require 'conf-mode)
+;; (require 'ruby-mode)
+;; (require 'dns-mode)
 ;; (require 'company-graphql)
 
 ;; (use-package mmm-mode
@@ -21,6 +18,12 @@
 ;;       (lambda ()
 ;;         (set-face-background 'mmm-default-submode-face nil)))))
 
+(setq sh-basic-offset 2)
+(setq c-basic-offset 'set-from-style)
+
+(auto-highlight-symbol-mode 1)
+(hl-todo-mode 1)
+
 (define-derived-mode guest-mode fundamental-mode "guest"
   "major mode for guest editing."
   (editorconfig-mode -1))
@@ -29,30 +32,29 @@
 ;;   :config
 ;;   (setq minimap-window-location 'right))
 
-(eval-after-load 'smerge-mode
-  '(progn
-     (defun my/smerge-mode-setup ()
-       (bind-key "[w" #'smerge-prev smerge-mode-map)
-       (bind-key "]w" #'smerge-next smerge-mode-map))
-     (add-hook 'smerge-mode-hook #'my/smerge-mode-setup)
-     ))
-
-(eval-after-load 'conf-mode
-  '(progn
-     (defun my/conf-mode-setup ()
-       (setq-local tab-width 2)
-       (setq-local c-basic-offset 2)
-       (modify-syntax-entry ?_ "w" (syntax-table))
-       (modify-syntax-entry ?- "w" (syntax-table))
-       (hl-todo-mode 1)
-       (auto-highlight-symbol-mode 1))
-
-      (add-hook 'conf-mode-hook #'my/conf-mode-setup)
-     ))
-
 (eval-after-load 'dns-mode
   '(progn
      (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
+
+(eval-after-load 'conf-mode
+  '(progn
+     (add-hook 'conf-mode-hook
+       (lambda ()
+         (setq-local tab-width 2)
+         (setq-local c-basic-offset 2)
+         (setq-local indent-line-function #'insert-tab)
+         (setq-local indent-tabs-mode t)
+         (modify-syntax-entry ?_ "w" (syntax-table))
+         (modify-syntax-entry ?- "w" (syntax-table))))))
+
+(use-package ledger-mode
+  :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
+  :mode "\\.ledger\\'"
+  :init
+  (setq ledger-clear-whole-transactions 1)
+  :config
+  (setq ledger-post-account-alignment-column 2)
+  (unbind-key "<tab>" ledger-mode-map))
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
@@ -108,11 +110,6 @@
 ;;        (remove-hook 'js2-mode-hook 'jarfar/run-skewer-once))
 ;;      ))
 
-;; Use binaries in node_modules
-(use-package add-node-modules-path
-  :config
-  (add-hook 'js2-mode-hook 'add-node-modules-path))
-
 ;; (use-package json-mode) ; not sure if js-mode is aren't good enough
 ;; (use-package indium) ; inspector for node
 
@@ -166,19 +163,20 @@
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
   :diminish emmet-mode
-  :hook (
-          (sgml-mode . emmet-mode)
-          (css-mode . emmet-mode)
-          (rjsx-mode . emmet-mode))
+  :hook ((sgml-mode . emmet-mode)
+          (css-mode . emmet-mode))
   :config
   (setq emmet-self-closing-tag-style " /"))
 
 (use-package realgud)
-(use-package yaml-mode)
-(use-package markdown-mode)
+(use-package yaml-mode
+  :mode "\\.yaml\\'")
+
+(use-package markdown-mode
+  :mode "\\.md\\'")
+
 (use-package vimrc-mode
-  :mode ("\\vimrc\\'" . vimrc-mode)
-  :interpreter ("vim" . vimrc-mode))
+  :mode "\\vimrc\\'")
 
 (use-package flycheck
   :config
@@ -189,7 +187,6 @@
   (flycheck-add-mode 'typescript-tslint 'tide-mode)
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
-
 
 ;; beautifier
 (use-package web-beautify)
@@ -261,7 +258,7 @@
   (message "No executable 'eslint_d' found"))
 
 (use-package lsp-mode
-  :hook ((web-mode . lsp-deferred)
+  :hook ((web-mode . lsp)
           (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands (lsp lsp-deferred)
   :config
@@ -283,24 +280,28 @@
 ;; (use-package dap-mode)
 
 (use-package lsp-ui
+  :after lsp-mode
 	:commands lsp-ui-mode
   :config
   (setq lsp-ui-doc-position 'top)
   (setq lsp-ui-doc-header t))
 
 (use-package lsp-ivy
+  :requires (lsp-mode ivy)
   :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-treemacs
+  :after lsp-mode
   :commands lsp-treemacs-errors-list
   :config
   (lsp-treemacs-sync-mode 1))
 
-(use-package company-lsp)
+(use-package company-lsp
+  :requires (company-mode lsp-mode))
 
 (use-package typescript-mode
   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
-  :config
+  ;; :config
     ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
     ;; (add-hook 'typescript-mode-hook
@@ -311,9 +312,6 @@
         ;; )))
   )
 
-(eval-after-load 'gud
-  '(progn
-     (setq gud-pdb-command-name "python -m pdb ")))
 
 (use-package rainbow-delimiters)
 
@@ -366,7 +364,8 @@
   )
 
 (use-package rjsx-mode
-  :hook (rjsx-mode . my/rjsx-mode-setup)
+  :hook ((rjsx-mode . emmet-mode)
+          (rjsx-mode . my/rjsx-mode-setup))
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
   :config
@@ -407,9 +406,11 @@
 ;; (use-package inf-ruby)
 
 (use-package projectile-rails
+  :requires projectile
   :hook (ruby-mode . (lambda () (when (projectile-mode) (projectile-rails-on)))))
 
-(use-package vue-mode)
+(use-package vue-mode
+  :mode "//.vue//'")
 
 (use-package dtrt-indent
   :diminish "dtrt")
@@ -483,125 +484,34 @@
   "JS refactoring replace"
   ("t" #'js2r-var-to-this "'var' which 'this'" :exit t))
 
-(defhydra hydra-php-debug ()
-  "PHP debug"
-  ("a" #'geben-add-current-line-to-predefined-breakpoints "add brk" :exit t)
-  ("s" #'geben "start" :exit t)
-  ("q" #'geben-end "end" :exit t))
 
 ;; (use-package guess-style
 ;; :config
 ;; (progn
 ;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
 
-(eval-after-load 'python
-  '(progn
-     (evil-make-overriding-map inferior-python-mode-map 'motion)
-     (evil-make-overriding-map inferior-python-mode-map 'normal)
-     (bind-key "C-d"  #'evil-scroll-down inferior-python-mode-map)
-     ))
-
-(add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
-(add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
-
-(use-package elpy
-  :bind (:map elpy-mode-map
-          ("C-c C-l" . elpy-occur-definitions)
-          ("C-c C-e" . elpy-multiedit-python-symbol-at-point)
-          ("C-c C-r f" . elpy-format-code)
-          ("C-c C-r r" . elpy-refactor))
-  :config
-  (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (setq elpy-rpc-backend "jedi")
-  (setq python-shell-interpreter "ipython")
-  (setq python-shell-interpreter-args "-i --simple-prompt")
-  ;; (setq
-  ;; python-shell-interpreter "python"
-  ;; python-shell-interpreter-args "-i")
-
-  (elpy-enable)
-  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
-
-  (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
-
-  ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
-  ;; Prevent Elpy from overriding Windmove shortcuts
-  ;; (eval-after-load "elpy"
-  ;;   '(cl-dolist (key '("M-<up>" "M-<down>" "M-<left>" "M-<right>"))
-  ;;      (define-key elpy-mode-map (kbd key) nil)))
-
-  ;; Prevent Elpy from overriding standard cursor movements
-  ;; (eval-after-load "elpy"
-  ;;   '(cl-dolist (key '("C-<left>" "C-<right>"))
-  ;;      (define-key elpy-mode-map (kbd key) nil)))
-
-  (when (executable-find "black")
-    (add-hook 'elpy-mode-hook
-      (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))))
-
 (use-package terraform-mode
   :hook (terraform-mode . terraform-format-on-save-mode)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
+  :mode "\\.tf\\'")
 
-(use-package company-statistics)
-(use-package company-web)
-(use-package company-php)
-(use-package company-quickhelp)
+(use-package company-statistics
+  :requires company)
+
+;; TODO what it does?
+(use-package company-web
+  :requires company-mode)
+
+(use-package company-quickhelp
+  :requires company-mode)
 
 (use-package dockerfile-mode
-  :config
-  (add-to-list 'auto-mode-alist '("^Dockerfile" . dockerfile-mode)))
-
-(defun my/toggle-php-flavor-mode ()
-  (interactive)
-  "Toggle mode between PHP & Web-Mode Helper modes"
-  (cond ((string= mode-name "PHP")
-          (web-mode))
-    ((string= mode-name "Web")
-      (php-mode))))
-
-(use-package php-mode
-  :hook ((php-mode . emmet-mode)
-          (php-mode . (lambda ()
-                       (make-local-variable 'company-backends)
-                       (add-to-list 'company-backends 'company-ac-php-backend t)
-                       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
-                       (modify-syntax-entry ?_ "w" (syntax-table))
-                       (modify-syntax-entry ?$ "w" (syntax-table))
-                       (setq php-template-compatibility nil)
-                       ))
-          (php-mode . (lambda ()
-                      (defun ywb-php-lineup-arglist-intro (langelem)
-                        (save-excursion
-                          (goto-char (cdr langelem))
-                          (vector (+ (current-column) c-basic-offset))))
-                      (defun ywb-php-lineup-arglist-close (langelem)
-                        (save-excursion
-                          (goto-char (cdr langelem))
-                          (vector (current-column))))
-                      (c-set-offset 'arglist-intro 'ywb-php-lineup-arglist-intro)
-                        (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close))))
-  :bind (:map php-mode-map
-          ("<f5>" . my/toggle-php-flavor-mode))
-  :config
-  (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-  (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-
-  (defun my-php-symbol-lookup ()
-    (interactive)
-    (let ((symbol (symbol-at-point)))
-      (if (not symbol)
-        (message "No symbol at point.")
-        (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol)))))))
+  :mode "^Dockerfile")
 
 (use-package geben
   :hook (geben-mode . evil-emacs-state))
 
-;; (use-package ac-php
-;;   :config
-;;   (setq ac-sources '(ac-source-php )))
+(use-package toml-mode
+  :mode "\\.toml$")
 
 (use-package web-mode
   :hook ((web-mode . (lambda ()
@@ -614,31 +524,28 @@
           ("C-c C-p" . web-mode-tag-beginning)
           ("<backtab>" . indent-relative)
           ("<f5>" . my/toggle-php-flavor-mode))
+  :mode (("\\.php\\'" . web-mode-map)
+          ("\\.phtml\\'" . web-mode-map)
+          ("\\.tpl\\.php\\'" . web-mode-map)
+          ("\\.js\\'" . web-mode-map)
+          ("\\.html\\.twig\\'" . web-mode-map)
+          ("\\.hbs\\'" . web-mode-map)
+          ("\\.ejs\\'" . web-mode-map)
+          ("\\.html?\\'" . web-mode-map)
+          ;; ("\\.php\\'" . web-mode-map)
+          )
   :config
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html\\.twig\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
   (setq-default web-mode-markup-indent-offset tab-width)
   (setq-default web-mode-css-indent-offset tab-width)
   (setq-default web-mode-code-indent-offset tab-width))
 
+;; Use binaries in node_modules
+(use-package add-node-modules-path
+  :config
+  (add-hook 'web-mode 'add-node-modules-path))
+
 ;; (use-package graphql-mode)
-
-(defun my/toggle-php-flavor-mode ()
-  "Toggle mode between PHP & Web-Mode Helper modes."
-  (interactive)
-  (cond ((string= major-mode "php-mode")
-          (web-mode))
-    ((string= major-mode "web-mode")
-      (php-mode))))
-
-(use-package transient)
 
 (defun my/prog-mode-hook ()
   (make-local-variable 'company-backends)
@@ -675,18 +582,6 @@
 
 (add-hook 'prog-mode-hook 'my/prog-mode-hook t)
 
-(add-hook 'python-mode-hook
-  (lambda ()
-    (setq-local tab-width 4)
-    (setq python-indent-offset 4)))
-
-(add-hook 'conf-space-mode-hook
-  (lambda ()
-    (setq-local tab-width 4)
-    (setq-local c-basic-offset 2)
-    (setq-local indent-line-function #'insert-tab)
-    (setq-local indent-tabs-mode t)))
-
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (setq mode-name "elisp")
@@ -695,28 +590,12 @@
     (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))
 
-(setq c-basic-offset 'set-from-style)
-
 ;; (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
 ;; (use-package dash-at-point
 ;;   :config
 ;;   (dolist (i my/devel-keymaps)
 ;;     (bind-key "C-c d" #'dash-at-point i)
 ;;     (bind-key "C-c e" #'dash-at-point-with-docset i)))
-
-(use-package ledger-mode
-  :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
-  :init
-  (setq ledger-clear-whole-transactions 1)
-  :config
-  (setq ledger-post-account-alignment-column 2)
-  (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
-  (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
-  (unbind-key "<tab>" ledger-mode-map))
-
-(use-package toml-mode)
-
-(setq sh-basic-offset 2)
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
@@ -725,13 +604,6 @@
 ;; (setq org-html-head-include-default-style nil)
 ;; (setq org-html-head-include-scripts nil)
 ;; (setq org-html-validation-link nil)
-
-(defun my/evil-jump-to-tag-other-buffer ()
-  (interactive)
-  (save-excursion
-    (evil-window-vsplit)
-    (windmove-right)
-    (evil-jump-to-tag)))
 
 ;; https://stackoverflow.com/a/6255409/346921
 (defun my/reformat-xml ()
@@ -751,14 +623,6 @@
         (replace-match ">\n<" t t))
       (goto-char beg)
       (indent-region beg end nil))))
-
-(defun my/copy-diff-region ()
-  "Copy diff region without + or - markers."
-  (interactive)
-  (deactivate-mark)
-  (let ((text (buffer-substring-no-properties
-               (region-beginning) (region-end))))
-    (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text))))
 
 ;; https://emacs.stackexchange.com/questions/5441/function-to-delete-all-comments-from-a-buffer-without-moving-them-to-kill-ring
 (defun jarfar/comment-delete (arg)

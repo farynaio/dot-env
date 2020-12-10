@@ -367,11 +367,9 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
                         (message "Invalidated Projectile cache for %s."
                                  (propertize project-root 'face 'font-lock-keyword-face))))
                     projectile-known-projects)
-              (projectile-serialize-cache)))
-  )
+              (projectile-serialize-cache))))
 
 (defun my/projectile-add-known-project (project-root)
-  ""
   (interactive (list (read-directory-name "Add to known projects: ")))
   (projectile-add-known-project project-root)
   (projectile-cleanup-known-projects))
@@ -558,6 +556,13 @@ point reaches the beginning or end of the buffer, stop there."
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
+
+(defun my/evil-jump-to-tag-other-buffer ()
+  (interactive)
+  (save-excursion
+    (evil-window-vsplit)
+    (windmove-right)
+    (evil-jump-to-tag)))
 
 (global-set-key (kbd "C-x |") 'my/toggle-window-split)
 (global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)

@@ -1311,7 +1311,7 @@ should be continued."
 
 (use-package org-roam
   :after org
-  :diminish (org-roam-mode . "roam")
+  :diminish (org-roam-mode . "Roam")
   :config
   (progn
     (require 'org-roam-protocol)

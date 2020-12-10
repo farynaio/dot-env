@@ -1,10 +1,10 @@
 (setq my/file-name-handler-alist file-name-handler-alist)
-(setq
-  gc-cons-threshold (* 1024 1024 1024)
-  gc-cons-percentage 0.5
-  ;; gc-cons-threshold 402653184
-  ;; gc-cons-percentage 0.6
-  file-name-handler-alist nil)
+
+(setq gc-cons-threshold (* 1024 1024 1024))
+(setq gc-cons-percentage 0.5)
+(setq file-name-handler-alist nil)
+;; (setq gc-cons-threshold 402653184)
+;; (setq gc-cons-percentage 0.6)
 
 (setq confirm-kill-processes nil)
 
@@ -40,6 +40,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
+(add-to-list 'load-path "~/.emacs.d/modules/devel")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
 (add-to-list 'exec-path "/usr/local/bin")
@@ -73,6 +74,17 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package bind-key)
+
+(use-package diminish
+  :config
+  ;; (diminish 'editorconfig-mode)
+  (diminish 'auto-revert-mode)
+  (diminish 'eldoc-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'editorconfig-mode)
+  (diminish 'js-mode "JS")
+  (diminish 'abbrev-mode))
 
 (require 'gnutls)
 
@@ -88,7 +100,6 @@
 
 (setq load-prefer-newer t)
 
-(use-package bind-key)
 (use-package dash)
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
@@ -131,14 +142,18 @@
 (defvar my-rss-activate nil)
 (defvar my-org-caldav-activate nil)
 (defvar my-taskjuggler nil)
+(defvar my-git nil)
+(defvar my-python nil)
+(defvar my-php nil)
 
 (setq
   my-edit-activate t
-  my-writing-activate t
+  my-git t
   my-evil-activate t
-  my-org-activate t
   my-navigation-activate t
-  ;; my-devel-activate t
+  my-org-activate t
+  my-writing-activate t
+  my-devel-activate t
   my-email-activate nil
   my-dired-activate t
   my-notifications-activate t
@@ -150,25 +165,32 @@
   my-cleanup-activate t
   my-rss-activate t
   my-org-caldav-activate nil
-  my-taskjuggler nil)
+  my-taskjuggler nil
+  my-python t
+  my-php t
+)
 
-(when my-edit-activate (require 'my-edit))
 (when my-evil-activate (require 'my-evil))
-(when my-writing-activate (require 'my-writing))
+(when my-edit-activate (require 'my-edit))
+(when my-git (require 'my-git))
+(when my-encrypt-activate (require 'my-encrypt))
+(when my-navigation-activate (require 'my-navigation))
+(when my-theme-activate (require 'my-theme))
 (when my-org-activate (require 'my-org))
 (when my-org-caldav-activate (require 'my-org-caldav))
-(when my-navigation-activate (require 'my-navigation))
-(when my-devel-activate (require 'my-devel))
-(when my-email-activate (require 'my-email))
-(when my-dired-activate (require 'my-dired))
 (when my-notifications-activate (require 'my-notifications))
+(when my-writing-activate (require 'my-writing))
+(when my-dired-activate (require 'my-dired))
+(when my-cleanup-activate (require 'my-cleanup))
+(when my-devel-activate (require 'my-devel))
+(when my-python (require 'my-python))
+(when my-php (require 'my-php))
+(when my-shell-activate (require 'my-shell))
+(when my-rss-activate (require 'my-rss))
+(when my-email-activate (require 'my-email))
 (when my-www-activate (require 'my-www))
 (when my-irc-activate (require 'my-irc))
-(when my-theme-activate (require 'my-theme))
-(when my-shell-activate (require 'my-shell))
-(when my-encrypt-activate (require 'my-encrypt))
-(when my-cleanup-activate (require 'my-cleanup))
-(when my-rss-activate (require 'my-rss))
+(when my-taskjuggler (require 'my-taskjuggler))
 
 ;; (setq
   ;; gc-cons-threshold (* 511 1024 1024)

@@ -1,4 +1,3 @@
-;; (require 'dash)
 (require 'autorevert)
 (require 're-builder)
 ;; (require 'calendar)
@@ -8,83 +7,8 @@
 ;; (require 'tramp)
 ;; (require 'elec-pair)
 ;; (require 'subr-x)
-(require 'vc-git)
-;; (require 'git-rebase)
 
 (setq-default mode-require-final-newline nil)
-
-;; (use-package git-timemachine)
-
-(eval-after-load 'git-rebase
-  '(progn
-     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
-
-(use-package git-commit
-  :config
-  (setq git-commit-style-convention-checks nil))
-
-(use-package git-gutter
-  :diminish git-gutter-mode
-  :bind (("C-c p" . 'git-gutter:previous-hunk)
-          ("C-c n" . 'git-gutter:next-hunk))
-  :config
-  (global-git-gutter-mode +1))
-(use-package magit
-  :diminish magit-auto-revert-mode
-  :after (transient)
-  :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
-          (magit-status-mode . (lambda () (save-some-buffers t))))
-  :bind (:map magit-mode-map
-          ("|" . evil-window-set-width)
-          ("}" . evil-forward-paragraph)
-          ("]" . evil-forward-paragraph)
-          ("{" . evil-backward-paragraph)
-          ("[" . evil-backward-paragraph)
-          ("C-d" . evil-scroll-down)
-          ("C-u" . evil-scroll-up)
-          ("C-s" . isearch-forward)
-          ("=" . balance-windows)
-          ("C-w" . my/copy-diff-region)
-          :map magit-hunk-section-map
-          ("r" . magit-reverse)
-          ("v" . evil-visual-char)
-          :map magit-revision-mode-map
-          ("C-s" . isearch-forward)
-          ("n" . evil-search-next)
-          ("p" . evil-search-previous)
-          ("=" . balance-windows)
-          :map magit-status-mode-map
-          ("\\w" . avy-goto-word-or-subword-1)
-          ("\\c" . avy-goto-char))
-  :config
-  (setq magit-completing-read-function 'ivy-completing-read)
-  (setq magit-refresh-status-buffer nil)
-  (setq magit-item-highlight-face 'bold)
-  (setq magit-diff-paint-whitespace nil)
-  (setq magit-ediff-dwim-show-on-hunks t)
-  (setq magit-diff-hide-trailing-cr-characters t)
-  (setq magit-bury-buffer-function 'magit-mode-quit-window)
-
-  (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
-  (setq vc-handled-backends (delq 'Git vc-handled-backends))
-  (setq magit-blame-styles
-    '(
-       (margin
-         (margin-format " %s%f" " %C %a" " %H")
-         (margin-width . 42)
-         (margin-face . magit-blame-margin)
-         (margin-body-face magit-blame-dimmed))
-       (headings
-         (heading-format . "%-20a %C %s
-"))))
-
-  (add-to-list 'magit-blame-disable-modes 'evil-mode)
-
-  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
-  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent))
-
-(setq vc-follow-symlinks t)
 
 (use-package hydra)
 ;; (use-package monitor)
@@ -128,30 +52,25 @@
        (let ((case-fold-search nil))
          ad-do-it))))
 
-(use-package undo-fu)
-
-(use-package diminish
+(use-package undo-fu
   :config
-  (progn
-    ;; (diminish 'editorconfig-mode)
-    (diminish 'auto-revert-mode)
-    (diminish 'eldoc-mode)
-    (diminish 'visual-line-mode)
-    (diminish 'editorconfig-mode)
-    (diminish 'js-mode "JS")
-    (diminish 'abbrev-mode)))
+  (if (bound-and-true-p evil-mode)
+    (progn
+      (global-undo-tree-mode -1)
+      (bind-key "u" 'undo-fu-only-undo evil-normal-state-map)
+      (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
+    (message "'undo-fu' not initiated. Evil mode is not active")))
 
 (use-package yasnippet
   :diminish yas-minor-mode
   :config
-  (progn
-    ;; (add-to-list 'yas-key-syntaxes "w w")
-    (setq yas-new-snippet-default
-"# name: $2
+  ;; (add-to-list 'yas-key-syntaxes w w")
+  (setq yas-new-snippet-default
+    "# name: $2
 # key: $1
 # --
 $0`(yas-escape-text yas-selected-text)`")
-    (yas-global-mode 1)))
+  (yas-global-mode 1))
 
 (defhydra hydra-snippet ()
   "Snippet"
@@ -163,14 +82,12 @@ $0`(yas-escape-text yas-selected-text)`")
 (use-package company
   :diminish company-mode
   :config
-  (progn
-    (global-company-mode 1)
-
-    (setq company-idle-delay 0.0)
-    (setq company-show-numbers t)
-    (setq company-tooltip-align-annotations t)
-    (setq company-minimum-prefix-length 1)
-    (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash))))
+  (global-company-mode 1)
+  (setq company-idle-delay 0.0)
+  (setq company-show-numbers t)
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1)
+  (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash)))
 
 (use-package which-key
   :config
@@ -199,10 +116,10 @@ $0`(yas-escape-text yas-selected-text)`")
 (use-package auto-highlight-symbol
   :diminish auto-highlight-symbol-mode
   :config
-    (setq ahs-case-fold-search nil)
-    (setq ahs-idle-interval 0)
-    (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
-    (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
+  (setq ahs-case-fold-search nil)
+  (setq ahs-idle-interval 0)
+  (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
+  (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
 
 ;; (require 'speedbar)
 ;; (eval-after-load 'speedbar
@@ -224,21 +141,6 @@ $0`(yas-escape-text yas-selected-text)`")
   ("z" #'magit-stash-popup "stash" :exit t)
   ("l" #'magit-log-popup "log" :exit t)
   ("f" #'magit-log-buffer-file "file log" :exit t))
-
-(defvar my/flip-symbol-alist
-  '(("true" . "false")
-    ("false" . "true"))
-  "symbols to be quick flipped when editing")
-
-(defun my/flip-symbol ()
-  "I don't want to type here, just do it for me."
-  (interactive)
-  (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
-          (sym (buffer-substring-no-properties beg end)))
-    (when (member sym (cl-loop for cell in my/flip-symbol-alist
-                               collect (car cell)))
-      (delete-region beg end)
-      (insert (alist-get sym my/flip-symbol-alist "" nil 'equal)))))
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
@@ -469,14 +371,43 @@ end-of-buffer signals; pass the rest to the default handler."
 ;; (add-hook 'after-make-frame-functions 'my/set-emoji-font)
 
 (require 'inc-dec-at-point)
+
 (eval-after-load 'inc-dec-at-point
   '(progn
-     (bind-key "C-c +" 'increment-integer-at-point)
-     (bind-key "C-c -" 'decrement-integer-at-point)))
+     (when (boundp 'evil-normal-state-map)
+       (bind-key "<S-up>" 'jarfar/increment evil-normal-state-map)
+       (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-map))))
 
 (defhydra hydra-buffer ()
   "Buffer"
   ("i" #'ibuffer "ibuffer" :exit t))
+
+(defun jarfar/increment ()
+  (interactive)
+  (if (number-at-point)
+    (increment-integer-at-point)
+    (my/flip-symbol)))
+
+(defun jarfar/decrement ()
+  (interactive)
+  (if (number-at-point)
+    (decrement-integer-at-point)
+    (my/flip-symbol)))
+
+(defvar my/flip-symbol-alist
+  '(("true" . "false")
+    ("false" . "true"))
+  "symbols to be quick flipped when editing")
+
+(defun my/flip-symbol ()
+  "I don't want to type here, just do it for me."
+  (interactive)
+  (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
+          (sym (buffer-substring-no-properties beg end)))
+    (when (member sym (cl-loop for cell in my/flip-symbol-alist
+                               collect (car cell)))
+      (delete-region beg end)
+      (insert (alist-get sym my/flip-symbol-alist "" nil 'equal)))))
 
 ;; (defun my/buffer-messages-tail ()
   ;; (let ((messages (get-buffer "*Messages*")))
