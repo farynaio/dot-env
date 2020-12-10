@@ -145,9 +145,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (defhydra my/hydra-org ()
   "org navigation"
-  ("s" #'counsel-org-goto "goto heading" :exit t)
-  ("a" #'counsel-org-file "browse attachments" :exit t)
-  ("t" #'org-toggle-timestamp-type "timestamp toggle" :exit t))
+  ("s" counsel-org-goto "goto heading" :exit t)
+  ("a" counsel-org-file "browse attachments" :exit t)
+  ("t" org-toggle-timestamp-type "timestamp toggle" :exit t))
 
 (eval-after-load 'org
   '(progn
@@ -1511,14 +1511,14 @@ should be continued."
 
     (defhydra jarfar/hydra-org-roam ()
       "org roam"
-      ("r" #'org-roam "org-roam" :exit t)
-      ("k" #'org-roam "Toggle sidebar" :exit t)
-      ("l" #'org-roam-insert "Insert" :exit t)
-      ("j" #'org-roam-dailies-date "Journal" :exit t)
-      ("f" #'org-roam-find-file "Find file" :exit t)
-      ("F" #'jarfar/org-roam-find-file-other-window "Find file" :exit t)
-      ("b" #'org-roam-switch-to-buffer "Switch buffer" :exit t)
-      ("d" #'org-roam-find-directory "Find dir" :exit t))
+      ("r" org-roam "org-roam" :exit t)
+      ("k" org-roam "Toggle sidebar" :exit t)
+      ("l" org-roam-insert "Insert" :exit t)
+      ("j" org-roam-dailies-date "Journal" :exit t)
+      ("f" org-roam-find-file "Find file" :exit t)
+      ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
+      ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
+      ("d" org-roam-find-directory "Find dir" :exit t))
 
     (defun jarfar/org-roam-find-file-other-window (&rest args)
       (interactive)

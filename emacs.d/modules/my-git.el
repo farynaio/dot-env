@@ -53,7 +53,23 @@
   (interactive)
   (when (projectile-project-root)
     (message (substring buffer-file-name (length (projectile-project-root))))))
-    ;; (setq header-line-format (substring buffer-file-name (length (projectile-project-root))))))
+
+(defhydra hydra-projectile ()
+  "Projectile"
+  ("a" jarfar/projectile-show-relative-path "show path" :exit t)
+  ("p" hydra-projectile-project/body "project" :exit t)
+  ("t" projectile-find-tag "find tag" :exit t)
+  ("o" projectile-find-other-file "find other file" :exit t)
+  ("f" projectile-find-file "find file" :exit t)
+  ("r" projectile-replace-regexp "replace" :exit t)
+  ("i" projectile-invalidate-cache "invalidate cache" :exit t)
+  ("b" modi/kill-non-project-buffers "kill unrelated buffers" :exit t)
+  ("d" my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle" :exit t))
+
+(defhydra hydra-projectile-project ()
+  "Projectile project"
+  ("a" my/projectile-add-known-project "add" :exit t)
+  ("r" projectile-remove-known-project "remove" :exit t))
 
 (defun my/projectile-add-known-project (project-root)
   (interactive (list (read-directory-name "Add to known projects: ")))

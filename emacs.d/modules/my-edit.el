@@ -74,10 +74,10 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defhydra hydra-snippet ()
   "Snippet"
-  ("s" #'yas-insert-snippet "insert" :exit t)
-  ("n" #'yas-new-snippet "new" :exit t)
-  ("e" #'yas-visit-snippet-file "edit" :exit t)
-  ("r" #'yas-reload-all "reload" :exit t))
+  ("s" yas-insert-snippet "insert" :exit t)
+  ("n" yas-new-snippet "new" :exit t)
+  ("e" yas-visit-snippet-file "edit" :exit t)
+  ("r" yas-reload-all "reload" :exit t))
 
 (use-package company
   :diminish company-mode
@@ -130,18 +130,18 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (defhydra hydra-git ()
   "git"
-  ("g" #'magit-blame "blame" :exit t)
-  ("e" #'magit-ediff-popup "ediff" :exit t)
-  ("c" #'vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
-  ;; ("b" #'magit-bisect-popup "bisect") ;; find a commit that introduces the bug
-  ("s" #'magit-status "status" :exit t)
-  ("o" #'magit-checkout "checkout" :exit t)
-  ("b" #'magit-branch-popup "branch" :exit t)
-  ("d" #'magit-diff-popup "diff" :exit t)
-  ("h" #'magit-diff-buffer-file "diff file" :exit t)
-  ("z" #'magit-stash-popup "stash" :exit t)
-  ("l" #'magit-log-popup "log" :exit t)
-  ("f" #'magit-log-buffer-file "file log" :exit t))
+  ("g" magit-blame "blame" :exit t)
+  ("e" magit-ediff-popup "ediff" :exit t)
+  ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
+  ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
+  ("s" magit-status "status" :exit t)
+  ("o" magit-checkout "checkout" :exit t)
+  ("b" magit-branch-popup "branch" :exit t)
+  ("d" magit-diff-popup "diff" :exit t)
+  ("h" magit-diff-buffer-file "diff file" :exit t)
+  ("z" magit-stash-popup "stash" :exit t)
+  ("l" magit-log-popup "log" :exit t)
+  ("f" magit-log-buffer-file "file log" :exit t))
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
@@ -381,7 +381,7 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (defhydra hydra-buffer ()
   "Buffer"
-  ("i" #'ibuffer "ibuffer" :exit t))
+  ("i" ibuffer "ibuffer" :exit t))
 
 (defun jarfar/increment ()
   (interactive)
