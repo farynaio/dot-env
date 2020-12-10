@@ -7,7 +7,7 @@
   '(progn
      (evil-make-overriding-map inferior-python-mode-map 'motion)
      (evil-make-overriding-map inferior-python-mode-map 'normal)
-     (bind-key "C-d"  #'evil-scroll-down inferior-python-mode-map)
+     (bind-key "C-d" 'evil-scroll-down inferior-python-mode-map)
 
      (add-hook 'python-mode-hook
        (lambda ()
@@ -37,7 +37,7 @@
   ;; (elpy-enable)
   ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-  (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
+  (advice-add 'keyboard-quit :before 'elpy-multiedit-stop)
 
   ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
   ;; Prevent Elpy from overriding Windmove shortcuts

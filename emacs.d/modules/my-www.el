@@ -31,8 +31,7 @@
            (eww url)
            (switch-to-buffer (generate-new-buffer "eww"))
            (eww-mode)
-           (eww url)
-           )))
+           (eww url))))
 
      (defalias 'w #'af/eww)))
 

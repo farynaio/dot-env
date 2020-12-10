@@ -1,8 +1,8 @@
 (defhydra hydra-php-debug ()
   "PHP debug"
-  ("a" #'geben-add-current-line-to-predefined-breakpoints "add brk" :exit t)
-  ("s" #'geben "start" :exit t)
-  ("q" #'geben-end "end" :exit t))
+  ("a" 'geben-add-current-line-to-predefined-breakpoints "add brk" :exit t)
+  ("s" 'geben "start" :exit t)
+  ("q" 'geben-end "end" :exit t))
 
 ;; TODO what it does?
 (use-package company-php

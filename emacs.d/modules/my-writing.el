@@ -15,6 +15,7 @@
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
 (add-hook 'text-mode-hook 'abbrev-mode)
+(add-hook 'find-file-hook 'my/lang-toggle)
 
 (eval-after-load 'flyspell
   '(progn
@@ -128,7 +129,6 @@
 
 (defun my/google-translate-at-point (&optional override-p)
   (interactive "P")
-
   (save-excursion
     (google-translate-at-point override-p))
 
@@ -142,19 +142,15 @@
   "Toggle language modes."
   (interactive)
   (unless (derived-mode-p 'prog-mode)
-    (let (
-           (new-mode (symbol-function
-                       (cond
-                         ((bound-and-true-p my/pl-mode) 'my/en-mode)
-                         ((bound-and-true-p my/en-mode) 'my/pl-mode)
-                         ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
-                         (t 'my/en-mode))
-                       ))
-           )
+    (let ((new-mode (symbol-function
+                      (cond
+                        ((bound-and-true-p my/pl-mode) 'my/en-mode)
+                        ((bound-and-true-p my/en-mode) 'my/pl-mode)
+                        ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
+                        (t 'my/en-mode))
+                      )))
       (my/lang-modes-deactivate)
       (funcall new-mode 1))))
-
-(add-hook 'find-file-hook 'my/lang-toggle)
 
 (use-package artbollocks-mode
   :commands artbollocks-mode
@@ -178,6 +174,7 @@
   ("q" 'smart-quotes-mode "smart quotes toggle" :exit t)
   ("l" 'my/lang-toggle "language toggle" :exit t)
   ("c" 'langtool-check-buffer "langtool check" :exit t)
-  ("d" 'langtool-check-done "langtool done" :exit t))
+  ("d" 'langtool-check-done "langtool done" :exit t)
+  ("a" 'artbollocks-mode "artbollocks" :exit t))
 
 (provide 'my-writing)
