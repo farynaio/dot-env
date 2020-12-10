@@ -333,71 +333,6 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       (apply 'evil-search-forward args)
       (apply 'search-forward args))))
 
-(use-package projectile
-  :config
-  (bind-key "C-c p" 'projectile-command-map projectile-mode-map)
-  (bind-key "C-c p F" 'projectile-find-file-other-window projectile-mode-map)
-
-  (setq projectile-completion-system 'ivy)
-  (setq projectile-indexing-method 'hybrid)
-  (setq projectile-enable-caching t)
-  (setq projectile-verbose nil)
-  (setq projectile-do-log nil)
-  (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-
-  ;; (setq projectile-generic-command "fd . -0")
-  (setq projectile-tags-command "ctags -R -e .")
-  (setq projectile-track-known-projects-automatically nil)
-  (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-  (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-  (setq projectile-globally-ignored-directories
-        (append '("node-modules" "dist" "target") projectile-globally-ignored-directories))
-
-  (projectile-mode 1)
-
-  (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
-
-  (add-hook 'after-init-hook
-            (lambda ()
-              (mapc (lambda (project-root)
-                      (remhash project-root projectile-project-type-cache)
-                      (remhash project-root projectile-projects-cache)
-                      (remhash project-root projectile-projects-cache-time)
-                      (when projectile-verbose
-                        (message "Invalidated Projectile cache for %s."
-                                 (propertize project-root 'face 'font-lock-keyword-face))))
-                    projectile-known-projects)
-              (projectile-serialize-cache))))
-
-(defun my/projectile-add-known-project (project-root)
-  (interactive (list (read-directory-name "Add to known projects: ")))
-  (projectile-add-known-project project-root)
-  (projectile-cleanup-known-projects))
-
-(defun my/projectile-invalidate-cache (arg)
-  "Remove the current project's files from `projectile-projects-cache'.
-
-With a prefix argument ARG prompts for the name of the project whose cache
-to invalidate."
-  (interactive "P")
-  (let ((project-root
-         (if arg
-             (completing-read "Remove cache for: " projectile-projects-cache)
-           (projectile-project-root))))
-    (setq projectile-project-root-cache (make-hash-table :test 'equal))
-    (remhash project-root projectile-project-type-cache)
-    (remhash project-root projectile-projects-cache)
-    (remhash project-root projectile-projects-cache-time)
-    (projectile-serialize-cache)
-    (when projectile-verbose
-      (message "Invalidated Projectile cache for %s."
-               (propertize project-root 'face 'font-lock-keyword-face)))))
-
-;; (use-package counsel-projectile
-;;   :config
-;;   (progn
-;;     (counsel-projectile-mode 1)))
-
 (use-package undo-tree
   :defer t
   :diminish undo-tree-mode
@@ -564,9 +499,8 @@ point reaches the beginning or end of the buffer, stop there."
     (windmove-right)
     (evil-jump-to-tag)))
 
-(global-set-key (kbd "C-x |") 'my/toggle-window-split)
-(global-set-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
-
+(bind-key "C-x |" 'my/toggle-window-split)
 (bind-key "C-x C-c" 'my/save-buffers-kill-terminal)
+(bind-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
 
 (provide 'my-navigation)

@@ -42,7 +42,7 @@
        (lambda ()
          (setq-local tab-width 2)
          (setq-local c-basic-offset 2)
-         (setq-local indent-line-function #'insert-tab)
+         (setq-local indent-line-function 'insert-tab)
          (setq-local indent-tabs-mode t)
          (modify-syntax-entry ?_ "w" (syntax-table))
          (modify-syntax-entry ?- "w" (syntax-table))))))
@@ -78,7 +78,7 @@
 ;;   js2-strict-missing-semi-warning nil)
 ;;     (setq js2-strict-inconsistent-return-warning nil)
 ;;     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;;     (add-hook 'js2-mode-hook #'emmet-mode))
+;;     (add-hook 'js2-mode-hook 'emmet-mode))
 
 ;; (use-package eglot
 ;;   :config
@@ -117,7 +117,7 @@
   (defun my/crontab-e ()
     (interactive)
     (with-editor-async-shell-command "crontab -e"))
-  (defalias 'crontab-e #'my/crontab-e))
+  (defalias 'crontab-e 'my/crontab-e))
 
 (setq shift-select-mode nil)
 
@@ -138,7 +138,7 @@
         (message "Tags build successfully."))
       (message "Cannot generate TAGS, not a projectile project."))))
 
-(defalias 'ctags #'my/ctags-build)
+(defalias 'ctags 'my/ctags-build)
 
 (defun my/visit-project-ctags ()
   (interactive)
@@ -244,12 +244,12 @@
 ;;        (modify-syntax-entry ?_ "w" (syntax-table))
 ;;        (modify-syntax-entry ?$ "w" (syntax-table))
 ;;        )
-;;      (add-hook 'js-mode-hook #'my/js-mode-hook)))
+;;      (add-hook 'js-mode-hook 'my/js-mode-hook)))
 
 ;; (add-hook 'js2-mode-hook
 ;;   (lambda ()
-;;     (add-to-list 'xref-backend-functions #'xref-js2-xref-backend)
-;;     (evil-local-set-key 'normal (kbd ",r") #'hydra-js-refactoring/body)
+;;     (add-to-list 'xref-backend-functions 'xref-js2-xref-backend)
+;;     (evil-local-set-key 'normal (kbd ",r") 'hydra-js-refactoring/body)
 ;;     ))
 
 (if (executable-find "eslint_d")
@@ -341,12 +341,12 @@
 
 ;;     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
 
-;;     (bind-key "C-c C-l" #'tide-references tide-mode-map)
+;;     (bind-key "C-c C-l" 'tide-references tide-mode-map)
 
 ;;     (evil-make-overriding-map tide-references-mode-map 'motion)
 ;;     (evil-make-overriding-map tide-references-mode-map 'normal)
 
-;;     (add-hook 'rjsx-mode-hook #'tide-setup)
+;;     (add-hook 'rjsx-mode-hook 'tide-setup)
 ;;     ))
 
 
@@ -391,7 +391,7 @@
 ;;     (tide-restart-server))
 ;;   (tide-mode))
 
-;; (add-hook 'js2-mode-hook #'my/tide-setup)
+;; (add-hook 'js2-mode-hook 'my/tide-setup)
 ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
 
 ;; (use-package robe
@@ -424,36 +424,37 @@
 
 (defhydra hydra-tide ()
   "Tide"
-  ("i" #'tide-organize-imports "Organize imports" :exit t)
-  ("r" #'tide-refactor "Refactor" :exit t)
-  ("f" #'tide-fix "Fix" :exit t)
-  ("r" #'tide-rename-file "Rename file" :exit t)
-  ("e" #'tide-error-at-point "Error at point" :exit t)
-  ("o" #'tide-references "References" :exit t)
-  ("d" #'tide-documentation-at-point "Show docs" :exit t)
-  ("x" #'tide-restart-server "Restart server" :exit t))
+  ("i" 'tide-organize-imports "Organize imports" :exit t)
+  ("r" 'tide-refactor "Refactor" :exit t)
+  ("f" 'tide-fix "Fix" :exit t)
+  ("r" 'tide-rename-file "Rename file" :exit t)
+  ("e" 'tide-error-at-point "Error at point" :exit t)
+  ("o" 'tide-references "References" :exit t)
+  ("d" 'tide-documentation-at-point "Show docs" :exit t)
+  ("x" 'tide-restart-server "Restart server" :exit t))
 
 (defhydra hydra-projectile ()
   "Projectile"
-  ("p" #'hydra-projectile-project/body "project" :exit t)
-  ("t" #'projectile-find-tag "find tag" :exit t)
-  ("o" #'projectile-find-other-file "find other file" :exit t)
-  ("f" #'projectile-find-file "find file" :exit t)
-  ("r" #'projectile-replace-regexp "replace" :exit t)
-  ("i" #'projectile-invalidate-cache "invalidate cache" :exit t)
-  ("b" #'modi/kill-non-project-buffers "kill unrelated buffers" :exit t)
-  ("d" #'my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle" :exit t))
+  ("a" 'jarfar/projectile-show-relative-path "show path" :exit t)
+  ("p" 'hydra-projectile-project/body "project" :exit t)
+  ("t" 'projectile-find-tag "find tag" :exit t)
+  ("o" 'projectile-find-other-file "find other file" :exit t)
+  ("f" 'projectile-find-file "find file" :exit t)
+  ("r" 'projectile-replace-regexp "replace" :exit t)
+  ("i" 'projectile-invalidate-cache "invalidate cache" :exit t)
+  ("b" 'modi/kill-non-project-buffers "kill unrelated buffers" :exit t)
+  ("d" 'my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle" :exit t))
 
 (defhydra hydra-projectile-project ()
   "Projectile project"
-  ("a" #'my/projectile-add-known-project "add" :exit t)
-  ("r" #'projectile-remove-known-project "remove" :exit t))
+  ("a" 'my/projectile-add-known-project "add" :exit t)
+  ("r" 'projectile-remove-known-project "remove" :exit t))
 
 (defhydra hydra-js-search ()
   "JS search"
-  ("p" #'my/rgrep "grep" :exit t)
-  ("s" #'tern-find-definition "find JS definition" :exit t)
-  ("t" #'tern-find-definition-by-name "find JS definition by name" :exit t))
+  ("p" 'my/rgrep "grep" :exit t)
+  ("s" 'tern-find-definition "find JS definition" :exit t)
+  ("t" 'tern-find-definition-by-name "find JS definition by name" :exit t))
 ;; (define-key tern-mode-keymap [(control ?c) (control ?r)] 'tern-rename-variable)
 
 (defhydra hydra-js-refactoring ()
@@ -465,24 +466,24 @@
 
 (defhydra hydra-js-refactoring-node ()
   "JS refactoring node"
-  ("e" #'js2r-expand-node-at-point "expand 'node'" :exit t)
-  ("c" #'js2r-contract-node-at-point "contract 'node'" :exit t))
+  ("e" 'js2r-expand-node-at-point "expand 'node'" :exit t)
+  ("c" 'js2r-contract-node-at-point "contract 'node'" :exit t))
 
 (defhydra hydra-js-refactoring-extract ()
   "JS refactoring extract"
-  ("v" #'js2r-extract-var "var" :exit t)
-  ("l" #'js2r-extract-let "let" :exit t)
-  ("c" #'js2r-extract-const "const" :exit t)
-  ("f" #'js2r-extract-function "function" :exit t)
-  ("m" #'js2r-extract-method "method" :exit t))
+  ("v" 'js2r-extract-var "var" :exit t)
+  ("l" 'js2r-extract-let "let" :exit t)
+  ("c" 'js2r-extract-const "const" :exit t)
+  ("f" 'js2r-extract-function "function" :exit t)
+  ("m" 'js2r-extract-method "method" :exit t))
 
 (defhydra hydra-js-refactoring-rename ()
   "JS refactoring rename"
-  ("v" #'js2r-rename-var "var" :exit t))
+  ("v" 'js2r-rename-var "var" :exit t))
 
 (defhydra hydra-js-refactoring-replace ()
   "JS refactoring replace"
-  ("t" #'js2r-var-to-this "'var' which 'this'" :exit t))
+  ("t" 'js2r-var-to-this "'var' which 'this'" :exit t))
 
 
 ;; (use-package guess-style
@@ -511,7 +512,7 @@
   :hook (geben-mode . evil-emacs-state))
 
 (use-package toml-mode
-  :mode "\\.toml$")
+  :mode "\\.toml\\'")
 
 (use-package web-mode
   :hook ((web-mode . (lambda ()
@@ -524,15 +525,15 @@
           ("C-c C-p" . web-mode-tag-beginning)
           ("<backtab>" . indent-relative)
           ("<f5>" . my/toggle-php-flavor-mode))
-  :mode (("\\.php\\'" . web-mode-map)
-          ("\\.phtml\\'" . web-mode-map)
-          ("\\.tpl\\.php\\'" . web-mode-map)
-          ("\\.js\\'" . web-mode-map)
-          ("\\.html\\.twig\\'" . web-mode-map)
-          ("\\.hbs\\'" . web-mode-map)
-          ("\\.ejs\\'" . web-mode-map)
-          ("\\.html?\\'" . web-mode-map)
-          ;; ("\\.php\\'" . web-mode-map)
+  :mode (("\\.php\\'" . web-mode)
+          ("\\.phtml\\'" . web-mode)
+          ("\\.tpl\\.php\\'" . web-mode)
+          ("\\.js\\'" . web-mode)
+          ("\\.html\\.twig\\'" . web-mode)
+          ("\\.hbs\\'" . web-mode)
+          ("\\.ejs\\'" . web-mode)
+          ("\\.html?\\'" . web-mode)
+          ;; ("\\.php\\'" . web-mode)
           )
   :config
   (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
@@ -565,7 +566,7 @@
     (puthash ?\' ?\' jarfar/pairs-hash-table))
 
   (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
-    (define-key prog-mode-map (char-to-string elt) 'jarfar/electric-pair))
+    (bind-key (char-to-string elt) 'jarfar/electric-pair) prog-mode-map)
 
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
@@ -594,8 +595,8 @@
 ;; (use-package dash-at-point
 ;;   :config
 ;;   (dolist (i my/devel-keymaps)
-;;     (bind-key "C-c d" #'dash-at-point i)
-;;     (bind-key "C-c e" #'dash-at-point-with-docset i)))
+;;     (bind-key "C-c d" 'dash-at-point i)
+;;     (bind-key "C-c e" 'dash-at-point-with-docset i)))
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html

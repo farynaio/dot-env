@@ -192,8 +192,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (unbind-key "C-'" org-mode-map)
 
-     (define-key org-mode-map [remap backward-paragraph] nil)
-     (define-key org-mode-map [remap forward-paragraph] nil)
+     (bind-key [remap backward-paragraph] nil org-mode-map)
+     (bind-key [remap forward-paragraph] nil org-mode-map)
 
      (bind-key "C-x :"
        (lambda ()
@@ -1727,20 +1727,6 @@ it can be passed in POS."
      (if (not (org-at-heading-p))
        (org-previous-visible-heading 1))
      (org-element-property :title (org-element-at-point))))
-
-;; (defun ndk/org-breadcrumbs ()
-;;   "Get the chain of headings from the top level down to the current heading."
-;;   (let ((breadcrumbs (org-format-outline-path
-;;                        (org-get-outline-path)
-;;                        (1- (frame-width))
-;;                        nil "->"))
-;;          (title (ndk/heading-title)))
-
-;;     (if title
-;;       (if (string-empty-p breadcrumbs)
-;;         title
-;;         (format "%s->%s" breadcrumbs title))
-;;       (org-roam--extract-titles-title))))
 
 (defun ndk/org-breadcrumbs ()
   "Get the chain of headings from the top level down to the current heading."
