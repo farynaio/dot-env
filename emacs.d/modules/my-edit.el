@@ -371,14 +371,6 @@ end-of-buffer signals; pass the rest to the default handler."
 ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
 ;; (add-hook 'after-make-frame-functions 'my/set-emoji-font)
 
-(require 'inc-dec-at-point)
-
-(eval-after-load 'inc-dec-at-point
-  '(progn
-     (when (boundp 'evil-normal-state-map)
-       (bind-key "<S-up>" 'jarfar/increment evil-normal-state-map)
-       (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-map))))
-
 (defhydra hydra-buffer ()
   "Buffer"
   ("i" ibuffer "ibuffer" :exit t))

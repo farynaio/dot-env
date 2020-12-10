@@ -698,4 +698,11 @@ in whole buffer.  With neither, delete comments on current line."
     (while (re-search-forward "</?code>" nil t)
       (replace-match "`" nil nil))))
 
+(require 'inc-dec-at-point)
+
+(add-hook 'prog-mode-hook (lambda ()
+                            (when (boundp 'evil-normal-state-local-map)
+                              (bind-key "<S-up>" 'jarfar/increment evil-normal-state-local-map)
+                              (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-local-map))))
+
 (provide 'my-devel)
