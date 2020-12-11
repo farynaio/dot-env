@@ -473,6 +473,16 @@ end-of-buffer signals; pass the rest to the default handler."
   (package-reinstall pkg)
   (require pkg))
 
+;; https://stackoverflow.com/a/11624677/346921
+(defun jarfar/unindent-region ()
+  (interactive)
+  (let ((offset (* tab-width -1)))
+    (if (use-region-p)
+      (progn (indent-rigidly (region-beginning) (region-end) offset)
+        (setq deactivate-mark nil))
+      (indent-rigidly (line-beginning-position) (line-end-position) offset))))
+
+(bind-key "<S-tab>" 'jarfar/unindent-region)
 (defvar epa-key-mode-map (make-sparse-keymap))
 (defvar org-mode-map (make-sparse-keymap))
 (defvar mu4e:view-mode-map (make-sparse-keymap))
