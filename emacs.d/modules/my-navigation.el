@@ -6,7 +6,8 @@
 (bind-key "C-c p" 'pop-to-mark-command)
 
 (setq set-mark-command-repeat-pop t)
-(setq default-directory "~/.emacs.d")
+(setq default-directory "~/")
+(setq initial-buffer-choice t) ;; *scratch* as default buffer
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-forward-word-function 'forward-char)

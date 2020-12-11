@@ -204,7 +204,8 @@
 
 (defun jarfar/open-buffers-on-startup ()
   (when (file-exists-p "~/.emacs.d/init.el")
-    (find-file "~/.emacs.d/init.el")))
+    (find-file "~/.emacs.d/init.el"))
+  (switch-to-buffer "*scratch*"))
 
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
 
