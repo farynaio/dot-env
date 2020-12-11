@@ -18,11 +18,10 @@
 ;;       (lambda ()
 ;;         (set-face-background 'mmm-default-submode-face nil)))))
 
-(setq sh-basic-offset 2)
-(setq c-basic-offset 'set-from-style)
-
 (auto-highlight-symbol-mode 1)
 (hl-todo-mode 1)
+
+(setq sh-basic-offset 2)
 
 (define-derived-mode guest-mode fundamental-mode "guest"
   "major mode for guest editing."
@@ -40,10 +39,7 @@
   '(progn
      (add-hook 'conf-mode-hook
        (lambda ()
-         (setq-local tab-width 2)
-         (setq-local c-basic-offset 2)
          (setq-local indent-line-function 'insert-tab)
-         (setq-local indent-tabs-mode t)
          (modify-syntax-entry ?_ "w" (syntax-table))
          (modify-syntax-entry ?- "w" (syntax-table))))))
 
@@ -223,9 +219,6 @@
 
      (defun my/css-mode-hook()
        ;; (flycheck-mode -1)
-       (setq tab-width 2)
-       (setq c-basic-offset 2)
-       (setq indent-tabs-mode nil)
        (modify-syntax-entry ?_ "w" (syntax-table))
        (modify-syntax-entry ?$ "w" (syntax-table))
        (add-to-list 'company-backends 'company-css))
@@ -553,8 +546,6 @@
 
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
-  (setq-local tab-width 2)
-  (setq-local c-basic-offset 2)
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
@@ -569,7 +560,6 @@
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
     (setq mode-name "Elisp")
-    (setq-local c-basic-offset 2)
     (flycheck-mode -1)
     (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))

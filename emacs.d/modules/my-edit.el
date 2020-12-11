@@ -10,6 +10,16 @@
 
 (setq-default mode-require-final-newline nil)
 
+(setq tab-width 2)
+(defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'cperl-indent-level 'tab-width)
+
+(setq indent-tabs-mode nil)
+(setq backward-delete-char-untabify-method 'hungry)
+
+(when (boundp 'evil-shift-width)
+  (setq-default evil-shift-width tab-width))
+
 (use-package hydra)
 ;; (use-package monitor)
 ;; (use-package popup)
