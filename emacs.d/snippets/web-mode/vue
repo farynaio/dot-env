@@ -1,0 +1,19 @@
+# name: vue component template
+# key: vue
+# condition: (looking-back "^vue" nil)
+# --
+<template lang="pug">
+  $1
+</template>
+
+<script>
+
+export default {
+  name: "$2",
+  props: {},
+  data: () => ({}),
+  methods: {}
+}
+</script>
+
+<style scoped></style>

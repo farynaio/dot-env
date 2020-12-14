@@ -1,0 +1,4 @@
+# name: require
+# key: require
+# --
+const $1 = require("$2")
