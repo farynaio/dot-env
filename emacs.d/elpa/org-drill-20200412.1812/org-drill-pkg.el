@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "org-drill" "20200412.1812" "Self-testing using spaced repetition" '((emacs "25.3") (seq "2.14") (org "9.3") (persist "0.3")) :commit "35c1ce349949cc213f3076799211210f49431850" :keywords '("games" "outlines" "multimedia") :authors '(("Paul Sexton" . "eeeickythump@gmail.com")) :maintainer '("Phillip Lord" . "phillip.lord@russet.org.uk") :url "https://gitlab.com/phillord/org-drill/issues")
