@@ -96,7 +96,7 @@ $0`(yas-escape-text yas-selected-text)`")
   (setq company-show-numbers t)
   (setq company-tooltip-align-annotations t)
   (setq company-minimum-prefix-length 1)
-  (setq company-begin-commands '(c-scope-operator c-electric-colon c-electric-lt-gt c-electric-slash)))
+  (setq company-backends '(company-capf company-dabbrev-code company-dabbrev company-files)))
 
 (use-package which-key
   :diminish which-key-mode

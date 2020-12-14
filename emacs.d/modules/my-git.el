@@ -54,19 +54,21 @@
   (when (projectile-project-root)
     (message (substring buffer-file-name (length (projectile-project-root))))))
 
-(defhydra hydra-projectile ()
-  "Projectile"
+(defhydra hydra-project ()
+  "Project"
   ("a" jarfar/projectile-show-relative-path "show path" :exit t)
-  ("p" hydra-projectile-project/body "project" :exit t)
-  ("t" projectile-find-tag "find tag" :exit t)
-  ("o" projectile-find-other-file "find other file" :exit t)
-  ("f" projectile-find-file "find file" :exit t)
-  ("r" projectile-replace-regexp "replace" :exit t)
-  ("i" projectile-invalidate-cache "invalidate cache" :exit t)
-  ("b" modi/kill-non-project-buffers "kill unrelated buffers" :exit t)
-  ("d" my/dtrt-indent-mode-toggle "dtrt-indent-mode toggle" :exit t))
+  ("p" hydra-project-projectile/body "projectile add/remove" :exit t)
+  ("t" projectile-find-tag "Find tag" :exit t)
+  ("o" projectile-find-other-file "Find other file" :exit t)
+  ("f" projectile-find-file "Find file" :exit t)
+  ("r" projectile-replace-regexp "Replace" :exit t)
+  ("i" projectile-invalidate-cache "Invalidate projectile cache" :exit t)
+  ("b" modi/kill-non-project-buffers "Kill unrelated buffers" :exit t)
+  ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t)
+  ;; ("t" treemacs "Toggle treemacs" :exit t)
+  )
 
-(defhydra hydra-projectile-project ()
+(defhydra hydra-project-projectile ()
   "Projectile project"
   ("a" my/projectile-add-known-project "add" :exit t)
   ("r" projectile-remove-known-project "remove" :exit t))

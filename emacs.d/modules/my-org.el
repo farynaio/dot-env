@@ -1313,32 +1313,31 @@ should be continued."
 
 (use-package org-roam
   :after org
-  :diminish (org-roam-mode . "Roam")
+  :diminish org-roam-mode
   :config
-  (progn
-    (require 'org-roam-protocol)
+  (require 'org-roam-protocol)
 
-    (setq org-roam-db-location (expand-file-name "roam.sqlite" "~/"))
-    (setq org-roam-directory my/org-roam-directory)
-    (setq org-roam-graph-viewer "/usr/bin/open")
-    (setq org-roam-db-gc-threshold most-positive-fixnum)
-    (setq org-roam-tag-sources '(prop))
-    (setq org-roam-update-db-idle-second 60)
-    (setq org-roam-verbose nil)
-;;
-    (make-directory my/org-roam-directory t)
+  (setq org-roam-db-location (expand-file-name "roam.sqlite" "~/"))
+  (setq org-roam-directory my/org-roam-directory)
+  (setq org-roam-graph-viewer "/usr/bin/open")
+  (setq org-roam-db-gc-threshold most-positive-fixnum)
+  (setq org-roam-tag-sources '(prop))
+  (setq org-roam-update-db-idle-second 60)
+  (setq org-roam-verbose nil)
+  ;;
+  (make-directory my/org-roam-directory t)
 
-    (add-hook 'after-save-hook
-      (lambda ()
-        (let ((bname (buffer-name (current-buffer))))
-          (when (string-equal bname "*org-roam*")
-            (org-roam-buffer-update)))))
+  (add-hook 'after-save-hook
+    (lambda ()
+      (let ((bname (buffer-name (current-buffer))))
+        (when (string-equal bname "*org-roam*")
+          (org-roam-buffer-update)))))
 
-    (setq org-roam-capture-ref-templates
-      '(("r" "ref" plain (function org-roam-capture--get-point)
-          "%?"
-          :file-name "website/%<%Y%m%d%H%M%S>"
-          :head "#+TITLE: ${title}
+  (setq org-roam-capture-ref-templates
+    '(("r" "ref" plain (function org-roam-capture--get-point)
+        "%?"
+        :file-name "website/%<%Y%m%d%H%M%S>"
+        :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_KEY: ${ref}
@@ -1346,14 +1345,14 @@ should be continued."
 
 - progress-status ::
 - tags :: "
-          :unnarrowed t)))
+        :unnarrowed t)))
 
-    (setq org-roam-dailies-capture-templates
-      '(("d" "daily" plain (function org-roam-capture--get-point)
-          ""
-          :immediate-finish t
-          :file-name "journal/%<%Y-%m-%d>"
-          :head "#+TITLE: %<%Y-%m-%d>
+  (setq org-roam-dailies-capture-templates
+    '(("d" "daily" plain (function org-roam-capture--get-point)
+        ""
+        :immediate-finish t
+        :file-name "journal/%<%Y-%m-%d>"
+        :head "#+TITLE: %<%Y-%m-%d>
 #+ROAM_TAGS: private
 
 
@@ -1369,49 +1368,49 @@ should be continued."
 
 ")))
 
-    (setq org-roam-capture-templates
-      '(
-         ("d" "Default" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+  (setq org-roam-capture-templates
+    '(
+       ("d" "Default" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("g" "Guru summary" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "guru/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("g" "Guru summary" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "guru/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("c" "Course summary" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "course/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("c" "Course summary" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "course/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U\n#+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags ::
 - author ::
 - progress-status :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("b" "Book summary" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "book/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("b" "Book summary" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "book/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1420,13 +1419,13 @@ should be continued."
 - author ::
 - recommended-by ::
 - progress-status :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("a" "Article summary" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "article/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("a" "Article summary" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "article/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1434,137 +1433,136 @@ should be continued."
 - tags ::
 - author ::
 - progress-status :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("t" "Topic" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "topic/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("t" "Topic" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "topic/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("p" "Programming" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "programming/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("p" "Programming" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "programming/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("r" "Travel" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "travel/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("r" "Travel" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "travel/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("u" "Business" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "business/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("u" "Business" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "business/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("m" "Marketing" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "marketing/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("m" "Marketing" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "marketing/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
 
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
+         :unnarrowed t
+         :kill-buffer t)
 
-         ("r" "web" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "website/%<%Y%m%d%H%M%S>"
-           :head "#+TITLE: ${title}
+       ("r" "web" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "website/%<%Y%m%d%H%M%S>"
+         :head "#+TITLE: ${title}
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_KEY: ${ref}
 
 - progress-status ::
 - tags :: "
-           :unnarrowed t
-           :kill-buffer t)
-         ))
+         :unnarrowed t
+         :kill-buffer t)
+       ))
 
-    (defhydra jarfar/hydra-org-roam ()
-      "org roam"
-      ("r" org-roam "org-roam" :exit t)
-      ("k" org-roam "Toggle sidebar" :exit t)
-      ("l" org-roam-insert "Insert" :exit t)
-      ("j" org-roam-dailies-date "Journal" :exit t)
-      ("f" org-roam-find-file "Find file" :exit t)
-      ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
-      ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
-      ("d" org-roam-find-directory "Find dir" :exit t))
+  (defhydra jarfar/hydra-org-roam ()
+    "org roam"
+    ("r" org-roam "org-roam" :exit t)
+    ("k" org-roam "Toggle sidebar" :exit t)
+    ("l" org-roam-insert "Insert" :exit t)
+    ("j" org-roam-dailies-date "Journal" :exit t)
+    ("f" org-roam-find-file "Find file" :exit t)
+    ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
+    ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
+    ("d" org-roam-find-directory "Find dir" :exit t))
 
-    (defun jarfar/org-roam-find-file-other-window (&rest args)
-      (interactive)
-      (let ((org-roam-find-file-function #'find-file-other-window))
-        (apply #'org-roam-find-file args)))
+  (defun jarfar/org-roam-find-file-other-window (&rest args)
+    (interactive)
+    (let ((org-roam-find-file-function #'find-file-other-window))
+      (apply #'org-roam-find-file args)))
 
-    ;; faces
-    ;; org-roam-link
-    ;; org-roam-link-current
+  ;; faces
+  ;; org-roam-link
+  ;; org-roam-link-current
 
 
-    (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
-      "Keymap for `jarfar/org-roam-side-mode'.")
+  (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
+    "Keymap for `jarfar/org-roam-side-mode'.")
 
-    (define-minor-mode jarfar/org-roam-side-mode
-      "Minor mode for org-roam side org buffer."
-      :init-value nil
-      :keymap jarfar/org-roam-side-mode-map)
+  (define-minor-mode jarfar/org-roam-side-mode
+    "Minor mode for org-roam side org buffer."
+    :init-value nil
+    :keymap jarfar/org-roam-side-mode-map)
 
-    (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
-      "Keymap for `jarfar/org-roam-side-mode'.")
+  (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
+    "Keymap for `jarfar/org-roam-side-mode'.")
 
-    (define-minor-mode jarfar/org-roam-mode
-      "Minor mode for org-roam org buffers."
-      :init-value nil
-      :keymap jarfar/org-roam-mode-map)
+  (define-minor-mode jarfar/org-roam-mode
+    "Minor mode for org-roam org buffers."
+    :init-value nil
+    :keymap jarfar/org-roam-mode-map)
 
-    (defun jarfar/org-roam-mode-hook-org-ram ()
-      (when (string-prefix-p my/org-roam-directory buffer-file-name)
-        (jarfar/org-roam-mode 1))
-      (when (string-equal (buffer-name) "*org-roam*")
-        (jarfar/org-roam-side-mode 1)))
+  (defun jarfar/org-roam-mode-hook-org-ram ()
+    (when (string-prefix-p my/org-roam-directory buffer-file-name)
+      (jarfar/org-roam-mode 1))
+    (when (string-equal (buffer-name) "*org-roam*")
+      (jarfar/org-roam-side-mode 1)))
 
-    (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-org-ram)
+  (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-org-ram)
 
-    (bind-key "C-c v" #'jarfar/hydra-org-roam/body)
+  (bind-key "C-c v" #'jarfar/hydra-org-roam/body)
 
-    (org-roam-mode 1)
+  (org-roam-mode 1)
 
-    (when (fboundp 'org-roam-dailies-today)
-      (org-roam-dailies-today))
+  (when (fboundp 'org-roam-dailies-today)
+    (org-roam-dailies-today))
 
-    (defalias 'roam #'org-roam)
-    ))
+  (defalias 'roam #'org-roam))
 
 (use-package org-roam-server
   :after org-roam
@@ -1580,21 +1578,15 @@ should be continued."
   (setq org-roam-server-network-label-wrap-length 20))
 
 (use-package company-org-roam
-  :after org-roam
-  :hook (org-mode . jarfar/org-roam-mode-hook-company-org-ram)
-  :config
-  (defun jarfar/org-roam-mode-hook-company-org-ram ()
-    (when (string-prefix-p my/org-roam-directory buffer-file-name)
-      (make-variable-buffer-local 'company-backends)
-      (add-to-list 'company-backends 'company-capf))))
+  :after company-mode org-roam org)
 
-(use-package deft
-  :after org-roam
-  :custom
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  (deft-directory my/org-roam-directory))
+;; (use-package deft
+;;   :after org-roam
+;;   :custom
+;;   (deft-recursive t)
+;;   (deft-use-filter-string-for-filename t)
+;;   (deft-default-extension "org")
+;;   (deft-directory my/org-roam-directory))
 
 ;;--------------------------
 ;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
@@ -1648,8 +1640,6 @@ it can be passed in POS."
     (zp/org-set-time-file-property "LAST_MODIFIED")))
 
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
-
-(use-package all-the-icons)
 
 (use-package org-journal
   :after org-roam

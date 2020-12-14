@@ -101,6 +101,24 @@
 ;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
 ;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
 
+;; (use-package treemacs
+;;   :defer t
+;;   :commands treeemacs
+;;   :config
+;;   (treemacs-follow-mode 1)
+;;   (treemacs-fringe-indicator-mode 1)
+;;   (treemacs-git-mode 'simple)
+;;   (treemacs-filewatch-mode 1))
+
+;; (use-package treemacs-projectile
+;;   :after projectile treemacs)
+
+;; (use-package treemacs-evil
+;;   :after evil treemacs)
+
+;; (use-package treemacs-magit
+;;   :after treemacs magit)
+
 (use-package avy
   :bind (:map help-mode-map
           ("\\c" . 'avy-goto-char)
@@ -111,7 +129,7 @@
     (bind-key "\\c" 'avy-goto-char evil-motion-state-map)))
 
 (use-package ivy-hydra
-  :after ivy)
+  :after ivy hydra)
 
 (use-package ivy
   :diminish ivy-mode

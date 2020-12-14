@@ -88,6 +88,7 @@
   (diminish 'visual-line-mode)
   (diminish 'editorconfig-mode)
   (diminish 'js-mode "JS")
+  (diminish 'reveal-mode)
   (diminish 'abbrev-mode))
 
 (require 'gnutls)
@@ -271,7 +272,7 @@
           (concat "\\("
                   "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
                   "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
-                  "\\)$"))))
+            "\\)$"))))
 
 ;; (desktop-save-mode 1)
 
@@ -282,8 +283,6 @@
   (message "Config reloaded."))
 
 (display-time-mode -1)
-
-(setq company-backends '(company-capf company-dabbrev-code company-dabbrev))
 
 (setq safe-local-variable-values
   '(

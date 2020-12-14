@@ -254,20 +254,18 @@
 (use-package lsp-mode
   :hook ((web-mode . lsp)
           (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
-  :commands (lsp lsp-deferred)
+  :commands lsp lsp-deferred
   :config
-  (setq lsp-enable-completion-at-point nil)
-  (setq lsp-inhibit-message t)
-  (setq lsp-hover-enabled nil)
-  (setq lsp-signature-enabled nil)
-  (setq lsp-enable-snippet nil)
-  (setq lsp-auto-guess-root t)
-  (setq lsp-prefer-capf t)
+  ;; (setq lsp-enable-completion-at-point nil)
+  ;; (setq lsp-inhibit-message nil)
+  ;; (setq lsp-hover-enabled nil)
+  ;; (setq lsp-signature-enabled nil)
+  ;; (setq lsp-enable-snippet nil)
+
+  ;; (setq lsp-auto-guess-root t)
+  ;; (setq lsp-prefer-capf t)
   ;; (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
-  ;; (setq lsp-eslint-server-command
-  ;;   '("node"
-  ;;      "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js"
-  ;;      "--stdio"))
+  (setq lsp-eslint-server-command '("node" "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" "--stdio"))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
@@ -275,7 +273,7 @@
   :requires lsp-mode
   :config
   (require 'dap-chrome)
-  ;; (dap-chrome-setup)
+  (dap-chrome-setup)
   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
   (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
@@ -286,12 +284,12 @@
 ;;   (setq lsp-ui-doc-position 'top)
 ;;   (setq lsp-ui-doc-header t))
 
-(use-package lsp-ivy
-  :requires (lsp-mode ivy)
-  :commands lsp-ivy-workspace-symbol)
+;; (use-package lsp-ivy
+;;   :requires (lsp-mode ivy)
+;;   :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-treemacs
-  :after lsp-mode
+  :after lsp-mode treemacs
   :commands lsp-treemacs-errors-list
   :config
   (lsp-treemacs-sync-mode 1))
@@ -475,8 +473,6 @@
   :hook (terraform-mode . terraform-format-on-save-mode)
   :mode "\\.tf\\'")
 
-(use-package company-statistics
-  :requires company)
 
 ;; TODO what it does?
 ;; (use-package company-web
@@ -528,14 +524,21 @@
 (defun my/prog-mode-hook ()
   (make-local-variable 'company-backends)
 
-  ;; (add-to-list 'company-backends 'company-graphql t)
+  (add-to-list 'company-backends 'company-graphql t)
   (add-to-list 'company-backends 'company-gtags t)
   (add-to-list 'company-backends 'company-etags t)
   (add-to-list 'company-backends 'company-keywords)
 
-  (setq-local company-backends (delete 'company-dabbrev company-backends))
+  ;; (add-to-list 'company-backends 'company-bbdb)
+  ;; (add-to-list 'company-backends 'company-semantic)
+  ;; (add-to-list 'company-backends 'company-cmake)
+  ;; (add-to-list 'company-backends 'company-clang)
+  ;; (add-to-list 'company-backends 'company-oddmuse)
+  ;; (add-to-list 'company-backends 'company-oddmuse)
+  ;; (add-to-list 'company-backends '(company-dabbrev-code company-gtags company-etags company-keywords))
 
-  (make-local-variable 'flycheck-check-syntax-automatically)
+  ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
+
   (make-local-variable 'jarfar/pairs-hash-table)
 
   (when (null (gethash ?\' jarfar/pairs-hash-table))
@@ -544,8 +547,8 @@
   (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
     (bind-key (char-to-string elt) 'jarfar/electric-pair) prog-mode-map)
 
+  (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
-
 
   (flycheck-mode 1)
   (hl-todo-mode 1)
