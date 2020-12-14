@@ -44,13 +44,14 @@
 
 (setq org-babel-python-command "python3")
 
+;; This is for async evalaution of org-babel blocks.
 (use-package ob-async
   :config
   (setq ob-async-no-async-languages-alist '("ipython")))
 
-(use-package auctex
-  :hook (LaTeX-mode . turn-on-reftex)
-  :defer t)
+;; (use-package auctex
+;;   :hook (LaTeX-mode . turn-on-reftex)
+;;   :defer t)
 
 (define-minor-mode my/org-agenda-appt-mode
   "Minor mode for org agenda updating appt"

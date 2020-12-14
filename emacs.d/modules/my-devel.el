@@ -44,6 +44,7 @@
          (modify-syntax-entry ?- "w" (syntax-table))))))
 
 (use-package ledger-mode
+  :hook (ledger-mode . company-mode)
   :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
   :mode "\\.ledger\\'"
   :init
@@ -288,11 +289,11 @@
 ;;   :requires (lsp-mode ivy)
 ;;   :commands lsp-ivy-workspace-symbol)
 
-(use-package lsp-treemacs
-  :after lsp-mode treemacs
-  :commands lsp-treemacs-errors-list
-  :config
-  (lsp-treemacs-sync-mode 1))
+;; (use-package lsp-treemacs
+;;   :after lsp-mode treemacs
+;;   :commands lsp-treemacs-errors-list
+;;   :config
+;;   (lsp-treemacs-sync-mode 1))
 
 (use-package typescript-mode
   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
@@ -550,6 +551,7 @@
   (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
+  (company-mode 1)
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)

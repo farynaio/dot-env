@@ -335,7 +335,10 @@
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
              (idx 6))
-           "%(binary) -f %(ledger-file) reg %(account)")))))
+           "%(binary) -f %(ledger-file) reg %(account)"))))
+  '(package-selected-packages
+     (quote
+       (yaml-mode which-key web-mode web-beautify vue-mode vimrc-mode use-package undo-fu typescript-mode terraform-mode smartscan rjsx-mode request realgud rainbow-mode rainbow-delimiters projectile-rails prettier-js popup php-mode pfuture persistent-scratch org-roam-server org-review org-plus-contrib org-journal org-drill ob-async oauth2 magit ledger-mode langtool json-mode japanese-holidays jade-mode ivy-rich ivy-hydra hl-todo goto-last-change google-translate git-gutter geben flycheck evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy elfeed-web elfeed-org elfeed-goodies editorconfig dtrt-indent drag-stuff dockerfile-mode diminish dap-mode counsel company-php company-org-roam calfw-org calfw auto-highlight-symbol auto-compile auctex artbollocks-mode all-the-icons ag add-node-modules-path))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

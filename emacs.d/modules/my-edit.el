@@ -91,7 +91,6 @@ $0`(yas-escape-text yas-selected-text)`")
 (use-package company
   :diminish company-mode
   :config
-  (global-company-mode 1)
   (setq company-idle-delay 0.0)
   (setq company-show-numbers t)
   (setq company-tooltip-align-annotations t)
