@@ -18,7 +18,15 @@
 ;; (add-to-list 'org-modules 'org-eww t)
 (add-to-list 'org-modules 'org-checklist t)
 
-(use-package calfw-org)
+(use-package calfw
+  :defer)
+
+(use-package calfw-org
+  :requires calfw
+  :commands cfw:open-org-calendar)
+
+(defalias 'cal 'cfw:open-org-calendar)
+
 (use-package hl-todo)
 
 (require 'ob-python)
@@ -55,12 +63,6 @@
 (defun my/org-agenda-to-appt-if-not-terminated ()
   (unless my/save-buffers-kill-terminal-was-called
     (org-agenda-to-appt t)))
-
-;; org agenda full month calendar
-(defun cal ()
-  "Full month calendar by calfw-org-calendar."
-  (interactive)
-  (cfw:open-org-calendar))
 
 ;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
 (defun jarfar/year-calendar (&optional year)
@@ -1529,7 +1531,6 @@ should be continued."
     ;; org-roam-link
     ;; org-roam-link-current
 
-    (org-roam-mode 1)
 
     (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
       "Keymap for `jarfar/org-roam-side-mode'.")
@@ -1557,13 +1558,13 @@ should be continued."
 
     (bind-key "C-c v" #'jarfar/hydra-org-roam/body)
 
+    (org-roam-mode 1)
+
+    (when (fboundp 'org-roam-dailies-today)
+      (org-roam-dailies-today))
+
     (defalias 'roam #'org-roam)
     ))
-
-(eval-after-load 'org-roam
-  '(progn
-    (when (fboundp 'org-roam-dailies-today) (org-roam-dailies-today))
-  ))
 
 (use-package org-roam-server
   :after org-roam

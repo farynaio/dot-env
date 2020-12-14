@@ -334,15 +334,15 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       (apply 'evil-search-forward args)
       (apply 'search-forward args))))
 
-(use-package undo-tree
-  :defer t
-  :diminish undo-tree-mode
-  :config
-  (setq undo-tree-visualizer-diff t)
-  (when (fboundp 'evil-make-overriding-map)
-    (evil-make-overriding-map undo-tree-visualizer-mode-map 'motion)
-    (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
-    (evil-make-overriding-map undo-tree-map 'motion)))
+;; (use-package undo-tree
+;;   :defer t
+;;   :diminish undo-tree-mode
+;;   :config
+;;   (setq undo-tree-visualizer-diff t)
+;;   (when (fboundp 'evil-make-overriding-map)
+;;     (evil-make-overriding-map undo-tree-visualizer-mode-map 'motion)
+;;     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
+;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
 (use-package ag
   :config

@@ -2,6 +2,7 @@
 
 (setq gc-cons-threshold (* 1024 1024 1024))
 (setq gc-cons-percentage 0.5)
+(setq read-process-output-max (* 1024 1024))
 (setq file-name-handler-alist nil)
 ;; (setq gc-cons-threshold 402653184)
 ;; (setq gc-cons-percentage 0.6)
@@ -29,13 +30,12 @@
 (setenv "LC_TIME" "en_US.UTF-8")
 (setenv "SHELL" "/bin/ksh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+(setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
 (when (string-equal system-type "darwin")
   (when (file-accessible-directory-p "/Applications/Firefox.app/Contents/MacOS")
-    (setenv "PATH" (concat (getenv "HOME") "/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
-    (setq exec-path (cons "/Applications/Firefox.app/Contents/MacOS" exec-path))
+    (setenv "PATH" (concat "~/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
+    (add-to-list 'exec-path "/Applications/Firefox.app/Contents/MacOS")
     (setq browse-url-generic-program "firefox")))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -43,6 +43,10 @@
 (add-to-list 'load-path "~/.emacs.d/modules/devel")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
+
+(add-to-list 'exec-path "~/.npm-packages/bin")
+(add-to-list 'exec-path "~/.rbenv/bin")
+(add-to-list 'exec-path "~/.rbenv/shims")
 (add-to-list 'exec-path "/usr/local/bin")
 
 (setq package-check-signature nil)
@@ -103,10 +107,10 @@
 (use-package dash)
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :config
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :if (memq window-system '(mac ns x))
+;;   :config
+;;   (exec-path-from-shell-initialize))
 
 (use-package oauth2)
 
@@ -332,10 +336,7 @@
            "%(binary) -f %(ledger-file) reg @%(payee)")
          (#("account" 0 1
              (idx 6))
-           "%(binary) -f %(ledger-file) reg %(account)"))))
-  '(package-selected-packages
-     (quote
-       (lsp-treemacs lsp-ivy eglot ac-js2 toml-mode register-list org-roam undo-fu parrot highlight yaml-mode xref-js2 which-key web-mode web-beautify vue-mode vimrc-mode use-package undo-tree tide terraform-mode synosaurus sr-speedbar smartscan rjsx-mode realgud rainbow-mode rainbow-delimiters projectile-rails prettier-js persistent-scratch org-roam-server org-review org-plus-contrib org-mime org-journal org-drill ob-async oauth2 neotree minimap miniedit magit ledger-mode langtool js2-refactor japanese-holidays jade-mode ivy-rich ivy-hydra hl-todo guide-key goto-last-change google-translate git-gutter geben exec-path-from-shell evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy elfeed-web elfeed-org elfeed-goodies editorconfig dtrt-indent drag-stuff dockerfile-mode diminish deft dash-at-point counsel company-web company-statistics company-quickhelp company-php company-org-roam company-lsp centered-cursor-mode calfw-org calfw avy auto-highlight-symbol auto-compile auctex artbollocks-mode all-the-icons ag add-node-modules-path ac-php))))
+           "%(binary) -f %(ledger-file) reg %(account)")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

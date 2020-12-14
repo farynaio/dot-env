@@ -15,7 +15,6 @@
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
 (add-hook 'text-mode-hook 'abbrev-mode)
-(add-hook 'find-file-hook 'my/lang-toggle)
 
 (eval-after-load 'flyspell
   '(progn
@@ -114,6 +113,7 @@
   (my/pl-mode -1))
 
 (use-package langtool
+  :commands (langtool-check-buffer langtool-check-done)
   :init
   (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
   :config
@@ -151,6 +151,8 @@
                       )))
       (my/lang-modes-deactivate)
       (funcall new-mode 1))))
+
+(add-hook 'find-file-hook 'my/lang-toggle)
 
 (use-package artbollocks-mode
   :commands artbollocks-mode

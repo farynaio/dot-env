@@ -11,4 +11,7 @@
 (unbind-key "C-x C-l")
 ;; (unbind-key "C-x <down>")
 
+(when (boundp 'global-undo-tree-mode)
+  (global-undo-tree-mode -1))
+
 (provide 'my-cleanup)

@@ -66,7 +66,6 @@
   :config
   (if (bound-and-true-p evil-mode)
     (progn
-      (global-undo-tree-mode -1)
       (bind-key "u" 'undo-fu-only-undo evil-normal-state-map)
       (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
     (message "'undo-fu' not initiated. Evil mode is not active")))

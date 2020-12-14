@@ -106,7 +106,7 @@
 ;;        (remove-hook 'js2-mode-hook 'jarfar/run-skewer-once))
 ;;      ))
 
-;; (use-package json-mode) ; not sure if js-mode is aren't good enough
+;; (use-package json-mode) ; not sure if js-mode aren't good enough
 ;; (use-package indium) ; inspector for node
 
 (when (eq system-type 'gnu/linux)
@@ -166,9 +166,11 @@
 
 (use-package realgud)
 (use-package yaml-mode
+  :hook (markdown-mode . jarfar/bind-value-togglers)
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
+  :hook (markdown-mode . jarfar/bind-value-togglers)
   :mode "\\.md\\'")
 
 (use-package vimrc-mode
@@ -216,13 +218,12 @@
 (eval-after-load 'css-mode
   '(progn
      (setq css-indent-offset 2)
-
-     (defun my/css-mode-hook()
-       ;; (flycheck-mode -1)
-       (modify-syntax-entry ?_ "w" (syntax-table))
-       (modify-syntax-entry ?$ "w" (syntax-table))
-       (add-to-list 'company-backends 'company-css))
-     (add-hook 'css-mode-hook 'my/css-mode-hook)))
+     (add-hook 'css-mode-hook
+       (lambda () my/css-mode-hook()
+         ;; (flycheck-mode -1)
+         (modify-syntax-entry ?_ "w" (syntax-table))
+         (modify-syntax-entry ?$ "w" (syntax-table))
+         (add-to-list 'company-backends 'company-css)))))
 
 ;; (use-package xref-js2)
 
@@ -261,23 +262,29 @@
   (setq lsp-signature-enabled nil)
   (setq lsp-enable-snippet nil)
   (setq lsp-auto-guess-root t)
-  (setq read-process-output-max (* 1024 1024))
   (setq lsp-prefer-capf t)
-  (setq lsp-eslint-server-command
-    '("node"
-       "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js"
-       "--stdio"))
+  ;; (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
+  ;; (setq lsp-eslint-server-command
+  ;;   '("node"
+  ;;      "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js"
+  ;;      "--stdio"))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
-;; (use-package dap-mode)
-
-(use-package lsp-ui
-  :after lsp-mode
-	:commands lsp-ui-mode
+(use-package dap-mode
+  :requires lsp-mode
   :config
-  (setq lsp-ui-doc-position 'top)
-  (setq lsp-ui-doc-header t))
+  (require 'dap-chrome)
+  ;; (dap-chrome-setup)
+  ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
+  (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
+
+;; (use-package lsp-ui
+;;   :after lsp-mode
+;; 	:commands lsp-ui-mode
+;;   :config
+;;   (setq lsp-ui-doc-position 'top)
+;;   (setq lsp-ui-doc-header t))
 
 (use-package lsp-ivy
   :requires (lsp-mode ivy)
@@ -288,9 +295,6 @@
   :commands lsp-treemacs-errors-list
   :config
   (lsp-treemacs-sync-mode 1))
-
-(use-package company-lsp
-  :requires (company-mode lsp-mode))
 
 (use-package typescript-mode
   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
@@ -475,20 +479,17 @@
   :requires company)
 
 ;; TODO what it does?
-(use-package company-web
-  :requires company-mode)
+;; (use-package company-web
+  ;; :requires company-mode)
 
-(use-package company-quickhelp
-  :requires company-mode)
+;; (use-package company-quickhelp
+  ;; :requires company-mode)
 
 (use-package dockerfile-mode
   :mode "^Dockerfile")
 
 (use-package geben
   :hook (geben-mode . evil-emacs-state))
-
-(use-package toml-mode
-  :mode "\\.toml\\'")
 
 (use-package web-mode
   :hook ((web-mode . (lambda ()
@@ -528,7 +529,6 @@
   (make-local-variable 'company-backends)
 
   ;; (add-to-list 'company-backends 'company-graphql t)
-  (add-to-list 'company-backends 'company-lsp t)
   (add-to-list 'company-backends 'company-gtags t)
   (add-to-list 'company-backends 'company-etags t)
   (add-to-list 'company-backends 'company-keywords)
@@ -690,9 +690,11 @@ in whole buffer.  With neither, delete comments on current line."
 
 (require 'inc-dec-at-point)
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (when (boundp 'evil-normal-state-local-map)
-                              (bind-key "<S-up>" 'jarfar/increment evil-normal-state-local-map)
-                              (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-local-map))))
+(add-hook 'prog-mode-hook 'jarfar/bind-value-togglers)
+
+(defun jarfar/bind-value-togglers ()
+  (when (boundp 'evil-normal-state-local-map)
+    (bind-key "<S-up>" 'jarfar/increment evil-normal-state-local-map)
+    (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-local-map)))
 
 (provide 'my-devel)
