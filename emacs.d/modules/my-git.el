@@ -49,10 +49,20 @@
                     projectile-known-projects)
               (projectile-serialize-cache))))
 
-(defun jarfar/projectile-show-relative-path ()
-  (interactive)
-  (when (projectile-project-root)
-    (message (substring buffer-file-name (length (projectile-project-root))))))
+(defhydra hydra-git ()
+  "git"
+  ("g" magit-blame "blame" :exit t)
+  ("e" magit-ediff-popup "ediff" :exit t)
+  ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
+  ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
+  ("s" magit-status "status" :exit t)
+  ("o" magit-checkout "checkout" :exit t)
+  ("b" magit-branch-popup "branch" :exit t)
+  ("d" magit-diff-popup "diff" :exit t)
+  ("h" magit-diff-buffer-file "diff file" :exit t)
+  ("z" magit-stash-popup "stash" :exit t)
+  ("l" magit-log-all "log" :exit t)
+  ("f" magit-log-buffer-file "file log" :exit t))
 
 (defhydra hydra-project ()
   "Project"
@@ -72,6 +82,11 @@
   "Projectile project"
   ("a" my/projectile-add-known-project "add" :exit t)
   ("r" projectile-remove-known-project "remove" :exit t))
+
+(defun jarfar/projectile-show-relative-path ()
+  (interactive)
+  (when (projectile-project-root)
+    (message (substring buffer-file-name (length (projectile-project-root))))))
 
 (defun my/projectile-add-known-project (project-root)
   (interactive (list (read-directory-name "Add to known projects: ")))

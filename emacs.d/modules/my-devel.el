@@ -522,6 +522,41 @@
 
 ;; (use-package graphql-mode)
 
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :config
+  ;; (add-to-list 'yas-key-syntaxes w w")
+  (setq yas-new-snippet-default
+    "# name: $2
+# key: $1
+# --
+$0`(yas-escape-text yas-selected-text)`")
+  (yas-global-mode 1))
+
+(defhydra hydra-snippet ()
+  "Snippet"
+  ("s" yas-insert-snippet "insert" :exit t)
+  ("n" yas-new-snippet "new" :exit t)
+  ("e" yas-visit-snippet-file "edit" :exit t)
+  ("r" yas-reload-all "reload" :exit t))
+
+(use-package auto-highlight-symbol
+  :diminish auto-highlight-symbol-mode
+  :config
+  (setq ahs-case-fold-search nil)
+  (setq ahs-idle-interval 0)
+  (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
+  (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
+
+(use-package company
+  :diminish company-mode
+  :config
+  (setq company-idle-delay 0.0)
+  (setq company-show-numbers t)
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1)
+  (setq company-backends '(company-capf company-dabbrev-code company-dabbrev company-files)))
+
 (defun my/prog-mode-hook ()
   (make-local-variable 'company-backends)
 

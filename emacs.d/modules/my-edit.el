@@ -70,33 +70,6 @@
       (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
     (message "'undo-fu' not initiated. Evil mode is not active")))
 
-(use-package yasnippet
-  :diminish yas-minor-mode
-  :config
-  ;; (add-to-list 'yas-key-syntaxes w w")
-  (setq yas-new-snippet-default
-    "# name: $2
-# key: $1
-# --
-$0`(yas-escape-text yas-selected-text)`")
-  (yas-global-mode 1))
-
-(defhydra hydra-snippet ()
-  "Snippet"
-  ("s" yas-insert-snippet "insert" :exit t)
-  ("n" yas-new-snippet "new" :exit t)
-  ("e" yas-visit-snippet-file "edit" :exit t)
-  ("r" yas-reload-all "reload" :exit t))
-
-(use-package company
-  :diminish company-mode
-  :config
-  (setq company-idle-delay 0.0)
-  (setq company-show-numbers t)
-  (setq company-tooltip-align-annotations t)
-  (setq company-minimum-prefix-length 1)
-  (setq company-backends '(company-capf company-dabbrev-code company-dabbrev company-files)))
-
 (use-package which-key
   :diminish which-key-mode
   :config
@@ -122,34 +95,11 @@ $0`(yas-escape-text yas-selected-text)`")
   :config
   (editorconfig-mode 1))
 
-(use-package auto-highlight-symbol
-  :diminish auto-highlight-symbol-mode
-  :config
-  (setq ahs-case-fold-search nil)
-  (setq ahs-idle-interval 0)
-  (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
-  (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
-
 ;; (require 'speedbar)
 ;; (eval-after-load 'speedbar
 ;;   '(progn
 ;;      (setq speedbar-show-unknown-files t)))
 ;; (use-package sr-speedbar)
-
-(defhydra hydra-git ()
-  "git"
-  ("g" magit-blame "blame" :exit t)
-  ("e" magit-ediff-popup "ediff" :exit t)
-  ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
-  ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
-  ("s" magit-status "status" :exit t)
-  ("o" magit-checkout "checkout" :exit t)
-  ("b" magit-branch-popup "branch" :exit t)
-  ("d" magit-diff-popup "diff" :exit t)
-  ("h" magit-diff-buffer-file "diff file" :exit t)
-  ("z" magit-stash-popup "stash" :exit t)
-  ("l" magit-log-popup "log" :exit t)
-  ("f" magit-log-buffer-file "file log" :exit t))
 
 ;; (use-package transpose-frame)
 ;; (use-package wgrep
@@ -264,7 +214,7 @@ end-of-buffer signals; pass the rest to the default handler."
 (setq ack-path (executable-find "ack"))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'ar #'align-regexp)
+(defalias 'ar 'align-regexp)
 
 ;; (if ack-path
   ;; (grep-apply-setting 'grep-command "ack --with-filename --nofilter --nogroup ")
