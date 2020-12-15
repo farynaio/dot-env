@@ -266,6 +266,8 @@
   ;; (setq lsp-auto-guess-root t)
   ;; (setq lsp-prefer-capf t)
   ;; (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
+  (setq lsp-enable-file-watchers nil)
+  (setq lsp-rf-language-server-trace-serve "off")
   (setq lsp-eslint-server-command '("node" "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" "--stdio"))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
 
