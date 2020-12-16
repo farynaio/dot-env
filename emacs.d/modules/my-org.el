@@ -185,7 +185,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-c j"          'org-clock-goto) ;; jump to current task from anywhere
      (bind-key "C-c C-o"        'org-open-at-point-global)
 
-
      ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
 
      (bind-key "C-x ," #'my/hydra-org/body org-mode-map)
@@ -245,7 +244,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
-         ))
+
+         (if (bound-and-true-p evil-mode)
+           (bind-key "C-c n" 'org-next-visible-heading evil-visual-state-local-map)
+           (bind-key "C-c p" 'org-previous-visible-heading evil-visual-state-local-map))))
 
      ;; refresh agenda after adding new task via org-capture
      (add-hook 'org-capture-after-finalize-hook
