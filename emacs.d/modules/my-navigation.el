@@ -521,5 +521,7 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "C-x |" 'my/toggle-window-split)
 (bind-key "C-x C-c" 'my/save-buffers-kill-terminal)
 (bind-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
+(bind-key "<s-right>" 'ns-next-frame)
+(bind-key "<s-left>" 'ns-prev-frame)
 
 (provide 'my-navigation)
