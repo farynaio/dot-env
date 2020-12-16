@@ -13,7 +13,7 @@
 (put 'global-auto-highlight-symbol-mode 'globalized-minor-mode t)
 
 (defvar global-auto-highlight-symbol-mode nil "\
-Non-nil if Global auto-highlight-symbol mode is enabled.
+Non-nil if Global Auto-Highlight-Symbol mode is enabled.
 See the `global-auto-highlight-symbol-mode' command
 for a description of this minor mode.
 Setting this variable directly does not take effect;
@@ -23,23 +23,23 @@ or call the function `global-auto-highlight-symbol-mode'.")
 (custom-autoload 'global-auto-highlight-symbol-mode "auto-highlight-symbol" nil)
 
 (autoload 'global-auto-highlight-symbol-mode "auto-highlight-symbol" "\
-Toggle Auto-highlight-symbol mode in all buffers.
-With prefix ARG, enable Global auto-highlight-symbol mode if ARG is positive;
+Toggle Auto-Highlight-Symbol mode in all buffers.
+With prefix ARG, enable Global Auto-Highlight-Symbol mode if ARG is positive;
 otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
-Auto-highlight-symbol mode is enabled in all buffers where
+Auto-Highlight-Symbol mode is enabled in all buffers where
 `ahs-mode-maybe' would do it.
 
 See `auto-highlight-symbol-mode' for more information on
-Auto-highlight-symbol mode.
+Auto-Highlight-Symbol mode.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'auto-highlight-symbol-mode "auto-highlight-symbol" "\
 Toggle Auto Highlight Symbol Mode
 
-If called interactively, toggle `Auto-highlight-symbol mode'.  If
+If called interactively, toggle `Auto-Highlight-Symbol mode'.  If
 the prefix argument is positive, enable the mode, and if it is
 zero or negative, disable the mode.
 
