@@ -22,14 +22,10 @@ This works in `shell-mode', `term-mode', `eshell-mode' and
 \(fn &optional (ENVVAR \"EDITOR\"))" t nil)
 
 (autoload 'with-editor-export-git-editor "with-editor" "\
-Like `with-editor-export-editor' but always set `$GIT_EDITOR'.
-
-\(fn)" t nil)
+Like `with-editor-export-editor' but always set `$GIT_EDITOR'." t nil)
 
 (autoload 'with-editor-export-hg-editor "with-editor" "\
-Like `with-editor-export-editor' but always set `$HG_EDITOR'.
-
-\(fn)" t nil)
+Like `with-editor-export-editor' but always set `$HG_EDITOR'." t nil)
 
 (defvar shell-command-with-editor-mode nil "\
 Non-nil if Shell-Command-With-Editor mode is enabled.
@@ -40,6 +36,17 @@ for a description of this minor mode.")
 
 (autoload 'shell-command-with-editor-mode "with-editor" "\
 Teach `shell-command' to use current Emacs instance as editor.
+
+If called interactively, toggle `Shell-Command-With-Editor mode'.
+If the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 Teach `shell-command', and all commands that ultimately call that
 command, to use the current Emacs instance as editor by executing
@@ -83,7 +90,7 @@ else like the former.
 
 \(fn COMMAND &optional OUTPUT-BUFFER ERROR-BUFFER ENVVAR)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "with-editor" '("with-editor" "start-file-process--with-editor-process-filter" "server-" "shell-command--shell-command-with-editor-mode")))
+(register-definition-prefixes "with-editor" '("server-" "shell-command--shell-command-with-editor-mode" "start-file-process--with-editor-process-filter" "with-editor"))
 
 ;;;***
 

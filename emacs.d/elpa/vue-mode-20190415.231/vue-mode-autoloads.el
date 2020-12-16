@@ -25,7 +25,7 @@ open.
 
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vue-mode" '("vue-")))
+(register-definition-prefixes "vue-mode" '("vue-"))
 
 ;;;***
 

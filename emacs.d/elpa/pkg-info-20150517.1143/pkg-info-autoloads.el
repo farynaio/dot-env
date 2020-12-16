@@ -114,7 +114,7 @@ version.
 
 \(fn LIBRARY &optional PACKAGE SHOW)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pkg-info" '("pkg-info-")))
+(register-definition-prefixes "pkg-info" '("pkg-info-"))
 
 ;;;***
 

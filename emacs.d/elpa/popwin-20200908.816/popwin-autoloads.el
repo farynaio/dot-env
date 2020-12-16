@@ -35,14 +35,10 @@ OTHER-WINDOW amd NORECORD are the same arguments.
 
 (autoload 'popwin:universal-display "popwin" "\
 Call the following command interactively with letting `popwin:special-display-config' be `popwin:universal-display-config'.
-This will be useful when displaying buffers in popup windows temporarily.
-
-\(fn)" t nil)
+This will be useful when displaying buffers in popup windows temporarily." t nil)
 
 (autoload 'popwin:one-window "popwin" "\
-Delete other window than the popup window. C-g restores the original window configuration.
-
-\(fn)" t nil)
+Delete other window than the popup window. C-g restores the original window configuration." t nil)
 
 (autoload 'popwin:popup-buffer-tail "popwin" "\
 Same as `popwin:popup-buffer' except that the buffer will be `recenter'ed at the bottom.
@@ -60,9 +56,7 @@ Edit file FILENAME with popup window by `popwin:popup-buffer-tail'.
 \(fn FILE &optional WILDCARD)" t nil)
 
 (autoload 'popwin:messages "popwin" "\
-Display *Messages* buffer in a popup window.
-
-\(fn)" t nil)
+Display *Messages* buffer in a popup window." t nil)
 
 (defvar popwin-mode nil "\
 Non-nil if Popwin mode is enabled.
@@ -77,9 +71,20 @@ or call the function `popwin-mode'.")
 (autoload 'popwin-mode "popwin" "\
 Minor mode for `popwin-mode'.
 
+If called interactively, toggle `Popwin mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "popwin" '("popwin:")))
+(register-definition-prefixes "popwin" '("popwin:"))
 
 ;;;***
 

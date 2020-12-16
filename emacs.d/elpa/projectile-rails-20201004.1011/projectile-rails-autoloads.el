@@ -12,39 +12,40 @@
 
 (autoload 'projectile-rails-views-goto-file-at-point "projectile-rails" "\
 Try to find a view file at point.
-Will try to look for a template or partial file, and assets file.
-
-\(fn)" t nil)
+Will try to look for a template or partial file, and assets file." t nil)
 
 (autoload 'projectile-rails-stylesheet-goto-file-at-point "projectile-rails" "\
-Try to find stylesheet file at point.
-
-\(fn)" t nil)
+Try to find stylesheet file at point." t nil)
 
 (autoload 'projectile-rails-javascript-goto-file-at-point "projectile-rails" "\
-Try to find javascript file at point.
-
-\(fn)" t nil)
+Try to find javascript file at point." t nil)
 
 (autoload 'projectile-rails-ruby-goto-file-at-point "projectile-rails" "\
-Try to find ruby file at point.
-
-\(fn)" t nil)
+Try to find ruby file at point." t nil)
 
 (autoload 'projectile-rails-goto-file-at-point "projectile-rails" "\
-Try to find file at point.
-
-\(fn)" t nil)
+Try to find file at point." t nil)
 
 (autoload 'projectile-rails-mode "projectile-rails" "\
 Rails mode based on projectile
 
+If called interactively, toggle `Projectile-Rails mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'projectile-rails-on "projectile-rails" "\
-Enable `projectile-rails-mode' minor mode if this is a rails project.
+Enable `projectile-rails-mode' minor mode if this is a rails project." nil nil)
 
-\(fn)" nil nil)
+(put 'projectile-rails-global-mode 'globalized-minor-mode t)
 
 (defvar projectile-rails-global-mode nil "\
 Non-nil if Projectile-Rails-Global mode is enabled.
@@ -64,11 +65,13 @@ ARG is omitted or nil.
 
 Projectile-Rails mode is enabled in all buffers where
 `projectile-rails-on' would do it.
-See `projectile-rails-mode' for more information on Projectile-Rails mode.
+
+See `projectile-rails-mode' for more information on
+Projectile-Rails mode.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "projectile-rails" '("projectile-rails-")))
+(register-definition-prefixes "projectile-rails" '("projectile-rails-"))
 
 ;;;***
 

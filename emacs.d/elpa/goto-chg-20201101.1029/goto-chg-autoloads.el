@@ -42,7 +42,7 @@ See `goto-last-change' for use of prefix argument.
 
 \(fn ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "goto-chg" '("glc-")))
+(register-definition-prefixes "goto-chg" '("glc-"))
 
 ;;;***
 

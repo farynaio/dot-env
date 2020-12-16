@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "persist" "persist.el" (0 0 0 0))
 ;;; Generated autoloads from persist.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "persist" '("persist-")))
+(register-definition-prefixes "persist" '("persist-"))
 
 ;;;***
 

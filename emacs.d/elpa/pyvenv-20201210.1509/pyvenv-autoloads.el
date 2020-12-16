@@ -15,9 +15,7 @@ Activate the virtual environment in DIRECTORY.
 \(fn DIRECTORY)" t nil)
 
 (autoload 'pyvenv-deactivate "pyvenv" "\
-Deactivate any current virtual environment.
-
-\(fn)" t nil)
+Deactivate any current virtual environment." t nil)
 
 (autoload 'pyvenv-workon "pyvenv" "\
 Activate a virtual environment from $WORKON_HOME.
@@ -40,6 +38,17 @@ or call the function `pyvenv-mode'.")
 (autoload 'pyvenv-mode "pyvenv" "\
 Global minor mode for pyvenv.
 
+If called interactively, toggle `Pyvenv mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 Will show the current virtualenv in the mode line, and respect a
 `pyvenv-workon' setting in files.
 
@@ -58,6 +67,17 @@ or call the function `pyvenv-tracking-mode'.")
 (autoload 'pyvenv-tracking-mode "pyvenv" "\
 Global minor mode to track the current virtualenv.
 
+If called interactively, toggle `Pyvenv-Tracking mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 When this mode is active, pyvenv will activate a buffer-specific
 virtualenv whenever the user switches to a buffer with a
 buffer-local `pyvenv-workon' or `pyvenv-activate' variable.
@@ -65,11 +85,9 @@ buffer-local `pyvenv-workon' or `pyvenv-activate' variable.
 \(fn &optional ARG)" t nil)
 
 (autoload 'pyvenv-restart-python "pyvenv" "\
-Restart Python inferior processes.
+Restart Python inferior processes." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pyvenv" '("pyvenv-")))
+(register-definition-prefixes "pyvenv" '("pyvenv-"))
 
 ;;;***
 

@@ -18,7 +18,7 @@ will return point to the current position.
 
 \(fn &optional MARK-POINT MINIMAL-LINE-DISTANCE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "goto-last-change" '("goto-last-change-")))
+(register-definition-prefixes "goto-last-change" '("goto-last-change-"))
 
 ;;;***
 

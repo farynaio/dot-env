@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "org-drill" "org-drill.el" (0 0 0 0))
 ;;; Generated autoloads from org-drill.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-drill" '("org-drill")))
+(register-definition-prefixes "org-drill" '("org-drill"))
 
 ;;;***
 

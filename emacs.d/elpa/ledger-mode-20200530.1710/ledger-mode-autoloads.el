@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "ledger-check" "ledger-check.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-check.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-check" '("ledger-")))
+(register-definition-prefixes "ledger-check" '("ledger-"))
 
 ;;;***
 
@@ -17,7 +17,7 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from ledger-commodities.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-commodities" '("ledger-")))
+(register-definition-prefixes "ledger-commodities" '("ledger-"))
 
 ;;;***
 
@@ -25,7 +25,7 @@
 ;;;;;;  0 0))
 ;;; Generated autoloads from ledger-complete.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-complete" '("ledger-")))
+(register-definition-prefixes "ledger-complete" '("ledger-"))
 
 ;;;***
 
@@ -33,14 +33,14 @@
 ;;;;;;  0))
 ;;; Generated autoloads from ledger-context.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-context" '("ledger-")))
+(register-definition-prefixes "ledger-context" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-exec" "ledger-exec.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-exec.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-exec" '("ledger-")))
+(register-definition-prefixes "ledger-exec" '("ledger-"))
 
 ;;;***
 
@@ -49,11 +49,9 @@
 ;;; Generated autoloads from ledger-flymake.el
 
 (autoload 'ledger-flymake-enable "ledger-flymake" "\
-Enable `flymake-mode' in `ledger-mode' buffers.
+Enable `flymake-mode' in `ledger-mode' buffers." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-flymake" '("ledger-")))
+(register-definition-prefixes "ledger-flymake" '("ledger-"))
 
 ;;;***
 
@@ -61,21 +59,21 @@ Enable `flymake-mode' in `ledger-mode' buffers.
 ;;;;;;  0))
 ;;; Generated autoloads from ledger-fontify.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-fontify" '("ledger-fontify-")))
+(register-definition-prefixes "ledger-fontify" '("ledger-fontify-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-fonts" "ledger-fonts.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-fonts.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-fonts" '("ledger-font-")))
+(register-definition-prefixes "ledger-fonts" '("ledger-font-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-init" "ledger-init.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-init.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-init" '("ledger-")))
+(register-definition-prefixes "ledger-init" '("ledger-"))
 
 ;;;***
 
@@ -89,7 +87,7 @@ A mode for editing ledger data files.
 
 (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-mode" '("ledger-")))
+(register-definition-prefixes "ledger-mode" '("ledger-"))
 
 ;;;***
 
@@ -97,21 +95,21 @@ A mode for editing ledger data files.
 ;;;;;;  0 0))
 ;;; Generated autoloads from ledger-navigate.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-navigate" '("ledger-navigate-")))
+(register-definition-prefixes "ledger-navigate" '("ledger-navigate-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-occur" "ledger-occur.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-occur.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-occur" '("ledger-occur")))
+(register-definition-prefixes "ledger-occur" '("ledger-occur"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-post" "ledger-post.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-post.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-post" '("ledger-")))
+(register-definition-prefixes "ledger-post" '("ledger-"))
 
 ;;;***
 
@@ -119,21 +117,21 @@ A mode for editing ledger data files.
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from ledger-reconcile.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-reconcile" '("ledger-")))
+(register-definition-prefixes "ledger-reconcile" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-regex" "ledger-regex.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-regex.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-regex" '("ledger-")))
+(register-definition-prefixes "ledger-regex" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-report" "ledger-report.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-report.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-report" '("ledger-")))
+(register-definition-prefixes "ledger-report" '("ledger-"))
 
 ;;;***
 
@@ -141,42 +139,42 @@ A mode for editing ledger data files.
 ;;;;;;  0 0))
 ;;; Generated autoloads from ledger-schedule.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-schedule" '("ledger-")))
+(register-definition-prefixes "ledger-schedule" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-sort" "ledger-sort.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-sort.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-sort" '("ledger-sort-")))
+(register-definition-prefixes "ledger-sort" '("ledger-sort-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-state" "ledger-state.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-state.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-state" '("ledger-")))
+(register-definition-prefixes "ledger-state" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-test" "ledger-test.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-test.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-test" '("ledger-")))
+(register-definition-prefixes "ledger-test" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-texi" "ledger-texi.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-texi.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-texi" '("ledger-")))
+(register-definition-prefixes "ledger-texi" '("ledger-"))
 
 ;;;***
 
 ;;;### (autoloads nil "ledger-xact" "ledger-xact.el" (0 0 0 0))
 ;;; Generated autoloads from ledger-xact.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ledger-xact" '("ledger-")))
+(register-definition-prefixes "ledger-xact" '("ledger-"))
 
 ;;;***
 

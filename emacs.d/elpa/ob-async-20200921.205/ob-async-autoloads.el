@@ -33,7 +33,7 @@ block.
 
 \(fn &optional ORIG-FUN ARG INFO PARAMS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ob-async" '("ob-async-")))
+(register-definition-prefixes "ob-async" '("ob-async-"))
 
 ;;;***
 

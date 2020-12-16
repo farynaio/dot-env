@@ -69,7 +69,7 @@ returns nil.  It can still be useful, however, as an argument to
 
 \(fn START-FUNC &optional FINISH-FUNC)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "async" '("async-")))
+(register-definition-prefixes "async" '("async-"))
 
 ;;;***
 
@@ -98,6 +98,17 @@ Byte compile asynchronously packages installed with package.el.
 Async compilation of packages can be controlled by
 `async-bytecomp-allowed-packages'.
 
+If called interactively, toggle `Async-Bytecomp-Package mode'.
+If the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'async-byte-compile-file "async-bytecomp" "\
@@ -107,7 +118,7 @@ Same as `byte-compile-file' but asynchronous.
 
 \(fn FILE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "async-bytecomp" '("async-byte")))
+(register-definition-prefixes "async-bytecomp" '("async-byte"))
 
 ;;;***
 
@@ -126,6 +137,17 @@ or call the function `dired-async-mode'.")
 
 (autoload 'dired-async-mode "dired-async" "\
 Do dired actions asynchronously.
+
+If called interactively, toggle `Dired-Async mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -149,7 +171,7 @@ Run ‘dired-do-rename’ asynchronously.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dired-async" '("dired-async-")))
+(register-definition-prefixes "dired-async" '("dired-async-"))
 
 ;;;***
 
@@ -157,7 +179,7 @@ Run ‘dired-do-rename’ asynchronously.
 ;;;;;;  0))
 ;;; Generated autoloads from smtpmail-async.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smtpmail-async" '("async-smtpmail-")))
+(register-definition-prefixes "smtpmail-async" '("async-smtpmail-"))
 
 ;;;***
 

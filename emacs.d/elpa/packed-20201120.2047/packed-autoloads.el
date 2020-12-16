@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "packed" "packed.el" (0 0 0 0))
 ;;; Generated autoloads from packed.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packed" '("packed-")))
+(register-definition-prefixes "packed" '("packed-"))
 
 ;;;***
 

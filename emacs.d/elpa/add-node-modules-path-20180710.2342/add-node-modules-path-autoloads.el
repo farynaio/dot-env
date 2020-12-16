@@ -24,9 +24,7 @@ Max depth to look for node_modules.")
 Search the current buffer's parent directories for `node_modules/.bin`.
 Traverse the directory structure up, until reaching the user's home directory,
  or hitting add-node-modules-max-depth.
-Any path found is added to the `exec-path'.
-
-\(fn)" t nil)
+Any path found is added to the `exec-path'." t nil)
 
 ;;;***
 

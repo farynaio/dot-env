@@ -12,6 +12,17 @@
 (autoload 'auto-compile-mode "auto-compile" "\
 Compile Emacs Lisp source files after the visiting buffers are saved.
 
+If called interactively, toggle `Auto-Compile mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 After a buffer containing Emacs Lisp code is saved to its source
 file update the respective byte code file.  If the latter does
 not exist do nothing.  Therefore to disable automatic compilation
@@ -23,6 +34,8 @@ variant `auto-compile-on-save-mode'.  Also see the related
 `auto-compile-on-load-mode'.
 
 \(fn &optional ARG)" t nil)
+
+(put 'auto-compile-on-save-mode 'globalized-minor-mode t)
 
 (defvar auto-compile-on-save-mode nil "\
 Non-nil if Auto-Compile-On-Save mode is enabled.
@@ -42,7 +55,9 @@ ARG is omitted or nil.
 
 Auto-Compile mode is enabled in all buffers where
 `turn-on-auto-compile-mode' would do it.
-See `auto-compile-mode' for more information on Auto-Compile mode.
+
+See `auto-compile-mode' for more information on
+Auto-Compile mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -106,6 +121,17 @@ for a description of this minor mode.")
 (autoload 'auto-compile-on-load-mode "auto-compile" "\
 Before loading a library recompile it if it needs recompilation.
 
+If called interactively, toggle `Auto-Compile-On-Load mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 A library needs to be recompiled if the source file is newer than
 it's byte-compile destination.  Without this advice the outdated
 byte code file would be loaded instead.
@@ -114,7 +140,7 @@ Also see the related `auto-compile-on-save-mode'.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "auto-compile" '("auto-compile-" "require" "load" "mode-line-" "save-buffers-kill-" "byte-compile-log-warning" "turn-on-auto-compile-mode")))
+(register-definition-prefixes "auto-compile" '("auto-compile-" "byte-compile-log-warning" "load" "mode-line-" "require" "save-buffers-kill-" "turn-on-auto-compile-mode"))
 
 ;;;***
 

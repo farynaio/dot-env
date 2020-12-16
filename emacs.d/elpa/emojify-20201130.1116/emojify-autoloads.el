@@ -19,7 +19,20 @@ STYLES is the styles emoji styles that should be used, see `emojify-emoji-styles
 (autoload 'emojify-mode "emojify" "\
 Emojify mode
 
+If called interactively, toggle `Emojify mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
+
+(put 'global-emojify-mode 'globalized-minor-mode t)
 
 (defvar global-emojify-mode nil "\
 Non-nil if Global Emojify mode is enabled.
@@ -39,14 +52,29 @@ ARG is omitted or nil.
 
 Emojify mode is enabled in all buffers where
 `emojify-mode' would do it.
-See `emojify-mode' for more information on Emojify mode.
+
+See `emojify-mode' for more information on
+Emojify mode.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'emojify-mode-line-mode "emojify" "\
 Emojify mode line
 
+If called interactively, toggle `Emojify-Mode-Line mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
+
+(put 'global-emojify-mode-line-mode 'globalized-minor-mode t)
 
 (defvar global-emojify-mode-line-mode nil "\
 Non-nil if Global Emojify-Mode-Line mode is enabled.
@@ -66,7 +94,9 @@ ARG is omitted or nil.
 
 Emojify-Mode-Line mode is enabled in all buffers where
 `emojify-mode-line-mode' would do it.
-See `emojify-mode-line-mode' for more information on Emojify-Mode-Line mode.
+
+See `emojify-mode-line-mode' for more information on
+Emojify-Mode-Line mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -78,11 +108,9 @@ Show Emojis that match PATTERN.
 (autoload 'emojify-insert-emoji "emojify" "\
 Interactively prompt for Emojis and insert them in the current buffer.
 
-This respects the `emojify-emoji-styles' variable.
+This respects the `emojify-emoji-styles' variable." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emojify" '("emojify-")))
+(register-definition-prefixes "emojify" '("emojify-"))
 
 ;;;***
 

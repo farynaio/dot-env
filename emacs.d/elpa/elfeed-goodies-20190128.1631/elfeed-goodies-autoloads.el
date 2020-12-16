@@ -15,11 +15,9 @@ Setup Elfeed with extras:
 
 * Adaptive header bar and entries.
 * Header bar using powerline.
-* Split pane view via popwin.
+* Split pane view via popwin." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies" '("elfeed-goodies/powerline-default-separator")))
+(register-definition-prefixes "elfeed-goodies" '("elfeed-goodies/powerline-default-separator"))
 
 ;;;***
 
@@ -28,11 +26,9 @@ Setup Elfeed with extras:
 ;;; Generated autoloads from elfeed-goodies-logging.el
 
 (autoload 'elfeed-goodies/toggle-logs "elfeed-goodies-logging" "\
-Toggle the display of Elfeed logs in a popup window.
+Toggle the display of Elfeed logs in a popup window." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-logging" '("elfeed-goodies/log-window-")))
+(register-definition-prefixes "elfeed-goodies-logging" '("elfeed-goodies/log-window-"))
 
 ;;;***
 
@@ -40,7 +36,7 @@ Toggle the display of Elfeed logs in a popup window.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from elfeed-goodies-new-entry-hooks.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-new-entry-hooks" '("elfeed-goodies/")))
+(register-definition-prefixes "elfeed-goodies-new-entry-hooks" '("elfeed-goodies/"))
 
 ;;;***
 
@@ -48,7 +44,7 @@ Toggle the display of Elfeed logs in a popup window.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from elfeed-goodies-search-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-search-mode" '("elfeed-goodies/" "search-header/" "-pad-string-to" "-elfeed/")))
+(register-definition-prefixes "elfeed-goodies-search-mode" '("-elfeed/" "-pad-string-to" "elfeed-goodies/" "search-header/"))
 
 ;;;***
 
@@ -56,7 +52,7 @@ Toggle the display of Elfeed logs in a popup window.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from elfeed-goodies-show-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-show-mode" '("elfeed-goodies/")))
+(register-definition-prefixes "elfeed-goodies-show-mode" '("elfeed-goodies/"))
 
 ;;;***
 
@@ -64,7 +60,7 @@ Toggle the display of Elfeed logs in a popup window.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from elfeed-goodies-split-pane.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-split-pane" '("elfeed-")))
+(register-definition-prefixes "elfeed-goodies-split-pane" '("elfeed-"))
 
 ;;;***
 

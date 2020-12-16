@@ -10,21 +10,21 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from evil-command-window.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-command-window" '("evil-")))
+(register-definition-prefixes "evil-command-window" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-commands" "evil-commands.el" (0 0 0 0))
 ;;; Generated autoloads from evil-commands.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-commands" '("evil-")))
+(register-definition-prefixes "evil-commands" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-common" "evil-common.el" (0 0 0 0))
 ;;; Generated autoloads from evil-common.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-common" '("evil-" "forward-evil-" "bounds-of-evil-")))
+(register-definition-prefixes "evil-common" '("bounds-of-evil-" "evil-" "forward-evil-"))
 
 ;;;***
 
@@ -32,21 +32,21 @@
 ;;; Generated autoloads from evil-core.el
  (autoload 'evil-mode "evil" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-core" '("evil-" "turn-o")))
+(register-definition-prefixes "evil-core" '("evil-" "turn-o"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-digraphs" "evil-digraphs.el" (0 0 0 0))
 ;;; Generated autoloads from evil-digraphs.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-digraphs" '("evil-digraph")))
+(register-definition-prefixes "evil-digraphs" '("evil-digraph"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-ex" "evil-ex.el" (0 0 0 0))
 ;;; Generated autoloads from evil-ex.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-ex" '("evil-")))
+(register-definition-prefixes "evil-ex" '("evil-"))
 
 ;;;***
 
@@ -54,63 +54,63 @@
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from evil-integration.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-integration" '("evil-")))
+(register-definition-prefixes "evil-integration" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-jumps" "evil-jumps.el" (0 0 0 0))
 ;;; Generated autoloads from evil-jumps.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-jumps" '("evil-")))
+(register-definition-prefixes "evil-jumps" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-macros" "evil-macros.el" (0 0 0 0))
 ;;; Generated autoloads from evil-macros.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-macros" '("evil-")))
+(register-definition-prefixes "evil-macros" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-maps" "evil-maps.el" (0 0 0 0))
 ;;; Generated autoloads from evil-maps.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-maps" '("evil-")))
+(register-definition-prefixes "evil-maps" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-repeat" "evil-repeat.el" (0 0 0 0))
 ;;; Generated autoloads from evil-repeat.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-repeat" '("evil-")))
+(register-definition-prefixes "evil-repeat" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-search" "evil-search.el" (0 0 0 0))
 ;;; Generated autoloads from evil-search.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-search" '("evil-")))
+(register-definition-prefixes "evil-search" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-states" "evil-states.el" (0 0 0 0))
 ;;; Generated autoloads from evil-states.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-states" '("evil-")))
+(register-definition-prefixes "evil-states" '("evil-"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-types" "evil-types.el" (0 0 0 0))
 ;;; Generated autoloads from evil-types.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-types" '("evil-ex-get-optional-register-and-count")))
+(register-definition-prefixes "evil-types" '("evil-ex-get-optional-register-and-count"))
 
 ;;;***
 
 ;;;### (autoloads nil "evil-vars" "evil-vars.el" (0 0 0 0))
 ;;; Generated autoloads from evil-vars.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-vars" '("evil-")))
+(register-definition-prefixes "evil-vars" '("evil-"))
 
 ;;;***
 

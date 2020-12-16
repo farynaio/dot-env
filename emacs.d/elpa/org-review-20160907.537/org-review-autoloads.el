@@ -30,19 +30,15 @@ set to `t', also insert a next review date.
 
 (autoload 'org-review-insert-next-review "org-review" "\
 Prompt the user for the date of the next review, and insert
-it as a property of the headline.
-
-\(fn)" t nil)
+it as a property of the headline." t nil)
 
 (autoload 'org-review-agenda-skip "org-review" "\
 To be used as an argument of `org-agenda-skip-function' to
 skip entries that are not scheduled to be reviewed. This function
 does not move the point; it returns `nil' if the entry is to be
-kept, and the position to continue the search otherwise.
+kept, and the position to continue the search otherwise." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-review" '("org-review-")))
+(register-definition-prefixes "org-review" '("org-review-"))
 
 ;;;***
 

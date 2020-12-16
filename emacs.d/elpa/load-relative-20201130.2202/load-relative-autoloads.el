@@ -95,7 +95,7 @@ same as writing (provide \\='bar-foo).
 
 \(fn &optional PREFIX)" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "load-relative" '("autoload-relative")))
+(register-definition-prefixes "load-relative" '("autoload-relative"))
 
 ;;;***
 

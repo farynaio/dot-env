@@ -66,19 +66,13 @@ Reschedule an entry in the future.
 \(fn &optional TIME)" t nil)
 
 (autoload 'org-journal-open-current-journal-file "org-journal" "\
-Open the current journal file
-
-\(fn)" t nil)
+Open the current journal file" t nil)
 
 (autoload 'org-journal-invalidate-cache "org-journal" "\
-Clear `org-journal--dates' hash table, and the cache file.
-
-\(fn)" t nil)
+Clear `org-journal--dates' hash table, and the cache file." t nil)
 
 (autoload 'org-journal-mark-entries "org-journal" "\
-Mark days in the calendar for which a journal entry is present.
-
-\(fn)" t nil)
+Mark days in the calendar for which a journal entry is present." t nil)
 
 (autoload 'org-journal-read-entry "org-journal" "\
 Open journal entry for selected date for viewing.
@@ -97,14 +91,10 @@ is nil or avoid switching when NOSELECT is non-nil.
 \(fn TIME &optional NOSELECT)" nil nil)
 
 (autoload 'org-journal-next-entry "org-journal" "\
-Go to the next journal entry.
-
-\(fn)" t nil)
+Go to the next journal entry." t nil)
 
 (autoload 'org-journal-previous-entry "org-journal" "\
-Go to the previous journal entry.
-
-\(fn)" t nil)
+Go to the previous journal entry." t nil)
 
 (autoload 'org-journal-search "org-journal" "\
 Search for a string in the journal files.
@@ -140,13 +130,11 @@ Search for a string within all future entries.
 \(fn STR)" t nil)
 
 (autoload 'org-journal-search-future-scheduled "org-journal" "\
-Search for TODOs within all future entries.
-
-\(fn)" t nil)
+Search for TODOs within all future entries." t nil)
 
 (add-hook 'org-journal-mode-hook (lambda nil (add-hook org-journal-encrypt-on 'org-journal-encryption-hook nil t)))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-journal" '("org-journal-")))
+(register-definition-prefixes "org-journal" '("org-journal-"))
 
 ;;;***
 

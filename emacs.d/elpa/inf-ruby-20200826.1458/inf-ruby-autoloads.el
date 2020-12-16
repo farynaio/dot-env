@@ -16,12 +16,21 @@ considered a ruby source file by `ruby-load-file'.
 Used by these commands to determine defaults.")
 
 (autoload 'inf-ruby-setup-keybindings "inf-ruby" "\
-Hook up `inf-ruby-minor-mode' to each of `ruby-source-modes'.
-
-\(fn)" nil nil)
+Hook up `inf-ruby-minor-mode' to each of `ruby-source-modes'." nil nil)
 
 (autoload 'inf-ruby-minor-mode "inf-ruby" "\
 Minor mode for interacting with the inferior process buffer.
+
+If called interactively, toggle `Inf-Ruby minor mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 The following commands are available:
 
@@ -59,16 +68,12 @@ Type \\[describe-mode] in the process buffer for the list of commands.
 
 (autoload 'inf-ruby-switch-setup "inf-ruby" "\
 Modify `rspec-compilation-mode' and `ruby-compilation-mode'
-keymaps to bind `inf-ruby-switch-from-compilation' to `С-x C-q'.
-
-\(fn)" nil nil)
+keymaps to bind `inf-ruby-switch-from-compilation' to `С-x C-q'." nil nil)
 
 (autoload 'inf-ruby-console-auto "inf-ruby" "\
 Run the appropriate Ruby console command.
 The command and the directory to run it from are detected
-automatically.
-
-\(fn)" t nil)
+automatically." t nil)
 
 (autoload 'inf-ruby-console-zeus "inf-ruby" "\
 Run Rails console in DIR using Zeus.
@@ -88,9 +93,7 @@ Gemfile, it should use the `gemspec' instruction.
 \(fn DIR)" t nil)
 
 (autoload 'inf-ruby-auto-enter "inf-ruby" "\
-Switch to `inf-ruby-mode' if the breakpoint pattern matches the current line.
-
-\(fn)" nil nil)
+Switch to `inf-ruby-mode' if the breakpoint pattern matches the current line." nil nil)
 
 (autoload 'inf-ruby-auto-exit "inf-ruby" "\
 Return to the previous compilation mode if INPUT is a debugger exit command.
@@ -113,7 +116,7 @@ Run Pry, or bundle console, in DIR.
 \(fn FILE REGEXP &optional MATCH-GROUP)" nil nil)
  (dolist (mode ruby-source-modes) (add-hook (intern (format "%s-hook" mode)) 'inf-ruby-minor-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "inf-ruby" '("inf-ruby-" "run-ruby-" "ruby-")))
+(register-definition-prefixes "inf-ruby" '("inf-ruby-" "ruby-" "run-ruby-"))
 
 ;;;***
 

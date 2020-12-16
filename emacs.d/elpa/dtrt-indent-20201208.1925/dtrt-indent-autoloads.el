@@ -15,11 +15,24 @@ With no argument, this command toggles the mode.  Non-null prefix
 argument turns on the mode.  Null prefix argument turns off the
 mode.
 
+If called interactively, toggle `Dtrt-Indent mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 When dtrt-indent mode is enabled, the proper indentation offset
 and `indent-tabs-mode' will be guessed for newly opened files and
 adjusted transparently.
 
 \(fn &optional ARG)" t nil)
+
+(put 'dtrt-indent-global-mode 'globalized-minor-mode t)
 
 (defvar dtrt-indent-global-mode nil "\
 Non-nil if Dtrt-Indent-Global mode is enabled.
@@ -38,8 +51,10 @@ otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
 Dtrt-Indent mode is enabled in all buffers where
-`(lambda nil (when (derived-mode-p (quote prog-mode) (quote text-mode)) (dtrt-indent-mode)))' would do it.
-See `dtrt-indent-mode' for more information on Dtrt-Indent mode.
+`(lambda nil (when (derived-mode-p 'prog-mode 'text-mode) (dtrt-indent-mode)))' would do it.
+
+See `dtrt-indent-mode' for more information on
+Dtrt-Indent mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -50,7 +65,7 @@ use either \\[customize] or the function `dtrt-indent-mode'.")
 
 (custom-autoload 'dtrt-indent-mode "dtrt-indent" nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dtrt-indent" '("dtrt-indent-")))
+(register-definition-prefixes "dtrt-indent" '("dtrt-indent-"))
 
 ;;;***
 
@@ -58,7 +73,7 @@ use either \\[customize] or the function `dtrt-indent-mode'.")
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from dtrt-indent-diag.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dtrt-indent-diag" '("dtrt-indent-" "save-buffer-state")))
+(register-definition-prefixes "dtrt-indent-diag" '("dtrt-indent-" "save-buffer-state"))
 
 ;;;***
 

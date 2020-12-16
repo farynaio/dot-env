@@ -48,7 +48,7 @@ Return empty space using FACE and leaving RESERVE space on the right.
  (autoload 'powerline-process "powerline")
  (autoload 'powerline-selected-window-active "powerline")
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline" '("pl/" "powerline-")))
+(register-definition-prefixes "powerline" '("pl/" "powerline-"))
 
 ;;;***
 
@@ -56,7 +56,7 @@ Return empty space using FACE and leaving RESERVE space on the right.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from powerline-separators.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline-separators" '("powerline-image-apple-rgb" "pl/")))
+(register-definition-prefixes "powerline-separators" '("pl/" "powerline-image-apple-rgb"))
 
 ;;;***
 
@@ -65,26 +65,18 @@ Return empty space using FACE and leaving RESERVE space on the right.
 ;;; Generated autoloads from powerline-themes.el
 
 (autoload 'powerline-default-theme "powerline-themes" "\
-Setup the default mode-line.
-
-\(fn)" t nil)
+Setup the default mode-line." t nil)
 
 (autoload 'powerline-center-theme "powerline-themes" "\
-Setup a mode-line with major and minor modes centered.
-
-\(fn)" t nil)
+Setup a mode-line with major and minor modes centered." t nil)
 
 (autoload 'powerline-vim-theme "powerline-themes" "\
-Setup a Vim-like mode-line.
-
-\(fn)" t nil)
+Setup a Vim-like mode-line." t nil)
 
 (autoload 'powerline-nano-theme "powerline-themes" "\
-Setup a nano-like mode-line.
+Setup a nano-like mode-line." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline-themes" '("powerline-")))
+(register-definition-prefixes "powerline-themes" '("powerline-"))
 
 ;;;***
 

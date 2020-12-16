@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "loc-changes" "loc-changes.el" (0 0 0 0))
 ;;; Generated autoloads from loc-changes.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "loc-changes" '("loc-changes")))
+(register-definition-prefixes "loc-changes" '("loc-changes"))
 
 ;;;***
 

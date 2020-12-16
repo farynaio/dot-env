@@ -23,7 +23,7 @@ this is right: (pfuture-new \"git\" \"status\")
 
 \(fn &rest CMD)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pfuture" '("pfuture-")))
+(register-definition-prefixes "pfuture" '("pfuture-"))
 
 ;;;***
 

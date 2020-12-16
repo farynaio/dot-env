@@ -32,7 +32,7 @@ Calling this function interactively, COMMAND-LINE-FORMATS is set above.
 
 \(fn &rest COMMAND-LINE-FORMATS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "test-simple" '("test-simple-" "end-tests" "assert-" "note")))
+(register-definition-prefixes "test-simple" '("assert-" "end-tests" "note" "test-simple-"))
 
 ;;;***
 

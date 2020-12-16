@@ -10,9 +10,7 @@
 ;;; Generated autoloads from ace-jump-mode.el
 
 (autoload 'ace-jump-mode-pop-mark "ace-jump-mode" "\
-Pop up a postion from `ace-jump-mode-mark-ring', and jump back to that position
-
-\(fn)" t nil)
+Pop up a postion from `ace-jump-mode-mark-ring', and jump back to that position" t nil)
 
 (autoload 'ace-jump-char-mode "ace-jump-mode" "\
 AceJump char mode
@@ -29,9 +27,7 @@ buffer.
 
 (autoload 'ace-jump-line-mode "ace-jump-mode" "\
 AceJump line mode.
-Marked each no empty line and move there
-
-\(fn)" t nil)
+Marked each no empty line and move there" t nil)
 
 (autoload 'ace-jump-mode "ace-jump-mode" "\
 AceJump mode is a minor mode for you to quick jump to a
@@ -55,7 +51,7 @@ You can constrol whether use the case sensitive via
 
 \(fn &optional PREFIX)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ace-jump-mode" '("aj-" "ace-jump-")))
+(register-definition-prefixes "ace-jump-mode" '("ace-jump-" "aj-"))
 
 ;;;***
 

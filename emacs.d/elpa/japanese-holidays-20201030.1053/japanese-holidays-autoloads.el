@@ -10,7 +10,7 @@
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from japanese-holidays.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "japanese-holidays" '("japanese-holiday")))
+(register-definition-prefixes "japanese-holidays" '("japanese-holiday"))
 
 ;;;***
 

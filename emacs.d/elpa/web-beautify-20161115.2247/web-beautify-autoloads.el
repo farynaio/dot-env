@@ -12,40 +12,28 @@
 (autoload 'web-beautify-html "web-beautify" "\
 Format region if active, otherwise the current buffer.
 
-Formatting is done according to the html-beautify command.
-
-\(fn)" t nil)
+Formatting is done according to the html-beautify command." t nil)
 
 (autoload 'web-beautify-html-buffer "web-beautify" "\
-Format the current buffer according to the html-beautify command.
-
-\(fn)" nil nil)
+Format the current buffer according to the html-beautify command." nil nil)
 
 (autoload 'web-beautify-css "web-beautify" "\
 Format region if active, otherwise the current buffer.
 
-Formatting is done according to the css-beautify command.
-
-\(fn)" t nil)
+Formatting is done according to the css-beautify command." t nil)
 
 (autoload 'web-beautify-css-buffer "web-beautify" "\
-Format the current buffer according to the css-beautify command.
-
-\(fn)" nil nil)
+Format the current buffer according to the css-beautify command." nil nil)
 
 (autoload 'web-beautify-js "web-beautify" "\
 Format region if active, otherwise the current buffer.
 
-Formatting is done according to the js-beautify command.
-
-\(fn)" t nil)
+Formatting is done according to the js-beautify command." t nil)
 
 (autoload 'web-beautify-js-buffer "web-beautify" "\
-Format the current buffer according to the js-beautify command.
+Format the current buffer according to the js-beautify command." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "web-beautify" '("web-beautify-")))
+(register-definition-prefixes "web-beautify" '("web-beautify-"))
 
 ;;;***
 

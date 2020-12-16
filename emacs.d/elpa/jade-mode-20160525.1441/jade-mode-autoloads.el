@@ -18,7 +18,7 @@ Major mode for editing jade node.js templates
 
 (add-to-list 'auto-mode-alist '("\\.pug\\'" . jade-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "jade-mode" '("jade-")))
+(register-definition-prefixes "jade-mode" '("jade-"))
 
 ;;;***
 

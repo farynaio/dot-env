@@ -60,6 +60,17 @@ See `persistent-scratch-restore'.
 Utility mode that remaps `save-buffer' and `write-file' to their
 `persistent-scratch' equivalents.
 
+If called interactively, toggle `Persistent-Scratch mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 This mode cannot be enabled in buffers for which
 `persistent-scratch-scratch-buffer-p-function' is nil.
 
@@ -94,16 +105,12 @@ is omitted or nil, and toggle it if ARG is `toggle'.
 (autoload 'persistent-scratch-new-backup "persistent-scratch" "\
 Create a new scratch buffer save backup file.
 The next time `persistent-scratch-save' is called, it will create a new backup
-file and use that file from now on.
-
-\(fn)" t nil)
+file and use that file from now on." t nil)
 
 (autoload 'persistent-scratch-setup-default "persistent-scratch" "\
 Enable `persistent-scratch-autosave-mode' and restore the scratch buffers.
 When an error occurs while restoring the scratch buffers, it's demoted to a
-message.
-
-\(fn)" nil nil)
+message." nil nil)
 
 (autoload 'persistent-scratch-keep-n-newest-backups "persistent-scratch" "\
 Return a backup filter that keeps N newest backups.
@@ -127,7 +134,7 @@ lexicographically increasing file names when formatted using
 
 \(fn DIFF)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "persistent-scratch" '("persistent-scratch-")))
+(register-definition-prefixes "persistent-scratch" '("persistent-scratch-"))
 
 ;;;***
 

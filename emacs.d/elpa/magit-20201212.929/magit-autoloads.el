@@ -12,9 +12,7 @@
 (autoload 'git-rebase-current-line "git-rebase" "\
 Parse current line into a `git-rebase-action' instance.
 If the current line isn't recognized as a rebase line, an
-instance with all nil values is returned.
-
-\(fn)" nil nil)
+instance with all nil values is returned." nil nil)
 
 (autoload 'git-rebase-mode "git-rebase" "\
 Major mode for editing of a Git rebase file.
@@ -30,7 +28,7 @@ running 'man git-rebase' at the command line) for details.
 
 (add-to-list 'auto-mode-alist (cons git-rebase-filename-regexp 'git-rebase-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-rebase" '("git-rebase-")))
+(register-definition-prefixes "git-rebase" '("git-rebase-"))
 
 ;;;***
 
@@ -131,7 +129,7 @@ and Emacs to it.
 
 \(fn &optional PRINT-DEST)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit" '("magit-")))
+(register-definition-prefixes "magit" '("magit-"))
 
 ;;;***
 
@@ -164,17 +162,17 @@ without requiring confirmation.
 \(fn FILE)" t nil)
 
 (autoload 'magit-unstage-all "magit-apply" "\
-Remove all changes from the staging area.
+Remove all changes from the staging area." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-apply" '("magit-")))
+(register-definition-prefixes "magit-apply" '("magit-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-autorevert" "magit-autorevert.el" (0
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from magit-autorevert.el
+
+(put 'magit-auto-revert-mode 'globalized-minor-mode t)
 
 (defvar magit-auto-revert-mode (not (or global-auto-revert-mode noninteractive)) "\
 Non-nil if Magit-Auto-Revert mode is enabled.
@@ -194,11 +192,13 @@ ARG is omitted or nil.
 
 Auto-Revert mode is enabled in all buffers where
 `magit-turn-on-auto-revert-mode-if-desired' would do it.
-See `auto-revert-mode' for more information on Auto-Revert mode.
+
+See `auto-revert-mode' for more information on
+Auto-Revert mode.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-autorevert" '("auto-revert-buffer" "magit-")))
+(register-definition-prefixes "magit-autorevert" '("auto-revert-buffer" "magit-"))
 
 ;;;***
 
@@ -217,30 +217,22 @@ other actions from the bisect transient command (\\<magit-status-mode-map>\\[mag
 \(fn BAD GOOD ARGS)" t nil)
 
 (autoload 'magit-bisect-reset "magit-bisect" "\
-After bisecting, cleanup bisection state and return to original `HEAD'.
-
-\(fn)" t nil)
+After bisecting, cleanup bisection state and return to original `HEAD'." t nil)
 
 (autoload 'magit-bisect-good "magit-bisect" "\
 While bisecting, mark the current commit as good.
 Use this after you have asserted that the commit does not contain
-the bug in question.
-
-\(fn)" t nil)
+the bug in question." t nil)
 
 (autoload 'magit-bisect-bad "magit-bisect" "\
 While bisecting, mark the current commit as bad.
 Use this after you have asserted that the commit does contain the
-bug in question.
-
-\(fn)" t nil)
+bug in question." t nil)
 
 (autoload 'magit-bisect-skip "magit-bisect" "\
 While bisecting, skip the current commit.
 Use this if for some reason the current commit is not a good one
-to test.  This command lets Git choose a different one.
-
-\(fn)" t nil)
+to test.  This command lets Git choose a different one." t nil)
 
 (autoload 'magit-bisect-run "magit-bisect" "\
 Bisect automatically by running commands after each step.
@@ -251,7 +243,7 @@ bisect run'.
 
 \(fn CMDLINE &optional BAD GOOD ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-bisect" '("magit-")))
+(register-definition-prefixes "magit-bisect" '("magit-"))
 
 ;;;***
 
@@ -263,7 +255,7 @@ bisect run'.
  (autoload 'magit-blame-reverse "magit-blame" nil t)
  (autoload 'magit-blame "magit-blame" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-blame" '("magit-")))
+(register-definition-prefixes "magit-blame" '("magit-"))
 
 ;;;***
 
@@ -279,7 +271,7 @@ with the variables' values as arguments, which were recorded by
 
 \(fn BOOKMARK)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-bookmark" '("magit--make-bookmark")))
+(register-definition-prefixes "magit-bookmark" '("magit--make-bookmark"))
 
 ;;;***
 
@@ -445,7 +437,7 @@ and also rename the respective reflog file.
 \(fn BRANCH)" t nil)
  (autoload 'magit-branch-configure "magit-branch" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-branch" '("magit-")))
+(register-definition-prefixes "magit-branch" '("magit-"))
 
 ;;;***
 
@@ -495,7 +487,7 @@ Then show the status buffer for the new repository.
 
 \(fn REPOSITORY DIRECTORY ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-clone" '("magit-clone-")))
+(register-definition-prefixes "magit-clone" '("magit-clone-"))
 
 ;;;***
 
@@ -598,7 +590,7 @@ Spread modified modules across recent commits.
  (autoload 'magit-commit-absorb "magit-commit" nil t)
  (autoload 'magit-commit-autofixup "magit-commit" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-commit" '("magit-")))
+(register-definition-prefixes "magit-commit" '("magit-"))
 
 ;;;***
 
@@ -666,9 +658,7 @@ Show diff for the blob or file visited in the current buffer.
 When the buffer visits a blob, then show the respective commit.
 When the buffer visits a file, then show the differenced between
 `HEAD' and the working tree.  In both cases limit the diff to
-the file or blob.
-
-\(fn)" t nil)
+the file or blob." t nil)
 
 (autoload 'magit-diff-paths "magit-diff" "\
 Show changes between any two files on disk.
@@ -682,7 +672,7 @@ for a revision.
 
 \(fn REV &optional ARGS FILES MODULE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-diff" '("magit-")))
+(register-definition-prefixes "magit-diff" '("magit-"))
 
 ;;;***
 
@@ -729,9 +719,7 @@ might only be able to guess either the file, or range or commit,
 in which case the user is asked about the other.  It might not
 always guess right, in which case the appropriate `magit-ediff-*'
 command has to be used explicitly.  If it cannot read the user's
-mind at all, then it asks the user for a command to run.
-
-\(fn)" t nil)
+mind at all, then it asks the user for a command to run." t nil)
 
 (autoload 'magit-ediff-show-staged "magit-ediff" "\
 Show staged changes using Ediff.
@@ -772,7 +760,7 @@ stash that were staged.
 
 \(fn STASH)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-ediff" '("magit-ediff-")))
+(register-definition-prefixes "magit-ediff" '("magit-ediff-"))
 
 ;;;***
 
@@ -780,9 +768,7 @@ stash that were staged.
 ;;; Generated autoloads from magit-extras.el
 
 (autoload 'magit-run-git-gui "magit-extras" "\
-Run `git gui' for the current git repository.
-
-\(fn)" t nil)
+Run `git gui' for the current git repository." t nil)
 
 (autoload 'magit-run-git-gui-blame "magit-extras" "\
 Run `git gui blame' on the given FILENAME and COMMIT.
@@ -794,19 +780,13 @@ blame to center around the line point is on.
 \(fn COMMIT FILENAME &optional LINENUM)" t nil)
 
 (autoload 'magit-run-gitk "magit-extras" "\
-Run `gitk' in the current repository.
-
-\(fn)" t nil)
+Run `gitk' in the current repository." t nil)
 
 (autoload 'magit-run-gitk-branches "magit-extras" "\
-Run `gitk --branches' in the current repository.
-
-\(fn)" t nil)
+Run `gitk --branches' in the current repository." t nil)
 
 (autoload 'magit-run-gitk-all "magit-extras" "\
-Run `gitk --all' in the current repository.
-
-\(fn)" t nil)
+Run `gitk --all' in the current repository." t nil)
 
 (autoload 'ido-enter-magit-status "magit-extras" "\
 Drop into `magit-status' from file switching.
@@ -827,14 +807,10 @@ instead of every time Ido is invoked, so now you can modify it
 like pretty much every other keymap:
 
   (define-key ido-common-completion-map
-    (kbd \"C-x g\") \\='ido-enter-magit-status)
-
-\(fn)" t nil)
+    (kbd \"C-x g\") \\='ido-enter-magit-status)" t nil)
 
 (autoload 'magit-project-status "magit-extras" "\
-Run `magit-status' in the current project's root.
-
-\(fn)" t nil)
+Run `magit-status' in the current project's root." t nil)
 
 (autoload 'magit-dired-jump "magit-extras" "\
 Visit file at point using Dired.
@@ -999,9 +975,7 @@ argument is used, then save the revision at its tip to the
 When the region is active, then save that to the `kill-ring',
 like `kill-ring-save' would, instead of behaving as described
 above.  If a prefix argument is used and the region is within a
-hunk, strip the outer diff marker column.
-
-\(fn)" t nil)
+hunk, strip the outer diff marker column." t nil)
 
 (autoload 'magit-copy-buffer-revision "magit-extras" "\
 Save the revision of the current buffer for later use.
@@ -1027,18 +1001,14 @@ above.
 
 When `magit-copy-revision-abbreviated' is non-nil, save the
 abbreviated revision to the `kill-ring' and the
-`magit-revision-stack'.
-
-\(fn)" t nil)
+`magit-revision-stack'." t nil)
 
 (autoload 'magit-abort-dwim "magit-extras" "\
 Abort current operation.
 Depending on the context, this will abort a merge, a rebase, a
-patch application, a cherry-pick, a revert, or a bisect.
+patch application, a cherry-pick, a revert, or a bisect." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-extras" '("magit-")))
+(register-definition-prefixes "magit-extras" '("magit-"))
 
 ;;;***
 
@@ -1071,14 +1041,10 @@ Fetch from all remotes.
 (autoload 'magit-fetch-all-prune "magit-fetch" "\
 Fetch from all remotes, and prune.
 Prune remote tracking branches for branches that have been
-removed on the respective remote.
-
-\(fn)" t nil)
+removed on the respective remote." t nil)
 
 (autoload 'magit-fetch-all-no-prune "magit-fetch" "\
-Fetch from all remotes.
-
-\(fn)" t nil)
+Fetch from all remotes." t nil)
 
 (autoload 'magit-fetch-modules "magit-fetch" "\
 Fetch all submodules.
@@ -1090,7 +1056,7 @@ prefix argument fetch all remotes.
 
 \(fn &optional ALL)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-fetch" '("magit-")))
+(register-definition-prefixes "magit-fetch" '("magit-"))
 
 ;;;***
 
@@ -1128,23 +1094,21 @@ the line and column corresponding to that location.
 (autoload 'magit-blob-visit-file "magit-files" "\
 View the file from the worktree corresponding to the current blob.
 When visiting a blob or the version from the index, then go to
-the same location in the respective file in the working tree.
-
-\(fn)" t nil)
+the same location in the respective file in the working tree." t nil)
 
 (autoload 'magit-file-checkout "magit-files" "\
 Checkout FILE from REV.
 
 \(fn REV FILE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-files" '("magit-")))
+(register-definition-prefixes "magit-files" '("magit-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-git" "magit-git.el" (0 0 0 0))
 ;;; Generated autoloads from magit-git.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-git" '("magit-")))
+(register-definition-prefixes "magit-git" '("magit-"))
 
 ;;;***
 
@@ -1201,7 +1165,7 @@ Call \"git update-index --no-assume-unchanged -- FILE\".
 
 \(fn FILE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-gitignore" '("magit-")))
+(register-definition-prefixes "magit-gitignore" '("magit-"))
 
 ;;;***
 
@@ -1211,115 +1175,85 @@ Call \"git update-index --no-assume-unchanged -- FILE\".
 (autoload 'magit-imenu--log-prev-index-position-function "magit-imenu" "\
 Move point to previous line in current buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--log-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
-
-\(fn)" nil nil)
+beginning of the line." nil nil)
 
 (autoload 'magit-imenu--diff-prev-index-position-function "magit-imenu" "\
 Move point to previous file line in current buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--diff-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
-
-\(fn)" nil nil)
+beginning of the line." nil nil)
 
 (autoload 'magit-imenu--status-create-index-function "magit-imenu" "\
 Return an alist of all imenu entries in current buffer.
 This function is used as a value for
-`imenu-create-index-function'.
-
-\(fn)" nil nil)
+`imenu-create-index-function'." nil nil)
 
 (autoload 'magit-imenu--refs-create-index-function "magit-imenu" "\
 Return an alist of all imenu entries in current buffer.
 This function is used as a value for
-`imenu-create-index-function'.
-
-\(fn)" nil nil)
+`imenu-create-index-function'." nil nil)
 
 (autoload 'magit-imenu--cherry-create-index-function "magit-imenu" "\
 Return an alist of all imenu entries in current buffer.
 This function is used as a value for
-`imenu-create-index-function'.
-
-\(fn)" nil nil)
+`imenu-create-index-function'." nil nil)
 
 (autoload 'magit-imenu--submodule-prev-index-position-function "magit-imenu" "\
 Move point to previous line in magit-submodule-list buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--submodule-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
-
-\(fn)" nil nil)
+beginning of the line." nil nil)
 
 (autoload 'magit-imenu--repolist-prev-index-position-function "magit-imenu" "\
 Move point to previous line in magit-repolist buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--repolist-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
-
-\(fn)" nil nil)
+beginning of the line." nil nil)
 
 (autoload 'magit-imenu--process-prev-index-position-function "magit-imenu" "\
 Move point to previous process in magit-process buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--process-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
-
-\(fn)" nil nil)
+beginning of the line." nil nil)
 
 (autoload 'magit-imenu--rebase-prev-index-position-function "magit-imenu" "\
 Move point to previous commit in git-rebase buffer.
 This function is used as a value for
-`imenu-prev-index-position-function'.
-
-\(fn)" nil nil)
+`imenu-prev-index-position-function'." nil nil)
 
 (autoload 'magit-imenu--rebase-extract-index-name-function "magit-imenu" "\
 Return imenu name for line at point.
 This function is used as a value for
 `imenu-extract-index-name-function'.  Point should be at the
-beginning of the line.
+beginning of the line." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-imenu" '("magit-imenu--index-function")))
+(register-definition-prefixes "magit-imenu" '("magit-imenu--index-function"))
 
 ;;;***
 
@@ -1421,14 +1355,14 @@ Show commits in a branch that are not merged in the upstream branch.
 
 \(fn HEAD UPSTREAM)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-log" '("magit-")))
+(register-definition-prefixes "magit-log" '("magit-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-margin" "magit-margin.el" (0 0 0 0))
 ;;; Generated autoloads from magit-margin.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-margin" '("magit-")))
+(register-definition-prefixes "magit-margin" '("magit-"))
 
 ;;;***
 
@@ -1506,18 +1440,16 @@ Preview result of merging REV into the current branch.
 (autoload 'magit-merge-abort "magit-merge" "\
 Abort the current merge operation.
 
-\(git merge --abort)
+\(git merge --abort)" t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-merge" '("magit-")))
+(register-definition-prefixes "magit-merge" '("magit-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-mode" "magit-mode.el" (0 0 0 0))
 ;;; Generated autoloads from magit-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-mode" '("magit-" "disable-magit-save-buffers" "inhibit-magit-refresh")))
+(register-definition-prefixes "magit-mode" '("disable-magit-save-buffers" "inhibit-magit-refresh" "magit-"))
 
 ;;;***
 
@@ -1525,7 +1457,7 @@ Abort the current merge operation.
 ;;; Generated autoloads from magit-notes.el
  (autoload 'magit-notes "magit" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-notes" '("magit-notes-")))
+(register-definition-prefixes "magit-notes" '("magit-notes-"))
 
 ;;;***
 
@@ -1533,7 +1465,7 @@ Abort the current merge operation.
 ;;;;;;  0))
 ;;; Generated autoloads from magit-obsolete.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-obsolete" '("magit--magit-popup-warning")))
+(register-definition-prefixes "magit-obsolete" '("magit--magit-popup-warning"))
 
 ;;;***
 
@@ -1578,14 +1510,14 @@ is asked to pull.  START has to be reachable from that commit.
 
 \(fn URL START END)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-patch" '("magit-")))
+(register-definition-prefixes "magit-patch" '("magit-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-process" "magit-process.el" (0 0 0 0))
 ;;; Generated autoloads from magit-process.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-process" '("magit-" "tramp-sh-handle-")))
+(register-definition-prefixes "magit-process" '("magit-" "tramp-sh-handle-"))
 
 ;;;***
 
@@ -1600,7 +1532,7 @@ Pull from a branch read in the minibuffer.
 
 \(fn SOURCE ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-pull" '("magit-pull-")))
+(register-definition-prefixes "magit-pull" '("magit-pull-"))
 
 ;;;***
 
@@ -1669,7 +1601,7 @@ these Git variables: `push.default', `remote.pushDefault',
 
 \(fn REMOTE ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-push" '("magit-")))
+(register-definition-prefixes "magit-push" '("magit-"))
 
 ;;;***
 
@@ -1678,9 +1610,7 @@ these Git variables: `push.default', `remote.pushDefault',
 
 (autoload 'magit-reflog-current "magit-reflog" "\
 Display the reflog of the current branch.
-If `HEAD' is detached, then show the reflog for that instead.
-
-\(fn)" t nil)
+If `HEAD' is detached, then show the reflog for that instead." t nil)
 
 (autoload 'magit-reflog-other "magit-reflog" "\
 Display the reflog of a branch or another ref.
@@ -1688,11 +1618,9 @@ Display the reflog of a branch or another ref.
 \(fn REF)" t nil)
 
 (autoload 'magit-reflog-head "magit-reflog" "\
-Display the `HEAD' reflog.
+Display the `HEAD' reflog." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-reflog" '("magit-reflog-")))
+(register-definition-prefixes "magit-reflog" '("magit-reflog-"))
 
 ;;;***
 
@@ -1718,7 +1646,7 @@ Compared with a branch read from the user.
 
 \(fn &optional REF ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-refs" '("magit-")))
+(register-definition-prefixes "magit-refs" '("magit-"))
 
 ;;;***
 
@@ -1778,7 +1706,7 @@ Delete the symbolic-ref \"refs/remotes/<remote>/HEAD\".
 \(fn REMOTE)" t nil)
  (autoload 'magit-remote-configure "magit-remote" nil t)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-remote" '("magit-")))
+(register-definition-prefixes "magit-remote" '("magit-"))
 
 ;;;***
 
@@ -1789,11 +1717,9 @@ Delete the symbolic-ref \"refs/remotes/<remote>/HEAD\".
 Display a list of repositories.
 
 Use the options `magit-repository-directories' to control which
-repositories are displayed.
+repositories are displayed." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-repos" '("magit-")))
+(register-definition-prefixes "magit-repos" '("magit-"))
 
 ;;;***
 
@@ -1852,14 +1778,14 @@ With a prefix argument reset the working tree otherwise don't.
 
 \(fn COMMIT &optional HARD)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-reset" '("magit-reset-")))
+(register-definition-prefixes "magit-reset" '("magit-reset-"))
 
 ;;;***
 
 ;;;### (autoloads nil "magit-section" "magit-section.el" (0 0 0 0))
 ;;; Generated autoloads from magit-section.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-section" '("magit-" "isearch-clean-overlays@magit-mode")))
+(register-definition-prefixes "magit-section" '("isearch-clean-overlays@magit-mode" "magit-"))
 
 ;;;***
 
@@ -1868,20 +1794,14 @@ With a prefix argument reset the working tree otherwise don't.
 ;;; Generated autoloads from magit-sequence.el
 
 (autoload 'magit-sequencer-continue "magit-sequence" "\
-Resume the current cherry-pick or revert sequence.
-
-\(fn)" t nil)
+Resume the current cherry-pick or revert sequence." t nil)
 
 (autoload 'magit-sequencer-skip "magit-sequence" "\
-Skip the stopped at commit during a cherry-pick or revert sequence.
-
-\(fn)" t nil)
+Skip the stopped at commit during a cherry-pick or revert sequence." t nil)
 
 (autoload 'magit-sequencer-abort "magit-sequence" "\
 Abort the current cherry-pick or revert sequence.
-This discards all changes made since the sequence started.
-
-\(fn)" t nil)
+This discards all changes made since the sequence started." t nil)
  (autoload 'magit-cherry-pick "magit-sequence" nil t)
 
 (autoload 'magit-cherry-copy "magit-sequence" "\
@@ -1961,20 +1881,14 @@ Apply the patches from MAILDIR.
 \(fn &optional MAILDIR ARGS)" t nil)
 
 (autoload 'magit-am-continue "magit-sequence" "\
-Resume the current patch applying sequence.
-
-\(fn)" t nil)
+Resume the current patch applying sequence." t nil)
 
 (autoload 'magit-am-skip "magit-sequence" "\
-Skip the stopped at patch during a patch applying sequence.
-
-\(fn)" t nil)
+Skip the stopped at patch during a patch applying sequence." t nil)
 
 (autoload 'magit-am-abort "magit-sequence" "\
 Abort the current patch applying sequence.
-This discards all changes made since the sequence started.
-
-\(fn)" t nil)
+This discards all changes made since the sequence started." t nil)
  (autoload 'magit-rebase "magit-sequence" nil t)
  (autoload 'magit-rebase-onto-pushremote "magit-sequence" nil t)
  (autoload 'magit-rebase-onto-upstream "magit-sequence" nil t)
@@ -2026,21 +1940,15 @@ edit.  With a prefix argument the old message is reused as-is.
 \(fn &optional NOEDIT)" t nil)
 
 (autoload 'magit-rebase-skip "magit-sequence" "\
-Skip the current commit and restart the current rebase operation.
-
-\(fn)" t nil)
+Skip the current commit and restart the current rebase operation." t nil)
 
 (autoload 'magit-rebase-edit "magit-sequence" "\
-Edit the todo list of the current rebase operation.
-
-\(fn)" t nil)
+Edit the todo list of the current rebase operation." t nil)
 
 (autoload 'magit-rebase-abort "magit-sequence" "\
-Abort the current rebase operation, restoring the original branch.
+Abort the current rebase operation, restoring the original branch." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-sequence" '("magit-")))
+(register-definition-prefixes "magit-sequence" '("magit-"))
 
 ;;;***
 
@@ -2091,9 +1999,7 @@ while two prefix arguments are equivalent to `--all'.
 
 (autoload 'magit-snapshot-index "magit-stash" "\
 Create a snapshot of the index only.
-Unstaged and untracked changes are not stashed.
-
-\(fn)" t nil)
+Unstaged and untracked changes are not stashed." t nil)
 
 (autoload 'magit-snapshot-worktree "magit-stash" "\
 Create a snapshot of unstaged changes in the working tree.
@@ -2139,16 +2045,14 @@ Create a patch from STASH
 \(fn STASH)" t nil)
 
 (autoload 'magit-stash-list "magit-stash" "\
-List all stashes in a buffer.
-
-\(fn)" t nil)
+List all stashes in a buffer." t nil)
 
 (autoload 'magit-stash-show "magit-stash" "\
 Show all diffs of a stash in a buffer.
 
 \(fn STASH &optional ARGS FILES)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-stash" '("magit-")))
+(register-definition-prefixes "magit-stash" '("magit-"))
 
 ;;;***
 
@@ -2211,16 +2115,14 @@ and read the info node `(magit)Getting Started', which
 also contains other useful hints.")
 
 (autoload 'magit-status-here "magit-status" "\
-Like `magit-status' but with non-nil `magit-status-goto-file-position'.
-
-\(fn)" t nil)
+Like `magit-status' but with non-nil `magit-status-goto-file-position'." t nil)
 
 (autoload 'magit-status-setup-buffer "magit-status" "\
 
 
 \(fn &optional DIRECTORY)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-status" '("magit-")))
+(register-definition-prefixes "magit-status" '("magit-"))
 
 ;;;***
 
@@ -2260,47 +2162,33 @@ to recover from making a mistake here, but don't count on it.
 Insert submodule sections.
 Hook `magit-module-sections-hook' controls which module sections
 are inserted, and option `magit-module-sections-nested' controls
-whether they are wrapped in an additional section.
-
-\(fn)" nil nil)
+whether they are wrapped in an additional section." nil nil)
 
 (autoload 'magit-insert-modules-overview "magit-submodule" "\
 Insert sections for all modules.
 For each section insert the path and the output of `git describe --tags',
-or, failing that, the abbreviated HEAD commit hash.
-
-\(fn)" nil nil)
+or, failing that, the abbreviated HEAD commit hash." nil nil)
 
 (autoload 'magit-insert-modules-unpulled-from-upstream "magit-submodule" "\
 Insert sections for modules that haven't been pulled from the upstream.
-These sections can be expanded to show the respective commits.
-
-\(fn)" nil nil)
+These sections can be expanded to show the respective commits." nil nil)
 
 (autoload 'magit-insert-modules-unpulled-from-pushremote "magit-submodule" "\
 Insert sections for modules that haven't been pulled from the push-remote.
-These sections can be expanded to show the respective commits.
-
-\(fn)" nil nil)
+These sections can be expanded to show the respective commits." nil nil)
 
 (autoload 'magit-insert-modules-unpushed-to-upstream "magit-submodule" "\
 Insert sections for modules that haven't been pushed to the upstream.
-These sections can be expanded to show the respective commits.
-
-\(fn)" nil nil)
+These sections can be expanded to show the respective commits." nil nil)
 
 (autoload 'magit-insert-modules-unpushed-to-pushremote "magit-submodule" "\
 Insert sections for modules that haven't been pushed to the push-remote.
-These sections can be expanded to show the respective commits.
-
-\(fn)" nil nil)
+These sections can be expanded to show the respective commits." nil nil)
 
 (autoload 'magit-list-submodules "magit-submodule" "\
-Display a list of the current repository's submodules.
+Display a list of the current repository's submodules." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-submodule" '("magit-")))
+(register-definition-prefixes "magit-submodule" '("magit-"))
 
 ;;;***
 
@@ -2340,7 +2228,7 @@ Extract the history of the subtree PREFIX.
 
 \(fn PREFIX COMMIT ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-subtree" '("magit-")))
+(register-definition-prefixes "magit-subtree" '("magit-"))
 
 ;;;***
 
@@ -2390,7 +2278,7 @@ like \"/path/to/foo-bar\".
 
 \(fn TAG MSG &optional ARGS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-tag" '("magit-")))
+(register-definition-prefixes "magit-tag" '("magit-"))
 
 ;;;***
 
@@ -2398,7 +2286,7 @@ like \"/path/to/foo-bar\".
 ;;;;;;  0 0))
 ;;; Generated autoloads from magit-transient.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-transient" '("magit-")))
+(register-definition-prefixes "magit-transient" '("magit-"))
 
 ;;;***
 
@@ -2407,9 +2295,7 @@ like \"/path/to/foo-bar\".
 
 (autoload 'magit-emacs-Q-command "magit-utils" "\
 Show a shell command that runs an uncustomized Emacs with only Magit loaded.
-See info node `(magit)Debugging Tools' for more information.
-
-\(fn)" t nil)
+See info node `(magit)Debugging Tools' for more information." t nil)
 
 (autoload 'Info-follow-nearest-node--magit-gitman "magit-utils" "\
 
@@ -2425,7 +2311,7 @@ See info node `(magit)Debugging Tools' for more information.
 
 (advice-add 'org-man-export :around 'org-man-export--magit-gitman)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-utils" '("magit-")))
+(register-definition-prefixes "magit-utils" '("magit-"))
 
 ;;;***
 
@@ -2445,6 +2331,17 @@ or call the function `magit-wip-mode'.")
 (autoload 'magit-wip-mode "magit-wip" "\
 Save uncommitted changes to work-in-progress refs.
 
+If called interactively, toggle `Magit-Wip mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 Whenever appropriate (i.e. when dataloss would be a possibility
 otherwise) this mode causes uncommitted changes to be committed
 to dedicated work-in-progress refs.
@@ -2455,6 +2352,8 @@ if you want finer control over when the wip refs are updated;
 but that is discouraged.
 
 \(fn &optional ARG)" t nil)
+
+(put 'magit-wip-after-save-mode 'globalized-minor-mode t)
 
 (defvar magit-wip-after-save-mode nil "\
 Non-nil if Magit-Wip-After-Save mode is enabled.
@@ -2474,7 +2373,9 @@ ARG is omitted or nil.
 
 Magit-Wip-After-Save-Local mode is enabled in all buffers where
 `magit-wip-after-save-local-mode-turn-on' would do it.
-See `magit-wip-after-save-local-mode' for more information on Magit-Wip-After-Save-Local mode.
+
+See `magit-wip-after-save-local-mode' for more information on
+Magit-Wip-After-Save-Local mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -2487,6 +2388,17 @@ for a description of this minor mode.")
 
 (autoload 'magit-wip-after-apply-mode "magit-wip" "\
 Commit to work-in-progress refs.
+
+If called interactively, toggle `Magit-Wip-After-Apply mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 After applying a change using any \"apply variant\"
 command (apply, stage, unstage, discard, and reverse) commit the
@@ -2506,6 +2418,17 @@ for a description of this minor mode.")
 
 (autoload 'magit-wip-before-change-mode "magit-wip" "\
 Commit to work-in-progress refs before certain destructive changes.
+
+If called interactively, toggle `Magit-Wip-Before-Change mode'.
+If the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 Before invoking a revert command or an \"apply variant\"
 command (apply, stage, unstage, discard, and reverse) commit the
@@ -2533,11 +2456,9 @@ modes, instead of in a backup file as `backup-buffer' would.
 This function ignores the variables that affect `backup-buffer'
 and can be used along-side that function, which is recommended
 because this function only backs up files that are tracked in
-a Git repository.
+a Git repository." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-wip" '("magit-")))
+(register-definition-prefixes "magit-wip" '("magit-"))
 
 ;;;***
 
@@ -2561,7 +2482,7 @@ Move WORKTREE to PATH.
 
 \(fn WORKTREE PATH)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-worktree" '("magit-")))
+(register-definition-prefixes "magit-worktree" '("magit-"))
 
 ;;;***
 

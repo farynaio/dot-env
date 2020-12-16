@@ -10,11 +10,9 @@
 ;;; Generated autoloads from elfeed-web.el
 
 (autoload 'elfeed-web-start "elfeed-web" "\
-Start the Elfeed web interface server.
+Start the Elfeed web interface server." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web")))
+(register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web"))
 
 ;;;***
 

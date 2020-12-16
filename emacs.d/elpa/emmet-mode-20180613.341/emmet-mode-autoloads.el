@@ -24,6 +24,17 @@ For more information see `emmet-mode'.
 Minor mode for writing HTML and CSS markup.
 With emmet for HTML and CSS you can write a line like
 
+If called interactively, toggle `Emmet mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
   ul#name>li.item*2
 
 and have it expanded to
@@ -43,10 +54,7 @@ See also `emmet-expand-line'.
 
 \(fn &optional ARG)" t nil)
 
-(autoload 'emmet-expand-yas "emmet-mode" "\
-
-
-\(fn)" t nil)
+(autoload 'emmet-expand-yas "emmet-mode" nil t nil)
 
 (autoload 'emmet-preview "emmet-mode" "\
 Expand emmet between BEG and END interactively.
@@ -70,7 +78,7 @@ Wrap region with markup.
 
 \(fn COUNT)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emmet-mode" '("emmet-")))
+(register-definition-prefixes "emmet-mode" '("emmet-"))
 
 ;;;***
 

@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "calfw" "calfw.el" (0 0 0 0))
 ;;; Generated autoloads from calfw.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "calfw" '("cfw:")))
+(register-definition-prefixes "calfw" '("cfw:"))
 
 ;;;***
 

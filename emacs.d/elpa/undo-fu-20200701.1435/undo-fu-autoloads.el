@@ -14,16 +14,12 @@ Remove the undo-fu checkpoint, making all future actions unconstrained.
 
 This command is needed when `undo-fu-ignore-keyboard-quit' is t,
 since in this case `keyboard-quit' cannot be used
-to perform unconstrained undo/redo actions.
-
-\(fn)" t nil)
+to perform unconstrained undo/redo actions." t nil)
 
 (autoload 'undo-fu-only-redo-all "undo-fu" "\
 Redo all actions until the initial undo step.
 
-wraps the `undo' function.
-
-\(fn)" t nil)
+wraps the `undo' function." t nil)
 
 (autoload 'undo-fu-only-redo "undo-fu" "\
 Redo an action until the initial undo action.
@@ -43,7 +39,7 @@ Optional argument ARG the number of steps to undo.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "undo-fu" '("undo-fu-")))
+(register-definition-prefixes "undo-fu" '("undo-fu-"))
 
 ;;;***
 

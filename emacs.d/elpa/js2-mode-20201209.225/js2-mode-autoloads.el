@@ -10,17 +10,25 @@
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from js2-imenu-extras.el
 
-(autoload 'js2-imenu-extras-setup "js2-imenu-extras" "\
-
-
-\(fn)" nil nil)
+(autoload 'js2-imenu-extras-setup "js2-imenu-extras" nil nil nil)
 
 (autoload 'js2-imenu-extras-mode "js2-imenu-extras" "\
 Toggle Imenu support for frameworks and structural patterns.
 
+If called interactively, toggle `Js2-Imenu-Extras mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-imenu-extras" '("js2-imenu-")))
+(register-definition-prefixes "js2-imenu-extras" '("js2-imenu-"))
 
 ;;;***
 
@@ -30,6 +38,17 @@ Toggle Imenu support for frameworks and structural patterns.
 (autoload 'js2-highlight-unused-variables-mode "js2-mode" "\
 Toggle highlight of unused variables.
 
+If called interactively, toggle `Js2-Highlight-Unused-Variables
+mode'.  If the prefix argument is positive, enable the mode, and
+if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'js2-minor-mode "js2-mode" "\
@@ -37,6 +56,17 @@ Minor mode for running js2 as a background linter.
 This allows you to use a different major mode for JavaScript editing,
 such as `js-mode', while retaining the asynchronous error/warning
 highlighting features of `js2-mode'.
+
+If called interactively, toggle `Js2 minor mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -60,7 +90,7 @@ variables (`sgml-basic-offset' et al) locally, like so:
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-mode" '("js2-")))
+(register-definition-prefixes "js2-mode" '("js2-"))
 
 ;;;***
 
@@ -68,7 +98,7 @@ variables (`sgml-basic-offset' et al) locally, like so:
 ;;;;;;  0))
 ;;; Generated autoloads from js2-old-indent.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-old-indent" '("js2-")))
+(register-definition-prefixes "js2-old-indent" '("js2-"))
 
 ;;;***
 

@@ -14,7 +14,7 @@ Major mode for editing web templates.
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "web-mode" '("web-mode-")))
+(register-definition-prefixes "web-mode" '("web-mode-"))
 
 ;;;***
 

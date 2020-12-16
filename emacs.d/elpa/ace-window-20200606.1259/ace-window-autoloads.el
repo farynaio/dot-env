@@ -10,24 +10,16 @@
 ;;; Generated autoloads from ace-window.el
 
 (autoload 'ace-select-window "ace-window" "\
-Ace select window.
-
-\(fn)" t nil)
+Ace select window." t nil)
 
 (autoload 'ace-delete-window "ace-window" "\
-Ace delete window.
-
-\(fn)" t nil)
+Ace delete window." t nil)
 
 (autoload 'ace-swap-window "ace-window" "\
-Ace swap window.
-
-\(fn)" t nil)
+Ace swap window." t nil)
 
 (autoload 'ace-delete-other-windows "ace-window" "\
-Ace delete other windows.
-
-\(fn)" t nil)
+Ace delete other windows." t nil)
 
 (autoload 'ace-display-buffer "ace-window" "\
 Make `display-buffer' and `pop-to-buffer' select using `ace-window'.
@@ -66,9 +58,20 @@ or call the function `ace-window-display-mode'.")
 (autoload 'ace-window-display-mode "ace-window" "\
 Minor mode for showing the ace window key in the mode line.
 
+If called interactively, toggle `Ace-Window-Display mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ace-window" '("ace-window-mode" "aw-")))
+(register-definition-prefixes "ace-window" '("ace-window-mode" "aw-"))
 
 ;;;***
 

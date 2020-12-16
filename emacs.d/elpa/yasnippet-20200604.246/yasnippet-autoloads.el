@@ -12,6 +12,17 @@
 (autoload 'yas-minor-mode "yasnippet" "\
 Toggle YASnippet mode.
 
+If called interactively, toggle `Yas minor mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 When YASnippet mode is enabled, `yas-expand', normally bound to
 the TAB key, expands snippets of code depending on the major
 mode.
@@ -24,6 +35,8 @@ Key bindings:
 \\{yas-minor-mode-map}
 
 \(fn &optional ARG)" t nil)
+
+(put 'yas-global-mode 'globalized-minor-mode t)
 
 (defvar yas-global-mode nil "\
 Non-nil if Yas-Global mode is enabled.
@@ -43,12 +56,14 @@ ARG is omitted or nil.
 
 Yas minor mode is enabled in all buffers where
 `yas-minor-mode-on' would do it.
-See `yas-minor-mode' for more information on Yas minor mode.
+
+See `yas-minor-mode' for more information on
+Yas minor mode.
 
 \(fn &optional ARG)" t nil)
 (autoload 'snippet-mode "yasnippet" "A mode for editing yasnippets" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "yasnippet" '("yas" "help-snippet-def" "snippet-mode-map")))
+(register-definition-prefixes "yasnippet" '("help-snippet-def" "snippet-mode-map" "yas"))
 
 ;;;***
 

@@ -13,7 +13,20 @@
 (autoload 'evil-visualstar-mode "evil-visualstar" "\
 Minor mode for visual star selection.
 
+If called interactively, toggle `Evil-Visualstar mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
+
+(put 'global-evil-visualstar-mode 'globalized-minor-mode t)
 
 (defvar global-evil-visualstar-mode nil "\
 Non-nil if Global Evil-Visualstar mode is enabled.
@@ -33,21 +46,19 @@ ARG is omitted or nil.
 
 Evil-Visualstar mode is enabled in all buffers where
 `turn-on-evil-visualstar-mode' would do it.
-See `evil-visualstar-mode' for more information on Evil-Visualstar mode.
+
+See `evil-visualstar-mode' for more information on
+Evil-Visualstar mode.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'turn-on-evil-visualstar-mode "evil-visualstar" "\
-Turns on visual star selection.
-
-\(fn)" t nil)
+Turns on visual star selection." t nil)
 
 (autoload 'turn-off-evil-visualstar-mode "evil-visualstar" "\
-Turns off visual star selection.
+Turns off visual star selection." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-visualstar" '("evil-visualstar/")))
+(register-definition-prefixes "evil-visualstar" '("evil-visualstar/"))
 
 ;;;***
 

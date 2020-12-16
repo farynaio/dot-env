@@ -26,21 +26,26 @@ when a Git commit message file is opened.  That usually happens
 when Git uses the Emacsclient as $GIT_EDITOR to have the user
 provide such a commit message.
 
+If called interactively, toggle `Global Git-Commit mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (defconst git-commit-filename-regexp "/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|MERGEREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|\\(BRANCH\\|EDIT\\)_DESCRIPTION\\)\\'")
 
-(autoload 'git-commit-setup-check-buffer "git-commit" "\
+(autoload 'git-commit-setup-check-buffer "git-commit" nil nil nil)
 
+(autoload 'git-commit-setup "git-commit" nil nil nil)
 
-\(fn)" nil nil)
-
-(autoload 'git-commit-setup "git-commit" "\
-
-
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-commit" '("git-commit-")))
+(register-definition-prefixes "git-commit" '("git-commit-"))
 
 ;;;***
 

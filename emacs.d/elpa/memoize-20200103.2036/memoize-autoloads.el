@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "memoize" "memoize.el" (0 0 0 0))
 ;;; Generated autoloads from memoize.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "memoize" '("defmemoize" "memoize")))
+(register-definition-prefixes "memoize" '("defmemoize" "memoize"))
 
 ;;;***
 

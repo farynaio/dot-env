@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "noflet" "noflet.el" (0 0 0 0))
 ;;; Generated autoloads from noflet.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "noflet" '("ntake-all" "letn")))
+(register-definition-prefixes "noflet" '("letn" "ntake-all"))
 
 ;;;***
 

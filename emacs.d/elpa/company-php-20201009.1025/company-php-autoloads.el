@@ -14,7 +14,7 @@
 
 \(fn COMMAND &optional ARG &rest IGNORED)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "company-php" '("company-")))
+(register-definition-prefixes "company-php" '("company-"))
 
 ;;;***
 

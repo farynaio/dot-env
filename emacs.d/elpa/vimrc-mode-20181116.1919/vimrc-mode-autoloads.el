@@ -17,7 +17,7 @@ Major mode for editing `vimrc', `xxx.vim' and `.exrc' configuration files.
 
 \(fn)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vimrc-mode" '("vimrc-")))
+(register-definition-prefixes "vimrc-mode" '("vimrc-"))
 
 ;;;***
 

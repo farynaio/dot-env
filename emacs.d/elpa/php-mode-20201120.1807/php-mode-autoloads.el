@@ -12,24 +12,16 @@
 (let ((loads (get 'php 'custom-loads))) (if (member '"php" loads) nil (put 'php 'custom-loads (cons '"php" loads))))
 
 (autoload 'php-mode-maybe "php" "\
-Select PHP mode or other major mode.
-
-\(fn)" t nil)
+Select PHP mode or other major mode." t nil)
 
 (autoload 'php-current-class "php" "\
-Insert current class name if cursor in class context.
-
-\(fn)" t nil)
+Insert current class name if cursor in class context." t nil)
 
 (autoload 'php-current-namespace "php" "\
-Insert current namespace if cursor in namespace context.
-
-\(fn)" t nil)
+Insert current namespace if cursor in namespace context." t nil)
 
 (autoload 'php-copyit-fqsen "php" "\
-Copy/kill class/method FQSEN.
-
-\(fn)" t nil)
+Copy/kill class/method FQSEN." t nil)
 
 (autoload 'php-run-builtin-web-server "php" "\
 Run PHP Built-in web server.
@@ -48,7 +40,7 @@ Find php.ini FILE by `php --ini'.
 
 \(fn &optional FILE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php" '("php-")))
+(register-definition-prefixes "php" '("php-"))
 
 ;;;***
 
@@ -56,16 +48,25 @@ Find php.ini FILE by `php --ini'.
 ;;; Generated autoloads from php-align.el
 
 (autoload 'php-align-setup "php-align" "\
-Setup alignment configuration for PHP code.
-
-\(fn)" nil nil)
+Setup alignment configuration for PHP code." nil nil)
 
 (autoload 'php-align-mode "php-align" "\
 Alignment lines for PHP script.
 
+If called interactively, toggle `Php-align mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-align" '("php-align-")))
+(register-definition-prefixes "php-align" '("php-align-"))
 
 ;;;***
 
@@ -74,7 +75,7 @@ Alignment lines for PHP script.
 
 (let ((loads (get 'php-faces 'custom-loads))) (if (member '"php-face" loads) nil (put 'php-faces 'custom-loads (cons '"php-face" loads))))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-face" '("php-annotations-annotation-face")))
+(register-definition-prefixes "php-face" '("php-annotations-annotation-face"))
 
 ;;;***
 
@@ -82,7 +83,7 @@ Alignment lines for PHP script.
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from php-local-manual.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-local-manual" '("php-local-manual-search")))
+(register-definition-prefixes "php-local-manual" '("php-local-manual-search"))
 
 ;;;***
 
@@ -108,7 +109,7 @@ Major mode for editing PHP code.
 
 (add-to-list 'auto-mode-alist '("\\.\\(?:php[s345]?\\|phtml\\)\\'" . php-mode-maybe))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-mode" '("php-")))
+(register-definition-prefixes "php-mode" '("php-"))
 
 ;;;***
 
@@ -116,7 +117,7 @@ Major mode for editing PHP code.
 ;;;;;;  0))
 ;;; Generated autoloads from php-mode-debug.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-mode-debug" '("php-mode-debug")))
+(register-definition-prefixes "php-mode-debug" '("php-mode-debug"))
 
 ;;;***
 
@@ -217,16 +218,12 @@ Function name or path to server-start script.")
 (put 'php-project-server-start 'safe-local-variable #'(lambda (v) (or (functionp v) (php-project--eval-bootstrap-scripts v))))
 
 (autoload 'php-project-get-bootstrap-scripts "php-project" "\
-Return list of bootstrap script.
-
-\(fn)" nil nil)
+Return list of bootstrap script." nil nil)
 
 (autoload 'php-project-get-root-dir "php-project" "\
-Return path to current PHP project.
+Return path to current PHP project." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "php-project" '("php-project-")))
+(register-definition-prefixes "php-project" '("php-project-"))
 
 ;;;***
 

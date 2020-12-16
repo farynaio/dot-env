@@ -16,7 +16,7 @@ COMMAND and ARG are as per the documentation of `company-backends'.
 
 \(fn COMMAND &optional ARG &rest _)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "company-org-roam" '("company-org-roam-")))
+(register-definition-prefixes "company-org-roam" '("company-org-roam-"))
 
 ;;;***
 

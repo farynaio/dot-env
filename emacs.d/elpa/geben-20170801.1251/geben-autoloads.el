@@ -55,7 +55,7 @@ After unregistration, it kills the listener instance.
 
 \(fn PROXY)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dbgp" '("dbgp-")))
+(register-definition-prefixes "dbgp" '("dbgp-"))
 
 ;;;***
 
@@ -67,12 +67,21 @@ Minor mode for debugging source code with GEBEN.
 The geben-mode buffer commands:
 \\{geben-mode-map}
 
+If called interactively, toggle `Geben mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'geben-add-current-line-to-predefined-breakpoints "geben" "\
-Add the current line to the predefined breakpoints.
-
-\(fn)" t nil)
+Add the current line to the predefined breakpoints." t nil)
 
 (autoload 'geben "geben" "\
 Start GEBEN, a DBGp protocol frontend - a script debugger.
@@ -125,7 +134,7 @@ or call the function `geben-full-frame-mode'.")
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "geben" '("geben-")))
+(register-definition-prefixes "geben" '("geben-"))
 
 ;;;***
 

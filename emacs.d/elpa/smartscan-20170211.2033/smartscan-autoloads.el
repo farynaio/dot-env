@@ -10,14 +10,10 @@
 ;;; Generated autoloads from smartscan.el
 
 (autoload 'smartscan-symbol-go-forward "smartscan" "\
-Jumps forward to the next symbol at point
-
-\(fn)" t nil)
+Jumps forward to the next symbol at point" t nil)
 
 (autoload 'smartscan-symbol-go-backward "smartscan" "\
-Jumps backward to the previous symbol at point
-
-\(fn)" t nil)
+Jumps backward to the previous symbol at point" t nil)
 
 (autoload 'smartscan-symbol-replace "smartscan" "\
 Replaces the symbol at point with another string in the entire buffer.
@@ -33,6 +29,17 @@ actual work.
 (autoload 'smartscan-mode "smartscan" "\
 Jumps between other symbols found at point.
 
+If called interactively, toggle `Smartscan mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 When Smart Scan mode is enabled, you can jump between the all the
 symbols in your current buffer that point is on.
 
@@ -43,6 +50,8 @@ Key bindings:
 \\{smartscan-map}
 
 \(fn &optional ARG)" t nil)
+
+(put 'global-smartscan-mode 'globalized-minor-mode t)
 
 (defvar global-smartscan-mode nil "\
 Non-nil if Global Smartscan mode is enabled.
@@ -62,11 +71,13 @@ ARG is omitted or nil.
 
 Smartscan mode is enabled in all buffers where
 `smartscan-mode-turn-on' would do it.
-See `smartscan-mode' for more information on Smartscan mode.
+
+See `smartscan-mode' for more information on
+Smartscan mode.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smartscan" '("smartscan-")))
+(register-definition-prefixes "smartscan" '("smartscan-"))
 
 ;;;***
 

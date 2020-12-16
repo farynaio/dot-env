@@ -14,9 +14,7 @@ Get and apply EditorConfig properties to current buffer.
 
 This function does not respect the values of `editorconfig-exclude-modes' and
 `editorconfig-exclude-regexps' and always applies available properties.
-Use `editorconfig-mode-apply' instead to make use of these variables.
-
-\(fn)" t nil)
+Use `editorconfig-mode-apply' instead to make use of these variables." t nil)
 
 (defvar editorconfig-mode nil "\
 Non-nil if Editorconfig mode is enabled.
@@ -31,27 +29,32 @@ or call the function `editorconfig-mode'.")
 (autoload 'editorconfig-mode "editorconfig" "\
 Toggle EditorConfig feature.
 
+If called interactively, toggle `Editorconfig mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 To disable EditorConfig in some buffers, modify
 `editorconfig-exclude-modes' or `editorconfig-exclude-regexps'.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'editorconfig-find-current-editorconfig "editorconfig" "\
-Find the closest .editorconfig file for current file.
-
-\(fn)" t nil)
+Find the closest .editorconfig file for current file." t nil)
 
 (autoload 'editorconfig-display-current-properties "editorconfig" "\
-Display EditorConfig properties extracted for current buffer.
-
-\(fn)" t nil)
+Display EditorConfig properties extracted for current buffer." t nil)
 
 (defalias 'describe-editorconfig-properties 'editorconfig-display-current-properties)
 
 (autoload 'editorconfig-format-buffer "editorconfig" "\
-Format buffer according to .editorconfig indent_style and indent_width.
-
-\(fn)" t nil)
+Format buffer according to .editorconfig indent_style and indent_width." t nil)
 
 (autoload 'editorconfig-version "editorconfig" "\
 Get EditorConfig version as string.
@@ -61,7 +64,7 @@ version in the echo area and the messages buffer.
 
 \(fn &optional SHOW-VERSION)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "editorconfig" '("editorconfig-")))
+(register-definition-prefixes "editorconfig" '("editorconfig-"))
 
 ;;;***
 
@@ -76,7 +79,7 @@ Major mode for editing .editorconfig files.
 
 (add-to-list 'auto-mode-alist '("\\.editorconfig\\'" . editorconfig-conf-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "editorconfig-conf-mode" '("editorconfig-conf-mode-")))
+(register-definition-prefixes "editorconfig-conf-mode" '("editorconfig-conf-mode-"))
 
 ;;;***
 
@@ -111,7 +114,7 @@ hash object instead.
 
 \(fn &optional FILE CONFNAME CONFVERSION)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "editorconfig-core" '("editorconfig-core--")))
+(register-definition-prefixes "editorconfig-core" '("editorconfig-core--"))
 
 ;;;***
 
@@ -119,7 +122,7 @@ hash object instead.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from editorconfig-core-handle.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "editorconfig-core-handle" '("editorconfig-core-handle")))
+(register-definition-prefixes "editorconfig-core-handle" '("editorconfig-core-handle"))
 
 ;;;***
 
@@ -145,7 +148,7 @@ be used:
 
 \(fn STRING PATTERN)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "editorconfig-fnmatch" '("editorconfig-fnmatch-")))
+(register-definition-prefixes "editorconfig-fnmatch" '("editorconfig-fnmatch-"))
 
 ;;;***
 

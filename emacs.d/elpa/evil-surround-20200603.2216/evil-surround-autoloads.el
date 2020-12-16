@@ -28,17 +28,26 @@ overlays OUTER and INNER, which are passed to `evil-surround-delete'.
 (autoload 'evil-surround-mode "evil-surround" "\
 Buffer-local minor mode to emulate surround.vim.
 
+If called interactively, toggle `Evil-Surround mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'turn-on-evil-surround-mode "evil-surround" "\
-Enable evil-surround-mode in the current buffer.
-
-\(fn)" nil nil)
+Enable evil-surround-mode in the current buffer." nil nil)
 
 (autoload 'turn-off-evil-surround-mode "evil-surround" "\
-Disable evil-surround-mode in the current buffer.
+Disable evil-surround-mode in the current buffer." nil nil)
 
-\(fn)" nil nil)
+(put 'global-evil-surround-mode 'globalized-minor-mode t)
 
 (defvar global-evil-surround-mode nil "\
 Non-nil if Global Evil-Surround mode is enabled.
@@ -58,11 +67,13 @@ ARG is omitted or nil.
 
 Evil-Surround mode is enabled in all buffers where
 `turn-on-evil-surround-mode' would do it.
-See `evil-surround-mode' for more information on Evil-Surround mode.
+
+See `evil-surround-mode' for more information on
+Evil-Surround mode.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-surround" '("evil-surround-")))
+(register-definition-prefixes "evil-surround" '("evil-surround-"))
 
 ;;;***
 

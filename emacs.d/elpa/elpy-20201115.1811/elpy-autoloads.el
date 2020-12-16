@@ -17,6 +17,17 @@ Enable Elpy in all future Python buffers.
 (autoload 'elpy-mode "elpy" "\
 Minor mode in Python buffers for the Emacs Lisp Python Environment.
 
+If called interactively, toggle `Elpy mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 This mode fully supports virtualenvs. Once you switch a
 virtualenv using \\[pyvenv-workon], you can use
 \\[elpy-rpc-restart] to make the elpy Python process use your
@@ -30,51 +41,47 @@ virtualenv.
 Configure Elpy.
 
 This function will pop up a configuration buffer, which is mostly
-a customize buffer, but has some more options.
-
-\(fn)" t nil)
+a customize buffer, but has some more options." t nil)
 
 (autoload 'elpy-version "elpy" "\
-Display the version of Elpy.
+Display the version of Elpy." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy" '("elpy-")))
+(register-definition-prefixes "elpy" '("elpy-"))
 
 ;;;***
 
 ;;;### (autoloads nil "elpy-django" "elpy-django.el" (0 0 0 0))
 ;;; Generated autoloads from elpy-django.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy-django" '("elpy-")))
+(register-definition-prefixes "elpy-django" '("elpy-"))
 
 ;;;***
 
 ;;;### (autoloads nil "elpy-profile" "elpy-profile.el" (0 0 0 0))
 ;;; Generated autoloads from elpy-profile.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy-profile" '("elpy-profile-")))
+(register-definition-prefixes "elpy-profile" '("elpy-profile-"))
 
 ;;;***
 
 ;;;### (autoloads nil "elpy-refactor" "elpy-refactor.el" (0 0 0 0))
 ;;; Generated autoloads from elpy-refactor.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy-refactor" '("elpy-refactor-")))
+(register-definition-prefixes "elpy-refactor" '("elpy-refactor-"))
 
 ;;;***
 
 ;;;### (autoloads nil "elpy-rpc" "elpy-rpc.el" (0 0 0 0))
 ;;; Generated autoloads from elpy-rpc.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy-rpc" '("elpy-" "with-elpy-rpc-virtualenv-activated")))
+(register-definition-prefixes "elpy-rpc" '("elpy-" "with-elpy-rpc-virtualenv-activated"))
 
 ;;;***
 
 ;;;### (autoloads nil "elpy-shell" "elpy-shell.el" (0 0 0 0))
 ;;; Generated autoloads from elpy-shell.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpy-shell" '("elpy-")))
+(register-definition-prefixes "elpy-shell" '("elpy-"))
 
 ;;;***
 

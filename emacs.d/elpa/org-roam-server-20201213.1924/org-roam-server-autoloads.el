@@ -23,9 +23,20 @@ or call the function `org-roam-server-mode'.")
 (autoload 'org-roam-server-mode "org-roam-server" "\
 Start the http server and serve org-roam files.
 
+If called interactively, toggle `Org-Roam-Server mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-server" '("org-roam-" "default-filters" "server-css" "network-vis-options" "roam-data" "current-buffer-data")))
+(register-definition-prefixes "org-roam-server" '("current-buffer-data" "default-filters" "network-vis-options" "org-roam-" "roam-data" "server-css"))
 
 ;;;***
 

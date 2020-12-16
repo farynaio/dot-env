@@ -10,14 +10,25 @@
 ;;; Generated autoloads from git-gutter.el
 
 (autoload 'git-gutter:linum-setup "git-gutter" "\
-Setup for linum-mode.
-
-\(fn)" nil nil)
+Setup for linum-mode." nil nil)
 
 (autoload 'git-gutter-mode "git-gutter" "\
 Git-Gutter mode
 
+If called interactively, toggle `Git-Gutter mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or negative,
+disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
+mode if ARG is nil, omitted, or is a positive number.  Disable the
+mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when it is
+disabled.
+
 \(fn &optional ARG)" t nil)
+
+(put 'global-git-gutter-mode 'globalized-minor-mode t)
 
 (defvar global-git-gutter-mode nil "\
 Non-nil if Global Git-Gutter mode is enabled.
@@ -37,21 +48,19 @@ ARG is omitted or nil.
 
 Git-Gutter mode is enabled in all buffers where
 `git-gutter--turn-on' would do it.
-See `git-gutter-mode' for more information on Git-Gutter mode.
+
+See `git-gutter-mode' for more information on
+Git-Gutter mode.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'git-gutter "git-gutter" "\
-Show diff information in gutter
-
-\(fn)" t nil)
+Show diff information in gutter" t nil)
 
 (autoload 'git-gutter:toggle "git-gutter" "\
-Toggle to show diff information.
+Toggle to show diff information." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-gutter" '("git-gutter")))
+(register-definition-prefixes "git-gutter" '("git-gutter"))
 
 ;;;***
 

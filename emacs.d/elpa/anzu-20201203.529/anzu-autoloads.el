@@ -12,7 +12,20 @@
 (autoload 'anzu-mode "anzu" "\
 minor-mode which display search information in mode-line.
 
+If called interactively, toggle `Anzu mode'.  If the prefix argument
+is positive, enable the mode, and if it is zero or negative, disable
+the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
+mode if ARG is nil, omitted, or is a positive number.  Disable the
+mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when it is
+disabled.
+
 \(fn &optional ARG)" t nil)
+
+(put 'global-anzu-mode 'globalized-minor-mode t)
 
 (defvar global-anzu-mode nil "\
 Non-nil if Global Anzu mode is enabled.
@@ -32,19 +45,17 @@ ARG is omitted or nil.
 
 Anzu mode is enabled in all buffers where
 `anzu--turn-on' would do it.
-See `anzu-mode' for more information on Anzu mode.
+
+See `anzu-mode' for more information on
+Anzu mode.
 
 \(fn &optional ARG)" t nil)
 
 (autoload 'anzu-query-replace-at-cursor "anzu" "\
-Replace symbol at cursor with to-string.
-
-\(fn)" t nil)
+Replace symbol at cursor with to-string." t nil)
 
 (autoload 'anzu-query-replace-at-cursor-thing "anzu" "\
-Replace symbol at cursor within `anzu-replace-at-cursor-thing' area.
-
-\(fn)" t nil)
+Replace symbol at cursor within `anzu-replace-at-cursor-thing' area." t nil)
 
 (autoload 'anzu-query-replace "anzu" "\
 anzu version of `query-replace'.
@@ -57,9 +68,7 @@ anzu version of `query-replace-regexp'.
 \(fn ARG)" t nil)
 
 (autoload 'anzu-replace-at-cursor-thing "anzu" "\
-anzu-query-replace-at-cursor-thing without query.
-
-\(fn)" t nil)
+anzu-query-replace-at-cursor-thing without query." t nil)
 
 (autoload 'anzu-isearch-query-replace "anzu" "\
 anzu version of `isearch-query-replace'.
@@ -71,7 +80,7 @@ anzu version of `isearch-query-replace-regexp'.
 
 \(fn ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "anzu" '("anzu")))
+(register-definition-prefixes "anzu" '("anzu"))
 
 ;;;***
 

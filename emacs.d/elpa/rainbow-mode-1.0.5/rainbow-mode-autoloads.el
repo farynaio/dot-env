@@ -13,9 +13,20 @@
 Colorize strings that represent colors.
 This will fontify with colors the string like \"#aabbcc\" or \"blue\".
 
+If called interactively, toggle `Rainbow mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rainbow-mode" '("rainbow-")))
+(register-definition-prefixes "rainbow-mode" '("rainbow-"))
 
 ;;;***
 

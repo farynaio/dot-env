@@ -32,17 +32,26 @@ Drag stuff ARG lines to the left.
 (autoload 'drag-stuff-mode "drag-stuff" "\
 Drag stuff around.
 
+If called interactively, toggle `Drag-Stuff mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'turn-on-drag-stuff-mode "drag-stuff" "\
-Turn on `drag-stuff-mode'.
-
-\(fn)" t nil)
+Turn on `drag-stuff-mode'." t nil)
 
 (autoload 'turn-off-drag-stuff-mode "drag-stuff" "\
-Turn off `drag-stuff-mode'.
+Turn off `drag-stuff-mode'." t nil)
 
-\(fn)" t nil)
+(put 'drag-stuff-global-mode 'globalized-minor-mode t)
 
 (defvar drag-stuff-global-mode nil "\
 Non-nil if Drag-Stuff-Global mode is enabled.
@@ -62,11 +71,13 @@ ARG is omitted or nil.
 
 Drag-Stuff mode is enabled in all buffers where
 `turn-on-drag-stuff-mode' would do it.
-See `drag-stuff-mode' for more information on Drag-Stuff mode.
+
+See `drag-stuff-mode' for more information on
+Drag-Stuff mode.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "drag-stuff" '("drag-stuff-")))
+(register-definition-prefixes "drag-stuff" '("drag-stuff-"))
 
 ;;;***
 

@@ -25,7 +25,7 @@ Switch `langtool-default-language' to LANG
 
 \(fn LANG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "langtool" '("langtool-")))
+(register-definition-prefixes "langtool" '("langtool-"))
 
 ;;;***
 

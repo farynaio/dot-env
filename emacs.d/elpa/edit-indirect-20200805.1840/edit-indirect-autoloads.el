@@ -40,7 +40,7 @@ In any case, return the edit-indirect buffer.
 
 \(fn BEG END &optional DISPLAY-BUFFER)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "edit-indirect" '("edit-indirect-")))
+(register-definition-prefixes "edit-indirect" '("edit-indirect-"))
 
 ;;;***
 

@@ -38,7 +38,7 @@ when finished.  See `url-retrieve'.
 
 \(fn TOKEN URL CALLBACK &optional CBARGS REQUEST-METHOD REQUEST-DATA REQUEST-EXTRA-HEADERS)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "oauth2" '("oauth")))
+(register-definition-prefixes "oauth2" '("oauth"))
 
 ;;;***
 

@@ -17,7 +17,7 @@ Major mode for editing terraform configuration file
 
 (add-to-list 'auto-mode-alist '("\\.tf\\(vars\\)?\\'" . terraform-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "terraform-mode" '("terraform-")))
+(register-definition-prefixes "terraform-mode" '("terraform-"))
 
 ;;;***
 

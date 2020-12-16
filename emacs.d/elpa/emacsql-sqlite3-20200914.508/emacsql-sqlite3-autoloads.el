@@ -10,7 +10,7 @@
 ;;;;;;  0 0))
 ;;; Generated autoloads from emacsql-sqlite3.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emacsql-sqlite3" '("emacsql-sqlite3-")))
+(register-definition-prefixes "emacsql-sqlite3" '("emacsql-sqlite3-"))
 
 ;;;***
 

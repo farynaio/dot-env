@@ -10,9 +10,7 @@
 ;;; Generated autoloads from posframe.el
 
 (autoload 'posframe-workable-p "posframe" "\
-Test posframe workable status.
-
-\(fn)" nil nil)
+Test posframe workable status." nil nil)
 
 (autoload 'posframe-show "posframe" "\
 Pop up a posframe and show STRING at POSITION.
@@ -138,16 +136,12 @@ You can use `posframe-delete-all' to delete all posframes.
 \(fn BUFFER-OR-NAME &key STRING POSITION POSHANDLER WIDTH HEIGHT MIN-WIDTH MIN-HEIGHT X-PIXEL-OFFSET Y-PIXEL-OFFSET LEFT-FRINGE RIGHT-FRINGE INTERNAL-BORDER-WIDTH INTERNAL-BORDER-COLOR FONT FOREGROUND-COLOR BACKGROUND-COLOR RESPECT-HEADER-LINE RESPECT-MODE-LINE INITIALIZE NO-PROPERTIES KEEP-RATIO LINES-TRUNCATE OVERRIDE-PARAMETERS TIMEOUT REFRESH ACCEPT-FOCUS HIDEHANDLER &allow-other-keys)" nil nil)
 
 (autoload 'posframe-hide-all "posframe" "\
-Hide all posframe frames.
-
-\(fn)" t nil)
+Hide all posframe frames." t nil)
 
 (autoload 'posframe-delete-all "posframe" "\
-Delete all posframe frames and buffers.
+Delete all posframe frames and buffers." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "posframe" '("posframe-")))
+(register-definition-prefixes "posframe" '("posframe-"))
 
 ;;;***
 

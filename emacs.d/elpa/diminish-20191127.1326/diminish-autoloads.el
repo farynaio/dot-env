@@ -45,11 +45,9 @@ Echo all active diminished or minor modes as if they were minor.
 The display goes in the echo area; if it's too long even for that,
 you can see the whole thing in the *Messages* buffer.
 This doesn't change the status of any modes; it just lets you see
-what diminished modes would be on the mode-line if they were still minor.
+what diminished modes would be on the mode-line if they were still minor." t nil)
 
-\(fn)" t nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "diminish" '("diminish")))
+(register-definition-prefixes "diminish" '("diminish"))
 
 ;;;***
 
