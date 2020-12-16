@@ -27,8 +27,6 @@
 
 (defalias 'cal 'cfw:open-org-calendar)
 
-(use-package hl-todo)
-
 (require 'ob-python)
 
 (org-babel-do-load-languages

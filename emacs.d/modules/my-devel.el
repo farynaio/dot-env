@@ -18,9 +18,6 @@
 ;;       (lambda ()
 ;;         (set-face-background 'mmm-default-submode-face nil)))))
 
-(auto-highlight-symbol-mode 1)
-(hl-todo-mode 1)
-
 (setq sh-basic-offset 2)
 
 (define-derived-mode guest-mode fundamental-mode "guest"
@@ -52,6 +49,8 @@
   :config
   (setq ledger-post-account-alignment-column 2)
   (unbind-key "<tab>" ledger-mode-map))
+
+(use-package hl-todo)
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
@@ -155,7 +154,8 @@
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package jade-mode
-  :hook (jade-mode . auto-highlight-symbol-mode))
+  :hook (jade-mode . auto-highlight-symbol-mode)
+  :mode "\\.jade\\'")
 
 ;; (use-package counsel-etags) ; it's crazy slow
 (use-package emmet-mode
@@ -165,7 +165,9 @@
   :config
   (setq emmet-self-closing-tag-style " /"))
 
+;; debugger
 (use-package realgud)
+
 (use-package yaml-mode
   :hook (markdown-mode . jarfar/bind-value-togglers)
   :mode "\\.yaml\\'")

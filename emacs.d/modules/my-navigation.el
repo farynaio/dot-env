@@ -210,7 +210,7 @@
       (let ((file (buffer-file-name (get-buffer candidate))))
         (if (org-roam--org-roam-file-p file)
           (condition-case nil
-            (org-roam--get-title-or-slug file)
+            (org-roam-db--get-title file)
             (error ""))
           ""))
       ""))

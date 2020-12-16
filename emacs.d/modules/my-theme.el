@@ -61,6 +61,6 @@
 
 (set-face-attribute 'default nil :font default-font)
 
-;; (use-package all-the-icons)
+(use-package all-the-icons)
 
 (provide 'my-theme)

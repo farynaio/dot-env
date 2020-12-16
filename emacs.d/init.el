@@ -89,7 +89,8 @@
   (diminish 'editorconfig-mode)
   (diminish 'js-mode "JS")
   (diminish 'reveal-mode)
-  (diminish 'abbrev-mode))
+  (diminish 'abbrev-mode)
+  (diminish 'lisp-interaction-mode "Lisp-interaction"))
 
 (require 'gnutls)
 

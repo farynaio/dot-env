@@ -26,7 +26,11 @@
   (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
 
   ;; (setq projectile-generic-command "fd . -0")
-  (setq projectile-tags-command "ctags -R -e .")
+
+  (if (executable-find "ctags")
+    (setq projectile-tags-command "ctags -R -e .")
+    (warn "'ctags' not installed!"))
+
   (setq projectile-track-known-projects-automatically nil)
   (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
   (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
