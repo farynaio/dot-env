@@ -115,6 +115,7 @@
         (native-comp-available-p))
   (setq comp-speed 2)
   (setq comp-deferred-compilation t)
+  (setq package-native-compile t)
   (setq comp-async-report-warnings-errors nil)
   ;; Using Emacs.app/Contents/MacOS/bin since it was compiled with
   ;; ./configure --prefix="$PWD/nextstep/Emacs.app/Contents/MacOS"
@@ -126,7 +127,9 @@
                            (car (file-expand-wildcards
                                   (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
   ;; Only set after LIBRARY_PATH can find gcc libraries.
-  (setq comp-deferred-compilation t))
+
+  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/local-config.el") t)
+  )
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 ;; (use-package exec-path-from-shell
