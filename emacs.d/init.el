@@ -1,14 +1,17 @@
+;; (setq debug-on-error t)
+
+(setq file-name-handler-alist nil)
 (setq my/file-name-handler-alist file-name-handler-alist)
 
 (setq gc-cons-threshold (* 1024 1024 1024))
 (setq gc-cons-percentage 0.5)
 (setq read-process-output-max (* 1024 1024))
-(setq file-name-handler-alist nil)
 ;; (setq gc-cons-threshold 402653184)
 ;; (setq gc-cons-percentage 0.6)
 
 (setq confirm-kill-processes nil)
 
+;; TODO is it needed?
 (setq exec-path-from-shell-check-startup-files nil)
 
 (eval-when-compile
@@ -112,6 +115,7 @@
         (native-comp-available-p))
   (setq comp-speed 2)
   (setq comp-deferred-compilation t)
+  (setq comp-async-report-warnings-errors nil)
   ;; Using Emacs.app/Contents/MacOS/bin since it was compiled with
   ;; ./configure --prefix="$PWD/nextstep/Emacs.app/Contents/MacOS"
   (add-to-list 'exec-path (concat invocation-directory "bin") t)

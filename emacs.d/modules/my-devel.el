@@ -166,7 +166,7 @@
   (setq emmet-self-closing-tag-style " /"))
 
 ;; debugger
-(use-package realgud)
+;; (use-package realgud)
 
 (use-package yaml-mode
   :hook (markdown-mode . jarfar/bind-value-togglers)
