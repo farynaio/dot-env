@@ -125,16 +125,17 @@
   (setq google-translate-default-source-language "en")
   (setq google-translate-default-target-language "pl")
   (setq google-translate-backend-method 'curl)
-  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130)))
 
-(defun my/google-translate-at-point (&optional override-p)
-  (interactive "P")
-  (save-excursion
-    (google-translate-at-point override-p))
+  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
 
-  (deactivate-mark)
-  (when (fboundp 'evil-exit-visual-state)
-    (evil-exit-visual-state)))
+  (defun my/google-translate-at-point (&optional override-p)
+    (interactive "P")
+    (save-excursion
+      (google-translate-at-point override-p))
+
+    (deactivate-mark)
+    (when (fboundp 'evil-exit-visual-state)
+      (evil-exit-visual-state))))
 
 (setq ispell-extra-args '("--sug-mode=ultra"))
 
