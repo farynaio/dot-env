@@ -18,7 +18,6 @@
 
 (eval-after-load 'flyspell
   '(progn
-     (diminish 'flyspell-mode "Fly")
 
      ;; (setenv "DICTIONARY" "en")
 

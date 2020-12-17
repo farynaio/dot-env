@@ -93,7 +93,9 @@
   (diminish 'js-mode "JS")
   (diminish 'reveal-mode)
   (diminish 'abbrev-mode)
-  (diminish 'lisp-interaction-mode "Lisp-interaction"))
+  (diminish 'lisp-interaction-mode "Lisp-interaction")
+  (diminish 'flyspell-mode "Fly")
+  )
 
 (require 'gnutls)
 
