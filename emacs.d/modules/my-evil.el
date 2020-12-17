@@ -8,6 +8,8 @@
   (setq evil-search-module 'evil-search)
   (setq evil-undo-system 'undo-fu)
   :config
+  (setq evil-mode-line-format nil)
+
   (evil-mode 1)
   (bind-key "C-d"    'evil-scroll-down)
   (bind-key "C-u"    'evil-scroll-up)
