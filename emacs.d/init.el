@@ -12,7 +12,7 @@
 (setq confirm-kill-processes nil)
 
 ;; TODO is it needed?
-(setq exec-path-from-shell-check-startup-files nil)
+;; (setq exec-path-from-shell-check-startup-files nil)
 
 (eval-when-compile
   (defvar oauth--token-data ())
@@ -94,6 +94,7 @@
   (diminish 'reveal-mode)
   (diminish 'abbrev-mode)
   (diminish 'lisp-interaction-mode "Lisp-interaction")
+  (diminish 'org-indent-mode)
   (diminish 'flyspell-mode "Fly")
   )
 
