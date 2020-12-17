@@ -179,4 +179,17 @@
   ("d" langtool-check-done "langtool done" :exit t)
   ("a" artbollocks-mode "artbollocks" :exit t))
 
+(defhydra hydra-writting ()
+  "Writing in text-mode"
+  ("s" flyspell-mode "flyspell toggle" :exit t)
+  ("q" smart-quotes-mode "smart quotes toggle" :exit t)
+  ("l" my/lang-toggle "language toggle" :exit t)
+  ("c" langtool-check-buffer "langtool check" :exit t)
+  ("d" langtool-check-done "langtool done" :exit t)
+  ("a" artbollocks-mode "artbollocks" :exit t))
+
+(defhydra hydra-prog-writting ()
+  "Writing in prog-mode"
+  ("s" flyspell-prog-mode "flyspell toggle" :exit t))
+
 (provide 'my-writing)

@@ -590,13 +590,15 @@ $0`(yas-escape-text yas-selected-text)`")
   (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
+  (when (bound-and-true-p evil-mode)
+    (bind-key ", w" 'hydra-prog-writting/body evil-normal-state-local-map))
+
   (company-mode 1)
   (flycheck-mode 1)
   (hl-todo-mode 1)
   (auto-highlight-symbol-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
-  (flyspell-prog-mode)
   (rainbow-mode 1))
 
 (add-hook 'prog-mode-hook 'my/prog-mode-hook t)
