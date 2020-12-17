@@ -9,8 +9,25 @@
 (setq default-directory "~/")
 (setq initial-buffer-choice t) ;; *scratch* as default buffer
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-forward-word-function 'forward-char)
+(setq
+  ediff-window-setup-function 'ediff-setup-windows-plain
+  ediff-forward-word-function 'forward-char)
+
+(when (display-graphic-p)
+  (setq
+    mouse-wheel-scroll-amount '(1 ((shift) . 1))
+    mouse-wheel-progressive-speed nil
+    mouse-wheel-follow-mouse t))
+  ;; (eval-after-load 'pixel-scroll
+  ;;   (setq
+  ;;     pixel-dead-time 0
+  ;;     pixel-resolution-fine-flag t))
+
+(setq
+  scroll-step 1
+  scroll-margin 0
+  scroll-conservatively 10000
+  auto-window-vscroll nil)
 
 (eval-after-load 'recentf
   '(progn
