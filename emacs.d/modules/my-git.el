@@ -35,7 +35,7 @@
   (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
   (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
   (setq projectile-globally-ignored-directories
-        (append '("node-modules" "dist" "target" "elpa") projectile-globally-ignored-directories))
+        (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
 
   (projectile-mode 1)
 
