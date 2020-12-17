@@ -1318,7 +1318,6 @@ should be continued."
   :config
   (require 'org-roam-protocol)
 
-  (setq org-roam-db-location (expand-file-name "roam.sqlite" "~/"))
   (setq org-roam-directory my/org-roam-directory)
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-db-gc-threshold most-positive-fixnum)
@@ -1554,16 +1553,16 @@ should be continued."
     (when (string-equal (buffer-name) "*org-roam*")
       (jarfar/org-roam-side-mode 1)))
 
-  (add-hook 'org-mode-hook #'jarfar/org-roam-mode-hook-org-ram)
+  (add-hook 'org-mode-hook 'jarfar/org-roam-mode-hook-org-ram)
 
-  (bind-key "C-c v" #'jarfar/hydra-org-roam/body)
+  (bind-key "C-c v" 'jarfar/hydra-org-roam/body)
 
-  (org-roam-mode 1)
+  (add-hook 'after-init-hook 'org-roam-mode)
 
   (when (fboundp 'org-roam-dailies-today)
     (org-roam-dailies-today))
 
-  (defalias 'roam #'org-roam))
+  (defalias 'roam 'org-roam))
 
 (use-package org-roam-server
   :after org-roam
