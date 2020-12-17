@@ -33,12 +33,9 @@
      (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
 
 (eval-after-load 'conf-mode
-  '(progn
-     (add-hook 'conf-mode-hook
-       (lambda ()
-         (setq-local indent-line-function 'insert-tab)
-         (modify-syntax-entry ?_ "w" (syntax-table))
-         (modify-syntax-entry ?- "w" (syntax-table))))))
+  (add-hook 'conf-mode-hook
+    (lambda ()
+      (setq-local indent-line-function 'insert-tab))))
 
 (use-package ledger-mode
   :hook (ledger-mode . company-mode)
@@ -51,6 +48,12 @@
   (unbind-key "<tab>" ledger-mode-map))
 
 (use-package hl-todo)
+
+(use-package symbol-overlay
+  :diminish symbol-overlay-mode
+  :hook (prog-mode . symbol-overlay-mode)
+  :config
+  (setq symbol-overlay-idle-time 0.1))
 
 ;; nvm ; replaces shell nvm
 ;; prodigy ; manage external services
@@ -154,7 +157,7 @@
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package jade-mode
-  :hook (jade-mode . auto-highlight-symbol-mode)
+  :hook (jade-mode . symbol-overlay-mode)
   :mode "\\.jade\\'")
 
 ;; (use-package counsel-etags) ; it's crazy slow
@@ -268,9 +271,13 @@
   ;; (setq lsp-auto-guess-root t)
   ;; (setq lsp-prefer-capf t)
   ;; (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
-  (setq lsp-enable-file-watchers nil)
-  (setq lsp-rf-language-server-trace-serve "off")
-  (setq lsp-eslint-server-command '("node" "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" "--stdio"))
+  (setq
+    lsp-enable-semantic-highlighting nil
+    lsp-enable-symbol-highlighting nil
+    lsp-enable-file-watchers nil
+    lsp-rf-language-server-trace-serve "off"
+    lsp-eslint-server-command '("node" "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" "--stdio"))
+
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
@@ -544,14 +551,6 @@ $0`(yas-escape-text yas-selected-text)`")
   ("e" yas-visit-snippet-file "edit" :exit t)
   ("r" yas-reload-all "reload" :exit t))
 
-(use-package auto-highlight-symbol
-  :diminish auto-highlight-symbol-mode
-  :config
-  (setq ahs-case-fold-search nil)
-  (setq ahs-idle-interval 0)
-  (unbind-key "<M-right>" auto-highlight-symbol-mode-map)
-  (unbind-key "<M-left>" auto-highlight-symbol-mode-map))
-
 (use-package company
   :diminish company-mode
   :config
@@ -593,10 +592,12 @@ $0`(yas-escape-text yas-selected-text)`")
   (when (bound-and-true-p evil-mode)
     (bind-key ", w" 'hydra-prog-writting/body evil-normal-state-local-map))
 
+  (modify-syntax-entry ?_ "w" (syntax-table))
+  (modify-syntax-entry ?- "w" (syntax-table))
+
   (company-mode 1)
   (flycheck-mode 1)
   (hl-todo-mode 1)
-  (auto-highlight-symbol-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
   (rainbow-mode 1))
