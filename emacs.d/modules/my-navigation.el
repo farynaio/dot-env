@@ -187,7 +187,7 @@
   (setq ivy-use-selectable-prompt t)
   (setq ivy-count-format "(%d/%d) ")
   (setq ivy-use-virtual-buffer t)
-  (setq ivy-re-builders-alist '((t   . ivy--regex-ignore-order))))
+  (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
 
 (use-package ivy-rich
   :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
