@@ -147,7 +147,7 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-(run-with-idle-timer 5 t #'garbage-collect)
+(run-with-idle-timer 5 t 'garbage-collect)
 
 ;; My modules
 (require 'my-path)
@@ -295,9 +295,9 @@
   "Configure desktop-save mode."
 
   (when desktop-save-mode
-    (pushnew 'dired-mode desktop-modes-not-to-save)
-    (pushnew 'Info-mode desktop-modes-not-to-save)
-    (pushnew 'info-lookup-mode desktop-modes-not-to-save)
+    (push 'dired-mode desktop-modes-not-to-save)
+    (push 'Info-mode desktop-modes-not-to-save)
+    (push 'info-lookup-mode desktop-modes-not-to-save)
     (setq desktop-buffers-not-to-save
           (concat "\\("
                   "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
