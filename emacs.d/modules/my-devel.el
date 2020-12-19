@@ -267,8 +267,7 @@
 ;;   )
 
 (use-package lsp-mode
-  :hook ((web-mode . lsp)
-          (js-mode . lsp))
+  ;; :hook (js-mode . lsp)
           ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :config
@@ -427,7 +426,11 @@
   :hook (ruby-mode . (lambda () (when (projectile-mode) (projectile-rails-on)))))
 
 (use-package vue-mode
+  :hook (vue-mode . lsp)
   :mode "//.vue//'")
+
+(add-hook 'mmm-mode-hook
+  (lambda () (set-face-background 'mmm-default-submode-face nil)))
 
 (use-package dtrt-indent
   :diminish "dtrt")
@@ -510,7 +513,8 @@
   :hook (geben-mode . evil-emacs-state))
 
 (use-package web-mode
-  :hook (web-mode . emmet-mode)
+  :hook ((web-mode . emmet-mode)
+          (web-mode . lsp))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)

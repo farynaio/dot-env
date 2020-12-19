@@ -1,14 +1,13 @@
+# name: jsconfig.json content
+# key: jsconfig
+# --
 {
   "compilerOptions": {
-    "target": "es2017",
+    "module": "commonjs",
+    "target": "es2016",
+    "jsx": "preserve",
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "noEmit": true,
-    "checkJs": true,
-    "jsx": "react",
-    "lib": [ "dom", "es2017" ]
-  },
-  "include": [
-    "src/**/*",
-    "node_modules/**/*"
-  ]
+    "allowNonTsExtensions": true
+  }
 }
