@@ -28,7 +28,9 @@
 (use-package with-editor)  ; dependency for other package
 ;; (use-package neotree)
 ;; (use-package multiple-cursors)
-(use-package emojify)
+
+(use-package emojify
+  :hook (org-mode . emojify-mode))
 
 (require 'hippie-exp)
 (eval-after-load 'hippie-exp
@@ -70,11 +72,11 @@
       (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
     (message "'undo-fu' not initiated. Evil mode is not active")))
 
-(use-package which-key
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 0.8)
-  (which-key-mode))
+;; (use-package which-key
+;;   :diminish which-key-mode
+;;   :config
+;;   (setq which-key-idle-delay 0.8)
+;;   (which-key-mode))
 
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
@@ -465,24 +467,26 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (column-number-mode 1)
 (global-auto-revert-mode 1)
-(show-paren-mode 1)
 (global-visual-line-mode 1)
-(global-emojify-mode 1)
+;; (global-emojify-mode 1)
 (delete-selection-mode 1)
-(global-hl-line-mode 1)
+(global-hl-line-mode -1)
+(savehist-mode -1)
+(shell-dirtrack-mode -1)
 ;; (auto-save-visited-mode)
 (auto-compression-mode 1)
-(reveal-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
     (unless (memq major-mode (list 'org-agenda-mode))
       (apply orig-fun args))))
 
+(global-eldoc-mode -1)
 (blink-cursor-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(file-name-shadow-mode -1)
 (when window-system (tool-bar-mode -1))
 
 (add-to-list 'same-window-buffer-names "*SQL*")

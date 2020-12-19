@@ -62,7 +62,7 @@
   ("s" magit-status "status" :exit t)
   ("o" magit-checkout "checkout" :exit t)
   ("b" magit-branch-popup "branch" :exit t)
-  ("d" magit-diff-popup "diff" :exit t)
+  ("d" magit-diff "diff" :exit t)
   ("h" magit-diff-buffer-file "diff file" :exit t)
   ("z" magit-stash-popup "stash" :exit t)
   ("l" magit-log-all "log" :exit t)
@@ -79,7 +79,6 @@
   ("i" projectile-invalidate-cache "Invalidate projectile cache" :exit t)
   ("b" modi/kill-non-project-buffers "Kill unrelated buffers" :exit t)
   ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t)
-  ;; ("t" treemacs "Toggle treemacs" :exit t)
   )
 
 (defhydra hydra-project-projectile ()

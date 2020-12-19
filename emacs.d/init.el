@@ -156,6 +156,7 @@
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
 
+(defvar my-utils-activate nil)
 (defvar my-edit-activate nil)
 (defvar my-writing-activate nil)
 (defvar my-evil-activate nil)
@@ -179,6 +180,7 @@
 (defvar my-php nil)
 
 (setq
+  my-utils-activate t
   my-edit-activate t
   my-git t
   my-evil-activate t
@@ -202,6 +204,7 @@
   my-php t
 )
 
+(when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
 (when my-edit-activate (require 'my-edit))
 (when my-git (require 'my-git))

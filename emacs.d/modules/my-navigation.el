@@ -26,7 +26,7 @@
 (setq
   scroll-step 1
   scroll-margin 0
-  scroll-conservatively 10000
+  scroll-conservatively 101
   auto-window-vscroll nil)
 
 (eval-after-load 'recentf

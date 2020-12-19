@@ -45,11 +45,10 @@
        (bind-key "n" 'evil-search-next dired-mode-map)
        (bind-key "N" 'evil-search-previous dired-mode-map))
 
-     (defun my/dired-mode-setup ()
-       (dired-hide-details-mode 1)
-       (hl-line-mode 1))
-
-     (add-hook 'dired-mode-hook 'my/dired-mode-setup)
+     (add-hook 'dired-mode-hook
+       (lambda ()
+         (dired-hide-details-mode 1)
+         (hl-line-mode 1)))
 
      (bind-key "J" 'dired-goto-file dired-mode-map)
      (bind-key "C-s" 'find-name-dired dired-mode-map)

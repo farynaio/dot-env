@@ -47,7 +47,8 @@
   (setq ledger-post-account-alignment-column 2)
   (unbind-key "<tab>" ledger-mode-map))
 
-(use-package hl-todo)
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode))
 
 (use-package symbol-overlay
   :diminish symbol-overlay-mode
@@ -214,26 +215,27 @@
      (setq js-indent-level 2)
      (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
-    (defun my/js-mode-hook()
-      (modify-syntax-entry ?_ "w" (syntax-table))
-      (modify-syntax-entry ?$ "w" (syntax-table)))
+    ;; (defun my/js-mode-hook()
+    ;;   (modify-syntax-entry ?_ "w" (syntax-table))
+    ;;   (modify-syntax-entry ?$ "w" (syntax-table)))
 
-     (add-hook 'js-mode-hook 'my/js-mode-hook)
+     ;; (add-hook 'js-mode-hook 'my/js-mode-hook)
      (add-hook 'js-mode-hook 'my/auto-indent-mode)))
 
 (eval-after-load 'css-mode
   '(progn
      (setq css-indent-offset 2)
      (add-hook 'css-mode-hook
-       (lambda () my/css-mode-hook()
+       (lambda ()
          ;; (flycheck-mode -1)
-         (modify-syntax-entry ?_ "w" (syntax-table))
-         (modify-syntax-entry ?$ "w" (syntax-table))
+         ;; (modify-syntax-entry ?_ "w" (syntax-table))
+         ;; (modify-syntax-entry ?$ "w" (syntax-table))
          (add-to-list 'company-backends 'company-css)))))
 
 ;; (use-package xref-js2)
 
 (use-package rainbow-mode
+  :hook (css-mode . rainbow-mode)
   :diminish rainbow-mode)
 
 ;; (eval-after-load 'js-mode
@@ -257,9 +259,17 @@
     :hook (rjsx-mode . eslintd-fix-mode))
   (message "No executable 'eslint_d' found"))
 
+;; (use-package eglot
+;;   :config
+;;   (setenv "PATH" (concat "~/.emacs.d/.eglot/node_modules/.bin:" (getenv "PATH")))
+;;   (add-to-list 'exec-path "~/.emacs.d/.eglot/node_modules/.bin")
+;;   (add-to-list 'eglot-server-programs '(web-mode . ("html-languageserver" "--stdio")))
+;;   )
+
 (use-package lsp-mode
   :hook ((web-mode . lsp)
-          (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
+          (js-mode . lsp))
+          ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :config
   ;; (setq lsp-enable-completion-at-point nil)
@@ -500,11 +510,7 @@
   :hook (geben-mode . evil-emacs-state))
 
 (use-package web-mode
-  :hook ((web-mode . (lambda ()
-                      (modify-syntax-entry ?_ "w" (syntax-table))
-                      (modify-syntax-entry ?- "w" (syntax-table))
-                       (modify-syntax-entry ?$ "w" (syntax-table))))
-          (web-mode . emmet-mode))
+  :hook (web-mode . emmet-mode)
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)
@@ -534,6 +540,7 @@
 ;; (use-package graphql-mode)
 
 (use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
   :diminish yas-minor-mode
   :config
   ;; (add-to-list 'yas-key-syntaxes w w")
@@ -541,8 +548,7 @@
     "# name: $2
 # key: $1
 # --
-$0`(yas-escape-text yas-selected-text)`")
-  (yas-global-mode 1))
+$0`(yas-escape-text yas-selected-text)`"))
 
 (defhydra hydra-snippet ()
   "Snippet"
@@ -552,9 +558,10 @@ $0`(yas-escape-text yas-selected-text)`")
   ("r" yas-reload-all "reload" :exit t))
 
 (use-package company
+  :hook (prog-mode . company-mode)
   :diminish company-mode
   :config
-  (setq company-idle-delay 0.0)
+  (setq company-idle-delay 0.3)
   (setq company-show-numbers t)
   (setq company-tooltip-align-annotations t)
   (setq company-minimum-prefix-length 1)
@@ -594,13 +601,13 @@ $0`(yas-escape-text yas-selected-text)`")
 
   (modify-syntax-entry ?_ "w" (syntax-table))
   (modify-syntax-entry ?- "w" (syntax-table))
+  (modify-syntax-entry ?$ "w" (syntax-table))
 
-  (company-mode 1)
   (flycheck-mode 1)
-  (hl-todo-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
-  (rainbow-mode 1))
+  (hl-line-mode 1)
+  (show-paren-mode 1))
 
 (add-hook 'prog-mode-hook 'my/prog-mode-hook t)
 
@@ -608,6 +615,7 @@ $0`(yas-escape-text yas-selected-text)`")
   (lambda ()
     (setq mode-name "Elisp")
     (flycheck-mode -1)
+    (eldoc-mode 1)
     (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))
 
