@@ -153,39 +153,15 @@
 (when (string-equal system-type "darwin")
   (setq browse-url-chrome-program "chrome"))
 
-(setq jarfar/pairs-hash-table (make-hash-table :test 'equal))
-
-(when (null (gethash ?\" jarfar/pairs-hash-table))
-  (puthash ?\" ?\" jarfar/pairs-hash-table))
-(when (null (gethash ?\( jarfar/pairs-hash-table))
-  (puthash ?\( ?\) jarfar/pairs-hash-table))
-(when (null (gethash ?\[ jarfar/pairs-hash-table))
-  (puthash ?\[ ?\] jarfar/pairs-hash-table))
-(when (null (gethash ?\' jarfar/pairs-hash-table))
-  (puthash ?\{ ?\} jarfar/pairs-hash-table))
-
-; https://www.emacswiki.org/emacs/ElectricPair
-(defun jarfar/electric-pair ()
-  "If at end of line, insert character pair without surrounding spaces.
-   Otherwise, just insert the typed character."
-  (interactive)
-  (let (parens-require-spaces) (insert-pair)))
-
-(defun jarfar/backward-delete-char-untabify ()
-  ""
-  (interactive)
-  (let* ((char-current (char-before))
-          (char-next (char-after))
-          (val-current (if (characterp char-current) (gethash char-current jarfar/pairs-hash-table))))
-    (if (equal char-next val-current)
-      (progn (left-char) (delete-pair))
-      (backward-delete-char-untabify 1))))
-
-(dolist (elt (hash-table-keys jarfar/pairs-hash-table))
-  (define-key text-mode-map (char-to-string elt) 'jarfar/electric-pair))
-
-(dolist (elt (hash-table-keys jarfar/pairs-hash-table))
-  (define-key conf-mode-map (char-to-string elt) 'jarfar/electric-pair))
+(eval-after-load 'elec-pair
+  '(progn
+     (push '(?\" . ?\") electric-pair-pairs)
+     (push '(?\{ . ?\}) electric-pair-pairs)
+     (push '(?\` . ?\`) electric-pair-pairs)
+     (push '(?\" . ?\") electric-pair-text-pairs)
+     (push '(?\{ . ?\}) electric-pair-text-pairs)
+     (push '(?\' . ?\') electric-pair-text-pairs)
+     (push '(?\` . ?\`) electric-pair-text-pairs)))
 
 (setq auto-save-visited-interval 60)
 
@@ -487,7 +463,10 @@ end-of-buffer signals; pass the rest to the default handler."
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (file-name-shadow-mode -1)
-(when window-system (tool-bar-mode -1))
+(electric-pair-mode 1)
+
+(when window-system
+  (tool-bar-mode -1))
 
 (add-to-list 'same-window-buffer-names "*SQL*")
 

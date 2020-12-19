@@ -585,14 +585,6 @@ $0`(yas-escape-text yas-selected-text)`"))
 
   ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
 
-  (make-local-variable 'jarfar/pairs-hash-table)
-
-  (when (null (gethash ?\' jarfar/pairs-hash-table))
-    (puthash ?\' ?\' jarfar/pairs-hash-table))
-
-  (dolist (elt (hash-table-keys jarfar/pairs-hash-table))
-    (bind-key (char-to-string elt) 'jarfar/electric-pair) prog-mode-map)
-
   (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
