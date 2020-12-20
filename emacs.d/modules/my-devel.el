@@ -268,13 +268,16 @@
 ;;   )
 
 (use-package lsp-mode
-  :hook (js-mode . lsp)
           ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
+  :init
+  (add-hook 'js-mode-hook
+    (lambda ()
+      (when (not (eq major-mode 'json-mode))
+        (lsp))))
   :config
   ;; (setq lsp-inhibit-message nil)
   ;; (setq lsp-enable-snippet nil)
-
   ;; (setq lsp-auto-guess-root t)
   (setq
     lsp-enable-semantic-highlighting nil
@@ -298,8 +301,7 @@
     lsp-ui-sideline-enable nil)
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-to-list 'lsp-disabled-clients 'eslint)
-  (add-to-list 'lsp-disabled-clients 'json-ls))
+  (add-to-list 'lsp-disabled-clients '(json-mode . (eslint json-ls))))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 (use-package dap-mode
