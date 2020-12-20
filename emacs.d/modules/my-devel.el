@@ -379,19 +379,8 @@
 ;;     (add-hook 'rjsx-mode-hook 'tide-setup)
 ;;     ))
 
-
-(use-package prettier-js
-  :config
-  (setq prettier-js-args
-    '(
-       "--no-semi" "false"
-       "--trailing-comma" "none"
-       "--bracket-spacing" "true"
-       "--jsx-bracket-same-line" "true"
-       ))
-
-  ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . prettier-js-mode))
-  )
+(use-package prettier
+  :commands prettier-mode)
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
