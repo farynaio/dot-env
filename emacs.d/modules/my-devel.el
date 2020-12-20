@@ -589,9 +589,9 @@ $0`(yas-escape-text yas-selected-text)`"))
 (defun my/prog-mode-hook ()
   (make-local-variable 'company-backends)
 
+  (add-to-list 'company-backends 'company-keywords t)
   (add-to-list 'company-backends 'company-gtags t)
   (add-to-list 'company-backends 'company-etags t)
-  (add-to-list 'company-backends 'company-keywords)
 
   ;; (add-to-list 'company-backends 'company-bbdb)
   ;; (add-to-list 'company-backends 'company-semantic)
