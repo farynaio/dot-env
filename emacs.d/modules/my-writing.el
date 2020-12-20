@@ -41,9 +41,9 @@
      ;;                                               utf-8)
      ;;                                       ))
 
-     (push '(":PROPERTIES:" ":END:") ispell-skip-region-alist)
-     (push '("#\\+BEGIN_SRC" . "#\\+END_SRC") ispell-skip-region-alist)
-     (push '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE") ispell-skip-region-alist)))
+     (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
+     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))))
 
 (defvar my/en-abbrevs nil)
 (define-abbrev-table

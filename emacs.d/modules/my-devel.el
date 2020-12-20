@@ -166,7 +166,7 @@
 (use-package emmet-mode
   :diminish emmet-mode
   :hook ((sgml-mode . emmet-mode)
-          (css-mode . emmet-mode))
+          (js-mode . emmet-mode))
   :config
   (setq emmet-self-closing-tag-style " /"))
 
@@ -541,10 +541,10 @@
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
-  :config
-  (add-hook 'web-mode 'add-node-modules-path))
+  :hook (js-mode . add-node-modules-path))
 
-;; (use-package graphql-mode)
+(use-package graphql-mode
+  :commands graphql-mode)
 
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode)
