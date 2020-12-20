@@ -110,7 +110,8 @@
 ;;        (remove-hook 'js2-mode-hook 'jarfar/run-skewer-once))
 ;;      ))
 
-;; (use-package json-mode) ; not sure if js-mode aren't good enough
+(use-package json-mode
+  :mode "\\.json\\'")
 ;; (use-package indium) ; inspector for node
 
 (when (eq system-type 'gnu/linux)
@@ -213,7 +214,6 @@
 (eval-after-load 'js
   '(progn
      (setq js-indent-level 2)
-     (add-to-list 'auto-mode-alist '("\\.json\\'" . js-mode))
 
     ;; (defun my/js-mode-hook()
     ;;   (modify-syntax-entry ?_ "w" (syntax-table))
@@ -230,6 +230,7 @@
          ;; (flycheck-mode -1)
          ;; (modify-syntax-entry ?_ "w" (syntax-table))
          ;; (modify-syntax-entry ?$ "w" (syntax-table))
+         (make-local-variable 'company-backends)
          (add-to-list 'company-backends 'company-css)))))
 
 ;; (use-package xref-js2)
@@ -254,10 +255,10 @@
 ;;     (evil-local-set-key 'normal (kbd ",r") 'hydra-js-refactoring/body)
 ;;     ))
 
-(if (executable-find "eslint_d")
-  (use-package eslintd-fix
-    :hook (rjsx-mode . eslintd-fix-mode))
-  (message "No executable 'eslint_d' found"))
+;; (if (executable-find "eslint_d")
+;;   (use-package eslintd-fix
+;;     :hook (rjsx-mode . eslintd-fix-mode))
+;;   (message "No executable 'eslint_d' found"))
 
 ;; (use-package eglot
 ;;   :config
@@ -267,27 +268,38 @@
 ;;   )
 
 (use-package lsp-mode
-  ;; :hook (js-mode . lsp)
+  :hook (js-mode . lsp)
           ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :config
-  ;; (setq lsp-enable-completion-at-point nil)
   ;; (setq lsp-inhibit-message nil)
-  ;; (setq lsp-hover-enabled nil)
-  ;; (setq lsp-signature-enabled nil)
   ;; (setq lsp-enable-snippet nil)
 
   ;; (setq lsp-auto-guess-root t)
-  ;; (setq lsp-prefer-capf t)
-  ;; (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
   (setq
     lsp-enable-semantic-highlighting nil
     lsp-enable-symbol-highlighting nil
     lsp-enable-file-watchers nil
+    lsp-headerline-breadcrumb-enable nil
+    lsp-modeline-code-actions-enable nil
+    lsp-modeline-diagnostics-enable nil
+    ;; lsp-signature-auto-activate nil
+    lsp-signature-render-documentation nil
+    lsp-eldoc-enable-hover nil
     lsp-rf-language-server-trace-serve "off"
-    lsp-eslint-server-command '("node" "~/.vscode/extensions/dbaeumer.vscode-eslint-2.1.5/server/out/eslintServer.js" "--stdio"))
+    lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
 
-  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact")))
+  (setq
+    lsp-lens-enable nil
+    lsp-ui-doc-enable nil
+    lsp-ui-doc-show-with-cursor nil
+    lsp-ui-doc-show-with-mouse nil
+    lsp-ui-sideline-enable nil
+    lsp-ui-sideline-enable nil)
+
+  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
+  (add-to-list 'lsp-disabled-clients 'eslint)
+  (add-to-list 'lsp-disabled-clients 'json-ls))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 (use-package dap-mode
@@ -523,7 +535,7 @@
   :mode (("\\.php\\'" . web-mode)
           ("\\.phtml\\'" . web-mode)
           ("\\.tpl\\.php\\'" . web-mode)
-          ("\\.js\\'" . web-mode)
+          ;; ("\\.js\\'" . web-mode)
           ("\\.html\\.twig\\'" . web-mode)
           ("\\.hbs\\'" . web-mode)
           ("\\.ejs\\'" . web-mode)
@@ -547,6 +559,7 @@
   :hook (prog-mode . yas-minor-mode)
   :diminish yas-minor-mode
   :config
+  (yas-reload-all)
   ;; (add-to-list 'yas-key-syntaxes w w")
   (setq yas-new-snippet-default
     "# name: $2
@@ -574,7 +587,6 @@ $0`(yas-escape-text yas-selected-text)`"))
 (defun my/prog-mode-hook ()
   (make-local-variable 'company-backends)
 
-  (add-to-list 'company-backends 'company-graphql t)
   (add-to-list 'company-backends 'company-gtags t)
   (add-to-list 'company-backends 'company-etags t)
   (add-to-list 'company-backends 'company-keywords)

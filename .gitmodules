@@ -1,0 +1,3 @@
+[submodule "emacs.d/.extension/vscode/vscode-eslint"]
+	path = emacs.d/.extension/vscode/vscode-eslint
+	url = git@github.com:microsoft/vscode-eslint.git

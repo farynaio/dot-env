@@ -122,7 +122,10 @@
   (evil-set-initial-state 'geben-breakpoint-list-mode 'emacs)
   (evil-set-initial-state 'epa-key-list-mode 'emacs)
   (evil-set-initial-state 'image-mode 'emacs)
+  (evil-set-initial-state 'shell-mode 'emacs)
+  (evil-set-initial-state 'treemacs-mode 'emacs)
 
+  (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
   (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
   (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
@@ -147,6 +150,7 @@
   (add-to-list 'evil-emacs-state-modes 'jarfar/org-roam-side-mode)
   (add-to-list 'evil-emacs-state-modes 'deft-mode)
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+  (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
 
   ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
   ;; (setq evil-emacs-state-modes nil)
