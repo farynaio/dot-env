@@ -194,8 +194,10 @@
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
 
-;; beautifier
-(use-package web-beautify)
+(use-package web-beautify
+  :commands web-beautify-js web-beautify-css web-beautify-html
+  :config
+  (setq indent_size 2))
 
 (define-minor-mode my/auto-indent-mode
   "Auto indent buffer on save."
