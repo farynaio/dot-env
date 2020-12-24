@@ -1579,8 +1579,6 @@ should be continued."
   (setq org-roam-server-network-label-truncate-length 60)
   (setq org-roam-server-network-label-wrap-length 20))
 
-(use-package company-org-roam
-  :after company-mode org-roam org)
 
 ;; (use-package deft
 ;;   :after org-roam
