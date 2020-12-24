@@ -56,15 +56,14 @@
 (defhydra hydra-git ()
   "git"
   ("g" magit-blame "blame" :exit t)
-  ("e" magit-ediff-popup "ediff" :exit t)
   ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
   ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
   ("s" magit-status "status" :exit t)
   ("o" magit-checkout "checkout" :exit t)
-  ("b" magit-branch-popup "branch" :exit t)
+  ("b" magit-branch "branch" :exit t)
   ("d" magit-diff "diff" :exit t)
   ("h" magit-diff-buffer-file "diff file" :exit t)
-  ("z" magit-stash-popup "stash" :exit t)
+  ("z" magit-stash "stash" :exit t)
   ("l" magit-log-all "log" :exit t)
   ("f" magit-log-buffer-file "file log" :exit t))
 
@@ -75,7 +74,7 @@
   ("t" projectile-find-tag "Find tag" :exit t)
   ("o" projectile-find-other-file "Find other file" :exit t)
   ("f" projectile-find-file "Find file" :exit t)
-  ("r" projectile-replace-regexp "Replace" :exit t)
+  ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t))  "Replace" :exit t)
   ("i" projectile-invalidate-cache "Invalidate projectile cache" :exit t)
   ("b" modi/kill-non-project-buffers "Kill unrelated buffers" :exit t)
   ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t)
