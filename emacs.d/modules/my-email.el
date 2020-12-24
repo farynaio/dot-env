@@ -231,8 +231,7 @@
      (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
      (defun my/mu4e-compose-mode-hook ()
-         (make-variable-buffer-local 'company-backends)
-         (add-to-list 'company-backends 'company-bbdb)
+       (setq-local company-backends '((company-bbdb company-files company-dabbrev)))
 
          (set-fill-column 72)
          (save-excursion
