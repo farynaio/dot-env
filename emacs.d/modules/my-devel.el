@@ -195,9 +195,7 @@
   (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
 
 (use-package web-beautify
-  :commands web-beautify-js web-beautify-css web-beautify-html
-  :config
-  (setq indent_size 2))
+  :commands web-beautify-js web-beautify-css web-beautify-html)
 
 (define-minor-mode my/auto-indent-mode
   "Auto indent buffer on save."
@@ -279,9 +277,10 @@
         (lsp))))
   :config
   ;; (setq lsp-inhibit-message nil)
-  ;; (setq lsp-enable-snippet nil)
   ;; (setq lsp-auto-guess-root t)
   (setq
+    lsp-enable-snippet t
+    lsp-prefer-capf nil
     lsp-enable-semantic-highlighting nil
     lsp-enable-symbol-highlighting nil
     lsp-enable-file-watchers nil
@@ -331,8 +330,9 @@
 ;;   :config
 ;;   (lsp-treemacs-sync-mode 1))
 
-(use-package typescript-mode
-  :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
+;; (use-package typescript-mode
+;;   :mode "\\.tsx\\'"
+;;   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
   ;; :config
     ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
@@ -342,7 +342,6 @@
         ;; (make-local-variable 'company-backends)
         ;; (add-to-list 'company-backends 'company-lsp t)
         ;; )))
-  )
 
 
 (use-package rainbow-delimiters)
@@ -539,7 +538,12 @@
   (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
   (setq-default web-mode-markup-indent-offset tab-width)
   (setq-default web-mode-css-indent-offset tab-width)
-  (setq-default web-mode-code-indent-offset tab-width))
+  (setq-default web-mode-code-indent-offset tab-width)
+
+  (add-hook 'before-save-hook
+    (lambda ()
+      (when (and (fboundp 'web-beautify-html) (eq dtrt-indent-mode nil))
+        (web-beautify-html))) 0 t))
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
@@ -571,19 +575,14 @@ $0`(yas-escape-text yas-selected-text)`"))
   :hook (prog-mode . company-mode)
   :diminish company-mode
   :config
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.4)
   (setq company-show-numbers t)
   (setq company-tooltip-align-annotations t)
   (setq company-minimum-prefix-length 1)
-  (setq company-backends '(company-capf company-dabbrev-code company-dabbrev company-files)))
+  ;; company-dabbrev
+  (setq company-backends '((company-yasnippet company-capf company-dabbrev-code company-files) company-keywords company-gtags company-etags company-capf)))
 
 (defun my/prog-mode-hook ()
-  (make-local-variable 'company-backends)
-
-  (add-to-list 'company-backends 'company-keywords t)
-  (add-to-list 'company-backends 'company-gtags t)
-  (add-to-list 'company-backends 'company-etags t)
-
   ;; (add-to-list 'company-backends 'company-bbdb)
   ;; (add-to-list 'company-backends 'company-semantic)
   ;; (add-to-list 'company-backends 'company-cmake)
