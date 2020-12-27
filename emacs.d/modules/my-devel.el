@@ -179,7 +179,10 @@
 
 (use-package markdown-mode
   :hook (markdown-mode . jarfar/bind-value-togglers)
-  :mode "\\.md\\'")
+  :mode (
+          ("\\.markdown\\'" . markdown-mode)
+          ("\\.mdx?\\'" . markdown-mode)
+          ("README\\.md\\'" . gfm-mode)))
 
 (use-package vimrc-mode
   :mode "\\vimrc\\'")
@@ -215,12 +218,20 @@
   '(progn
      (setq js-indent-level 2)
 
-    ;; (defun my/js-mode-hook()
-    ;;   (modify-syntax-entry ?_ "w" (syntax-table))
-    ;;   (modify-syntax-entry ?$ "w" (syntax-table)))
+     ;; (defun my/js-mode-hook()
+     ;;   (modify-syntax-entry ?_ "w" (syntax-table))
+     ;;   (modify-syntax-entry ?$ "w" (syntax-table)))
 
      ;; (add-hook 'js-mode-hook 'my/js-mode-hook)
-     (add-hook 'js-mode-hook 'my/auto-indent-mode)))
+
+     ;; (add-hook 'js-mode-hook 'eslintd-fix-mode)
+     ;; (add-hook 'js-mode-hook 'my/auto-indent-mode)
+     ))
+
+(if (executable-find "eslint_d")
+  (use-package eslintd-fix
+    :hook (js-mode . eslintd-fix-mode))
+  (message "No executable 'eslint_d' found"))
 
 (eval-after-load 'css-mode
   '(progn
@@ -230,8 +241,14 @@
          ;; (flycheck-mode -1)
          ;; (modify-syntax-entry ?_ "w" (syntax-table))
          ;; (modify-syntax-entry ?$ "w" (syntax-table))
-         (make-local-variable 'company-backends)
-         (add-to-list 'company-backends 'company-css)))))
+         (add-hook 'before-save-hook
+           (lambda ()
+             (when (and (eq dtrt-indent-mode nil))
+               (save-excursion
+                 (mark-whole-buffer)
+                 (indent-region (region-beginning) (region-end))
+                 (deactivate-mark)))) 0 t)
+         (setq-local company-backends '((company-css company-keywords company-files)))))))
 
 ;; (use-package xref-js2)
 
@@ -532,6 +549,7 @@
           ("\\.hbs\\'" . web-mode)
           ("\\.ejs\\'" . web-mode)
           ("\\.html?\\'" . web-mode)
+          ("\\.svg\\'" . web-mode)
           ;; ("\\.php\\'" . web-mode)
           )
   :config
@@ -698,9 +716,9 @@ in whole buffer.  With neither, delete comments on current line."
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
 (defun jarfar/remove-empty-lines ()
   (interactive)
-    (let ($begin $end)
+  (let ($begin $end)
     (if (region-active-p)
-        (setq $begin (region-beginning) $end (region-end))
+      (setq $begin (region-beginning) $end (region-end))
       (setq $begin (point-min) $end (point-max)))
     (save-excursion
       (save-restriction
