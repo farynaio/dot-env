@@ -1,19 +1,18 @@
-# name: react component class
+# name: basic class
 # key: class
 # condition: (looking-back "^class" nil)
 # --
-import React, { PureComponent } from "react"
 
-class $1 extends PureComponent {
-  constructor(props) {
-    super(props)
+class $1 {
+  constructor() {
+  $0
   }
 
   render() {
     return (
-      $0
+      $1
     )
   }
 }
 
-export default $1
+export default $2
