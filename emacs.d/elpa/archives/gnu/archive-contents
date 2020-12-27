@@ -131,13 +131,13 @@
 	   ("John Wiegley" . "jwiegley@gmail.com"))
 	  (:keywords "async"))])
  (auctex .
-	 [(12 3 1)
+	 [(13 0 0)
 	  ((emacs
-	    (24 1))
+	    (24 3))
 	   (cl-lib
-	    (0 5)))
+	    (1 0)))
 	  "Integrated environment for *TeX*" tar
-	  ((:url . "http://www.gnu.org/software/auctex/")
+	  ((:url . "https://www.gnu.org/software/auctex/")
 	   (:maintainer nil . "auctex-devel@gnu.org")
 	   (:keywords "tex" "latex" "texinfo" "context" "doctex" "preview-latex"))])
  (aumix-mode .
@@ -510,7 +510,7 @@
 	       ("Toby Cubitt" . "toby-predictive@dr-qubit.org"))
 	      (:keywords "extensions" "matching" "data structures trie" "tree" "dictionary" "completion" "regexp"))])
  (diff-hl .
-	  [(1 8 7)
+	  [(1 8 8)
 	   ((cl-lib
 	     (0 2))
 	    (emacs
@@ -1152,7 +1152,7 @@
 		 ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
 		(:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (js2-mode .
-	   [(20190219)
+	   [(20201220)
 	    ((emacs
 	      (24 1))
 	     (cl-lib
@@ -1534,7 +1534,7 @@
 	      (:maintainer "Michael Heerdegen" . "michael_heerdegen@web.de")
 	      (:url . "https://github.com/michael-heerdegen/on-screen.el"))])
  (org .
-      [(9 4 2)
+      [(9 4 4)
        nil "Outline-based notes management and organizer" tar
        ((:url . "https://orgmode.org")
 	(:maintainer "Bastien Guerry" . "bzg@gnu.org")
@@ -2349,14 +2349,14 @@
 	   (:maintainer "Yuan Fu" . "casouri@gmail.com")
 	   (:url . "https://github.com/casouri/valign"))])
  (vcard .
-	[(0 1)
+	[(0 2 1)
 	 ((emacs
 	   (27 1)))
 	 "Package for handling vCard files" tar
 	 ((:maintainer "Eric Abrahamsen" . "eric@ericabrahamsen.net")
 	  (:authors
 	   ("Eric Abrahamsen" . "eric@ericabrahamsen.net"))
-	  (:url . "http://elpa.gnu.org/packages/vcard.html"))])
+	  (:url . "https://elpa.gnu.org/packages/vcard.html"))])
  (vcl-mode .
 	   [(1 1)
 	    nil "Major mode for Varnish Configuration Language" single
