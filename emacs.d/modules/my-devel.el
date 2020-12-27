@@ -272,11 +272,6 @@
 ;;     (evil-local-set-key 'normal (kbd ",r") 'hydra-js-refactoring/body)
 ;;     ))
 
-;; (if (executable-find "eslint_d")
-;;   (use-package eslintd-fix
-;;     :hook (rjsx-mode . eslintd-fix-mode))
-;;   (message "No executable 'eslint_d' found"))
-
 ;; (use-package eglot
 ;;   :config
 ;;   (setenv "PATH" (concat "~/.emacs.d/.eglot/node_modules/.bin:" (getenv "PATH")))
@@ -285,7 +280,7 @@
 ;;   )
 
 (use-package lsp-mode
-          ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
+  ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :init
   (add-hook 'js-mode-hook
@@ -350,15 +345,15 @@
 ;; (use-package typescript-mode
 ;;   :mode "\\.tsx\\'"
 ;;   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
-  ;; :config
-    ;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
+;; :config
+;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
 
-    ;; (add-hook 'typescript-mode-hook
-    ;;   (lambda ()
-        ;; (lsp)
-        ;; (make-local-variable 'company-backends)
-        ;; (add-to-list 'company-backends 'company-lsp t)
-        ;; )))
+;; (add-hook 'typescript-mode-hook
+;;   (lambda ()
+;; (lsp)
+;; (make-local-variable 'company-backends)
+;; (add-to-list 'company-backends 'company-lsp t)
+;; )))
 
 
 (use-package rainbow-delimiters)
@@ -406,7 +401,7 @@
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
   :config
-    ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
   (defun my/rjsx-mode-setup ()
     ""
     (prettier-js-mode 1)
@@ -522,10 +517,10 @@
 
 ;; TODO what it does?
 ;; (use-package company-web
-  ;; :requires company-mode)
+;; :requires company-mode)
 
 ;; (use-package company-quickhelp
-  ;; :requires company-mode)
+;; :requires company-mode)
 
 (use-package dockerfile-mode
   :mode "^Dockerfile")
