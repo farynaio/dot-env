@@ -245,7 +245,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (setq-local paragraph-start "[:graph:]+$")
          (setq-local paragraph-separate "[:space:]*$")
 
-         (reveal-mode 1)
 
          (if (bound-and-true-p evil-mode)
            (bind-key "C-c n" 'org-next-visible-heading evil-visual-state-local-map)

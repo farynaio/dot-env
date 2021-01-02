@@ -1,6 +1,8 @@
 (require 'smtpmail)
 (require 'cl)
 
+(defvar my/mu4e-local-path "/usr/local/opt/mu/share/emacs/site-lisp/mu/mu4e")
+
 (if (file-directory-p my/mu4e-local-path)
   (progn
     (add-to-list 'load-path my/mu4e-local-path)

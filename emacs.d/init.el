@@ -289,20 +289,20 @@
   auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-(add-hook 'desktop-save-mode-hook 'jarfar/desktop-config)
+;; (add-hook 'desktop-save-mode-hook 'jarfar/desktop-config)
 
-(defun jarfar/desktop-config ()
-  "Configure desktop-save mode."
+;; (defun jarfar/desktop-config ()
+;;   "Configure desktop-save mode."
 
-  (when desktop-save-mode
-    (push 'dired-mode desktop-modes-not-to-save)
-    (push 'Info-mode desktop-modes-not-to-save)
-    (push 'info-lookup-mode desktop-modes-not-to-save)
-    (setq desktop-buffers-not-to-save
-          (concat "\\("
-                  "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
-                  "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
-            "\\)$"))))
+;;   (when desktop-save-mode
+;;     (push 'dired-mode desktop-modes-not-to-save)
+;;     (push 'Info-mode desktop-modes-not-to-save)
+;;     (push 'info-lookup-mode desktop-modes-not-to-save)
+;;     (setq desktop-buffers-not-to-save
+;;           (concat "\\("
+;;                   "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
+;;                   "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
+;;             "\\)$"))))
 
 ;; (desktop-save-mode 1)
 
@@ -330,10 +330,10 @@
            (flycheck-mode -1))
          t ))))
 
-(setq
+;; (setq
   ;; gc-cons-threshold 16777216
   ;; gc-cons-percentage 0.1
-  file-name-handler-alist my/file-name-handler-alist)
+  ;; file-name-handler-alist my/file-name-handler-alist)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -341,7 +341,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes (quote (wombat)))
+ '(custom-enabled-themes '(wombat))
   '(ledger-reports
      (quote
        (("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
