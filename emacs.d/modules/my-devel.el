@@ -280,7 +280,7 @@
 ;;   )
 
 (use-package lsp-mode
-  ;; (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
+  ;; :hook (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :init
   (add-hook 'js-mode-hook
@@ -398,8 +398,10 @@
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . my/rjsx-mode-setup))
+  :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
+  :mode "\\.jsx?\\'"
   :config
   ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
   (defun my/rjsx-mode-setup ()
@@ -560,7 +562,7 @@
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
-  :hook (js-mode . add-node-modules-path))
+  :hook ((js-mode . add-node-modules-path) (rjsx-mode . add-node-modules-path)))
 
 (use-package graphql-mode
   :commands graphql-mode)
