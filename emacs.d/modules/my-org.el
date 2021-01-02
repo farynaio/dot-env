@@ -694,26 +694,26 @@ DEADLINE: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("u" "Review life" entry (file+headline ,my/org-review-file-path "Review Life")
+  ("u" "Review life - monthly" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>] %^g
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 
-+ Plans for next week:
-  +
++ Plans for next month
+  -
 
 + What's good:
-  + %?
-
-+ What do I learned:
-  +
+  - %?
 
 + What's could be better:
   -
 
-+ Plan for improvement:
-  +
++ What do I learned:
+  -
+
++ Plans for improvement:
+  -
 "
 :prepend t :empty-lines-after 1 :jump-to-captured t)
 
