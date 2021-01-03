@@ -397,6 +397,7 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
+          (rjsx-mode . prettier-mode)
           (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
@@ -406,7 +407,6 @@
   ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
   (defun my/rjsx-mode-setup ()
     ""
-    (prettier-js-mode 1)
     (setq-local emmet-expand-jsx-className? t)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
