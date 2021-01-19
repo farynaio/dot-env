@@ -1,5 +1,27 @@
 # -*- mode: conf -*-
 
+shopt -s expand_aliases
+
+export LANG="pl_PL.UTF-8"
+export LC_CTYPE="pl_PL.UTF-8"
+export LC_NUMERIC="pl_PL.UTF-8"
+export LC_TIME="pl_PL.UTF-8"
+export LC_COLLATE="pl_PL.UTF-8"
+export LC_MONETARY="pl_PL.UTF-8"
+export LC_MESSAGES="pl_PL.UTF-8"
+export LC_PAPER="pl_PL.UTF-8"
+export LC_NAME="pl_PL.UTF-8"
+export LC_ADDRESS="pl_PL.UTF-8"
+export LC_TELEPHONE="pl_PL.UTF-8"
+export LC_MEASUREMENT="pl_PL.UTF-8"
+export LC_IDENTIFICATION="pl_PL.UTF-8"
+export LC_ALL="pl_PL.UTF-8"
+
+export USER_NAME="farynaio"
+export EMAIL="adamfaryna@gmail.com"
+
+export NVM_DIR="$HOME/.nvm"
+
 # load shopify-app-cli, but only if present and the shell is interactive
 if [[ -f "/Users/devil/.shopify-app-cli/shopify.sh"  ]] && [[ hB == *i* ]]; then
   source "/Users/devil/.shopify-app-cli/shopify.sh"
@@ -7,4 +29,8 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 2>&1  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 2>&1  # This loads nvm bash_completion
+
+complete -C /usr/local/bin/terraform terraform
+
+export NPM_TOKEN=$(aws --region eu-west-1 ssm get-parameter --name /TWIG/global/NPM_TOKEN --output text --query 'Parameter.Value' --with-decryption)
