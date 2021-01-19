@@ -31,7 +31,7 @@
 (setenv "LC_MONETARY" "en_US.UTF-8")
 (setenv "LC_NUMERIC" "en_US.UTF-8")
 (setenv "LC_TIME" "en_US.UTF-8")
-(setenv "SHELL" "/bin/ksh")
+(setenv "SHELL" "/usr/local/bin/bash")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
@@ -139,6 +139,14 @@
 ;;   :if (memq window-system '(mac ns x))
 ;;   :config
 ;;   (exec-path-from-shell-initialize))
+
+;; TODO is it needed?
+;; (setq exec-path-from-shell-check-startup-files nil)
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :config
+    (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
+    (exec-path-from-shell-initialize)))
 
 (use-package oauth2)
 
