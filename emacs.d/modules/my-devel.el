@@ -111,6 +111,7 @@
 ;;      ))
 
 (use-package json-mode
+  :hook (json-mode . prettier-mode)
   :mode "\\.json\\'")
 ;; (use-package indium) ; inspector for node
 
@@ -228,10 +229,10 @@
      ;; (add-hook 'js-mode-hook 'my/auto-indent-mode)
      ))
 
-(if (executable-find "eslint_d")
-  (use-package eslintd-fix
-    :hook (js-mode . eslintd-fix-mode))
-  (message "No executable 'eslint_d' found"))
+;; (if (executable-find "eslint_d")
+;;   (use-package eslintd-fix
+;;     :hook ((rjsx-mode . eslintd-fix-mode) (js-mode . eslintd-fix-mode)))
+;;   (message "No executable 'eslint_d' found"))
 
 (eval-after-load 'css-mode
   '(progn
@@ -292,7 +293,6 @@
   ;; (setq lsp-auto-guess-root t)
   (setq
     lsp-enable-snippet t
-    lsp-prefer-capf nil
     lsp-enable-semantic-highlighting nil
     lsp-enable-symbol-highlighting nil
     lsp-enable-file-watchers nil
@@ -314,6 +314,7 @@
     lsp-ui-sideline-enable nil)
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
+  (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
   (add-to-list 'lsp-disabled-clients '(json-mode . (eslint json-ls))))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
@@ -336,25 +337,17 @@
 ;;   :requires (lsp-mode ivy)
 ;;   :commands lsp-ivy-workspace-symbol)
 
-;; (use-package lsp-treemacs
-;;   :after lsp-mode treemacs
-;;   :commands lsp-treemacs-errors-list
-;;   :config
-;;   (lsp-treemacs-sync-mode 1))
+(use-package lsp-treemacs
+  :after lsp-mode treemacs
+  :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
+  :config
+  (lsp-treemacs-sync-mode 1))
 
-;; (use-package typescript-mode
-;;   :mode "\\.tsx\\'"
-;;   :hook (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
-;; :config
-;; (modify-syntax-entry ?_ "w" typescript-mode-syntax-table)
-
-;; (add-hook 'typescript-mode-hook
-;;   (lambda ()
-;; (lsp)
-;; (make-local-variable 'company-backends)
-;; (add-to-list 'company-backends 'company-lsp t)
-;; )))
-
+(use-package typescript-mode
+  :mode "\\.tsx?\\'"
+  :hook ((typescript-mode . lsp-mode)
+          (typescript-mode . prettier-mode)
+          (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))))
 
 (use-package rainbow-delimiters)
 
@@ -568,7 +561,7 @@
   :commands graphql-mode)
 
 (use-package yasnippet
-  :hook (prog-mode . yas-minor-mode)
+  :hook (prog-mode . (lambda () (yas-reload-all) (yas-minor-mode)))
   :diminish yas-minor-mode
   :config
   (yas-reload-all)
@@ -595,7 +588,7 @@ $0`(yas-escape-text yas-selected-text)`"))
   (setq company-tooltip-align-annotations t)
   (setq company-minimum-prefix-length 1)
   ;; company-dabbrev
-  (setq company-backends '((company-yasnippet company-capf company-dabbrev-code company-files) company-keywords company-gtags company-etags company-capf)))
+  (setq company-backends '((company-yasnippet company-dabbrev-code) company-files company-capf company-keywords company-gtags company-etags)))
 
 (defun my/prog-mode-hook ()
   ;; (add-to-list 'company-backends 'company-bbdb)
