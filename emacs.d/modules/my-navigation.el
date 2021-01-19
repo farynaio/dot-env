@@ -15,9 +15,15 @@
 
 (when (display-graphic-p)
   (setq
-    mouse-wheel-scroll-amount '(1 ((shift) . 1))
-    mouse-wheel-progressive-speed nil
-    mouse-wheel-follow-mouse t))
+    mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+    ;; mouse-wheel-progressive-speed nil
+    ;; mouse-wheel-follow-mouse t))
+  (setq-default scroll-up-aggressively 0.01)
+  (setq redisplay-dont-pause t
+    scroll-margin 1
+    scroll-conservatively 10000
+    scroll-preserve-screen-position nil))
+    ;; scroll-step 1
   ;; (eval-after-load 'pixel-scroll
   ;;   (setq
   ;;     pixel-dead-time 0
