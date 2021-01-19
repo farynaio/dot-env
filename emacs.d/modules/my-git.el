@@ -65,6 +65,7 @@
   ("h" magit-diff-buffer-file "diff file" :exit t)
   ("z" magit-stash "stash" :exit t)
   ("l" magit-log-all "log" :exit t)
+  ("r" magit-rebase "rebase" :exit t)
   ("f" magit-log-buffer-file "file log" :exit t))
 
 (defhydra hydra-project ()
