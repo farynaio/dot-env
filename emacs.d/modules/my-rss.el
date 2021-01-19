@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package elfeed
+  :commands elfeed-update
   :bind (:map elfeed-show-mode-map
           ("SPC" . 'elfeed-scroll-up-command)
           ("S-SPC" . 'elfeed-scroll-down-command)
@@ -15,11 +16,17 @@
           ("o" . 'jarfar/elfeed-tag-toggle-ok)
           ("j" . 'jarfar/elfeed-tag-toggle-junk)
           ("m" . 'jarfar/elfeed-send-emails)
+          ("r" . 'jarfar/elfeed-mark-read-move-next)
+          ("u" . 'jarfar/elfeed-mark-unread-move-next)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
-  (setq elfeed-search-filter "+unread -skip -ok -junk -indie")
+  (setq elfeed-search-filter "+news -skip -ok -junk")
   (setq elfeed-search-title-max-width 115)
   (setq elfeed-search-remain-on-entry t))
+
+;; update feeds every 2h
+(when (my/online-p)
+  (run-with-timer 0 (* 60 120) 'elfeed-update))
 
 (use-package elfeed-goodies
   :after elfeed
@@ -199,6 +206,14 @@
   (interactive "P")
   (let ((browse-url-browser-function #'eww-browse-url))
     (elfeed-search-browse-url use-generic-p)))
+
+(defun jarfar/elfeed-mark-read-move-next ()
+  (elfeed-search-untag-all-unread)
+  (unless (use-region-p) (next-line)))
+
+(defun jarfar/elfeed-mark-unread-move-next ()
+  (elfeed-search-tag-all-unread)
+  (unless (use-region-p) (next-line)))
 
 (defhydra jarfar/hydra-elfeed-filter ()
   "Elfeed"
