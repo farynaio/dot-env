@@ -191,6 +191,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (bind-key "C-x C-," #'my/hydra-org/body org-mode-map)
 
      (unbind-key "C-'" org-mode-map)
+     (unbind-key "C-," org-mode-map)
 
      (bind-key [remap backward-paragraph] nil org-mode-map)
      (bind-key [remap forward-paragraph] nil org-mode-map)
