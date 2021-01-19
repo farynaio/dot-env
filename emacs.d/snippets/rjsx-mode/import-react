@@ -1,0 +1,5 @@
+# name: import React
+# key: impr
+# condition: (looking-back "^impr" nil)
+# --
+import React from "React"

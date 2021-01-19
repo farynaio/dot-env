@@ -1,0 +1,5 @@
+# name: import styled components
+# key: impsc
+# condition: (looking-back "^impsc" nil)
+# --
+import styled from "styled-components"

@@ -1,5 +1,5 @@
 # name: connected stateless component
-# key: cless
+# key: csless
 # condition: (looking-back "^cless" nil)
 # --
 import React from "react"

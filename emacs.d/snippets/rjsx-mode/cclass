@@ -1,10 +1,8 @@
-# name: connected statefull component
+# name: component class
 # key: cclass
 # condition: (looking-back "^cclass" nil)
 # --
 import React, { PureComponent } from "react"
-import { connect } from "react-redux"
-
 
 class $1 extends PureComponent {
   constructor(props) {
@@ -13,14 +11,9 @@ class $1 extends PureComponent {
 
   render() {
     return (
-      $0
+      $2
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps)($1)
+export default $1
