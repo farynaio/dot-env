@@ -175,7 +175,8 @@
 ;; (use-package realgud)
 
 (use-package yaml-mode
-  :hook (markdown-mode . jarfar/bind-value-togglers)
+  :hook ((yaml-mode . prettier-mode)
+          (markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
@@ -244,11 +245,13 @@
          ;; (modify-syntax-entry ?$ "w" (syntax-table))
          (add-hook 'before-save-hook
            (lambda ()
-             (when (and (eq dtrt-indent-mode nil))
-               (save-excursion
-                 (mark-whole-buffer)
-                 (indent-region (region-beginning) (region-end))
-                 (deactivate-mark)))) 0 t)
+             (when (and (eq dtrt-indent-mode nil) (fboundp 'web-beautify-css))
+               (web-beautify-css)
+               ;; (save-excursion
+               ;;   (mark-whole-buffer)
+               ;;   (indent-region (region-beginning) (region-end))
+               ;;   (deactivate-mark)))
+             )) 0 t)
          (setq-local company-backends '((company-css company-keywords company-files)))))))
 
 ;; (use-package xref-js2)
@@ -386,6 +389,7 @@
 ;;     ))
 
 (use-package prettier
+  :hook (css-mode . prettier-mode)
   :commands prettier-mode)
 
 (use-package rjsx-mode
