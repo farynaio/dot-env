@@ -29,6 +29,10 @@
 ;; (use-package neotree)
 ;; (use-package multiple-cursors)
 
+;; (use-package aggressive-indent
+;;   :config
+;;   (global-aggressive-indent-mode 1))
+
 (use-package emojify
   :hook (org-mode . emojify-mode))
 
@@ -372,6 +376,8 @@ end-of-buffer signals; pass the rest to the default handler."
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
   (message (concat "Buffer '" (file-name-nondirectory buffer-file-name) "' reloaded.")))
+
+;; (add-hook 'after-save-hook 'air-revert-buffer-noconfirm)
 
 (defun my/move-current-window-to-new-frame ()
   (interactive)
