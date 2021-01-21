@@ -1517,7 +1517,7 @@ should be continued."
     ("r" org-roam "org-roam" :exit t)
     ("k" org-roam "Toggle sidebar" :exit t)
     ("l" org-roam-insert "Insert" :exit t)
-    ("j" org-roam-dailies-date "Journal" :exit t)
+    ("j" org-roam-dailies-find-date  "Journal" :exit t)
     ("f" org-roam-find-file "Find file" :exit t)
     ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
     ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
