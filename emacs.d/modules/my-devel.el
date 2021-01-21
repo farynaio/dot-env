@@ -11,8 +11,37 @@
 ;; (require 'dns-mode)
 ;; (require 'company-graphql)
 
-;; (use-package mmm-mode
-;;   :config
+(use-package mmm-mode
+  :commands mmm-mode
+  :config
+  (setq mmm-submode-decoration-level 0)
+
+  (mmm-add-classes
+    '((mmm-styled-mode
+        :submode css-mode
+        :front "\\(styled\\|css\\)[.()<>[:alnum:]]?+`"
+        :back "`;")))
+  (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-styled-mode)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-styled-mode)
+
+  (mmm-add-classes
+    '((mmm-graphql-mode
+        :submode graphql-mode
+        :front "gr?a?p?h?ql`"
+        :back "`;")))
+  (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-graphql-mode)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql-mode)
+
+  ;; (mmm-add-classes
+  ;;   '((mmm-jsx-mode
+  ;;       :front "\\(return\s\\|n\s\\|(\n\s*\\)<"
+  ;;       :front-offset -1
+  ;;       :back ">\n?\s*)"
+  ;;       :back-offset 1
+  ;;       :submode web-mode)))
+  ;; (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-jsx-mode)
+  )
+
 ;;   (progn
 ;;     (add-hook 'mmm-mode-hook
 ;;       (lambda ()
@@ -351,6 +380,7 @@
   :hook ((typescript-mode . lsp-mode)
           (typescript-mode . prettier-mode)
           (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))))
+          (typescript-mode . mmm-mode)
 
 (use-package rainbow-delimiters)
 
@@ -395,6 +425,7 @@
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . prettier-mode)
+          (rjsx-mode . mmm-mode)
           (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
