@@ -152,7 +152,8 @@
       (my/lang-modes-deactivate)
       (funcall new-mode 1))))
 
-(add-hook 'find-file-hook 'my/lang-toggle)
+(add-hook 'org-mode-hook 'my/en-mode)
+(add-hook 'org-roam-dailies-find-file-hook 'my/en-mode)
 
 (use-package artbollocks-mode
   :commands artbollocks-mode
