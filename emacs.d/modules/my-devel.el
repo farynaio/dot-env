@@ -61,10 +61,11 @@
   '(progn
      (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
 
-(eval-after-load 'conf-mode
-  (add-hook 'conf-mode-hook
-    (lambda ()
-      (setq-local indent-line-function 'insert-tab))))
+;; (eval-after-load 'conf-mode
+;;   '(progn
+;;     (add-hook 'conf-mode-hook
+;;       (lambda ()
+;;         (setq-local indent-line-function 'insert-tab)))))
 
 (use-package ledger-mode
   :hook (ledger-mode . company-mode)
@@ -141,7 +142,7 @@
 
 (use-package json-mode
   :hook (json-mode . prettier-mode)
-  :mode "\\.json\\'")
+  :mode ("\\.json\\'" "\\rc\\'"))
 ;; (use-package indium) ; inspector for node
 
 (when (eq system-type 'gnu/linux)
@@ -225,7 +226,8 @@
 
   ;; (flycheck-add-next-checker 'javascript-tide 'append)
   (flycheck-add-mode 'typescript-tslint 'tide-mode)
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-add-mode 'javascript-eslint 'js-mode)
+  (flycheck-add-mode 'javascript-eslint 'typescript-mode)
   (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
 
 (use-package web-beautify
@@ -272,15 +274,18 @@
          ;; (flycheck-mode -1)
          ;; (modify-syntax-entry ?_ "w" (syntax-table))
          ;; (modify-syntax-entry ?$ "w" (syntax-table))
-         (add-hook 'before-save-hook
-           (lambda ()
-             (when (and (eq dtrt-indent-mode nil) (fboundp 'web-beautify-css))
-               (web-beautify-css)
+
+         ;; (add-hook 'before-save-hook
+         ;;   (lambda ()
+         ;;     (when (and (eq dtrt-indent-mode nil) (fboundp 'web-beautify-css))
+         ;;       (web-beautify-css)
+
                ;; (save-excursion
                ;;   (mark-whole-buffer)
                ;;   (indent-region (region-beginning) (region-end))
                ;;   (deactivate-mark)))
-             )) 0 t)
+
+             ;; )) 0 t)
          (setq-local company-backends '((company-css company-keywords company-files)))))))
 
 ;; (use-package xref-js2)
@@ -347,7 +352,8 @@
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-disabled-clients '(json-mode . (eslint json-ls))))
+  (add-to-list 'lsp-disabled-clients '((typescript-mode . (eslint))
+                                        (json-mode . (eslint json-ls)))))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 (use-package dap-mode
@@ -377,10 +383,11 @@
 
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
-  :hook ((typescript-mode . lsp-mode)
+  :hook ((typescript-mode . lsp)
           (typescript-mode . prettier-mode)
-          (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))))
           (typescript-mode . mmm-mode)
+          ;; (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
+          ))
 
 (use-package rainbow-delimiters)
 
@@ -420,7 +427,12 @@
 
 (use-package prettier
   :hook (css-mode . prettier-mode)
-  :commands prettier-mode)
+  :commands prettier-mode
+  :config
+  (add-hook 'prettier-mode
+    (lambda ()
+      (when (eq dtrt-indent-mode t)
+        (prettier-mode -1)))))
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
@@ -478,8 +490,18 @@
 (add-hook 'mmm-mode-hook
   (lambda () (set-face-background 'mmm-default-submode-face nil)))
 
+(setq my/prettier-modes '(css-mode js-mode yaml-mode))
+
 (use-package dtrt-indent
-  :diminish "dtrt")
+  :diminish "dtrt"
+  :config
+  (add-hook 'dtrt-indent-mode-hook
+    (lambda ()
+      (when (and (boundp 'prettier-mode) prettier-mode)
+        (if dtrt-indent-mode
+          (prettier-mode -1)
+          (when (memq major-mode my/prettier-modes)
+            (prettier-mode 1)))))))
 
 (defun my/dtrt-indent-mode-toggle ()
   "Toggle dtrt-indent mode."
