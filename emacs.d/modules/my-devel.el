@@ -623,7 +623,7 @@ $0`(yas-escape-text yas-selected-text)`"))
   (setq company-tooltip-align-annotations t)
   (setq company-minimum-prefix-length 1)
   ;; company-dabbrev
-  (setq company-backends '((company-yasnippet company-dabbrev-code) company-files company-capf company-keywords company-gtags company-etags)))
+  (setq company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
 
 (defun my/prog-mode-hook ()
   ;; (add-to-list 'company-backends 'company-bbdb)
