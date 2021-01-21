@@ -53,7 +53,8 @@
 
 [merge]
   tool = vimdiff
-  conflictstyle = diff3
+  # conflictStyle = diff3
+  conflictStyle = merge
   prompt = false
   keepBackup = false
 
