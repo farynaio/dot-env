@@ -1,4 +1,5 @@
-;; (setq debug-on-error t)
+;; (setq debug-on-error nil)
+;; (setq debug-on-quit nil)
 
 (setq file-name-handler-alist nil)
 (setq my/file-name-handler-alist file-name-handler-alist)
