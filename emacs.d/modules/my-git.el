@@ -39,19 +39,20 @@
 
   (projectile-mode 1)
 
-  (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+  )
 
-  (add-hook 'after-init-hook
-            (lambda ()
-              (mapc (lambda (project-root)
-                      (remhash project-root projectile-project-type-cache)
-                      (remhash project-root projectile-projects-cache)
-                      (remhash project-root projectile-projects-cache-time)
-                      (when projectile-verbose
-                        (message "Invalidated Projectile cache for %s."
-                                 (propertize project-root 'face 'font-lock-keyword-face))))
-                    projectile-known-projects)
-              (projectile-serialize-cache))))
+  ;; (add-hook 'after-init-hook
+  ;;           (lambda ()
+  ;;             (mapc (lambda (project-root)
+  ;;                     (remhash project-root projectile-project-type-cache)
+  ;;                     (remhash project-root projectile-projects-cache)
+  ;;                     (remhash project-root projectile-projects-cache-time)
+  ;;                     (when projectile-verbose
+  ;;                       (message "Invalidated Projectile cache for %s."
+  ;;                                (propertize project-root 'face 'font-lock-keyword-face))))
+  ;;                   projectile-known-projects)
+  ;;             (projectile-serialize-cache))))
 
 (defhydra hydra-git ()
   "git"
@@ -66,6 +67,7 @@
   ("z" magit-stash "stash" :exit t)
   ("l" magit-log-all "log" :exit t)
   ("r" magit-rebase "rebase" :exit t)
+  ("x" magit-reset "reset" :exit t)
   ("f" magit-log-buffer-file "file log" :exit t))
 
 (defhydra hydra-project ()
@@ -153,9 +155,12 @@ to invalidate."
           ("C-s" . isearch-forward)
           ("=" . balance-windows)
           ("C-w" . my/copy-diff-region)
+          :map magit-file-section-map
+          ("RET" . magit-diff-visit-file-other-window)
           :map magit-hunk-section-map
           ("r" . magit-reverse)
           ("v" . evil-visual-char)
+          ("RET" . magit-diff-visit-file-other-window)
           :map magit-revision-mode-map
           ("C-s" . isearch-forward)
           ("n" . evil-search-next)
