@@ -37,13 +37,9 @@
      ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
      ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
 
-     (when (fboundp 'evil-make-overriding-map)
-       (evil-make-overriding-map dired-mode-map 'motion)
-       (evil-make-overriding-map dired-mode-map 'normal)
+     (when (bound-and-true-p evil-mode)
        (bind-key "n" 'evil-ex-search-next dired-mode-map)
-       (bind-key "N" 'evil-ex-search-previous dired-mode-map)
-       (bind-key "n" 'evil-search-next dired-mode-map)
-       (bind-key "N" 'evil-search-previous dired-mode-map))
+       (bind-key "N" 'evil-ex-search-previous dired-mode-map))
 
      (add-hook 'dired-mode-hook
        (lambda ()
