@@ -18,13 +18,13 @@
           'face `(:height 1 :family ,(all-the-icons-octicon-family))
           'display '(raise 0))
         (propertize (format " %s" branch))
-        (propertize "  "))))
+        (propertize " "))))
 
   (defadvice vc-mode-line (after strip-backend () activate)
     (when (stringp vc-mode)
       (let ((noback (replace-regexp-in-string
                       (format "^ %s" (vc-backend buffer-file-name))
-                      "" (my/vc-mode-line))))
+                      " " (my/vc-mode-line))))
         (setq vc-mode noback)))))
 
 (use-package ivy-rich
