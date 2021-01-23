@@ -658,6 +658,16 @@ $0`(yas-escape-text yas-selected-text)`"))
 
   ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
 
+  (defun my/prog-breadcrumb ()
+    (if (projectile-project-p)
+      (format "%s%s%s"
+        (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
+        (string-remove-suffix (buffer-name) (string-remove-prefix (projectile-project-root) buffer-file-name))
+        (buffer-name))
+      (buffer-name (current-buffer))))
+
+  (setq-local header-line-format '(:eval (my/prog-breadcrumb)))
+
   (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
