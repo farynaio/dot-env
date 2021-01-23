@@ -5,6 +5,7 @@
 ;; (use-package git-timemachine)
 
 (setq vc-follow-symlinks t)
+(setq vc-handled-backends '(Git))
 
 (eval-after-load 'smerge-mode
   '(progn
@@ -14,6 +15,7 @@
      (add-hook 'smerge-mode-hook 'my/smerge-mode-setup)))
 
 (use-package projectile
+  :diminish projectile-mode
   :config
   (bind-key "C-c p" 'projectile-command-map projectile-mode-map)
   (bind-key "C-c p F" 'projectile-find-file-other-window projectile-mode-map)
@@ -128,14 +130,14 @@ to invalidate."
 
 (use-package git-gutter
   :diminish git-gutter-mode
-  :bind (("C-c p" . 'git-gutter:previous-hunk)
-          ("C-c n" . 'git-gutter:next-hunk))
+  ;; :bind (("C-c p" . 'git-gutter:previous-hunk)
+  ;;         ("C-c n" . 'git-gutter:next-hunk))
   :config
-  (global-git-gutter-mode +1))
+  (global-git-gutter-mode 1))
 
-(eval-after-load 'git-rebase
-  '(progn
-     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
+;; (eval-after-load 'git-rebase
+;;   '(progn
+;;      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
 
 (use-package transient) ;; magit dependency
 
@@ -179,7 +181,6 @@ to invalidate."
   (setq magit-bury-buffer-function 'magit-mode-quit-window)
 
   (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
-  (setq vc-handled-backends (delq 'Git vc-handled-backends))
   (setq magit-blame-styles
     '(
        (margin

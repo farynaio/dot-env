@@ -76,11 +76,10 @@
       (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
     (message "'undo-fu' not initiated. Evil mode is not active")))
 
-;; (use-package which-key
-;;   :diminish which-key-mode
-;;   :config
-;;   (setq which-key-idle-delay 0.8)
-;;   (which-key-mode))
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode 1))
 
 ;; (require 'wgrep)
 ;; (setq reb-re-syntax 'string)
