@@ -676,13 +676,6 @@ $0`(yas-escape-text yas-selected-text)`"))
 
   ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
 
-  (defun my/prog-breadcrumb ()
-    (if (projectile-project-p)
-      (format "%s%s%s"
-        (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
-        (string-remove-suffix (buffer-name) (string-remove-prefix (projectile-project-root) buffer-file-name))
-        (buffer-name))
-      (buffer-name (current-buffer))))
 
   (setq-local header-line-format '(:eval (my/prog-breadcrumb)))
 
@@ -702,7 +695,22 @@ $0`(yas-escape-text yas-selected-text)`"))
   (hl-line-mode 1)
   (show-paren-mode 1))
 
-(add-hook 'prog-mode-hook 'my/prog-mode-hook t)
+(defun my/breadcrumb-set-local ()
+  (if (projectile-project-p)
+    (setq-local header-line-format
+      '(:eval
+         (format "%s%s"
+           (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
+           (string-remove-prefix (projectile-project-root) buffer-file-name))))
+    (setq-local header-line-format
+      '(:eval
+         (buffer-name (current-buffer))))))
+
+(add-hook 'conf-space-mode-hook 'my/breadcrumb-set-local t)
+(add-hook 'conf-unix-mode-hook 'my/breadcrumb-set-local t)
+(add-hook 'conf-toml-mode-hook 'my/breadcrumb-set-local t)
+(add-hook 'conf-javaprop-mode-hook 'my/breadcrumb-set-local t)
+(add-hook 'prog-mode-hook 'my/breadcrumb-set-local t)
 
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
