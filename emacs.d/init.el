@@ -12,9 +12,6 @@
 
 (setq confirm-kill-processes nil)
 
-;; TODO is it needed?
-;; (setq exec-path-from-shell-check-startup-files nil)
-
 (eval-when-compile
   (defvar oauth--token-data ())
   (defvar url-http-method ())
@@ -23,18 +20,18 @@
   (defvar url-callback-function ())
   (defvar url-callback-arguments ()))
 
-(setenv "LC_ALL" "en_US.UTF-8")
-(setenv "LANG" "en_US.UTF-8")
-(setenv "LANGUAGE" "en_US.UTF-8")
-(setenv "LC_COLLATE" "en_US.UTF-8")
-(setenv "LC_CTYPE" "en_US.UTF-8")
-(setenv "LC_MESSAGES" "en_US.UTF-8")
-(setenv "LC_MONETARY" "en_US.UTF-8")
-(setenv "LC_NUMERIC" "en_US.UTF-8")
-(setenv "LC_TIME" "en_US.UTF-8")
+;; (setenv "LC_ALL" "en_US.UTF-8")
+;; (setenv "LANG" "en_US.UTF-8")
+;; (setenv "LANGUAGE" "en_US.UTF-8")
+;; (setenv "LC_COLLATE" "en_US.UTF-8")
+;; (setenv "LC_CTYPE" "en_US.UTF-8")
+;; (setenv "LC_MESSAGES" "en_US.UTF-8")
+;; (setenv "LC_MONETARY" "en_US.UTF-8")
+;; (setenv "LC_NUMERIC" "en_US.UTF-8")
+;; (setenv "LC_TIME" "en_US.UTF-8")
 (setenv "SHELL" "/usr/local/bin/bash")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
-(setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
+;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
 (when (string-equal system-type "darwin")
   (when (file-accessible-directory-p "/Applications/Firefox.app/Contents/MacOS")
@@ -146,7 +143,16 @@
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
     :config
+    (setq exec-path-from-shell-arguments '("-l"))
     (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
+    (add-to-list 'exec-path-from-shell-variables "LANG")
+    (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
+    (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
+    (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
+    (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
+    (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
+    (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
+    (add-to-list 'exec-path-from-shell-variables "LC_TIME")
     (exec-path-from-shell-initialize)))
 
 (use-package oauth2)
