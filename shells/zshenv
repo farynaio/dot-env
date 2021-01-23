@@ -2,7 +2,7 @@
 
 # echo "zshenv"
 
-.zsh/env
+. ~/.zsh/env
 
 # source $HOME/.dotenv/shell.sh
 

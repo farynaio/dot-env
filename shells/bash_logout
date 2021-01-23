@@ -2,4 +2,4 @@
 
 # echo "bash_logout"
 
-. .bash/logout
+. ~/.bash/logout
