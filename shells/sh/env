@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "sh/env"
+# echo "sh/env"
 
 . ~/.shell/env
 

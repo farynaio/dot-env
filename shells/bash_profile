@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "bash_profile"
+# echo "bash_profile"
 
 # We need to do two things here:
 

@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "shell/env"
+# echo "shell/env"
 
 # We need to set $ENV so that if you use shell X as your login shell,
 # and then start "sh" as a non-login interactive shell the startup scripts will
@@ -11,10 +11,27 @@ export ENV="~/.sh/interactive"
 # (unlike $ENV, which is for interactive shells)
 export BASH_ENV="~/.bash/env"
 
+PATH="/usr/local/bin:$PATH"
+# PATH="$HOME/.composer/vendor/bin:$PATH"
+# PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# PATH="/usr/local/share/android-sdk/tools/bin:$PATH"
+# PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
+PATH="$HOME/bin:$PATH"
+# PATH="$HOME/.npm-packages/bin:$PATH"
+# PATH="$NPM_PACKAGES/bin:$PATH"
+# PATH="/usr/local/opt/openssl/bin:$PATH"
+
+# PATH="$PATH:/usr/local/opt/python/libexec/bin"
+# PATH="$PATH:$HOME/Library/Python/3.7/bin"
+# PATH="/usr/local/opt/node@10/bin:$PATH"
+# PATH="$PATH:$HOME/go/bin"
+PATH="$HOME/.rbenv/shims:$PATH"
+export PATH
+
 . ~/.shell/env_functions
 
 # umask 0077
 
-if [ -e "~/.env_local" ]; then
-  source ~/.env_local
+if [ -e ~/.env_local ]; then
+  . ~/.env_local
 fi

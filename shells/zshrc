@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "zshrc"
+# echo "zshrc"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -142,6 +142,6 @@ unsetopt share_history
 
 export NVM_DIR="$HOME/.nvm"
 
-if [ -s "~/.zshrc_local" ]; then
+if [ -s ~/.zshrc_local ]; then
   . ~/.zshrc_local
 fi

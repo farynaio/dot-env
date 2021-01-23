@@ -1,5 +1,5 @@
 # -*- mode: sh -*-
 
-echo "zsh/login"
+# echo "zsh/login"
 
 . ~/.shell/login

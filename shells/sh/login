@@ -1,5 +1,5 @@
 # -*- mode: sh -*-
 
-echo "sh/login"
+# echo "sh/login"
 
 . ~/.shell/login

@@ -1,8 +1,8 @@
 # -*- mode: sh -*-
 
-echo "bashrc"
+# echo "bashrc"
 
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completionexport PATH="/usr/local/opt/sqlite/bin:$PATH"
+[ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && . /usr/local/opt/nvm/etc/bash_completion.d/nvm  # This loads nvm bash_completionexport PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # load shopify-app-cli, but only if present and the shell is interactive
 # if [[ -f "/Users/devil/.shopify-app-cli/shopify.sh" ]]; then source "/Users/devil/.shopify-app-cli/shopify.sh"; fi

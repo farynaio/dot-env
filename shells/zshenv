@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "zshenv"
+# echo "zshenv"
 
 .zsh/env
 

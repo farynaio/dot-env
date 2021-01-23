@@ -1,5 +1,5 @@
 # -*- mode: sh -*-
 
-echo "zsh/env"
+# echo "zsh/env"
 
 . ~/.shell/env

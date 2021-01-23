@@ -1,5 +1,5 @@
 # -*- mode: sh -*-
 
-echo "sh/interactive"
+# echo "sh/interactive"
 
 . ~/.shell/interactive

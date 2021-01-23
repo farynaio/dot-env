@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-echo "shell/interactive"
+# echo "shell/interactive"
 
 smart_resize() {
   if [[ $# < 3 ]]; then
@@ -171,14 +171,3 @@ fi
 # fi
 
 # export NPM_TOKEN=$(aws --region eu-west-1 ssm get-parameter --name /TWIG/global/NPM_TOKEN --output text --query 'Parameter.Value' --with-decryption)
-
-export NVM_DIR="$HOME/.nvm"
-
-if [ -s "/usr/local/Cellar/nvm/0.37.2/nvm.sh" ]; then
-  # export NVM_DIR="/usr/local/Cellar/nvm/0.37.2"
-  . /usr/local/Cellar/nvm/0.37.2/nvm.sh
-fi
-
-# if command -v pyenv 1>/dev/null 2>&1; then
-  # eval "$(pyenv init -)"
-# fi
