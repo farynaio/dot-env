@@ -64,7 +64,7 @@
      (setq tramp-chunksize 500)
      (setq tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
      (setq tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-     (setq tramp-encoding-shell "/bin/ksh")))
+     (setq tramp-encoding-shell "/bin/sh")))
 
 (setq password-cache-expiry nil)
 
