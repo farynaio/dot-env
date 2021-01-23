@@ -6,6 +6,106 @@
 ;; light theme
 ;; adwaita
 
+(use-package all-the-icons
+  :config
+  (when (not (file-exists-p (expand-file-name "~/Library/Fonts/all-the-icons.ttf")))
+    (all-the-icons-install-fonts))
+
+  (defun my/vc-mode-line ()
+    (let ((branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-")))
+      (concat
+        (propertize (format " %s" (all-the-icons-octicon "git-branch"))
+          'face `(:height 1 :family ,(all-the-icons-octicon-family))
+          'display '(raise 0))
+        (propertize (format " %s" branch))
+        (propertize "  "))))
+
+  (defadvice vc-mode-line (after strip-backend () activate)
+    (when (stringp vc-mode)
+      (let ((noback (replace-regexp-in-string
+                      (format "^ %s" (vc-backend buffer-file-name))
+                      "" (my/vc-mode-line))))
+        (setq vc-mode noback)))))
+
+(use-package ivy-rich
+  :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
+  :config
+  (setq ivy-rich-parse-remote-buffer nil)
+  (setq ivy-rich-path-style 'full)
+
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  (defun jarfar/ivy-rich-switch-buffer-icon (candidate)
+    (with-current-buffer
+      (get-buffer candidate)
+      (let ((icon (all-the-icons-icon-for-mode major-mode)))
+        (if (symbolp icon)
+          (all-the-icons-icon-for-mode 'fundamental-mode)
+          icon))))
+
+  (defun jarfar/ivy-switch-buffer-org-roam-title (candidate)
+    (if (ivy-rich-switch-buffer-user-buffer-p candidate)
+      (let* ((file (buffer-file-name (get-buffer candidate)))
+              (file (if (and (fboundp 'org-roam--org-roam-file-p) (org-roam--org-roam-file-p file)) (org-roam-db--get-title file) "")))
+        (if file file ""))
+      ""))
+
+  (setq ivy-rich-display-transformers-list
+    '(ivy-switch-buffer
+       (:columns
+         ((jarfar/ivy-rich-switch-buffer-icon (:width 2))
+           (ivy-rich-candidate (:width 30))
+           (jarfar/ivy-switch-buffer-org-roam-title (:width 40))
+           (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+         :predicate (lambda (cand) (get-buffer cand)))
+       counsel-find-file
+       (:columns
+         ((ivy-read-file-transformer)
+           (ivy-rich-counsel-find-file-truename
+             (:face font-lock-doc-face))))
+       counsel-M-x
+       (:columns
+         ((counsel-M-x-transformer
+            (:width 40))
+           (ivy-rich-counsel-function-docstring
+             (:face font-lock-doc-face))))
+       counsel-describe-function
+       (:columns
+         ((counsel-describe-function-transformer
+            (:width 40))
+           (ivy-rich-counsel-function-docstring
+             (:face font-lock-doc-face))))
+       counsel-describe-variable
+       (:columns
+         ((counsel-describe-variable-transformer
+            (:width 40))
+           (ivy-rich-counsel-variable-docstring
+             (:face font-lock-doc-face))))
+       counsel-recentf
+       (:columns
+         ((ivy-rich-candidate
+            (:width 0.8))
+           (ivy-rich-file-last-modified-time
+             (:face font-lock-comment-face))))
+       package-install
+       (:columns
+         ((ivy-rich-candidate
+            (:width 30))
+           (ivy-rich-package-version
+             (:width 16 :face font-lock-comment-face))
+           (ivy-rich-package-archive-summary
+             (:width 7 :face font-lock-builtin-face))
+           (ivy-rich-package-install-summary
+             (:face font-lock-doc-face))))))
+
+  (define-minor-mode ivy-rich-local-mode
+    "Toggle ivy-rich mode locally."
+    :global nil
+    (if ivy-rich-local-mode
+      (unless ivy-rich--original-display-transformers-list
+        (ivy-rich-set-display-transformer))
+      (ivy-rich-unset-display-transformer))))
+
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
 (defvar my/current-theme nil)
@@ -60,7 +160,5 @@
 (setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
 (set-face-attribute 'default nil :font default-font)
-
-(use-package all-the-icons)
 
 (provide 'my-theme)
