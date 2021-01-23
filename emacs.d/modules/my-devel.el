@@ -686,7 +686,7 @@ $0`(yas-escape-text yas-selected-text)`"))
 
   (setq-local header-line-format '(:eval (my/prog-breadcrumb)))
 
-  (make-local-variable 'flycheck-check-syntax-automatically)
+  ;; (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
   (when (bound-and-true-p evil-mode)
