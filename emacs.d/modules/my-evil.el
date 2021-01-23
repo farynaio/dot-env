@@ -81,15 +81,15 @@
 
   (defun my/next-error ()
     (interactive)
-    (if (and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p))
-      (flycheck-next-error)
-      (next-error)))
+    (cond ((get-buffer "*Flycheck errors*") (next-error))
+      ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-next-error))
+      (t (next-error))))
 
   (defun my/previous-error ()
     (interactive)
-    (if (and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p))
-      (flycheck-previous-error)
-      (previous-error)))
+    (cond ((get-buffer "*Flycheck errors*") (previous-error))
+      ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-previous-error))
+      (t (previous-error))))
 
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
   (add-hook 'evil-insert-state-entry-hook (lambda ()
