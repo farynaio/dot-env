@@ -1,0 +1,184 @@
+# -*- mode: sh -*-
+
+echo "shell/interactive"
+
+smart_resize() {
+  if [[ $# < 3 ]]; then
+    echo 'All parameters are required.'
+    echo 'Usage <input-file> <output-width> <output-dir> [quality]'
+    return 1
+  fi
+
+  if ! hash mogrify 2>/dev/null; then
+    echo 'ImageMagic is not installed!'
+    return 1
+  fi
+
+  if [ ! -d "$3" ]; then
+    echo "Directory $3 not exists, creating one."
+    mkdir -p $3
+  fi
+
+  quality=$4
+
+  if [ -z "$quality" ]; then
+    quality=82
+  fi
+
+  eval "mogrify -path $3 -filter Triangle -define filter:support=2 -thumbnail $2 -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality $quality -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB $1"
+
+  if [ $? != 0 ]; then
+    echo "Image $3 process error!"
+    return 1
+  fi
+
+  echo "Image $3 processed successfully!"
+}
+
+docker_ip() {
+  # docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
+}
+
+db_devel_backup() {
+  local FILE=${1:-"backup.sql"}
+  local CONTAINER=wordpress_db
+  local DATABASE=wordpress
+  local USER=wordpress
+  local PASSWORD=wordpress
+  local PREFIX=wp_
+
+  echo "Database back up started..."
+
+  docker exec $CONTAINER /usr/bin/mysqldump --opt -Q -u $USER --password=$PASSWORD $DATABASE ${PREFIX}options ${PREFIX}posts ${PREFIX}postmeta ${PREFIX}terms ${PREFIX}term_taxonomy ${PREFIX}term_relationships ${PREFIX}termmeta > $FILE
+
+  echo "Database backing up finished."
+}
+
+db_devel_restore() {
+  local FILE=${1:-"backup.sql"}
+  local CONTAINER=wordpress_db
+  local DATABASE=wordpress
+  local USER=wordpress
+  local PASSWORD=wordpress
+
+  if [[ -e $FILE  ]]; then
+    echo "Restoring database..."
+    cat $FILE | docker exec -i $CONTAINER /usr/bin/mysql -u $USER --password=$PASSWORD $DATABASE
+    echo "Database restored."
+  else
+    echo "File $FILE doesn't exists."
+  fi
+}
+
+is_darwin() {
+  [[ $(uname -s) == 'Darwin' ]] && result=true || result=false
+  echo $result
+}
+
+is_linux() {
+  [[ $(uname -s) == 'Linux' ]] && result=true || result=false
+  echo $result
+}
+
+checkport() {
+  if [[ -z $1 ]]; then
+    echo "No port specified!"
+    return 1
+  fi
+
+  netstat -ltnp | grep -w ':$1'
+  # lsof -nP -iTCP:$1 | grep LISTEN
+}
+
+command_exists() {
+  [ -x "$(command -v $1)" ] && result=true || result=false
+  echo $result
+}
+
+alias ports="netstat -tulpn"
+alias ports_opened='netstat -pln'
+alias rm='rm -i '
+alias cp='cp -i '
+alias mv='mv -i '
+
+if $(is_darwin); then
+  alias ssh_check_connections="lsof -i -n | egrep '\<ssh\>'"
+  # alias ssh_kill_connections="kill -9 $(lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2)"
+  alias ssh_kill_connections="lsof -i -n | egrep '\<ssh\>'|tr -s ' '|cut -d' ' -f2 | kill -9"
+  alias emacs_find_package='find /Applications/Emacs.app -regex '
+  alias hosts_clean="sudo dscacheutil -flushcache"
+  alias virtualenvwrapper='source /usr/local/bin/virtualenvwrapper.sh'
+  alias ls='ls -G '
+
+elif $(is_linux); then
+  alias iptables_reload="iptables -F; iptables-restore < /etc/iptables/rules.v4"
+  alias apt_installed='apt list --installed '
+  alias services_status='service --status-all'
+  alias services_enabled='systemctl list-unit-files | grep enabled'
+  alias ls='ls --color '
+fi
+
+# if $(command_exists "gls"); then
+#   alias ls='/usr/local/bin/gls --color -h --group-directories-first -1v'
+# fi
+
+# if $(command_exists "mysqld_safe"); then
+  alias start_mysql='mysqld_safe &'
+  alias stop_mysql='mysqladmin shutdown'
+# fi
+
+# if $(command_exists "rbenv"); then
+#   alias taskjuggler='$HOME/.rbenv/versions/`rbenv global`/bin/tj3 '
+# fi
+
+# if $(command_exists "vim"); then
+  alias vi="vim "
+# fi
+
+
+# if $(command_exists "zsh"); then
+  # alias z="zsh "
+# fi
+
+# if $(command_exists "git"); then
+  alias g="git "
+# fi
+
+# if $(command_exists "yarn"); then
+#   alias y="yarn "
+# fi
+
+# if $(command_exists "tmux"); then
+#   alias ta="TERM=screen-256color-bce tmux -2 attach || TERM=screen-256color-bce tmux new -s "
+#   alias tnew="TERM=screen-256color-bce tmux -2 new -s "
+#   alias tls="tmux ls "
+#   alias tkill="tmux kill-session -t "
+# fi
+
+# if $(command_exists "wget"); then
+  alias download_page="wget -E -H -k -K --random-wait -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' -e robots=off -p "
+# fi
+
+# if $(command_exists "mbsync"); then
+  alias offlineimap="mbsync -a && mu index"
+# fi
+
+# if $(command_exists "ledger"); then
+  # if [[ $(command_exists "gpg") ]]; then
+    alias eledger="gpg --batch -d -q $LEDGER_FILE | ledger -f - "
+  # fi
+# fi
+
+# export NPM_TOKEN=$(aws --region eu-west-1 ssm get-parameter --name /TWIG/global/NPM_TOKEN --output text --query 'Parameter.Value' --with-decryption)
+
+export NVM_DIR="$HOME/.nvm"
+
+if [ -s "/usr/local/Cellar/nvm/0.37.2/nvm.sh" ]; then
+  # export NVM_DIR="/usr/local/Cellar/nvm/0.37.2"
+  . /usr/local/Cellar/nvm/0.37.2/nvm.sh
+fi
+
+# if command -v pyenv 1>/dev/null 2>&1; then
+  # eval "$(pyenv init -)"
+# fi

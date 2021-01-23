@@ -1,0 +1,91 @@
+# -*- mode: sh -*-
+
+echo "shell/login"
+
+# Put your environment variables here
+
+# Preferred programs
+#export PAGER=less
+export EDITOR=vim
+# export VISUAL=$EDITOR
+
+# Language
+export LANG='pl_PL.UTF-8'
+# export LC_ALL=$LANG
+export LC_COLLATE=$LANG
+export LC_CTYPE=$LANG
+export LC_MESSAGES=$LANG
+export LC_MONETARY=$LANG
+export LC_NUMERIC=$LANG
+export LC_TIME=$LANG
+
+# Path settings
+#pathprepend ~/bin PATH
+#pathprepend ~/lib LD_LIBRARY_PATH
+#pathprepend ~/include CPATH
+
+if [[ -e $HOME/bin ]]; then
+  PATH="$HOME/bin:$PATH"
+fi
+
+PATH="/usr/local/bin:$PATH"
+PATH="$HOME/.composer/vendor/bin:$PATH"
+PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+PATH="/usr/local/share/android-sdk/tools/bin:$PATH"
+PATH="/usr/local/mysql/bin:/usr/local/mysql/bin/mysqladmin:$PATH"
+PATH="$HOME/bin:$PATH"
+PATH="$HOME/.npm-packages/bin:$PATH"
+PATH="$NPM_PACKAGES/bin:$PATH"
+PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+PATH="/usr/local/opt/openssl/bin:$PATH"
+PATH="$HOME/Dropbox/devel/scripts:$PATH"
+PATH="$PATH:/usr/local/opt/python/libexec/bin"
+PATH="$PATH:$HOME/Library/Python/3.7/bin"
+PATH="/usr/local/opt/node@10/bin:$PATH"
+PATH="$PATH:$HOME/go/bin"
+PATH="$HOME/.rbenv/shims:$PATH"
+export PATH
+
+export MU_HOME="$HOME/Maildir"
+export NPM_PACKAGES="$HOME/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/bin:$NPM_PACKAGES/lib/node_modules"
+export LEDGER_FILE="$HOME/Documents/emacs/ledger/private.ledger.gpg"
+
+export WORKON_HOME="$HOME/.virtualenvs"
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+
+export GPG_TTY=$(tty)
+
+# Colored man pages: http://linuxtidbits.wordpress.com/2009/03/23/less-colors-for-man-pages/
+# Less Colors for Man Pages
+# export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+# export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+# export LESS_TERMCAP_me=$'\E[0m'           # end mode
+# export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+# export LESS_TERMCAP_so=$'\E[38;5;016m\E[48;5;220m'    # begin standout-mode - info box
+# export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+# export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+# if hash rbenv &> /dev/null; then
+  # export PATH="$HOME/.rbenv/shims:$PATH"
+# fi
+
+if [[ -z $USER_NAME ]]; then
+  echo "No USER_NAME provided!"
+else
+  git config --global user.name "$USER_NAME"
+fi
+
+if [[ -z $EMAIL ]]; then
+  echo "No EMAIL provided!"
+else
+  git config --global user.email "$EMAIL"
+fi
+
+if [[ -n $SIGNING_KEY ]]; then
+  git config --global user.signingkey "$SIGNING_KEY"
+fi
+
+# The current directory should never be in $PATH
+#pathremove . PATH
+#pathremove "" PATH

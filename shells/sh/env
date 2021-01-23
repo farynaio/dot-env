@@ -1,0 +1,8 @@
+# -*- mode: sh -*-
+
+echo "sh/env"
+
+. ~/.shell/env
+
+# fix emacs tramp login issue
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '

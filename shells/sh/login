@@ -1,0 +1,5 @@
+# -*- mode: sh -*-
+
+echo "sh/login"
+
+. ~/.shell/login
