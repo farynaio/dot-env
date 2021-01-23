@@ -676,9 +676,6 @@ $0`(yas-escape-text yas-selected-text)`"))
 
   ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
 
-
-  (setq-local header-line-format '(:eval (my/prog-breadcrumb)))
-
   ;; (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
@@ -694,6 +691,8 @@ $0`(yas-escape-text yas-selected-text)`"))
   (flyspell-mode -1)
   (hl-line-mode 1)
   (show-paren-mode 1))
+
+(add-hook 'prog-mode-hook 'my/prog-mode-hook)
 
 (defun my/breadcrumb-set-local ()
   (if (projectile-project-p)
