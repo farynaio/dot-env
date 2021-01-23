@@ -157,6 +157,8 @@ to invalidate."
           ("C-s" . isearch-forward)
           ("=" . balance-windows)
           ("C-w" . my/copy-diff-region)
+          :map magit-process-mode-map
+          ("k" . magit-process-kill)
           :map magit-file-section-map
           ("RET" . magit-diff-visit-file-other-window)
           :map magit-hunk-section-map
