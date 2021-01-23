@@ -65,8 +65,8 @@
   (bind-key "]l"     'langtool-goto-next-error            evil-normal-state-map)
   (bind-key "C-n"    'company-next-page                   evil-insert-state-map)
   (bind-key "C-p"    'company-previous-page               evil-insert-state-map)
-  (bind-key "]e"     'next-error                          evil-normal-state-map)
-  (bind-key "[e"     'previous-error                      evil-normal-state-map)
+  (bind-key "]e"     'my/next-error                       evil-normal-state-map)
+  (bind-key "[e"     'my/previous-error                   evil-normal-state-map)
   (bind-key "<"      'beginning-of-buffer                 evil-normal-state-map)
   (bind-key ">"      'end-of-buffer                       evil-normal-state-map)
   (bind-key "<home>" 'evil-first-non-blank                evil-normal-state-map)
@@ -78,6 +78,18 @@
   (bind-key "C-d"    'evil-scroll-down evil-normal-state-map)
   (bind-key "C-u"    'evil-scroll-up evil-normal-state-map)
   (bind-key "C-s"    'evil-search-forward evil-normal-state-map) ;; counsel-grep
+
+  (defun my/next-error ()
+    (interactive)
+    (if (and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p))
+      (flycheck-next-error)
+      (next-error)))
+
+  (defun my/previous-error ()
+    (interactive)
+    (if (and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p))
+      (flycheck-previous-error)
+      (previous-error)))
 
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
   (add-hook 'evil-insert-state-entry-hook (lambda ()
@@ -151,6 +163,7 @@
   (add-to-list 'evil-emacs-state-modes 'deft-mode)
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
+  (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
 
   ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
   ;; (setq evil-emacs-state-modes nil)
@@ -228,8 +241,7 @@
     ",t" 'my/toggle-php-flavor-mode)
 
   (evil-define-key 'normal prog-mode-map
-    ",c" 'flycheck-mode
-    ",e" 'flycheck-list-errors)
+    ",e" 'my/flycheck-toggle)
 
   (evil-define-key 'normal tide-mode-map
     ",t" 'hydra-tide/body

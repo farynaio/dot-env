@@ -228,7 +228,21 @@
   (flycheck-add-mode 'typescript-tslint 'tide-mode)
   (flycheck-add-mode 'javascript-eslint 'js-mode)
   (flycheck-add-mode 'javascript-eslint 'typescript-mode)
-  (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs)))
+  (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+
+  (add-to-list 'display-buffer-alist
+    `(,(rx bos "*Flycheck errors*" eos)
+       (display-buffer-reuse-window
+         display-buffer-in-side-window)
+       (side            . bottom)
+       (reusable-frames . visible)
+       (window-height   . 0.33)))
+
+  (defun my/flycheck-toggle ()
+    (interactive)
+    (if (get-buffer "*Flycheck errors*")
+      (kill-buffer "*Flycheck errors*")
+      (flycheck-list-errors))))
 
 (use-package web-beautify
   :commands web-beautify-js web-beautify-css web-beautify-html)
