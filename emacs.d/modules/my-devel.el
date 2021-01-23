@@ -318,7 +318,6 @@
 ;;   )
 
 (use-package lsp-mode
-  ;; :hook (lsp-mode . lsp-enable-which-key-integration)) ;; which-key integration
   :commands lsp lsp-deferred
   :init
   (add-hook 'js-mode-hook
@@ -349,6 +348,11 @@
     lsp-ui-doc-show-with-mouse nil
     lsp-ui-sideline-enable nil
     lsp-ui-sideline-enable nil)
+
+  (add-hook 'lsp-mode-hook
+    (lambda ()
+      (when (bound-and-true-p which-key-mode)
+        (lsp-enable-which-key-integration))))
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
