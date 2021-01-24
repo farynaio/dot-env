@@ -2,6 +2,10 @@
 
 # echo "shell/interactive"
 
+init_pyenv() {
+  eval "$(pyenv init -)"
+}
+
 smart_resize() {
   if [[ $# < 3 ]]; then
     echo 'All parameters are required.'
