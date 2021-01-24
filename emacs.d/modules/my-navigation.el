@@ -465,4 +465,6 @@ point reaches the beginning or end of the buffer, stop there."
 (bind-key "<s-right>" 'ns-next-frame)
 (bind-key "<s-left>" 'ns-prev-frame)
 
+(unbind-key "s-l")
+
 (provide 'my-navigation)
