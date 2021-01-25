@@ -702,11 +702,14 @@ $0`(yas-escape-text yas-selected-text)`"))
 
 (defun my/breadcrumb-set-local ()
   (if (projectile-project-p)
-    (setq-local header-line-format
-      '(:eval
-         (format "%s%s"
-           (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
-           (string-remove-prefix (projectile-project-root) buffer-file-name))))
+    (let* ((path (string-remove-prefix (projectile-project-root) buffer-file-name))
+            (tokens (split-string path "/"))
+            (path (string-join tokens " > ")))
+      (setq-local header-line-format
+        `(:eval
+           (format "%s %s"
+             (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
+             ,path))))
     (setq-local header-line-format
       '(:eval
          (buffer-name (current-buffer))))))
