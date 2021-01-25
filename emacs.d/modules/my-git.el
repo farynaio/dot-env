@@ -61,6 +61,8 @@
   ("g" magit-blame "blame" :exit t)
   ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
   ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
+  ("f" magit-fetch "fetch" :exit t)
+  ("F" magit-pull "pull" :exit t)
   ("s" magit-status "status" :exit t)
   ("o" magit-checkout "checkout" :exit t)
   ("b" magit-branch "branch" :exit t)
