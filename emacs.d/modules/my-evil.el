@@ -136,6 +136,7 @@
   (evil-set-initial-state 'image-mode 'emacs)
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'treemacs-mode 'emacs)
+  (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
@@ -226,6 +227,9 @@
   ;; (evil-define-key 'normal ediff-mode-map
   ;;   "[c" 'ediff-next-difference
   ;;   "]c" 'ediff-previous-difference)
+
+  (evil-define-key 'normal lsp-ui-mode-map
+    (kbd ",l") 'lsp-ui-imenu)
 
   (evil-define-key '(normal motion visual) elpy-mode-map
     "M-." 'xref-find-definitions

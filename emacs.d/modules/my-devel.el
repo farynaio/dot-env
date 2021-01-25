@@ -382,12 +382,18 @@
   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
   (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
-;; (use-package lsp-ui
-;;   :after lsp-mode
-;; 	:commands lsp-ui-mode
-;;   :config
-;;   (setq lsp-ui-doc-position 'top)
-;;   (setq lsp-ui-doc-header t))
+(use-package lsp-ui
+  :requires lsp-mode
+  :hook ((lsp-mode . lsp-ui-mode)
+          (lsp-mode . lsp-ui-imenu-buffer-mode))
+	:commands lsp-ui-imenu
+  :config
+  (setq
+    lsp-ui-imenu-window-width 50
+    lsp-ui-doc-position 'top
+    lsp-ui-doc-header t))
+
+  ;; (bind-key ", l" 'lsp-ui-imenu lsp-ui-mode-map)
 
 ;; (use-package lsp-ivy
 ;;   :requires (lsp-mode ivy)
