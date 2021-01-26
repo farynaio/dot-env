@@ -1724,7 +1724,7 @@ it can be passed in POS."
   (let* ((breadcrumbs (org-format-outline-path
                        (org-get-outline-path)
                        (1- (frame-width))
-                       nil "->"))
+                       nil " > "))
           (title (ndk/heading-title))
           (filename (car (org-roam--extract-titles-title)))
           (filename (if filename filename (buffer-name))))
@@ -1732,7 +1732,7 @@ it can be passed in POS."
     (if title
       (if (string-empty-p breadcrumbs)
         (format "[%s] %s" filename title)
-        (format "[%s] %s->%s" filename breadcrumbs title))
+        (format "[%s] %s > %s" filename breadcrumbs title))
       (org-roam--extract-titles-title))))
 
 (defun ndk/set-header-line-format ()
