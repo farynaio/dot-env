@@ -701,6 +701,7 @@ $0`(yas-escape-text yas-selected-text)`"))
 (add-hook 'prog-mode-hook 'my/prog-mode-hook)
 
 (defun my/breadcrumb-set-local ()
+  (when buffer-file-name
   (if (projectile-project-p)
     (let* ((path (string-remove-prefix (projectile-project-root) buffer-file-name))
             (tokens (split-string path "/"))
@@ -712,7 +713,7 @@ $0`(yas-escape-text yas-selected-text)`"))
              ,path))))
     (setq-local header-line-format
       '(:eval
-         (buffer-name (current-buffer))))))
+         (buffer-name (current-buffer)))))))
 
 (add-hook 'conf-space-mode-hook 'my/breadcrumb-set-local t)
 (add-hook 'conf-unix-mode-hook 'my/breadcrumb-set-local t)
