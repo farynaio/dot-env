@@ -288,4 +288,26 @@
 (use-package evil-anzu
   :after evil)
 
+(use-package evil-multiedit
+  :after evil
+  :bind (:map evil-normal-state-map
+          ("M-d" . evil-multiedit-match-and-next)
+          ("M-D" . 'evil-multiedit-match-and-prev)
+          ("C-M-D" . 'evil-multiedit-restore)
+          ("RET" . 'evil-multiedit-toggle-or-restrict-region)
+          :map evil-visual-state-map
+          ("R" . evil-multiedit-match-all)
+          ("M-d" . evil-multiedit-match-and-next)
+          ("M-D" . 'evil-multiedit-match-and-prev)
+          ("C-M-D" . 'evil-multiedit-restore)
+          :map evil-multiedit-state-map
+          ("RET" . 'evil-multiedit-toggle-or-restrict-region)
+          ("C-n" . 'evil-multiedit-next)
+          ("C-p" . 'evil-multiedit-prev)
+          :map evil-multiedit-insert-state-map
+          ("C-n" . 'evil-multiedit-next)
+          ("C-p" . 'evil-multiedit-prev))
+  :config
+  (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match))
+
 (provide 'my-evil)

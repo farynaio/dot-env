@@ -1,0 +1,2 @@
+;;; Generated package description from evil-multiedit.el  -*- no-byte-compile: t -*-
+(define-package "evil-multiedit" "20200229.528" "multiple cursors for evil-mode" '((emacs "24.4") (evil "1.2.12") (iedit "0.9") (cl-lib "0.5")) :commit "9f271e0e6048297692f80ed6c5ae8994ac523abc" :authors '(("Henrik Lissner <http://github/hlissner>")) :maintainer '("Henrik Lissner" . "henrik@lissner.net") :keywords '("multiple cursors" "editing" "iedit") :url "https://github.com/hlissner/evil-multiedit")
