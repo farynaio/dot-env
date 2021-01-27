@@ -176,13 +176,16 @@ to invalidate."
           ("\\w" . avy-goto-word-or-subword-1)
           ("\\c" . avy-goto-char))
   :config
-  (setq magit-completing-read-function 'ivy-completing-read)
-  (setq magit-refresh-status-buffer nil)
-  (setq magit-item-highlight-face 'bold)
-  (setq magit-diff-paint-whitespace nil)
-  (setq magit-ediff-dwim-show-on-hunks t)
-  (setq magit-diff-hide-trailing-cr-characters t)
-  (setq magit-bury-buffer-function 'magit-mode-quit-window)
+  (setq
+    magit-completing-read-function 'ivy-completing-read
+    magit-refresh-status-buffer nil
+    magit-item-highlight-face 'bold
+    magit-diff-paint-whitespace nil
+    magit-ediff-dwim-show-on-hunks t
+    magit-diff-hide-trailing-cr-characters t
+    magit-bury-buffer-function 'magit-mode-quit-window
+    magit-commit-ask-to-stage nil
+    magit-commit-squash-confirm nil)
 
   (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
   (setq magit-blame-styles
