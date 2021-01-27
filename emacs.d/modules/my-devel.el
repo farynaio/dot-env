@@ -141,7 +141,6 @@
 ;;      ))
 
 (use-package json-mode
-  :hook (json-mode . prettier-mode)
   :mode ("\\.json\\'" "\\rc\\'"))
 ;; (use-package indium) ; inspector for node
 
@@ -205,7 +204,7 @@
 ;; (use-package realgud)
 
 (use-package yaml-mode
-  :hook ((yaml-mode . prettier-mode)
+  :hook ((yaml-mode . apheleia-mode)
           (markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
 
@@ -408,7 +407,7 @@
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
   :hook ((typescript-mode . lsp)
-          (typescript-mode . prettier-mode)
+          (typescript-mode . apheleia-mode)
           (typescript-mode . mmm-mode)
           ;; (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
           ))
@@ -449,18 +448,16 @@
 ;;     (add-hook 'rjsx-mode-hook 'tide-setup)
 ;;     ))
 
-(use-package prettier
-  :hook (css-mode . prettier-mode)
-  :commands prettier-mode
-  :config
-  (add-hook 'prettier-mode
-    (lambda ()
-      (when (eq dtrt-indent-mode t)
-        (prettier-mode -1)))))
+;; Prettier support
+(require 'apheleia)
+(eval-after-load 'apheleia
+  '(progn
+     (diminish 'apheleia-mode)
+     (add-hook 'css-mode-hook 'apheleia-mode)))
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . prettier-mode)
+          (rjsx-mode .  apheleia-mode)
           (rjsx-mode . mmm-mode)
           (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
@@ -521,11 +518,11 @@
   :config
   (add-hook 'dtrt-indent-mode-hook
     (lambda ()
-      (when (and (boundp 'prettier-mode) prettier-mode)
+      (when (bound-and-true-p 'prettier-mode)
         (if dtrt-indent-mode
-          (prettier-mode -1)
+          (apheleia-mode -1)
           (when (memq major-mode my/prettier-modes)
-            (prettier-mode 1)))))))
+            (apheleia-mode 1)))))))
 
 (defun my/dtrt-indent-mode-toggle ()
   "Toggle dtrt-indent mode."
@@ -636,7 +633,9 @@
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
-  :hook ((js-mode . add-node-modules-path) (rjsx-mode . add-node-modules-path)))
+  :hook ((js-mode . add-node-modules-path)
+          (rjsx-mode . add-node-modules-path)
+          (typescript-mode . add-node-modules-path)))
 
 (use-package graphql-mode
   :commands graphql-mode)
