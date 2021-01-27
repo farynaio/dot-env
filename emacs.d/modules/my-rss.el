@@ -20,9 +20,11 @@
           ("u" . 'jarfar/elfeed-mark-unread-move-next)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
-  (setq elfeed-search-filter "+news -skip -ok -junk")
-  (setq elfeed-search-title-max-width 115)
-  (setq elfeed-search-remain-on-entry t))
+  (setq
+    elfeed-search-filter "+news -skip -ok -junk"
+    elfeed-search-title-max-width 115
+    elfeed-search-remain-on-entry t
+    elfeed-web-limit 5000))
 
 ;; update feeds every 2h
 (when (my/online-p)
