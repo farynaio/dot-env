@@ -204,7 +204,7 @@
 ;; (use-package realgud)
 
 (use-package yaml-mode
-  :hook ((yaml-mode . apheleia-mode)
+  :hook ((yaml-mode . my/prettier-mode)
           (markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
 
@@ -407,7 +407,7 @@
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
   :hook ((typescript-mode . lsp)
-          (typescript-mode . apheleia-mode)
+          (typescript-mode . my/prettier-mode)
           (typescript-mode . mmm-mode)
           ;; (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
           ))
@@ -448,16 +448,9 @@
 ;;     (add-hook 'rjsx-mode-hook 'tide-setup)
 ;;     ))
 
-;; Prettier support
-(require 'apheleia)
-(eval-after-load 'apheleia
-  '(progn
-     (diminish 'apheleia-mode)
-     (add-hook 'css-mode-hook 'apheleia-mode)))
-
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode .  apheleia-mode)
+          (rjsx-mode . my/prettier-mode)
           (rjsx-mode . mmm-mode)
           (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
@@ -511,18 +504,36 @@
 (add-hook 'mmm-mode-hook
   (lambda () (set-face-background 'mmm-default-submode-face nil)))
 
-(setq my/prettier-modes '(css-mode js-mode yaml-mode))
+(setq my/prettier-modes '(css-mode js-mode yaml-mode typescript-mode))
+
+;; TODO also "prettier" key in your package.json file.
+(setq my/prettier-config-files
+  '(".prettierrc"
+     ".prettierrc.json"
+     ".prettierrc.yml"
+     ".prettierrc.yaml"
+     ".prettierrc.json5"
+     ".prettierrc.js"
+     ".prettierrc.cjs"
+     "prettier.config.js"
+     "prettier.config.cjs"
+     ".prettierrc.toml"))
+
+(define-minor-mode my/prettier-mode
+  "My Prettier mode implementation."
+  :lighter " Prettier"
+  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
+      (apheleia-mode 1)
+      (apheleia-mode -1)))
+
+;; Prettier support
+(require 'apheleia)
+(eval-after-load 'apheleia
+  '(progn
+     (diminish 'apheleia-mode)))
 
 (use-package dtrt-indent
-  :diminish "dtrt"
-  :config
-  (add-hook 'dtrt-indent-mode-hook
-    (lambda ()
-      (when (bound-and-true-p 'prettier-mode)
-        (if dtrt-indent-mode
-          (apheleia-mode -1)
-          (when (memq major-mode my/prettier-modes)
-            (apheleia-mode 1)))))))
+  :diminish "dtrt")
 
 (defun my/dtrt-indent-mode-toggle ()
   "Toggle dtrt-indent mode."
