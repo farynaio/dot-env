@@ -137,9 +137,9 @@ to invalidate."
   :config
   (global-git-gutter-mode 1))
 
-;; (eval-after-load 'git-rebase
-;;   '(progn
-;;      (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
+(eval-after-load 'git-rebase
+  '(progn
+     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
 
 (use-package transient) ;; magit dependency
 
