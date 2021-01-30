@@ -695,14 +695,11 @@ $0`(yas-escape-text yas-selected-text)`"))
   ;; (make-local-variable 'flycheck-check-syntax-automatically)
   (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
 
-  (when (bound-and-true-p evil-mode)
-    (bind-key ", w" 'hydra-prog-writting/body evil-normal-state-local-map))
-
   (modify-syntax-entry ?_ "w" (syntax-table))
   (modify-syntax-entry ?- "w" (syntax-table))
   (modify-syntax-entry ?$ "w" (syntax-table))
 
-  (flycheck-mode 1)
+  ;; (flycheck-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
   (hl-line-mode 1)
