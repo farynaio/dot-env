@@ -28,7 +28,8 @@
   (bind-key ", g"    'hydra-git/body                      evil-normal-state-map)
   (bind-key ", b"    'hydra-buffer/body                   evil-normal-state-map)
   ;; (bind-key ", l"    'treemacs-display-current-project-exclusively evil-normal-state-map)
-  (bind-key ", w"    'hydra-writting/body                 evil-normal-state-map)
+  (bind-key ", t"    'hydra-writting/body                 evil-normal-state-map)
+  (bind-key ", w"    'my/hydra-browser/body               evil-normal-state-map)
   (bind-key ", i"    'hydra-snippet/body                  evil-normal-state-map)
   (bind-key ", p"    'hydra-project/body               evil-normal-state-map)
   (bind-key ", j"    'hydra-japanese/body                 evil-visual-state-map)
@@ -78,6 +79,7 @@
   (bind-key "C-d"    'evil-scroll-down evil-normal-state-map)
   (bind-key "C-u"    'evil-scroll-up evil-normal-state-map)
   (bind-key "C-s"    'evil-search-forward evil-normal-state-map) ;; counsel-grep
+  (bind-key "C-c C-S-o" 'w3m-goto-url-new-session evil-normal-state-map)
 
   (defun my/next-error ()
     (interactive)

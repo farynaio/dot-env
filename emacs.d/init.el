@@ -206,7 +206,7 @@
   my-email-activate nil
   my-dired-activate t
   my-notifications-activate t
-  my-www-activate nil
+  my-www-activate t
   my-irc-activate t
   my-theme-activate t
   my-shell-activate t
