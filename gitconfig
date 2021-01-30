@@ -58,6 +58,9 @@
   prompt = false
   keepBackup = false
 
+[rebase]
+  autoSquash = true
+
 [mergetool]
 	# Clean up backup files created by merge tools on tool exit
 	keepBackup = false
@@ -68,8 +71,8 @@
 	# Auto-accept file prompts when launching merge tools
 	prompt = false
 
-[pull]
-  rebase = preserve
+# [pull]
+  # rebase = merges
 
 [push]
 	default = current
