@@ -36,6 +36,7 @@
 (use-package w3m
   :commands w3m w3m-goto-url-new-session w3m-goto-url
   :bind (:map w3m-mode-map
+          ("M-h" . my/w3m-history-full)
           ("<" . beginning-of-buffer)
           (">" . end-of-buffer)
           ("<right>" . w3m-view-next-page))
@@ -61,18 +62,23 @@
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . w3m-goto-url-new-session)))
 
-(defun my/w3m-search-new-session (query &rest args)
-  (interactive
-   (if (use-region-p)
-     (list nil (region-beginning) (region-end))
-     (list (read-string "Search phrase: "))))
-  (let ((w3m-alive (w3m-alive-p)))
-    (switch-to-buffer-other-window w3m-alive)
-    (if w3m-alive
-      (progn
-        (w3m)
-        (w3m-search-new-session w3m-search-default-engine query))
-      (w3m-search-do-search 'w3m-goto-url w3m-search-default-engine query))))
+  (defun my/w3m-history-full ()
+    (interactive)
+    (w3m-history 1))
+
+  (defun my/w3m-search-new-session (query &optional from to)
+    (interactive
+      (if (use-region-p)
+        (list nil (region-beginning) (region-end))
+        (list (read-string "Search phrase: "))))
+    (let ((w3m-alive (w3m-alive-p))
+           (query (if query query (buffer-substring-no-properties from to))))
+      (switch-to-buffer-other-window w3m-alive)
+      (if w3m-alive
+        (progn
+          (w3m)
+          (w3m-search-new-session w3m-search-default-engine query))
+        (w3m-search-do-search 'w3m-goto-url w3m-search-default-engine query))))
 
   ;; Fix asking for confirmation before visiting URL via generic browser
   (advice-add 'browse-url-interactive-arg :around

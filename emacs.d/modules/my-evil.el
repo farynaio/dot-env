@@ -30,6 +30,7 @@
   ;; (bind-key ", l"    'treemacs-display-current-project-exclusively evil-normal-state-map)
   (bind-key ", t"    'hydra-writting/body                 evil-normal-state-map)
   (bind-key ", w"    'my/hydra-browser/body               evil-normal-state-map)
+  (bind-key ", w"    'my/hydra-browser/body               evil-visual-state-map)
   (bind-key ", i"    'hydra-snippet/body                  evil-normal-state-map)
   (bind-key ", p"    'hydra-project/body               evil-normal-state-map)
   (bind-key ", j"    'hydra-japanese/body                 evil-visual-state-map)
