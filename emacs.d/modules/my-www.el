@@ -61,6 +61,14 @@
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . w3m-goto-url-new-session)))
 
+(defun my/w3m-search-new-session (query &rest args)
+  (interactive (list (read-string "Search phrase: ")))
+  (let (w3m-alive (w3m-alive-p))
+    (switch-to-buffer-other-window w3m-alive)
+    (when w3m-alive
+      (w3m))
+    (w3m-search-do-search 'w3m-goto-url w3m-search-default-engine query)))
+
   ;; Fix asking for confirmation before visiting URL via generic browser
   (advice-add 'browse-url-interactive-arg :around
     (lambda (orig-fun &rest args)
@@ -96,7 +104,7 @@
 
 (defhydra my/hydra-browser ()
   "WWW browser shorcuts"
-  ("s" (my/func-call 'w3m-goto-url-new-session) "search" :exit t)
+  ("s" my/w3m-search-new-session "search" :exit t)
   ("g" w3m-goto-url-new-session "go to" :exit t))
 
 (provide 'my-www)
