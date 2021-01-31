@@ -37,7 +37,8 @@
   :commands w3m w3m-goto-url-new-session w3m-goto-url
   :bind (:map w3m-mode-map
           ("<" . beginning-of-buffer)
-          (">" . end-of-buffer))
+          (">" . end-of-buffer)
+          ("<right>" . w3m-view-next-page))
   :config
   (setq
     w3m-default-display-inline-images t
@@ -53,6 +54,7 @@
     w3m-display-mode 'tabbed
     w3m-default-display-inline-image nil
     w3m-confirm-leaving-secure-page nil
+    w3m-new-session-in-background t
     )
 
   (setq browse-url-browser-function
