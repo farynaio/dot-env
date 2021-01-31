@@ -79,7 +79,7 @@
   (bind-key "C-d"    'evil-scroll-down evil-normal-state-map)
   (bind-key "C-u"    'evil-scroll-up evil-normal-state-map)
   (bind-key "C-s"    'evil-search-forward evil-normal-state-map) ;; counsel-grep
-  (bind-key "C-c C-S-o" 'w3m-goto-url-new-session evil-normal-state-map)
+  (bind-key "C-c C-S-o" 'browse-url-generic evil-normal-state-map)
 
   (defun my/next-error ()
     (interactive)

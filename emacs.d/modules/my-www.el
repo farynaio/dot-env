@@ -57,7 +57,22 @@
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
-       ("." . w3m-browse-url)))
+       ("." . w3m-goto-url-new-session)))
+
+  ;; Fix asking for confirmation before visiting URL via generic browser
+  (advice-add 'browse-url-interactive-arg :around
+    (lambda (orig-fun &rest args)
+      (let ((event (elt (this-command-keys) 0)))
+        (and (listp event) (mouse-set-point event)))
+      (list (or (and transient-mark-mode mark-active
+                  ;; rfc2396 Appendix E.
+                  (replace-regexp-in-string
+                    "[\t\r\f\n ]+" ""
+                    (buffer-substring-no-properties
+                      (region-beginning) (region-end))))
+              (browse-url-url-at-point))
+        (not (eq (null browse-url-new-window-flag)
+               (null current-prefix-arg))))))
 
   (advice-add 'w3m-goto-url-new-session :around
     (lambda (orig-fun &rest args)
