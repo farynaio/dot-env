@@ -57,6 +57,8 @@
   :lighter " appt"
   (add-hook 'after-save-hook #'my/org-agenda-to-appt-if-not-terminated nil t))
 
+(diminish 'my/org-agenda-appt-mode)
+
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
 (defun my/org-agenda-to-appt-if-not-terminated ()
