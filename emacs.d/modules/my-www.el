@@ -34,7 +34,7 @@
 ;;      (defalias 'w 'af/eww)))
 
 (use-package w3m
-  :commands w3m w3m-goto-url-new-session
+  :commands w3m w3m-goto-url-new-session w3m-goto-url
   :bind (:map w3m-mode-map
           ("<" . beginning-of-buffer)
           (">" . end-of-buffer))
@@ -52,6 +52,7 @@
     w3m-terminal-coding-system 'utf-8
     w3m-display-mode 'tabbed
     w3m-default-display-inline-image nil
+    w3m-confirm-leaving-secure-page nil
     )
 
   (setq browse-url-browser-function
