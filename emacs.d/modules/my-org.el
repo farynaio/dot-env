@@ -208,6 +208,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
      (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
 
+     (diminish 'org-indent-mode)
+
      (defun jarfar/org-tasks-refile-targets-local ()
        "Set local 'org-refile-targets for specific org files with tasks."
        (setq-local org-refile-targets

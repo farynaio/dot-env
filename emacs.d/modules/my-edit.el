@@ -456,6 +456,7 @@ end-of-buffer signals; pass the rest to the default handler."
 (shell-dirtrack-mode -1)
 ;; (auto-save-visited-mode)
 (auto-compression-mode 1)
+(electric-pair-mode 1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
@@ -468,7 +469,6 @@ end-of-buffer signals; pass the rest to the default handler."
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (file-name-shadow-mode -1)
-(electric-pair-mode 1)
 
 (when window-system
   (tool-bar-mode -1))
