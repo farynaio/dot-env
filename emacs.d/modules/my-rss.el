@@ -5,9 +5,11 @@
   :bind (:map elfeed-show-mode-map
           ("SPC" . 'elfeed-scroll-up-command)
           ("S-SPC" . 'elfeed-scroll-down-command)
-          ("B" . 'elfeed-show-eww-open)
+          ("B" . 'my/elfeed-show-visit)
+          :map shr-map
+          ("RET" . 'my/elfeed-show-visit)
           :map elfeed-search-mode-map
-          ("B" . 'elfeed-search-eww-open)
+          ("B" . 'my/elfeed-search-browse-url)
           ("f" . 'jarfar/hydra-elfeed-filter/body)
           ("A" . 'my/elfeed-show-all)
           ("D" . 'my/elfeed-show-daily)
@@ -197,17 +199,34 @@
   (elfeed-search-toggle-all 'junk)
   (unless (use-region-p) (next-line)))
 
-(defun elfeed-show-eww-open (&optional use-generic-p)
-  "open with eww"
+(defun my/elfeed-show-visit (&optional use-generic-p)
+  "Open link with w3m"
   (interactive "P")
-  (let ((browse-url-browser-function #'eww-browse-url))
-    (elfeed-show-visit use-generic-p)))
+  (let ((link (elfeed-entry-link elfeed-show-entry)))
+    (when link
+      (if (= (length (frame-list)) 1)
+        (make-frame-command)
+        (other-frame 1))
+      (message "Sent to browser: %s" link)
+      (w3m link t t))))
 
-(defun elfeed-search-eww-open (&optional use-generic-p)
-  "open with eww"
+(defun my/elfeed-search-browse-url (&optional use-generic-p)
+  "Open link with w3m"
   (interactive "P")
-  (let ((browse-url-browser-function #'eww-browse-url))
-    (elfeed-search-browse-url use-generic-p)))
+  (let ((urls (list))
+         (entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unread)
+             when (elfeed-entry-link entry)
+             do (push it urls))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))
+    (if (= (length (frame-list)) 1)
+      (make-frame-command)
+      (other-frame 1))
+    (dolist (url urls)
+      (w3m url t t))))
 
 (defun jarfar/elfeed-mark-read-move-next ()
   (elfeed-search-untag-all-unread)

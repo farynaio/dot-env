@@ -1,10 +1,5 @@
-
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
-
-(setq browse-url-browser-function
-  '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
-     ("." . browse-url-default-browser)))
 
 ; https://noonker.github.io/posts/2020-04-22-elfeed/
 (defun jarfar/youtube-download (url)
@@ -56,11 +51,16 @@
     w3m-search-default-engine "duckduckgo"
     w3m-terminal-coding-system 'utf-8
     w3m-display-mode 'tabbed
+    w3m-default-display-inline-image nil
     )
+
+  (setq browse-url-browser-function
+    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+       ("." . w3m-browse-url)))
 
   (advice-add 'w3m-goto-url-new-session :around
     (lambda (orig-fun &rest args)
-      (if (string-equal (buffer-name) "*w3m*")
+      (if (string-prefix-p "*w3m*" (buffer-name))
         (apply orig-fun args)
         (if (w3m-alive-p)
           (progn
@@ -80,6 +80,6 @@
   "WWW browser shorcuts"
   ("o" w3m-goto-url-new-session "goto" :exit t)
   ("s" (my/func-call 'w3m-goto-url-new-session)  "search" :exit t)
-  )
+  ("g" (my/func-call 'w3m-goto-url-new-session)  "search" :exit t))
 
 (provide 'my-www)
