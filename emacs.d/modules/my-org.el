@@ -1316,6 +1316,8 @@ should be continued."
 
 (use-package org-roam
   :after org
+  :commands jarfar/hydra-org-roam/body
+  :hook (org-roam-dailies-find-file . abbrev-mode)
   :diminish org-roam-mode
   :config
   (require 'org-roam-protocol)
@@ -1557,7 +1559,6 @@ should be continued."
 
   (add-hook 'org-mode-hook 'jarfar/org-roam-mode-hook-org-ram)
 
-  (bind-key "C-c v" 'jarfar/hydra-org-roam/body)
 
   (add-hook 'after-init-hook 'org-roam-mode)
 
@@ -1565,6 +1566,8 @@ should be continued."
     (org-roam-dailies-today))
 
   (defalias 'roam 'org-roam))
+
+(bind-key "C-c v" 'jarfar/hydra-org-roam/body)
 
 (use-package org-roam-server
   :after org-roam
