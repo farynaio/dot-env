@@ -34,12 +34,6 @@
 ;;      (defalias 'w 'af/eww)))
 
 (use-package w3m
-  :commands w3m w3m-goto-url-new-session w3m-goto-url
-  :bind (:map w3m-mode-map
-          ("M-h" . my/w3m-history-full)
-          ("<" . beginning-of-buffer)
-          (">" . end-of-buffer)
-          ("<right>" . w3m-view-next-page))
   :config
   (setq
     w3m-default-display-inline-images t
@@ -57,6 +51,13 @@
     w3m-confirm-leaving-secure-page nil
     w3m-new-session-in-background t
     )
+
+  (bind-keys
+    :map w3m-mode-map
+    ("M-h" . my/w3m-history-full)
+    ("<" . beginning-of-buffer)
+    (">" . end-of-buffer)
+    ("<right>" . w3m-view-next-page))
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
@@ -78,7 +79,7 @@
         (progn
           (w3m)
           (w3m-search-new-session w3m-search-default-engine query))
-        (w3m-search-do-search 'w3m-goto-url w3m-search-default-engine query))))
+        (w3m-search w3m-search-default-engine query))))
 
   ;; Fix asking for confirmation before visiting URL via generic browser
   (advice-add 'browse-url-interactive-arg :around

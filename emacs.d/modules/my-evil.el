@@ -140,6 +140,7 @@
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'treemacs-mode 'emacs)
   (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
+  (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
