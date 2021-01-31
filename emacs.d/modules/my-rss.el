@@ -229,10 +229,12 @@
       (w3m url t t))))
 
 (defun jarfar/elfeed-mark-read-move-next ()
+  (interactive)
   (elfeed-search-untag-all-unread)
   (unless (use-region-p) (next-line)))
 
 (defun jarfar/elfeed-mark-unread-move-next ()
+  (interactive)
   (elfeed-search-tag-all-unread)
   (unless (use-region-p) (next-line)))
 

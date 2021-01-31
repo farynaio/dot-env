@@ -78,8 +78,7 @@
 
 (defhydra my/hydra-browser ()
   "WWW browser shorcuts"
-  ("o" w3m-goto-url-new-session "goto" :exit t)
-  ("s" (my/func-call 'w3m-goto-url-new-session)  "search" :exit t)
-  ("g" (my/func-call 'w3m-goto-url-new-session)  "search" :exit t))
+  ("s" (my/func-call 'w3m-goto-url-new-session) "search" :exit t)
+  ("g" w3m-goto-url-new-session "go to" :exit t))
 
 (provide 'my-www)
