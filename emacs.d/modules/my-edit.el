@@ -13,6 +13,7 @@
 (setq tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
+(defvaralias 'sgml-basic-offset 'tab-width)
 
 (setq indent-tabs-mode nil)
 (setq backward-delete-char-untabify-method 'hungry)
