@@ -1320,8 +1320,6 @@ should be continued."
 
 (use-package org-roam
   :after org
-  :commands jarfar/hydra-org-roam/body
-  :hook (org-roam-dailies-find-file . abbrev-mode)
   :diminish org-roam-mode
   :config
   (require 'org-roam-protocol)
@@ -1335,6 +1333,7 @@ should be continued."
   ;;
   (make-directory my/org-roam-directory t)
 
+  (add-hook 'org-roam-dailies-find-file-hook 'abbrev-mode)
   (add-hook 'after-save-hook
     (lambda ()
       (let ((bname (buffer-name (current-buffer))))
