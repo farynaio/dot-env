@@ -36,7 +36,6 @@
 (use-package w3m
   :config
   (setq
-    w3m-default-display-inline-images t
     w3m-use-cookies t
     mm-text-html-renderer 'w3m
     w3m-coding-system 'utf-8
@@ -49,15 +48,16 @@
     w3m-display-mode 'tabbed
     w3m-default-display-inline-image nil
     w3m-confirm-leaving-secure-page nil
-    w3m-new-session-in-background t
-    )
+    w3m-new-session-in-background t)
 
   (bind-keys
     :map w3m-mode-map
     ("M-h" . my/w3m-history-full)
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
-    ("<right>" . w3m-view-next-page))
+    ("<right>" . w3m-view-next-page)
+    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
+    )
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
