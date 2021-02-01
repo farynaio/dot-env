@@ -41,6 +41,9 @@
      ;;                                               utf-8)
      ;;                                       ))
 
+     (define-key flyspell-mouse-map [down-mouse-3] 'flyspell-correct-word)
+     (define-key flyspell-mouse-map [mouse-3] 'undefined))
+
      (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
      (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
      (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))))
