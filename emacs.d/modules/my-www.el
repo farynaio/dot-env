@@ -56,12 +56,21 @@
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
     ("<right>" . w3m-view-next-page)
-    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
-    )
+    ("<S-mouse-1>" . my/w3m-open-in-external)
+    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session))
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . w3m-goto-url-new-session)))
+
+  (defun my/w3m-open-in-external (event)
+    (interactive "e")
+    (mouse-set-point event)
+    (message "external: 1")
+    (let ((url (w3m-url-valid (w3m-anchor))))
+      (when url
+        (message "external: 2")
+        (browse-url-generic url))))
 
   (defun my/w3m-history-full ()
     (interactive)
