@@ -59,6 +59,12 @@
     ("<S-mouse-1>" . my/w3m-open-in-external)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session))
 
+  (when (fboundp 'evil-mode)
+    (bind-keys
+      :map w3m-mode-map
+      ("C-w |" . evil-window-set-width)
+      ("C-w =" . balance-windows)))
+
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . w3m-goto-url-new-session)))

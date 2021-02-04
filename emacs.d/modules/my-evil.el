@@ -57,6 +57,7 @@
   (bind-key "C-d"    'evil-scroll-down                    evil-normal-state-map)
   (bind-key "C-u"    'evil-scroll-up                      evil-motion-state-map)
   (bind-key "C-u"    'evil-scroll-up                      evil-normal-state-map)
+  (bind-key "C-p"    'evil-jump-forward                   evil-normal-state-map)
   (bind-key "C-w T"  'my/move-current-window-to-new-frame evil-normal-state-map)
   (bind-key "C-w T"  'my/move-current-window-to-new-frame evil-motion-state-map)
   (bind-key "<down>" 'evil-next-visual-line               evil-motion-state-map)
