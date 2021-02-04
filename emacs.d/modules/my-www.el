@@ -82,6 +82,13 @@
     (interactive)
     (w3m-history 1))
 
+  (defun my/w3m-open-other-window ()
+    (interactive)
+    (let ((w3m-alive (w3m-alive-p)))
+      (switch-to-buffer-other-window w3m-alive)
+      (unless w3m-alive
+        (w3m))))
+
   (defun my/w3m-search-new-session (query &optional from to)
     (interactive
       (if (use-region-p)
@@ -132,6 +139,7 @@
 (defhydra my/hydra-browser ()
   "WWW browser shorcuts"
   ("s" my/w3m-search-new-session "search" :exit t)
-  ("g" w3m-goto-url-new-session "go to" :exit t))
+  ("g" w3m-goto-url-new-session "go to" :exit t)
+  ("w" my/w3m-open-other-window "open browser" :exit t))
 
 (provide 'my-www)
