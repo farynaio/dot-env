@@ -52,18 +52,23 @@
 
   (bind-keys
     :map w3m-mode-map
+    ;; ("G" . my/w3m-open-url-in-background)
+    ("C-w =" . balance-windows)
     ("M-h" . my/w3m-history-full)
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
+    ("I" . my/w3m-view-image-generic-browser)
     ("<right>" . w3m-view-next-page)
     ("<S-mouse-1>" . my/w3m-open-in-external)
-    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session))
+    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
+    ;; ("<mouse-2>" . )
+    ;; ("/" . isearch-forward)
+    )
 
   (when (fboundp 'evil-mode)
     (bind-keys
       :map w3m-mode-map
-      ("C-w |" . evil-window-set-width)
-      ("C-w =" . balance-windows)))
+      ("C-w |" . evil-window-set-width)))
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
@@ -77,6 +82,13 @@
       (when url
         (message "external: 2")
         (browse-url-generic url))))
+
+  (defun my/w3m-view-image-generic-browser ()
+    (interactive)
+    (let ((url (w3m-url-valid (w3m-image))))
+      (if url
+        (browse-url-generic url)
+        (w3m-message "No image at point"))))
 
   (defun my/w3m-history-full ()
     (interactive)
