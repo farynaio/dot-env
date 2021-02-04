@@ -40,6 +40,13 @@
      (setq recentf-max-menu-items 15)
      (recentf-mode 1)))
 
+(when (eq system-type 'darwin)
+  (use-package openwith
+    :config
+    (openwith-mode t)
+    (setq openwith-associations
+      '(("\\.pdf\\'" "open" (file))))))
+
 (require 'help)
 (eval-after-load 'help
   '(progn
