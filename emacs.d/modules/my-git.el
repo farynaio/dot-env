@@ -187,6 +187,8 @@ to invalidate."
     magit-commit-ask-to-stage nil
     magit-commit-squash-confirm nil)
 
+  (setq magit-no-confirm '(stage-all-changes unstage-all-changes))
+
   (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
   (setq magit-blame-styles
     '(
