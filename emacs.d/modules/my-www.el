@@ -48,39 +48,56 @@
     w3m-display-mode 'tabbed
     w3m-default-display-inline-image nil
     w3m-confirm-leaving-secure-page nil
-    w3m-new-session-in-background t)
+    w3m-new-session-in-background t
+    w3m-new-session-url "about:"
+    w3m-type 'w3mmee)
 
   (bind-keys
     :map w3m-mode-map
-    ;; ("G" . my/w3m-open-url-in-background)
     ("C-w =" . balance-windows)
     ("M-h" . my/w3m-history-full)
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
     ("I" . my/w3m-view-image-generic-browser)
+    ("O" . my/w3m-open-in-external)
     ("<right>" . w3m-view-next-page)
-    ("<S-mouse-1>" . my/w3m-open-in-external)
+    ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
-    ;; ("<mouse-2>" . )
-    ;; ("/" . isearch-forward)
-    )
+    ("C-c C-e" . my/w3m-goto-new-session-url))
 
   (when (fboundp 'evil-mode)
     (bind-keys
       :map w3m-mode-map
       ("C-w |" . evil-window-set-width)))
 
+(defun my/w3m-goto-new-session-url (&optional reload)
+  "Open `w3m-new-session-url' in a new session."
+  (interactive "P")
+  (if (not (eq major-mode 'w3m-mode))
+    (message "This command can be used in w3m mode only")
+    (let ((w3m-new-session-in-background nil))
+      (w3m-goto-url-new-session w3m-new-session-url reload))))
+
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . w3m-goto-url-new-session)))
 
-  (defun my/w3m-open-in-external (event)
+  (defun my/w3m-open-in-external-click (event)
     (interactive "e")
     (mouse-set-point event)
-    (message "external: 1")
     (let ((url (w3m-url-valid (w3m-anchor))))
       (when url
-        (message "external: 2")
+        (browse-url-generic url))))
+
+  (defun my/w3m-open-in-external (url &optional reload charset post-data referer handler
+			 element background save-pos)
+    (interactive
+      (list (unless (w3m--buffer-busy-error)
+	            (w3m-input-url "Open URL in current buffer" nil nil nil
+			          'feeling-searchy 'no-initial))
+	      current-prefix-arg coding-system-for-read))
+    (let ((url (w3m-url-valid (w3m-anchor))))
+      (when url
         (browse-url-generic url))))
 
   (defun my/w3m-view-image-generic-browser ()
@@ -100,6 +117,13 @@
       (switch-to-buffer-other-window w3m-alive)
       (unless w3m-alive
         (w3m))))
+
+  (defun my/w3m-open-in-external (event)
+    (interactive "e")
+    (mouse-set-point event)
+    (let ((url (w3m-url-valid (w3m-anchor))))
+      (when url
+        (browse-url-generic url))))
 
   (defun my/w3m-search-new-session (query &optional from to)
     (interactive
