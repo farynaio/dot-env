@@ -1,7 +1,6 @@
 ;; (require 'tramp)
 (require 'recentf)
 (require 'ediff)
-(require 'help)
 
 (bind-key "C-c p" 'pop-to-mark-command)
 
@@ -41,21 +40,25 @@
      (setq recentf-max-menu-items 15)
      (recentf-mode 1)))
 
+(require 'help)
 (eval-after-load 'help
   '(progn
-     (bind-key "/"          'evil-search-forward       help-mode-map)
-     (bind-key "v"          'set-mark-command          help-mode-map)
-     (bind-key "C-w ="      'balance-windows           help-mode-map)
-     (bind-key "n"          'evil-search-next          help-mode-map)
-     (bind-key "N"          'evil-search-previous      help-mode-map)
-     (bind-key "w"          'evil-forward-word-begin   help-mode-map)
-     (bind-key "e"          'evil-forward-word-end     help-mode-map)
-     (bind-key "E"          'evil-forward-WORD-end     help-mode-map)
-     (bind-key "b"          'evil-backward-word-begin  help-mode-map)
-     (bind-key "B"          'evil-backward-WORD-begin  help-mode-map)
-     (bind-key "y"          'evil-yank                 help-mode-map)
-     (bind-key "gg"         'evil-goto-first-line      help-mode-map)
-     (bind-key "G"          'evil-goto-line            help-mode-map)))
+     (bind-key "C-w =" 'balance-windows help-mode-map)
+     (bind-keys
+       :map help-mode-map
+       ("/" . evil-search-forward)
+       ("v" . set-mark-command)
+       ("n" . evil-search-next)
+       ("N" . evil-search-previous)
+       ("w" . evil-forward-word-begin)
+       ("e" . evil-forward-word-end)
+       ("E" . evil-forward-WORD-end)
+       ("b" . evil-backward-word-begin)
+       ("B" . evil-backward-WORD-begin)
+       ("y" . evil-yank)
+       ("gg" . evil-goto-first-line)
+       ("G" . evil-goto-line)))
+  )
 
 (eval-after-load 'tramp
   '(progn

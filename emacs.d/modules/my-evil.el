@@ -2,11 +2,12 @@
 
 (use-package evil
   :init
-  (setq evil-want-fine-undo t)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump nil)
-  (setq evil-search-module 'evil-search)
-  (setq evil-undo-system 'undo-fu)
+  (setq
+    evil-want-fine-undo t
+    evil-want-C-u-scroll t
+    evil-want-C-i-jump nil
+    evil-search-module 'evil-search
+    evil-undo-system 'undo-fu)
   :config
   (setq evil-mode-line-format nil)
 
@@ -21,6 +22,7 @@
   (bind-key "TAB"    'indent-for-tab-command              evil-visual-state-map)
   (bind-key "TAB"    'tab-to-tab-stop                     evil-insert-state-map)
   (bind-key "C-x T"  'my/move-current-window-to-new-frame evil-normal-state-map)
+  (bind-key "C-}"    'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
   (bind-key "M-]"    'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
   (bind-key ", ."    'dired-jump                          evil-normal-state-map)
   (bind-key ", m"    'my/dired-jump-make-new-window       evil-normal-state-map)
