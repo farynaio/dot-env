@@ -63,6 +63,7 @@
        ("b" . evil-backward-word-begin)
        ("B" . evil-backward-WORD-begin)
        ("y" . evil-yank)
+       ("<S-tab>" . backward-button)
        ("gg" . evil-goto-first-line)
        ("G" . evil-goto-line)))
   )
