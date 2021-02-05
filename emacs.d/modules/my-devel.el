@@ -99,16 +99,11 @@
 ;; (use-package skewer-mode)
 
 ;; TODO update and make JS2 minor mode to js-mode
-;; (use-package js2-mode
-;;   :config
-;; (setq
-;;   js2-skip-preprocessor-directives t
-;;   js2-highlight-external-variables nil
-;;   js2-mode-show-parse-errors nil
-;;   js2-strict-missing-semi-warning nil)
-;;     (setq js2-strict-inconsistent-return-warning nil)
-;;     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;;     (add-hook 'js2-mode-hook 'emmet-mode))
+(use-package js2-mode
+  :config
+  (setq
+    js2-mode-show-parse-errors nil
+    js2-mode-show-strict-warnings nil))
 
 ;; (use-package eglot
 ;;   :config
