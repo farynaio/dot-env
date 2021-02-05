@@ -359,6 +359,8 @@
 
   (add-hook 'lsp-mode-hook
     (lambda ()
+      (add-hook 'after-save-hook 'air-revert-buffer-noconfirm 0 t)
+
       (when (bound-and-true-p which-key-mode)
         (lsp-enable-which-key-integration))))
 
