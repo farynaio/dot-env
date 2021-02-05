@@ -8,6 +8,7 @@
           ("B" . 'my/elfeed-show-visit)
           :map shr-map
           ("RET" . 'my/elfeed-show-visit)
+          ("O" . 'my/elfeed-open-in-external-browser)
           :map elfeed-search-mode-map
           ("B" . 'my/elfeed-search-browse-url)
           ("f" . 'jarfar/hydra-elfeed-filter/body)
@@ -20,6 +21,7 @@
           ("m" . 'jarfar/elfeed-send-emails)
           ("r" . 'jarfar/elfeed-mark-read-move-next)
           ("u" . 'jarfar/elfeed-mark-unread-move-next)
+          ("O" . 'my/elfeed-open-in-external-browser)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
   (setq
@@ -62,6 +64,21 @@
   (elfeed-update)
   (elfeed-search-update--force)
   (elfeed))
+
+(defun my/elfeed-open-in-external-browser (&optional use-generic-p)
+  (interactive "P")
+  (let ((urls (list))
+         (entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+      do (elfeed-untag entry 'unread)
+      when (elfeed-entry-link entry)
+      do (push it urls))
+    (mapc 'elfeed-search-update-entry entries)
+    (unless (or elfeed-search-remain-on-entry (use-region-p))
+      (forward-line))
+    (dolist (url urls)
+      (message url)
+      (browse-url-generic url))))
 
 (defun jarfar/elfeed-update ()
   (elfeed-update)
