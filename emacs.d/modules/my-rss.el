@@ -116,7 +116,7 @@
              do (elfeed-untag entry 'unread)
              when (elfeed-entry-link entry)
              do (jarfar/youtube-download it))
-    (mapc #'elfeed-search-update-entry entries)
+    (mapc 'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
 (defun elfeed-scroll-up-command (&optional arg)
@@ -160,7 +160,7 @@
       ;; do (message "The entry is already read. No email send now.")
      )
 
-    (mapc #'elfeed-search-update-entry entries))
+    (mapc 'elfeed-search-update-entry entries))
   (elfeed-search-update--force)
   )
 
@@ -236,7 +236,7 @@
              do (elfeed-untag entry 'unread)
              when (elfeed-entry-link entry)
              do (push it urls))
-    (mapc #'elfeed-search-update-entry entries)
+    (mapc 'elfeed-search-update-entry entries)
     (unless (or elfeed-search-remain-on-entry (use-region-p))
       (forward-line))
     (if (= (length (frame-list)) 1)
@@ -275,6 +275,6 @@
 
 ;; (bind-key "m" 'jarfar/elfeed-to-mail elfeed-search-mode-map)
 
-(defalias 'rss #'my/elfeed-load-db-and-open)
+(defalias 'rss 'my/elfeed-load-db-and-open)
 
 (provide 'my-rss)
