@@ -50,7 +50,8 @@
     w3m-confirm-leaving-secure-page nil
     w3m-new-session-in-background t
     w3m-new-session-url "about:"
-    w3m-type 'w3mmee
+    ;; w3m-type 'w3mmee
+    w3m-type 'w3m-m17n
     ;; w3m-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0"
     )
 
