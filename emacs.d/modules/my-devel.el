@@ -667,17 +667,6 @@ $0`(yas-escape-text yas-selected-text)`"))
   ("e" yas-visit-snippet-file "edit" :exit t)
   ("r" yas-reload-all "reload" :exit t))
 
-(use-package company
-  :hook (prog-mode . company-mode)
-  :diminish company-mode
-  :config
-  (setq company-idle-delay 0.4)
-  (setq company-show-numbers t)
-  (setq company-tooltip-align-annotations t)
-  (setq company-minimum-prefix-length 1)
-  ;; company-dabbrev
-  (setq company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
-
 (defun my/prog-mode-hook ()
   ;; (add-to-list 'company-backends 'company-bbdb)
   ;; (add-to-list 'company-backends 'company-semantic)

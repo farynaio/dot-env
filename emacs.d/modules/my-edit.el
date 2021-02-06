@@ -37,6 +37,18 @@
 (use-package emojify
   :hook (org-mode . emojify-mode))
 
+(use-package company
+  :hook ((prog-mode . company-mode)
+          (mu4e-compose-mode . company-mode))
+  :diminish company-mode
+  :config
+  (setq company-idle-delay 0.4)
+  (setq company-show-numbers t)
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1)
+  ;; company-dabbrev
+  (setq company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
+
 (require 'hippie-exp)
 (eval-after-load 'hippie-exp
   '(progn
