@@ -63,6 +63,8 @@
     (">" . end-of-buffer)
     ("I" . my/w3m-view-image-generic-browser)
     ("O" . my/w3m-open-in-external)
+    ("C-w v" . evil-window-vsplit)
+    ("C-w C-v" . evil-window-vsplit)
     ("<right>" . w3m-view-next-page)
     ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
