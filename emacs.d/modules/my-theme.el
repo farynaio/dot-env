@@ -12,7 +12,10 @@
     (all-the-icons-install-fonts))
 
   (defun my/vc-mode-line ()
-    (let ((branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-")))
+    (let* (
+            (branch nil)
+            ;; (branch (if (boundf 'magit-status) (magit-get-current-branch)))
+            (branch (if branch branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-"))))
       (concat
         (propertize (format " %s" (all-the-icons-octicon "git-branch"))
           'face `(:height 1 :family ,(all-the-icons-octicon-family))
@@ -121,7 +124,7 @@
     '(cursor ((t (:inherit nil :underline nil :background "gray82"))))
     '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8"))))
     ;; '(region ((t (:inherit nil :underline nil :foreground "White" :background "RoyalBlue4"))))
-    '(hl-line ((t (:inherit nil :background "gray34"))))
+    '(hl-line ((t (:background "gray32"))))
     '(ledger-font-xact-highlight-face ((t nil)))
     '(org-level-2 ((t (:inherit outline-2 :foreground "LightGoldenrod2"))))
     '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
@@ -135,6 +138,7 @@
     '(org-headline-done ((t (:inherit nil :strike-through t :weight: normal))))
     '(org-agenda-done ((t (:inherit nil :strike-through t :weight normal))))
     '(ledger-font-payee-uncleared-face ((t (:inherit nil :foreground "gold1"))))
+    '(symbol-overlay-default-face ((t (:background "gray37"))))
     )
 
   (setq my/current-theme 'wombat))
@@ -152,7 +156,7 @@
     (my/set-light-theme)
     (my/set-dark-theme)))
 
-(defalias 'toggle-theme #'my/toggle-theme)
+(defalias 'toggle-theme 'my/toggle-theme)
 
 (my/set-dark-theme)
 
