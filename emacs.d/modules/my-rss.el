@@ -3,36 +3,104 @@
 (use-package elfeed
   :commands elfeed-update
   :bind (:map elfeed-show-mode-map
-          ("SPC" . 'elfeed-scroll-up-command)
-          ("S-SPC" . 'elfeed-scroll-down-command)
-          ("B" . 'my/elfeed-show-visit)
+          ("SPC" . elfeed-scroll-up-command)
+          ("S-SPC" . elfeed-scroll-down-command)
+          ("B" . my/elfeed-show-visit)
+          ("<mouse-1>" . my/elfeed-shr-open-click)
+          ("<S-mouse-1>" . my/elfeed-shr-open-click-external)
           :map shr-map
-          ("RET" . 'my/elfeed-show-visit)
-          ("O" . 'my/elfeed-open-in-external-browser)
+          ("RET" . my/elfeed-shr-open)
+          ("v" . my/elfeed-shr-open)
+          ("O" . my/elfeed-shr-open-external)
+          ("<mouse-1>" . my/elfeed-shr-open-click)
+          ("<mouse-2>" . my/elfeed-shr-open-click)
+          ("<S-mouse-1>" . my/elfeed-shr-open-click-external)
           :map elfeed-search-mode-map
-          ("B" . 'my/elfeed-search-browse-url)
-          ("f" . 'jarfar/hydra-elfeed-filter/body)
-          ("A" . 'my/elfeed-show-all)
-          ("D" . 'my/elfeed-show-daily)
-          ("q" . 'my/elfeed-save-db-and-bury)
-          ("d" . 'elfeed-youtube-download)
-          ("o" . 'jarfar/elfeed-tag-toggle-ok)
-          ("j" . 'jarfar/elfeed-tag-toggle-junk)
-          ("m" . 'jarfar/elfeed-send-emails)
-          ("r" . 'jarfar/elfeed-mark-read-move-next)
-          ("u" . 'jarfar/elfeed-mark-unread-move-next)
-          ("O" . 'my/elfeed-open-in-external-browser)
+          ("B" . my/elfeed-search-browse-url)
+          ("f" . jarfar/hydra-elfeed-filter/body)
+          ("A" . my/elfeed-show-all)
+          ("D" . my/elfeed-show-daily)
+          ("q" . my/elfeed-save-db-and-bury)
+          ("d" . elfeed-youtube-download)
+          ("o" . jarfar/elfeed-tag-toggle-ok)
+          ("j" . jarfar/elfeed-tag-toggle-junk)
+          ("m" . jarfar/elfeed-send-emails)
+          ("r" . jarfar/elfeed-mark-read-move-next)
+          ("u" . jarfar/elfeed-mark-unread-move-next)
+          ("O" . my/elfeed-open-in-external-browser)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
   (setq
     elfeed-search-filter "+news -skip -ok -junk"
     elfeed-search-title-max-width 115
     elfeed-search-remain-on-entry t
-    elfeed-web-limit 30000))
+    elfeed-web-limit 30000)
 
-;; update feeds every 2h
+  (add-to-list 'elfeed-update-hooks 'elfeed-update))
+
+;; update feeds every 4h
 (when (my/online-p)
-  (run-with-timer 0 (* 60 120) 'elfeed-update))
+  (run-with-timer 0 (* 60 60 4) 'elfeed-update))
+
+;; based on shr-browse-url
+(defun my/elfeed-shr-open-click (event)
+  (interactive "e")
+  (mouse-set-point event)
+  (let ((url (get-text-property (point) 'shr-url)))
+    (cond
+     ((not url)
+      (message "No link under point"))
+     ((string-match "^mailto:" url)
+      (browse-url-mail url))
+     (t
+       (if (= (length (frame-list)) 1)
+         (make-frame-command)
+         (other-frame 1))
+       (w3m url t t))))
+  (shr--blink-link))
+
+;; based on shr-browse-url
+(defun my/elfeed-shr-open (&optional mouse-event)
+  (interactive (list last-nonmenu-event))
+  (let ((url (get-text-property (point) 'shr-url)))
+    (cond
+     ((not url)
+      (message "No link under point"))
+     ((string-match "^mailto:" url)
+      (browse-url-mail url))
+     (t
+       (if (= (length (frame-list)) 1)
+         (make-frame-command)
+         (other-frame 1))
+       (w3m url t t))))
+  (shr--blink-link))
+
+;; based on shr-browse-url
+(defun my/elfeed-shr-open-external (&optional mouse-event)
+  (interactive (list last-nonmenu-event))
+  (let ((url (get-text-property (point) 'shr-url)))
+    (cond
+      ((not url)
+        (message "No link under point"))
+      ((string-match "^mailto:" url)
+        (browse-url-mail url))
+      (t
+	      (browse-url-generic url)
+        (shr--blink-link)))))
+
+;; based on shr-browse-url
+(defun my/elfeed-shr-open-click-external (event)
+  (interactive "e")
+  (mouse-set-point event)
+  (let ((url (get-text-property (point) 'shr-url)))
+    (cond
+      ((not url)
+        (message "No link under point"))
+      ((string-match "^mailto:" url)
+        (browse-url-mail url))
+      (t
+	      (browse-url-generic url)
+        (shr--blink-link)))))
 
 (use-package elfeed-goodies
   :after elfeed

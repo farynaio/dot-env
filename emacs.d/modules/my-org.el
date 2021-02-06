@@ -1523,6 +1523,7 @@ should be continued."
     ("k" org-roam "Toggle sidebar" :exit t)
     ("l" org-roam-insert "Insert" :exit t)
     ("j" org-roam-dailies-find-date  "Journal" :exit t)
+    ("J" farynaio/org-roam-dailies-find-date-other-window  "Journal other window" :exit t)
     ("f" org-roam-find-file "Find file" :exit t)
     ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
     ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
@@ -1664,6 +1665,14 @@ it can be passed in POS."
           (url (concat type ":" url)))
     (kill-new url)
     (message (concat "Copied URL: " url))))
+
+(defun farynaio/org-roam-dailies-find-date-other-window ()
+  (interactive)
+  (let ((current (current-buffer)))
+    (org-roam-dailies-find-date)
+    (let ((dailies-buffer (current-buffer)))
+      (switch-to-buffer current)
+      (switch-to-buffer-other-window dailies-buffer))))
 
 (bind-key "C-x C-l" 'jarfar/org-link-copy org-mode-map)
 
