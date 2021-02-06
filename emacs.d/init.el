@@ -203,7 +203,7 @@
   my-org-activate t
   my-writing-activate t
   my-devel-activate t
-  my-email-activate nil
+  my-email-activate t
   my-dired-activate t
   my-notifications-activate t
   my-www-activate t
