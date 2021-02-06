@@ -131,62 +131,62 @@
      (evil-make-overriding-map mu4e-view-mode-map 'normal)
 
      ;; main
-     (bind-key "x"         #'mu4e-kill-update-mail                    mu4e-main-mode-map)
+     (bind-key "x"         'mu4e-kill-update-mail                    mu4e-main-mode-map)
     ;; (,evil-mu4e-state mu4e-main-mode-map "s"               mu4e-headers-search)
     ;; (,evil-mu4e-state mu4e-main-mode-map "b"               mu4e-headers-search-bookmark)
     ;; (,evil-mu4e-state mu4e-main-mode-map "B"               mu4e-headers-search-bookmark-edit)
 
      (unbind-key "g" mu4e-view-mode-map)
 
-     ;; view
-     (bind-key "<tab>"      #'shr-next-link                            mu4e-view-mode-map)
-     (bind-key "<backtab>"  #'shr-previous-link                        mu4e-view-mode-map)
-     (bind-key "k"          #'shr-maybe-probe-and-copy-url             mu4e-view-mode-map)
-     (bind-key "/"          #'evil-search-forward                      mu4e-view-mode-map)
-     (bind-key "G"          #'end-of-buffer                            mu4e-view-mode-map)
-     (bind-key "gg"         #'beginning-of-buffer                      mu4e-view-mode-map)
-     (bind-key "}"          #'forward-paragraph                        mu4e-view-mode-map)
-     (bind-key "{"          #'backward-paragraph                       mu4e-view-mode-map)
-     (bind-key "v"          #'set-mark-command                         mu4e-view-mode-map)
-     (bind-key "y"          #'evil-yank                                mu4e-view-mode-map)
-     (bind-key "w"          #'evil-forward-word-begin                  mu4e-view-mode-map)
-     (bind-key "b"          #'evil-backward-word-begin                 mu4e-view-mode-map)
-
-     ;; headers
-     (bind-key "RET"        #'mu4e-headers-view-message                mu4e-headers-mode-map)
-     (bind-key "q"          #'mu4e~headers-quit-buffer                 mu4e-headers-mode-map)
-     (bind-key "x"          #'mu4e-mark-execute-all                    mu4e-headers-mode-map)
-     (bind-key "a"          #'mu4e-headers-action                      mu4e-headers-mode-map)
-     (bind-key "C"          #'mu4e-compose-new                         mu4e-headers-mode-map)
-     (bind-key "F"          #'mu4e-compose-forward                     mu4e-headers-mode-map)
-     (bind-key "R"          #'mu4e-compose-reply                       mu4e-headers-mode-map)
-     (bind-key "o"          #'mu4e-headers-change-sorting              mu4e-headers-mode-map)
-     (bind-key "&"          #'mu4e-headers-mark-custom                 mu4e-headers-mode-map)
-     (bind-key "A"          #'mu4e-headers-mark-for-action             mu4e-headers-mode-map)
-     (bind-key "m"          #'mu4e-headers-mark-for-move               mu4e-headers-mode-map)
-     (bind-key "r"          #'mu4e-headers-mark-for-refile             mu4e-headers-mode-map)
-     (bind-key "D"          #'mu4e-headers-mark-for-delete             mu4e-headers-mode-map)
-     (bind-key "d"          #'mu4e-headers-mark-for-trash              mu4e-headers-mode-map)
-     (bind-key "="          #'mu4e-headers-mark-for-untrash            mu4e-headers-mode-map)
-     (bind-key "u"          #'mu4e-headers-mark-for-unmark             mu4e-headers-mode-map)
-     (bind-key "U"          #'mu4e-mark-unmark-all                     mu4e-headers-mode-map)
-     (bind-key "["          #'mu4e-headers-prev-unread                 mu4e-headers-mode-map)
-     (bind-key "]"          #'mu4e-headers-next-unread                 mu4e-headers-mode-map)
-     (bind-key "G"          #'end-of-buffer                            mu4e-headers-mode-map)
-     (bind-key "gg"         #'beginning-of-buffer                      mu4e-headers-mode-map)
-     (bind-key "l"          #'mu4e-show-log                            mu4e-headers-mode-map)
-     (bind-key "I"          #'mu4e-headers-toggle-include-related      mu4e-headers-mode-map)
-     (bind-key "T"          #'mu4e-headers-toggle-threading            mu4e-headers-mode-map)
-     (bind-key "D"          #'mu4e-headers-toggle-skip-duplicates      mu4e-headers-mode-map)
-     (bind-key "s"          #'mu4e-headers-search                      mu4e-headers-mode-map)
-     (bind-key "e"          #'mu4e-headers-search-edit                 mu4e-headers-mode-map)
-     (bind-key "U"          #'mu4e-update-mail-and-index               mu4e-headers-mode-map)
-     (bind-key "n"          #'evil-search-next                         mu4e-headers-mode-map)
-     (bind-key "N"          #'evil-search-previous                     mu4e-headers-mode-map)
-     (bind-key "/"          #'evil-search-forward                      mu4e-headers-mode-map)
-     (bind-key "*"          #'evil-search-word-forward                 mu4e-headers-mode-map)
-     (bind-key "#"          #'evil-search-word-backward                mu4e-headers-mode-map)
-     (bind-key "x"          #'my/mu4e-mark-execute-all-no-confirm      mu4e-headers-mode-map)
+     (bind-keys
+       :map mu4e-view-mode-map
+       ("<tab>" . shr-next-link)
+       ("<backtab>" . shr-previous-link)
+       ("k" . shr-maybe-probe-and-copy-url)
+       ("/" . evil-search-forward)
+       ("G" . end-of-buffer)
+       ("gg" . beginning-of-buffer)
+       ("}" . forward-paragraph)
+       ("{" . backward-paragraph)
+       ("v" . set-mark-command)
+       ("y" . evil-yank)
+       ("w" . evil-forward-word-begin)
+       ("b" . evil-backward-word-begin)
+       :map mu4e-headers-mode-map
+       ("RET" . mu4e-headers-view-message)
+       ("q" . mu4e~headers-quit-buffer)
+       ("x" . mu4e-mark-execute-all)
+       ("a" . mu4e-headers-action)
+       ("C" . mu4e-compose-new)
+       ("F" . mu4e-compose-forward)
+       ("R" . mu4e-compose-reply)
+       ("o" . mu4e-headers-change-sorting)
+       ("&" . mu4e-headers-mark-custom)
+       ("A" . mu4e-headers-mark-for-action)
+       ("m" . mu4e-headers-mark-for-move)
+       ("r" . mu4e-headers-mark-for-refile)
+       ("D" . mu4e-headers-mark-for-delete)
+       ("d" . mu4e-headers-mark-for-trash)
+       ("=" . mu4e-headers-mark-for-untrash)
+       ("u" . mu4e-headers-mark-for-unmark)
+       ("U" . mu4e-mark-unmark-all)
+       ("[" . mu4e-headers-prev-unread)
+       ("]" . mu4e-headers-next-unread)
+       ("G" . end-of-buffer)
+       ("gg" . beginning-of-buffer)
+       ("l" . mu4e-show-log)
+       ("I" . mu4e-headers-toggle-include-related)
+       ("T" . mu4e-headers-toggle-threading)
+       ("D" . mu4e-headers-toggle-skip-duplicates)
+       ("s" . mu4e-headers-search)
+       ("e" . mu4e-headers-search-edit)
+       ("U" . mu4e-update-mail-and-index)
+       ("n" . evil-search-next)
+       ("N" . evil-search-previous)
+       ("/" . evil-search-forward)
+       ("*" . evil-search-word-forward)
+       ("#" . evil-search-word-backward)
+       ("x" . my/mu4e-mark-execute-all-no-confirm))
 
      (defun my/mu4e-mark-execute-all-no-confirm ()
        "Execute all marks without confirmation."
@@ -214,6 +214,7 @@
        mu4e-view-show-images t
        mu4e-headers-date-format "%Y/%m/%d %H:%M %Z"
        mu4e-view-scroll-to-next nil
+       mu4e-org-contacts-file (expand-file-name "~/Documents/emacs/private/contacts.org.gpg")
        mu4e-headers-fields '((:human-date . 22)
                               (:flags . 6)
                               (:from . 22)
@@ -227,10 +228,14 @@
        mu4e-index-lazy-check t
        mu4e-headers-skip-duplicates t)
 
-     (add-to-list 'mu4e-view-actions
-       '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+     ;; (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
+     ;; (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
 
      (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+     (add-to-list 'mu4e-view-actions '("XWidget View" . mu4e-action-view-with-xwidget) t)
+
+     ;; (add-to-list 'mu4e-view-actions
+     ;;   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
      (defun my/mu4e-compose-mode-hook ()
        (setq-local company-backends '((company-bbdb company-files company-dabbrev)))
@@ -241,16 +246,16 @@
            (insert (concat "X-Mailer: mu4e " mu4e-mu-version "; emacs " emacs-version "\n"))
            ))
 
-     (add-hook 'mu4e-compose-mode-hook #'my/mu4e-compose-mode-hook)
+     (add-hook 'mu4e-compose-mode-hook 'my/mu4e-compose-mode-hook)
 
      (defun my/mu4e-set-account ()
        "Set the account for composing a message."
        user-mail-address)
-     (add-hook 'mu4e-compose-pre-hook #'my/mu4e-set-account)
+     (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
 
-     (advice-add 'mu4e-message :around #'my/advice-around-skip)
+     (advice-add 'mu4e-message :around 'my/advice-around-skip)
 
-     (defalias 'mu #'mu4e)
+     (defalias 'mu 'mu4e)
      ))
 
 (use-package org-mime)
