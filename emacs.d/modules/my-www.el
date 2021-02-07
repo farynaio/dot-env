@@ -119,7 +119,14 @@
   (defun my/w3m-open-other-window ()
     (interactive)
     (let ((w3m-alive (w3m-alive-p)))
-      (switch-to-buffer-other-window w3m-alive)
+      (switch-to-buffer-other-frame w3m-alive)
+      (unless w3m-alive
+        (w3m))))
+
+  (defun my/w3m-open-frame ()
+    (interactive)
+    (let ((w3m-alive (w3m-alive-p)))
+      (switch-to-buffer-other-frame w3m-alive)
       (unless w3m-alive
         (w3m))))
 
@@ -143,6 +150,28 @@
           (w3m)
           (w3m-search-new-session w3m-search-default-engine query))
         (w3m-search w3m-search-default-engine query))))
+
+  (defun my/w3m-search-frame (query &optional from to)
+    (interactive
+      (if (use-region-p)
+        (list nil (region-beginning) (region-end))
+        (list (read-string "Search phrase: "))))
+    (let ((w3m-alive (w3m-alive-p))
+           (query (if query query (buffer-substring-no-properties from to))))
+      (switch-to-buffer-other-frame w3m-alive)
+      (if w3m-alive
+        (progn
+          (w3m)
+          (w3m-search-new-session w3m-search-default-engine query))
+        (w3m-search w3m-search-default-engine query))))
+
+  (defun my/w3m-goto-frame (url)
+    (interactive (list (read-string "URL: ")))
+    (let ((w3m-alive (w3m-alive-p)))
+      (switch-to-buffer-other-frame w3m-alive)
+      (unless w3m-alive
+        (w3m))
+      (w3m-goto-url-new-session url)))
 
   ;; Fix asking for confirmation before visiting URL via generic browser
   (advice-add 'browse-url-interactive-arg :around
@@ -180,7 +209,11 @@
 (defhydra my/hydra-browser ()
   "WWW browser shorcuts"
   ("s" my/w3m-search-new-session "search" :exit t)
+  ("S" my/w3m-search-frame "search in frame" :exit t)
   ("g" w3m-goto-url-new-session "go to" :exit t)
-  ("w" my/w3m-open-other-window "open browser" :exit t))
+  ("G" my/w3m-goto-frame "go to in frame" :exit t)
+  ("W" my/w3m-open-frame "open browser in frame" :exit t)
+  ("w" my/w3m-open-other-window "open browser" :exit t)
+  )
 
 (provide 'my-www)
