@@ -44,7 +44,7 @@
 
 (setq
   smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-  smtpmail-queue-dir "~/Maildir/queue/cur")
+  smtpmail-queue-dir "~/Maildir/queue/cur"
   smtpmail-queue-mail nil
   smtpmail-smtp-service 587
   smtpmail-stream-type 'ssl)
@@ -224,12 +224,26 @@
                               (:subject))
        ;; mu4e-use-fancy-chars t
        mu4e-change-filenames-when-moving t
-       mu4e-get-mail-command "mbsync -a && mu index"
+       mu4e-get-mail-command "mbsync -a  1>/dev/null 2>&1 && mu index 1>/dev/null 2>&1"
        mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
        mu4e-index-lazy-check t
-       mu4e-headers-skip-duplicates t)
+       mu4e-headers-skip-duplicates t
+       mu4e-maildirs-extension-custom-list '(
+                                              "/adam@faryna.io/Inbox"
+                                              "/adam@faryna.io/Drafts"
+                                              "/adam@faryna.io/Sent"
+                                              "/adam@faryna.io/Archive"
+                                              "/adam@faryna.io/Trash"
+                                              "/adam@faryna.io/Junk"
+                                              "/adamfaryna@gmail.com/Inbox"
+                                              "/adamfaryna@gmail.com/Drafts"
+                                              "/adamfaryna@gmail.com/Starred"
+                                              "/adamfaryna@gmail.com/Important"
+                                              "/adamfaryna@gmail.com/Sent"
+                                              "/adamfaryna@gmail.com/Trash")
+       )
 
      ;; (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
      ;; (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
