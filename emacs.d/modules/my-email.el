@@ -44,11 +44,10 @@
 
 (setq
   smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-  smtpmail-queue-mail nil
-  ;; smtpmail-smtp-service 587
-  ;; smtpmail-stream-type 'starttls
-  ;; smtpmail-stream-type 'ssl
   smtpmail-queue-dir "~/Maildir/queue/cur")
+  smtpmail-queue-mail nil
+  smtpmail-smtp-service 587
+  smtpmail-stream-type 'ssl)
 
 (setq
   shr-inhibit-images t
@@ -122,16 +121,17 @@
      ;;                           "nndraft:drafts")
      ;;                          ("Gnus")))))
 
-
 (eval-after-load 'mu4e
   '(progn
+     (use-package mu4e-maildirs-extension
+       :config
+       (mu4e-maildirs-extension))
+
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)
      (evil-make-overriding-map mu4e-headers-mode-map 'normal)
      (evil-make-overriding-map mu4e-view-mode-map 'motion)
      (evil-make-overriding-map mu4e-view-mode-map 'normal)
 
-     ;; main
-     (bind-key "x"         'mu4e-kill-update-mail                    mu4e-main-mode-map)
     ;; (,evil-mu4e-state mu4e-main-mode-map "s"               mu4e-headers-search)
     ;; (,evil-mu4e-state mu4e-main-mode-map "b"               mu4e-headers-search-bookmark)
     ;; (,evil-mu4e-state mu4e-main-mode-map "B"               mu4e-headers-search-bookmark-edit)
@@ -139,6 +139,9 @@
      (unbind-key "g" mu4e-view-mode-map)
 
      (bind-keys
+       :map mu4e-main-mode-map
+       ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
+       ("x" . mu4e-kill-update-mail)
        :map mu4e-view-mode-map
        ("<tab>" . shr-next-link)
        ("<backtab>" . shr-previous-link)
@@ -221,7 +224,7 @@
                               (:subject))
        ;; mu4e-use-fancy-chars t
        mu4e-change-filenames-when-moving t
-       mu4e-get-mail-command "true"
+       mu4e-get-mail-command "mbsync -a && mu index"
        mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
