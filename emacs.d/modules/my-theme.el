@@ -138,6 +138,7 @@
     '(org-headline-done ((t (:inherit nil :strike-through t :weight: normal))))
     '(org-agenda-done ((t (:inherit nil :strike-through t :weight normal))))
     '(ledger-font-payee-uncleared-face ((t (:inherit nil :foreground "gold1"))))
+    '(persp-selected-face ((t (:foreground "cyan4" :weight bold))))
     '(symbol-overlay-default-face ((t (:background "gray37"))))
     )
 
