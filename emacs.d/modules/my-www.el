@@ -34,6 +34,7 @@
 ;;      (defalias 'w 'af/eww)))
 
 (use-package w3m
+  :hook ((w3m-mode . iscroll-mode))
   :config
   (setq
     w3m-use-cookies t

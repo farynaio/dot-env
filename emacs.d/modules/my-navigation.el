@@ -96,6 +96,8 @@
 
 (use-package goto-last-change)
 
+(use-package iscroll)
+
 (use-package smartscan
   :defer t
   :config
