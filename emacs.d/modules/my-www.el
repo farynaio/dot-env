@@ -47,7 +47,7 @@
     w3m-search-default-engine "duckduckgo"
     w3m-terminal-coding-system 'utf-8
     w3m-display-mode 'tabbed
-    w3m-default-display-inline-image t
+    w3m-default-display-inline-images nil
     w3m-confirm-leaving-secure-page nil
     w3m-new-session-in-background t
     w3m-new-session-url "about:"
