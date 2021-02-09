@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package elfeed
-  :commands elfeed-update
+  :commands elfeed-update elfeed-db-load
   :bind (:map elfeed-show-mode-map
           ("SPC" . elfeed-scroll-up-command)
           ("S-SPC" . elfeed-scroll-down-command)
