@@ -67,6 +67,7 @@
     ("C-w v" . evil-window-vsplit)
     ("C-w C-v" . evil-window-vsplit)
     ("<right>" . w3m-view-next-page)
+    ("C-c C-t" . w3m-create-empty-session)
     ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
     ("C-c C-e" . my/w3m-goto-new-session-url))
