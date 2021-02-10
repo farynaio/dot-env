@@ -316,6 +316,13 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
 ;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
+(use-package perspective
+  :config
+  (persp-mode)
+  (bind-key "C-x C-b" 'persp-counsel-switch-buffer)
+  (bind-key "C-x C-k" 'persp-kill-buffer*)
+  )
+
 (use-package ag
   :config
   (setq ag-reuse-buffers t))
