@@ -34,13 +34,7 @@
     elfeed-search-filter "+news -skip -ok -junk"
     elfeed-search-title-max-width 115
     elfeed-search-remain-on-entry t
-
-  (add-to-list 'elfeed-update-hooks 'elfeed-update))
-    elfeed-web-limit 500)
-
-;; update feeds every 4h
-(when (my/online-p)
-  (run-with-timer 0 (* 60 60 4) 'elfeed-update))
+    elfeed-web-limit 500))
 
 ;; based on shr-browse-url
 (defun my/elfeed-shr-open-click (event)

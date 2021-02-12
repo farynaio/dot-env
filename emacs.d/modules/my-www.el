@@ -34,7 +34,6 @@
 ;;      (defalias 'w 'af/eww)))
 
 (use-package w3m
-  :hook ((w3m-mode . iscroll-mode))
   :config
   (setq
     w3m-use-cookies t
@@ -72,18 +71,20 @@
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
     ("C-c C-e" . my/w3m-goto-new-session-url))
 
+  (add-hook 'w3m-mode-hook 'iscroll-mode)
+
   (when (fboundp 'evil-mode)
     (bind-keys
       :map w3m-mode-map
       ("C-w |" . evil-window-set-width)))
 
-(defun my/w3m-goto-new-session-url (&optional reload)
-  "Open `w3m-new-session-url' in a new session."
-  (interactive "P")
-  (if (not (eq major-mode 'w3m-mode))
-    (message "This command can be used in w3m mode only")
-    (let ((w3m-new-session-in-background nil))
-      (w3m-goto-url-new-session w3m-new-session-url reload))))
+  (defun my/w3m-goto-new-session-url (&optional reload)
+    "Open `w3m-new-session-url' in a new session."
+    (interactive "P")
+    (if (not (eq major-mode 'w3m-mode))
+      (message "This command can be used in w3m mode only")
+      (let ((w3m-new-session-in-background nil))
+        (w3m-goto-url-new-session w3m-new-session-url reload))))
 
   (setq browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)

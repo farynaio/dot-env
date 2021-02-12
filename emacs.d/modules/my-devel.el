@@ -42,20 +42,11 @@
   ;; (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-jsx-mode)
   )
 
-;;   (progn
-;;     (add-hook 'mmm-mode-hook
-;;       (lambda ()
-;;         (set-face-background 'mmm-default-submode-face nil)))))
-
-(setq sh-basic-offset 2)
+(setq-default sh-basic-offset tab-width)
 
 (define-derived-mode guest-mode fundamental-mode "guest"
   "major mode for guest editing."
   (editorconfig-mode -1))
-
-;; (use-package minimap
-;;   :config
-;;   (setq minimap-window-location 'right))
 
 (eval-after-load 'dns-mode
   '(progn
@@ -71,10 +62,11 @@
   :hook (ledger-mode . company-mode)
   :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
   :mode "\\.ledger\\'"
-  :init
-  (setq ledger-clear-whole-transactions 1)
   :config
-  (setq ledger-post-account-alignment-column 2)
+  (setq
+    ledger-clear-whole-transactions t
+    ledger-post-account-alignment-column 2
+    ledger-reconcile-default-commodity "GBP")
   (unbind-key "<tab>" ledger-mode-map))
 
 (use-package hl-todo
@@ -86,72 +78,20 @@
   :config
   (setq symbol-overlay-idle-time 0.1))
 
-;; nvm ; replaces shell nvm
-;; prodigy ; manage external services
-;; quickrun
-;; expand-region.el
-;; restclient.el
-
-;; (use-package simple-httpd
-;;   :config
-;;   (setq httpd-root "~/Sites"))
-
-;; (use-package skewer-mode)
-
-;; TODO update and make JS2 minor mode to js-mode
 (use-package js2-mode
   :config
   (setq
     js2-mode-show-parse-errors nil
     js2-mode-show-strict-warnings nil))
 
-;; (use-package eglot
-;;   :config
-;;   (add-to-list 'eglot-server-programs '(js2-mode . ("typescript-language-server" "--stdio"))))
-
-;; (require 'ac-js2)
-;; (eval-after-load 'ac-js2
-;;   '(progn
-;;      (setq ac-js2-evaluate-calls nil)
-
-;;      (add-hook 'js2-mode-hook 'jarfar/js2-init t)
-;;      (add-hook 'js2-mode-hook 'skewer-mode t)
-;;      ;; (add-hook 'js2-mode-hook 'jarfar/run-skewer-once t)
-;;      (add-hook 'js2-mode-hook 'jarfar/js2-company-mode-init t)
-;;      (add-hook 'js2-mode-hook 'ac-js2-mode t)
-
-;;      (defun jarfar/js2-init ()
-;;        (message "jarfar/js2-init run")
-;;        (setq-local browse-url-browser-function 'browse-url-chrome))
-
-;;      (defun jarfar/js2-company-mode-init ()
-;;        (message "jarfar/js2-company-mode-init run")
-;;        (make-local-variable 'company-backends)
-;;        (add-to-list 'company-backends 'ac-js2-company))
-
-;;      (defun jarfar/run-skewer-once ()
-;;        (message "jarfar/run-skewer-once run")
-;;        (run-skewer)
-;;        (remove-hook 'js2-mode-hook 'jarfar/run-skewer-once))
-;;      ))
-
 (use-package json-mode
   :mode ("\\.json\\'" "\\rc\\'"))
-;; (use-package indium) ; inspector for node
-
-(when (eq system-type 'gnu/linux)
-  (defun my/crontab-e ()
-    (interactive)
-    (with-editor-async-shell-command "crontab -e"))
-  (defalias 'crontab-e 'my/crontab-e))
-
-(setq shift-select-mode nil)
 
 (setq tags-add-tables nil)
 (setq my/ctags-path "/usr/local/bin/ctags")
 
 (unless (executable-find my/ctags-path)
-  (message (concat "Warning no ctags available!")))
+  (user-error "Warning no ctags available!"))
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()
@@ -162,7 +102,7 @@
         (start-process "ctags" nil (format "%s -e -f -R %s" my/ctags-path project-root))
         (my/visit-project-ctags)
         (message "Tags build successfully."))
-      (message "Cannot generate TAGS, not a projectile project."))))
+      (user-error "Cannot generate TAGS, not a projectile project."))))
 
 (defalias 'ctags 'my/ctags-build)
 
@@ -171,7 +111,7 @@
   (let ((project-root (projectile-project-root)))
     (if project-root
       (visit-tags-table (concat project-root "tags"))
-      (message "Cannot view TAGS table, not a projectile project."))))
+      (user-error "Cannot view TAGS table, not a projectile project."))))
 
 (defun my/ctags-update ()
   (interactive)
@@ -188,25 +128,26 @@
   :mode "\\.jade\\'")
 
 ;; (use-package counsel-etags) ; it's crazy slow
+
 (use-package emmet-mode
   :diminish emmet-mode
   :hook ((sgml-mode . emmet-mode)
           (js-mode . emmet-mode))
   :config
-  (setq emmet-self-closing-tag-style " /"))
+  (setq
+    emmet-self-closing-tag-style " /"
+    emmet-expand-jsx-className? t))
 
 ;; debugger
 ;; (use-package realgud)
 
 (use-package yaml-mode
-  :hook ((yaml-mode . my/prettier-mode)
-          (markdown-mode . jarfar/bind-value-togglers))
+  :hook ((markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
   :hook (markdown-mode . jarfar/bind-value-togglers)
-  :mode (
-          ("\\.markdown\\'" . markdown-mode)
+  :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode)))
 
@@ -244,86 +185,28 @@
 (define-minor-mode my/auto-indent-mode
   "Auto indent buffer on save."
   :init-value nil
-
   (add-hook 'before-save-hook
     (lambda ()
       (save-excursion
         (unless (eq dtrt-indent-mode t)
           (indent-region (point-min) (point-max))
-          (untabify (point-min) (point-max))
-          )
-        )
-      ) nil t))
+          (untabify (point-min) (point-max)))))
+    nil t))
 
 (eval-after-load 'js
   '(progn
-     (setq js-indent-level 2)
-
-     ;; (defun my/js-mode-hook()
-     ;;   (modify-syntax-entry ?_ "w" (syntax-table))
-     ;;   (modify-syntax-entry ?$ "w" (syntax-table)))
-
-     ;; (add-hook 'js-mode-hook 'my/js-mode-hook)
-
-     ;; (add-hook 'js-mode-hook 'eslintd-fix-mode)
-     ;; (add-hook 'js-mode-hook 'my/auto-indent-mode)
-     ))
-
-;; (if (executable-find "eslint_d")
-;;   (use-package eslintd-fix
-;;     :hook ((rjsx-mode . eslintd-fix-mode) (js-mode . eslintd-fix-mode)))
-;;   (message "No executable 'eslint_d' found"))
+     (setq js-indent-level tab-width)))
 
 (eval-after-load 'css-mode
   '(progn
-     (setq css-indent-offset 2)
+     (setq css-indent-offset tab-width)
      (add-hook 'css-mode-hook
        (lambda ()
-         ;; (flycheck-mode -1)
-         ;; (modify-syntax-entry ?_ "w" (syntax-table))
-         ;; (modify-syntax-entry ?$ "w" (syntax-table))
-
-         ;; (add-hook 'before-save-hook
-         ;;   (lambda ()
-         ;;     (when (and (eq dtrt-indent-mode nil) (fboundp 'web-beautify-css))
-         ;;       (web-beautify-css)
-
-               ;; (save-excursion
-               ;;   (mark-whole-buffer)
-               ;;   (indent-region (region-beginning) (region-end))
-               ;;   (deactivate-mark)))
-
-             ;; )) 0 t)
          (setq-local company-backends '((company-css company-keywords company-files)))))))
-
-;; (use-package xref-js2)
 
 (use-package rainbow-mode
   :hook (css-mode . rainbow-mode)
   :diminish rainbow-mode)
-
-;; (eval-after-load 'js-mode
-;;   '(progn
-;;      (defun my/js-mode-hook ()
-;;        (js2-refactor-mode 1)
-;;        (rainbow-delimiters-mode 1)
-;;        (modify-syntax-entry ?_ "w" (syntax-table))
-;;        (modify-syntax-entry ?$ "w" (syntax-table))
-;;        )
-;;      (add-hook 'js-mode-hook 'my/js-mode-hook)))
-
-;; (add-hook 'js2-mode-hook
-;;   (lambda ()
-;;     (add-to-list 'xref-backend-functions 'xref-js2-xref-backend)
-;;     (evil-local-set-key 'normal (kbd ",r") 'hydra-js-refactoring/body)
-;;     ))
-
-;; (use-package eglot
-;;   :config
-;;   (setenv "PATH" (concat "~/.emacs.d/.eglot/node_modules/.bin:" (getenv "PATH")))
-;;   (add-to-list 'exec-path "~/.emacs.d/.eglot/node_modules/.bin")
-;;   (add-to-list 'eglot-server-programs '(web-mode . ("html-languageserver" "--stdio")))
-;;   )
 
 (use-package lsp-mode
   :commands lsp lsp-deferred
@@ -346,6 +229,7 @@
     ;; lsp-signature-auto-activate nil
     lsp-signature-render-documentation nil
     lsp-eldoc-enable-hover nil
+    lsp-restart 'auto-restart
     lsp-rf-language-server-trace-serve "off"
     lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
 
@@ -391,10 +275,6 @@
 
   ;; (bind-key ", l" 'lsp-ui-imenu lsp-ui-mode-map)
 
-;; (use-package lsp-ivy
-;;   :requires (lsp-mode ivy)
-;;   :commands lsp-ivy-workspace-symbol)
-
 (use-package lsp-treemacs
   :after lsp-mode treemacs
   :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
@@ -404,61 +284,19 @@
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
   :hook ((typescript-mode . lsp)
-          (typescript-mode . my/prettier-mode)
-          (typescript-mode . mmm-mode)
-          ;; (typescript-mode . (lambda () (add-hook 'before-save-hook 'lsp-eslint-apply-all-fixes)))
-          ))
+          (typescript-mode . mmm-mode)))
 
 (use-package rainbow-delimiters)
 
-;; (use-package js2-refactor
-;;   :diminish js2-refactor-mode
-;;   :bind (:map js2-mode-map . ("C-k" js2r-kill)))
-
-;; (use-package tern
-;;   :config
-;;   (progn
-;;     (add-hook 'tern-mode-hook
-;;       (lambda ()
-;;         (add-to-list 'company-backends 'company-tern)))))
-
-;; (use-package company-tern)
-
-
-;; (use-package tide
-;;   :diminish tide-mode
-;;   :config
-;;   (progn
-;;     (add-hook 'tide-mode-hook
-;;       (lambda ()
-;;         (add-to-list 'company-backends 'company-tide)
-;;         (add-hook 'before-save-hook 'tide-format-before-save nil t)
-;;         ))
-
-;;     (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
-
-;;     (bind-key "C-c C-l" 'tide-references tide-mode-map)
-
-;;     (evil-make-overriding-map tide-references-mode-map 'motion)
-;;     (evil-make-overriding-map tide-references-mode-map 'normal)
-
-;;     (add-hook 'rjsx-mode-hook 'tide-setup)
-;;     ))
-
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . my/prettier-mode)
           (rjsx-mode . mmm-mode)
           (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode "\\.jsx?\\'"
-  :config
+  :mode "\\.jsx?\\'")
   ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
-  (defun my/rjsx-mode-setup ()
-    ""
-    (setq-local emmet-expand-jsx-className? t)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
@@ -469,15 +307,6 @@
 ;;          (let ((empty-spaces (match-string 1)))
 ;;            (while (search-forward empty-spaces      (line-end-position) t)
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
-
-;; (defun my/tide-setup ()
-;;   ""
-;;   (unless (tide-current-server)
-;;     (tide-restart-server))
-;;   (tide-mode))
-
-;; (add-hook 'js2-mode-hook 'my/tide-setup)
-;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
 
 ;; (use-package robe
 ;; :config
@@ -629,15 +458,17 @@
           ;; ("\\.php\\'" . web-mode)
           )
   :config
-  (setq web-mode-engines-alist '(("php" . "\\.php\\'")))
-  (setq-default web-mode-markup-indent-offset tab-width)
-  (setq-default web-mode-css-indent-offset tab-width)
-  (setq-default web-mode-code-indent-offset tab-width)
+  (setq
+    web-mode-engines-alist '(("php" . "\\.php\\'"))
+    web-mode-markup-indent-offset tab-width
+    web-mode-css-indent-offset tab-width
+    web-mode-code-indent-offset tab-width)
 
   (add-hook 'before-save-hook
     (lambda ()
       (when (and (fboundp 'web-beautify-html) (eq dtrt-indent-mode nil))
-        (web-beautify-html))) 0 t))
+        (web-beautify-html)))
+    0 t))
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
@@ -668,21 +499,8 @@ $0`(yas-escape-text yas-selected-text)`"))
   ("r" yas-reload-all "reload" :exit t))
 
 (defun my/prog-mode-hook ()
-  ;; (add-to-list 'company-backends 'company-bbdb)
-  ;; (add-to-list 'company-backends 'company-semantic)
-  ;; (add-to-list 'company-backends 'company-cmake)
-  ;; (add-to-list 'company-backends 'company-clang)
-  ;; (add-to-list 'company-backends 'company-oddmuse)
-  ;; (add-to-list 'company-backends 'company-oddmuse)
-  ;; (add-to-list 'company-backends '(company-dabbrev-code company-gtags company-etags company-keywords))
-
-  ;; (setq-local company-backends (delete 'company-dabbrev company-backends))
-
-  ;; (make-local-variable 'flycheck-check-syntax-automatically)
-  (setq-local flycheck-check-syntax-automatically '(save mode-enabled))
-
-  (modify-syntax-entry ?_ "w" (syntax-table))
   (modify-syntax-entry ?- "w" (syntax-table))
+  (modify-syntax-entry ?_ "w" (syntax-table))
   (modify-syntax-entry ?$ "w" (syntax-table))
 
   ;; (flycheck-mode 1)
@@ -719,7 +537,6 @@ $0`(yas-escape-text yas-selected-text)`"))
     (setq mode-name "Elisp")
     (flycheck-mode -1)
     (eldoc-mode 1)
-    (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))
 
 ;; (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
@@ -852,7 +669,9 @@ in whole buffer.  With neither, delete comments on current line."
 
 (defun jarfar/bind-value-togglers ()
   (when (boundp 'evil-normal-state-local-map)
-    (bind-key "<S-up>" 'jarfar/increment evil-normal-state-local-map)
-    (bind-key "<S-down>" 'jarfar/decrement evil-normal-state-local-map)))
+    (bind-keys
+      :map evil-normal-state-local-map
+      ("<S-up>" . farynaio/increment)
+      ("<S-down>" . farynaio/decrement))))
 
 (provide 'my-devel)

@@ -1,32 +1,36 @@
-(setq delete-by-moving-to-trash t)
-(setq trash-directory "~/.Trash")
+(setq
+  delete-by-moving-to-trash t
+  trash-directory "~/.Trash")
 
 (when (file-executable-p "/usr/local/bin/gls")
-  (setq insert-directory-program "/usr/local/bin/gls")
-  (setq dired-listing-switches "-alh1v"))
+  (setq
+    insert-directory-program "/usr/local/bin/gls"
+    dired-listing-switches "-alh1v"))
 
 (when (eq system-type 'darwin)
   (require 'ls-lisp)
-  (setq ls-lisp-dirs-first t)
-  (setq ls-lisp-use-insert-directory-program nil))
+  (setq
+    ls-lisp-dirs-first t
+    ls-lisp-use-insert-directory-program nil))
 
 (eval-after-load 'dired
   '(progn
-     (require 'dired+)
-     (use-package image-dired)
+     ;; (require 'dired+)
      ;; (use-package image-dired+)
-     ;; (require 'bookmark+)
+     (use-package image-dired+
+      :after image-dired)
 
-     (setq dired-dwim-target t)
-     (setq dired-use-ls-diredto nil)
-     (setq dired-recursive-copies 'always)
-     (setq dired-recursive-deletes 'always)
-     (setq dired-listing-switches "-alh")
-     (setq dired-deletion-confirmer 'y-or-n-p)
-     (setq dired-clean-confirm-killing-deleted-buffer nil)
-     (setq dired-hide-details-mode 1)
-     ;; (setq find-name-arg "-iregex")
-     (setq dired-guess-shell-alist-user
+     (setq
+       find-name-arg "-iregex"
+       dired-dwim-target nil ;; t ?
+       dired-use-ls-diredto nil
+       dired-recursive-copies 'always
+       dired-recursive-deletes 'always
+       dired-listing-switches "-alh"
+       dired-deletion-confirmer 'y-or-n-p
+       dired-clean-confirm-killing-deleted-buffer nil
+       dired-hide-details-mode 1
+       dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
           ("\\.html\\'" "open")
           ("\\.xlsx?m?\\'" "open")
@@ -34,31 +38,64 @@
           ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
           ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
           ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
-     ;; (bind-key (kbd "t") #'dired-toggle-marks dired-mode-map) ; toggle marks
-     ;; (define-key (kbd "<left>") (diredp-up-directory-reuse-dir-buffer))
+
+     (bind-keys
+       :map dired-mode-map
+       ("C-s" . find-name-dired)
+       ("<" . beginning-of-buffer)
+       (">" . end-of-buffer)
+       ("W" . my/dired-copy-dirname-as-kill)
+       ("C-x C-," . farynaio/hydra-dired/body)
+       ("RET" . farynaio/dired-go-up-reuse)
+       ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
+
+     (defhydra farynaio/hydra-dired ()
+       "Dired"
+       ("c" farynaio/dired-shell-command "run command" :exit t))
 
      (when (bound-and-true-p evil-mode)
-       (bind-key "n" 'evil-ex-search-next dired-mode-map)
-       (bind-key "N" 'evil-ex-search-previous dired-mode-map))
+       (bind-keys
+         :map dired-mode-map
+         ("n" . evil-ex-search-next)
+         ("N" . evil-ex-search-previous)))
 
      (add-hook 'dired-mode-hook
        (lambda ()
          (dired-hide-details-mode 1)
          (hl-line-mode 1)))
+))
 
-     (bind-key "J" 'dired-goto-file dired-mode-map)
-     (bind-key "C-s" 'find-name-dired dired-mode-map)
-     (bind-key "C-c -" 'diredp-up-directory-reuse-dir-buffer dired-mode-map)
-     (bind-key "<" 'beginning-of-buffer dired-mode-map)
-     (bind-key ">" 'end-of-buffer dired-mode-map)
-     (bind-key "W" 'my/dired-copy-dirname-as-kill dired-mode-map)))
+;; (eval-after-load 'dired+
+;;   '(progn
+;;      (setq
+;;        diredp-hide-details-initially-flag nil
+;;        diredp-auto-focus-frame-for-thumbnail-tooltip-flag t)
+    ;; (diredp-toggle-find-file-reuse-dir 1)
+    ;; (bind-key "<backspace>" 'diredp-up-directory-reuse-dir-buffer dired-mode-map)))
 
-(eval-after-load 'dired+
-  '(progn
-    (setq diredp-hide-details-initially-flag nil)
-    (setq diredp-auto-focus-frame-for-thumbnail-tooltip-flag t)
-    (diredp-toggle-find-file-reuse-dir 1)
-    (bind-key "<backspace>" 'diredp-up-directory-reuse-dir-buffer dired-mode-map)))
+;; (mapc (lambda (buffer)
+;;         (when (eq 'dired-mode (buffer-local-value 'major-mode buffer))
+;;           (message "dired buf")))
+;;   (buffer-list))
+
+(defun farynaio/dired-shell-command ()
+  "Run any shell command in Dired."
+  (interactive )
+  (let ((cmd (read-string "Run shell command: ")))
+    (if cmd
+      (dired-shell-command cmd)
+      (user-error "Command is required!"))))
+
+(defun farynaio/dired-go-up-reuse (&optional dir)
+  (interactive)
+  (let ((new-dir (if dir (expand-file-name dir) (dired-get-file-for-visit)))
+          (buffer
+            (seq-find
+              (lambda (w) (and (not (eq w (selected-window))) (eq (current-buffer) (window-buffer w))))
+              (window-list-1))))
+    (if buffer
+      (find-file new-dir)
+      (find-alternate-file new-dir))))
 
 (defun my/dired-jump-make-new-window ()
   "Open new vertical window and open dired there."
@@ -72,37 +109,5 @@
   (interactive)
   (message (format "Path '%s' copied to clipboard." default-directory))
   (kill-new default-directory))
-
-;; http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html
-;; (defun my/open-in-external-app (&optional @fname)
-;;   "Open the current file or dired marked files in external app.
-;; The app is chosen from your OS's preference.
-;; When called in emacs lisp, if @fname is given, open that."
-;;   (interactive)
-;;   (let* (
-;;          ($file-list
-;;           (if @fname
-;;               (progn (list @fname))
-;;             (if (string-equal major-mode "dired-mode")
-;;                 (dired-get-marked-files)
-;;               (list (buffer-file-name)))))
-;;          ($do-it-p (if (<= (length $file-list) 5)
-;;                        t
-;;                      (y-or-n-p "Open more than 5 files? "))))
-;;     (when $do-it-p
-;;       (cond
-;;        ((string-equal system-type "windows-nt")
-;;         (mapc
-;;          (lambda ($fpath)
-;;            (w32-shell-execute "open" $fpath)) $file-list))
-;;        ((string-equal system-type "darwin")
-;;         (mapc
-;;          (lambda ($fpath)
-;;            (shell-command
-;;             (concat "open " (shell-quote-argument $fpath))))  $file-list))
-;;        ((string-equal system-type "gnu/linux")
-;;         (mapc
-;;          (lambda ($fpath) (let ((process-connection-type nil))
-;;                             (start-process "" nil "xdg-open" $fpath))) $file-list))))))
 
 (provide 'my-dired)

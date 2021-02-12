@@ -9,7 +9,9 @@
     evil-search-module 'evil-search
     evil-undo-system 'undo-fu)
   :config
-  (setq evil-mode-line-format nil)
+  (setq-default
+    evil-mode-line-format nil
+    evil-shift-width tab-width)
 
   (evil-mode 1)
   (bind-key "C-d"    'evil-scroll-down)
@@ -28,7 +30,7 @@
   (bind-key ", m"    'my/dired-jump-make-new-window       evil-normal-state-map)
   (bind-key ", n"    'minimap-mode                        evil-normal-state-map)
   (bind-key ", g"    'hydra-git/body                      evil-normal-state-map)
-  (bind-key ", b"    'hydra-buffer/body                   evil-normal-state-map)
+  (bind-key ", b"    'farynaio/hydra-buffer/body          evil-normal-state-map)
   ;; (bind-key ", l"    'treemacs-display-current-project-exclusively evil-normal-state-map)
   (bind-key ", t"    'hydra-writting/body                 evil-normal-state-map)
   (bind-key ", w"    'my/hydra-browser/body               evil-normal-state-map)
@@ -317,5 +319,11 @@
           ("C-p" . 'evil-multiedit-prev))
   :config
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match))
+
+(use-package undo-fu
+  :after evil
+  :config
+  (bind-key "u" 'undo-fu-only-undo evil-normal-state-map)
+  (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
 
 (provide 'my-evil)

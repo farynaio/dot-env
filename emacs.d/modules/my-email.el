@@ -183,7 +183,7 @@
        ("D" . mu4e-headers-toggle-skip-duplicates)
        ("s" . mu4e-headers-search)
        ("e" . mu4e-headers-search-edit)
-       ("U" . mu4e-update-mail-and-index)
+       ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
        ("n" . evil-search-next)
        ("N" . evil-search-previous)
        ("/" . evil-search-forward)
