@@ -224,7 +224,7 @@
                               (:subject))
        ;; mu4e-use-fancy-chars t
        mu4e-change-filenames-when-moving t
-       mu4e-get-mail-command "mbsync -a  1>/dev/null 2>&1 && mu index 1>/dev/null 2>&1"
+       mu4e-get-mail-command "mbsync -a"
        mu4e-attachment-dir  "~/Downloads/mail_attachments"
        mu4e-index-cleanup nil
        mu4e-display-update-status-in-modeline t
