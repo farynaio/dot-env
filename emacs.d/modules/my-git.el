@@ -185,9 +185,8 @@ to invalidate."
     magit-diff-hide-trailing-cr-characters t
     magit-bury-buffer-function 'magit-mode-quit-window
     magit-commit-ask-to-stage nil
-    magit-commit-squash-confirm nil)
-
-  (setq magit-no-confirm '(stage-all-changes unstage-all-changes))
+    magit-commit-squash-confirm nil
+    magit-no-confirm '(stage-all-changes unstage-all-changes))
 
   (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
   (setq magit-blame-styles
@@ -202,6 +201,8 @@ to invalidate."
 "))))
 
   (add-to-list 'magit-blame-disable-modes 'evil-mode)
+
+  (defalias 'magit-blame-echo 'magit-blame-addition)
 
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
