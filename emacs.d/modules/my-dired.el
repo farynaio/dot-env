@@ -18,7 +18,9 @@
      ;; (require 'dired+)
      ;; (use-package image-dired+)
      (use-package image-dired+
-      :after image-dired)
+       :after image-dired)
+
+     (require 'org-link-archive)
 
      (setq
        find-name-arg "-iregex"
