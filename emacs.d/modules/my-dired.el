@@ -24,7 +24,7 @@
 
      (setq
        find-name-arg "-iregex"
-       dired-dwim-target nil ;; t ?
+       dired-dwim-target t
        dired-use-ls-diredto nil
        dired-recursive-copies 'always
        dired-recursive-deletes 'always
