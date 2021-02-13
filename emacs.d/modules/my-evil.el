@@ -110,6 +110,7 @@
 
   (unbind-key "M-." evil-normal-state-map)
   (unbind-key "\\" evil-motion-state-map)
+  (unbind-key "K" evil-motion-state-map)
 
   (bind-key "C-f" 'universal-argument)
   (bind-key "C-u" nil universal-argument-map)
