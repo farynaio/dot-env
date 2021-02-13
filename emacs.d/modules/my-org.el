@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-toc)
@@ -1381,6 +1382,7 @@ should be continued."
          "%?"
          :file-name "%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1447,6 +1449,7 @@ should be continued."
          "%?"
          :file-name "topic/%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1459,6 +1462,7 @@ should be continued."
          "%?"
          :file-name "programming/%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1471,6 +1475,7 @@ should be continued."
          "%?"
          :file-name "travel/%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1483,6 +1488,7 @@ should be continued."
          "%?"
          :file-name "business/%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
@@ -1495,6 +1501,7 @@ should be continued."
          "%?"
          :file-name "marketing/%<%Y%m%d%H%M%S>"
          :head "#+TITLE: ${title}
+#+ROAM_ALIAS:
 #+CREATED: %U
 #+LAST_MODIFIED: %U
 #+ROAM_TAGS:
