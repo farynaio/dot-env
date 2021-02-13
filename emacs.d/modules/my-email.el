@@ -12,7 +12,7 @@
 
 (setq send-mail-function 'smtpmail-send-it)
 
-(setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
+;; (setq nnheader-file-name-translation-alist '((?[ . ?_) (?] . ?_)))
 
 (setq
   mm-coding-system-priorities '(utf-8 utf-8-mac)
