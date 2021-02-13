@@ -47,6 +47,14 @@
           ("<f5>" . my/toggle-php-flavor-mode))
   :mode ("\\.php\\'" "\\.inc\\'")
   :config
+  (defun my/php-setup ()
+    (web-mode)
+    (make-local-variable 'web-mode-code-indent-offset)
+    (make-local-variable 'web-mode-markup-indent-offset)
+    (make-local-variable 'web-mode-css-indent-offset))
+
+  (add-hook 'php-mode-hook 'my/php-setup)
+
   (defun my-php-symbol-lookup ()
     (interactive)
     (let ((symbol (symbol-at-point)))

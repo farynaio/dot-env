@@ -69,6 +69,14 @@
     ledger-reconcile-default-commodity "GBP")
   (unbind-key "<tab>" ledger-mode-map))
 
+(use-package sh-script
+  :mode "\\.z?sh\\'"
+  :hook (after-save . executable-make-buffer-file-executable-if-script-p))
+
+(use-package sql-indent
+  :after (:any sql sql-interactive-mode)
+  :diminish sql-indent-mode)
+
 (use-package hl-todo
   :hook (prog-mode . hl-todo-mode))
 
@@ -83,6 +91,15 @@
   (setq
     js2-mode-show-parse-errors nil
     js2-mode-show-strict-warnings nil))
+
+;; (use-package js2-refactor
+;;   :bind (:map js2-mode-map
+;;               ("C-k" . js2r-kill)
+;;               ("M-." . nil))
+;;   :hook ((js2-mode . js2-refactor-mode)
+;;          (js2-mode . (lambda ()
+;;                        (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
+;;   :config (js2r-add-keybindings-with-prefix "C-c C-r"))
 
 (use-package json-mode
   :mode ("\\.json\\'" "\\rc\\'"))
@@ -131,8 +148,7 @@
 
 (use-package emmet-mode
   :diminish emmet-mode
-  :hook ((sgml-mode . emmet-mode)
-          (js-mode . emmet-mode))
+  :hook (sgml-mode js-mode web-mode)
   :config
   (setq
     emmet-self-closing-tag-style " /"
@@ -195,7 +211,7 @@
 
 (eval-after-load 'js
   '(progn
-     (setq js-indent-level tab-width)))
+     (setq-default js-indent-level tab-width)))
 
 (eval-after-load 'css-mode
   '(progn
@@ -290,8 +306,8 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode)
-          (rjsx-mode . my/rjsx-mode-setup))
+          (rjsx-mode . mmm-mode))
+          ;; (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
@@ -439,8 +455,7 @@
   :hook (geben-mode . evil-emacs-state))
 
 (use-package web-mode
-  :hook ((web-mode . emmet-mode)
-          (web-mode . lsp))
+  :hook ((web-mode . lsp))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)
@@ -490,6 +505,10 @@
 # key: $1
 # --
 $0`(yas-escape-text yas-selected-text)`"))
+
+;; (use-package plantuml-mode
+;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
+;;   :custom (plantuml-jar-path (expand-file-name (format "%s/plantuml.jar" xdg-lib))))
 
 (defhydra hydra-snippet ()
   "Snippet"

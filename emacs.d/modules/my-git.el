@@ -10,39 +10,39 @@
 (eval-after-load 'smerge-mode
   '(progn
      (defun my/smerge-mode-setup ()
-       (bind-key "[w" 'smerge-prev smerge-mode-map)
-       (bind-key "]w" 'smerge-next smerge-mode-map))
-     (add-hook 'smerge-mode-hook 'my/smerge-mode-setup)))
+       (bind-keys
+         :map smerge-mode-map
+         ("[w" . smerge-prev)
+         ("]w" . smerge-next))
+     (add-hook 'smerge-mode-hook 'my/smerge-mode-setup))))
 
 (use-package projectile
   :diminish projectile-mode
   :config
-  (bind-key "C-c p" 'projectile-command-map projectile-mode-map)
-  (bind-key "C-c p F" 'projectile-find-file-other-window projectile-mode-map)
+  (bind-keys
+    :map projectile-mode-map
+    ("C-c p" . projectile-command-map)
+    ("C-c p F" . projectile-find-file-other-window))
 
-  (setq projectile-completion-system 'ivy)
-  (setq projectile-indexing-method 'hybrid)
-  (setq projectile-enable-caching t)
-  (setq projectile-verbose nil)
-  (setq projectile-do-log nil)
-  (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-
-  ;; (setq projectile-generic-command "fd . -0")
+  (setq
+    projectile-completion-system 'ivy
+    projectile-indexing-method 'hybrid
+    projectile-enable-caching t
+    projectile-verbose nil
+    projectile-do-log nil
+    projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
+    projectile-track-known-projects-automatically nil
+    projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class")
+    projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep")
+    projectile-globally-ignored-directories
+    (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
 
   (if (executable-find "ctags")
     (setq projectile-tags-command "ctags -R -e .")
-    (warn "'ctags' not installed!"))
-
-  (setq projectile-track-known-projects-automatically nil)
-  (setq projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-  (setq projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-  (setq projectile-globally-ignored-directories
-        (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
-
-  (projectile-mode 1)
+    (user-error "'ctags' not installed!"))
 
   ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
-  )
+  (projectile-mode 1))
 
   ;; (add-hook 'after-init-hook
   ;;           (lambda ()
@@ -84,8 +84,7 @@
   ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t))  "Replace" :exit t)
   ("i" projectile-invalidate-cache "Invalidate projectile cache" :exit t)
   ("b" modi/kill-non-project-buffers "Kill unrelated buffers" :exit t)
-  ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t)
-  )
+  ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t))
 
 (defhydra hydra-project-projectile ()
   "Projectile project"

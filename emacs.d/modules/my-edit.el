@@ -3,6 +3,7 @@
 ;; (require 'calendar)
 ;; (require 'reftex)
 ;; (require 'face-remap)
+(require 'ediff)
 (require 'conf-mode)
 ;; (require 'tramp)
 ;; (require 'elec-pair)
@@ -40,8 +41,7 @@
   fill-column 80
   hscroll-margin  1
   hscroll-step 1
-  scroll-conservatively most-positive-fixnum ;; 1001 ;; should be 0?
-  scroll-preserve-screen-position t ;; ?
+  ;; scroll-conservatively most-positive-fixnum ;; 1001 ;; should be 0?
   word-wrap t
   shift-select-mode nil
   compare-ignore-case t
@@ -131,6 +131,10 @@
   :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
+
+(setq
+  ediff-window-setup-function 'ediff-setup-windows-plain
+  ediff-forward-word-function 'forward-char)
 
 ; https://emacs.stackexchange.com/questions/10932/how-do-you-disable-the-buffer-end-beginning-warnings-in-the-minibuffer/20039#20039
 (defun my/command-error-function (data context caller)

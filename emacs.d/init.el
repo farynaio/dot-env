@@ -1,4 +1,4 @@
-;; (setq debug-on-error nil)
+;; (setq debug-on-error t)
 ;; (setq debug-on-quit nil)
 
 (setq file-name-handler-alist nil)
@@ -9,8 +9,6 @@
 (setq read-process-output-max (* 1024 1024))
 ;; (setq gc-cons-threshold 402653184)
 ;; (setq gc-cons-percentage 0.6)
-
-(setq confirm-kill-processes nil)
 
 (eval-when-compile
   (defvar oauth--token-data ())
@@ -30,14 +28,17 @@
 ;; (setenv "LC_NUMERIC" "en_US.UTF-8")
 ;; (setenv "LC_TIME" "en_US.UTF-8")
 (setenv "SHELL" "/usr/local/bin/bash")
+(setq shell-file-name "/bin/sh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 ;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
-(when (string-equal system-type "darwin")
-  (when (file-accessible-directory-p "/Applications/Firefox.app/Contents/MacOS")
-    (setenv "PATH" (concat "~/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
-    (add-to-list 'exec-path "/Applications/Firefox.app/Contents/MacOS")
-    (setq browse-url-generic-program "firefox")))
+(when (eq system-type 'darwin)
+  (setq browse-url-chrome-program "chrome")
+  (when (file-accessible-directory-p "/Applications/Firefox.app")
+    ;; (setenv "PATH" (concat "~/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
+    ;; (add-to-list 'exec-path "/Applications/Firefox.app/Contents/MacOS")
+    (setq
+      browse-url-generic-program "/Applications/Firefox.app/Contents/MacOS/firefox")))
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "~/.emacs.d/modules/")
@@ -74,7 +75,10 @@
   (package-install 'org-plus-contrib))
 
 (unless (package-installed-p 'use-package)
+  (package-refresh-contents)
   (package-install 'use-package))
+
+(setq load-prefer-newer t)
 
 (eval-when-compile
   (require 'use-package))
@@ -84,6 +88,7 @@
 (use-package diminish
   :config
   ;; (diminish 'editorconfig-mode)
+  (diminish 'emacs-lock-mode)
   (diminish 'auto-revert-mode)
   (diminish 'eldoc-mode)
   (diminish 'visual-line-mode)
@@ -98,26 +103,28 @@
 
 (require 'gnutls)
 
+(setq auth-source '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
+
 (setq enable-local-eval t)
-(setq safe-local-eval-forms (list))
+;; (setq safe-local-eval-forms (list))
 (add-to-list 'safe-local-eval-forms '(progn (jarfar/org-tasks-refile-targets-local)))
 
 (when (eq system-type 'darwin)
   (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem"))
 
 (use-package auto-compile
-  :config (auto-compile-on-load-mode))
-
-(setq load-prefer-newer t)
+  :config
+  (auto-compile-on-load-mode))
 
 (use-package dash)
 
 (when (and (fboundp 'native-comp-available-p)
         (native-comp-available-p))
-  (setq comp-speed 2)
-  (setq comp-deferred-compilation t)
-  (setq package-native-compile t)
-  (setq comp-async-report-warnings-errors nil)
+  (setq
+    comp-speed 2
+    comp-deferred-compilation t
+    package-native-compile t
+    comp-async-report-warnings-errors nil)
   ;; Using Emacs.app/Contents/MacOS/bin since it was compiled with
   ;; ./configure --prefix="$PWD/nextstep/Emacs.app/Contents/MacOS"
   (add-to-list 'exec-path (concat invocation-directory "bin") t)
@@ -162,11 +169,10 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-(run-with-idle-timer 5 t 'garbage-collect)
+(run-with-idle-timer 60 t 'garbage-collect)
 
 ;; My modules
 (require 'my-path)
-
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
@@ -217,7 +223,7 @@
   my-taskjuggler nil
   my-python t
   my-php t
-)
+  )
 
 (when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
@@ -242,44 +248,38 @@
 (when my-irc-activate (require 'my-irc))
 (when my-taskjuggler (require 'my-taskjuggler))
 
-;; (setq
-  ;; gc-cons-threshold (* 511 1024 1024)
-  ;; gc-cons-percentage 0.5)
-
-;; (setq garbage-collection-messages t)
-;; profiler-start
-;; profiler-report
-
 (server-start)
-
-(defun jarfar/open-buffers-on-startup ()
-  (when (file-exists-p "~/.emacs.d/init.el")
-    (find-file "~/.emacs.d/init.el"))
-  (switch-to-buffer "*scratch*"))
 
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
 
+(defun jarfar/open-buffers-on-startup ()
+  (find-file "~/.emacs.d/init.el")
+  (switch-to-buffer "*scratch*"))
+
 (savehist-mode 1)
-(setq savehist-file "~/.emacs.d/savehist"
+
+(setq
+  savehist-file "~/.emacs.d/savehist"
   history-length t
   history-delete-duplicates t
+  auto-save-visited-interval 60
   savehist-save-minibuffer-history 1
   savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
-(setq dabbrev-friend-buffer-function '(lambda (other-buffer)
-                                        (< (buffer-size other-buffer) (* 1 1024 1024))))
-(setq mac-command-modifier 'super)
+(when (eq system-type 'darwin)
+  (setq
+    mac-command-modifier 'super
+    ns-right-alternate-modifier nil))
 
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
-(prefer-coding-system        'utf-8)
-(set-terminal-coding-system  'utf-8)
-(set-keyboard-coding-system  'utf-8)
-(set-selection-coding-system 'utf-8)
-(setq locale-coding-system   'utf-8)
-(setq-default buffer-file-coding-system 'utf-8)
+
+(set-default-coding-systems 'utf-8)
 
 (setq-default
+  ring-bell-function 'ignore
+  visible-bell nil
+  echo-keystrokes 0
   create-lockfiles nil ; this should be safe as long I'm the only user of FS
   enable-recursive-minibuffers nil ;; ?
   apropos-do-all t
@@ -290,9 +290,16 @@
   idle-update-delay 2
   minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
   history-length 500
-  initial-scratch-message nil)
-
-(setq inhibit-startup-screen t)
+  initial-scratch-message nil
+  inhibit-startup-screen t
+  x-underline-at-descent-line t
+  confirm-kill-processe nil
+  process-connection-type nil
+  set-mark-command-repeat-pop t
+  default-directory "~/"
+  initial-buffer-choice t
+  confirm-kill-processes nil
+  password-cache-expiry nil)
 
 (setq-default
   make-backup-files nil
@@ -304,23 +311,6 @@
   auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;; (add-hook 'desktop-save-mode-hook 'jarfar/desktop-config)
-
-;; (defun jarfar/desktop-config ()
-;;   "Configure desktop-save mode."
-
-;;   (when desktop-save-mode
-;;     (push 'dired-mode desktop-modes-not-to-save)
-;;     (push 'Info-mode desktop-modes-not-to-save)
-;;     (push 'info-lookup-mode desktop-modes-not-to-save)
-;;     (setq desktop-buffers-not-to-save
-;;           (concat "\\("
-;;                   "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
-;;                   "\\|\\.emacs.*\\|\\.diary\\|\\.newsrc-dribble\\|\\.bbdb\\|ido.*"
-;;             "\\)$"))))
-
-;; (desktop-save-mode 1)
-
 (defun reload-config ()
 	"Reload config."
 	(interactive)
@@ -328,6 +318,17 @@
   (message "Config reloaded."))
 
 (display-time-mode -1)
+
+(defvar *protected-buffers* '("*scratch*" "*Messages*")
+  "Buffers that cannot be killed.")
+
+(defun my/protected-buffers ()
+  "Protects some buffers from being killed."
+  (dolist (buffer *protected-buffers*)
+    (with-current-buffer buffer
+      (emacs-lock-mode 'kill))))
+
+(add-hook 'after-init-hook 'my/protected-buffers)
 
 (setq safe-local-variable-values
   '(
@@ -344,11 +345,6 @@
         (lambda nil
            (flycheck-mode -1))
          t ))))
-
-;; (setq
-  ;; gc-cons-threshold 16777216
-  ;; gc-cons-percentage 0.1
-  ;; file-name-handler-alist my/file-name-handler-alist)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

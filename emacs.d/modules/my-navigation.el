@@ -1,32 +1,17 @@
 ;; (require 'tramp)
 (require 'recentf)
-(require 'ediff)
 
 (bind-key "C-c p" 'pop-to-mark-command)
-
-(setq set-mark-command-repeat-pop t)
-(setq default-directory "~/")
-(setq initial-buffer-choice t) ;; *scratch* as default buffer
-
-(setq
-  ediff-window-setup-function 'ediff-setup-windows-plain
-  ediff-forward-word-function 'forward-char)
 
 (when (display-graphic-p)
   (setq
     mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-    ;; mouse-wheel-progressive-speed nil
-    ;; mouse-wheel-follow-mouse t))
   (setq-default scroll-up-aggressively 0.01)
-  (setq redisplay-dont-pause t
+  (setq
+    redisplay-dont-pause t
     scroll-margin 1
     scroll-conservatively 10000
     scroll-preserve-screen-position nil))
-    ;; scroll-step 1
-  ;; (eval-after-load 'pixel-scroll
-  ;;   (setq
-  ;;     pixel-dead-time 0
-  ;;     pixel-resolution-fine-flag t))
 
 (setq
   scroll-step 1
@@ -36,16 +21,16 @@
 
 (eval-after-load 'recentf
   '(progn
-     (setq recentf-max-saved-items 200)
-     (setq recentf-max-menu-items 15)
+     (setq
+       recentf-max-saved-items 200
+       recentf-max-menu-items 15)
      (recentf-mode 1)))
 
 (when (eq system-type 'darwin)
   (use-package openwith
     :config
     (openwith-mode t)
-    (setq openwith-associations
-      '(("\\.pdf\\'" "open" (file))))))
+    (setq openwith-associations '(("\\.pdf\\'" "open" (file))))))
 
 (require 'help)
 (eval-after-load 'help
@@ -65,19 +50,17 @@
        ("y" . evil-yank)
        ("<S-tab>" . backward-button)
        ("gg" . evil-goto-first-line)
-       ("G" . evil-goto-line)))
-  )
+       ("G" . evil-goto-line))))
 
 (eval-after-load 'tramp
   '(progn
-     (setq tramp-default-method "ssh")
-     (setq tramp-inline-compress-start-size 40960)
-     (setq tramp-chunksize 500)
-     (setq tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
-     (setq tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-     (setq tramp-encoding-shell "/bin/sh")))
-
-(setq password-cache-expiry nil)
+     (setq
+       tramp-default-method "ssh"
+       tramp-inline-compress-start-size 40960
+       tramp-chunksize 500
+       tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/"
+       tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el"
+       tramp-encoding-shell "/bin/sh")))
 
 (use-package anzu
   :diminish anzu-mode
@@ -171,11 +154,13 @@
   :diminish ivy-mode
   :config
   (ivy-mode 1)
-  (bind-key "<return>" 'ivy-alt-done ivy-minibuffer-map)
-  (bind-key "C-M-h" 'ivy-previous-line-and-call ivy-minibuffer-map)
-  (bind-key "C-:" 'ivy-dired ivy-minibuffer-map)
-  (bind-key "C-c o" 'ivy-occur ivy-minibuffer-map)
-  (bind-key "C-'" 'ivy-avy ivy-minibuffer-map)
+  (bind-keys
+    :map ivy-minibuffer-map
+    ("<return>" . ivy-alt-done)
+    ("C-M-h" . ivy-previous-line-and-call)
+    ("C-:" . ivy-dired)
+    ("C-c o" . ivy-occur)
+    ("C-'" . ivy-avy))
 
   (defun ivy-dired ()
     (interactive)
@@ -214,40 +199,41 @@
       (lispy-alt-multiline)
       (insert "\n")))
 
-  (setq ivy-switch-buffer-faces-alist
+  (setq
+    ivy-switch-buffer-faces-alist
     '((emacs-lisp-mode . swiper-match-face-1)
        (dired-mode . ivy-subdir)
-       (org-mode . org-level-4)))
-
-  (setq ivy-height 15)
-  (setq ivy-use-selectable-prompt t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-use-virtual-buffer t)
-  (setq ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
+       (org-mode . org-level-4))
+    ivy-height 15
+    ivy-use-selectable-prompt t
+    ivy-count-format "(%d/%d) "
+    ivy-use-virtual-buffer t
+    ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
 
 (use-package counsel
   :config
-  (setq counsel-find-file-ignore-regexp "\\`\\.")
-  (setq counsel-grep-base-command "grep -E -n -i -e %s %s")
+  (setq
+    counsel-find-file-ignore-regexp "\\`\\."
+    counsel-grep-base-command "grep -E -n -i -e %s %s")
 
-  (bind-key "C-r" 'counsel-expression-history read-expression-map)
-  (bind-key "C-r" 'counsel-minibuffer-history read-expression-map)
-  (bind-key "M-x" 'counsel-M-x)
-  (bind-key "C-x C-f" 'counsel-find-file)
-  (bind-key "<f1> f" 'counsel-describe-function)
-  (bind-key "<f1> v" 'counsel-describe-variable)
-  (bind-key "<f1> l" 'counsel-find-library)
-  (bind-key "<f2> s" 'counsel-info-lookup-symbol)
-  (bind-key "<f2> u" 'counsel-unicode-char)
-  (bind-key "C-h f" 'counsel-describe-function)
-  (bind-key "C-h v" 'counsel-describe-variable)
-  (bind-key "C-h a" 'counsel-apropos)
-  (bind-key "C-x r b" 'counsel-bookmark)
-  ;; (bind-key "C-x b" 'counsel-ibuffer)
-  (bind-key "C-x b" 'counsel-switch-buffer)
-  (bind-key "C-x B" 'counsel-switch-buffer-other-window)
-  ;; (bind-key "C-x C-b" 'my/counsel-ibuffer-other-window)
-  (bind-key "C-x C-r" 'counsel-recentf)
+  (bind-keys
+    ("M-x" . counsel-M-x)
+    ("C-x C-f" . counsel-find-file)
+    ("<f1> f" . counsel-describe-function)
+    ("<f1> v" . counsel-describe-variable)
+    ("<f1> l" . counsel-find-library)
+    ("<f2> s" . counsel-info-lookup-symbol)
+    ("<f2> u" . counsel-unicode-char)
+    ("C-h f" . counsel-describe-function)
+    ("C-h v" . counsel-describe-variable)
+    ("C-h a" . counsel-apropos)
+    ("C-x r b" . counsel-bookmark)
+    ("C-x b" . counsel-switch-buffer)
+    ("C-x B" . counsel-switch-buffer-other-window)
+    ("C-x C-r" . counsel-recentf)
+    :map read-expression-map
+    ("C-r" . counsel-minibuffer-history)
+    ("C-r" . counsel-expression-history))
 
   (when (fboundp 'evil-mode)
     (bind-key "\\a" 'counsel-imenu  evil-motion-state-map))
@@ -263,33 +249,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       :caller 'counsel-ibuffer))
 
   (advice-add 'counsel-grep :around 'my/counsel-grep-fallback)
-  (ivy-set-display-transformer 'counsel-describe-function nil)
-
-  ;; (global-set-key (kbd "C-c g") 'counsel-git)
-  ;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  ;; (global-set-key (kbd "C-c k") 'counsel-ack)
-
-  ;; (setq counsel-grep-base-command "grep -niE %s %s")
-  ;; (setq counsel-grep-base-command
-  ;;   "rg -i -M 120 --no-heading --line-number --color never %s %s")
-  ;; (setq counsel-rg-base-command
-  ;;   "rg -i -M 120 --no-heading --line-number --color never %s .")
-  ;; (setq counsel-git-grep-cmd-default
-  ;;   (concat "git --no-pager grep --full-name -n --no-color -i -e '%s' -- './*' "
-  ;;     (mapconcat (lambda (x) (format "':!*.%s'" x))
-  ;;       '("htm" "so" "a" "TTC" "NDS" "png" "md5") " ")))
-  ;; (setq counsel-git-grep-projects-alist
-  ;;   (list
-  ;;     (cons "/home/oleh/Dropbox/source/site-lisp/"
-  ;;       (concat "/home/oleh/Dropbox/source/site-lisp/etc/git-multi-grep '%s' "
-  ;;         "/home/oleh/Dropbox/source/site-lisp 'git/*'"))
-  ;;     (cons "/home/oleh/git/ivy-dependencies/"
-  ;;       (concat "/home/oleh/Dropbox/source/site-lisp/etc/git-multi-grep '%s' "
-  ;;         "/home/oleh/git/ivy-dependencies '*'"))))
-  ;; (setq counsel-git-cmd "rg --files")
-  )
-
-;; (use-package swiper)
+  (ivy-set-display-transformer 'counsel-describe-function nil))
 
 (defun my/counsel-grep-fallback (orig-fun &rest args)
   "Fallback counsel-grep to evil-search-forward if exists if not search-forward."
@@ -319,21 +279,13 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 (use-package perspective
   :config
   (persp-mode)
-  (bind-key "C-x C-b" 'persp-counsel-switch-buffer)
-  (bind-key "C-x C-k" 'persp-kill-buffer*)
-  )
+  (bind-keys
+    ("C-x C-b" . persp-counsel-switch-buffer)
+    ("C-x C-k" . persp-kill-buffer*)))
 
 (use-package ag
   :config
   (setq ag-reuse-buffers t))
-
-;; (setq ediff-split-window-function
-;;   (if (> (frame-width) 150)
-;; 		'split-window-horizontally
-;; 		'split-window-vertically))
-
-;; (add-hook 'ediff-before-setup-hook 'new-frame)
-;; (add-hook 'ediff-quit-hook 'delete-frame)
 
 ;; Bring back window configuration after ediff quits
 (defvar my-ediff-bwin-config nil "Window configuration before ediff.")
@@ -366,26 +318,6 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (when my-ediff-bwin-config
     (set-window-configuration my-ediff-bwin-config)))
 
-;; (add-hook 'ediff-load-hook
-;; 	  (lambda ()
-;; 	    (add-hook 'ediff-before-setup-hook
-;; 		      (lambda ()
-;; 			      (setq ediff-saved-window-configuration (current-window-configuration))))
-;; 	    (let ((restore-window-configuration
-;; 		          (lambda ()
-;; 		            (set-window-configuration ediff-saved-window-configuration))))
-;; 	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
-;; 	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
-
-;; (add-hook 'ediff-startup-hook
-;; 	  (lambda ()
-;; 	    (select-frame-by-name "Ediff")
-;; 	    (set-frame-size(selected-frame) 40 10)))
-
-;; (add-hook 'ediff-before-setup-hook 'my-ediff-bsh)
-;; (add-hook 'ediff-after-setup-windows-hook 'my-ediff-ash 'append)
-;; (add-hook 'ediff-quit-hook 'my-ediff-qh)
-
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
@@ -410,13 +342,9 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 
 (windmove-default-keybindings)
-(setq windmove-wrap-around t)
-(setq framemove-hook-into-windmove t)
-
-;; https://gist.github.com/magnars/2350388
-;; Set mark to make it easy to jump back.
-(defadvice ido-imenu (before push-mark activate)
-  (push-mark))
+(setq
+  windmove-wrap-around t
+  framemove-hook-into-windmove t)
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
@@ -479,11 +407,12 @@ point reaches the beginning or end of the buffer, stop there."
     (windmove-right)
     (evil-jump-to-tag)))
 
-(bind-key "C-x |" 'my/toggle-window-split)
-(bind-key "C-x C-c" 'my/save-buffers-kill-terminal)
-(bind-key [remap move-beginning-of-line] 'my/smarter-move-beginning-of-line)
-(bind-key "<s-right>" 'ns-next-frame)
-(bind-key "<s-left>" 'ns-prev-frame)
+(bind-keys
+  ("C-x |" . my/toggle-window-split)
+  ("C-x C-c" . my/save-buffers-kill-terminal)
+  ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
+  ("<s-right>" . ns-next-frame)
+  ("<s-left>" . ns-prev-frame))
 
 (unbind-key "s-l")
 

@@ -270,6 +270,8 @@
        user-mail-address)
      (add-hook 'mu4e-compose-pre-hook 'my/mu4e-set-account)
 
+     (add-hook 'mu4e-main-mode-hook (lambda () (mu4e-update-mail-and-index t)))
+
      (advice-add 'mu4e-message :around 'my/advice-around-skip)
 
      (defalias 'mu 'mu4e)

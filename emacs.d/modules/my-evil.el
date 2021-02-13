@@ -177,9 +177,6 @@
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
   (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
 
-  ;; (setq evil-motion-state-modes (append evil-emacs-state-modes evil-motion-state-modes))
-  ;; (setq evil-emacs-state-modes nil)
-
   (evil-declare-change-repeat 'company-complete)
 
   (with-eval-after-load 'edebug
@@ -323,7 +320,9 @@
 (use-package undo-fu
   :after evil
   :config
-  (bind-key "u" 'undo-fu-only-undo evil-normal-state-map)
-  (bind-key "C-r" 'undo-fu-only-redo evil-normal-state-map))
+  (bind-keys
+    :map evil-normal-state-map
+    ("u" . undo-fu-only-undo)
+    ("C-r" . undo-fu-only-redo)))
 
 (provide 'my-evil)

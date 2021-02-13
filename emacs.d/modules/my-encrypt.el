@@ -4,7 +4,6 @@
      (require 'epa-file)
      (require 'epg-config)
      ;; (setenv "GPG_AGENT_INFO" nil)
-     (setq epa-file-encrypt-to "adamfaryna@gmail.com")
      ;; (setq epa-pinentry-mode 'loopback)
      (setq epa-file-cache-passphrase-for-symmetric-encryption t)
 

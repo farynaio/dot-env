@@ -21,8 +21,7 @@
        erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
                                   "324" "329" "332" "333" "353" "477")
        erc-hide-list '("JOIN" "PART" "QUIT")
-       erc-lurker-hide-list '("JOIN" "PART" "QUIT")
-       )
+       erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
 
      (add-to-list 'erc-modules 'autojoin)
      (add-to-list 'erc-modules 'button)
@@ -82,8 +81,7 @@
              (user-error "The current buffer is not a channel")))
          (user-error "You must first start ERC")))
 
-     (defalias 'irc 'my/erc-start-or-switch)
-     ))
+     (defalias 'irc 'my/erc-start-or-switch)))
 
 (use-package erc-image
   :after erc)

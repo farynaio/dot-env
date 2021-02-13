@@ -8,8 +8,10 @@
 
 (use-package all-the-icons
   :config
-  (when (not (file-exists-p (expand-file-name "~/Library/Fonts/all-the-icons.ttf")))
-    (all-the-icons-install-fonts))
+  (unless (find-font (font-spec :name "all-the-icons"))
+            (all-the-icons-install-fonts t))
+  ;; (when (not (file-exists-p (expand-file-name "~/Library/Fonts/all-the-icons.ttf")))
+  ;;   (all-the-icons-install-fonts))
 
   (defun my/vc-mode-line ()
     (let* (
