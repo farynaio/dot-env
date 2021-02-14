@@ -9,6 +9,7 @@
 (require 'org-checklist)
 (require 'org-table-cell-move)
 (require 'org-protocol)
+(require 'org-link-archive)
 
 (make-directory my/org-base-path t)
 
@@ -155,61 +156,53 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (eval-after-load 'org
   '(progn
-     (setq org-startup-with-inline-images nil)
-     (setq org-blank-before-new-entry '((heading . t) (plain-list-item . nil)))
-     (setq org-hide-emphasis-markers t)
-     (setq org-agenda-start-with-log-mode t)
-     (setq org-src-preserve-indentation t)
-     ;; (setq org-list-end-re "^$")
-     (setq org-list-demote-modify-bullet
+     (setq
+       org-startup-with-inline-images nil
+       org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
+       org-hide-emphasis-markers t
+       org-agenda-start-with-log-mode t
+       org-src-preserve-indentation t
+       ;; (setq org-list-end-re "^$")
+       org-list-demote-modify-bullet
        '(
           ("+" . "-")
           ("-" . "+")
-          ("1." . "-")
-          ))
+          ("1." . "-")))
 
-     (bind-key "C-c l"         'org-store-link                      org-mode-map)
-     (bind-key "C-."           'imenu-anywhere                      org-mode-map)
-     (bind-key "C-c C-x a"     'org-archive-subtree-default         org-mode-map)
-     (bind-key "M-}"           'forward-paragraph                   org-mode-map)
-     (bind-key "M-{"           'backward-paragraph                  org-mode-map)
-     (bind-key "C-M-<up>"      'org-table-move-single-cell-up       org-mode-map)
-     (bind-key "C-M-<down>"    'org-table-move-single-cell-down     org-mode-map)
-     (bind-key "C-M-<left>"    'org-table-move-single-cell-left     org-mode-map)
-     (bind-key "C-M-<right>"   'org-table-move-single-cell-right    org-mode-map)
-     (bind-key "<S-tab>"       'my/outline-hide-subtree             org-mode-map)
-     (bind-key "<M-up>"        'my/org-metaup                       org-mode-map)
-     (bind-key "<M-down>"      'my/org-metadown                     org-mode-map)
-     (bind-key "C-c c"         'org-capture)
-     (bind-key "C-c a"         'org-agenda)
-     (bind-key "C-x a"         'org-agenda)
-     (bind-key "C-c l"         'org-store-link)
-     (bind-key "C-c L"         'org-insert-link-global)
-     (bind-key "C-c j"          'org-clock-goto) ;; jump to current task from anywhere
-     (bind-key "C-c C-o"        'org-open-at-point-global)
-
-     ;; (bind-key "<tab>"         #'org-cycle                           org-mode-map)
-
-     (bind-key "C-x ," #'my/hydra-org/body org-mode-map)
-     (bind-key "C-x C-," #'my/hydra-org/body org-mode-map)
+     (bind-keys
+       ("C-c c" . org-capture)
+       ("C-c a" . org-agenda)
+       ("C-x a" . org-agenda)
+       ("C-c l" . org-store-link)
+       ("C-c L" . org-insert-link-global)
+       ("C-c j" . org-clock-goto) ;; jump to current task from anywhere
+       ("C-c C-o" . org-open-at-point-global)
+       :map org-mode-map
+       ("C-c l" . org-store-link)
+       ("C-c C-x a" . org-archive-subtree-default)
+       ("M-}" . forward-paragraph)
+       ("M-{" . backward-paragraph)
+       ("C-M-<up>" . org-table-move-single-cell-up)
+       ("C-M-<down>" . org-table-move-single-cell-down)
+       ("C-M-<left>" . org-table-move-single-cell-left)
+       ("C-M-<right>" . org-table-move-single-cell-right)
+       ("<S-tab>" . my/outline-hide-subtree)
+       ("<M-up>" . my/org-metaup)
+       ("<M-down>" . my/org-metadown)
+       ("C-x ," . my/hydra-org/body)
+       ("C-x C-," . my/hydra-org/body)
+       ("<S-mouse-1>" . browse-url-generic)
+       ([remap backward-paragraph] . nil)
+       ([remap forward-paragraph] . nil)
+       ("C-x :" . (lambda () (interactive) (save-excursion (org-back-to-heading) (org-set-tags))))
+       )
 
      (unbind-key "C-'" org-mode-map)
      (unbind-key "C-," org-mode-map)
-
-     (bind-key [remap backward-paragraph] nil org-mode-map)
-     (bind-key [remap forward-paragraph] nil org-mode-map)
-
-     (bind-key "C-x :"
-       (lambda ()
-         (interactive)
-         "Insert tags in a capture window without losing the point"
-         (save-excursion
-           (org-back-to-heading)
-           (org-set-tags))))
-     (unbind-key "C-c $"       org-mode-map) ; removed archive subtree shortcut
+     (unbind-key "C-c $" org-mode-map) ; removed archive subtree shortcut
      (unbind-key "C-c C-x C-a" org-mode-map) ; remove archive subtree default shortcut
      (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
-     (unbind-key "C-c C-x A"   org-mode-map) ; remove archive to archive siblings shortcut
+     (unbind-key "C-c C-x A" org-mode-map) ; remove archive to archive siblings shortcut
 
      (diminish 'org-indent-mode)
 
@@ -232,10 +225,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (add-hook 'org-agenda-mode-hook 'jarfar/org-tasks-refile-targets-local)
 
      ;; org mode conflicts resolution: windmove
-     (add-hook 'org-shiftup-final-hook 'windmove-up)
+     (add-hook 'org-shiftup-final-hook #'windmove-up)
      ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
      ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
-     (add-hook 'org-shiftright-final-hook 'windmove-right)
+     (add-hook 'org-shiftright-final-hook #'windmove-right)
 
      (advice-add #'org-refile :after
        (lambda (&rest args) (org-save-all-org-buffers)))
@@ -248,13 +241,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (add-hook 'org-mode-hook
        (lambda ()
-         (setq-local paragraph-start "[:graph:]+$")
-         (setq-local paragraph-separate "[:space:]*$")
-
-
-         (if (bound-and-true-p evil-mode)
-           (bind-key "C-c n" 'org-next-visible-heading evil-visual-state-local-map)
-           (bind-key "C-c p" 'org-previous-visible-heading evil-visual-state-local-map))))
+         (setq-local
+           paragraph-start "[:graph:]+$"
+           paragraph-separate "[:space:]*$")))
 
      ;; refresh agenda after adding new task via org-capture
      (add-hook 'org-capture-after-finalize-hook
@@ -266,18 +255,20 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (eval-after-load 'org-agenda
   '(progn
-     (bind-key "C-c C-c"  #'org-agenda-set-tags         org-agenda-mode-map)
-     (bind-key "C-d"      #'evil-scroll-down            org-agenda-mode-map)
-     (bind-key "C-u"      #'evil-scroll-up              org-agenda-mode-map)
-     (bind-key "s-t"      #'make-frame-command          org-agenda-mode-map)
-     (bind-key "n"        #'evil-search-next            org-agenda-mode-map)
-     (bind-key "N"        #'evil-search-previous        org-agenda-mode-map)
-     (bind-key "*"        #'evil-search-word-forward    org-agenda-mode-map)
-     (bind-key "'"        #'org-agenda-filter-by-tag    org-agenda-mode-map)
+     (bind-keys
+       :map org-agenda-mode-map
+       ("C-c C-c" . org-agenda-set-tags)
+       ("C-d" . evil-scroll-down)
+       ("C-u" . evil-scroll-up)
+       ("s-t" . make-frame-command)
+       ("n" . evil-search-next)
+       ("N" . evil-search-previous)
+       ("*" . evil-search-word-forward)
+       ("'" . org-agenda-filter-by-tag)
+       ("\w" . avy-goto-word-or-subword-1)
+       ("\c" . avy-goto-word-or-subword-1))
 
      (unbind-key "\\" org-agenda-mode-map)
-     (bind-key "\\w"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
-     (bind-key "\\c"      #'avy-goto-word-or-subword-1  org-agenda-mode-map)
 
      (add-hook 'org-agenda-mode-hook
        (lambda ()
@@ -296,14 +287,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (use-package japanese-holidays)
 (setq english-holidays
   '(
-    (holiday-fixed  3 30 "(bank) Good Friday")
-    (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
-    (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
-    (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
-    (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
-    (holiday-fixed  8 27 "(bank) Spring bank holiday")
-    (holiday-fixed  9 31 "(bank) Summer bank holiday")
-    (holiday-fixed 12 25 "(bank) Christmas Day")
+     (holiday-fixed  3 30 "(bank) Good Friday")
+     (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
+     (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
+     (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
+     (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
+     (holiday-fixed  8 27 "(bank) Spring bank holiday")
+     (holiday-fixed  9 31 "(bank) Summer bank holiday")
+     (holiday-fixed 12 25 "(bank) Christmas Day")
      (holiday-fixed 12 28 "(bank) Boxing Day")))
 
 (setq polish-holidays

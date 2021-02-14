@@ -1,3 +1,4 @@
+;; (setq debug-on-error t)
 ;; (setq debug-on-quit nil)
 
 (setq file-name-handler-alist nil)
@@ -8,6 +9,8 @@
 (setq read-process-output-max (* 1024 1024))
 ;; (setq gc-cons-threshold 402653184)
 ;; (setq gc-cons-percentage 0.6)
+
+(find-file "~/.emacs.d/init.el")
 
 (defun farynaio/debug-on-error-toggle ()
   (interactive)
@@ -256,8 +259,6 @@
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
 
 (defun jarfar/open-buffers-on-startup ()
-  (find-file "~/.emacs.d/init.el")
-
   (if (file-exists-p my/dashboard-file-path)
     (find-file my/dashboard-file-path)
     (switch-to-buffer "*scratch*")))

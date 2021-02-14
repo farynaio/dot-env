@@ -223,6 +223,10 @@
     (kbd "<tab>") 'org-cycle
     (kbd "TAB")   'org-cycle)
 
+  (evil-define-key 'visual org-mode-map
+    "C-c n" 'org-next-visible-heading
+    "C-c p" 'org-previous-visible-heading)
+
   (evil-define-key '(visual normal) org-mode-map
     ",t"  'my/google-translate-at-point)
 

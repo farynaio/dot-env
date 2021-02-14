@@ -36,47 +36,52 @@
 (use-package w3m
   :config
   (setq
-    w3m-use-cookies t
+    w3m-use-cookies nil
+    w3m-use-favicon nil
     mm-text-html-renderer 'w3m
+    w3m-search-default-engine "duckduckgo"
+    w3m-delete-duplicated-empty-lines t
     w3m-coding-system 'utf-8
+    w3m-default-coding-system 'utf-8
     w3m-file-coding-system 'utf-8
     w3m-file-name-coding-system 'utf-8
     w3m-input-coding-system 'utf-8
     w3m-output-coding-system 'utf-8
-    w3m-search-default-engine "duckduckgo"
     w3m-terminal-coding-system 'utf-8
     w3m-display-mode 'tabbed
     w3m-default-display-inline-images nil
     w3m-confirm-leaving-secure-page nil
     w3m-new-session-in-background t
     w3m-new-session-url "about:"
-    ;; w3m-type 'w3mmee
     w3m-type 'w3m-m17n
     ;; w3m-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0"
     )
 
+  (setq browse-url-browser-function
+    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+       ("." . my/w3m-goto-frame)))
+
+  ;; w3m-goto-url-new-session
+
   (bind-keys
     :map w3m-mode-map
-    ("C-w =" . balance-windows)
     ("M-h" . my/w3m-history-full)
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
     ("I" . my/w3m-view-image-generic-browser)
     ("O" . my/w3m-open-in-external)
-    ("C-w v" . evil-window-vsplit)
-    ("C-w C-v" . evil-window-vsplit)
+    ("C-w" . w3m-delete-buffer)
+    ;; ("C-w v" . evil-window-vsplit)
+    ;; ("C-w C-v" . evil-window-vsplit)
+    ;; ("C-w =" . balance-windows)
+    ;; ("C-w |" . evil-window-set-width)
     ("<right>" . w3m-view-next-page)
     ("C-c C-t" . w3m-create-empty-session)
     ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
     ("C-c C-e" . my/w3m-goto-new-session-url))
 
-  (add-hook 'w3m-mode-hook 'iscroll-mode)
-
-  (when (fboundp 'evil-mode)
-    (bind-keys
-      :map w3m-mode-map
-      ("C-w |" . evil-window-set-width)))
+  (add-hook 'w3m-mode-hook #'iscroll-mode)
 
   (defun my/w3m-goto-new-session-url (&optional reload)
     "Open `w3m-new-session-url' in a new session."
@@ -85,10 +90,6 @@
       (message "This command can be used in w3m mode only")
       (let ((w3m-new-session-in-background nil))
         (w3m-goto-url-new-session w3m-new-session-url reload))))
-
-  (setq browse-url-browser-function
-    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
-       ("." . w3m-goto-url-new-session)))
 
   (defun my/w3m-open-in-external-click (event)
     (interactive "e")
@@ -146,7 +147,8 @@
         (list nil (region-beginning) (region-end))
         (list (read-string "Search phrase: "))))
     (let ((w3m-alive (w3m-alive-p))
-           (query (if query query (buffer-substring-no-properties from to))))
+           (query (if query query (buffer-substring-no-properties from to)))
+           (w3m-new-session-in-background nil))
       (switch-to-buffer-other-window w3m-alive)
       (if w3m-alive
         (progn
@@ -160,7 +162,8 @@
         (list nil (region-beginning) (region-end))
         (list (read-string "Search phrase: "))))
     (let ((w3m-alive (w3m-alive-p))
-           (query (if query query (buffer-substring-no-properties from to))))
+           (query (if query query (buffer-substring-no-properties from to)))
+           (w3m-new-session-in-background nil))
       (switch-to-buffer-other-frame w3m-alive)
       (if w3m-alive
         (progn
@@ -168,9 +171,10 @@
           (w3m-search-new-session w3m-search-default-engine query))
         (w3m-search w3m-search-default-engine query))))
 
-  (defun my/w3m-goto-frame (url)
+  (defun my/w3m-goto-frame (url &rest args)
     (interactive (list (read-string "URL: ")))
-    (let ((w3m-alive (w3m-alive-p)))
+    (let ((w3m-alive (w3m-alive-p))
+           (w3m-new-session-in-background nil))
       (switch-to-buffer-other-frame w3m-alive)
       (unless w3m-alive
         (w3m))
