@@ -1363,12 +1363,6 @@ should be continued."
 - English
   -
 
-- what I did today
-  -
-
-- changes to make
-  -
-
 ")))
 
   (setq org-roam-capture-templates
