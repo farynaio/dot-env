@@ -257,7 +257,10 @@
 
 (defun jarfar/open-buffers-on-startup ()
   (find-file "~/.emacs.d/init.el")
-  (switch-to-buffer "*scratch*"))
+
+  (if (file-exists-p my/dashboard-file-path)
+    (find-file my/dashboard-file-path)
+    (switch-to-buffer "*scratch*")))
 
 (savehist-mode 1)
 
