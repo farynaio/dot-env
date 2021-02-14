@@ -163,6 +163,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        org-agenda-start-with-log-mode t
        org-src-preserve-indentation t
        ;; (setq org-list-end-re "^$")
+       org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")
+                                   (todo . " %i %-12:c")
+                                   (tags . " %i %-12:c")
+                                   (search . " %i %-12:c"))
        org-list-demote-modify-bullet
        '(
           ("+" . "-")
@@ -604,7 +608,7 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -614,7 +618,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer nil)
@@ -624,7 +628,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -634,7 +638,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:00|0:15|0:30|1:00|2:00|4:00}
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
