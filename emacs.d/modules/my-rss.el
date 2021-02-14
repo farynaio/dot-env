@@ -7,6 +7,7 @@
           ("S-SPC" . elfeed-scroll-down-command)
           ("B" . my/elfeed-show-visit)
           ("<mouse-1>" . my/elfeed-shr-open-click)
+          ("<s-mouse-1>" . my/elfeed-shr-open-click)
           ("<S-mouse-1>" . my/elfeed-shr-open-click-external)
           :map shr-map
           ("RET" . my/elfeed-shr-open)
@@ -28,6 +29,7 @@
           ("r" . jarfar/elfeed-mark-read-move-next)
           ("u" . jarfar/elfeed-mark-unread-move-next)
           ("O" . my/elfeed-open-in-external-browser)
+          ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
   (setq
@@ -35,6 +37,20 @@
     elfeed-search-title-max-width 115
     elfeed-search-remain-on-entry t
     elfeed-web-limit 500))
+
+(defun my/elfeed-search-open-in-external-click (event)
+  "Open link with w3m"
+  (interactive "e")
+  (mouse-set-point event)
+  (let ((urls (list))
+         (entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+             do (elfeed-untag entry 'unread)
+             when (elfeed-entry-link entry)
+             do (push it urls))
+    (mapc 'elfeed-search-update-entry entries)
+    (dolist (url urls)
+      (browse-url-generic url))))
 
 ;; based on shr-browse-url
 (defun my/elfeed-shr-open-click (event)
