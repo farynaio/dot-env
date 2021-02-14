@@ -95,7 +95,7 @@
             (seq-find
               (lambda (w) (and (not (eq w (selected-window))) (eq (current-buffer) (window-buffer w))))
               (window-list-1))))
-    (if buffer
+    (if (or buffer (file-regular-p new-dir))
       (find-file new-dir)
       (find-alternate-file new-dir))))
 
