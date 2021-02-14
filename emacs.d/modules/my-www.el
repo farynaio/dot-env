@@ -76,13 +76,20 @@
     ;; ("C-w C-v" . evil-window-vsplit)
     ;; ("C-w =" . balance-windows)
     ;; ("C-w |" . evil-window-set-width)
+    ("s-}" . w3m-next-buffer)
+    ("s-{" . w3m-previous-buffer)
     ("<right>" . w3m-view-next-page)
-    ("C-c C-t" . w3m-create-empty-session)
+    ("C-c C-t" . farynaio/w3m-create-empty-session)
+    ("C-t t" . farynaio/w3m-create-empty-session)
     ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
     ("C-c C-e" . my/w3m-goto-new-session-url))
 
   (add-hook 'w3m-mode-hook #'iscroll-mode)
+
+  (defun farynaio/w3m-create-empty-session ()
+    (interactive)
+    (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
 
   (defun my/w3m-goto-new-session-url (&optional reload)
     "Open `w3m-new-session-url' in a new session."
