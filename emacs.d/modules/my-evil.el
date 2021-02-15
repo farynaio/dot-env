@@ -192,15 +192,6 @@
       (kbd "<down>") 'evil-next-visual-line
       (kbd "<up>")   'evil-previous-visual-line))
 
-  (bind-key "C-c w t"
-    (lambda ()
-      (interactive)
-      "Move current window to new frame."
-      (let ((buffer (current-buffer)))
-        (unless (one-window-p)
-          (delete-window))
-        (display-buffer-pop-up-frame buffer nil)))
-    evil-normal-state-map)
 
   (evil-define-key '(motion emacs normal) mu4e:view-mode-map
     "C-d" 'evil-scroll-down

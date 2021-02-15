@@ -68,7 +68,17 @@
      (push '(?\' . ?\') electric-pair-text-pairs)
      (push '(?\` . ?\`) electric-pair-text-pairs)))
 
-(use-package hydra)
+(use-package org-pomodoro)
+
+(use-package wiki-summary)
+
+(use-package hungry-delete
+  :diminish hungry-delete-mode
+  :init
+  (setq-default hungry-delete-join-reluctantly t)
+  :config
+  (global-hungry-delete-mode))
+
 (use-package with-editor)  ; dependency for other package
 
 (use-package emojify

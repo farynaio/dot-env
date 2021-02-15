@@ -58,6 +58,10 @@
 ;;       (lambda ()
 ;;         (setq-local indent-line-function 'insert-tab)))))
 
+(use-package electric-operator
+  :diminish electric-operator-mode
+  :commands electric-operator-mode)
+
 (use-package ledger-mode
   :hook (ledger-mode . company-mode)
   :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
@@ -526,9 +530,10 @@ $0`(yas-escape-text yas-selected-text)`"))
   (abbrev-mode -1)
   (flyspell-mode -1)
   (hl-line-mode 1)
-  (show-paren-mode 1))
+  (show-paren-mode 1)
+  (electric-operator-mode 1))
 
-(add-hook 'prog-mode-hook 'my/prog-mode-hook)
+(add-hook 'prog-mode-hook #'my/prog-mode-hook -50)
 
 (defun my/breadcrumb-set-local ()
   (when buffer-file-name
@@ -555,6 +560,7 @@ $0`(yas-escape-text yas-selected-text)`"))
   (lambda ()
     (setq mode-name "Elisp")
     (flycheck-mode -1)
+    (electric-operator-mode -1)
     (eldoc-mode 1)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))
 

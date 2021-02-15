@@ -221,10 +221,49 @@
 (when (not (executable-find "w3m"))
   (message (concat "Executable 'w3m' not found!")))
 
+(use-package engine-mode
+  :defer 3
+  :config
+  (defengine amazon
+    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
+    :keybinding "a")
+
+  (defengine duckduckgo
+    "https://duckduckgo.com/?q=%s"
+    :keybinding "d")
+
+  (defengine github
+    "https://github.com/search?ref=simplesearch&q=%s"
+    :keybinding "g")
+
+  (defengine google-images
+    "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s"
+    :keybinding "i")
+
+  (defengine google-maps
+    "http://maps.google.com/maps?q=%s"
+    :keybinding "m"
+    :docstring "Mappin' it up.")
+
+  (defengine stack-overflow
+    "https://stackoverflow.com/search?q=%s"
+    :keybinding "s")
+
+  (defengine youtube
+    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
+    :keybinding "y")
+
+  (defengine wikipedia
+    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+    :keybinding "w"
+    :docstring "Searchin' the wikis.")
+  (engine-mode t))
+
 (defhydra my/hydra-browser ()
   "WWW browser shorcuts"
-  ("s" my/w3m-search-new-session "search" :exit t)
-  ("S" my/w3m-search-frame "search in frame" :exit t)
+  ;; ("s" my/w3m-search-new-session "search" :exit t)
+  ("s" my/w3m-search-frame "search" :exit t)
+  ;; ("S" my/w3m-search-frame "search in frame" :exit t)
   ("g" w3m-goto-url-new-session "go to" :exit t)
   ("G" my/w3m-goto-frame "go to in frame" :exit t)
   ("W" my/w3m-open-frame "open browser in frame" :exit t)

@@ -201,15 +201,16 @@
 (defvar my-cleanup-activate nil)
 (defvar my-rss-activate nil)
 (defvar my-org-caldav-activate nil)
-(defvar my-taskjuggler nil)
-(defvar my-git nil)
-(defvar my-python nil)
-(defvar my-php nil)
+(defvar my-taskjuggler-activate nil)
+(defvar my-git-activate nil)
+(defvar my-python-activate nil)
+(defvar my-php-activate nil)
+(defvar my-hydra-activate nil)
 
 (setq
   my-utils-activate t
   my-edit-activate t
-  my-git t
+  my-git-activate t
   my-evil-activate t
   my-navigation-activate t
   my-org-activate t
@@ -226,15 +227,16 @@
   my-cleanup-activate t
   my-rss-activate t
   my-org-caldav-activate nil
-  my-taskjuggler nil
-  my-python t
-  my-php t
+  my-taskjuggler-activate nil
+  my-python-activate t
+  my-php-activate t
+  my-hydra-activate t
   )
 
 (when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
 (when my-edit-activate (require 'my-edit))
-(when my-git (require 'my-git))
+(when my-git-activate (require 'my-git))
 (when my-encrypt-activate (require 'my-encrypt))
 (when my-navigation-activate (require 'my-navigation))
 (when my-theme-activate (require 'my-theme))
@@ -245,14 +247,15 @@
 (when my-dired-activate (require 'my-dired))
 (when my-cleanup-activate (require 'my-cleanup))
 (when my-devel-activate (require 'my-devel))
-(when my-python (require 'my-python))
-(when my-php (require 'my-php))
+(when my-hydra-activate (require 'my-hydra))
+(when my-python-activate (require 'my-python))
+(when my-php-activate (require 'my-php))
 (when my-shell-activate (require 'my-shell))
 (when my-rss-activate (require 'my-rss))
 (when my-email-activate (require 'my-email))
 (when my-www-activate (require 'my-www))
 (when my-irc-activate (require 'my-irc))
-(when my-taskjuggler (require 'my-taskjuggler))
+(when my-taskjuggler-activate (require 'my-taskjuggler))
 
 (server-start)
 

@@ -50,6 +50,12 @@
 (setq my/org-quotes-file-path (expand-file-name "quotes.org" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
 
+(setq my/path-coaching-dir (expand-file-name "coaching" my/org-base-path))
+(setq my/path-coaching-bucketlist (expand-file-name "bucket_list.org" my/path-coaching-dir))
+(setq my/path-coaching-goals-details (expand-file-name "goals details" my/path-coaching-dir))
+(setq my/path-coaching-wheel-of-life (expand-file-name "wheel of life.org" my/path-coaching-dir))
+(setq my/path-coaching-brainstorm (expand-file-name "brainstorm.org" my/path-coaching-dir))
+
 ;; Projects
 (setq my/org-project-become-confident-pua (expand-file-name "become_confident_pua.org" my/org-projects-folder))
 (setq my/org-project-trip-nottingham (expand-file-name "trip_to_nottingham.org" my/org-projects-folder))

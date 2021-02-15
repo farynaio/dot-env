@@ -44,6 +44,9 @@
   ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
   (projectile-mode 1))
 
+(use-package counsel-projectile
+  :after projectile ivy)
+
   ;; (add-hook 'after-init-hook
   ;;           (lambda ()
   ;;             (mapc (lambda (project-root)
