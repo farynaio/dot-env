@@ -28,9 +28,12 @@
 (setq my/org-temp-file-path (expand-file-name "temp.org" org-agenda-directory))
 (setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe_someday.org" org-agenda-directory))
 
-(setq my/org-languages-file-path (expand-file-name "languages.org" my/fast-path))
-(setq my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path))
-(setq my/org-goals-file-path (expand-file-name "goals.org" my/fast-path))
+(setq
+  my/affirmations-file-path (expand-file-name "affirmations.org" my/fast-path)
+  my/japanese-file-path (expand-file-name "japanese.org" my/fast-path)
+  my/org-languages-file-path (expand-file-name "languages.org" my/fast-path)
+  my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path)
+  my/org-goals-file-path (expand-file-name "goals.org" my/fast-path))
 
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-directory))
 (setq my/org-diet-log-file-path (expand-file-name "health/diet.org" org-directory))
@@ -50,11 +53,16 @@
 (setq my/org-quotes-file-path (expand-file-name "quotes.org" org-directory))
 (setq my/org-projects-folder (expand-file-name "projects" my/org-base-path))
 
-(setq my/path-coaching-dir (expand-file-name "coaching" my/org-base-path))
-(setq my/path-coaching-bucketlist (expand-file-name "bucket_list.org" my/path-coaching-dir))
-(setq my/path-coaching-goals-details (expand-file-name "goals details" my/path-coaching-dir))
-(setq my/path-coaching-wheel-of-life (expand-file-name "wheel of life.org" my/path-coaching-dir))
-(setq my/path-coaching-brainstorm (expand-file-name "brainstorm.org" my/path-coaching-dir))
+(setq
+  my/path-coaching-dir (expand-file-name "coaching" my/org-base-path)
+  my/path-coaching-bucketlist (expand-file-name "bucket_list.org" my/path-coaching-dir)
+  my/path-coaching-goals-details (expand-file-name "goals details" my/path-coaching-dir)
+  my/path-coaching-wheel-of-life (expand-file-name "wheel of life.org" my/path-coaching-dir)
+  my/path-coaching-brainstorm (expand-file-name "brainstorm.org" my/path-coaching-dir))
+
+(setq
+  my/path-health-dir-path (expand-file-name "health" org-directory)
+  my/path-health-exercises-path (expand-file-name "exercises.org" my/path-health-dir-path))
 
 ;; Projects
 (setq my/org-project-become-confident-pua (expand-file-name "become_confident_pua.org" my/org-projects-folder))
@@ -72,7 +80,12 @@
 ;; (setq my/org-project-change-hosting-provider (expand-file-name "change_hosting_provider.org.gpg" my/org-projects-folder))
 ;; (setq my/org-project-launch-diy-app (expand-file-name "launch_diy_app.org.gpg" my/org-projects-folder))
 
-(setq my/org-ledger-base-path (expand-file-name "ledger" my/org-base-path))
+(setq
+  my/ledger-base-path (expand-file-name "ledger" my/org-base-path)
+  my/ledger-personal-path (expand-file-name "private.ledger.gpg" my/ledger-base-path)
+  my/ledger-company-dir-path (expand-file-name "appdy" my/ledger-base-path)
+  my/ledger-company-report-path (expand-file-name "appdy_report.org.gpg" my/ledger-company-dir-path))
+
 (setq my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
 
 (provide 'my-path)

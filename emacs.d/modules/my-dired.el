@@ -23,14 +23,15 @@
      (require 'org-link-archive)
 
      (setq
-       find-name-arg "-iregex"
+       find-name-arg "-iname" ;; -iregex
        dired-dwim-target t
        dired-use-ls-diredto nil
        dired-recursive-copies 'always
        dired-recursive-deletes 'always
        dired-listing-switches "-alh"
        dired-deletion-confirmer 'y-or-n-p
-       dired-clean-confirm-killing-deleted-buffer nil
+       dired-auto-revert-buffer t
+       dired-clean-confirm-killing-deleted-buffers nil
        dired-hide-details-mode 1
        dired-guess-shell-alist-user
        '(("\\.pdf\\'" "open")
@@ -47,7 +48,12 @@
        ("<" . beginning-of-buffer)
        (">" . end-of-buffer)
        ("W" . my/dired-copy-dirname-as-kill)
-       ("RET" . farynaio/dired-go-up-reuse)
+       ("k" . (lambda () (interactive) (dired-do-kill-lines t)))
+       ("r" . my/rgrep)
+       ("C-w =" . balance-windows)
+       ("C-w |" . maximize-window)
+       ("C-w q" . quit-window)
+       ;; ("RET" . dired-find-file)
        ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
 
      (when (bound-and-true-p evil-mode)

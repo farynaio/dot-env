@@ -16,8 +16,6 @@
   (evil-mode 1)
 
   (bind-keys
-    ("C-d" . evil-scroll-down)
-    ("C-u" . evil-scroll-up)
     ("C-f" . universal-argument)
     :map universal-argument-map
     ("C-f" . universal-argument-more)
@@ -175,6 +173,7 @@
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
   (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
 
   (evil-declare-change-repeat 'company-complete)
 

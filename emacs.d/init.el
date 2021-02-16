@@ -410,3 +410,4 @@
  '(hl-line ((t (:background "gray32"))))
  '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
  '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8")))))
+(put 'dired-find-alternate-file 'disabled nil)
