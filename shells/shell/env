@@ -11,6 +11,8 @@ export ENV="~/.sh/interactive"
 # (unlike $ENV, which is for interactive shells)
 export BASH_ENV="~/.bash/env"
 
+export NVM_DIR="$HOME/.nvm"
+
 PATH="/usr/local/bin:$PATH"
 # PATH="$HOME/.composer/vendor/bin:$PATH"
 # PATH="/opt/local/bin:/opt/local/sbin:$PATH"

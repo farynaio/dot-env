@@ -140,8 +140,4 @@ unsetopt share_history
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
 
-export NVM_DIR="$HOME/.nvm"
 
-if [ -s ~/.zshrc_local ]; then
-  . ~/.zshrc_local
-fi

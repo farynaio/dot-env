@@ -127,51 +127,14 @@ fi
 #   alias ls='/usr/local/bin/gls --color -h --group-directories-first -1v'
 # fi
 
-# if $(command_exists "mysqld_safe"); then
-  alias start_mysql='mysqld_safe &'
-  alias stop_mysql='mysqladmin shutdown'
-# fi
-
-# if $(command_exists "rbenv"); then
-#   alias taskjuggler='$HOME/.rbenv/versions/`rbenv global`/bin/tj3 '
-# fi
-
-# if $(command_exists "vim"); then
-  alias vi="vim "
-# fi
-
-
-# if $(command_exists "zsh"); then
-  # alias z="zsh "
-# fi
-
-# if $(command_exists "git"); then
-  alias g="git "
-# fi
-
-# if $(command_exists "yarn"); then
-#   alias y="yarn "
-# fi
-
-# if $(command_exists "tmux"); then
-#   alias ta="TERM=screen-256color-bce tmux -2 attach || TERM=screen-256color-bce tmux new -s "
-#   alias tnew="TERM=screen-256color-bce tmux -2 new -s "
-#   alias tls="tmux ls "
-#   alias tkill="tmux kill-session -t "
-# fi
-
-# if $(command_exists "wget"); then
-  alias download_page="wget -E -H -k -K --random-wait -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' -e robots=off -p "
-# fi
-
-# if $(command_exists "mbsync"); then
-  alias offlineimap="mbsync -a && mu index"
-# fi
-
-# if $(command_exists "ledger"); then
-  # if [[ $(command_exists "gpg") ]]; then
-    alias eledger="gpg --batch -d -q $LEDGER_FILE | ledger -f - "
-  # fi
-# fi
+alias start_mysql='mysqld_safe &'
+alias stop_mysql='mysqladmin shutdown'
+alias vi="vim "
+alias g="git "
+alias download_page="wget -E -H -k -K --random-wait -U 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.6) Gecko/20070802 SeaMonkey/1.1.4' -e robots=off -p "
+alias offlineimap="mbsync -a && mu index"
+alias eledger="gpg --batch -d -q $LEDGER_FILE | ledger -f - "
 
 # export NPM_TOKEN=$(aws --region eu-west-1 ssm get-parameter --name /TWIG/global/NPM_TOKEN --output text --query 'Parameter.Value' --with-decryption)
+
+[ -s ~/.shells_local/shell/interactive ] && . ~/.shells_local/shell/interactive
