@@ -388,7 +388,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-clock-idle-time 2) ; TODO requires testing
 (setq org-lowest-priority 68)
 (setq org-highest-priority 65)
-(setq org-default-priority 68)
+(setq org-default-priority 66)
 (setq org-log-done 'time)
 
 (setq org-default-notes-file my/org-inbox-file-path)
@@ -624,7 +624,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :prepend t :empty-lines-after 1 :kill-buffer nil)
 
   ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %?
+"* TODO %(org-priority-cookie) %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
@@ -773,6 +773,9 @@ Blood type/flavour: %^{Blood type: }
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 ))
+
+(defun org-priority-cookie ()
+  (format "[#%c]" org-default-priority))
 
 (setq org-todo-keywords
   '( (sequence "TODO(t)" "IN-PROCESS(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
