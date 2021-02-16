@@ -28,6 +28,7 @@
           ("r" . jarfar/elfeed-mark-read-move-next)
           ("u" . jarfar/elfeed-mark-unread-move-next)
           ("O" . my/elfeed-open-in-external-browser)
+          ("g" . jarfar/elfeed-update)
           ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
@@ -158,6 +159,7 @@
       (browse-url-generic url))))
 
 (defun jarfar/elfeed-update ()
+  (interactive)
   (elfeed-update)
   (elfeed-web-update))
 
