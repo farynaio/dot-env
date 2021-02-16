@@ -1,4 +1,5 @@
 ;; (setq debug-on-error t)
+;; (setq debug-on-error nil)
 ;; (setq debug-on-quit nil)
 
 (setq file-name-handler-alist nil)
@@ -11,6 +12,7 @@
 ;; (setq gc-cons-percentage 0.6)
 
 (find-file "~/.emacs.d/init.el")
+(find-file "~/.emacs.d/modules/my-hydra.el")
 
 (defun farynaio/debug-on-error-toggle ()
   (interactive)
@@ -205,6 +207,9 @@
 (defvar my-git-activate nil)
 (defvar my-python-activate nil)
 (defvar my-php-activate nil)
+(defvar my-js-activate nil)
+(defvar my-ruby-activate nil)
+(defvar my-web-activate nil)
 (defvar my-hydra-activate nil)
 
 (setq
@@ -230,16 +235,19 @@
   my-taskjuggler-activate nil
   my-python-activate t
   my-php-activate t
+  my-js-activate t
+  my-web-activate t
+  my-ruby-activate nil
   my-hydra-activate t
   )
 
 (when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
 (when my-edit-activate (require 'my-edit))
-(when my-git-activate (require 'my-git))
 (when my-encrypt-activate (require 'my-encrypt))
 (when my-navigation-activate (require 'my-navigation))
 (when my-theme-activate (require 'my-theme))
+(when my-git-activate (require 'my-git))
 (when my-org-activate (require 'my-org))
 (when my-org-caldav-activate (require 'my-org-caldav))
 (when my-notifications-activate (require 'my-notifications))
@@ -249,7 +257,10 @@
 (when my-devel-activate (require 'my-devel))
 (when my-hydra-activate (require 'my-hydra))
 (when my-python-activate (require 'my-python))
+(when my-web-activate (require 'my-web))
+(when my-js-activate (require 'my-js))
 (when my-php-activate (require 'my-php))
+(when my-ruby-activate (require 'my-ruby))
 (when my-shell-activate (require 'my-shell))
 (when my-rss-activate (require 'my-rss))
 (when my-email-activate (require 'my-email))

@@ -1,6 +1,4 @@
 ;; (require 'cc-mode)
-(require 'css-mode)
-(require 'js)
 ;; (require 'elisp-mode)
 ;; (require 'sql)
 ;; (require 'gud)
@@ -10,6 +8,9 @@
 ;; (require 'ruby-mode)
 ;; (require 'dns-mode)
 ;; (require 'company-graphql)
+
+(evil-define-key 'normal prog-mode-map
+  ",e" 'my/flycheck-toggle)
 
 (use-package mmm-mode
   :commands mmm-mode
@@ -90,24 +91,6 @@
   :config
   (setq symbol-overlay-idle-time 0.1))
 
-(use-package js2-mode
-  :config
-  (setq
-    js2-mode-show-parse-errors nil
-    js2-mode-show-strict-warnings nil))
-
-;; (use-package js2-refactor
-;;   :bind (:map js2-mode-map
-;;               ("C-k" . js2r-kill)
-;;               ("M-." . nil))
-;;   :hook ((js2-mode . js2-refactor-mode)
-;;          (js2-mode . (lambda ()
-;;                        (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
-;;   :config (js2r-add-keybindings-with-prefix "C-c C-r"))
-
-(use-package json-mode
-  :mode ("\\.json\\'" "\\rc\\'"))
-
 (setq tags-add-tables nil)
 (setq my/ctags-path "/usr/local/bin/ctags")
 
@@ -144,22 +127,7 @@
       (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
-(use-package jade-mode
-  :hook (jade-mode . symbol-overlay-mode)
-  :mode "\\.jade\\'")
-
 ;; (use-package counsel-etags) ; it's crazy slow
-
-(use-package emmet-mode
-  :diminish emmet-mode
-  :hook (sgml-mode js-mode web-mode)
-  :config
-  (setq
-    emmet-self-closing-tag-style " /"
-    emmet-expand-jsx-className? t))
-
-;; debugger
-;; (use-package realgud)
 
 (use-package yaml-mode
   :hook ((markdown-mode . jarfar/bind-value-togglers))
@@ -179,12 +147,6 @@
   (setq flymake-phpcs-show-rule t)
   (setq flycheck-phpcs-standard "WordPress")
 
-  ;; (flycheck-add-next-checker 'javascript-tide 'append)
-  (flycheck-add-mode 'typescript-tslint 'tide-mode)
-  (flycheck-add-mode 'javascript-eslint 'js-mode)
-  (flycheck-add-mode 'javascript-eslint 'typescript-mode)
-  (setq-default flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-
   (add-to-list 'display-buffer-alist
     `(,(rx bos "*Flycheck errors*" eos)
        (display-buffer-reuse-window
@@ -199,9 +161,6 @@
       (kill-buffer "*Flycheck errors*")
       (flycheck-list-errors))))
 
-(use-package web-beautify
-  :commands web-beautify-js web-beautify-css web-beautify-html)
-
 (define-minor-mode my/auto-indent-mode
   "Auto indent buffer on save."
   :init-value nil
@@ -213,28 +172,8 @@
           (untabify (point-min) (point-max)))))
     nil t))
 
-(eval-after-load 'js
-  '(progn
-     (setq-default js-indent-level tab-width)))
-
-(eval-after-load 'css-mode
-  '(progn
-     (setq css-indent-offset tab-width)
-     (add-hook 'css-mode-hook
-       (lambda ()
-         (setq-local company-backends '((company-css company-keywords company-files)))))))
-
-(use-package rainbow-mode
-  :hook (css-mode . rainbow-mode)
-  :diminish rainbow-mode)
-
 (use-package lsp-mode
   :commands lsp lsp-deferred
-  :init
-  (add-hook 'js-mode-hook
-    (lambda ()
-      (when (not (eq major-mode 'json-mode))
-        (lsp))))
   :config
   ;; (setq lsp-inhibit-message nil)
   ;; (setq lsp-auto-guess-root t)
@@ -270,8 +209,7 @@
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-disabled-clients '((typescript-mode . (eslint))
-                                        (json-mode . (eslint json-ls)))))
+  (add-to-list 'lsp-disabled-clients '((typescript-mode . (eslint)) (json-mode . (eslint json-ls)))))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 (use-package dap-mode
@@ -291,7 +229,10 @@
   (setq
     lsp-ui-imenu-window-width 50
     lsp-ui-doc-position 'top
-    lsp-ui-doc-header t))
+    lsp-ui-doc-header t)
+
+  (evil-define-key 'normal lsp-ui-mode-map
+    (kbd ",l") 'lsp-ui-imenu))
 
   ;; (bind-key ", l" 'lsp-ui-imenu lsp-ui-mode-map)
 
@@ -300,83 +241,6 @@
   :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
   :config
   (lsp-treemacs-sync-mode 1))
-
-(use-package typescript-mode
-  :mode "\\.tsx?\\'"
-  :hook ((typescript-mode . lsp)
-          (typescript-mode . mmm-mode)))
-
-(use-package rainbow-delimiters)
-
-(use-package rjsx-mode
-  :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode))
-          ;; (rjsx-mode . my/rjsx-mode-setup))
-  :commands rjsx-mode
-  :bind (:map rjsx-mode-map
-          ("<" . rjsx-electric-lt))
-  :mode "\\.jsx?\\'")
-  ;; (add-to-list 'auto-mode-alist '("\\.[tj]sx?\\'" . rjsx-mode))
-
-;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
-;;   "Workaround 'sgml-mode' and follow airbnb component style."
-;;   (save-match-data
-;;      (save-excursion
-;;        (goto-char (line-beginning-position))
-;;        (when (looking-at "^\\( +\\)\/?> *$")
-;;          (let ((empty-spaces (match-string 1)))
-;;            (while (search-forward empty-spaces      (line-end-position) t)
-;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
-
-;; (use-package robe
-;; :config
-;; (progn
-;;   (add-hook 'robe-mode-hook (lambda ()
-;; (robe-start)
-;;                               (make-local-variable 'company-backends)
-;;                               (add-to-list 'company-backends 'company-robe t)))
-;;   (add-hook 'ruby-mode-hook 'robe-mode)
-;;   ))
-;; (use-package inf-ruby)
-
-(use-package projectile-rails
-  :requires projectile
-  :hook (ruby-mode . (lambda () (when (projectile-mode) (projectile-rails-on)))))
-
-(use-package vue-mode
-  :hook (vue-mode . lsp)
-  :mode "//.vue//'")
-
-(add-hook 'mmm-mode-hook
-  (lambda () (set-face-background 'mmm-default-submode-face nil)))
-
-(setq my/prettier-modes '(css-mode js-mode yaml-mode typescript-mode))
-
-;; TODO also "prettier" key in your package.json file.
-(setq my/prettier-config-files
-  '(".prettierrc"
-     ".prettierrc.json"
-     ".prettierrc.yml"
-     ".prettierrc.yaml"
-     ".prettierrc.json5"
-     ".prettierrc.js"
-     ".prettierrc.cjs"
-     "prettier.config.js"
-     "prettier.config.cjs"
-     ".prettierrc.toml"))
-
-(define-minor-mode my/prettier-mode
-  "My Prettier mode implementation."
-  :lighter " Prettier"
-  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-      (apheleia-mode 1)
-      (apheleia-mode -1)))
-
-;; Prettier support
-(require 'apheleia)
-(eval-after-load 'apheleia
-  '(progn
-     (diminish 'apheleia-mode)))
 
 (use-package dtrt-indent
   :diminish "dtrt")
@@ -387,53 +251,6 @@
   (if (eq dtrt-indent-mode t)
     (dtrt-indent-mode -1)
     (dtrt-indent-mode 1)))
-
-(defhydra hydra-tide ()
-  "Tide"
-  ("i" tide-organize-imports "Organize imports" :exit t)
-  ("r" tide-refactor "Refactor" :exit t)
-  ("f" tide-fix "Fix" :exit t)
-  ("r" tide-rename-file "Rename file" :exit t)
-  ("e" tide-error-at-point "Error at point" :exit t)
-  ("o" tide-references "References" :exit t)
-  ("d" tide-documentation-at-point "Show docs" :exit t)
-  ("x" tide-restart-server "Restart server" :exit t))
-
-(defhydra hydra-js-search ()
-  "JS search"
-  ("p" my/rgrep "grep" :exit t)
-  ("s" tern-find-definition "find JS definition" :exit t)
-  ("t" tern-find-definition-by-name "find JS definition by name" :exit t))
-;; (define-key tern-mode-keymap [(control ?c) (control ?r)] 'tern-rename-variable)
-
-(defhydra hydra-js-refactoring ()
-  "JS refactoring"
-  ("n"  hydra-js-refactoring-node/body "node" :exit t)
-  ("e"  hydra-js-refactoring-extract/body "extract" :exit t)
-  ("m"  hydra-js-refactoring-rename/body "rename" :exit t)
-  ("r"  hydra-js-refactoring-replace/body "replace" :exit t))
-
-(defhydra hydra-js-refactoring-node ()
-  "JS refactoring node"
-  ("e" js2r-expand-node-at-point "expand 'node'" :exit t)
-  ("c" js2r-contract-node-at-point "contract 'node'" :exit t))
-
-(defhydra hydra-js-refactoring-extract ()
-  "JS refactoring extract"
-  ("v" js2r-extract-var "var" :exit t)
-  ("l" js2r-extract-let "let" :exit t)
-  ("c" js2r-extract-const "const" :exit t)
-  ("f" js2r-extract-function "function" :exit t)
-  ("m" js2r-extract-method "method" :exit t))
-
-(defhydra hydra-js-refactoring-rename ()
-  "JS refactoring rename"
-  ("v" js2r-rename-var "var" :exit t))
-
-(defhydra hydra-js-refactoring-replace ()
-  "JS refactoring replace"
-  ("t" js2r-var-to-this "'var' which 'this'" :exit t))
-
 
 ;; (use-package guess-style
 ;; :config
@@ -455,46 +272,6 @@
 (use-package dockerfile-mode
   :mode "^Dockerfile")
 
-(use-package geben
-  :hook (geben-mode . evil-emacs-state))
-
-(use-package web-mode
-  :hook ((web-mode . lsp))
-  :bind (:map web-mode-map
-          ("C-c C-n" . web-mode-tag-end)
-          ("C-c C-p" . web-mode-tag-beginning)
-          ("<backtab>" . indent-relative)
-          ("<f5>" . my/toggle-php-flavor-mode))
-  :mode (("\\.php\\'" . web-mode)
-          ("\\.phtml\\'" . web-mode)
-          ("\\.tpl\\.php\\'" . web-mode)
-          ;; ("\\.js\\'" . web-mode)
-          ("\\.html\\.twig\\'" . web-mode)
-          ("\\.hbs\\'" . web-mode)
-          ("\\.ejs\\'" . web-mode)
-          ("\\.html?\\'" . web-mode)
-          ("\\.svg\\'" . web-mode)
-          ;; ("\\.php\\'" . web-mode)
-          )
-  :config
-  (setq
-    web-mode-engines-alist '(("php" . "\\.php\\'"))
-    web-mode-markup-indent-offset tab-width
-    web-mode-css-indent-offset tab-width
-    web-mode-code-indent-offset tab-width)
-
-  (add-hook 'before-save-hook
-    (lambda ()
-      (when (and (fboundp 'web-beautify-html) (eq dtrt-indent-mode nil))
-        (web-beautify-html)))
-    0 t))
-
-;; Use binaries in node_modules
-(use-package add-node-modules-path
-  :hook ((js-mode . add-node-modules-path)
-          (rjsx-mode . add-node-modules-path)
-          (typescript-mode . add-node-modules-path)))
-
 (use-package graphql-mode
   :commands graphql-mode)
 
@@ -514,21 +291,19 @@ $0`(yas-escape-text yas-selected-text)`"))
 ;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
 ;;   :custom (plantuml-jar-path (expand-file-name (format "%s/plantuml.jar" xdg-lib))))
 
-(defhydra hydra-snippet ()
-  "Snippet"
-  ("s" yas-insert-snippet "insert" :exit t)
-  ("n" yas-new-snippet "new" :exit t)
-  ("e" yas-visit-snippet-file "edit" :exit t)
-  ("r" yas-reload-all "reload" :exit t))
-
 (defun my/prog-mode-hook ()
   (modify-syntax-entry ?- "w" (syntax-table))
   (modify-syntax-entry ?_ "w" (syntax-table))
   (modify-syntax-entry ?$ "w" (syntax-table))
 
+  (evil-define-key 'normal prog-mode
+    "<S-up>" #'farynaio/increment
+    "<S-down>" #'farynaio/decrement)
+
   ;; (flycheck-mode 1)
   (abbrev-mode -1)
   (flyspell-mode -1)
+  (hungry-delete-mode 1)
   (hl-line-mode 1)
   (show-paren-mode 1)
   (electric-operator-mode 1))
@@ -550,11 +325,11 @@ $0`(yas-escape-text yas-selected-text)`"))
       '(:eval
          (buffer-name (current-buffer)))))))
 
-(add-hook 'conf-space-mode-hook 'my/breadcrumb-set-local t)
-(add-hook 'conf-unix-mode-hook 'my/breadcrumb-set-local t)
-(add-hook 'conf-toml-mode-hook 'my/breadcrumb-set-local t)
-(add-hook 'conf-javaprop-mode-hook 'my/breadcrumb-set-local t)
-(add-hook 'prog-mode-hook 'my/breadcrumb-set-local t)
+(add-hook 'conf-space-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-unix-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
 
 (add-hook 'emacs-lisp-mode-hook
   (lambda ()
@@ -564,13 +339,6 @@ $0`(yas-escape-text yas-selected-text)`"))
     (eldoc-mode 1)
     (unbind-key "C-M-i" emacs-lisp-mode-map)))
 
-;; (setq my/devel-keymaps (list emacs-lisp-mode-map web-mode-map sql-mode-map lisp-mode-map lisp-interaction-mode-map scss-mode-map java-mode-map php-mode-map python-mode-map ruby-mode-map))
-;; (use-package dash-at-point
-;;   :config
-;;   (dolist (i my/devel-keymaps)
-;;     (bind-key "C-c d" 'dash-at-point i)
-;;     (bind-key "C-c e" 'dash-at-point-with-docset i)))
-
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
 ;; (require 'ox-publish)
@@ -578,125 +346,5 @@ $0`(yas-escape-text yas-selected-text)`"))
 ;; (setq org-html-head-include-default-style nil)
 ;; (setq org-html-head-include-scripts nil)
 ;; (setq org-html-validation-link nil)
-
-;; https://stackoverflow.com/a/6255409/346921
-(defun my/reformat-xml ()
-  "Reformats xml to make it readable (respects current selection)."
-  (interactive)
-  (save-excursion
-    (let ((beg (point-min))
-           (end (point-max)))
-      (if (and mark-active transient-mark-mode)
-        (progn
-          (setq beg (min (point) (mark)))
-          (setq end (max (point) (mark))))
-        (widen))
-      (setq end (copy-marker end t))
-      (goto-char beg)
-      (while (re-search-forward ">\\s-*<" end t)
-        (replace-match ">\n<" t t))
-      (goto-char beg)
-      (indent-region beg end nil))))
-
-;; https://emacs.stackexchange.com/questions/5441/function-to-delete-all-comments-from-a-buffer-without-moving-them-to-kill-ring
-(defun jarfar/comment-delete (arg)
-  "Delete the first comment on this line, if any.  Don't touch
-the kill ring.  With prefix ARG, delete comments on that many
-lines starting with this one."
-  ;; (interactive "P")
-  (comment-normalize-vars)
-  (dotimes (_i (prefix-numeric-value arg))
-    (save-excursion
-      (beginning-of-line)
-      (let ((cs (comment-search-forward (line-end-position) t)))
-        (when cs
-          (goto-char cs)
-          (skip-syntax-backward " ")
-          (setq cs (point))
-          (comment-forward)
-          ;; (kill-region cs (if (bolp) (1- (point)) (point))) ; original
-          (delete-region cs (if (bolp) (1- (point)) (point)))  ; replace kill-region with delete-region
-          (indent-according-to-mode))))
-    (if arg (forward-line 1))))
-
-;; https://emacs.stackexchange.com/questions/5441/function-to-delete-all-comments-from-a-buffer-without-moving-them-to-kill-ring
-(defun jarfar/comment-delete-dwim (beg end arg)
-  "Delete comments without touching the kill ring.  With active
-region, delete comments in region.  With prefix, delete comments
-in whole buffer.  With neither, delete comments on current line."
-  (interactive "r\nP")
-  (let ((lines (cond (arg
-                       (count-lines (point-min) (point-max)))
-                 ((region-active-p)
-                   (count-lines beg end)))))
-    (save-excursion
-      (when lines
-        (goto-char (if arg (point-min) beg)))
-      (jarfar/comment-delete (or lines 1)))))
-
-(defun jarfar/comments-delete-buffer ()
-  "Remove all comments from the buffer."
-  (interactive)
-  (jarfar/comment-delete-dwim (point-min) (point-max) 1)
-  (jarfar/remove-empty-lines))
-
-;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
-(defun jarfar/remove-empty-lines ()
-  (interactive)
-  (let ($begin $end)
-    (if (region-active-p)
-      (setq $begin (region-beginning) $end (region-end))
-      (setq $begin (point-min) $end (point-max)))
-    (save-excursion
-      (save-restriction
-        (narrow-to-region $begin $end)
-        (while (re-search-forward "[ \t]+\n" nil "move")
-          (replace-match "\n"))
-        (progn
-          (goto-char (point-min))
-          (while (re-search-forward "\n\n+" nil "move")
-            (replace-match "\n")))))))
-
-(defun jarfar/wp-gutenberg-to-md ()
-  (interactive)
-  (save-excursion
-    (beginning-of-buffer)
-    (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\|code\\|preformatted\\).*?-->\n?" nil t)
-      (replace-match "" nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "<!-- /?wp:\\(qubely\\|html\\).*?-->\n?" nil t)
-      (replace-match "" nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "</?p>" nil t)
-      (replace-match "" nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "</h[1-6]>" nil t)
-      (replace-match "" nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "<h2>" nil t)
-      (replace-match "## " nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "<h3>" nil t)
-      (replace-match "### " nil nil))
-
-    (beginning-of-buffer)
-    (while (re-search-forward "</?code>" nil t)
-      (replace-match "`" nil nil))))
-
-(require 'inc-dec-at-point)
-
-(add-hook 'prog-mode-hook 'jarfar/bind-value-togglers)
-
-(defun jarfar/bind-value-togglers ()
-  (when (boundp 'evil-normal-state-local-map)
-    (bind-keys
-      :map evil-normal-state-local-map
-      ("<S-up>" . farynaio/increment)
-      ("<S-down>" . farynaio/decrement))))
 
 (provide 'my-devel)

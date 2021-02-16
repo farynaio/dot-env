@@ -47,13 +47,8 @@
        ("<" . beginning-of-buffer)
        (">" . end-of-buffer)
        ("W" . my/dired-copy-dirname-as-kill)
-       ("C-x C-," . farynaio/hydra-dired/body)
        ("RET" . farynaio/dired-go-up-reuse)
        ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
-
-     (defhydra farynaio/hydra-dired ()
-       "Dired"
-       ("c" farynaio/dired-shell-command "run command" :exit t))
 
      (when (bound-and-true-p evil-mode)
        (bind-keys

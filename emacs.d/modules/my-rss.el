@@ -18,7 +18,6 @@
           ("<S-mouse-1>" . my/elfeed-shr-open-click-external)
           :map elfeed-search-mode-map
           ("B" . my/elfeed-search-browse-url)
-          ("f" . jarfar/hydra-elfeed-filter/body)
           ("A" . my/elfeed-show-all)
           ("D" . my/elfeed-show-daily)
           ("q" . my/elfeed-save-db-and-bury)
@@ -332,24 +331,6 @@
   (interactive)
   (elfeed-search-tag-all-unread)
   (unless (use-region-p) (next-line)))
-
-(defhydra jarfar/hydra-elfeed-filter ()
-  "Elfeed"
-  ("b" (elfeed-search-set-filter "+business") "Show Business" :exit t)
-  ("k" (elfeed-search-set-filter "+marketing") "Show Marketing" :exit t)
-  ("e" (elfeed-search-set-filter "+entr") "Show Entr" :exit t)
-  ("s" (elfeed-search-set-filter "+startup") "Show Startup" :exit t)
-  ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking" :exit t)
-  ("a" (elfeed-search-set-filter "+saas") "Show SaaS" :exit t)
-  ("o" (elfeed-search-set-filter "+seo") "Show SEO" :exit t)
-  ("g" (elfeed-search-set-filter "+blog") "Show Blogging" :exit t)
-  ("c" (elfeed-search-set-filter "+copy") "Show Copywriting" :exit t)
-  ("f" (elfeed-search-set-filter "+finances") "Show Finances" :exit t)
-  ("m" (elfeed-search-set-filter "+social") "Show Social Media" :exit t)
-  ("y" (elfeed-search-set-filter "+crypto") "Show Crypto" :exit t)
-  ("n" (elfeed-search-set-filter "+news") "Show News" :exit t)
-  ("l" (elfeed-search-set-filter "+ok") "Show Read Later" :exit t)
-  ("j" (elfeed-search-set-filter "+junk") "Show Junk" :exit t))
 
 ;; (bind-key "m" 'jarfar/elfeed-to-mail elfeed-search-mode-map)
 

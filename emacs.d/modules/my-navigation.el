@@ -147,8 +147,8 @@
     (bind-key "\\w" 'avy-goto-word-or-subword-1  evil-motion-state-map)
     (bind-key "\\c" 'avy-goto-char evil-motion-state-map)))
 
-(use-package ivy-hydra
-  :after ivy hydra)
+;; (use-package ivy-hydra
+;;   :after ivy hydra)
 
 (use-package ivy
   :diminish ivy-mode

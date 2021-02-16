@@ -148,12 +148,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       'org-metadown
       'drag-stuff-down)))
 
-(defhydra my/hydra-org ()
-  "org navigation"
-  ("s" counsel-org-goto "goto heading" :exit t)
-  ("a" counsel-org-file "browse attachments" :exit t)
-  ("t" org-toggle-timestamp-type "timestamp toggle" :exit t))
-
 (eval-after-load 'org
   '(progn
      (setq
@@ -175,7 +169,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (bind-keys
        ("C-c c" . org-capture)
-       ("C-c a" . org-agenda)
        ("C-x a" . org-agenda)
        ("C-c l" . org-store-link)
        ("C-c L" . org-insert-link-global)
@@ -193,8 +186,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        ("<S-tab>" . my/outline-hide-subtree)
        ("<M-up>" . my/org-metaup)
        ("<M-down>" . my/org-metadown)
-       ("C-x ," . my/hydra-org/body)
-       ("C-x C-," . my/hydra-org/body)
        ("<S-mouse-1>" . browse-url-generic)
        ([remap backward-paragraph] . nil)
        ([remap forward-paragraph] . nil)
@@ -1323,12 +1314,14 @@ should be continued."
   :config
   (require 'org-roam-protocol)
 
-  (setq org-roam-directory my/org-roam-directory)
-  (setq org-roam-graph-viewer "/usr/bin/open")
-  (setq org-roam-db-gc-threshold most-positive-fixnum)
-  (setq org-roam-tag-sources '(prop))
-  (setq org-roam-update-db-idle-second 60)
-  (setq org-roam-verbose nil)
+  (setq
+    org-roam-directory my/org-roam-directory
+    org-roam-graph-viewer "/usr/bin/open"
+    org-roam-db-gc-threshold most-positive-fixnum
+    org-roam-tag-sources '(prop)
+    org-roam-update-db-idle-second 60
+    org-roam-verbose nil)
+
   ;;
   (make-directory my/org-roam-directory t)
 
@@ -1516,18 +1509,6 @@ should be continued."
          :kill-buffer t)
        ))
 
-  (defhydra jarfar/hydra-org-roam ()
-    "org roam"
-    ("r" org-roam "org-roam" :exit t)
-    ("k" org-roam "Toggle sidebar" :exit t)
-    ("l" org-roam-insert "Insert" :exit t)
-    ("j" org-roam-dailies-find-date  "Journal" :exit t)
-    ("J" farynaio/org-roam-dailies-find-date-other-window  "Journal other window" :exit t)
-    ("f" org-roam-find-file "Find file" :exit t)
-    ("F" jarfar/org-roam-find-file-other-window "Find file" :exit t)
-    ("b" org-roam-switch-to-buffer "Switch buffer" :exit t)
-    ("d" org-roam-find-directory "Find dir" :exit t))
-
   (defun jarfar/org-roam-find-file-other-window (&rest args)
     (interactive)
     (let ((org-roam-find-file-function #'find-file-other-window))
@@ -1570,8 +1551,6 @@ should be continued."
 
   (defalias 'roam 'org-roam))
 
-(bind-key "C-c v" 'jarfar/hydra-org-roam/body)
-
 (use-package org-roam-server
   :after org-roam
   :config
@@ -1584,15 +1563,6 @@ should be continued."
   (setq org-roam-server-network-label-truncate t)
   (setq org-roam-server-network-label-truncate-length 60)
   (setq org-roam-server-network-label-wrap-length 20))
-
-
-;; (use-package deft
-;;   :after org-roam
-;;   :custom
-;;   (deft-recursive t)
-;;   (deft-use-filter-string-for-filename t)
-;;   (deft-default-extension "org")
-;;   (deft-directory my/org-roam-directory))
 
 ;;--------------------------
 ;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’

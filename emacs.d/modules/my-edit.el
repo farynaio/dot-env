@@ -73,7 +73,7 @@
 (use-package wiki-summary)
 
 (use-package hungry-delete
-  :diminish hungry-delete-mode
+  ;; :diminish hungry-delete-mode
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
@@ -90,7 +90,7 @@
   :diminish company-mode
   :config
   (setq
-    company-idle-delay 0.4
+    company-idle-delay 0.3
     company-show-numbers t
     company-tooltip-align-annotations t
     company-minimum-prefix-length 1
@@ -131,6 +131,7 @@
 (use-package which-key
   :diminish which-key-mode
   :config
+  (setq which-key-idle-delay 0.5)
   (which-key-mode 1))
 
 (use-package persistent-scratch
@@ -169,10 +170,6 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
-
-(defhydra farynaio/hydra-buffer ()
-  "Buffer"
-  ("i" ibuffer "ibuffer" :exit t))
 
 (defun farynaio/increment ()
   (interactive)

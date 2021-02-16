@@ -127,6 +127,17 @@
        :config
        (mu4e-maildirs-extension))
 
+     (evil-define-key '(motion emacs normal) mu4e:view-mode-map
+       "C-d" 'evil-scroll-down
+       "C-u" 'evil-scroll-up)
+
+     (evil-define-key '(motion emacs) mu4e-headers-mode-map
+       "C-d" 'evil-scroll-down
+       "C-u" 'evil-scroll-up)
+
+     (evil-define-key '(visual) mu4e-compose-mode-map
+       "H" 'org-mime-htmlize)
+
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)
      (evil-make-overriding-map mu4e-headers-mode-map 'normal)
      (evil-make-overriding-map mu4e-view-mode-map 'motion)

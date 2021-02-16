@@ -1,9 +1,3 @@
-(defhydra hydra-php-debug ()
-  "PHP debug"
-  ("a" geben-add-current-line-to-predefined-breakpoints "add brk" :exit t)
-  ("s" geben "start" :exit t)
-  ("q" geben-end "end" :exit t))
-
 ;; TODO what it does?
 (use-package company-php
   :requires company-mode)
@@ -47,6 +41,10 @@
           ("<f5>" . my/toggle-php-flavor-mode))
   :mode ("\\.php\\'" "\\.inc\\'")
   :config
+  (evil-define-key 'normal php-mode-map
+    ",d" #'hydra-php-debug/body
+    ",t" #'my/toggle-php-flavor-mode)
+
   (defun my/php-setup ()
     (web-mode)
     (make-local-variable 'web-mode-code-indent-offset)

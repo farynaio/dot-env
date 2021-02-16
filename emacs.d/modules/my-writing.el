@@ -9,44 +9,84 @@
 ;;       (setq ispell-program-name (executable-find "hunspell")))
 ;;   (message "'hunspell' not installed!"))
 
-(setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
-(setq save-abbrevs 'silently)
+(setq
+  abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)
+  save-abbrevs 'silently)
 
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
+(define-minor-mode my/en-mode
+  "Language mode for 'en'."
+  :init-value nil
+  :lighter " en"
+  (setq-local
+    ispell-local-dictionary "en"
+    local-abbrev-table my/en-abbrevs)
+  (langtool-switch-default-language "en"))
+
+(define-minor-mode my/pl-mode
+  "Language mode for 'pl'."
+  :init-value nil
+  :lighter " pl"
+  (setq-local
+    ispell-local-dictionary "pl"
+    local-abbrev-table my/pl-abbrevs)
+  (langtool-switch-default-language "pl"))
+
 (add-hook 'text-mode-hook 'abbrev-mode)
+(add-hook 'org-mode-hook 'my/en-mode)
+(add-hook 'org-roam-dailies-find-file-hook 'my/en-mode)
 
-(eval-after-load 'flyspell
-  '(progn
+(use-package ispell
+  :defer 2
+  :custom
+  (ispell-local-dictionary "en_US")
+  (ispell-local-dictionary-alist
+    '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+       ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+  (ispell-dictionary "en_US")
+  (ispell-dictionary-alist
+    '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+       ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+  ;; (ispell-program-name (executable-find "hunspell"))
+  (ispell-really-hunspell t)
+  (ispell-silently-savep t)
+  (ispell-extra-args '("--sug-mode=ultra"))
+  :preface
+  (setq my/lang-modes '((en . my/en-mode) (pl . my/pl-mode)))
+  (defun my/lang-modes-deactivate ()
+    "Deactivate all lang modes."
+    (interactive)
+    (my/en-mode -1)
+    (my/pl-mode -1))
 
-     ;; (setenv "DICTIONARY" "en")
+  (defun my/lang-toggle ()
+    "Toggle language modes."
+    (interactive)
+    (unless (derived-mode-p 'prog-mode)
+      (let ((new-mode (symbol-function
+                        (cond
+                          ((bound-and-true-p my/pl-mode) 'my/en-mode)
+                          ((bound-and-true-p my/en-mode) 'my/pl-mode)
+                          ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
+                          (t 'my/en-mode))
+                        )))
+        (my/lang-modes-deactivate)
+        (funcall new-mode 1)))))
 
-     ;; (setq ispell-local-dictionary "en")
-     ;; (setq ispell-local-dictionary-alist '(
-     ;;                                       ("en"
-     ;;                                               "[[:alpha:]]"
-     ;;                                               "[^[:alpha:]]"
-     ;;                                               "[']"
-     ;;                                               t
-     ;;                                               ("-d" "en_US")
-     ;;                                               nil
-     ;;                                               utf-8)
-     ;;                                       ("pl"
-     ;;                                               "[[:alpha:]]"
-     ;;                                               "[^[:alpha:]]"
-     ;;                                               "[']"
-     ;;                                               t
-     ;;                                               ("-d" "pl")
-     ;;                                               nil
-     ;;                                               utf-8)
-     ;;                                       ))
+(use-package flyspell
+  :commands flyspell-mode
+  :config
+  (flyspell-prog-mode)
+  (evil-define-key 'normal flyspell-mode-map
+    ;; (kbd "[s") 'flyspell-goto-next-error
+    ;; (kbd "]s") 'flyspell-goto-next-error
+    (kbd "[l") 'langtool-goto-previous-error
+    (kbd "]l") 'langtool-goto-next-error)
 
-     (define-key flyspell-mouse-map [down-mouse-3] 'flyspell-correct-word)
-     (define-key flyspell-mouse-map [mouse-3] 'undefined))
-
-     (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
-     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-     (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))))
+  (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
+  (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+  (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE")))
 
 (defvar my/en-abbrevs nil)
 (define-abbrev-table
@@ -91,29 +131,6 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table 'my/pl-abbrevs '())
 
-(define-minor-mode my/en-mode
-  "Language mode for 'en'."
-  :init-value nil
-  :lighter " en"
-  (setq-local ispell-local-dictionary "en")
-  (setq-local local-abbrev-table my/en-abbrevs))
-
-(define-minor-mode my/pl-mode
-  "Language mode for 'pl'."
-  :init-value nil
-  :lighter " pl"
-  (setq-local ispell-local-dictionary "pl")
-  (setq-local local-abbrev-table my/pl-abbrevs))
-
-(setq my/lang-modes
-  '((en . my/en-mode) (pl . my/pl-mode)))
-
-(defun my/lang-modes-deactivate ()
-  "Deactivate all lang modes."
-  (interactive)
-  (my/en-mode -1)
-  (my/pl-mode -1))
-
 (use-package langtool
   :commands (langtool-check-buffer langtool-check-done)
   :init
@@ -124,9 +141,10 @@
 
 (use-package google-translate
   :config
-  (setq google-translate-default-source-language "en")
-  (setq google-translate-default-target-language "pl")
-  (setq google-translate-backend-method 'curl)
+  (setq
+    google-translate-default-source-language "en"
+    google-translate-default-target-language "pl"
+    google-translate-backend-method 'curl)
 
   (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
 
@@ -134,29 +152,9 @@
     (interactive "P")
     (save-excursion
       (google-translate-at-point override-p))
-
     (deactivate-mark)
     (when (fboundp 'evil-exit-visual-state)
       (evil-exit-visual-state))))
-
-(setq ispell-extra-args '("--sug-mode=ultra"))
-
-(defun my/lang-toggle ()
-  "Toggle language modes."
-  (interactive)
-  (unless (derived-mode-p 'prog-mode)
-    (let ((new-mode (symbol-function
-                      (cond
-                        ((bound-and-true-p my/pl-mode) 'my/en-mode)
-                        ((bound-and-true-p my/en-mode) 'my/pl-mode)
-                        ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
-                        (t 'my/en-mode))
-                      )))
-      (my/lang-modes-deactivate)
-      (funcall new-mode 1))))
-
-(add-hook 'org-mode-hook 'my/en-mode)
-(add-hook 'org-roam-dailies-find-file-hook 'my/en-mode)
 
 (use-package artbollocks-mode
   :commands artbollocks-mode
@@ -168,32 +166,5 @@
                        "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                        ) t) "\\b")
     artbollocks-jargon nil))
-
-(defhydra hydra-japanese ()
-  "Japanese"
-  ("k" japanese-katakana-region "katakana" :exit t)
-  ("h" japanese-hiragana-region "hiragana" :exit t))
-
-(defhydra hydra-writting ()
-  "Spellcheck"
-  ("s" flyspell-mode "flyspell toggle" :exit t)
-  ("q" smart-quotes-mode "smart quotes toggle" :exit t)
-  ("l" my/lang-toggle "language toggle" :exit t)
-  ("c" langtool-check-buffer "langtool check" :exit t)
-  ("d" langtool-check-done "langtool done" :exit t)
-  ("a" artbollocks-mode "artbollocks" :exit t))
-
-(defhydra hydra-writting ()
-  "Writing in text-mode"
-  ("s" flyspell-mode "flyspell toggle" :exit t)
-  ("q" smart-quotes-mode "smart quotes toggle" :exit t)
-  ("l" my/lang-toggle "language toggle" :exit t)
-  ("c" langtool-check-buffer "langtool check" :exit t)
-  ("d" langtool-check-done "langtool done" :exit t)
-  ("a" artbollocks-mode "artbollocks" :exit t))
-
-(defhydra hydra-prog-writting ()
-  "Writing in prog-mode"
-  ("s" flyspell-prog-mode "flyspell toggle" :exit t))
 
 (provide 'my-writing)

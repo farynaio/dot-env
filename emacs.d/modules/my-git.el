@@ -23,6 +23,7 @@
     :map projectile-mode-map
     ("C-c p" . projectile-command-map)
     ("C-c p F" . projectile-find-file-other-window))
+  (unbind-key "C-c p" projectile-mode-map)
 
   (setq
     projectile-completion-system 'ivy
@@ -34,8 +35,7 @@
     projectile-track-known-projects-automatically nil
     projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class")
     projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep")
-    projectile-globally-ignored-directories
-    (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
+    projectile-globally-ignored-directories (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
 
   (if (executable-find "ctags")
     (setq projectile-tags-command "ctags -R -e .")
@@ -58,41 +58,6 @@
   ;;                                (propertize project-root 'face 'font-lock-keyword-face))))
   ;;                   projectile-known-projects)
   ;;             (projectile-serialize-cache))))
-
-(defhydra hydra-git ()
-  "git"
-  ("g" magit-blame "blame" :exit t)
-  ("c" vc-resolve-conflicts "conflicts" :exit t) ;; this could be better -> magit?
-  ;; ("b" magit-bisect-popup "bisect") ;; find a commit that introduces the bug
-  ("f" magit-fetch "fetch" :exit t)
-  ("F" magit-pull "pull" :exit t)
-  ("s" magit-status "status" :exit t)
-  ("o" magit-checkout "checkout" :exit t)
-  ("b" magit-branch "branch" :exit t)
-  ("d" magit-diff "diff" :exit t)
-  ("h" magit-diff-buffer-file "diff file" :exit t)
-  ("z" magit-stash "stash" :exit t)
-  ("l" magit-log-all "log" :exit t)
-  ("r" magit-rebase "rebase" :exit t)
-  ("x" magit-reset "reset" :exit t)
-  ("f" magit-log-buffer-file "file log" :exit t))
-
-(defhydra hydra-project ()
-  "Project"
-  ("a" jarfar/projectile-show-relative-path "show path" :exit t)
-  ("p" hydra-project-projectile/body "projectile add/remove" :exit t)
-  ("t" projectile-find-tag "Find tag" :exit t)
-  ("o" projectile-find-other-file "Find other file" :exit t)
-  ("f" projectile-find-file "Find file" :exit t)
-  ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t))  "Replace" :exit t)
-  ("i" projectile-invalidate-cache "Invalidate projectile cache" :exit t)
-  ("b" modi/kill-non-project-buffers "Kill unrelated buffers" :exit t)
-  ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :exit t))
-
-(defhydra hydra-project-projectile ()
-  "Projectile project"
-  ("a" my/projectile-add-known-project "add" :exit t)
-  ("r" projectile-remove-known-project "remove" :exit t))
 
 (defun jarfar/projectile-show-relative-path ()
   (interactive)

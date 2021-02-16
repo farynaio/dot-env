@@ -1,4 +1,4 @@
-;; (require 'help)
+(require 'inc-dec-at-point)
 
 (use-package evil
   :init
@@ -14,78 +14,79 @@
     evil-shift-width tab-width)
 
   (evil-mode 1)
-  (bind-key "C-d"    'evil-scroll-down)
-  (bind-key "C-u"    'evil-scroll-up)
-  (bind-key "C-e"    'move-end-of-line                    evil-normal-state-map)
-  (bind-key "C-e"    'move-end-of-line                    evil-visual-state-map)
-  (bind-key "C-a"    'my/smarter-move-beginning-of-line   evil-normal-state-map)
-  (bind-key "C-a"    'my/smarter-move-beginning-of-line   evil-visual-state-map)
-  (bind-key "TAB"    'indent-for-tab-command              evil-normal-state-map)
-  (bind-key "TAB"    'indent-for-tab-command              evil-visual-state-map)
-  (bind-key "TAB"    'tab-to-tab-stop                     evil-insert-state-map)
-  (bind-key "C-x T"  'my/move-current-window-to-new-frame evil-normal-state-map)
-  (bind-key "C-}"    'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
-  (bind-key "M-]"    'my/evil-jump-to-tag-other-buffer    evil-normal-state-map)
-  (bind-key ", ."    'dired-jump                          evil-normal-state-map)
-  (bind-key ", m"    'my/dired-jump-make-new-window       evil-normal-state-map)
-  (bind-key ", n"    'minimap-mode                        evil-normal-state-map)
-  (bind-key ", g"    'hydra-git/body                      evil-normal-state-map)
-  (bind-key ", b"    'farynaio/hydra-buffer/body          evil-normal-state-map)
-  ;; (bind-key ", l"    'treemacs-display-current-project-exclusively evil-normal-state-map)
-  (bind-key ", t"    'hydra-writting/body                 evil-normal-state-map)
-  (bind-key ", w"    'my/hydra-browser/body               evil-normal-state-map)
-  (bind-key ", w"    'my/hydra-browser/body               evil-visual-state-map)
-  (bind-key ", i"    'hydra-snippet/body                  evil-normal-state-map)
-  (bind-key ", p"    'hydra-project/body               evil-normal-state-map)
-  (bind-key ", j"    'hydra-japanese/body                 evil-visual-state-map)
-  (bind-key ", f"    'my/rgrep                            evil-normal-state-map)
-  (bind-key ", f"    'my/rgrep                            evil-visual-state-map)
-  (bind-key ", x b"  'my/kill-all-buffers-except-toolkit  evil-normal-state-map)
-  (bind-key ", x t"  'delete-frame                        evil-normal-state-map)
-  (bind-key ", c d"  'my/copy-file-name                   evil-normal-state-map)
-  ;; (bind-key ", d"   'my/lang-toggle                      evil-normal-state-map)
-  (bind-key ", a"    'artbollocks-mode                    evil-normal-state-map)
-  (bind-key ", cd"   'my/copy-file-name-to-clipboard      evil-normal-state-map)
-  (bind-key ", /"    'evil-ex-nohighlight                 evil-normal-state-map)
-  (bind-key "C-w"    'evil-delete-char                    evil-visual-state-map)
-  (bind-key "h"      'evil-first-non-blank                evil-normal-state-map)
-  (bind-key "h"      'evil-first-non-blank                evil-visual-state-map)
-  (bind-key "l"      'evil-end-of-line                    evil-normal-state-map)
-  (bind-key "l"      'evil-end-of-line                    evil-visual-state-map)
-  (bind-key "v"      'set-mark-command                    evil-normal-state-map)
-  (bind-key "}"      'forward-paragraph                   evil-motion-state-map)
-  (bind-key "{"      'backward-paragraph                  evil-motion-state-map)
-  (bind-key "C-k"    'kill-line                           evil-insert-state-map)
-  (bind-key "C-y"    'yank                                evil-normal-state-map)
-  (bind-key "C-d"    'evil-scroll-down                    evil-motion-state-map)
-  (bind-key "C-d"    'evil-scroll-down                    evil-normal-state-map)
-  (bind-key "C-u"    'evil-scroll-up                      evil-motion-state-map)
-  (bind-key "C-u"    'evil-scroll-up                      evil-normal-state-map)
-  (bind-key "C-p"    'evil-jump-forward                   evil-normal-state-map)
-  (bind-key "C-w T"  'my/move-current-window-to-new-frame evil-normal-state-map)
-  (bind-key "C-w T"  'my/move-current-window-to-new-frame evil-motion-state-map)
-  (bind-key "<down>" 'evil-next-visual-line               evil-motion-state-map)
-  (bind-key "<up>"   'evil-previous-visual-line           evil-motion-state-map)
-  (bind-key "]c"     'git-gutter:next-hunk                evil-normal-state-map)
-  (bind-key "[c"     'git-gutter:previous-hunk            evil-normal-state-map)
-  (bind-key "[l"     'langtool-goto-previous-error        evil-normal-state-map)
-  (bind-key "]l"     'langtool-goto-next-error            evil-normal-state-map)
-  (bind-key "C-n"    'company-next-page                   evil-insert-state-map)
-  (bind-key "C-p"    'company-previous-page               evil-insert-state-map)
-  (bind-key "]e"     'my/next-error                       evil-normal-state-map)
-  (bind-key "[e"     'my/previous-error                   evil-normal-state-map)
-  (bind-key "<"      'beginning-of-buffer                 evil-normal-state-map)
-  (bind-key ">"      'end-of-buffer                       evil-normal-state-map)
-  (bind-key "<home>" 'evil-first-non-blank                evil-normal-state-map)
-  (bind-key "<home>" 'evil-first-non-blank                evil-visual-state-map)
-  (bind-key "<end>"  'evil-end-of-line                    evil-normal-state-map)
-  (bind-key "<end>"  'evil-end-of-line                    evil-visual-state-map)
-  (bind-key ", /"    'keyboard-quit                       evil-visual-state-map)
-  (bind-key ", s"    'my/flip-symbol                      evil-normal-state-map)
-  (bind-key "C-d"    'evil-scroll-down evil-normal-state-map)
-  (bind-key "C-u"    'evil-scroll-up evil-normal-state-map)
-  (bind-key "C-s"    'evil-search-forward evil-normal-state-map) ;; counsel-grep
-  (bind-key "C-c C-S-o" 'browse-url-generic evil-normal-state-map)
+
+  (bind-keys
+    ("C-d" . evil-scroll-down)
+    ("C-u" . evil-scroll-up)
+    ("C-f" . universal-argument)
+    :map universal-argument-map
+    ("C-f" . universal-argument-more)
+    ("C-u" . nil)
+    :map evil-insert-state-map
+    ("TAB" . tab-to-tab-stop)
+    ("C-k" . kill-line)
+    ("C-n" . company-next-page)
+    ("C-p" . company-previous-page)
+    :map evil-normal-state-map
+    ("C-e" . move-end-of-line)
+    ("C-a" . my/smarter-move-beginning-of-line)
+    ("TAB" . indent-for-tab-command)
+    ("C-x T" . my/move-current-window-to-new-frame)
+    ("C-}" . my/evil-jump-to-tag-other-buffer)
+    ("M-]" . my/evil-jump-to-tag-other-buffer)
+    (",." . dired-jump)
+    (",m" . my/dired-jump-make-new-window)
+    (",n" . minimap-mode)
+    (",f" . my/rgrep)
+    (",x b" . my/kill-all-buffers-except-toolkit)
+    (",x t" . delete-frame)
+    (",c d" . my/copy-file-name)
+    (",a" . 'artbollocks-mode)
+    (",cd" . my/copy-file-name-to-clipboard)
+    (",/" . evil-ex-nohighlight)
+    ("h" . evil-first-non-blank)
+    ("l" . evil-end-of-line)
+    ("v" . set-mark-command)
+    ("C-y" . yank)
+    ("C-d" . evil-scroll-down)
+    ("C-u" . evil-scroll-up)
+    ("C-p" . evil-jump-forward)
+    ("C-w T" . my/move-current-window-to-new-frame)
+    ("]c" . git-gutter:next-hunk)
+    ("[c" . git-gutter:previous-hunk)
+    ("[l" . langtool-goto-previous-error)
+    ("]l" . langtool-goto-next-error)
+    ("]e" . my/next-error)
+    ("[e" . my/previous-error)
+    ("<"  . beginning-of-buffer)
+    (">"  . end-of-buffer)
+    ("<home>" . evil-first-non-blank)
+    ("<end>" . evil-end-of-line)
+    (",s" . my/flip-symbol)
+    ("C-d" . evil-scroll-down)
+    ("C-u" . evil-scroll-up)
+    ("C-s" . evil-search-forward) ;; counsel-grep
+    ("C-c C-S-o" . browse-url-generic)
+    :map evil-visual-state-map
+    ("C-e" . move-end-of-line)
+    ("C-a" . my/smarter-move-beginning-of-line)
+    ("TAB" . indent-for-tab-command)
+    (",f" . my/rgrep)
+    ("C-w" . evil-delete-char)
+    ("h" . evil-first-non-blank)
+    ("l" . evil-end-of-line)
+    ("<home>" . evil-first-non-blank)
+    ("<end>" . evil-end-of-line)
+    (",/" . keyboard-quit)
+    :map evil-motion-state-map
+    ("{" . backward-paragraph)
+    ("C-d" . evil-scroll-down)
+    ("}" . forward-paragraph)
+    ("C-u" . evil-scroll-up)
+    ("C-w T" . my/move-current-window-to-new-frame)
+    ("<down>" . evil-next-visual-line)
+    ("<up>" . evil-previous-visual-line)
+    )
 
   (defun my/next-error ()
     (interactive)
@@ -112,9 +113,6 @@
   (unbind-key "\\" evil-motion-state-map)
   (unbind-key "K" evil-motion-state-map)
 
-  (bind-key "C-f" 'universal-argument)
-  (bind-key "C-u" nil universal-argument-map)
-  (bind-key "C-f" 'universal-argument-more universal-argument-map)
   ;; (define-key global-map (kbd "C-u") 'kill-whole-line)
 
   (eval-after-load 'evil-maps
@@ -184,42 +182,35 @@
     (evil-make-overriding-map edebug-mode-map '(normal motion))
     (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
 
-  (evil-define-key '(motion normal) org-mode-map
-    (kbd "C-c C-s") 'org-schedule)
-
   (dolist (element my/text-modes)
     (evil-define-key '(motion normal) element
       (kbd "<down>") 'evil-next-visual-line
       (kbd "<up>")   'evil-previous-visual-line))
 
+  (evil-define-key 'normal prog-mode-map
+    "C-c m" #'hydra-merge/body)
 
-  (evil-define-key '(motion emacs normal) mu4e:view-mode-map
-    "C-d" 'evil-scroll-down
-    "C-u" 'evil-scroll-up)
-
-  (evil-define-key '(motion emacs) mu4e-headers-mode-map
-    "C-d" 'evil-scroll-down
-    "C-u" 'evil-scroll-up)
-
-  (evil-define-key '(visual) mu4e-compose-mode-map
-    "H" 'org-mime-htmlize)
-
-  (evil-define-key 'normal flyspell-mode-map
-    ;; (kbd "[s") 'flyspell-goto-next-error
-    ;; (kbd "]s") 'flyspell-goto-next-error
-    (kbd "[l") 'langtool-goto-previous-error
-    (kbd "]l") 'langtool-goto-next-error)
+  (evil-define-key 'normal ledger-mode-map
+    "C-c L" #'hydra-ledger/body)
 
   (evil-define-key 'normal org-mode-map
-    (kbd "<tab>") 'org-cycle
-    (kbd "TAB")   'org-cycle)
-
-  (evil-define-key 'visual org-mode-map
-    "C-c n" 'org-next-visible-heading
-    "C-c p" 'org-previous-visible-heading)
+    "C-x ," #'hydra-org/body
+    "C-x C-," #'hydra-org/body
+    (kbd "<tab>") #'org-cycle
+    (kbd "TAB") #'org-cycle
+    "C-c n" #'org-next-visible-heading
+    "C-c p" #'org-previous-visible-heading
+    "C-c s" #'hydra-spelling/body)
 
   (evil-define-key '(visual normal) org-mode-map
-    ",t"  'my/google-translate-at-point)
+    ",t" 'my/google-translate-at-point)
+
+  (evil-define-key '(motion normal) org-mode-map
+    (kbd "C-c C-s") 'org-schedule)
+
+  (evil-define-key 'visual org-mode-map
+    ",j" #'hydra-japanese/body
+    ",w" #'my/hydra-browser/body)
 
   ;; (evil-define-key '(motion normal) help-mode-map
   ;;   "l" 'help-go-back
@@ -231,36 +222,10 @@
   ;;   "[c" 'ediff-next-difference
   ;;   "]c" 'ediff-previous-difference)
 
-  (evil-define-key 'normal lsp-ui-mode-map
-    (kbd ",l") 'lsp-ui-imenu)
-
-  (evil-define-key '(normal motion visual) elpy-mode-map
-    "M-." 'xref-find-definitions
-    "M-," 'xref-pop-marker-stack)
-
-  (evil-define-key '(normal motion visual) js2-mode-map
-    "M-." 'xref-find-definitions
-    "M-," 'xref-pop-marker-stack)
-
-  (evil-define-key 'normal web-mode-map
-    ",t" 'my/toggle-php-flavor-mode)
-
-  (evil-define-key 'normal php-mode-map
-    ",t" 'my/toggle-php-flavor-mode)
-
-  (evil-define-key 'normal prog-mode-map
-    ",e" 'my/flycheck-toggle)
-
-  (evil-define-key 'normal tide-mode-map
-    ",t" 'hydra-tide/body
-    "M-." 'tide-jump-to-implementation
-    "M-," 'tide-jump-back)
-
-  (evil-define-key 'normal php-mode-map
-    ",d" 'hydra-php-debug/body)
-
-  (evil-define-key 'normal jarfar/org-roam-mode-map
-    ",," 'deft)
+  ;; (evil-define-key 'normal tide-mode-map
+  ;;   ",t" 'hydra-tide/body
+  ;;   "M-." 'tide-jump-to-implementation
+  ;;   "M-," 'tide-jump-back)
 
   ;; https://www.emacswiki.org/emacs/Evil#toc12
   ;; Brings back the access to RET and SPC in some modes.

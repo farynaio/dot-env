@@ -32,6 +32,11 @@
                       " " (my/vc-mode-line))))
         (setq vc-mode noback)))))
 
+(use-package all-the-icons-dired
+  :after all-the-icons
+  :config
+  (add-hook 'dired-mode-hook #'all-the-icons-dired-mode))
+
 (use-package ivy-rich
   :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
   :config
@@ -167,5 +172,11 @@
 (setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
 (set-face-attribute 'default nil :font default-font)
+
+;; (require 'chromatext)
+;; (setq chromatext-color-pairs
+;;   (list (list
+;;           (face-foreground 'default)
+;;           (color-lighten-name (face-foreground 'default) 80))))
 
 (provide 'my-theme)

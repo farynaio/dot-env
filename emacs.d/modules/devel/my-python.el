@@ -25,11 +25,17 @@
           ("C-c C-r f" . elpy-format-code)
           ("C-c C-r r" . elpy-refactor))
   :config
-  (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (setq elpy-rpc-backend "jedi")
-  (setq python-shell-interpreter "ipython")
-  (setq python-shell-interpreter-args "-i --simple-prompt")
+  (setq
+    elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)
+    elpy-modules (delq 'elpy-module-flymake elpy-modules)
+    elpy-rpc-backend "jedi"
+    python-shell-interpreter "ipython"
+    python-shell-interpreter-args "-i --simple-prompt")
+
+  (evil-define-key '(normal motion visual) elpy-mode-map
+    "M-." 'xref-find-definitions
+    "M-," 'xref-pop-marker-stack)
+
   ;; (setq
   ;; python-shell-interpreter "python"
   ;; python-shell-interpreter-args "-i")

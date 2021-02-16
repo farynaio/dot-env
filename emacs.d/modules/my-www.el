@@ -259,15 +259,4 @@
     :docstring "Searchin' the wikis.")
   (engine-mode t))
 
-(defhydra my/hydra-browser ()
-  "WWW browser shorcuts"
-  ;; ("s" my/w3m-search-new-session "search" :exit t)
-  ("s" my/w3m-search-frame "search" :exit t)
-  ;; ("S" my/w3m-search-frame "search in frame" :exit t)
-  ("g" w3m-goto-url-new-session "go to" :exit t)
-  ("G" my/w3m-goto-frame "go to in frame" :exit t)
-  ("W" my/w3m-open-frame "open browser in frame" :exit t)
-  ("w" my/w3m-open-other-window "open browser" :exit t)
-  )
-
 (provide 'my-www)
