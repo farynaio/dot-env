@@ -594,27 +594,8 @@ SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) 
 "
 :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
-  ("b" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("i" "Inbox" entry (file ,my/org-inbox-file-path)
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer nil)
-
-  ("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
+  ("t" "Tasks")
+  ("tt" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %(org-priority-cookie) %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
@@ -624,12 +605,51 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("y" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
+  ("tb" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
 "* TODO %?
 SCHEDULED: <%<%Y-%m-%d %a>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("ti" "Inbox" entry (file ,my/org-inbox-file-path)
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer nil)
+
+  ("tm" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("tr" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:STYLE: habit
+:END:
+"
+:prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("tw" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
+"* WAITING %?
+DEADLINE: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
@@ -666,32 +686,60 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("r" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:STYLE: habit
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("a" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* WAITING %?
-DEADLINE: <%<%Y-%m-%d %a>>
+("r" "Life review")
+  ("rw" "Weekly" entry (file+headline ,my/org-review-file-path "Review Life")
+"* [%<%Y-%m-%d %a>]                                                 :WEEKLY:
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
 
-  ("u" "Review life - monthly" entry (file+headline ,my/org-review-file-path "Review Life")
-"* [%<%Y-%m-%d %a>] %^g
++ Plans for next weak
+  -
+
++ What's good:
+  - %?
+
++ What's could be better:
+  -
+
++ What do I learned:
+  -
+
++ Plans for improvement:
+  -
+"
+    :prepend t :empty-lines-after 1 :jump-to-captured t)
+
+  ("rm" "Monthly" entry (file+headline ,my/org-review-file-path "Review Life")
+"* [%<%Y-%m-%d %a>]                                                 :MONTHLY:
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 
 + Plans for next month
+  -
+
++ What's good:
+  - %?
+
++ What's could be better:
+  -
+
++ What do I learned:
+  -
+
++ Plans for improvement:
+  -
+"
+    :prepend t :empty-lines-after 1 :jump-to-captured t)
+
+  ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
+"* [%<%Y-%m-%d %a>]                                                 :YEARLY:
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+
++ Plans for next year
   -
 
 + What's good:
