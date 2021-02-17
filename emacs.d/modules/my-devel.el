@@ -10,7 +10,7 @@
 ;; (require 'company-graphql)
 
 (evil-define-key 'normal prog-mode-map
-  ",e" 'my/flycheck-toggle)
+  (kbd ",e") #'my/flycheck-toggle)
 
 (use-package mmm-mode
   :commands mmm-mode
@@ -232,7 +232,7 @@
     lsp-ui-doc-header t)
 
   (evil-define-key 'normal lsp-ui-mode-map
-    (kbd ",l") 'lsp-ui-imenu))
+    (kbd ",l") #'lsp-ui-imenu))
 
   ;; (bind-key ", l" 'lsp-ui-imenu lsp-ui-mode-map)
 
@@ -297,8 +297,8 @@ $0`(yas-escape-text yas-selected-text)`"))
   (modify-syntax-entry ?$ "w" (syntax-table))
 
   (evil-define-key 'normal prog-mode
-    "<S-up>" #'farynaio/increment
-    "<S-down>" #'farynaio/decrement)
+    (kbd "<S-up>") #'farynaio/increment
+    (kbd "<S-down>") #'farynaio/decrement)
 
   ;; (flycheck-mode 1)
   (abbrev-mode -1)

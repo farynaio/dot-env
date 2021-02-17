@@ -81,8 +81,8 @@
   (evil-define-key 'normal flyspell-mode-map
     ;; (kbd "[s") 'flyspell-goto-next-error
     ;; (kbd "]s") 'flyspell-goto-next-error
-    (kbd "[l") 'langtool-goto-previous-error
-    (kbd "]l") 'langtool-goto-next-error)
+    (kbd "[l") #'langtool-goto-previous-error
+    (kbd "]l") #'langtool-goto-next-error)
 
   (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
   (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))

@@ -42,8 +42,8 @@
   :mode ("\\.php\\'" "\\.inc\\'")
   :config
   (evil-define-key 'normal php-mode-map
-    ",d" #'hydra-php-debug/body
-    ",t" #'my/toggle-php-flavor-mode)
+    (kbd ",d") #'hydra-php-debug/body
+    (kbd ",t") #'my/toggle-php-flavor-mode)
 
   (defun my/php-setup ()
     (web-mode)

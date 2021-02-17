@@ -33,8 +33,8 @@
     python-shell-interpreter-args "-i --simple-prompt")
 
   (evil-define-key '(normal motion visual) elpy-mode-map
-    "M-." 'xref-find-definitions
-    "M-," 'xref-pop-marker-stack)
+    (kbd "M-.") #'xref-find-definitions
+    (kbd "M-,") #'xref-pop-marker-stack)
 
   ;; (setq
   ;; python-shell-interpreter "python"

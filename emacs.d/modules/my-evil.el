@@ -36,6 +36,7 @@
     (",m" . my/dired-jump-make-new-window)
     (",n" . minimap-mode)
     (",f" . my/rgrep)
+    (",w" . my/hydra-browser/body)
     (",x b" . my/kill-all-buffers-except-toolkit)
     (",x t" . delete-frame)
     (",c d" . my/copy-file-name)
@@ -187,29 +188,25 @@
       (kbd "<up>")   'evil-previous-visual-line))
 
   (evil-define-key 'normal prog-mode-map
-    "C-c m" #'hydra-merge/body)
+    (kbd "C-c m") #'hydra-merge/body)
 
   (evil-define-key 'normal ledger-mode-map
-    "C-c L" #'hydra-ledger/body)
+    (kbd "C-c L") #'hydra-ledger/body)
 
   (evil-define-key 'normal org-mode-map
-    "C-x ," #'hydra-org/body
-    "C-x C-," #'hydra-org/body
+    (kbd "C-x ,") #'hydra-org/body
+    (kbd "C-x C-,") #'hydra-org/body
     (kbd "<tab>") #'org-cycle
     (kbd "TAB") #'org-cycle
-    "C-c n" #'org-next-visible-heading
-    "C-c p" #'org-previous-visible-heading
-    "C-c s" #'hydra-spelling/body)
+    (kbd "C-c n") #'org-next-visible-heading
+    (kbd "C-c p") #'org-previous-visible-heading)
+    ;; (kbd "C-c s") #'hydra-spelling/body)
 
   (evil-define-key '(visual normal) org-mode-map
-    ",t" 'my/google-translate-at-point)
+    ",t" #'my/google-translate-at-point)
 
   (evil-define-key '(motion normal) org-mode-map
     (kbd "C-c C-s") 'org-schedule)
-
-  (evil-define-key 'visual org-mode-map
-    ",j" #'hydra-japanese/body
-    ",w" #'my/hydra-browser/body)
 
   ;; (evil-define-key '(motion normal) help-mode-map
   ;;   "l" 'help-go-back

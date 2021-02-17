@@ -128,15 +128,15 @@
        (mu4e-maildirs-extension))
 
      (evil-define-key '(motion emacs normal) mu4e:view-mode-map
-       "C-d" 'evil-scroll-down
-       "C-u" 'evil-scroll-up)
+       (kbd "C-d") #'evil-scroll-down
+       (kbd "C-u") #'evil-scroll-up)
 
      (evil-define-key '(motion emacs) mu4e-headers-mode-map
-       "C-d" 'evil-scroll-down
-       "C-u" 'evil-scroll-up)
+       (kbd "C-d") #'evil-scroll-down
+       (kbd "C-u") #'evil-scroll-up)
 
      (evil-define-key '(visual) mu4e-compose-mode-map
-       "H" 'org-mime-htmlize)
+       (kbd "H") #'org-mime-htmlize)
 
      (evil-make-overriding-map mu4e-headers-mode-map 'motion)
      (evil-make-overriding-map mu4e-headers-mode-map 'normal)
@@ -216,7 +216,7 @@
        mu4e-confirm-quit nil
        mu4e-view-html-plaintext-ratio-heuristic most-positive-fixnum
        ;; mu4e-view-html-plaintext-ratio-heuristic 5
-       ;; mu4e-update-interval 900
+       ;; mu4e-update-interval (* 60 10)
        mu4e-compose-in-new-frame nil
        mu4e-html2text-command 'mu4e-shr2text
        ;; mu4e-html2text-command "w3m -dump -dump_extra -T text/html"

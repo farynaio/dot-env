@@ -60,7 +60,7 @@
       ("l" lsp-mode "lsp" :toggle t))
     ;; ("s" smartparens-mode "smartparens" :toggle t))
     "UI"
-    (("i" ivy-rich-mode "ivy-rich" :toggle t))))
+    (("i" ivy-rich-local-mode "ivy-rich local" :toggle t))))
 
 (pretty-hydra-define hydra-clock
   (:hint nil :color teal :quit-key "q" :title (with-faicon "clock-o" "Clock" 1 -0.05))
@@ -208,19 +208,6 @@
     "Diff"
     (("R" smerge-refine "redefine"))))
 
-;; (pretty-hydra-define hydra-org
-;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
-;;   ("Action"
-;;     (
-;;       ("a" org-agenda "agenda")
-;;       ("c" org-capture "capture")
-;;       ;; ("d" org-decrypt-entry "decrypt")
-;;       ("i" org-insert-link-global "insert-link")
-;;       ("k" org-cut-subtree "cut-subtree")
-;;       ("o" org-open-at-point-global "open-link")
-;;       ("r" org-refile "refile")
-;;       )))
-
 (pretty-hydra-define hydra-projectile
   (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "Projectile" 1 -0.05))
   ("Buffers"
@@ -336,7 +323,8 @@
 (pretty-hydra-define hydra-org
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
-   (("t" org-toggle-timestamp-type "timestamp toggle"))
+   (("t" org-toggle-timestamp-type "timestamp toggle")
+    ("a" org-link-archive "link archive"))
    "Navigation"
    (("s" counsel-org-goto "goto heading")
     ("a" counsel-org-file "browse attachments"))))

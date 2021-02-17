@@ -20,8 +20,8 @@
     js2-mode-show-strict-warnings nil)
 
   (evil-define-key '(normal motion visual) js2-mode-map
-    "M-." 'xref-find-definitions
-    "M-," 'xref-pop-marker-stack))
+    (kbd "M-.") #'xref-find-definitions
+    (kbd "M-,") #'xref-pop-marker-stack))
 
 ;; (use-package js2-refactor
 ;;   :bind (:map js2-mode-map

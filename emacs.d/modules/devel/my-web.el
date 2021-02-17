@@ -24,7 +24,7 @@
     web-mode-code-indent-offset tab-width)
 
   (evil-define-key 'normal web-mode-map
-    ",t" #'my/toggle-php-flavor-mode)
+    (kbd ",t") #'my/toggle-php-flavor-mode)
 
   (add-hook 'before-save-hook
     (lambda ()
