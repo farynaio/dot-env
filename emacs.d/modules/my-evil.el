@@ -197,9 +197,7 @@
     (kbd "C-x ,") #'hydra-org/body
     (kbd "C-x C-,") #'hydra-org/body
     (kbd "<tab>") #'org-cycle
-    (kbd "TAB") #'org-cycle
-    (kbd "C-c n") #'org-next-visible-heading
-    (kbd "C-c p") #'org-previous-visible-heading)
+    (kbd "TAB") #'org-cycle)
     ;; (kbd "C-c s") #'hydra-spelling/body)
 
   (evil-define-key '(visual normal) org-mode-map

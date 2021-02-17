@@ -186,8 +186,6 @@
        ("U" . mu4e-mark-unmark-all)
        ("[" . mu4e-headers-prev-unread)
        ("]" . mu4e-headers-next-unread)
-       ("G" . end-of-buffer)
-       ("gg" . beginning-of-buffer)
        ("l" . mu4e-show-log)
        ("I" . mu4e-headers-toggle-include-related)
        ("T" . mu4e-headers-toggle-threading)

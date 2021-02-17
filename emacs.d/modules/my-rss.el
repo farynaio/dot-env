@@ -30,6 +30,7 @@
           ("O" . my/elfeed-open-in-external-browser)
           ("g" . jarfar/elfeed-update)
           ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
+          ("<s-mouse-1>" . elfeed-search-browse-url)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
   :config
   (setq
@@ -39,7 +40,7 @@
     elfeed-web-limit 500))
 
 (defun my/elfeed-search-open-in-external-click (event)
-  "Open link with w3m"
+  "Open link with external browser"
   (interactive "e")
   (mouse-set-point event)
   (let ((urls (list))

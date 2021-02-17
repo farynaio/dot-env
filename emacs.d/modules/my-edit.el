@@ -250,17 +250,7 @@ end-of-buffer signals; pass the rest to the default handler."
       (indent-rigidly (line-beginning-position) (line-end-position) offset))))
 
 (bind-key "<S-tab>" 'jarfar/unindent-region)
-(defvar epa-key-mode-map (make-sparse-keymap))
-(defvar org-mode-map (make-sparse-keymap))
-(defvar mu4e:view-mode-map (make-sparse-keymap))
-(defvar mu4e-headers-mode-map (make-sparse-keymap))
-(defvar mu4e-compose-mode-map (make-sparse-keymap))
 ;; (defvar flyspell-mode-map (make-sparse-keymap))
-(defvar elpy-mode-map (make-sparse-keymap))
-(defvar js2-mode-map (make-sparse-keymap))
-(defvar eshell-mode-map (make-sparse-keymap))
-(defvar php-mode-map (make-sparse-keymap))
-(defvar web-mode-map (make-sparse-keymap))
 
 (bind-keys
   ("C-x C-r" . recentf-open-files)

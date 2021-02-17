@@ -1,5 +1,3 @@
-(defvar ledger-mode-map (make-sparse-keymap))
-(defvar elfeed-search-mode-map (make-sparse-keymap))
 
 (use-package hydra
   :bind (("C-c I" . hydra-image/body)
@@ -323,8 +321,8 @@
 (pretty-hydra-define hydra-org
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
-   (("t" org-toggle-timestamp-type "timestamp toggle")
-    ("a" org-link-archive "link archive"))
+   (("t" org-toggle-timestamp-type "timestamp toggle" :toggle t)
+    ("l" org-link-archive "link archive"))
    "Navigation"
    (("s" counsel-org-goto "goto heading")
     ("a" counsel-org-file "browse attachments"))))
