@@ -13,6 +13,13 @@
   scroll-conservatively 101
   auto-window-vscroll nil)
 
+;; (setq special-display-buffer-names '("*Help*"))
+
+(setq display-buffer-alist '(("*helpful"
+                              (display-buffer-reuse-window display-buffer-at-bottom)
+                              (window-width . 0.5))))
+
+
 (use-package recentf
   :ensure nil
   :custom
