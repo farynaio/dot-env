@@ -28,8 +28,7 @@
     (flyspell-mode -1)
     (hungry-delete-mode 1)
     (hl-line-mode 1)
-    (show-paren-mode 1)
-    (electric-operator-mode 1))
+    (show-paren-mode 1))
 
   (add-hook 'prog-mode-hook #'my/prog-mode-hook -50))
 

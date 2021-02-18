@@ -150,6 +150,15 @@
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-forward-word-function 'forward-char))
 
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+          ("C-h v" . helpful-variable)
+          ("C-h k" . helpful-key)
+          ("C-c C-d" . helpful-at-point))
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable))
+
 (use-package savehist
   :ensure nil
   :custom

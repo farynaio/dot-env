@@ -1,24 +1,21 @@
 (require 'js)
 
-
-(eval-after-load 'js
-  '(progn
-     (setq-default
-       js-indent-level tab-width
-       flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-
-     (flycheck-add-mode 'javascript-eslint 'js-mode)
-
-     (add-hook 'js-mode-hook
-       (lambda () (when (not (eq major-mode 'json-mode)) (lsp)))
-     )))
+(use-package js
+  :ensure nil
+  :custom
+  (js-indent-level tab-width)
+  (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+  (js-chain-indent t)
+  :config
+  (flycheck-add-mode 'javascript-eslint 'js-mode)
+  (add-hook 'js-mode-hook
+    (lambda () (unless (eq major-mode 'json-mode) (lsp)))))
 
 (use-package js2-mode
+  :custom
+  (js2-mode-show-parse-errors nil)
+  (js2-mode-show-strict-warnings nil)
   :config
-  (setq
-    js2-mode-show-parse-errors nil
-    js2-mode-show-strict-warnings nil)
-
   (evil-define-key '(normal motion visual) js2-mode-map
     (kbd "M-.") #'xref-find-definitions
     (kbd "M-,") #'xref-pop-marker-stack))

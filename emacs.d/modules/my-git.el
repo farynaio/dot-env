@@ -7,35 +7,27 @@
 (setq vc-follow-symlinks t)
 (setq vc-handled-backends '(Git))
 
-(eval-after-load 'smerge-mode
-  '(progn
-     (defun my/smerge-mode-setup ()
-       (bind-keys
-         :map smerge-mode-map
-         ("[w" . smerge-prev)
-         ("]w" . smerge-next))
-     (add-hook 'smerge-mode-hook 'my/smerge-mode-setup))))
+(use-package smerge-mode
+  :bind (:map smerge-mode-map
+          ("[w" . #'smerge-prev)
+          ("]w" . #'smerge-next)))
 
 (use-package projectile
   :diminish projectile-mode
+  :custom
+  (projectile-completion-system 'ivy)
+  (projectile-indexing-method 'hybrid)
+  (projectile-enable-caching t)
+  (projectile-verbose nil)
+  (projectile-do-log nil)
+  (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (projectile-track-known-projects-automatically nil)
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
   :config
-  (bind-keys
-    :map projectile-mode-map
-    ("C-c p" . projectile-command-map)
-    ("C-c p F" . projectile-find-file-other-window))
-  (unbind-key "C-c p" projectile-mode-map)
+  (setq projectile-globally-ignored-directories (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
 
-  (setq
-    projectile-completion-system 'ivy
-    projectile-indexing-method 'hybrid
-    projectile-enable-caching t
-    projectile-verbose nil
-    projectile-do-log nil
-    projectile-mode-line '(:eval (format " [%s]" (projectile-project-name)))
-    projectile-track-known-projects-automatically nil
-    projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class")
-    projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep")
-    projectile-globally-ignored-directories (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
+  (unbind-key "C-c p" projectile-mode-map)
 
   (if (executable-find "ctags")
     (setq projectile-tags-command "ctags -R -e .")
@@ -104,11 +96,14 @@ to invalidate."
   :config
   (global-git-gutter-mode 1))
 
-(eval-after-load 'git-rebase
-  '(progn
-     (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1)))))
+(use-package git-rebase
+  :ensure nil
+  :config
+  (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1))))
 
-(use-package transient) ;; magit dependency
+;; magit dependency
+(use-package transient
+  :defer 0.3)
 
 (use-package magit
   :diminish magit-auto-revert-mode
@@ -142,32 +137,28 @@ to invalidate."
           :map magit-status-mode-map
           ("\\w" . avy-goto-word-or-subword-1)
           ("\\c" . avy-goto-char))
+  :custom
+  (magit-completing-read-function 'ivy-completing-read)
+  (magit-refresh-status-buffer nil)
+  (magit-item-highlight-face 'bold)
+  (magit-diff-paint-whitespace nil)
+  (magit-ediff-dwim-show-on-hunks t)
+  (magit-diff-hide-trailing-cr-characters t)
+  (magit-bury-buffer-function 'quit-window)
+  ;; (magit-bury-buffer-function 'magit-mode-quit-window)
+  ;; (magit-bury-buffer-function 'magit-restore-window-configuration)
+  (magit-commit-ask-to-stage nil)
+  (magit-commit-squash-confirm nil)
+  (magit-no-confirm '(stage-all-changes unstage-all-changes))
+  (auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
+  (magit-blame-styles '((margin
+                          (margin-format " %s%f" " %C %a" " %H")
+                          (margin-width . 42)
+                          (margin-face . magit-blame-margin)
+                          (margin-body-face magit-blame-dimmed))
+                         (headings
+                           (heading-format . "%-20a %C %s"))))
   :config
-  (setq
-    magit-completing-read-function 'ivy-completing-read
-    magit-refresh-status-buffer nil
-    magit-item-highlight-face 'bold
-    magit-diff-paint-whitespace nil
-    magit-ediff-dwim-show-on-hunks t
-    magit-diff-hide-trailing-cr-characters t
-    ;; magit-bury-buffer-function 'magit-mode-quit-window
-    magit-bury-buffer-function 'magit-restore-window-configuration
-    magit-commit-ask-to-stage nil
-    magit-commit-squash-confirm nil
-    magit-no-confirm '(stage-all-changes unstage-all-changes))
-
-  (setq auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
-  (setq magit-blame-styles
-    '(
-       (margin
-         (margin-format " %s%f" " %C %a" " %H")
-         (margin-width . 42)
-         (margin-face . magit-blame-margin)
-         (margin-body-face magit-blame-dimmed))
-       (headings
-         (heading-format . "%-20a %C %s
-"))))
-
   (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
   (defalias 'magit-blame-echo 'magit-blame-addition)

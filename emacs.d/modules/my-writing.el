@@ -31,6 +31,7 @@
 
 (use-package abbrev
   :ensure nil
+  :diminish "Abb"
   :hook ((text-mode . abbrev-mode))
   :custom
   (save-abbrevs 'silently)
@@ -78,6 +79,7 @@
 
 (use-package flyspell
   :commands flyspell-mode
+  :diminish "Fly"
   :custom
   (flyspell-issue-message-flag nil)
   (flyspell-issue-welcome-flag nil)

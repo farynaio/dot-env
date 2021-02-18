@@ -1,28 +1,27 @@
-
 (use-package hydra
   :bind (("C-c I" . hydra-image/body)
-          ("C-c T" . hydra-tool/body)
-          ("C-c t" . hydra-btoggle/body)
-          ("C-c C" . hydra-clock/body)
-          ("C-c e" . hydra-erc/body)
-          ("C-c g" . hydra-go-to-file/body)
-          ("C-c p" . hydra-projectile/body)
-          ("C-c q" . hydra-query/body)
-          ("C-c b" . hydra-browser/body)
-          ("C-c s" . hydra-spelling/body)
-          ("C-c v" . hydra-org-roam/body)
-          :map evil-normal-state-map
-          (",b" . hydra-buffer/body)
-          (",w" . hydra-browser/body)
-          (",i" . hydra-snippet/body)
-          (",p" . hydra-project/body)
-          ("C-c f" . hydra-flycheck/body)
-          ("C-c v" . hydra-org-roam/body)
-          (",g" . hydra-git/body)
-          :map dired-mode-map
-          ("C-c d" . hydra-dired/body)
-          ;; ("C-c u" . hydra-upload/body)
-          ))
+         ("C-c T" . hydra-tool/body)
+         ("C-c t" . hydra-btoggle/body)
+         ("C-c C" . hydra-clock/body)
+         ("C-c e" . hydra-erc/body)
+         ("C-c g" . hydra-go-to-file/body)
+         ("C-c p" . hydra-projectile/body)
+         ("C-c q" . hydra-query/body)
+         ("C-c b" . hydra-browser/body)
+         ("C-c s" . hydra-spelling/body)
+         ("C-c v" . hydra-org-roam/body)
+         :map evil-normal-state-map
+         (",b" . hydra-buffer/body)
+         (",w" . hydra-browser/body)
+         (",i" . hydra-snippet/body)
+         (",p" . hydra-project/body)
+         ("C-c f" . hydra-flycheck/body)
+         ("C-c v" . hydra-org-roam/body)
+         (",g" . hydra-git/body)
+         :map dired-mode-map
+         ("C-c d" . hydra-dired/body)
+         ;; ("C-c u" . hydra-upload/body)
+         ))
 
 (use-package major-mode-hydra
   :after hydra
@@ -46,59 +45,59 @@
 (pretty-hydra-define hydra-btoggle
   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
   ("Basic"
-    (("a" abbrev-mode "abbrev" :toggle t)
-     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
-     ("q" smart-quotes-mode "smart quotes toggle" :toggle t))
-    "Coding"
-    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
-      ("e" electric-operator-mode "electric operator" :toggle t)
-      ("F" flyspell-mode "flyspell" :toggle t)
-      ("f" flycheck-mode "flycheck" :toggle t)
-      ("l" lsp-mode "lsp" :toggle t))
-    ;; ("s" smartparens-mode "smartparens" :toggle t))
-    "UI"
-    (("i" ivy-rich-local-mode "ivy-rich local" :toggle t))))
+   (("a" abbrev-mode "abbrev" :toggle t)
+    ("h" global-hungry-delete-mode "hungry delete" :toggle t)
+    ("q" smart-quotes-mode "smart quotes toggle" :toggle t))
+   "Coding"
+   (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
+    ("e" electric-operator-mode "electric operator" :toggle t)
+    ("F" flyspell-mode "flyspell" :toggle t)
+    ("f" flycheck-mode "flycheck" :toggle t)
+    ("l" lsp-mode "lsp" :toggle t))
+   ;; ("s" smartparens-mode "smartparens" :toggle t))
+   "UI"
+   (("i" ivy-rich-local-mode "ivy-rich local" :toggle t))))
 
 (pretty-hydra-define hydra-clock
   (:hint nil :color teal :quit-key "q" :title (with-faicon "clock-o" "Clock" 1 -0.05))
   ("Action"
-    (("c" org-clock-cancel "cancel")
-      ("d" org-clock-display "display")
-      ("e" org-clock-modify-effort-estimate "effort")
-      ("i" org-clock-in "in")
-      ("j" org-clock-goto "jump")
-      ("o" org-clock-out "out")
-      ("p" org-pomodoro "pomodoro")
-      ("r" org-clock-report "report"))))
+   (("c" org-clock-cancel "cancel")
+    ("d" org-clock-display "display")
+    ("e" org-clock-modify-effort-estimate "effort")
+    ("i" org-clock-in "in")
+    ("j" org-clock-goto "jump")
+    ("o" org-clock-out "out")
+    ("p" org-pomodoro "pomodoro")
+    ("r" org-clock-report "report"))))
 
 (pretty-hydra-define hydra-erc
   (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "ERC" 1 -0.05))
   ("Action"
-    (
-      ;; ("b" my/erc-browse-last-url "browse last url")
-      ("c" my/erc-start-or-switch "connect")
-      ("d" erc-quit-server "disconnect")
-      ("j" erc-join-channel "join")
-      ("n" erc-channel-names "names")
-      ("o" my/erc-get-ops "ops")
-      ("u" my/erc-count-users "users")
-      ("r" my/erc-reset-track-mode "reset track mode"))))
+   (
+    ;; ("b" my/erc-browse-last-url "browse last url")
+    ("c" my/erc-start-or-switch "connect")
+    ("d" erc-quit-server "disconnect")
+    ("j" erc-join-channel "join")
+    ("n" erc-channel-names "names")
+    ("o" my/erc-get-ops "ops")
+    ("u" my/erc-count-users "users")
+    ("r" my/erc-reset-track-mode "reset track mode"))))
 
 (pretty-hydra-define hydra-flycheck
   (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
   ("Checker"
-    (("?" flycheck-describe-checker "describe")
-      ("d" flycheck-disable-checker "disable")
-      ("m" flycheck-mode "mode")
-      ("s" flycheck-select-checker "select"))
-    "Errors"
-    (("<" flycheck-previous-error "previous" :color pink)
-      (">" flycheck-next-error "next" :color pink)
-      ("f" flycheck-buffer "check")
-      ("l" flycheck-list-errors "list"))
-    "Other"
-    (("M" flycheck-manual "manual")
-      ("v" flycheck-verify-setup "verify setup"))))
+   (("?" flycheck-describe-checker "describe")
+    ("d" flycheck-disable-checker "disable")
+    ("m" flycheck-mode "mode")
+    ("s" flycheck-select-checker "select"))
+   "Errors"
+   (("<" flycheck-previous-error "previous" :color pink)
+    (">" flycheck-next-error "next" :color pink)
+    ("f" flycheck-buffer "check")
+    ("l" flycheck-list-errors "list"))
+   "Other"
+   (("M" flycheck-manual "manual")
+    ("v" flycheck-verify-setup "verify setup"))))
 
 (pretty-hydra-define hydra-go-to-file
   (:hint nil :color teal :quit-key "q" :title (with-faicon "file-text-o" "Go To" 1 -0.05))
@@ -145,30 +144,30 @@
 (pretty-hydra-define hydra-image
   (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
   ("Action"
-    (("r" image-rotate "rotate")
-      ("s" image-save "save" :color teal))
-    "Zoom"
-    (("-" image-decrease-size "out")
-      ("+" image-increase-size "in")
-      ("=" image-transform-reset "reset"))))
+   (("r" image-rotate "rotate")
+    ("s" image-save "save" :color teal))
+   "Zoom"
+   (("-" image-decrease-size "out")
+    ("+" image-increase-size "in")
+    ("=" image-transform-reset "reset"))))
 
 (pretty-hydra-define hydra-ledger
   (:hint nil :color teal :quit-key "q" :title (with-faicon "usd" "Ledger" 1 -0.05))
   ("Action"
-    (("b" leadger-add-transaction "add")
-      ("c" ledger-mode-clean-buffer "clear")
-      ("i" ledger-copy-transaction-at-point "copy")
-      ("s" ledger-delete-current-transaction "delete")
-      ("r" ledger-report "report"))))
+   (("b" leadger-add-transaction "add")
+    ("c" ledger-mode-clean-buffer "clear")
+    ("i" ledger-copy-transaction-at-point "copy")
+    ("s" ledger-delete-current-transaction "delete")
+    ("r" ledger-report "report"))))
 
 (pretty-hydra-define hydra-magit
   (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
   ("Action"
-    (("b" magit-blame "blame")
-      ("l" magit-log-buffer-file "commit log (current file)")
-      ("L" magit-log-current "commit log (project)")
-      ("s" magit-status "status")
-      )))
+   (("b" magit-blame "blame")
+    ("l" magit-log-buffer-file "commit log (current file)")
+    ("L" magit-log-current "commit log (project)")
+    ("s" magit-status "status")
+    )))
 
 (pretty-hydra-define hydra-git
   (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
@@ -199,67 +198,68 @@
   ("Move"
    (("n" smerge-next "next")
     ("p" smerge-prev "previous"))
-    "Keep"
-    (("l" smerge-keep-lower "lower")
-     ("u" smerge-keep-upper "upper"))
-    "Diff"
-    (("R" smerge-refine "redefine"))))
+   "Keep"
+   (("l" smerge-keep-lower "lower")
+    ("u" smerge-keep-upper "upper"))
+   "Diff"
+   (("R" smerge-refine "redefine"))))
 
 (pretty-hydra-define hydra-projectile
   (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "Projectile" 1 -0.05))
   ("Buffers"
-    (("b" counsel-projectile-switch-to-buffer "list")
-      ("k" projectile-kill-buffers "kill all")
-      ("S" projectile-save-project-buffers "save all"))
-    "Find"
-    (("d" counsel-projectile-find-dir "directory")
-      ("D" projectile-dired "root")
-      ("f" counsel-projectile-find-file "file")
-      ("p" counsel-projectile-switch-project "project")
-      ("o" projectile-find-other-file "other")
-      ("t" projectile-find-tag "tag")
-      )
-    "Project"
-    (("a" my/projectile-add-known-project "add")
-      ("r" projectile-remove-known-project "remove"))
-    "Other"
-    (("i" projectile-invalidate-cache "reset cache"))
-    "Search"
-    (("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace '(save-some-buffers t)) "replace")
-      ("R" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace")
-      ("s" counsel-rg "search"))))
+   (("b" counsel-projectile-switch-to-buffer "list")
+    ("k" projectile-kill-buffers "kill all")
+    ("S" projectile-save-project-buffers "save all"))
+   "Find"
+   (("d" counsel-projectile-find-dir "directory")
+    ("D" projectile-dired "root")
+    ("f" counsel-projectile-find-file "file")
+    ("F" projectile-find-file-other-window "file other window")
+    ("p" counsel-projectile-switch-project "project")
+    ("o" projectile-find-other-file "other file")
+    ("t" projectile-find-tag "tag")
+    )
+   "Project"
+   (("a" my/projectile-add-known-project "add")
+    ("r" projectile-remove-known-project "remove"))
+   "Other"
+   (("i" projectile-invalidate-cache "reset cache"))
+   "Search"
+   (("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace '(save-some-buffers t)) "replace")
+    ("R" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace")
+    ("s" counsel-rg "search"))))
 
 (pretty-hydra-define hydra-query
   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))
   ("Query"
-    (("a" engine/search-amazon "amazon")
-      ("d" engine/search-duckduckgo "duckduckgo")
-      ("g" engine/search-github "github")
-      ("i" engine/search-google-images "google images")
-      ("m" engine/search-google-maps "google maps")
-      ("s" engine/search-stack-overflow "stack overflow")
-      ("w" engine/search-wikipedia "wikipedia")
-      ("y" engine/search-youtube "youtube"))))
+   (("a" engine/search-amazon "amazon")
+    ("d" engine/search-duckduckgo "duckduckgo")
+    ("g" engine/search-github "github")
+    ("i" engine/search-google-images "google images")
+    ("m" engine/search-google-maps "google maps")
+    ("s" engine/search-stack-overflow "stack overflow")
+    ("w" engine/search-wikipedia "wikipedia")
+    ("y" engine/search-youtube "youtube"))))
 
 (pretty-hydra-define hydra-spelling
   (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Spelling" 1 -0.05))
   ("Checker"
-    (("c" langtool-correct-buffer "correction")
-      ("C" langtool-check-done "clear")
-      ("d" ispell-change-dictionary "dictionary")
-      ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-      ("l" my/lang-toggle "language switch")
-      ("w" wiki-summary "wiki"))
-    "Japanese"
-    (("k" japanese-katakana-region "katakana charset")
-      ("h" japanese-hiragana-region "hiragana charset"))
-    ;; TODO add encoding switch
-    "Errors"
-    (("<" flyspell-correct-previous "previous" :color pink)
-      (">" flyspell-correct-next "next" :color pink)
-      ("x" langtool-check-buffer "langtool check")
-      ("q" langtool-check-done "langtool done")
-      ("a" artbollocks-mode "artbollocks"))))
+   (("c" langtool-correct-buffer "correction")
+    ("C" langtool-check-done "clear")
+    ("d" ispell-change-dictionary "dictionary")
+    ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+    ("l" my/lang-toggle "language switch")
+    ("w" wiki-summary "wiki"))
+   "Japanese"
+   (("k" japanese-katakana-region "katakana charset")
+    ("h" japanese-hiragana-region "hiragana charset"))
+   ;; TODO add encoding switch
+   "Errors"
+   (("<" flyspell-correct-previous "previous" :color pink)
+    (">" flyspell-correct-next "next" :color pink)
+    ("x" langtool-check-buffer "langtool check")
+    ("q" langtool-check-done "langtool done")
+    ("a" artbollocks-mode "artbollocks"))))
 
 ;; (pretty-hydra-define hydra-tex
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "tex" "LaTeX" 1 -0.05))
@@ -271,11 +271,11 @@
 
 (pretty-hydra-define hydra-tool
   (:hint nil :color teal :quit-key "q" :title (with-faicon "briefcase" "Tool" 1 -0.05))
-   ("Format"
+  ("Format"
    (("x" my/reformat-xml "format XML"))
    "Remove"
-    (("c" jarfar/comments-delete-buffer "remove comments from buffer")
-     ("l" jarfar/remove-empty-lines "remove empty lines"))))
+   (("c" jarfar/comments-delete-buffer "remove comments from buffer")
+    ("l" jarfar/remove-empty-lines "remove empty lines"))))
 
 ;; (pretty-hydra-define hydra-upload
 ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "cloud-upload" "Upload" 1 -0.05))
@@ -287,15 +287,15 @@
 (pretty-hydra-define hydra-snippet
   (:hint nil :color teal :quit-key "q" :title (with-faicon "file" "Snippets" 1 -0.05))
   ("Snippet"
-  (("s" yas-insert-snippet "insert")
-  ("n" yas-new-snippet "new")
-  ("e" yas-visit-snippet-file "edit")
-  ("r" yas-reload-all "reload"))))
+   (("s" yas-insert-snippet "insert")
+    ("n" yas-new-snippet "new")
+    ("e" yas-visit-snippet-file "edit")
+    ("r" yas-reload-all "reload"))))
 
 (pretty-hydra-define hydra-browser
   (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
   ("Go to"
-    ;; ("S" my/w3m-search-frame "search in frame" :exit t)
+   ;; ("S" my/w3m-search-frame "search in frame" :exit t)
    (("g" w3m-goto-url-new-session "go to")
     ("G" my/w3m-goto-frame "go to in frame"))
    "Open"
@@ -329,34 +329,34 @@
 (pretty-hydra-define hydra-org-roam
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
-    (("r" org-roam "org-roam")
-      ("k" org-roam "Toggle sidebar")
-      ("l" org-roam-insert "Insert")
-      ("j" org-roam-dailies-find-date "Journal")
-      ("J" farynaio/org-roam-dailies-find-date-other-window "Journal other window")
-      ("f" org-roam-find-file "Find file")
-      ("F" jarfar/org-roam-find-file-other-window "Find file")
-      ("b" org-roam-switch-to-buffer "Switch buffer")
-      ("d" org-roam-find-directory "Find dir"))))
+   (("r" org-roam "org-roam")
+    ("k" org-roam "Toggle sidebar")
+    ("l" org-roam-insert "Insert")
+    ("j" org-roam-dailies-find-date "Journal")
+    ("J" farynaio/org-roam-dailies-find-date-other-window "Journal other window")
+    ("f" org-roam-find-file "Find file")
+    ("F" jarfar/org-roam-find-file-other-window "Find file")
+    ("b" org-roam-switch-to-buffer "Switch buffer")
+    ("d" org-roam-find-directory "Find dir"))))
 
 (pretty-hydra-define hydra-elfeed-search
   (:hint nil :color teal :quit-key "q" :title (with-faicon "rss" "RSS" 1 -0.05))
   ("Filter"
-    (("b" (elfeed-search-set-filter "+business") "Show Business")
-      ("k" (elfeed-search-set-filter "+marketing") "Show Marketing")
-      ("e" (elfeed-search-set-filter "+entr") "Show Entr")
-      ("s" (elfeed-search-set-filter "+startup") "Show Startup")
-      ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking")
-      ("a" (elfeed-search-set-filter "+saas") "Show SaaS")
-      ("o" (elfeed-search-set-filter "+seo") "Show SEO")
-      ("g" (elfeed-search-set-filter "+blog") "Show Blogging")
-      ("c" (elfeed-search-set-filter "+copy") "Show Copywriting")
-      ("f" (elfeed-search-set-filter "+finances") "Show Finances")
-      ("m" (elfeed-search-set-filter "+social") "Show Social Media")
-      ("y" (elfeed-search-set-filter "+crypto") "Show Crypto")
-      ("n" (elfeed-search-set-filter "+news") "Show News")
-      ("l" (elfeed-search-set-filter "+ok") "Show Read Later")
-      ("j" (elfeed-search-set-filter "+junk") "Show Junk"))))
+   (("b" (elfeed-search-set-filter "+business") "Show Business")
+    ("k" (elfeed-search-set-filter "+marketing") "Show Marketing")
+    ("e" (elfeed-search-set-filter "+entr") "Show Entr")
+    ("s" (elfeed-search-set-filter "+startup") "Show Startup")
+    ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking")
+    ("a" (elfeed-search-set-filter "+saas") "Show SaaS")
+    ("o" (elfeed-search-set-filter "+seo") "Show SEO")
+    ("g" (elfeed-search-set-filter "+blog") "Show Blogging")
+    ("c" (elfeed-search-set-filter "+copy") "Show Copywriting")
+    ("f" (elfeed-search-set-filter "+finances") "Show Finances")
+    ("m" (elfeed-search-set-filter "+social") "Show Social Media")
+    ("y" (elfeed-search-set-filter "+crypto") "Show Crypto")
+    ("n" (elfeed-search-set-filter "+news") "Show News")
+    ("l" (elfeed-search-set-filter "+ok") "Show Read Later")
+    ("j" (elfeed-search-set-filter "+junk") "Show Junk"))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))

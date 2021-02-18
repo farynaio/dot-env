@@ -61,6 +61,8 @@
       insert-directory-program "/usr/local/bin/gls"
       dired-listing-switches "-alh1v"))
 
+  (put 'dired-find-alternate-file 'disabled nil)
+
   (defun farynaio/dired-go-up-reuse (&optional dir)
     (interactive)
     (let ((new-dir (if dir (expand-file-name dir) (dired-get-file-for-visit)))
