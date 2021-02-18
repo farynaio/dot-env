@@ -1,27 +1,25 @@
 ; source http://article.gmane.org/gmane.emacs.orgmode/66151
-(require 'appt)
+(use-package appt
+  :ensure nil
+  :init
+  (setq my-notifier-path "/usr/local/bin/terminal-notifier")
+  :preface
+  (defun my-appt-send-notification (title msg)
+    (shell-command (concat my-notifier-path " -message \"" msg "\" -title \"" title "\"")))
+  :custom
+  (appt-disp-window-function #'my-appt-display)
+  (appt-time-msg-list nil)
+  (appt-display-interval 0)
+  (appt-message-warning-time 0)
+  (appt-display-mode-line nil)
+  (appt-display-format 'window)
 
-;; set up the call to terminal-notifier
-(defvar my-notifier-path "/usr/local/bin/terminal-notifier")
+  :config
+  (appt-activate 1)
 
-(defun my-appt-send-notification (title msg)
-  (shell-command (concat my-notifier-path " -message \"" msg "\" -title \"" title "\"")))
-
-;; designate the window function for my-appt-send-notification
-(defun my-appt-display (min-to-app new-time msg)
-  (my-appt-send-notification
-    (format "'Appointment in %s minutes'" min-to-app)    ;; passed to -title in terminal-notifier call
-    (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
-(setq
-  appt-disp-window-function (function my-appt-display)
-  appt-time-msg-list nil    ;; clear existing appt list
-  appt-display-interval '0 ;; warn every 10 minutes from t - appt-message-warning-time
-  appt-message-warning-time '0  ;; send first warning 10 minutes before appointment
-  appt-display-mode-line nil     ;; don't show in the modeline
-  appt-display-format 'window)   ;; pass warnings to the designated window function
-
-(appt-activate 1)                ;; activate appointment notification
-;; (display-time)                   ;; activate time display
-;; (display-time-mode -1)
+  (defun my-appt-display (min-to-app new-time msg)
+    (my-appt-send-notification
+      (format "'Appointment in %s minutes'" min-to-app)
+      (format "'%s'" msg))))
 
 (provide 'my-notifications)

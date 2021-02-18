@@ -22,8 +22,7 @@
           :map dired-mode-map
           ("C-c d" . hydra-dired/body)
           ;; ("C-c u" . hydra-upload/body)
-          :map elfeed-search-mode-map
-          ("f" . hydra-elfeed-search/body)))
+          ))
 
 (use-package major-mode-hydra
   :after hydra
@@ -127,10 +126,10 @@
    "Personal"
    (("pa" (find-file my/affirmations-file-path) "affirmations")
     ("pb" (find-file my/path-coaching-brainstorm) "brainstorm")
-    ("pd" (find-file my/dashboard-file-path) "dashboard")
     ("pe" (find-file my/path-health-exercises-path) "exercises")
     ("pg" (find-file my/path-coaching-goals-details) "goals details")
     ("pj" (find-file my/japanese-file-path) "japanese")
+    ("pn" (find-file my/notes-file-path) "notes")
     ("pr" (find-file my/org-review-file-path) "reviews")
     ("pw" (find-file my/path-coaching-wheel-of-life) "wheel of life"))
    "Other"

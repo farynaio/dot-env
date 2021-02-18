@@ -177,7 +177,7 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-(run-with-idle-timer 60 t 'garbage-collect)
+(run-with-idle-timer (* 60 10) t 'garbage-collect)
 
 ;; My modules
 (require 'my-path)
@@ -248,14 +248,13 @@
 (when my-navigation-activate (require 'my-navigation))
 (when my-theme-activate (require 'my-theme))
 (when my-git-activate (require 'my-git))
+(when my-hydra-activate (require 'my-hydra))
 (when my-org-activate (require 'my-org))
-(when my-org-caldav-activate (require 'my-org-caldav))
-(when my-notifications-activate (require 'my-notifications))
 (when my-writing-activate (require 'my-writing))
 (when my-dired-activate (require 'my-dired))
 (when my-cleanup-activate (require 'my-cleanup))
+(when my-notifications-activate (require 'my-notifications))
 (when my-devel-activate (require 'my-devel))
-(when my-hydra-activate (require 'my-hydra))
 (when my-python-activate (require 'my-python))
 (when my-web-activate (require 'my-web))
 (when my-js-activate (require 'my-js))
@@ -267,25 +266,16 @@
 (when my-www-activate (require 'my-www))
 (when my-irc-activate (require 'my-irc))
 (when my-taskjuggler-activate (require 'my-taskjuggler))
+(when my-org-caldav-activate (require 'my-org-caldav))
 
 (server-start)
 
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
 
 (defun jarfar/open-buffers-on-startup ()
-  (if (file-exists-p my/dashboard-file-path)
-    (find-file my/dashboard-file-path)
+  (if (file-exists-p my/notes-file-path)
+    (find-file my/notes-file-path)
     (switch-to-buffer "*scratch*")))
-
-(savehist-mode 1)
-
-(setq
-  savehist-file "~/.emacs.d/savehist"
-  history-length t
-  history-delete-duplicates t
-  auto-save-visited-interval 60
-  savehist-save-minibuffer-history 1
-  savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 
 (when (eq system-type 'darwin)
   (setq
@@ -310,11 +300,10 @@
   confirm-nonexistent-file-or-buffer nil
   idle-update-delay 2
   minibuffer-prompt-properties '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
-  history-length 500
   initial-scratch-message nil
   inhibit-startup-screen t
   x-underline-at-descent-line t
-  confirm-kill-processe nil
+  confirm-kill-processes nil
   process-connection-type nil
   set-mark-command-repeat-pop t
   default-directory "~/"
@@ -340,7 +329,7 @@
 
 (display-time-mode -1)
 
-(defvar *protected-buffers* '("*scratch*" "*Messages*")
+(defvar *protected-buffers* '("*scratch*" "*Messages*" "*dashboard*" "notes.org")
   "Buffers that cannot be killed.")
 
 (defun my/protected-buffers ()
@@ -349,7 +338,7 @@
     (with-current-buffer buffer
       (emacs-lock-mode 'kill))))
 
-(add-hook 'after-init-hook 'my/protected-buffers)
+(add-hook 'emacs-startup-hook 'my/protected-buffers 90)
 
 (setq safe-local-variable-values
   '(

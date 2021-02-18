@@ -1,5 +1,4 @@
 ;; (require 'text-mode)
-;; (require 'flyspell)
 (require 'smart-quotes)
 (require 'cl)
 
@@ -9,9 +8,6 @@
 ;;       (setq ispell-program-name (executable-find "hunspell")))
 ;;   (message "'hunspell' not installed!"))
 
-(setq
-  abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)
-  save-abbrevs 'silently)
 
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
@@ -21,8 +17,8 @@
   :lighter " en"
   (setq-local
     ispell-local-dictionary "en"
-    local-abbrev-table my/en-abbrevs)
-  (langtool-switch-default-language "en"))
+    local-abbrev-table my/en-abbrevs
+    langtool-default-language "en"))
 
 (define-minor-mode my/pl-mode
   "Language mode for 'pl'."
@@ -30,10 +26,16 @@
   :lighter " pl"
   (setq-local
     ispell-local-dictionary "pl"
-    local-abbrev-table my/pl-abbrevs)
-  (langtool-switch-default-language "pl"))
+    local-abbrev-table my/pl-abbrevs
+    langtool-default-language "pl"))
 
-(add-hook 'text-mode-hook 'abbrev-mode)
+(use-package abbrev
+  :ensure nil
+  :hook ((text-mode . abbrev-mode))
+  :custom
+  (save-abbrevs 'silently)
+  (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
+
 (add-hook 'org-mode-hook 'my/en-mode)
 (add-hook 'org-roam-dailies-find-file-hook 'my/en-mode)
 
@@ -76,6 +78,9 @@
 
 (use-package flyspell
   :commands flyspell-mode
+  :custom
+  (flyspell-issue-message-flag nil)
+  (flyspell-issue-welcome-flag nil)
   :config
   (flyspell-prog-mode)
   (evil-define-key 'normal flyspell-mode-map
@@ -131,21 +136,44 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table 'my/pl-abbrevs '())
 
+;; TODO is this working?
+(use-package wiki-summary
+  :defer 1
+  :config
+  (defun my/format-summary-in-buffer (summary)
+    "Given a summary, sticks it in the *wiki-summary* buffer and displays
+     the buffer."
+    (let ((buf (generate-new-buffer "*wiki-summary*")))
+      (with-current-buffer buf
+        (princ summary buf)
+        (fill-paragraph)
+        (goto-char (point-min))
+        (view-mode))
+      (pop-to-buffer buf)))
+
+  (advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer))
+
 (use-package langtool
-  :commands (langtool-check-buffer langtool-check-done)
+  :commands langtool-check-buffer langtool-check-done
   :init
   (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
-  :config
-  (setq langtool-default-language "en-GB")
-  (setq langtool-mother-tongue "en"))
+  :custom
+  (langtool-default-language "en")
+  (langtool-mother-tongue "en")
+  (langtool-disabled-rules '("COMMA_PARENTHESIS_WHITESPACE"
+                              "COPYRIGHT"
+                              "DASH_RULE"
+                              "EN_QUOTES"
+                              "EN_UNPAIRED_BRACKETS"
+                              "UPPERCASE_SENTENCE_START"
+                              "WHITESPACE_RULE")))
 
 (use-package google-translate
+  :custom
+  (google-translate-default-source-language "en")
+  (google-translate-default-target-language "pl")
+  (google-translate-backend-method 'curl)
   :config
-  (setq
-    google-translate-default-source-language "en"
-    google-translate-default-target-language "pl"
-    google-translate-backend-method 'curl)
-
   (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
 
   (defun my/google-translate-at-point (&optional override-p)
@@ -158,8 +186,8 @@
 
 (use-package artbollocks-mode
   :commands artbollocks-mode
-  :config
-  (setq artbollocks-weasel-words-regex
+  :custom
+  (artbollocks-weasel-words-regex
     (concat "\\b" (regexp-opt
                     '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
                                         ; test

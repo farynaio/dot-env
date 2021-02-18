@@ -17,7 +17,7 @@
 
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
 
-(setq my/dashboard-file-path (expand-file-name "dashboard.org" org-agenda-directory))
+(setq my/notes-file-path (expand-file-name "notes.org" org-agenda-directory))
 
 ;; Tasks
 (setq my/org-backlog-file-path (expand-file-name "backlog.org" org-agenda-directory))

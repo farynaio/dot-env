@@ -145,6 +145,7 @@
   (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
   (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
   (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
+  (evil-set-initial-state 'erc-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
@@ -175,6 +176,7 @@
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
   (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
+  (add-to-list 'evil-emacs-state-modes 'nov-mode)
 
   (evil-declare-change-repeat 'company-complete)
 

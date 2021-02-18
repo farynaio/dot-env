@@ -1,13 +1,7 @@
-;; (require 'tramp)
-(require 'recentf)
-
-(bind-key "C-c p" 'pop-to-mark-command)
-
 (when (display-graphic-p)
-  (setq
-    mouse-wheel-scroll-amount '(1 ((shift) . 1)))
   (setq-default scroll-up-aggressively 0.01)
   (setq
+    mouse-wheel-scroll-amount '(1 ((shift) . 1))
     redisplay-dont-pause t
     scroll-margin 1
     scroll-conservatively 10000
@@ -19,48 +13,47 @@
   scroll-conservatively 101
   auto-window-vscroll nil)
 
-(eval-after-load 'recentf
-  '(progn
-     (setq
-       recentf-max-saved-items 200
-       recentf-max-menu-items 15)
-     (recentf-mode 1)))
+(use-package recentf
+  :ensure nil
+  :custom
+  (recentf-max-saved-items 200)
+  (recentf-max-menu-items 15)
+  :config
+  (recentf-mode 1))
 
-(when (eq system-type 'darwin)
-  (use-package openwith
-    :config
-    (openwith-mode t)
-    (setq openwith-associations '(("\\.pdf\\'" "open" (file))))))
+(use-package openwith
+  :if (eq system-type 'darwin)
+  :custom
+  (openwith-associations '(("\\.pdf\\'" "open" (file))))
+  :config
+  (openwith-mode 1))
 
-(require 'help)
-(eval-after-load 'help
-  '(progn
-     (bind-key "C-w =" 'balance-windows help-mode-map)
-     (bind-keys
-       :map help-mode-map
-       ("/" . evil-search-forward)
-       ("v" . set-mark-command)
-       ("n" . evil-search-next)
-       ("N" . evil-search-previous)
-       ("w" . evil-forward-word-begin)
-       ("e" . evil-forward-word-end)
-       ("E" . evil-forward-WORD-end)
-       ("b" . evil-backward-word-begin)
-       ("B" . evil-backward-WORD-begin)
-       ("y" . evil-yank)
-       ("<S-tab>" . backward-button)
-       ("gg" . evil-goto-first-line)
-       ("G" . evil-goto-line))))
+(use-package help
+  :ensure nil
+  :bind (:map help-mode-map
+          ("C-w =" . balance-windows)
+          ("/" . evil-search-forward)
+          ("v" . set-mark-command)
+          ("n" . evil-search-next)
+          ("N" . evil-search-previous)
+          ("w" . evil-forward-word-begin)
+          ("e" . evil-forward-word-end)
+          ("E" . evil-forward-WORD-end)
+          ("b" . evil-backward-word-begin)
+          ("B" . evil-backward-WORD-begin)
+          ("y" . evil-yank)
+          ("<S-tab>" . backward-button)
+          ))
 
-(eval-after-load 'tramp
-  '(progn
-     (setq
-       tramp-default-method "ssh"
-       tramp-inline-compress-start-size 40960
-       tramp-chunksize 500
-       tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/"
-       tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el"
-       tramp-encoding-shell "/bin/sh")))
+(use-package tramp
+  :ensure nil
+  :custom
+  (tramp-default-method "ssh")
+  (tramp-inline-compress-start-size 40960)
+  (tramp-chunksize 500)
+  (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
+  (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
+  (tramp-encoding-shell "/bin/sh"))
 
 (use-package anzu
   :diminish anzu-mode
@@ -102,24 +95,6 @@
 	    (compilation-start command 'grep-mode))
     ))
 
-;; (use-package neotree)
-
-;; (use-package ace-jump-mode
-;;   :config
-;;   (progn
-;;     (when (fboundp 'evil-mode)
-;;       (bind-key "\\w" 'ace-jump-word-mode  evil-motion-state-map)
-;;       (bind-key "\\c" 'ace-jump-mode       evil-motion-state-map)
-;;       (bind-key "\\a" 'ivy-imenu-anywhere  evil-motion-state-map)
-;;       )))
-
-;; (setq display-buffer-alist
-;;   '(
-;;      ("^.+\\.org\\(\\.gpg\\)?$"
-;;        (display-buffer-reuse-window) . ((reusable-frames . t)))
-;;      ("^\\(\\..+\\)\\|\\(.+\\..+\\)$"
-;;        (display-buffer-reuse-window display-buffer-same-window display-buffer-reuse-window display-buffer-pop-up-frame) . ((reusable-frames . t)))))
-
 ;; (use-package treemacs
 ;;   :defer t
 ;;   :commands treeemacs
@@ -140,27 +115,35 @@
 
 (use-package avy
   :bind (:map help-mode-map
-          ("\\c" . 'avy-goto-char)
-          ("\\w" . 'avy-goto-word-or-subword-1))
-  :config
-  (when (fboundp 'evil-mode)
-    (bind-key "\\w" 'avy-goto-word-or-subword-1  evil-motion-state-map)
-    (bind-key "\\c" 'avy-goto-char evil-motion-state-map)))
+          ("\\c" . avy-goto-char)
+          ("\\w" . avy-goto-word-or-subword-1)
+          :map evil-motion-state-map
+          ("\\w" . avy-goto-word-or-subword-1)
+          ("\\c" . avy-goto-char)))
 
 ;; (use-package ivy-hydra
 ;;   :after ivy hydra)
 
 (use-package ivy
   :diminish ivy-mode
+  :bind (:map ivy-minibuffer-map
+          ("<return>" . ivy-alt-done)
+          ("C-M-h" . ivy-previous-line-and-call)
+          ("C-:" . ivy-dired)
+          ("C-c o" . ivy-occur)
+          ("C-'" . ivy-avy))
+  :custom
+  (ivy-switch-buffer-faces-alist
+    '((emacs-lisp-mode . swiper-match-face-1)
+       (dired-mode . ivy-subdir)
+       (org-mode . org-level-4)))
+  (ivy-height 15)
+  (ivy-use-selectable-prompt t)
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffer t)
+  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
-  (bind-keys
-    :map ivy-minibuffer-map
-    ("<return>" . ivy-alt-done)
-    ("C-M-h" . ivy-previous-line-and-call)
-    ("C-:" . ivy-dired)
-    ("C-c o" . ivy-occur)
-    ("C-'" . ivy-avy))
 
   (defun ivy-dired ()
     (interactive)
@@ -172,72 +155,58 @@
                   (substring ivy--current 0 -1)) nil t)
           (goto-char (match-beginning 0))))
       (user-error
-        "Not completing files currently")))
+        "Not completing files currently"))))
 
-  (defun ivy-view-backtrace ()
-    (interactive)
-    (switch-to-buffer "*ivy-backtrace*")
-    (delete-region (point-min) (point-max))
-    (fundamental-mode)
-    (insert ivy-old-backtrace)
-    (goto-char (point-min))
-    (forward-line 1)
-    (let (part parts)
-      (while (< (point) (point-max))
-        (condition-case nil
-          (progn
-            (setq part (read (current-buffer)))
-            (push part parts)
-            (delete-region (point-min) (point)))
-          (error
-            (progn
-              (ignore-errors (up-list))
-              (delete-region (point-min) (point)))))))
-    (goto-char (point-min))
-    (dolist (part parts)
-      (lispy--insert part)
-      (lispy-alt-multiline)
-      (insert "\n")))
-
-  (setq
-    ivy-switch-buffer-faces-alist
-    '((emacs-lisp-mode . swiper-match-face-1)
-       (dired-mode . ivy-subdir)
-       (org-mode . org-level-4))
-    ivy-height 15
-    ivy-use-selectable-prompt t
-    ivy-count-format "(%d/%d) "
-    ivy-use-virtual-buffer t
-    ivy-re-builders-alist '((t . ivy--regex-ignore-order))))
+  ;; (defun ivy-view-backtrace ()
+  ;;   (interactive)
+  ;;   (switch-to-buffer "*ivy-backtrace*")
+  ;;   (delete-region (point-min) (point-max))
+  ;;   (fundamental-mode)
+  ;;   (insert ivy-old-backtrace)
+  ;;   (goto-char (point-min))
+  ;;   (forward-line 1)
+  ;;   (let (part parts)
+  ;;     (while (< (point) (point-max))
+  ;;       (condition-case nil
+  ;;         (progn
+  ;;           (setq part (read (current-buffer)))
+  ;;           (push part parts)
+  ;;           (delete-region (point-min) (point)))
+  ;;         (error
+  ;;           (progn
+  ;;             (ignore-errors (up-list))
+  ;;             (delete-region (point-min) (point)))))))
+  ;;   (goto-char (point-min))
+  ;;   (dolist (part parts)
+  ;;     (lispy--insert part)
+  ;;     (lispy-alt-multiline)
+  ;;     (insert "\n")))
 
 (use-package counsel
+  :after ivy
+  :bind (("M-x" . counsel-M-x)
+          ("C-x C-f" . counsel-find-file)
+          ("<f1> f" . counsel-describe-function)
+          ("<f1> v" . counsel-describe-variable)
+          ("<f1> l" . counsel-find-library)
+          ("<f2> s" . counsel-info-lookup-symbol)
+          ("<f2> u" . counsel-unicode-char)
+          ("C-h f" . counsel-describe-function)
+          ("C-h v" . counsel-describe-variable)
+          ("C-h a" . counsel-apropos)
+          ("C-x r b" . counsel-bookmark)
+          ("C-x b" . counsel-switch-buffer)
+          ("C-x B" . counsel-switch-buffer-other-window)
+          ("C-x C-r" . counsel-recentf)
+          :map read-expression-map
+          ("C-r" . counsel-minibuffer-history)
+          ("C-r" . counsel-expression-history)
+          :map evil-motion-state-map
+          ("\\a" . counsel-imenu))
+  :custom
+  (counsel-find-file-ignore-regexp "\\`\\.")
+  (counsel-grep-base-command "grep -E -n -i -e %s %s")
   :config
-  (setq
-    counsel-find-file-ignore-regexp "\\`\\."
-    counsel-grep-base-command "grep -E -n -i -e %s %s")
-
-  (bind-keys
-    ("M-x" . counsel-M-x)
-    ("C-x C-f" . counsel-find-file)
-    ("<f1> f" . counsel-describe-function)
-    ("<f1> v" . counsel-describe-variable)
-    ("<f1> l" . counsel-find-library)
-    ("<f2> s" . counsel-info-lookup-symbol)
-    ("<f2> u" . counsel-unicode-char)
-    ("C-h f" . counsel-describe-function)
-    ("C-h v" . counsel-describe-variable)
-    ("C-h a" . counsel-apropos)
-    ("C-x r b" . counsel-bookmark)
-    ("C-x b" . counsel-switch-buffer)
-    ("C-x B" . counsel-switch-buffer-other-window)
-    ("C-x C-r" . counsel-recentf)
-    :map read-expression-map
-    ("C-r" . counsel-minibuffer-history)
-    ("C-r" . counsel-expression-history))
-
-  (when (fboundp 'evil-mode)
-    (bind-key "\\a" 'counsel-imenu  evil-motion-state-map))
-
   (defun my/counsel-ibuffer-other-window (&optional name)
     "Use ibuffer to switch to another buffer.
 NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
@@ -248,7 +217,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       :action 'counsel-ibuffer-visit-buffer-other-window
       :caller 'counsel-ibuffer))
 
-  (advice-add 'counsel-grep :around 'my/counsel-grep-fallback)
+  (advice-add 'counsel-grep :around #'my/counsel-grep-fallback)
   (ivy-set-display-transformer 'counsel-describe-function nil))
 
 (defun my/counsel-grep-fallback (orig-fun &rest args)
@@ -260,6 +229,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
     ;; (apply orig-fun args))
 
   ;; (if (or (string= major-mode "dired-mode") (string= major-mode "org-mode") (string= major-mode "help-mode") (string= "*scratch*" (buffer-name)) (string= "*Org Agenda*" (buffer-name)) (string-match ".gpg\\'" (buffer-name)))
+
   (if (fboundp 'swiper)
     (apply 'swiper args)
     (if (fboundp 'evil-search-forward)
@@ -284,8 +254,43 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
     ("C-x C-k" . persp-kill-buffer*)))
 
 (use-package ag
+  :defer 3
+  :custom
+  (ag-reuse-buffers t))
+
+(use-package dashboard
+  :preface
+  (defun dashboard-load-packages (list-size)
+    (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
+            (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
+  :custom
+  (dashboard-banner-logo-title "Let's do something great today!")
+  (dashboard-center-content t)
+  (dashboard-items '((packages)
+                      (projects . 10)
+                      (recents . 10)))
+  (dashboard-set-file-icons t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-init-info nil)
+  (dashboard-set-navigator t)
+  (dashboard-startup-banner 'logo)
   :config
-  (setq ag-reuse-buffers t))
+  (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
+  (dashboard-setup-startup-hook))
+
+(use-package visual-fill-column
+  :commands visual-fill-column-mode
+  :custom
+  (visual-fill-column-center-text t))
+
+(use-package nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :hook ((nov-mode . visual-line-mode)
+          (nov-mode . visual-fill-column-mode))
+  :custom
+  (nov-text-width t)
+  ;; (nov-text-width 75)
+  )
 
 ;; Bring back window configuration after ediff quits
 (defvar my-ediff-bwin-config nil "Window configuration before ediff.")
@@ -412,7 +417,8 @@ point reaches the beginning or end of the buffer, stop there."
   ("C-x C-c" . my/save-buffers-kill-terminal)
   ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
   ("<s-right>" . ns-next-frame)
-  ("<s-left>" . ns-prev-frame))
+  ("<s-left>" . ns-prev-frame)
+  ("C-c p" . #'pop-to-mark-command))
 
 (unbind-key "s-l")
 

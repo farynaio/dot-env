@@ -60,4 +60,9 @@
     (add-hook 'elpy-mode-hook
       (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))))
 
+;; (use-package guess-style
+;; :config
+;; (progn
+;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
+
 (provide 'my-python)

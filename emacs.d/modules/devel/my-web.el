@@ -1,5 +1,10 @@
+(use-package rainbow-mode
+  :hook (css-mode . rainbow-mode)
+  :diminish rainbow-mode)
+
 (use-package web-mode
-  :hook ((web-mode . lsp))
+  :hook ((web-mode . lsp)
+          (web-mode . rainbow-mode))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)
@@ -8,21 +13,43 @@
   :mode (("\\.php\\'" . web-mode)
           ("\\.phtml\\'" . web-mode)
           ("\\.tpl\\.php\\'" . web-mode)
-          ;; ("\\.js\\'" . web-mode)
           ("\\.html\\.twig\\'" . web-mode)
           ("\\.hbs\\'" . web-mode)
           ("\\.ejs\\'" . web-mode)
           ("\\.html?\\'" . web-mode)
-          ("\\.svg\\'" . web-mode)
-          ;; ("\\.php\\'" . web-mode)
-          )
+          ("\\.svg\\'" . web-mode))
+  :custom
+  (web-mode-engines-alist '(("php" . "\\.php\\'")))
+  (web-mode-markup-indent-offset tab-width)
+  (web-mode-css-indent-offset tab-width)
+  (web-mode-code-indent-offset tab-width)
+  (web-mode-attr-indent-offset tab-width)
+  (web-mode-block-padding tab-width)
+  (web-mode-enable-current-element-highlight t)
+  (web-mode-enable-html-entities-fontification nil)
+  (web-mode-enable-block-face nil)
+  (web-mode-enable-comment-annotation nil)
+  (web-mode-enable-comment-interpolation nil)
+  (web-mode-enable-control-block-indentation nil)
+  (web-mode-enable-css-colorization nil)
+  (web-mode-enable-current-column-highlight nil)
+  (web-mode-enable-current-element-highlight nil)
+  (web-mode-enable-element-content-fontification nil)
+  (web-mode-enable-heredoc-fontification nil)
+  (web-mode-enable-inlays nil)
+  (web-mode-enable-optional-tags nil)
+  (web-mode-enable-part-face nil)
+  (web-mode-enable-sexp-functions nil)
+  (web-mode-enable-sql-detection nil)
+  (web-mode-enable-string-interpolation nil)
+  (web-mode-enable-whitespace-fontification nil)
+  (web-mode-enable-auto-expanding nil)
+  (web-mode-enable-auto-indentation nil)
+  (web-mode-enable-auto-closing nil)
+  (web-mode-enable-auto-opening nil)
+  (web-mode-enable-auto-pairing nil)
+  (web-mode-enable-auto-quoting nil)
   :config
-  (setq
-    web-mode-engines-alist '(("php" . "\\.php\\'"))
-    web-mode-markup-indent-offset tab-width
-    web-mode-css-indent-offset tab-width
-    web-mode-code-indent-offset tab-width)
-
   (evil-define-key 'normal web-mode-map
     (kbd ",t") #'my/toggle-php-flavor-mode)
 
@@ -32,13 +59,15 @@
         (web-beautify-html)))
     0 t))
 
-(require 'css-mode)
-(eval-after-load 'css-mode
-  '(progn
-     (setq css-indent-offset tab-width)
-     (add-hook 'css-mode-hook
-       (lambda ()
-         (setq-local company-backends '((company-css company-keywords company-files)))))))
+(use-package css-mode
+  :ensure nil
+  :mode "\\.s?css\\'"
+  :custom
+  (css-indent-offset tab-width)
+  :config
+  (add-hook 'css-mode-hook
+    (lambda ()
+      (setq-local company-backends '((company-css company-keywords company-files))))))
 
 (use-package web-beautify
   :commands web-beautify-js web-beautify-css web-beautify-html)
@@ -53,8 +82,6 @@
   :hook (jade-mode . symbol-overlay-mode)
   :mode "\\.jade\\'")
 
-
-
 (use-package emmet-mode
   :diminish emmet-mode
   :hook (sgml-mode js-mode web-mode)
@@ -62,11 +89,5 @@
   (setq
     emmet-self-closing-tag-style " /"
     emmet-expand-jsx-className? t))
-
-(use-package rainbow-mode
-  :hook (css-mode . rainbow-mode)
-  :diminish rainbow-mode)
-
-(use-package rainbow-delimiters)
 
 (provide 'my-web)

@@ -2,15 +2,36 @@
 ;; (require 'elisp-mode)
 ;; (require 'sql)
 ;; (require 'gud)
-;; (require 'prog-mode)
 ;; (require 'sh-script)
 ;; (require 'conf-mode)
 ;; (require 'ruby-mode)
 ;; (require 'dns-mode)
 ;; (require 'company-graphql)
 
-(evil-define-key 'normal prog-mode-map
-  (kbd ",e") #'my/flycheck-toggle)
+(use-package rainbow-delimiters
+  :after prog-mode
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package prog-mode
+  :ensure nil
+  :config
+  (evil-define-key 'normal prog-mode-map
+    (kbd "<S-up>") #'farynaio/increment
+    (kbd "<S-down>") #'farynaio/decrement)
+
+  (defun my/prog-mode-hook ()
+    (modify-syntax-entry ?- "w" (syntax-table))
+    (modify-syntax-entry ?_ "w" (syntax-table))
+    (modify-syntax-entry ?$ "w" (syntax-table))
+
+    (abbrev-mode -1)
+    (flyspell-mode -1)
+    (hungry-delete-mode 1)
+    (hl-line-mode 1)
+    (show-paren-mode 1)
+    (electric-operator-mode 1))
+
+  (add-hook 'prog-mode-hook #'my/prog-mode-hook -50))
 
 (use-package mmm-mode
   :commands mmm-mode
@@ -49,15 +70,10 @@
   "major mode for guest editing."
   (editorconfig-mode -1))
 
-(eval-after-load 'dns-mode
-  '(progn
-     (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode))))
-
-;; (eval-after-load 'conf-mode
-;;   '(progn
-;;     (add-hook 'conf-mode-hook
-;;       (lambda ()
-;;         (setq-local indent-line-function 'insert-tab)))))
+(use-package dns-mode
+  :ensure nil
+  :config
+  (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode)))
 
 (use-package electric-operator
   :diminish electric-operator-mode
@@ -67,11 +83,11 @@
   :hook (ledger-mode . company-mode)
   :bind (:map ledger-mode-map ("C-c C-c" . ledger-post-align-dwim))
   :mode "\\.ledger\\'"
+  :custom
+  (ledger-clear-whole-transactions t)
+  (ledger-post-account-alignment-column 2)
+  (ledger-reconcile-default-commodity "GBP")
   :config
-  (setq
-    ledger-clear-whole-transactions t
-    ledger-post-account-alignment-column 2
-    ledger-reconcile-default-commodity "GBP")
   (unbind-key "<tab>" ledger-mode-map))
 
 (use-package sh-script
@@ -88,8 +104,8 @@
 (use-package symbol-overlay
   :diminish symbol-overlay-mode
   :hook (prog-mode . symbol-overlay-mode)
-  :config
-  (setq symbol-overlay-idle-time 0.1))
+  :custom
+  (symbol-overlay-idle-time 0.1))
 
 (setq tags-add-tables nil)
 (setq my/ctags-path "/usr/local/bin/ctags")
@@ -108,7 +124,7 @@
         (message "Tags build successfully."))
       (user-error "Cannot generate TAGS, not a projectile project."))))
 
-(defalias 'ctags 'my/ctags-build)
+(defalias 'ctags #'my/ctags-build)
 
 (defun my/visit-project-ctags ()
   (interactive)
@@ -127,8 +143,6 @@
       (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
-;; (use-package counsel-etags) ; it's crazy slow
-
 (use-package yaml-mode
   :hook ((markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
@@ -143,23 +157,17 @@
   :mode "\\vimrc\\'")
 
 (use-package flycheck
+  :custom
+  (flymake-phpcs-show-rule t)
+  (flycheck-phpcs-standard "WordPress")
   :config
-  (setq flymake-phpcs-show-rule t)
-  (setq flycheck-phpcs-standard "WordPress")
-
   (add-to-list 'display-buffer-alist
     `(,(rx bos "*Flycheck errors*" eos)
        (display-buffer-reuse-window
          display-buffer-in-side-window)
        (side            . bottom)
        (reusable-frames . visible)
-       (window-height   . 0.33)))
-
-  (defun my/flycheck-toggle ()
-    (interactive)
-    (if (get-buffer "*Flycheck errors*")
-      (kill-buffer "*Flycheck errors*")
-      (flycheck-list-errors))))
+       (window-height   . 0.33))))
 
 (define-minor-mode my/auto-indent-mode
   "Auto indent buffer on save."
@@ -174,31 +182,21 @@
 
 (use-package lsp-mode
   :commands lsp lsp-deferred
+  :custom
+  (lsp-enable-snippet t)
+  (lsp-enable-semantic-highlighting nil)
+  (lsp-enable-symbol-highlighting nil)
+  (lsp-enable-file-watchers nil)
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-diagnostics-enable nil)
+  (lsp-signature-render-documentation nil)
+  (lsp-eldoc-enable-hover nil)
+  (lsp-restart 'auto-restart)
+  (lsp-lens-enable nil)
+  (lsp-rf-language-server-trace-serve "off")
+  (lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
   :config
-  ;; (setq lsp-inhibit-message nil)
-  ;; (setq lsp-auto-guess-root t)
-  (setq
-    lsp-enable-snippet t
-    lsp-enable-semantic-highlighting nil
-    lsp-enable-symbol-highlighting nil
-    lsp-enable-file-watchers nil
-    lsp-headerline-breadcrumb-enable nil
-    lsp-modeline-code-actions-enable nil
-    lsp-modeline-diagnostics-enable nil
-    ;; lsp-signature-auto-activate nil
-    lsp-signature-render-documentation nil
-    lsp-eldoc-enable-hover nil
-    lsp-restart 'auto-restart
-    lsp-rf-language-server-trace-serve "off"
-    lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
-
-  (setq
-    lsp-lens-enable nil
-    lsp-ui-doc-enable nil
-    lsp-ui-doc-show-with-cursor nil
-    lsp-ui-doc-show-with-mouse nil
-    lsp-ui-sideline-enable nil
-    lsp-ui-sideline-enable nil)
 
   (add-hook 'lsp-mode-hook
     (lambda ()
@@ -211,36 +209,38 @@
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
   (add-to-list 'lsp-disabled-clients '((typescript-mode . (eslint)) (json-mode . (eslint json-ls)))))
 
-;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
-(use-package dap-mode
-  :requires lsp-mode
-  :config
-  (require 'dap-chrome)
-  (dap-chrome-setup)
-  ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
-  (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
-
 (use-package lsp-ui
-  :requires lsp-mode
+  :after lsp-mode
+	:commands lsp-ui-imenu
   :hook ((lsp-mode . lsp-ui-mode)
           (lsp-mode . lsp-ui-imenu-buffer-mode))
-	:commands lsp-ui-imenu
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-doc-show-with-cursor nil)
+  (lsp-ui-doc-show-with-mouse nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-imenu-window-width 50)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-header t)
   :config
-  (setq
-    lsp-ui-imenu-window-width 50
-    lsp-ui-doc-position 'top
-    lsp-ui-doc-header t)
-
   (evil-define-key 'normal lsp-ui-mode-map
     (kbd ",l") #'lsp-ui-imenu))
-
-  ;; (bind-key ", l" 'lsp-ui-imenu lsp-ui-mode-map)
 
 (use-package lsp-treemacs
   :after lsp-mode treemacs
   :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
   :config
   (lsp-treemacs-sync-mode 1))
+
+;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (require 'dap-chrome)
+  (dap-chrome-setup)
+  ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
+  (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
 (use-package dtrt-indent
   :diminish "dtrt")
@@ -252,15 +252,9 @@
     (dtrt-indent-mode -1)
     (dtrt-indent-mode 1)))
 
-;; (use-package guess-style
-;; :config
-;; (progn
-;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
-
 (use-package terraform-mode
   :hook (terraform-mode . terraform-format-on-save-mode)
   :mode "\\.tf\\'")
-
 
 ;; TODO what it does?
 ;; (use-package company-web
@@ -278,37 +272,18 @@
 (use-package yasnippet
   :hook (prog-mode . (lambda () (yas-reload-all) (yas-minor-mode)))
   :diminish yas-minor-mode
-  :config
-  (yas-reload-all)
-  ;; (add-to-list 'yas-key-syntaxes w w")
-  (setq yas-new-snippet-default
+  :custom
+  (yas-new-snippet-default
     "# name: $2
 # key: $1
 # --
-$0`(yas-escape-text yas-selected-text)`"))
+$0`(yas-escape-text yas-selected-text)`")
+  :config
+  (yas-reload-all))
 
 ;; (use-package plantuml-mode
 ;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
 ;;   :custom (plantuml-jar-path (expand-file-name (format "%s/plantuml.jar" xdg-lib))))
-
-(defun my/prog-mode-hook ()
-  (modify-syntax-entry ?- "w" (syntax-table))
-  (modify-syntax-entry ?_ "w" (syntax-table))
-  (modify-syntax-entry ?$ "w" (syntax-table))
-
-  (evil-define-key 'normal prog-mode
-    (kbd "<S-up>") #'farynaio/increment
-    (kbd "<S-down>") #'farynaio/decrement)
-
-  ;; (flycheck-mode 1)
-  (abbrev-mode -1)
-  (flyspell-mode -1)
-  (hungry-delete-mode 1)
-  (hl-line-mode 1)
-  (show-paren-mode 1)
-  (electric-operator-mode 1))
-
-(add-hook 'prog-mode-hook #'my/prog-mode-hook -50)
 
 (defun my/breadcrumb-set-local ()
   (when buffer-file-name
@@ -331,13 +306,16 @@ $0`(yas-escape-text yas-selected-text)`"))
 (add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
 (add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
 
-(add-hook 'emacs-lisp-mode-hook
-  (lambda ()
-    (setq mode-name "Elisp")
-    (flycheck-mode -1)
-    (electric-operator-mode -1)
-    (eldoc-mode 1)
-    (unbind-key "C-M-i" emacs-lisp-mode-map)))
+(use-package elisp-mode
+  :ensure nil
+  :config
+  (add-hook 'emacs-lisp-mode-hook
+    (lambda ()
+      (setq mode-name "Elisp")
+      (flycheck-mode -1)
+      (electric-operator-mode -1)
+      (eldoc-mode 1)
+      (unbind-key "C-M-i" emacs-lisp-mode-map))))
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html

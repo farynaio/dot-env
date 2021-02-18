@@ -97,4 +97,14 @@
          ("C-c C-f" . dired-narrow-fuzzy)
          ("C-c C-r" . dired-narrow-regexp)))
 
+  ;; https://emacs.stackexchange.com/questions/63336/deleting-a-file-with-name-that-already-exists-in-trash/63342#63342
+  (when (eq system-type 'darwin)
+    (defun system-move-file-to-trash (filename)
+      "Move file or directory named FILENAME to the trash."
+      (ns-do-applescript
+        (format
+          "tell application \"Finder\" to delete POSIX file \"%s\""
+          filename))
+      (revert-buffer)))
+
 (provide 'my-dired)

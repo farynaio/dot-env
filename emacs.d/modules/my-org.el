@@ -9,7 +9,6 @@
 (require 'org-checklist)
 (require 'org-table-cell-move)
 (require 'org-protocol)
-(require 'org-link-archive)
 
 (make-directory my/org-base-path t)
 
@@ -19,6 +18,10 @@
 ;; (add-to-list 'org-modules 'org-depend t)
 ;; (add-to-list 'org-modules 'org-eww t)
 (add-to-list 'org-modules 'org-checklist t)
+
+(use-package org-link-archive
+  :ensure nil
+  :after org)
 
 (use-package calfw
   :defer)
@@ -269,41 +272,26 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (hl-line-mode 1)))))
 
-(setq general-holidays
-  '(
-     (holiday-fixed 1 1 "New Year's Day")
-       (holiday-fixed 2 14 "Valentine's Day")
-       (holiday-fixed 3 17 "St. Patrick's Day")
-       (holiday-fixed 4 1 "April Fools' Day")
-       (holiday-float 5 0 2 "Mother's Day")
-       (holiday-fixed 10 31 "Halloween")
-       (holiday-float 11 4 4 "Thanksgiving")))
-
 (use-package japanese-holidays)
-(setq english-holidays
-  '(
-     (holiday-fixed  3 30 "(bank) Good Friday")
-     (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
-     (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
-     (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
-     (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
-     (holiday-fixed  8 27 "(bank) Spring bank holiday")
-     (holiday-fixed  9 31 "(bank) Summer bank holiday")
-     (holiday-fixed 12 25 "(bank) Christmas Day")
-     (holiday-fixed 12 28 "(bank) Boxing Day")))
 
-(setq polish-holidays
-  '(
-     (holiday-fixed  1  6 "(bank) Trzech Króli")
-     (holiday-fixed  1 21 "Dzień Babci")
+(setq
+  general-holidays
+  '((holiday-fixed 1 1 "New Year's Day")
+     (holiday-fixed 2 14 "Valentine's Day")
+     (holiday-fixed 3 8 "International Women's Day")
+     (holiday-fixed 3 17 "St. Patrick's Day")
+     (holiday-fixed 4 1 "April Fools' Day")
+     (holiday-float 5 0 2 "Mother's Day")
+     (holiday-fixed 10 31 "Halloween")
+     (holiday-float 11 4 4 "Thanksgiving"))
+  polish-holidays
+  '((holiday-fixed  1 21 "Dzień Babci")
      (holiday-fixed  1 22 "Dzień Diadka")
      (holiday-fixed  2 22 "Ofiarowanie Pańskie (Matki Boskiej Gromnicznej)")
      (holiday-fixed  2  8 "Tłusty Czwartek")
      (holiday-fixed  2 10 "Ostatnia Sobota Karnawału")
      (holiday-fixed  2 13 "Ostatki")
-     (holiday-fixed  2 14 "Walentynki")
      (holiday-fixed  3  1 "Narodowy Dzień Pamięci Żołnierzy Wyklętych")
-     (holiday-fixed  3  8 "Międzynarodowy Dzień Kobiet")
      (holiday-fixed  3 10 "Dzień Mężczyzn")
      (holiday-fixed  3 20 "Początek Astronomicznej Wiosny")
      (holiday-fixed  3 25 "Zmiana czasu z zimowego na letni")
@@ -311,8 +299,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (holiday-fixed  3 29 "Wielki Czwartek")
      (holiday-fixed  3 30 "Wielki Piątek")
      (holiday-fixed  3 31 "Wielka Sobota")
-     (holiday-fixed  4  1 "(bank) Wielkanoc")
-     (holiday-fixed  4  1 "Prima Aprilis")
      (holiday-fixed  4  2 "(bank) Poniedziałek Wielkanocny")
      (holiday-fixed  4  8 "Święto Bożego Miłosierdzia")
      (holiday-fixed  4 22 "Międzynarodowy Dzień Ziemi")
@@ -343,34 +329,57 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (holiday-fixed 12 21 "Początek Astronomicznej Zimy")
      (holiday-fixed 12 24 "Wigilia Bożego Narodzenia")
      (holiday-fixed 12 25 "(bank) Boże Narodzenie (1 dzień)")
-     (holiday-fixed 12 26 "(bank) Boże Narodzenie (2 dzień)")))
+     (holiday-fixed 12 26 "(bank) Boże Narodzenie (2 dzień)"))
+  english-holidays
+  '((holiday-fixed  3 30 "(bank) Good Friday")
+     (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
+     (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
+     (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
+     (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
+     (holiday-fixed  8 27 "(bank) Spring bank holiday")
+     (holiday-fixed  9 31 "(bank) Summer bank holiday")
+     (holiday-fixed 12 25 "(bank) Christmas Day")
+     (holiday-fixed 12 28 "(bank) Boxing Day"))
+  christian-holidays
+  '((holiday-fixed 1 6 "Epiphany")
+     (holiday-fixed 2 2 "Candlemas")
+     (holiday-easter-etc -47 "Mardi Gras")
+     (holiday-easter-etc 0 "Easter Day")
+     (holiday-easter-etc 1 "Easter Monday")
+     (holiday-easter-etc 39 "Ascension")
+     (holiday-easter-etc 49 "Pentecost")
+     (holiday-fixed 8 15 "Assumption")
+     (holiday-fixed 11 1 "All Saints' Day")
+     (holiday-fixed 11 2 "Day of the Dead")
+     (holiday-fixed 11 22 "Saint Cecilia's Day")
+     (holiday-fixed 12 1 "Saint Eloi's Day")
+     (holiday-fixed 12 4 "Saint Barbara")
+     (holiday-fixed 12 6 "Saint Nicholas Day")
+     (holiday-fixed 12 25 "Christmas Day")))
 
-(setq calendar-holidays
-  (append
-    japanese-holidays
-    polish-holidays
-    english-holidays
-    holiday-local-holidays
-    holiday-other-holidays
-    general-holidays
-    holiday-christian-holidays
-    holiday-oriental-holidays
-    holiday-solar-holidays))
+(setq
+  holiday-local-holidays nil
+  calendar-christian-all-holidays-flag t
+  calendar-holidays (list
+                      japanese-holidays
+                      polish-holidays
+                      english-holidays
+                      ;; holiday-local-holidays
+                      general-holidays
+                      holiday-christian-holidays
+                      holiday-solar-holidays)
+  ;; calendar-mark-holidays-flag t
+  calendar-week-start-day 1
+  calendar-date-style 'european)
 
-(setq calendar-christian-all-holidays-flag t)
-(setq holiday-bahai-holidays nil)
-(setq holiday-local-holidays nil) ; set it one day
-(setq org-agenda-include-diary t)
-(setq org-agenda-search-headline-for-time nil)
+(setq
+  org-agenda-include-diary t
+  org-agenda-search-headline-for-time nil)
 
 (setq diary-number-of-entries 31)
-(setq calendar-mark-holidays-flag t)
-(setq calendar-week-start-day 1)
-(setq calendar-date-style 'european)
 
 (add-hook 'calendar-load-hook
-  (lambda ()
-    (calendar-set-date-style 'european)))
+  (lambda () (calendar-set-date-style 'european)))
 
 (setq
   org-clock-into-drawer t
@@ -1771,10 +1780,5 @@ it can be passed in POS."
   (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
 
 (add-hook 'org-mode-hook 'ndk/set-header-line-format)
-
-;; (eval-after-load 'my-org
-;;   '(progn
-;;      (org-agenda t "d")
-;;      (org-agenda-quit)))
 
 (provide 'my-org)

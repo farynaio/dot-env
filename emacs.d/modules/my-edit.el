@@ -1,10 +1,9 @@
-(require 'autorevert)
-(require 're-builder)
+;; (require 'autorevert)
+;; (require 're-builder)
 ;; (require 'calendar)
 ;; (require 'reftex)
 ;; (require 'face-remap)
-(require 'ediff)
-(require 'conf-mode)
+;; (require 'conf-mode)
 ;; (require 'tramp)
 ;; (require 'elec-pair)
 ;; (require 'subr-x)
@@ -70,8 +69,6 @@
 
 (use-package org-pomodoro)
 
-(use-package wiki-summary)
-
 (use-package hungry-delete
   ;; :diminish hungry-delete-mode
   :init
@@ -129,9 +126,11 @@
 ;;          ad-do-it))))
 
 (use-package which-key
+  :defer 0.2
   :diminish which-key-mode
+  :custom
+  (which-key-idle-delay 0.5)
   :config
-  (setq which-key-idle-delay 0.5)
   (which-key-mode 1))
 
 (use-package persistent-scratch
@@ -139,13 +138,29 @@
   (persistent-scratch-setup-default))
 
 (use-package editorconfig
+  :defer 0.3
   :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 
-(setq
-  ediff-window-setup-function 'ediff-setup-windows-plain
-  ediff-forward-word-function 'forward-char)
+(use-package ediff
+  :commands ediff
+  :ensure nil
+  :custom
+  (ediff-window-setup-function 'ediff-setup-windows-plain)
+  (ediff-forward-word-function 'forward-char))
+
+(use-package savehist
+  :ensure nil
+  :custom
+  (savehist-file "~/.emacs.d/savehist")
+  (history-length 500)
+  (history-delete-duplicates t)
+  (auto-save-visited-interval 60)
+  (savehist-save-minibuffer-history 1)
+  (savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+  :config
+  (savehist-mode 1))
 
 ; https://emacs.stackexchange.com/questions/10932/how-do-you-disable-the-buffer-end-beginning-warnings-in-the-minibuffer/20039#20039
 (defun my/command-error-function (data context caller)
@@ -158,15 +173,6 @@ end-of-buffer signals; pass the rest to the default handler."
     (command-error-default-function data context caller)))
 
 (setq command-error-function 'my/command-error-function)
-
-;; https://emacs.stackexchange.com/questions/63336/deleting-a-file-with-name-that-already-exists-in-trash/63342#63342
-(when (eq system-type 'darwin)
-  (defun system-move-file-to-trash (filename)
-    "Move file or directory named FILENAME to the trash."
-    (ns-do-applescript
-      (format
-        "tell application \"Finder\" to delete POSIX file \"%s\""
-        filename))))
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
@@ -276,7 +282,6 @@ end-of-buffer signals; pass the rest to the default handler."
 (electric-pair-mode 1)
 
 (global-hl-line-mode -1)
-(savehist-mode -1)
 (shell-dirtrack-mode -1)
 (global-eldoc-mode -1)
 (blink-cursor-mode -1)
