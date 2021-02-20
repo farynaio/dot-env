@@ -4,9 +4,9 @@
 
 (let ((file-name-handler-alist nil))
   (setq
-   gc-cons-threshold (* 1024 1024 1024)
-   gc-cons-percentage 0.7
-   read-process-output-max (* 1024 1024))
+   gc-cons-threshold (* 1024 800)
+   gc-cons-percentage 0.1
+   read-process-output-max (* 1024 1024 512))
   ;; (setq gc-cons-threshold 402653184)
   ;; (setq gc-cons-percentage 0.6)
 
