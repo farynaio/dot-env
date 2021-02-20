@@ -13,20 +13,32 @@
   scroll-conservatively 101
   auto-window-vscroll nil)
 
-;; (setq special-display-buffer-names '("*Help*"))
-
 (setq display-buffer-alist '(("*helpful"
                               (display-buffer-reuse-window display-buffer-at-bottom)
-                              (window-width . 0.5))))
+                               (window-width . 0.5)
+                               (reusable-frames . nil))))
 
+(use-package simple
+  :ensure nil
+  ;; :hook((prog-mode . turn-on-auto-fill)
+  ;;        (text-mode . turn-on-auto-fill))
+  :custom
+  (set-mark-command-repeat-pop t))
 
 (use-package recentf
   :ensure nil
   :custom
   (recentf-max-saved-items 200)
   (recentf-max-menu-items 15)
+  (recentf-exclude '("COMMIT_EDITMSG"
+                     "~$"
+                     "/scp:"
+                     "/ssh:"
+                     "/sudo:"
+                     "/tmp/"))
   :config
-  (recentf-mode 1))
+  (recentf-mode 1)
+  (run-at-time nil (* 60 5) #'recentf-save-list))
 
 (use-package openwith
   :if (eq system-type 'darwin)
@@ -148,7 +160,8 @@
   (ivy-use-selectable-prompt t)
   (ivy-count-format "(%d/%d) ")
   (ivy-use-virtual-buffer t)
-  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  (ivy-re-builders-alist '((t . ivy--regex-plus)))
+  ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
 
@@ -205,12 +218,16 @@
           ("C-x b" . counsel-switch-buffer)
           ("C-x B" . counsel-switch-buffer-other-window)
           ("C-x C-r" . counsel-recentf)
+          ("C-x C-d" . counsel-dired-jump)
+          ("C-x C-h" . counsel-minibuffer-history)
+          ("C-x C-l" . counsel-find-library)
           :map read-expression-map
           ("C-r" . counsel-minibuffer-history)
           ("C-r" . counsel-expression-history)
           :map evil-motion-state-map
           ("\\a" . counsel-imenu))
   :custom
+  (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
   (counsel-find-file-ignore-regexp "\\`\\.")
   (counsel-grep-base-command "grep -E -n -i -e %s %s")
   :config
@@ -254,6 +271,8 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
 (use-package perspective
+  :custom
+  (persp-sort 'created)
   :config
   (persp-mode)
   (bind-keys
@@ -287,13 +306,17 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 
 (use-package visual-fill-column
   :commands visual-fill-column-mode
-  :custom
-  (visual-fill-column-center-text t))
+  :hook (
+          ;; (prog-mode . turn-on-auto-fill)
+          ;; (text-mode . turn-on-auto-fill)
+          (text-mode . visual-fill-column-mode)
+          ))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode)
   :hook ((nov-mode . visual-line-mode)
-          (nov-mode . visual-fill-column-mode))
+          (nov-mode . visual-fill-column-mode)
+          (nov-mode . (lambda () (setq visual-fill-column-center-text t))))
   :custom
   (nov-text-width t)
   ;; (nov-text-width 75)
@@ -353,10 +376,17 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
-(windmove-default-keybindings)
-(setq
-  windmove-wrap-around t
-  framemove-hook-into-windmove t)
+(use-package windmove
+  :ensure nil
+  :bind (("C-x <left>" . windmove-left)
+          ("C-x <right>" . windmove-right)
+          ("C-x <up>" . windmove-up)
+          ("C-x <down>" . windmove-down))
+  :custom
+  (windmove-wrap-around t)
+  (framemove-hook-into-windmove t)
+  :config
+  (windmove-default-keybindings))
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 

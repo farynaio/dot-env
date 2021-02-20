@@ -37,7 +37,9 @@
   (projectile-mode 1))
 
 (use-package counsel-projectile
-  :after projectile ivy)
+  :after projectile ivy
+  :config
+  (counsel-projectile-mode 1))
 
   ;; (add-hook 'after-init-hook
   ;;           (lambda ()
@@ -86,8 +88,8 @@ to invalidate."
 ;;     (counsel-projectile-mode 1)))
 
 (use-package git-commit
-  :config
-  (setq git-commit-style-convention-checks nil))
+  :custom
+  (git-commit-style-convention-checks nil))
 
 (use-package git-gutter
   :diminish git-gutter-mode
@@ -106,6 +108,7 @@ to invalidate."
   :defer 0.3)
 
 (use-package magit
+  :defer 0.3
   :diminish magit-auto-revert-mode
   :after transient
   :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
@@ -144,8 +147,8 @@ to invalidate."
   (magit-diff-paint-whitespace nil)
   (magit-ediff-dwim-show-on-hunks t)
   (magit-diff-hide-trailing-cr-characters t)
-  (magit-bury-buffer-function 'quit-window)
-  ;; (magit-bury-buffer-function 'magit-mode-quit-window)
+  (magit-bury-buffer-function 'magit-mode-quit-window) ;; quit-window
+  ;; (magit-bury-buffer-function 'quit-window) ;; quit-window
   ;; (magit-bury-buffer-function 'magit-restore-window-configuration)
   (magit-commit-ask-to-stage nil)
   (magit-commit-squash-confirm nil)

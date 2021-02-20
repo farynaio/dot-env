@@ -37,7 +37,6 @@
 (set-fontset-font t 'latin "Noto Sans")
 
 (setq
-  fill-column 80
   hscroll-margin  1
   hscroll-step 1
   ;; scroll-conservatively most-positive-fixnum ;; 1001 ;; should be 0?
@@ -87,7 +86,7 @@
   :diminish company-mode
   :config
   (setq
-    company-idle-delay 0.3
+    company-idle-delay 0.5
     company-show-numbers t
     company-tooltip-align-annotations t
     company-minimum-prefix-length 1
@@ -132,6 +131,10 @@
   (which-key-idle-delay 0.5)
   :config
   (which-key-mode 1))
+
+(use-package expand-region
+  :bind (("C-=" . er/contract-region)
+         ("C-+" . er/expand-region)))
 
 (use-package persistent-scratch
   :config
@@ -271,10 +274,6 @@ end-of-buffer signals; pass the rest to the default handler."
   ("C-x C-r" . recentf-open-files)
   ("<home>" . left-word)
   ("<end>" . right-word)
-  ("C-x <left>" . windmove-left)
-  ("C-x <right>" . windmove-right)
-  ("C-x <up>" . windmove-up)
-  ("C-x <down>" . windmove-down)
   ("C-x s" . (lambda () (interactive) (save-some-buffers t)))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
   ("s-t" . make-frame-command)

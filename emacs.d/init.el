@@ -22,9 +22,6 @@
     (defvar url-callback-function ())
     (defvar url-callback-arguments ()))
 
-  (find-file "~/.emacs.d/init.el")
-  (find-file "~/.emacs.d/modules/my-hydra.el")
-
   ;; (setenv "LC_ALL" "en_US.UTF-8")
   ;; (setenv "LANG" "en_US.UTF-8")
   ;; (setenv "LANGUAGE" "en_US.UTF-8")
@@ -88,6 +85,8 @@
   (setq load-prefer-newer t)
 
   ;; (use-package bind-key)
+
+  (use-package use-package-ensure-system-package)
 
   (use-package diminish
     :config
@@ -206,6 +205,7 @@
   (defvar my-ruby-activate nil)
   (defvar my-web-activate nil)
   (defvar my-hydra-activate nil)
+  (defvar my-presentation-activate nil)
 
   (setq
    my-utils-activate t
@@ -234,6 +234,7 @@
    my-web-activate t
    my-ruby-activate nil
    my-hydra-activate t
+   my-presentation-activate nil
    )
 
   (when my-utils-activate (require 'my-utils))
@@ -259,6 +260,7 @@
   (when my-rss-activate (require 'my-rss))
   (when my-email-activate (require 'my-email))
   (when my-www-activate (require 'my-www))
+  (when my-presentation-activate (require 'my-presentation))
   (when my-irc-activate (require 'my-irc))
   (when my-taskjuggler-activate (require 'my-taskjuggler))
   (when my-org-caldav-activate (require 'my-org-caldav))
@@ -300,7 +302,7 @@
    x-underline-at-descent-line t
    confirm-kill-processes nil
    process-connection-type nil
-   set-mark-command-repeat-pop t
+   fill-column 99
    default-directory "~/"
    initial-buffer-choice t
    confirm-kill-processes nil
@@ -351,6 +353,9 @@
                    (flycheck-mode -1))
                  t ))))
   )
+
+(find-file "~/.emacs.d/init.el")
+(find-file "~/.emacs.d/modules/my-hydra.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

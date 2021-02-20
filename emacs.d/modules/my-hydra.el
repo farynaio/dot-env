@@ -309,7 +309,8 @@
 (pretty-hydra-define hydra-dired
   (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
   ("Actions"
-   (("c" farynaio/dired-shell-command "run command"))))
+   (("c" farynaio/dired-shell-command "run command")
+    ("g" magit-status "magit status"))))
 
 (pretty-hydra-define hydra-buffer
   (:hint nil :color teal :quit-key "q" :title (with-faicon "align-justify" "Buffer" 1 -0.05))

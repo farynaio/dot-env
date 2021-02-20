@@ -24,6 +24,7 @@
           ("C-w =" . balance-windows)
           ("C-w |" . maximize-window)
           ("C-w q" . quit-window)
+          ("C-w v" . split-window-right)
           ("/" . evil-ex-search-forward)
           ("n" . evil-ex-search-next)
           ("N" . evil-ex-search-previous)
@@ -53,7 +54,7 @@
     (interactive )
     (let ((cmd (read-string "Run shell command: ")))
       (if cmd
-        (dired-shell-command cmd)
+        (dired-run-shell-command cmd)
         (user-error "Command is required!"))))
   :config
   (when (file-executable-p "/usr/local/bin/gls")
@@ -91,6 +92,7 @@
   :after dired
   :bind (:map dired-mode-map
           ("<tab>" . dired-subtree-cycle)
+          ("<S-tab>" . dired-subtree-toggle)
           ("i" . dired-subtree-toggle)))
 
 (use-package dired-narrow
@@ -103,10 +105,10 @@
   (when (eq system-type 'darwin)
     (defun system-move-file-to-trash (filename)
       "Move file or directory named FILENAME to the trash."
-      (ns-do-applescript
-        (format
-          "tell application \"Finder\" to delete POSIX file \"%s\""
-          filename))
-      (revert-buffer)))
+      (save-excursion
+        (ns-do-applescript
+          (format
+            "tell application \"Finder\" to delete POSIX file \"%s\""
+            filename)))))
 
 (provide 'my-dired)
