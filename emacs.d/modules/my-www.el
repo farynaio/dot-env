@@ -34,38 +34,8 @@
 ;;      (defalias 'w 'af/eww)))
 
 (use-package w3m
-  :config
-  (setq
-    w3m-use-cookies nil
-    w3m-use-favicon nil
-    mm-text-html-renderer 'w3m
-    w3m-search-default-engine "duckduckgo"
-    w3m-delete-duplicated-empty-lines t
-    w3m-coding-system 'utf-8
-    w3m-default-coding-system 'utf-8
-    w3m-file-coding-system 'utf-8
-    w3m-file-name-coding-system 'utf-8
-    w3m-input-coding-system 'utf-8
-    w3m-output-coding-system 'utf-8
-    w3m-terminal-coding-system 'utf-8
-    w3m-display-mode 'tabbed
-    w3m-default-display-inline-images nil
-    w3m-confirm-leaving-secure-page nil
-    w3m-new-session-in-background t
-    w3m-session-load-last-sessions t
-    w3m-new-session-url "about:"
-    w3m-type 'w3m-m17n
-    ;; w3m-user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0"
-    )
-
-  (setq browse-url-browser-function
-    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
-       ("." . my/w3m-goto-frame)))
-
-  ;; w3m-goto-url-new-session
-
-  (bind-keys
-    :map w3m-mode-map
+  :hook ((w3m-mode . iscroll-mode))
+  :bind (:map w3m-mode-map
     ("M-h" . my/w3m-history-full)
     ("<" . beginning-of-buffer)
     (">" . end-of-buffer)
@@ -84,9 +54,31 @@
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
     ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
     ("C-c C-e" . my/w3m-goto-new-session-url))
-
-  (add-hook 'w3m-mode-hook #'iscroll-mode)
-
+  :custom
+  (w3m-use-cookies nil)
+  (w3m-use-favicon nil)
+  (mm-text-html-renderer 'w3m)
+  (w3m-search-default-engine "duckduckgo")
+  (w3m-delete-duplicated-empty-lines t)
+  (w3m-coding-system 'utf-8)
+  (w3m-default-coding-system 'utf-8)
+  (w3m-file-coding-system 'utf-8)
+  (w3m-file-name-coding-system 'utf-8)
+  (w3m-input-coding-system 'utf-8)
+  (w3m-output-coding-system 'utf-8)
+  (w3m-terminal-coding-system 'utf-8)
+  (w3m-display-mode 'tabbed)
+  (w3m-default-display-inline-images nil)
+  (w3m-confirm-leaving-secure-page nil)
+  (w3m-new-session-in-background t)
+  (w3m-session-load-crashed-sessions t)
+  (w3m-session-load-last-sessions t)
+  (w3m-new-session-url "about:")
+  (w3m-type 'w3m-m17n)
+  (setqbrowse-url-browser-function
+    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+       ("." . my/w3m-goto-frame)))
+  :config
   (defun farynaio/w3m-create-empty-session ()
     (interactive)
     (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
@@ -257,6 +249,7 @@
     "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
     :keybinding "w"
     :docstring "Searchin' the wikis.")
+
   (engine-mode t))
 
 (provide 'my-www)
