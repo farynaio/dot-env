@@ -47,7 +47,7 @@
   ("Basic"
    (("a" abbrev-mode "abbrev" :toggle t)
     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
-    ("q" smart-quotes-mode "smart quotes toggle" :toggle t))
+    ("s" smart-quotes-mode "smart quotes toggle" :toggle t))
    "Coding"
    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
     ("e" electric-operator-mode "electric operator" :toggle t)
@@ -296,8 +296,8 @@
   (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
   ("Go to"
    ;; ("S" my/w3m-search-frame "search in frame" :exit t)
-   (("g" w3m-goto-url-new-session "go to")
-    ("G" my/w3m-goto-frame "go to in frame"))
+   (("G" w3m-goto-url-new-session "go to")
+    ("g" my/w3m-goto-frame "go to in frame"))
    "Open"
    (("w" my/w3m-open-frame "open browser in frame")
     ("W" my/w3m-open-other-window "open browser"))

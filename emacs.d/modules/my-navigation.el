@@ -13,7 +13,7 @@
   scroll-conservatively 101
   auto-window-vscroll nil)
 
-(setq display-buffer-alist '(("*helpful"
+(setq display-buffer-alist '(("\\*[hH]elp.*"
                               (display-buffer-reuse-window display-buffer-at-bottom)
                                (window-width . 0.5)
                                (reusable-frames . nil))))

@@ -56,15 +56,17 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'same-window-buffer-names "*SQL*")
 
-(eval-after-load 'elec-pair
-  '(progn
-     (push '(?\" . ?\") electric-pair-pairs)
-     (push '(?\{ . ?\}) electric-pair-pairs)
-     (push '(?\` . ?\`) electric-pair-pairs)
-     (push '(?\" . ?\") electric-pair-text-pairs)
-     (push '(?\{ . ?\}) electric-pair-text-pairs)
-     (push '(?\' . ?\') electric-pair-text-pairs)
-     (push '(?\` . ?\`) electric-pair-text-pairs)))
+(use-package elec-pair
+  :ensure nil
+  :config
+  (push '(?\" . ?\") electric-pair-pairs)
+  (push '(?\{ . ?\}) electric-pair-pairs)
+  (push '(?\` . ?\`) electric-pair-pairs)
+  (push '(?\( . ?\)) electric-pair-pairs)
+  (push '(?\" . ?\") electric-pair-text-pairs)
+  (push '(?\{ . ?\}) electric-pair-text-pairs)
+  (push '(?\' . ?\') electric-pair-text-pairs)
+  (push '(?\` . ?\`) electric-pair-text-pairs))
 
 (use-package org-pomodoro)
 

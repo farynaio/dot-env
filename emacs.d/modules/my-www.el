@@ -82,6 +82,7 @@
     ("C-t t" . farynaio/w3m-create-empty-session)
     ("<S-mouse-1>" . my/w3m-open-in-external-click)
     ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
+    ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
     ("C-c C-e" . my/w3m-goto-new-session-url))
 
   (add-hook 'w3m-mode-hook #'iscroll-mode)
