@@ -190,6 +190,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        ("<M-up>" . my/org-metaup)
        ("<M-down>" . my/org-metadown)
        ("<S-mouse-1>" . browse-url-generic)
+       ("<s-mouse-1>" . org-open-at-point)
        ([remap backward-paragraph] . nil)
        ([remap forward-paragraph] . nil)
        ("C-x :" . (lambda () (interactive) (save-excursion (org-back-to-heading) (org-set-tags))))
