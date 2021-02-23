@@ -147,9 +147,7 @@ to invalidate."
   (magit-diff-paint-whitespace nil)
   (magit-ediff-dwim-show-on-hunks t)
   (magit-diff-hide-trailing-cr-characters t)
-  (magit-bury-buffer-function 'magit-mode-quit-window) ;; quit-window
-  ;; (magit-bury-buffer-function 'quit-window) ;; quit-window
-  ;; (magit-bury-buffer-function 'magit-restore-window-configuration)
+  (magit-bury-buffer-function 'quit-window)
   (magit-commit-ask-to-stage nil)
   (magit-commit-squash-confirm nil)
   (magit-no-confirm '(stage-all-changes unstage-all-changes))

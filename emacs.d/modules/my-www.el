@@ -35,25 +35,65 @@
 
 (use-package w3m
   :hook ((w3m-mode . iscroll-mode))
+  :demand t
   :bind (:map w3m-mode-map
-    ("M-h" . my/w3m-history-full)
-    ("<" . beginning-of-buffer)
-    (">" . end-of-buffer)
-    ("I" . my/w3m-view-image-generic-browser)
-    ("O" . my/w3m-open-in-external)
-    ("C-w v" . evil-window-vsplit)
-    ("C-w C-v" . evil-window-vsplit)
-    ("C-w =" . balance-windows)
-    ("C-w |" . evil-window-set-width)
-    ("s-}" . w3m-next-buffer)
-    ("s-{" . w3m-previous-buffer)
-    ("<right>" . w3m-view-next-page)
-    ("C-c C-t" . farynaio/w3m-create-empty-session)
-    ("C-t t" . farynaio/w3m-create-empty-session)
-    ("<S-mouse-1>" . my/w3m-open-in-external-click)
-    ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
-    ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
-    ("C-c C-e" . my/w3m-goto-new-session-url))
+          ("M-h" . my/w3m-history-full)
+          ("<" . beginning-of-buffer)
+          (">" . end-of-buffer)
+          ("I" . my/w3m-view-image-generic-browser)
+          ("O" . my/w3m-open-in-external)
+          ("C-w v" . evil-window-vsplit)
+          ("C-w C-v" . evil-window-vsplit)
+          ("C-w =" . balance-windows)
+          ("C-w |" . evil-window-set-width)
+          ("s-}" . w3m-next-buffer)
+          ("s-{" . w3m-previous-buffer)
+          ("<right>" . w3m-view-next-page)
+          ("S" . my/w3m-search-new-session)
+          ("C-c C-t" . farynaio/w3m-create-empty-session)
+          ("C-t t" . farynaio/w3m-create-empty-session)
+          ("<S-mouse-1>" . my/w3m-open-in-external-click)
+          ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
+          ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
+          ("C-c C-e" . my/w3m-goto-new-session-url))
+  :preface
+  (defun my/w3m-goto-frame (url &rest args)
+    (interactive (list (read-string "URL: ")))
+    (let ((w3m-alive (w3m-alive-p))
+           (w3m-new-session-in-background nil))
+      (switch-to-buffer-other-frame w3m-alive)
+      (unless w3m-alive
+        (w3m))
+      (w3m-goto-url-new-session url)))
+
+  (defun my/w3m-search-frame (query &optional from to)
+    (interactive
+      (if (use-region-p)
+        (list nil (region-beginning) (region-end))
+        (list (read-string "Search phrase: "))))
+    (let ((w3m-alive (w3m-alive-p))
+           (query (if query query (buffer-substring-no-properties from to)))
+           (w3m-new-session-in-background nil))
+      (switch-to-buffer-other-frame w3m-alive)
+      (if w3m-alive
+        (progn
+          (w3m)
+          (w3m-search-new-session w3m-search-default-engine query))
+        (w3m-search w3m-search-default-engine query))))
+
+  (defun my/w3m-open-other-window ()
+    (interactive)
+    (let ((w3m-alive (w3m-alive-p)))
+      (switch-to-buffer-other-frame w3m-alive)
+      (unless w3m-alive
+        (w3m))))
+
+  (defun my/w3m-open-frame ()
+    (interactive)
+    (let ((w3m-alive (w3m-alive-p)))
+      (switch-to-buffer-other-frame w3m-alive)
+      (unless w3m-alive
+        (w3m))))
   :custom
   (w3m-use-cookies nil)
   (w3m-use-favicon nil)
@@ -75,7 +115,7 @@
   (w3m-session-load-last-sessions t)
   (w3m-new-session-url "about:")
   (w3m-type 'w3m-m17n)
-  (setqbrowse-url-browser-function
+  (browse-url-browser-function
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . my/w3m-goto-frame)))
   :config
@@ -120,20 +160,6 @@
     (interactive)
     (w3m-history 1))
 
-  (defun my/w3m-open-other-window ()
-    (interactive)
-    (let ((w3m-alive (w3m-alive-p)))
-      (switch-to-buffer-other-frame w3m-alive)
-      (unless w3m-alive
-        (w3m))))
-
-  (defun my/w3m-open-frame ()
-    (interactive)
-    (let ((w3m-alive (w3m-alive-p)))
-      (switch-to-buffer-other-frame w3m-alive)
-      (unless w3m-alive
-        (w3m))))
-
   (defun my/w3m-open-in-external (event)
     (interactive "e")
     (mouse-set-point event)
@@ -149,36 +175,11 @@
     (let ((w3m-alive (w3m-alive-p))
            (query (if query query (buffer-substring-no-properties from to)))
            (w3m-new-session-in-background nil))
-      (switch-to-buffer-other-window w3m-alive)
       (if w3m-alive
         (progn
           (w3m)
           (w3m-search-new-session w3m-search-default-engine query))
         (w3m-search w3m-search-default-engine query))))
-
-  (defun my/w3m-search-frame (query &optional from to)
-    (interactive
-      (if (use-region-p)
-        (list nil (region-beginning) (region-end))
-        (list (read-string "Search phrase: "))))
-    (let ((w3m-alive (w3m-alive-p))
-           (query (if query query (buffer-substring-no-properties from to)))
-           (w3m-new-session-in-background nil))
-      (switch-to-buffer-other-frame w3m-alive)
-      (if w3m-alive
-        (progn
-          (w3m)
-          (w3m-search-new-session w3m-search-default-engine query))
-        (w3m-search w3m-search-default-engine query))))
-
-  (defun my/w3m-goto-frame (url &rest args)
-    (interactive (list (read-string "URL: ")))
-    (let ((w3m-alive (w3m-alive-p))
-           (w3m-new-session-in-background nil))
-      (switch-to-buffer-other-frame w3m-alive)
-      (unless w3m-alive
-        (w3m))
-      (w3m-goto-url-new-session url)))
 
   ;; Fix asking for confirmation before visiting URL via generic browser
   (advice-add 'browse-url-interactive-arg :around

@@ -4,7 +4,8 @@
          ("C-c t" . hydra-btoggle/body)
          ("C-c C" . hydra-clock/body)
          ("C-c e" . hydra-erc/body)
-         ("C-c g" . hydra-go-to-file/body)
+         ("C-c n" . hydra-navigate-to/body)
+         ("C-c g" . hydra-git/body)
          ("C-c p" . hydra-projectile/body)
          ("C-c q" . hydra-query/body)
          ("C-c b" . hydra-browser/body)
@@ -16,6 +17,7 @@
          (",i" . hydra-snippet/body)
          (",p" . hydra-project/body)
          ("C-c f" . hydra-flycheck/body)
+         ("C-c o" . hydra-org/body)
          ("C-c v" . hydra-org-roam/body)
          (",g" . hydra-git/body)
          :map dired-mode-map
@@ -99,8 +101,8 @@
    (("M" flycheck-manual "manual")
     ("v" flycheck-verify-setup "verify setup"))))
 
-(pretty-hydra-define hydra-go-to-file
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "file-text-o" "Go To" 1 -0.05))
+(pretty-hydra-define hydra-navigate-to
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "file-text-o" "Navigate To" 1 -0.05))
   ("Agenda"
    (("ac" (find-file my/org-contacts-file-path) "contacts"))
    ;; ("ao" (find-file "~/.personal/agenda/organizer.org") "organizer")
