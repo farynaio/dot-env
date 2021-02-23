@@ -271,13 +271,14 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
 (use-package perspective
+  :defer nil
+  :hook ((kill-emacs . persp-state-save))
+  :bind (("C-x C-b" . persp-counsel-switch-buffer)
+          ("C-x C-k" . persp-kill-buffer*))
   :custom
   (persp-sort 'created)
   :config
-  (persp-mode)
-  (bind-keys
-    ("C-x C-b" . persp-counsel-switch-buffer)
-    ("C-x C-k" . persp-kill-buffer*)))
+  (persp-mode))
 
 (use-package ag
   :defer 3
