@@ -6,6 +6,7 @@
   (js-indent-level tab-width)
   (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
   (js-chain-indent t)
+  (js-indent-align-list-continuation nil)
   :config
   (flycheck-add-mode 'javascript-eslint 'js-mode)
   (add-hook 'js-mode-hook
