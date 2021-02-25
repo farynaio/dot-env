@@ -14,21 +14,21 @@
   :delight "Dired "
   :hook ((dired-mode . dired-hide-details-mode)
           (dired-mode . hl-line-mode))
-  :bind (:map dired-mode-map
-          ("C-s" . find-name-dired)
-          ("<" . beginning-of-buffer)
-          (">" . end-of-buffer)
-          ("W" . my/dired-copy-dirname-as-kill)
-          ("k" . (lambda () (interactive) (dired-do-kill-lines t)))
-          ("r" . my/rgrep)
-          ("C-w =" . balance-windows)
-          ("C-w |" . maximize-window)
-          ("C-w q" . quit-window)
-          ("C-w v" . split-window-right)
-          ("/" . evil-ex-search-forward)
-          ("n" . evil-ex-search-next)
-          ("N" . evil-ex-search-previous)
-          ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
+  ;; :bind (:map dired-mode-map
+  ;;         ("C-s" . find-name-dired)
+  ;;         ("<" . beginning-of-buffer)
+  ;;         (">" . end-of-buffer)
+  ;;         ("W" . my/dired-copy-dirname-as-kill)
+  ;;         ("k" . (lambda () (interactive) (dired-do-kill-lines t)))
+  ;;         ("r" . my/rgrep)
+  ;;         ("C-w =" . balance-windows)
+  ;;         ("C-w |" . maximize-window)
+  ;;         ("C-w q" . quit-window)
+  ;;         ("C-w v" . split-window-right)
+  ;;         ("/" . evil-ex-search-forward)
+  ;;         ("n" . evil-ex-search-next)
+  ;;         ("N" . evil-ex-search-previous)
+  ;;         ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
   :custom
   (find-name-arg "-iname")
   (dired-dwim-target t)
@@ -57,6 +57,22 @@
         (dired-run-shell-command cmd)
         (user-error "Command is required!"))))
   :config
+  (evil-define-key 'normal dired-mode-map
+    (kbd "C-s") #'find-name-dired
+    (kbd "<") #'beginning-of-buffer
+    (kbd ">") #'end-of-buffer
+    (kbd "W") #'my/dired-copy-dirname-as-kill
+    (kbd "k") (lambda () (interactive) (dired-do-kill-lines t))
+    (kbd "r") #'my/rgrep
+    (kbd "C-w =") #'balance-windows
+    (kbd "C-w |") #'maximize-window
+    (kbd "C-w q") #'quit-window
+    (kbd "C-w v") #'split-window-right
+    (kbd "/") #'evil-ex-search-forward
+    (kbd "n") #'evil-ex-search-next
+    (kbd "N") #'evil-ex-search-previous
+    (kbd "<backspace>") (lambda () (interactive) (farynaio/dired-go-up-reuse "..")))
+
   (when (file-executable-p "/usr/local/bin/gls")
     (setq
       insert-directory-program "/usr/local/bin/gls"

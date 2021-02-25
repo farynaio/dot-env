@@ -175,7 +175,6 @@
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
   (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
-  (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'nov-mode)
   (add-to-list 'evil-emacs-state-modes 'helpful-mode)
 
