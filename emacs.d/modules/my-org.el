@@ -129,7 +129,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (define-key calendar-mode-map "<" 'jarfar/scroll-year-calendar-backward)
 (define-key calendar-mode-map ">" 'jarfar/scroll-year-calendar-forward)
 
-(defalias 'year-calendar #'jarfar/year-calendar)
+(defalias 'calendar-full #'jarfar/year-calendar)
 
 (defun my/outline-hide-subtree ()
   (interactive)
