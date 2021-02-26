@@ -249,11 +249,11 @@
   (evil-define-key 'normal lsp-ui-mode-map
     (kbd ",l") #'lsp-ui-imenu))
 
-(use-package lsp-treemacs
-  :after lsp-mode treemacs
-  :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
-  :config
-  (lsp-treemacs-sync-mode 1))
+;; (use-package lsp-treemacs
+;;   :after lsp-mode treemacs
+;;   :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
+;;   :config
+;;   (lsp-treemacs-sync-mode 1))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 (use-package dap-mode

@@ -137,4 +137,7 @@ alias eledger="gpg --batch -d -q $LEDGER_FILE | ledger -f - "
 
 # export NPM_TOKEN=$(aws --region eu-west-1 ssm get-parameter --name /TWIG/global/NPM_TOKEN --output text --query 'Parameter.Value' --with-decryption)
 
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+
 [ -s ~/.shells_local/shell/interactive ] && . ~/.shells_local/shell/interactive

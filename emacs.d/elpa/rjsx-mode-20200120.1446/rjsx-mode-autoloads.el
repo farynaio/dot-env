@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "rjsx-mode" "rjsx-mode.el" (0 0 0 0))
-;;; Generated autoloads from rjsx-mode.el
+;;;### (autoloads nil "rjsx-mode" "../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode.el"
+;;;;;;  "81fddac53c17a2e1c562944ffb4c4612")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode.el
 
 (autoload 'rjsx-mode "rjsx-mode" "\
 Major mode for editing JSX files.
@@ -17,16 +18,10 @@ Major mode for editing JSX files.
 (autoload 'rjsx-minor-mode "rjsx-mode" "\
 Minor mode for parsing JSX syntax into an AST.
 
-If called interactively, toggle `Rjsx minor mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Rjsx minor mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -45,8 +40,20 @@ it's on a descendent JSX Element, it will use \"{/* */}\"
 instead.
 
 \(fn ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "rjsx-mode" "../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode.el
 
-(register-definition-prefixes "rjsx-mode" '("rjsx-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rjsx-mode" '("rjsx-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/rjsx-mode-20200120.1446/rjsx-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

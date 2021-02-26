@@ -270,15 +270,34 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
 ;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
-(use-package perspective
-  :demand t
-  :hook ((kill-emacs . persp-state-save))
-  :bind (("C-x C-b" . persp-counsel-switch-buffer)
-          ("C-x C-k" . persp-kill-buffer*))
-  :custom
-  (persp-sort 'created)
-  :config
-  (persp-mode))
+;; (use-package perspective
+;;   :demand t
+;;   :hook ((kill-emacs . persp-state-save))
+;;   :bind (("C-x C-b" . persp-counsel-switch-buffer)
+;;           ("C-x C-k" . persp-kill-buffer*))
+;;   :preface
+;;   (defun my/persp-counsel-switch-buffer-other (arg)
+;;     (interactive "P")
+;;     (apply #'ivy-read
+;;       (append
+;;         (list
+;;           (format "Switch to buffer other window (%s): " (persp-current-name))
+;;           (cl-remove-if #'null (mapcar #'buffer-name
+;;                                  ;; buffer-list is ordered by access time
+;;                                  ;; seq-intersection keeps the order
+;;                                  (seq-intersection (buffer-list)
+;;                                    (persp-current-buffers))))
+;;           :preselect (buffer-name (persp-other-buffer (current-buffer)))
+;;           :keymap ivy-switch-buffer-map
+;;           :caller #'ivy-switch-buffer
+;;           :action #'ivy--switch-buffer-other-window-action
+;;           :matcher #'ivy--switch-buffer-matcher)
+;;         )))
+;;   :custom
+;;   (persp-sort 'created)
+;;   (persp-state-default-file "~/.emacs.d/.persp-confs/persp-auto-save")
+;;   :config
+;;   (persp-mode))
 
 (use-package ag
   :defer 3

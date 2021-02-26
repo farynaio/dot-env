@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "openwith" "openwith.el" (0 0 0 0))
-;;; Generated autoloads from openwith.el
+;;;### (autoloads nil "openwith" "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el"
+;;;;;;  "4d78f2a807a28fbce644e5b03f96506d")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -28,8 +29,20 @@ also enable the mode if ARG is omitted or nil, and toggle it if
 ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "openwith" "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "openwith" '("openwith-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/openwith-20120531.2136/openwith-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

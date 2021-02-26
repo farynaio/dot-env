@@ -6,33 +6,36 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "google-translate-backend" "google-translate-backend.el"
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-backend"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-backend.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-backend.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-backend.el
 
-(register-definition-prefixes "google-translate-backend" '("google-translate-backend-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-backend" '("google-translate-backend-")))
 
 ;;;***
 
-;;;### (autoloads nil "google-translate-core" "google-translate-core.el"
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-core"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-core.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core.el
 
-(register-definition-prefixes "google-translate-core" '("google-translate-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-core" '("google-translate-")))
 
 ;;;***
 
-;;;### (autoloads nil "google-translate-core-ui" "google-translate-core-ui.el"
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-core-ui"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core-ui.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-core-ui.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core-ui.el
 
-(register-definition-prefixes "google-translate-core-ui" '("google-translate-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-core-ui" '("google-translate-")))
 
 ;;;***
 
-;;;### (autoloads nil "google-translate-default-ui" "google-translate-default-ui.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-default-ui.el
+;;;### (autoloads nil "google-translate-default-ui" "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-default-ui.el"
+;;;;;;  "c8adad6ee675a163b9b0067cc5bb566f")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-default-ui.el
 
 (autoload 'google-translate-query-translate "google-translate-default-ui" "\
 Interactively translate text with Google Translate.
@@ -106,14 +109,21 @@ Translate current buffer with paragraph by paragraph and INSERT results below pa
 This command does NOT support document format like org-mode.
 
 \(fn &optional OVERRIDE-P REVERSE-P)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-default-ui"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-default-ui.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-default-ui.el
 
-(register-definition-prefixes "google-translate-default-ui" '("%google-translate-" "google-translate-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-default-ui" '("%google-translate-" "google-translate-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "google-translate-smooth-ui" "google-translate-smooth-ui.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-smooth-ui.el
+;;;### (autoloads nil "google-translate-smooth-ui" "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-smooth-ui.el"
+;;;;;;  "70892743da3c5ee09d302307ba47fde7")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-smooth-ui.el
 
 (autoload 'google-translate-smooth-translate "google-translate-smooth-ui" "\
 Translate a text using translation directions.
@@ -134,20 +144,36 @@ A current translation direction could be changed directly in the
 minibuffer by means of key bindings such as C-n and C-p for
 changing to the next translation direction and to the previous
 one respectively." t nil)
-
-(register-definition-prefixes "google-translate-smooth-ui" '("google-translate-"))
-
-;;;***
 
-;;;### (autoloads nil "google-translate-tk" "google-translate-tk.el"
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-smooth-ui"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-smooth-ui.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from google-translate-tk.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-smooth-ui.el
 
-(register-definition-prefixes "google-translate-tk" '("google-translate--"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-smooth-ui" '("google-translate-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil nil ("google-translate-pkg.el" "google-translate.el")
+;;;### (autoloads "actual autoloads are elsewhere" "google-translate-tk"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-tk.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-tk.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "google-translate-tk" '("google-translate--")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-backend.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core-ui.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-core.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-default-ui.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-smooth-ui.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate-tk.el"
+;;;;;;  "../../../../.emacs.d/elpa/google-translate-20200809.1430/google-translate.el")
 ;;;;;;  (0 0 0 0))
 
 ;;;***

@@ -6,27 +6,34 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "artbollocks-mode" "artbollocks-mode.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from artbollocks-mode.el
+;;;### (autoloads nil "artbollocks-mode" "../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode.el"
+;;;;;;  "96f31dfa0924f92e2ba217768b4f228d")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode.el
 
 (autoload 'artbollocks-mode "artbollocks-mode" "\
 Highlight passive voice, weasel words and artbollocks jargon in text, and provide useful text metrics
 
-If called interactively, toggle `Artbollocks mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Artbollocks mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "artbollocks-mode"
+;;;;;;  "../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode.el
 
-(register-definition-prefixes "artbollocks-mode" '("artbollocks-" "interactive-optional-region"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "artbollocks-mode" '("artbollocks-" "interactive-optional-region")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/artbollocks-mode-20170524.422/artbollocks-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

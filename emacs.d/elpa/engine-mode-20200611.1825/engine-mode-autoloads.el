@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "engine-mode" "engine-mode.el" (0 0 0 0))
-;;; Generated autoloads from engine-mode.el
+;;;### (autoloads nil "engine-mode" "../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode.el"
+;;;;;;  "91b09263532163a33db09f1063955cd6")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode.el
 
 (defvar engine-mode nil "\
 Non-nil if Engine mode is enabled.
@@ -67,8 +68,21 @@ Hitting \"C-x / w\" will be bound to the newly-defined
 `engine/search-wikipedia' function.
 
 \(fn ENGINE-NAME SEARCH-ENGINE-URL &key KEYBINDING DOCSTRING (BROWSER \\='engine/browser-function) (TERM-TRANSFORMATION-HOOK \\='identity))" nil t)
+
+;;;### (autoloads "actual autoloads are elsewhere" "engine-mode"
+;;;;;;  "../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "engine-mode" '("engine")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/engine-mode-20200611.1825/engine-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

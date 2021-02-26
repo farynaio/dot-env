@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "org-mime" "org-mime.el" (0 0 0 0))
-;;; Generated autoloads from org-mime.el
+;;;### (autoloads nil "org-mime" "../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime.el"
+;;;;;;  "7cd6754ffe101bcbd5a65052b6dac123")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime.el
 
 (autoload 'org-mime-htmlize "org-mime" "\
 Export a portion of an email to html using `org-mode'.
@@ -42,8 +43,20 @@ Following headline properties can determine the mail headers.
   :END:
 
 \(fn &optional HTMLIZE-FIRST-LEVEL)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "org-mime" "../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime.el
 
-(register-definition-prefixes "org-mime" '("org-mime-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-mime" '("org-mime-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/org-mime-20201224.1404/org-mime.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

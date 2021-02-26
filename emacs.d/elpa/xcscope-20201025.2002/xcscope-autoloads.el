@@ -6,23 +6,18 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "xcscope" "xcscope.el" (0 0 0 0))
-;;; Generated autoloads from xcscope.el
+;;;### (autoloads nil "xcscope" "../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope.el"
+;;;;;;  "f8ac1ed54160f1ecb07308158ea11e0a")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope.el
 
 (autoload 'cscope-minor-mode "xcscope" "\
 This cscope minor mode maps cscope keybindings to make cscope
 functions more accessible.
 
-If called interactively, toggle `Cscope minor mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Cscope minor mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 Key bindings:
 \\{cscope-minor-mode-keymap}
@@ -32,8 +27,20 @@ Key bindings:
 (autoload 'cscope-setup "xcscope" "\
 Automatically turns on cscope-minor-mode when editing C and
 C++ sources" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "xcscope" "../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope.el
 
-(register-definition-prefixes "xcscope" '("cscope-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "xcscope" '("cscope-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/xcscope-20201025.2002/xcscope.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

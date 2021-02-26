@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "hungry-delete" "hungry-delete.el" (0 0 0 0))
-;;; Generated autoloads from hungry-delete.el
+;;;### (autoloads nil "hungry-delete" "../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete.el"
+;;;;;;  "678de7ad0f07f7a7e7dd91dfaac73f2d")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete.el
 
 (autoload 'hungry-delete-forward "hungry-delete" "\
 Delete the following character, or all of the following
@@ -50,7 +51,7 @@ Minor mode to enable hungry deletion.  This will delete all
 whitespace after or before point when the deletion command is
 executed.
 
-If called interactively, enable Hungry-delete mode if ARG is
+If called interactively, enable Hungry-Delete mode if ARG is
 positive, and disable it if ARG is zero or negative.  If called
 from Lisp, also enable the mode if ARG is omitted or nil, and
 toggle it if ARG is `toggle'; disable the mode otherwise.
@@ -63,7 +64,7 @@ Turn on hungry delete mode if the buffer is appropriate." t nil)
 (put 'global-hungry-delete-mode 'globalized-minor-mode t)
 
 (defvar global-hungry-delete-mode nil "\
-Non-nil if Global hungry-delete mode is enabled.
+Non-nil if Global Hungry-Delete mode is enabled.
 See the `global-hungry-delete-mode' command
 for a description of this minor mode.
 Setting this variable directly does not take effect;
@@ -73,18 +74,31 @@ or call the function `global-hungry-delete-mode'.")
 (custom-autoload 'global-hungry-delete-mode "hungry-delete" nil)
 
 (autoload 'global-hungry-delete-mode "hungry-delete" "\
-Toggle Hungry-delete mode in all buffers.
-With prefix ARG, enable Global hungry-delete mode if ARG is positive;
+Toggle Hungry-Delete mode in all buffers.
+With prefix ARG, enable Global Hungry-Delete mode if ARG is positive;
 otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
-Hungry-delete mode is enabled in all buffers where
+Hungry-Delete mode is enabled in all buffers where
 `turn-on-hungry-delete-mode' would do it.
-See `hungry-delete-mode' for more information on Hungry-delete mode.
+See `hungry-delete-mode' for more information on Hungry-Delete mode.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "hungry-delete"
+;;;;;;  "../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "hungry-delete" '("hungry-delete-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/hungry-delete-20201007.2024/hungry-delete.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

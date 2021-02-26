@@ -124,15 +124,18 @@
    (("lp" (find-file my/ledger-private-path) "personal")
     ("lc" (find-file my/ledger-company-dir-path) "company dir")
     ("lr" (find-file my/ledger-company-report-path) "company report"))
-   "Personal"
-   (("pa" (find-file my/affirmations-file-path) "affirmations")
-    ("pb" (find-file my/path-coaching-brainstorm) "brainstorm")
-    ("pe" (find-file my/path-health-exercises-path) "exercises")
-    ("pg" (find-file my/path-coaching-goals-details) "goals details")
-    ("pj" (find-file my/japanese-file-path) "japanese")
-    ("pn" (find-file my/notes-file-path) "notes")
-    ("pr" (find-file my/org-review-file-path) "reviews")
-    ("pw" (find-file my/path-coaching-wheel-of-life) "wheel of life"))
+   "Notes"
+   (("na" (find-file my/affirmations-file-path) "affirmations")
+    ("nb" (find-file my/path-coaching-brainstorm) "brainstorm")
+    ("ne" (find-file my/path-health-exercises-path) "exercises")
+    ("ng" (find-file my/path-coaching-goals-details) "goals details")
+    ("nj" (find-file my/japanese-file-path) "japanese")
+    ("nn" (find-file my/notes-file-path) "notes")
+    ("nr" (find-file my/org-review-file-path) "reviews")
+    ("nw" (find-file my/path-coaching-wheel-of-life) "wheel of life"))
+   "Perspective"
+   (("pl" (lambda () (interactive ) (persp-state-restore persp-state-default-file)) "perspective load")
+    ("ps" (persp-state-save) "perspective save"))
    "Other"
    (("ob" (find-file my/org-media-file-path) "media"))
    ;; ("ol" (find-file "~/.personal/other/long-goals.org") "long-terms goals")

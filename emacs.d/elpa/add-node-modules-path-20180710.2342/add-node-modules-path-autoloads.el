@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "add-node-modules-path" "add-node-modules-path.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from add-node-modules-path.el
+;;;### (autoloads nil "add-node-modules-path" "../../../../.emacs.d/elpa/add-node-modules-path-20180710.2342/add-node-modules-path.el"
+;;;;;;  "9d82328c461dbe349b8a9a249b663637")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/add-node-modules-path-20180710.2342/add-node-modules-path.el
 
 (defvar add-node-modules-path-debug nil "\
 Enable verbose output when non nil.")
@@ -25,6 +25,12 @@ Search the current buffer's parent directories for `node_modules/.bin`.
 Traverse the directory structure up, until reaching the user's home directory,
  or hitting add-node-modules-max-depth.
 Any path found is added to the `exec-path'." t nil)
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/add-node-modules-path-20180710.2342/add-node-modules-path-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/add-node-modules-path-20180710.2342/add-node-modules-path.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

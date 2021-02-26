@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "edit-indirect" "edit-indirect.el" (0 0 0 0))
-;;; Generated autoloads from edit-indirect.el
+;;;### (autoloads nil "edit-indirect" "../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect.el"
+;;;;;;  "d039bccfa13d1852a2ac6056c8e0d9c9")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect.el
 
 (autoload 'edit-indirect-region "edit-indirect" "\
 Edit the region BEG..END in a separate buffer.
@@ -39,8 +40,21 @@ display the edit-indirect buffer in some window and select it.
 In any case, return the edit-indirect buffer.
 
 \(fn BEG END &optional DISPLAY-BUFFER)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "edit-indirect"
+;;;;;;  "../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect.el
 
-(register-definition-prefixes "edit-indirect" '("edit-indirect-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "edit-indirect" '("edit-indirect-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/edit-indirect-20200805.1840/edit-indirect.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -6,11 +6,18 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "flycheck-ledger" "flycheck-ledger.el" (0 0
-;;;;;;  0 0))
-;;; Generated autoloads from flycheck-ledger.el
+;;;### (autoloads "actual autoloads are elsewhere" "flycheck-ledger"
+;;;;;;  "../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "flycheck-ledger" '("flycheck-ledger--zero-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

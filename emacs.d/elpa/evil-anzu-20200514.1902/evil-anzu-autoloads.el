@@ -6,10 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "evil-anzu" "evil-anzu.el" (0 0 0 0))
-;;; Generated autoloads from evil-anzu.el
+;;;### (autoloads "actual autoloads are elsewhere" "evil-anzu" "../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el
 
-(register-definition-prefixes "evil-anzu" '("evil-anzu-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-anzu" '("evil-anzu-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

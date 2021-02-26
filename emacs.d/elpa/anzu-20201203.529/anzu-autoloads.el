@@ -6,22 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "anzu" "anzu.el" (0 0 0 0))
-;;; Generated autoloads from anzu.el
+;;;### (autoloads nil "anzu" "../../../../.emacs.d/elpa/anzu-20201203.529/anzu.el"
+;;;;;;  "80d540b6c883725657be053124376c7d")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/anzu-20201203.529/anzu.el
 
 (autoload 'anzu-mode "anzu" "\
 minor-mode which display search information in mode-line.
 
-If called interactively, toggle `Anzu mode'.  If the prefix argument
-is positive, enable the mode, and if it is zero or negative, disable
-the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the
-mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
+If called interactively, enable Anzu mode if ARG is positive, and
+disable it if ARG is zero or negative.  If called from Lisp, also
+enable the mode if ARG is omitted or nil, and toggle it if ARG is
+`toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -45,9 +40,7 @@ ARG is omitted or nil.
 
 Anzu mode is enabled in all buffers where
 `anzu--turn-on' would do it.
-
-See `anzu-mode' for more information on
-Anzu mode.
+See `anzu-mode' for more information on Anzu mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -79,8 +72,20 @@ anzu version of `isearch-query-replace'.
 anzu version of `isearch-query-replace-regexp'.
 
 \(fn ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "anzu" "../../../../.emacs.d/elpa/anzu-20201203.529/anzu.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/anzu-20201203.529/anzu.el
 
-(register-definition-prefixes "anzu" '("anzu"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "anzu" '("anzu")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/anzu-20201203.529/anzu-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/anzu-20201203.529/anzu.el") (0
+;;;;;;  0 0 0))
 
 ;;;***
 

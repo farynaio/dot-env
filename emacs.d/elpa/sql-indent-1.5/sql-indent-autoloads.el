@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "sql-indent" "sql-indent.el" (0 0 0 0))
-;;; Generated autoloads from sql-indent.el
+;;;### (autoloads nil "sql-indent" "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent.el"
+;;;;;;  "97abac29a0f95073828f2170afeae681")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent.el
 
 (autoload 'sqlind-minor-mode "sql-indent" "\
 Toggle SQL syntactic indentation on or off.
@@ -31,14 +32,20 @@ column aliases in select statements.
 Enable SQL syntactic indentation unconditionally.
 This function is deprecated, consider using the function
 `sqlind-minor-mode' instead." nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "sql-indent" "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "sql-indent" '("sqlind-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "sql-indent-left" "sql-indent-left.el" (0 0
-;;;;;;  0 0))
-;;; Generated autoloads from sql-indent-left.el
+;;;### (autoloads nil "sql-indent-left" "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-left.el"
+;;;;;;  "d666ef9520e32a537ac7b41ecc59e510")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-left.el
 
 (autoload 'sqlind-setup-style-left "sql-indent-left" "\
 Define an sql-indentation style where keywords are left aligned." t nil)
@@ -48,12 +55,23 @@ Define an sql-indentation style where keywords are right aligned." t nil)
 
 (autoload 'sqlind-setup-style-default "sql-indent-left" "\
 Define an sql-indentation style where keywords are right aligned." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "sql-indent-left"
+;;;;;;  "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-left.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-left.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "sql-indent-left" '("indent-case-statement-items" "sqlind-indent")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("sql-indent-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-left.el"
+;;;;;;  "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/sql-indent-1.5/sql-indent.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -6,10 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "packed" "packed.el" (0 0 0 0))
-;;; Generated autoloads from packed.el
+;;;### (autoloads "actual autoloads are elsewhere" "packed" "../../../../.emacs.d/elpa/packed-20201120.2047/packed.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/packed-20201120.2047/packed.el
 
-(register-definition-prefixes "packed" '("packed-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packed" '("packed-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/packed-20201120.2047/packed-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/packed-20201120.2047/packed.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
