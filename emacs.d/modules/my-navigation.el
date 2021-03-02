@@ -147,6 +147,7 @@
   :diminish ivy-mode
   :bind (:map ivy-minibuffer-map
           ("<return>" . ivy-alt-done)
+          ("<backspace>" . ivy-backward-delete-char)
           ("C-M-h" . ivy-previous-line-and-call)
           ("C-:" . ivy-dired)
           ("C-c o" . ivy-occur)
