@@ -1,4 +1,4 @@
-;;; typescript-mode-autoloads.el --- automatically extracted autoloads
+;;; typescript-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "typescript-mode" "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode.el"
-;;;;;;  "d9dd948527e6bd9db5e05049cc222688")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode.el
+;;;### (autoloads nil "typescript-mode" "typescript-mode.el" (0 0
+;;;;;;  0 0))
+;;; Generated autoloads from typescript-mode.el
 (put 'typescript-indent-level 'safe-local-variable #'integerp)
 
 (autoload 'typescript-mode "typescript-mode" "\
@@ -23,32 +23,20 @@ Key bindings:
 (eval-after-load 'folding '(when (fboundp 'folding-add-to-marks-list) (folding-add-to-marks-list 'typescript-mode "// {{{" "// }}}")))
 
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-
-;;;### (autoloads "actual autoloads are elsewhere" "typescript-mode"
-;;;;;;  "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "typescript-mode" '("typescript-")))
-
-;;;***
+(register-definition-prefixes "typescript-mode" '("typescript-"))
 
 ;;;***
 
-;;;### (autoloads "actual autoloads are elsewhere" "typescript-mode-test-utilities"
-;;;;;;  "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode-test-utilities.el"
+;;;### (autoloads nil "typescript-mode-test-utilities" "typescript-mode-test-utilities.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode-test-utilities.el
+;;; Generated autoloads from typescript-mode-test-utilities.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "typescript-mode-test-utilities" '("font-lock-test" "get-face-at" "test-with-")))
+(register-definition-prefixes "typescript-mode-test-utilities" '("font-lock-test" "get-face-at" "test-with-"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode-pkg.el"
-;;;;;;  "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode-test-utilities.el"
-;;;;;;  "../../../../.emacs.d/elpa/typescript-mode-20201002.1109/typescript-mode.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("typescript-mode-pkg.el") (0 0 0 0))
 
 ;;;***
 

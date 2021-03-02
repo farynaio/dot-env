@@ -1,4 +1,4 @@
-;;; persistent-scratch-autoloads.el --- automatically extracted autoloads
+;;; persistent-scratch-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "persistent-scratch" "../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch.el"
-;;;;;;  "5b58cd758bfa8ee7c68f446286430300")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch.el
+;;;### (autoloads nil "persistent-scratch" "persistent-scratch.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from persistent-scratch.el
 
 (autoload 'persistent-scratch-save "persistent-scratch" "\
 Save the current state of scratch buffers.
@@ -60,10 +60,16 @@ See `persistent-scratch-restore'.
 Utility mode that remaps `save-buffer' and `write-file' to their
 `persistent-scratch' equivalents.
 
-If called interactively, enable Persistent-Scratch mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Persistent-Scratch mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 This mode cannot be enabled in buffers for which
 `persistent-scratch-scratch-buffer-p-function' is nil.
@@ -127,21 +133,8 @@ lexicographically increasing file names when formatted using
 `persistent-scratch-backup-file-name-format'.
 
 \(fn DIFF)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "persistent-scratch"
-;;;;;;  "../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "persistent-scratch" '("persistent-scratch-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/persistent-scratch-20200921.2309/persistent-scratch.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "persistent-scratch" '("persistent-scratch-"))
 
 ;;;***
 

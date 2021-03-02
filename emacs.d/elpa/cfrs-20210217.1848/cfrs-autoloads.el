@@ -1,4 +1,4 @@
-;;; cfrs-autoloads.el --- automatically extracted autoloads
+;;; cfrs-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -14,7 +14,7 @@ Read a string using a pos-frame with given PROMPT and INITIAL-INPUT.
 
 \(fn PROMPT &optional INITIAL-INPUT)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "cfrs" '("cfrs-")))
+(register-definition-prefixes "cfrs" '("cfrs-"))
 
 ;;;***
 

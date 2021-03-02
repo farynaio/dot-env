@@ -1,4 +1,4 @@
-;;; system-packages-autoloads.el --- automatically extracted autoloads
+;;; system-packages-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "system-packages" "../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages.el"
-;;;;;;  "cceea877e9c73a4d3b29042357672374")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages.el
+;;;### (autoloads nil "system-packages" "system-packages.el" (0 0
+;;;;;;  0 0))
+;;; Generated autoloads from system-packages.el
 
 (autoload 'system-packages-install "system-packages" "\
 Install system packages.
@@ -143,21 +143,8 @@ Verify that all required dependencies are installed on the system.
 You may use ARGS to pass options to the package manger.
 
 \(fn &optional ARGS)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "system-packages"
-;;;;;;  "../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "system-packages" '("system-packages-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/system-packages-20210103.8/system-packages.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "system-packages" '("system-packages-"))
 
 ;;;***
 

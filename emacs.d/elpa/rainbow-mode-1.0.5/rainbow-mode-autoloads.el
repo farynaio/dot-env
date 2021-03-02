@@ -1,4 +1,4 @@
-;;; rainbow-mode-autoloads.el --- automatically extracted autoloads
+;;; rainbow-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,35 +6,27 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "rainbow-mode" "../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode.el"
-;;;;;;  "4f5d36c17ddbc89158dcf5476ea61fa7")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode.el
+;;;### (autoloads nil "rainbow-mode" "rainbow-mode.el" (0 0 0 0))
+;;; Generated autoloads from rainbow-mode.el
 
 (autoload 'rainbow-mode "rainbow-mode" "\
 Colorize strings that represent colors.
 This will fontify with colors the string like \"#aabbcc\" or \"blue\".
 
-If called interactively, enable Rainbow mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Rainbow mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "rainbow-mode"
-;;;;;;  "../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rainbow-mode" '("rainbow-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/rainbow-mode-1.0.5/rainbow-mode.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "rainbow-mode" '("rainbow-"))
 
 ;;;***
 

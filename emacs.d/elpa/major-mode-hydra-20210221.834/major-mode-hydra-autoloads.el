@@ -1,4 +1,4 @@
-;;; major-mode-hydra-autoloads.el --- automatically extracted autoloads
+;;; major-mode-hydra-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -58,7 +58,7 @@ exactly the same structure as that in `pretty-hydra-define' or
 (autoload 'major-mode-hydra "major-mode-hydra" "\
 Show the hydra for the current major mode." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "major-mode-hydra" '("major-mode-hydra-")))
+(register-definition-prefixes "major-mode-hydra" '("major-mode-hydra-"))
 
 ;;;***
 

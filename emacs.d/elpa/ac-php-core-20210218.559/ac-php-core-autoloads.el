@@ -1,4 +1,4 @@
-;;; ac-php-core-autoloads.el --- automatically extracted autoloads
+;;; ac-php-core-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -16,7 +16,7 @@ Enable the ElDoc support for the PHP language.
 Configure the variable `eldoc-documentation-function' and
 call the command `eldoc-mode'." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ac-php-core" '("ac-php-" "case-fold")))
+(register-definition-prefixes "ac-php-core" '("ac-php-" "case-fold"))
 
 ;;;***
 

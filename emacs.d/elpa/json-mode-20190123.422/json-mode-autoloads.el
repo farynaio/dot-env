@@ -1,4 +1,4 @@
-;;; json-mode-autoloads.el --- automatically extracted autoloads
+;;; json-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "json-mode" "../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode.el"
-;;;;;;  "77c2412b9d7d12b486a173c0c1a49244")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode.el
+;;;### (autoloads nil "json-mode" "json-mode.el" (0 0 0 0))
+;;; Generated autoloads from json-mode.el
 
 (defconst json-mode-standard-file-ext '(".json" ".jsonld") "\
 List of JSON file extensions.")
@@ -45,20 +44,8 @@ Print the path to the node at point to the minibuffer, and yank to the kill ring
 
 (autoload 'json-mode-beautify "json-mode" "\
 Beautify / pretty-print the active region (or the entire buffer if no active region)." t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "json-mode" "../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "json-mode" '("json-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/json-mode-20190123.422/json-mode.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "json-mode" '("json-"))
 
 ;;;***
 

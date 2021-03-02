@@ -1,4 +1,4 @@
-;;; dockerfile-mode-autoloads.el --- automatically extracted autoloads
+;;; dockerfile-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -34,7 +34,7 @@ A major mode to edit Dockerfiles.
 
 (add-to-list 'auto-mode-alist '("\\.dockerfile\\'" . dockerfile-mode))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dockerfile-mode" '("dockerfile-")))
+(register-definition-prefixes "dockerfile-mode" '("dockerfile-"))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; org-journal-autoloads.el --- automatically extracted autoloads
+;;; org-journal-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -134,7 +134,7 @@ Search for TODOs within all future entries." t nil)
 
 (add-hook 'org-journal-mode-hook (lambda nil (add-hook org-journal-encrypt-on 'org-journal-encryption-hook nil t)))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-journal" '("org-journal-")))
+(register-definition-prefixes "org-journal" '("org-journal-"))
 
 ;;;***
 

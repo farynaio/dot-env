@@ -1,4 +1,4 @@
-;;; pyvenv-autoloads.el --- automatically extracted autoloads
+;;; pyvenv-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -38,10 +38,16 @@ or call the function `pyvenv-mode'.")
 (autoload 'pyvenv-mode "pyvenv" "\
 Global minor mode for pyvenv.
 
-If called interactively, enable Pyvenv mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Pyvenv mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 Will show the current virtualenv in the mode line, and respect a
 `pyvenv-workon' setting in files.
@@ -61,10 +67,16 @@ or call the function `pyvenv-tracking-mode'.")
 (autoload 'pyvenv-tracking-mode "pyvenv" "\
 Global minor mode to track the current virtualenv.
 
-If called interactively, enable Pyvenv-tracking mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Pyvenv-tracking mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 When this mode is active, pyvenv will activate a buffer-specific
 virtualenv whenever the user switches to a buffer with a
@@ -75,7 +87,7 @@ buffer-local `pyvenv-workon' or `pyvenv-activate' variable.
 (autoload 'pyvenv-restart-python "pyvenv" "\
 Restart Python inferior processes." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pyvenv" '("pyvenv-")))
+(register-definition-prefixes "pyvenv" '("pyvenv-"))
 
 ;;;***
 

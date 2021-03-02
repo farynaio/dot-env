@@ -1,4 +1,4 @@
-;;; org-pomodoro-autoloads.el --- automatically extracted autoloads
+;;; org-pomodoro-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "org-pomodoro" "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro.el"
-;;;;;;  "36436558ee2437b276e2e267e416eac2")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro.el
+;;;### (autoloads nil "org-pomodoro" "org-pomodoro.el" (0 0 0 0))
+;;; Generated autoloads from org-pomodoro.el
 
 (autoload 'org-pomodoro "org-pomodoro" "\
 Start a new pomodoro or stop the current one.
@@ -18,32 +17,20 @@ the current task is clocked in.  Otherwise EMACS will ask whether we´d like to
 kill the current timer, this may be a break or a running pomodoro.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "org-pomodoro"
-;;;;;;  "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-pomodoro" '("org-pomodoro-")))
-
-;;;***
+(register-definition-prefixes "org-pomodoro" '("org-pomodoro-"))
 
 ;;;***
 
-;;;### (autoloads "actual autoloads are elsewhere" "org-pomodoro-pidgin"
-;;;;;;  "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro-pidgin.el"
+;;;### (autoloads nil "org-pomodoro-pidgin" "org-pomodoro-pidgin.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro-pidgin.el
+;;; Generated autoloads from org-pomodoro-pidgin.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-pomodoro-pidgin" '("org-pom")))
+(register-definition-prefixes "org-pomodoro-pidgin" '("org-pom"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro-pidgin.el"
-;;;;;;  "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro-pkg.el"
-;;;;;;  "../../../../.emacs.d/elpa/org-pomodoro-20190530.1445/org-pomodoro.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("org-pomodoro-pkg.el") (0 0 0 0))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; noflet-autoloads.el --- automatically extracted autoloads
+;;; noflet-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,10 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "noflet" "../../../../.emacs.d/elpa/noflet-20141102.1454/noflet.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/noflet-20141102.1454/noflet.el
+;;;### (autoloads nil "noflet" "noflet.el" (0 0 0 0))
+;;; Generated autoloads from noflet.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "noflet" '("letn" "ntake-all")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/noflet-20141102.1454/noflet-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/noflet-20141102.1454/noflet.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "noflet" '("letn" "ntake-all"))
 
 ;;;***
 

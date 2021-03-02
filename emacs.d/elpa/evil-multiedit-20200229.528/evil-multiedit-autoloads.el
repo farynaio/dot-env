@@ -1,4 +1,4 @@
-;;; evil-multiedit-autoloads.el --- automatically extracted autoloads
+;;; evil-multiedit-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "evil-multiedit" "../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit.el"
-;;;;;;  "71c5fec5059528394635b26319f55ba8")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit.el
+;;;### (autoloads nil "evil-multiedit" "evil-multiedit.el" (0 0 0
+;;;;;;  0))
+;;; Generated autoloads from evil-multiedit.el
 
 (autoload 'evil-multiedit-restore "evil-multiedit" "\
 Restore the last group of multiedit regions." t nil)
@@ -50,21 +50,8 @@ with behavior when exiting vanilla insert state." t nil)
 (autoload 'evil-multiedit-exit-hook "evil-multiedit" "\
 Abort the current multiedit session without switching to normal mode." nil nil)
  (autoload 'evil-multiedit-ex-match "evil-multiedit" nil t)
-
-;;;### (autoloads "actual autoloads are elsewhere" "evil-multiedit"
-;;;;;;  "../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-multiedit" '("evil-multiedit-" "iedit-o")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/evil-multiedit-20200229.528/evil-multiedit.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "evil-multiedit" '("evil-multiedit-" "iedit-o"))
 
 ;;;***
 

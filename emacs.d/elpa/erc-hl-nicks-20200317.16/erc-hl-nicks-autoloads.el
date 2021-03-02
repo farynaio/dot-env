@@ -1,4 +1,4 @@
-;;; erc-hl-nicks-autoloads.el --- automatically extracted autoloads
+;;; erc-hl-nicks-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "erc-hl-nicks" "../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks.el"
-;;;;;;  "07e7bbc8a633ebdb278cc2f38745a313")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks.el
+;;;### (autoloads nil "erc-hl-nicks" "erc-hl-nicks.el" (0 0 0 0))
+;;; Generated autoloads from erc-hl-nicks.el
 
 (autoload 'erc-hl-nicks-force-nick-face "erc-hl-nicks" "\
 Force nick highlighting to be a certain color for a nick. Both NICK and COLOR
@@ -27,21 +26,8 @@ Retrieves a list of usernames from the server and highlights them" nil nil)
 (when (boundp 'erc-modules) (add-to-list 'erc-modules 'hl-nicks))
 
 (eval-after-load 'erc '(progn (unless (featurep 'erc-hl-nicks) (require 'erc-hl-nicks)) (add-to-list 'erc-modules 'hl-nicks t)))
-
-;;;### (autoloads "actual autoloads are elsewhere" "erc-hl-nicks"
-;;;;;;  "../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "erc-hl-nicks" '("erc-hl-nicks-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/erc-hl-nicks-20200317.16/erc-hl-nicks.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "erc-hl-nicks" '("erc-hl-nicks-"))
 
 ;;;***
 

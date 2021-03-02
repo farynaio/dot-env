@@ -1,4 +1,4 @@
-;;; evil-anzu-autoloads.el --- automatically extracted autoloads
+;;; evil-anzu-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,10 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "evil-anzu" "../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el
+;;;### (autoloads nil "evil-anzu" "evil-anzu.el" (0 0 0 0))
+;;; Generated autoloads from evil-anzu.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-anzu" '("evil-anzu-")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/evil-anzu-20200514.1902/evil-anzu.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "evil-anzu" '("evil-anzu-"))
 
 ;;;***
 

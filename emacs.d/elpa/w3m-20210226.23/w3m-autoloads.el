@@ -1,4 +1,4 @@
-;;; w3m-autoloads.el --- automatically extracted autoloads
+;;; w3m-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -14,7 +14,7 @@ Default bookmark handler for w3m buffers.
 
 \(fn BOOKMARK)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bookmark-w3m" '("bookmark-w3m-")))
+(register-definition-prefixes "bookmark-w3m" '("bookmark-w3m-"))
 
 ;;;***
 
@@ -26,7 +26,7 @@ Default bookmark handler for w3m buffers.
 
 \(fn ENTITY SITUATION)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mime-w3m" '("mime-w3m-")))
+(register-definition-prefixes "mime-w3m" '("mime-w3m-"))
 
 ;;;***
 
@@ -193,7 +193,7 @@ See `w3m-region' for the optional arguments.
 
 \(fn &optional URL CHARSET)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m" '("emacs-w3m-version" "w3m-")))
+(register-definition-prefixes "w3m" '("emacs-w3m-version" "w3m-"))
 
 ;;;***
 
@@ -210,7 +210,7 @@ Report changes of WEB sites, which is specified in `w3m-antenna-sites'.
 
 \(fn &optional NO-CACHE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-antenna" '("w3m-antenna-")))
+(register-definition-prefixes "w3m-antenna" '("w3m-antenna-"))
 
 ;;;***
 
@@ -250,7 +250,7 @@ Display the bookmark list in a new buffer.
 (autoload 'w3m-setup-bookmark-menu "w3m-bookmark" "\
 Setup w3m bookmark items in menubar." nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-bookmark" '("w3m-bookmark-")))
+(register-definition-prefixes "w3m-bookmark" '("w3m-bookmark-"))
 
 ;;;***
 
@@ -263,7 +263,7 @@ Prompts for bug subject.  Leaves you in a mail buffer.
 
 \(fn TOPIC &optional BUFFER)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-bug" '("report-emacs-w3m-bug-")))
+(register-definition-prefixes "w3m-bug" '("report-emacs-w3m-bug-"))
 
 ;;;***
 
@@ -311,7 +311,7 @@ string is case insensitive and allows a regular expression.
 
 \(fn URL &optional NO-DECODE NO-CACHE POST-DATA &rest ARGS)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-cookie" '("w3m-")))
+(register-definition-prefixes "w3m-cookie" '("w3m-"))
 
 ;;;***
 
@@ -329,21 +329,21 @@ If called with 'prefix argument', display all directorys and files.
 
 \(fn ALLFILES PATH)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-dtree" '("w3m-dtree-")))
+(register-definition-prefixes "w3m-dtree" '("w3m-dtree-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-ems" "w3m-ems.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-ems.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-ems" '("w3m-")))
+(register-definition-prefixes "w3m-ems" '("w3m-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-favicon" "w3m-favicon.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-favicon.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-favicon" '("w3m-")))
+(register-definition-prefixes "w3m-favicon" '("w3m-"))
 
 ;;;***
 
@@ -364,14 +364,20 @@ or call the function `w3m-fb-mode'.")
 Toggle W3M Frame Buffer mode.
 This allows frame-local lists of buffers (tabs).
 
-If called interactively, enable W3m-fb mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `W3m-fb mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-fb" '("w3m-fb-")))
+(register-definition-prefixes "w3m-fb" '("w3m-fb-"))
 
 ;;;***
 
@@ -390,7 +396,7 @@ toggled last will first appear) with completion.
 
 \(fn ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-filter" '("w3m-filter-")))
+(register-definition-prefixes "w3m-filter" '("w3m-filter-"))
 
 ;;;***
 
@@ -400,21 +406,21 @@ toggled last will first appear) with completion.
 (autoload 'w3m-fontify-forms "w3m-form" "\
 Process half-dumped data and fontify forms in this buffer." nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-form" '("w3m-fo")))
+(register-definition-prefixes "w3m-form" '("w3m-fo"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-hist" "w3m-hist.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-hist.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-hist" '("w3m-history")))
+(register-definition-prefixes "w3m-hist" '("w3m-history"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-image" "w3m-image.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-image.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-image" '("w3m-")))
+(register-definition-prefixes "w3m-image" '("w3m-"))
 
 ;;;***
 
@@ -490,14 +496,14 @@ If no point, activate numbering and select andchor to download." t nil)
 Add link under cursor to bookmarks.
 If no link under point, activate numbering and ask for one." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-lnum" '("w3m-")))
+(register-definition-prefixes "w3m-lnum" '("w3m-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-mail" "w3m-mail.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-mail.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-mail" '("w3m-mail")))
+(register-definition-prefixes "w3m-mail" '("w3m-mail"))
 
 ;;;***
 
@@ -514,7 +520,7 @@ Search indexed files with Namazu.
 
 \(fn INDEX QUERY &optional RELOAD)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-namazu" '("w3m-namazu-")))
+(register-definition-prefixes "w3m-namazu" '("w3m-namazu-"))
 
 ;;;***
 
@@ -531,28 +537,28 @@ View Perl documents.
 
 \(fn DOCNAME)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-perldoc" '("w3m-perldoc-")))
+(register-definition-prefixes "w3m-perldoc" '("w3m-perldoc-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-proc" "w3m-proc.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-proc.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-proc" '("w3m-process-")))
+(register-definition-prefixes "w3m-proc" '("w3m-process-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-rss" "w3m-rss.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-rss.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-rss" '("w3m-rss-")))
+(register-definition-prefixes "w3m-rss" '("w3m-rss-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-save" "w3m-save.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-save.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-save" '("w3m-save-buffer")))
+(register-definition-prefixes "w3m-save" '("w3m-save-buffer"))
 
 ;;;***
 
@@ -582,7 +588,7 @@ Generate query string for ENGINE from URI matched by last search.
 
 \(fn URI ENGINE)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-search" '("w3m-search-")))
+(register-definition-prefixes "w3m-search" '("w3m-search-"))
 
 ;;;***
 
@@ -615,7 +621,7 @@ Setup w3m session items in menubar." nil nil)
 
 (autoload 'w3m-session-last-crashed-session "w3m-session" nil nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-session" '("w3m-")))
+(register-definition-prefixes "w3m-session" '("w3m-"))
 
 ;;;***
 
@@ -624,21 +630,21 @@ Setup w3m session items in menubar." nil nil)
 
 (autoload 'w3m-replace-symbol "w3m-symbol" nil nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-symbol" '("w3m-")))
+(register-definition-prefixes "w3m-symbol" '("w3m-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-tabmenu" "w3m-tabmenu.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-tabmenu.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-tabmenu" '("w3m-")))
+(register-definition-prefixes "w3m-tabmenu" '("w3m-"))
 
 ;;;***
 
 ;;;### (autoloads nil "w3m-util" "w3m-util.el" (0 0 0 0))
 ;;; Generated autoloads from w3m-util.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-util" '("w3m-")))
+(register-definition-prefixes "w3m-util" '("w3m-"))
 
 ;;;***
 
@@ -655,7 +661,7 @@ Display weather report.
 
 \(fn URL NO-DECODE NO-CACHE POST-DATA REFERER HANDLER)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "w3m-weather" '("w3m-weather-")))
+(register-definition-prefixes "w3m-weather" '("w3m-weather-"))
 
 ;;;***
 

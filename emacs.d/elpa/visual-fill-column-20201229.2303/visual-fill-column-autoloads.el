@@ -1,4 +1,4 @@
-;;; visual-fill-column-autoloads.el --- automatically extracted autoloads
+;;; visual-fill-column-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,23 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "visual-fill-column" "../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column.el"
-;;;;;;  "fdb945e779e8632d9bf5f8507f830811")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column.el
+;;;### (autoloads nil "visual-fill-column" "visual-fill-column.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from visual-fill-column.el
 
 (autoload 'visual-fill-column-mode "visual-fill-column" "\
 Wrap lines according to `fill-column' in `visual-line-mode'.
 
-If called interactively, enable Visual-Fill-Column mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Visual-Fill-Column mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -34,13 +40,15 @@ or call the function `global-visual-fill-column-mode'.")
 
 (autoload 'global-visual-fill-column-mode "visual-fill-column" "\
 Toggle Visual-Fill-Column mode in all buffers.
-With prefix ARG, enable Global Visual-Fill-Column mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
+With prefix ARG, enable Global Visual-Fill-Column mode if ARG is
+positive; otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
 Visual-Fill-Column mode is enabled in all buffers where
 `turn-on-visual-fill-column-mode' would do it.
-See `visual-fill-column-mode' for more information on Visual-Fill-Column mode.
+
+See `visual-fill-column-mode' for more information on
+Visual-Fill-Column mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -56,21 +64,8 @@ value of `split-window-preferred-function' to allow
 `display-buffer' to split such windows.
 
 \(fn &optional WINDOW)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "visual-fill-column"
-;;;;;;  "../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "visual-fill-column" '("turn-on-visual-fill-column-mode" "visual-fill-column-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/visual-fill-column-20201229.2303/visual-fill-column.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "visual-fill-column" '("turn-on-visual-fill-column-mode" "visual-fill-column-"))
 
 ;;;***
 

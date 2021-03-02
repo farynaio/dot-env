@@ -1,4 +1,4 @@
-;;; yasnippet-autoloads.el --- automatically extracted autoloads
+;;; yasnippet-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,22 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "yasnippet" "../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet.el"
-;;;;;;  "0ab5d90a2bb2f2f3c636d0e54fed509b")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet.el
+;;;### (autoloads nil "yasnippet" "yasnippet.el" (0 0 0 0))
+;;; Generated autoloads from yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
 Toggle YASnippet mode.
 
-If called interactively, enable Yas minor mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Yas minor mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 When YASnippet mode is enabled, `yas-expand', normally bound to
 the TAB key, expands snippets of code depending on the major
@@ -46,29 +51,18 @@ or call the function `yas-global-mode'.")
 (autoload 'yas-global-mode "yasnippet" "\
 Toggle Yas minor mode in all buffers.
 With prefix ARG, enable Yas-global mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
+otherwise, disable it.  If called from Lisp, enable the mode if ARG is omitted
+or nil.
 
-Yas minor mode is enabled in all buffers where
-`yas-minor-mode-on' would do it.
+Yas minor mode is enabled in all buffers where `yas-minor-mode-on'
+would do it.
+
 See `yas-minor-mode' for more information on Yas minor mode.
 
 \(fn &optional ARG)" t nil)
 (autoload 'snippet-mode "yasnippet" "A mode for editing yasnippets" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "yasnippet" "../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "yasnippet" '("help-snippet-def" "snippet-mode-map" "yas")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/yasnippet-20200604.246/yasnippet.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "yasnippet" '("help-snippet-def" "snippet-mode-map" "yas"))
 
 ;;;***
 

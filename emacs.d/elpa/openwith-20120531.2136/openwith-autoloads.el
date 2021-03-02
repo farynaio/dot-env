@@ -1,4 +1,4 @@
-;;; openwith-autoloads.el --- automatically extracted autoloads
+;;; openwith-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "openwith" "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el"
-;;;;;;  "4d78f2a807a28fbce644e5b03f96506d")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el
+;;;### (autoloads nil "openwith" "openwith.el" (0 0 0 0))
+;;; Generated autoloads from openwith.el
 
 (defvar openwith-mode nil "\
 Non-nil if Openwith mode is enabled.
@@ -23,26 +22,20 @@ or call the function `openwith-mode'.")
 (autoload 'openwith-mode "openwith" "\
 Automatically open files with external programs.
 
-If called interactively, enable Openwith mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Openwith mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "openwith" "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "openwith" '("openwith-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/openwith-20120531.2136/openwith-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/openwith-20120531.2136/openwith.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "openwith" '("openwith-"))
 
 ;;;***
 

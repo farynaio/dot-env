@@ -1,4 +1,4 @@
-;;; org-review-autoloads.el --- automatically extracted autoloads
+;;; org-review-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "org-review" "../../../../.emacs.d/elpa/org-review-20160907.537/org-review.el"
-;;;;;;  "71a33e5a2227353db229c252540d48fe")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-review-20160907.537/org-review.el
+;;;### (autoloads nil "org-review" "org-review.el" (0 0 0 0))
+;;; Generated autoloads from org-review.el
 
 (autoload 'org-review-last-review-prop "org-review" "\
 Return the value of the last review property of the headline
@@ -38,20 +37,8 @@ To be used as an argument of `org-agenda-skip-function' to
 skip entries that are not scheduled to be reviewed. This function
 does not move the point; it returns `nil' if the entry is to be
 kept, and the position to continue the search otherwise." nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "org-review" "../../../../.emacs.d/elpa/org-review-20160907.537/org-review.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-review-20160907.537/org-review.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-review" '("org-review-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/org-review-20160907.537/org-review-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/org-review-20160907.537/org-review.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "org-review" '("org-review-"))
 
 ;;;***
 

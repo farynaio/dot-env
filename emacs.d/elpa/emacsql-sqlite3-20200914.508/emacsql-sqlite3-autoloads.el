@@ -1,4 +1,4 @@
-;;; emacsql-sqlite3-autoloads.el --- automatically extracted autoloads
+;;; emacsql-sqlite3-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,18 +6,11 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "emacsql-sqlite3"
-;;;;;;  "../../../../.emacs.d/elpa/emacsql-sqlite3-20200914.508/emacsql-sqlite3.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/emacsql-sqlite3-20200914.508/emacsql-sqlite3.el
+;;;### (autoloads nil "emacsql-sqlite3" "emacsql-sqlite3.el" (0 0
+;;;;;;  0 0))
+;;; Generated autoloads from emacsql-sqlite3.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emacsql-sqlite3" '("emacsql-sqlite3-")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/emacsql-sqlite3-20200914.508/emacsql-sqlite3-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/emacsql-sqlite3-20200914.508/emacsql-sqlite3.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "emacsql-sqlite3" '("emacsql-sqlite3-"))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; use-package-ensure-system-package-autoloads.el --- automatically extracted autoloads
+;;; use-package-ensure-system-package-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "use-package-ensure-system-package" "../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package.el"
-;;;;;;  "7d55fd3ca9068cc8cd2ebdccb5800972")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package.el
+;;;### (autoloads nil "use-package-ensure-system-package" "use-package-ensure-system-package.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from use-package-ensure-system-package.el
 
 (autoload 'use-package-normalize/:ensure-system-package "use-package-ensure-system-package" "\
 Turn `arg' into a list of cons-es of (`package-name' . `install-command').
@@ -19,21 +19,8 @@ Turn `arg' into a list of cons-es of (`package-name' . `install-command').
 Execute the handler for `:ensure-system-package' keyword in `use-package'.
 
 \(fn NAME KEYWORD ARG REST STATE)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "use-package-ensure-system-package"
-;;;;;;  "../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "use-package-ensure-system-package" '("use-package-ensure-system-package-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/use-package-ensure-system-package-20180913.1501/use-package-ensure-system-package.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "use-package-ensure-system-package" '("use-package-ensure-system-package-"))
 
 ;;;***
 

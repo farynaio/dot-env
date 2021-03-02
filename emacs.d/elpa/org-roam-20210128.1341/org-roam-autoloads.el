@@ -1,4 +1,4 @@
-;;; org-roam-autoloads.el --- automatically extracted autoloads
+;;; org-roam-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -129,7 +129,7 @@ Interactively, or when MESSAGE is non-nil, show in the echo area.
 
 \(fn &optional MESSAGE)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam" '("org-roam-")))
+(register-definition-prefixes "org-roam" '("org-roam-"))
 
 ;;;***
 
@@ -137,7 +137,7 @@ Interactively, or when MESSAGE is non-nil, show in the echo area.
 ;;;;;;  0 0))
 ;;; Generated autoloads from org-roam-buffer.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-buffer" '("org-roam-buffer")))
+(register-definition-prefixes "org-roam-buffer" '("org-roam-buffer"))
 
 ;;;***
 
@@ -152,7 +152,7 @@ Arguments GOTO and KEYS see `org-capture'.
 
 \(fn &optional GOTO KEYS)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-capture" '("org-roam-capture-")))
+(register-definition-prefixes "org-roam-capture" '("org-roam-capture-"))
 
 ;;;***
 
@@ -160,7 +160,7 @@ Arguments GOTO and KEYS see `org-capture'.
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from org-roam-completion.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-completion" '("org-roam-completion-")))
+(register-definition-prefixes "org-roam-completion" '("org-roam-completion-"))
 
 ;;;***
 
@@ -168,14 +168,14 @@ Arguments GOTO and KEYS see `org-capture'.
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from org-roam-dailies.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-dailies" '("org-roam-dailies-")))
+(register-definition-prefixes "org-roam-dailies" '("org-roam-dailies-"))
 
 ;;;***
 
 ;;;### (autoloads nil "org-roam-db" "org-roam-db.el" (0 0 0 0))
 ;;; Generated autoloads from org-roam-db.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-db" '("org-roam-db")))
+(register-definition-prefixes "org-roam-db" '("org-roam-db"))
 
 ;;;***
 
@@ -185,10 +185,16 @@ Arguments GOTO and KEYS see `org-capture'.
 (autoload 'org-roam-dev-mode "org-roam-dev" "\
 Minor mode for setting the dev environment of Org-roam.
 
-If called interactively, enable Org-Roam-Dev mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Org-Roam-Dev mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -204,7 +210,7 @@ If CHECKALL, run the check for all Org-roam files.
 
 \(fn &optional CHECKALL)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-doctor" '("org-roam-doctor-")))
+(register-definition-prefixes "org-roam-doctor" '("org-roam-doctor-"))
 
 ;;;***
 
@@ -225,21 +231,21 @@ ARG may be any of the following values:
 
 \(fn &optional ARG FILE NODE-QUERY)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-graph" '("org-roam-graph-")))
+(register-definition-prefixes "org-roam-graph" '("org-roam-graph-"))
 
 ;;;***
 
 ;;;### (autoloads nil "org-roam-link" "org-roam-link.el" (0 0 0 0))
 ;;; Generated autoloads from org-roam-link.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-link" '("org-roam-link-")))
+(register-definition-prefixes "org-roam-link" '("org-roam-link-"))
 
 ;;;***
 
 ;;;### (autoloads nil "org-roam-macs" "org-roam-macs.el" (0 0 0 0))
 ;;; Generated autoloads from org-roam-macs.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-macs" '("org-roam-")))
+(register-definition-prefixes "org-roam-macs" '("org-roam-"))
 
 ;;;***
 
@@ -247,7 +253,7 @@ ARG may be any of the following values:
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from org-roam-protocol.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-roam-protocol" '("org-roam-protocol-")))
+(register-definition-prefixes "org-roam-protocol" '("org-roam-protocol-"))
 
 ;;;***
 

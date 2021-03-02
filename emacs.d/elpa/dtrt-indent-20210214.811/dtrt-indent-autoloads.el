@@ -1,4 +1,4 @@
-;;; dtrt-indent-autoloads.el --- automatically extracted autoloads
+;;; dtrt-indent-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -15,10 +15,16 @@ With no argument, this command toggles the mode.  Non-null prefix
 argument turns on the mode.  Null prefix argument turns off the
 mode.
 
-If called interactively, enable Dtrt-indent mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Dtrt-indent mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 When dtrt-indent mode is enabled, the proper indentation offset
 and `indent-tabs-mode' will be guessed for newly opened files and
@@ -41,11 +47,13 @@ or call the function `dtrt-indent-global-mode'.")
 (autoload 'dtrt-indent-global-mode "dtrt-indent" "\
 Toggle Dtrt-indent mode in all buffers.
 With prefix ARG, enable Dtrt-indent-global mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
+otherwise, disable it.  If called from Lisp, enable the mode if ARG is
+omitted or nil.
 
-Dtrt-indent mode is enabled in all buffers where
-`(lambda nil (when (derived-mode-p 'prog-mode 'text-mode 'javascript-mode) (dtrt-indent-mode)))' would do it.
+Dtrt-indent mode is enabled in all buffers where `(lambda nil (when
+\(derived-mode-p 'prog-mode 'text-mode 'javascript-mode)
+\(dtrt-indent-mode)))' would do it.
+
 See `dtrt-indent-mode' for more information on Dtrt-indent mode.
 
 \(fn &optional ARG)" t nil)
@@ -57,7 +65,7 @@ use either \\[customize] or the function `dtrt-indent-mode'.")
 
 (custom-autoload 'dtrt-indent-mode "dtrt-indent" nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dtrt-indent" '("dtrt-indent-")))
+(register-definition-prefixes "dtrt-indent" '("dtrt-indent-"))
 
 ;;;***
 
@@ -65,7 +73,7 @@ use either \\[customize] or the function `dtrt-indent-mode'.")
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from dtrt-indent-diag.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dtrt-indent-diag" '("dtrt-indent-" "save-buffer-state")))
+(register-definition-prefixes "dtrt-indent-diag" '("dtrt-indent-" "save-buffer-state"))
 
 ;;;***
 

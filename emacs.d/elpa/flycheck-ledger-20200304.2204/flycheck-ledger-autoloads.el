@@ -1,4 +1,4 @@
-;;; flycheck-ledger-autoloads.el --- automatically extracted autoloads
+;;; flycheck-ledger-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,18 +6,11 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "flycheck-ledger"
-;;;;;;  "../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el
+;;;### (autoloads nil "flycheck-ledger" "flycheck-ledger.el" (0 0
+;;;;;;  0 0))
+;;; Generated autoloads from flycheck-ledger.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "flycheck-ledger" '("flycheck-ledger--zero-")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/flycheck-ledger-20200304.2204/flycheck-ledger.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "flycheck-ledger" '("flycheck-ledger--zero-"))
 
 ;;;***
 

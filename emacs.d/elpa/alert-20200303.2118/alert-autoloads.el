@@ -1,4 +1,4 @@
-;;; alert-autoloads.el --- automatically extracted autoloads
+;;; alert-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "alert" "../../../../.emacs.d/elpa/alert-20200303.2118/alert.el"
-;;;;;;  "34a4a49bbabadbc05e3fbbd5c31a59e8")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/alert-20200303.2118/alert.el
+;;;### (autoloads nil "alert" "alert.el" (0 0 0 0))
+;;; Generated autoloads from alert.el
 
 (autoload 'alert-add-rule "alert" "\
 Programmatically add an alert configuration rule.
@@ -87,20 +86,8 @@ Here are some more typical examples of usage:
          :category \\='some-category-or-other)
 
 \(fn MESSAGE &key (SEVERITY \\='normal) TITLE ICON CATEGORY BUFFER MODE DATA STYLE PERSISTENT NEVER-PERSIST ID)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "alert" "../../../../.emacs.d/elpa/alert-20200303.2118/alert.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/alert-20200303.2118/alert.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "alert" '("alert-" "x-urgen")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/alert-20200303.2118/alert-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/alert-20200303.2118/alert.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "alert" '("alert-" "x-urgen"))
 
 ;;;***
 

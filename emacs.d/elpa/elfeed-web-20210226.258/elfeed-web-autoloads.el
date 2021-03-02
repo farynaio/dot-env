@@ -1,4 +1,4 @@
-;;; elfeed-web-autoloads.el --- automatically extracted autoloads
+;;; elfeed-web-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -12,7 +12,7 @@
 (autoload 'elfeed-web-start "elfeed-web" "\
 Start the Elfeed web interface server." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web")))
+(register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web"))
 
 ;;;***
 

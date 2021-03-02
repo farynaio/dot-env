@@ -1,4 +1,4 @@
-;;; rainbow-delimiters-autoloads.el --- automatically extracted autoloads
+;;; rainbow-delimiters-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,23 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "rainbow-delimiters" "../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters.el"
-;;;;;;  "39fe9241247257b0f8c3f19a8f732592")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters.el
+;;;### (autoloads nil "rainbow-delimiters" "rainbow-delimiters.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from rainbow-delimiters.el
 
 (autoload 'rainbow-delimiters-mode "rainbow-delimiters" "\
 Highlight nested parentheses, brackets, and braces according to their depth.
 
-If called interactively, enable Rainbow-Delimiters mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Rainbow-Delimiters mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -25,21 +31,8 @@ Enable `rainbow-delimiters-mode'." nil nil)
 
 (autoload 'rainbow-delimiters-mode-disable "rainbow-delimiters" "\
 Disable `rainbow-delimiters-mode'." nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "rainbow-delimiters"
-;;;;;;  "../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rainbow-delimiters" '("rainbow-delimiters-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/rainbow-delimiters-20200827.321/rainbow-delimiters.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "rainbow-delimiters" '("rainbow-delimiters-"))
 
 ;;;***
 

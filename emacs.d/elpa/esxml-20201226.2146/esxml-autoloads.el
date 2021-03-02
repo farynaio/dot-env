@@ -1,4 +1,4 @@
-;;; esxml-autoloads.el --- automatically extracted autoloads
+;;; esxml-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,28 +6,21 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "esxml" "../../../../.emacs.d/elpa/esxml-20201226.2146/esxml.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/esxml-20201226.2146/esxml.el
+;;;### (autoloads nil "esxml" "esxml.el" (0 0 0 0))
+;;; Generated autoloads from esxml.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "esxml" '("attr" "esxml-" "pp-esxml-to-xml" "string-trim-whitespace" "sxml-to-" "xml-to-esxml")))
-
-;;;***
-
-;;;### (autoloads "actual autoloads are elsewhere" "esxml-query"
-;;;;;;  "../../../../.emacs.d/elpa/esxml-20201226.2146/esxml-query.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/esxml-20201226.2146/esxml-query.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "esxml-query" '("esxml-")))
+(register-definition-prefixes "esxml" '("attr" "esxml-" "pp-esxml-to-xml" "string-trim-whitespace" "sxml-to-" "xml-to-esxml"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/esxml-20201226.2146/esxml-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/esxml-20201226.2146/esxml-pkg.el"
-;;;;;;  "../../../../.emacs.d/elpa/esxml-20201226.2146/esxml-query.el"
-;;;;;;  "../../../../.emacs.d/elpa/esxml-20201226.2146/esxml.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil "esxml-query" "esxml-query.el" (0 0 0 0))
+;;; Generated autoloads from esxml-query.el
+
+(register-definition-prefixes "esxml-query" '("esxml-"))
+
+;;;***
+
+;;;### (autoloads nil nil ("esxml-pkg.el") (0 0 0 0))
 
 ;;;***
 

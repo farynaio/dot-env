@@ -1,4 +1,4 @@
-;;; undo-fu-autoloads.el --- automatically extracted autoloads
+;;; undo-fu-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "undo-fu" "../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu.el"
-;;;;;;  "0ef206f470f936ace2456207157b2aa8")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu.el
+;;;### (autoloads nil "undo-fu" "undo-fu.el" (0 0 0 0))
+;;; Generated autoloads from undo-fu.el
 
 (autoload 'undo-fu-disable-checkpoint "undo-fu" "\
 Remove the undo-fu checkpoint, making all future actions unconstrained.
@@ -39,20 +38,8 @@ wraps the `undo-only' function.
 Optional argument ARG the number of steps to undo.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "undo-fu" "../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "undo-fu" '("undo-fu-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/undo-fu-20200701.1435/undo-fu.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "undo-fu" '("undo-fu-"))
 
 ;;;***
 

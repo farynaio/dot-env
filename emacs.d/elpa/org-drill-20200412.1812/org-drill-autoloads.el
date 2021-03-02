@@ -1,4 +1,4 @@
-;;; org-drill-autoloads.el --- automatically extracted autoloads
+;;; org-drill-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,10 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "org-drill" "../../../../.emacs.d/elpa/org-drill-20200412.1812/org-drill.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/org-drill-20200412.1812/org-drill.el
+;;;### (autoloads nil "org-drill" "org-drill.el" (0 0 0 0))
+;;; Generated autoloads from org-drill.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-drill" '("org-drill")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/org-drill-20200412.1812/org-drill-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/org-drill-20200412.1812/org-drill.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "org-drill" '("org-drill"))
 
 ;;;***
 

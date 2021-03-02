@@ -1,4 +1,4 @@
-;;; emmet-mode-autoloads.el --- automatically extracted autoloads
+;;; emmet-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "emmet-mode" "../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode.el"
-;;;;;;  "8933ad27109162ee2eaa6d900c7cda36")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode.el
+;;;### (autoloads nil "emmet-mode" "emmet-mode.el" (0 0 0 0))
+;;; Generated autoloads from emmet-mode.el
 
 (autoload 'emmet-expand-line "emmet-mode" "\
 Replace the current line's emmet expression with the corresponding expansion.
@@ -25,10 +24,16 @@ For more information see `emmet-mode'.
 Minor mode for writing HTML and CSS markup.
 With emmet for HTML and CSS you can write a line like
 
-If called interactively, enable Emmet mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Emmet mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
   ul#name>li.item*2
 
@@ -72,20 +77,8 @@ Wrap region with markup.
 
 
 \(fn COUNT)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "emmet-mode" "../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emmet-mode" '("emmet-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/emmet-mode-20180613.341/emmet-mode.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "emmet-mode" '("emmet-"))
 
 ;;;***
 

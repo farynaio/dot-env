@@ -1,4 +1,4 @@
-;;; langtool-autoloads.el --- automatically extracted autoloads
+;;; langtool-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "langtool" "../../../../.emacs.d/elpa/langtool-20200529.230/langtool.el"
-;;;;;;  "a7cc91eb07f819f656e0c6ade9811e08")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/langtool-20200529.230/langtool.el
+;;;### (autoloads nil "langtool" "langtool.el" (0 0 0 0))
+;;; Generated autoloads from langtool.el
 
 (defalias 'langtool-check 'langtool-check-buffer)
 
@@ -25,20 +24,8 @@ Restrict to selection when region is activated.
 Switch `langtool-default-language' to LANG
 
 \(fn LANG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "langtool" "../../../../.emacs.d/elpa/langtool-20200529.230/langtool.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/langtool-20200529.230/langtool.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "langtool" '("langtool-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/langtool-20200529.230/langtool-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/langtool-20200529.230/langtool.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "langtool" '("langtool-"))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; persist-autoloads.el --- automatically extracted autoloads
+;;; persist-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,14 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "persist" "../../../../.emacs.d/elpa/persist-0.4/persist.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/persist-0.4/persist.el
+;;;### (autoloads nil "persist" "persist.el" (0 0 0 0))
+;;; Generated autoloads from persist.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "persist" '("persist-")))
+(register-definition-prefixes "persist" '("persist-"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/persist-0.4/persist-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/persist-0.4/persist-pkg.el" "../../../../.emacs.d/elpa/persist-0.4/persist.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("persist-pkg.el") (0 0 0 0))
 
 ;;;***
 

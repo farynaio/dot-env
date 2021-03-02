@@ -1,4 +1,4 @@
-;;; nov-autoloads.el --- automatically extracted autoloads
+;;; nov-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,28 +6,15 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "nov" "../../../../.emacs.d/elpa/nov-20201207.3/nov.el"
-;;;;;;  "2ea38153201bb9a6a39c41315afbc6ce")
-;;; Generated autoloads from ../../../../.emacs.d/elpa/nov-20201207.3/nov.el
+;;;### (autoloads nil "nov" "nov.el" (0 0 0 0))
+;;; Generated autoloads from nov.el
 
 (autoload 'nov-mode "nov" "\
 Major mode for reading EPUB documents
 
 \(fn)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "nov" "../../../../.emacs.d/elpa/nov-20201207.3/nov.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../.emacs.d/elpa/nov-20201207.3/nov.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nov" '("nov-")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/nov-20201207.3/nov-autoloads.el"
-;;;;;;  "../../../../.emacs.d/elpa/nov-20201207.3/nov.el") (0 0 0
-;;;;;;  0))
+(register-definition-prefixes "nov" '("nov-"))
 
 ;;;***
 

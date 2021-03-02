@@ -1,4 +1,4 @@
-;;; dap-mode-autoloads.el --- automatically extracted autoloads
+;;; dap-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -9,56 +9,56 @@
 ;;;### (autoloads nil "dap-chrome" "dap-chrome.el" (0 0 0 0))
 ;;; Generated autoloads from dap-chrome.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-chrome" '("dap-chrome-")))
+(register-definition-prefixes "dap-chrome" '("dap-chrome-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-codelldb" "dap-codelldb.el" (0 0 0 0))
 ;;; Generated autoloads from dap-codelldb.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-codelldb" '("dap-codelldb-")))
+(register-definition-prefixes "dap-codelldb" '("dap-codelldb-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-cpptools" "dap-cpptools.el" (0 0 0 0))
 ;;; Generated autoloads from dap-cpptools.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-cpptools" '("dap-cpptools-")))
+(register-definition-prefixes "dap-cpptools" '("dap-cpptools-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-edge" "dap-edge.el" (0 0 0 0))
 ;;; Generated autoloads from dap-edge.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-edge" '("dap-edge-")))
+(register-definition-prefixes "dap-edge" '("dap-edge-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-elixir" "dap-elixir.el" (0 0 0 0))
 ;;; Generated autoloads from dap-elixir.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-elixir" '("dap-elixir--populate-start-file-args")))
+(register-definition-prefixes "dap-elixir" '("dap-elixir--populate-start-file-args"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-firefox" "dap-firefox.el" (0 0 0 0))
 ;;; Generated autoloads from dap-firefox.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-firefox" '("dap-firefox-")))
+(register-definition-prefixes "dap-firefox" '("dap-firefox-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-gdb-lldb" "dap-gdb-lldb.el" (0 0 0 0))
 ;;; Generated autoloads from dap-gdb-lldb.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-gdb-lldb" '("dap-gdb-lldb-")))
+(register-definition-prefixes "dap-gdb-lldb" '("dap-gdb-lldb-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-go" "dap-go.el" (0 0 0 0))
 ;;; Generated autoloads from dap-go.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-go" '("dap-go-")))
+(register-definition-prefixes "dap-go" '("dap-go-"))
 
 ;;;***
 
@@ -68,21 +68,21 @@
 (autoload 'dap-hydra "dap-hydra" "\
 Run `dap-hydra/body'." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-hydra" '("dap-hydra")))
+(register-definition-prefixes "dap-hydra" '("dap-hydra"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-launch" "dap-launch.el" (0 0 0 0))
 ;;; Generated autoloads from dap-launch.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-launch" '("dap-launch-")))
+(register-definition-prefixes "dap-launch" '("dap-launch-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-lldb" "dap-lldb.el" (0 0 0 0))
 ;;; Generated autoloads from dap-lldb.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-lldb" '("dap-lldb-")))
+(register-definition-prefixes "dap-lldb" '("dap-lldb-"))
 
 ;;;***
 
@@ -110,10 +110,16 @@ or call the function `dap-mode'.")
 (autoload 'dap-mode "dap-mode" "\
 Global minor mode for DAP mode.
 
-If called interactively, enable Dap mode if ARG is positive, and
-disable it if ARG is zero or negative.  If called from Lisp, also
-enable the mode if ARG is omitted or nil, and toggle it if ARG is
-`toggle'; disable the mode otherwise.
+If called interactively, toggle `Dap mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -130,14 +136,20 @@ or call the function `dap-auto-configure-mode'.")
 (autoload 'dap-auto-configure-mode "dap-mode" "\
 Auto configure dap minor mode.
 
-If called interactively, enable Dap-auto-configure mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Dap-auto-configure mode'.  If
+the prefix argument is positive, enable the mode, and if it is
+zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-mode" '("dap-")))
+(register-definition-prefixes "dap-mode" '("dap-"))
 
 ;;;***
 
@@ -157,63 +169,69 @@ or call the function `dap-tooltip-mode'.")
 (autoload 'dap-tooltip-mode "dap-mouse" "\
 Toggle the display of GUD tooltips.
 
-If called interactively, enable Dap-tooltip mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Dap-tooltip mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-mouse" '("dap-")))
+(register-definition-prefixes "dap-mouse" '("dap-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-netcore" "dap-netcore.el" (0 0 0 0))
 ;;; Generated autoloads from dap-netcore.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-netcore" '("dap-netcore-")))
+(register-definition-prefixes "dap-netcore" '("dap-netcore-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-node" "dap-node.el" (0 0 0 0))
 ;;; Generated autoloads from dap-node.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-node" '("dap-node-")))
+(register-definition-prefixes "dap-node" '("dap-node-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-overlays" "dap-overlays.el" (0 0 0 0))
 ;;; Generated autoloads from dap-overlays.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-overlays" '("dap-overlays-")))
+(register-definition-prefixes "dap-overlays" '("dap-overlays-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-php" "dap-php.el" (0 0 0 0))
 ;;; Generated autoloads from dap-php.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-php" '("dap-php-")))
+(register-definition-prefixes "dap-php" '("dap-php-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-pwsh" "dap-pwsh.el" (0 0 0 0))
 ;;; Generated autoloads from dap-pwsh.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-pwsh" '("dap-pwsh-")))
+(register-definition-prefixes "dap-pwsh" '("dap-pwsh-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-python" "dap-python.el" (0 0 0 0))
 ;;; Generated autoloads from dap-python.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-python" '("dap-python-")))
+(register-definition-prefixes "dap-python" '("dap-python-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-ruby" "dap-ruby.el" (0 0 0 0))
 ;;; Generated autoloads from dap-ruby.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-ruby" '("dap-ruby-")))
+(register-definition-prefixes "dap-ruby" '("dap-ruby-"))
 
 ;;;***
 
@@ -233,10 +251,16 @@ or call the function `dap-ui-mode'.")
 (autoload 'dap-ui-mode "dap-ui" "\
 Displaying DAP visuals.
 
-If called interactively, enable Dap-ui mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Dap-ui mode'.  If the prefix
+argument is positive, enable the mode, and if it is zero or
+negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -256,10 +280,16 @@ or call the function `dap-ui-controls-mode'.")
 (autoload 'dap-ui-controls-mode "dap-ui" "\
 Displaying DAP visuals.
 
-If called interactively, enable Dap-ui-controls mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+If called interactively, toggle `Dap-ui-controls mode'.  If the
+prefix argument is positive, enable the mode, and if it is zero
+or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 \(fn &optional ARG)" t nil)
 
@@ -279,21 +309,21 @@ Start an adapter-specific REPL.
 This could be used to evaluate JavaScript in a browser, to
 evaluate python in the context of the debugee, ...." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-ui" '("dap-")))
+(register-definition-prefixes "dap-ui" '("dap-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-utils" "dap-utils.el" (0 0 0 0))
 ;;; Generated autoloads from dap-utils.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-utils" '("dap-utils-")))
+(register-definition-prefixes "dap-utils" '("dap-utils-"))
 
 ;;;***
 
 ;;;### (autoloads nil "dap-variables" "dap-variables.el" (0 0 0 0))
 ;;; Generated autoloads from dap-variables.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-variables" '("dap-variables-")))
+(register-definition-prefixes "dap-variables" '("dap-variables-"))
 
 ;;;***
 
@@ -302,7 +332,7 @@ evaluate python in the context of the debugee, ...." t nil)
 
 (autoload 'dapui-loaded-sources "dapui" nil t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dapui" '("dapui-")))
+(register-definition-prefixes "dapui" '("dapui-"))
 
 ;;;***
 

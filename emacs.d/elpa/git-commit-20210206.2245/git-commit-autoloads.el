@@ -1,4 +1,4 @@
-;;; git-commit-autoloads.el --- automatically extracted autoloads
+;;; git-commit-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "git-commit" "git-commit.el" (0 0 0 0))
 ;;; Generated autoloads from git-commit.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-commit" '("git-commit-" "global-git-commit-mode")))
+(register-definition-prefixes "git-commit" '("git-commit-" "global-git-commit-mode"))
 
 ;;;***
 
