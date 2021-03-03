@@ -2,14 +2,12 @@
 
 (use-package erc
   :ensure nil
-  :preface
-  ;; https://www.reddit.com/r/emacs/comments/8ml6na/tip_how_to_make_erc_fun_to_use/
-  (defun my/erc-start-or-switch ()
-    "Connects to ERC, or switch to last active buffer."
-    (interactive)
-    (if (get-buffer "freenode")
-      (erc-track-switch-buffer 1)
-      (erc)))
+  :demand t
+  :bind (:map erc-mode-map
+          ("C-w =" . balance-windows)
+          ("C-w |" . evil-window-set-width)
+          ("Cw-w q" . evil-quit)
+          ("C-w v" . evil-window-vsplit))
   :hook ((ercn-notify . my/erc-notify)
           (erc-send-pre . my/erc-preprocess))
   :custom-face
@@ -19,14 +17,16 @@
   (erc-notice-face ((t (:foreground "#ebcb8b"))))
   (erc-timestamp-face ((t (:foreground "#a3be8c"))))
   :custom
-  (erc-nick "farynaio")
-  (erc-away-nickname "farynaio")
-  (erc-email-userid "adam@faryna.io")
-  (erc-prompt-for-nickserv-password nil)
-  (erc-format-nick-function 'erc-format-@nick)
+  ;; (erc-nick "azur12") ;; "farynaio")
+  ;; (erc-away-nickname "azur12") ;; "farynaio")
+  ;; (erc-email-userid "jarfareco@gmail.com");; "adam@faryna.io")
+  ;; (erc-prompt-for-nickserv-password nil)
+  ;; (erc-prompt-for-password nil)
+  ;; (erc-format-nick-function 'erc-format-@nick)
+  ;; (erc-server "chat.freenode.net")
+  (erc-port 6697)
   (erc-autoaway-message "I'm away (after %i seconds of idle-time)")
   (erc-nick-uniquifier "_")
-  (erc-prompt-for-password nil)
   (erc-kill-server-buffer-on-quit t)
   (erc-kill-queries-on-quit t)
   (erc-track-showcount t)
@@ -37,13 +37,14 @@
   (erc-hide-list '("JOIN" "PART" "QUIT"))
   (erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
   (erc-autojoin-timing 'ident)
-
+  (erc-user-mode "iR")
   (erc-header-line-format "%n on %t (%m) %o")
   (erc-join-buffer 'bury)
   ;; (erc-kill-buffer-on-part t)
   (erc-lurker-threshold-time 43200)
   (erc-server-reconnect-attempts 5)
   :config
+  (require 'erc-services)
   (require 'erc-join)
 
   (add-to-list 'erc-modules 'autojoin)
@@ -142,5 +143,17 @@
 
 (use-package erc-hl-nicks
   :after erc)
+
+(use-package znc
+  :ensure nil
+  :custom
+  (defun my/znc-all ()
+    "Accept self signed cert"
+    (interactive)
+    (let ((tls-checktrust nil)
+           (gnutls-verify-error nil))
+      (znc-all)))
+
+  (defalias 'irc #'my/znc-all))
 
 (provide 'my-irc)
