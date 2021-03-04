@@ -37,7 +37,8 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode))
+          (rjsx-mode . mmm-mode)
+          (rjsx-mode . my/prettier-mode))
           ;; (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
@@ -74,10 +75,9 @@
     (apheleia-mode -1)))
 
 ;; Prettier support
-(require 'apheleia)
-(eval-after-load 'apheleia
-  '(progn
-     (diminish 'apheleia-mode)))
+(use-package apheleia
+  :ensure nil
+  :diminish apheleia-mode)
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path

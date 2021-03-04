@@ -222,8 +222,7 @@
 
   (add-hook 'lsp-mode-hook
     (lambda ()
-      (add-hook 'after-save-hook 'air-revert-buffer-noconfirm 0 t)
-
+      (add-hook 'after-save-hook 'air-revert-buffer-noconfirm -70 t)
       (when (bound-and-true-p which-key-mode)
         (lsp-enable-which-key-integration))))
 
@@ -346,5 +345,11 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; (setq org-html-head-include-default-style nil)
 ;; (setq org-html-head-include-scripts nil)
 ;; (setq org-html-validation-link nil)
+
+(require 'my-python)
+(require 'my-web)
+(require 'my-js)
+(require 'my-php)
+(require 'my-ruby)
 
 (provide 'my-devel)

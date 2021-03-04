@@ -55,7 +55,8 @@
     ("e" electric-operator-mode "electric operator" :toggle t)
     ("F" flyspell-mode "flyspell" :toggle t)
     ("f" flycheck-mode "flycheck" :toggle t)
-    ("l" lsp-mode "lsp" :toggle t))
+    ("l" lsp-mode "lsp" :toggle t)
+    ("p" my/prettier-mode "Prettier" :toggle t))
    ;; ("s" smartparens-mode "smartparens" :toggle t))
    "UI"
    (("i" ivy-rich-local-mode "ivy-rich local" :toggle t))))

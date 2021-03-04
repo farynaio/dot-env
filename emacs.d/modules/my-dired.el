@@ -66,7 +66,7 @@
     (kbd "r") #'my/rgrep
     (kbd "C-w =") #'balance-windows
     (kbd "C-w |") #'maximize-window
-    (kbd "C-w q") #'quit-window
+    (kbd "C-w q") #'evil-quit
     (kbd "C-w v") #'split-window-right
     (kbd "/") #'evil-ex-search-forward
     (kbd "n") #'evil-ex-search-next
