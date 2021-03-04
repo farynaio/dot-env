@@ -14,21 +14,6 @@
   :delight "Dired "
   :hook ((dired-mode . dired-hide-details-mode)
           (dired-mode . hl-line-mode))
-  ;; :bind (:map dired-mode-map
-  ;;         ("C-s" . find-name-dired)
-  ;;         ("<" . beginning-of-buffer)
-  ;;         (">" . end-of-buffer)
-  ;;         ("W" . my/dired-copy-dirname-as-kill)
-  ;;         ("k" . (lambda () (interactive) (dired-do-kill-lines t)))
-  ;;         ("r" . my/rgrep)
-  ;;         ("C-w =" . balance-windows)
-  ;;         ("C-w |" . maximize-window)
-  ;;         ("C-w q" . quit-window)
-  ;;         ("C-w v" . split-window-right)
-  ;;         ("/" . evil-ex-search-forward)
-  ;;         ("n" . evil-ex-search-next)
-  ;;         ("N" . evil-ex-search-previous)
-  ;;         ("<backspace>" . (lambda () (interactive) (farynaio/dired-go-up-reuse ".."))))
   :custom
   (find-name-arg "-iname")
   (dired-dwim-target t)
