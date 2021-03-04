@@ -5,11 +5,17 @@
   (add-to-list 'load-path my/mu4e-local-path)
   (message "'mu' not found"))
 
+(defun my/smtpmail-send-it  (&rest args)
+  ""
+  (let ((gnutls-verify-error nil)
+         (tls-checktrust nil))
+    (apply 'smtpmail-send-it args)))
+
 (use-package message
   ;; :commands message-send message-send-and-exit mu4e
   :ensure nil
   :custom
-  (send-mail-function 'smtpmail-send-it)
+  (send-mail-function 'my/smtpmail-send-it)
   (message-directory "~/.Mail/")
   (message-default-charset 'utf-8)
   (message-kill-buffer-on-exit t)
