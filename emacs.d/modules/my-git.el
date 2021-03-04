@@ -150,7 +150,7 @@ to invalidate."
   (magit-bury-buffer-function 'quit-window)
   (magit-commit-ask-to-stage nil)
   (magit-commit-squash-confirm nil)
-  (magit-no-confirm '(stage-all-changes unstage-all-changes))
+  (magit-no-confirm '(stage-all-changes unstage-all-changes set-and-push edit-published rebase-published amend-published))
   (auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffers-p)
   (magit-blame-styles '((margin
                           (margin-format " %s%f" " %C %a" " %H")
