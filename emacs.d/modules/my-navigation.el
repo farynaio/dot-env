@@ -98,8 +98,6 @@
   :config
   (global-smartscan-mode 1))
 
-(require 'framemove)
-(require 'compile)
 (require 'grep)
 (require 'files)
 
@@ -177,31 +175,6 @@
           (goto-char (match-beginning 0))))
       (user-error
         "Not completing files currently"))))
-
-  ;; (defun ivy-view-backtrace ()
-  ;;   (interactive)
-  ;;   (switch-to-buffer "*ivy-backtrace*")
-  ;;   (delete-region (point-min) (point-max))
-  ;;   (fundamental-mode)
-  ;;   (insert ivy-old-backtrace)
-  ;;   (goto-char (point-min))
-  ;;   (forward-line 1)
-  ;;   (let (part parts)
-  ;;     (while (< (point) (point-max))
-  ;;       (condition-case nil
-  ;;         (progn
-  ;;           (setq part (read (current-buffer)))
-  ;;           (push part parts)
-  ;;           (delete-region (point-min) (point)))
-  ;;         (error
-  ;;           (progn
-  ;;             (ignore-errors (up-list))
-  ;;             (delete-region (point-min) (point)))))))
-  ;;   (goto-char (point-min))
-  ;;   (dolist (part parts)
-  ;;     (lispy--insert part)
-  ;;     (lispy-alt-multiline)
-  ;;     (insert "\n")))
 
 (use-package counsel
   :after ivy
