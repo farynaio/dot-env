@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (use-package elfeed
-  :commands elfeed-update elfeed-db-load
+  :commands elfeed-db-load
   :bind (:map elfeed-show-mode-map
           ("SPC" . elfeed-scroll-up-command)
           ("S-SPC" . elfeed-scroll-down-command)
@@ -33,6 +33,14 @@
           ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
           ("<s-mouse-1>" . elfeed-search-browse-url)
           ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
+  :preface
+  (defun my/elfeed-load-db-and-open ()
+    "Wrapper to load the elfeed db from disk before opening"
+    (interactive)
+    (elfeed-db-load)
+    (elfeed-update)
+    (elfeed-search-update--force)
+    (elfeed))
   :custom
   (elfeed-search-filter "+news -skip -ok -junk")
   (elfeed-search-title-max-width 115)
@@ -116,13 +124,6 @@
   ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
   ;;functions to support syncing .elfeed between machines
   ;;makes sure elfeed reads index from disk before launching
-  (defun my/elfeed-load-db-and-open ()
-    "Wrapper to load the elfeed db from disk before opening"
-    (interactive)
-    (elfeed-db-load)
-    (elfeed-update)
-    (elfeed-search-update--force)
-    (elfeed))
 
   (defun my/elfeed-open-in-external-browser (&optional use-generic-p)
     (interactive "P")
@@ -313,9 +314,7 @@
   (defun jarfar/elfeed-mark-unread-move-next ()
     (interactive)
     (elfeed-search-tag-all-unread)
-    (unless (use-region-p) (next-line)))
-
-  (defalias 'rss 'my/elfeed-load-db-and-open))
+    (unless (use-region-p) (next-line))))
 
 (use-package elfeed-goodies
   :after elfeed
@@ -336,5 +335,7 @@
 
 (use-package elfeed-web
   :after elfeed)
+
+(defalias 'rss #'my/elfeed-load-db-and-open)
 
 (provide 'my-rss)

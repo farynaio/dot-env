@@ -68,12 +68,16 @@
 
 ;; https://www.reddit.com/r/emacs/comments/8sykl1/emacs_tls_defaults_are_downright_dangerous/
 (setq
- network-security-level 'high
+ network-security-level 'medium
  gnutls-verify-error t
  tls-checktrust t
- gnutls-trustfiles '("/etc/ssl/cert.pem"
-                     "/usr/local/etc/openssl/cert.pem"
-                     "/usr/local/etc/openssl@1.1/cert.pem"))
+ gnutls-trustfiles
+ '(
+   "/etc/ssl/cert.pem"
+   "/usr/local/etc/openssl/cert.pem"
+   "/usr/local/etc/openssl@1.1/cert.pem"
+   "~/.certs/znc.pem"
+   ))
 (setq-default auth-source '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
 
 ;; (unless (assoc-default "tromey" package-archives)
@@ -87,12 +91,33 @@
  use-package-verbose nil
  use-package-always-ensure t)
 
-(unless (package-installed-p 'org-plus-contrib)
-  (package-install 'org-plus-contrib))
+;; TODO is it needed?
+;; (setq exec-path-from-shell-check-startup-files nil)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+;; (eval-when-compile
+(require 'use-package)
+;; )
+
+(use-package auto-compile
+  :config
+  (auto-compile-on-load-mode))
+
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (setq
+   comp-speed 2
+   comp-deferred-compilation t
+   package-native-compile t
+   comp-async-report-warnings-errors nil)
+  (add-to-list 'exec-path (concat invocation-directory "bin") t)
+  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/local-config.el" "~/.emacs.d/init.el") t))
+
+(unless (package-installed-p 'org-plus-contrib)
+  (package-install 'org-plus-contrib))
 
 (setq load-prefer-newer t)
 
@@ -118,59 +143,13 @@
 (when (eq system-type 'darwin)
   (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem"))
 
-(use-package auto-compile
-  :config
-  (auto-compile-on-load-mode))
-
 (use-package dash)
-
-(when (and (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (setq
-   comp-speed 2
-   comp-deferred-compilation t
-   package-native-compile t
-   comp-async-report-warnings-errors nil)
-  ;; Using Emacs.app/Contents/MacOS/bin since it was compiled with
-  ;; ./configure --prefix="$PWD/nextstep/Emacs.app/Contents/MacOS"
-  (add-to-list 'exec-path (concat invocation-directory "bin") t)
-  (setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
-                                 (when (getenv "LIBRARY_PATH")
-                                   ":")
-                                 ;; This is where Homebrew puts gcc libraries.
-                                 (car (file-expand-wildcards
-                                       (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
-  ;; Only set after LIBRARY_PATH can find gcc libraries.
-
-  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/local-config.el") t)
-
-  (eval-when-compile
-    (require 'use-package))
-  )
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 ;; (use-package exec-path-from-shell
 ;;   :if (memq window-system '(mac ns x))
 ;;   :config
 ;;   (exec-path-from-shell-initialize))
-
-;; TODO is it needed?
-;; (setq exec-path-from-shell-check-startup-files nil)
-(when (memq window-system '(mac ns x))
-  (use-package exec-path-from-shell
-    :custom
-    (exec-path-from-shell-arguments '("-l"))
-    :config
-    (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
-    (add-to-list 'exec-path-from-shell-variables "LANG")
-    (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
-    (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
-    (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
-    (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
-    (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
-    (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
-    (add-to-list 'exec-path-from-shell-variables "LC_TIME")
-    (exec-path-from-shell-initialize)))
 
 ;; (use-package oauth2)
 
@@ -207,11 +186,6 @@
 (defvar my-org-caldav-activate nil)
 (defvar my-taskjuggler-activate nil)
 (defvar my-git-activate nil)
-(defvar my-python-activate nil)
-(defvar my-php-activate nil)
-(defvar my-js-activate nil)
-(defvar my-ruby-activate nil)
-(defvar my-web-activate nil)
 (defvar my-hydra-activate nil)
 (defvar my-presentation-activate nil)
 
@@ -236,11 +210,6 @@
  my-rss-activate t
  my-org-caldav-activate nil
  my-taskjuggler-activate nil
- my-python-activate t
- my-php-activate t
- my-js-activate t
- my-web-activate t
- my-ruby-activate nil
  my-hydra-activate t
  my-presentation-activate nil
  )
@@ -259,11 +228,6 @@
 (when my-cleanup-activate (require 'my-cleanup))
 (when my-notifications-activate (require 'my-notifications))
 (when my-devel-activate (require 'my-devel))
-(when my-python-activate (require 'my-python))
-(when my-web-activate (require 'my-web))
-(when my-js-activate (require 'my-js))
-(when my-php-activate (require 'my-php))
-(when my-ruby-activate (require 'my-ruby))
 (when my-shell-activate (require 'my-shell))
 (when my-rss-activate (require 'my-rss))
 (when my-email-activate (require 'my-email))
@@ -360,6 +324,22 @@
                (lambda nil
                  (flycheck-mode -1))
                t ))))
+
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :custom
+    (exec-path-from-shell-arguments '("-l"))
+    :config
+    (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
+    (add-to-list 'exec-path-from-shell-variables "LANG")
+    (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
+    (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
+    (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
+    (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
+    (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
+    (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
+    (add-to-list 'exec-path-from-shell-variables "LC_TIME")
+    (exec-path-from-shell-initialize)))
 
 (find-file "~/.emacs.d/init.el")
 (find-file "~/.emacs.d/modules/my-hydra.el")

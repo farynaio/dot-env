@@ -115,9 +115,12 @@
   (w3m-session-load-last-sessions t)
   (w3m-new-session-url "about:")
   (w3m-type 'w3m-m17n)
-  (browse-url-browser-function
+  (browse-url-handlers
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . my/w3m-goto-frame)))
+  ;; (browse-url-browser-function
+  ;;   '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+  ;;      ("." . my/w3m-goto-frame)))
   :config
   (defun farynaio/w3m-create-empty-session ()
     (interactive)

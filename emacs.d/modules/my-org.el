@@ -1680,8 +1680,6 @@ it can be passed in POS."
 
 (use-package org-journal
   :after org-roam
-  :init
-  (setq org-journal-prefix-key "C-c j ")
   :config
   (setq org-journal-dir my/org-roam-journal-directory)
   (setq org-journal-date-format "%Y-%m-%d"))
