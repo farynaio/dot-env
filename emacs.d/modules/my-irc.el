@@ -34,6 +34,7 @@
   ;; (erc-kill-buffer-on-part t)
   (erc-lurker-threshold-time 43200)
   (erc-server-reconnect-attempts 5)
+  (erc-reuse-buffers nil)
   :config
   (require 'erc-services)
   ;; (require 'erc-join)
