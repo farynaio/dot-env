@@ -2,4 +2,6 @@
 
 # echo "sh/interactive"
 
+export EDITOR="/usr/bin/vim"
+
 . ~/.shell/interactive
