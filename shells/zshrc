@@ -137,7 +137,7 @@ unsetopt share_history
 # added by travis gem
 # [ ! -s /Users/devil/.travis/travis.sh ] || source /Users/devil/.travis/travis.sh
 
+[ ! -s ~/.zshrc_local ] || source ~/.zshrc_local
+
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
-
-
