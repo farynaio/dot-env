@@ -1,13 +1,3 @@
-;; (require 'autorevert)
-;; (require 're-builder)
-;; (require 'calendar)
-;; (require 'reftex)
-;; (require 'face-remap)
-;; (require 'conf-mode)
-;; (require 'tramp)
-;; (require 'elec-pair)
-;; (require 'subr-x)
-
 (setq-default
   cursor-in-non-selected-windows t
   display-time-default-load-average nil

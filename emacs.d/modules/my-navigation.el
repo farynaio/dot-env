@@ -20,8 +20,6 @@
 
 (use-package simple
   :ensure nil
-  ;; :hook((prog-mode . turn-on-auto-fill)
-  ;;        (text-mode . turn-on-auto-fill))
   :custom
   (set-mark-command-repeat-pop t))
 
@@ -137,9 +135,6 @@
           :map evil-motion-state-map
           ("\\w" . avy-goto-word-or-subword-1)
           ("\\c" . avy-goto-char)))
-
-;; (use-package ivy-hydra
-;;   :after ivy hydra)
 
 (use-package ivy
   :diminish ivy-mode
@@ -298,13 +293,9 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
   (dashboard-setup-startup-hook))
 
-(use-package visual-fill-column
-  :commands visual-fill-column-mode
-  :hook (
-          ;; (prog-mode . turn-on-auto-fill)
-          ;; (text-mode . turn-on-auto-fill)
-          (text-mode . visual-fill-column-mode)
-          ))
+;; (use-package visual-fill-column
+;;   :commands visual-fill-column-mode
+;;   :hook ((text-mode . visual-fill-column-mode)))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode)
@@ -395,11 +386,10 @@ point reaches the beginning or end of the buffer, stop there."
   (mapc 'kill-buffer (remove-if
                        (lambda (x)
                          (or
-                           (some (lambda (window) (string-equal (buffer-name x) (buffer-name (window-buffer window)))) (window-list))
+                           (some (lambda (window) ( string-equal (buffer-name x) (buffer-name (window-buffer window)))) (window-list))
                            ;; (string-equal (buffer-file-name) (buffer-file-name x))
-                           (string-equal "*Messages*" (buffer-name x))
-                           (string-equal "*scratch*" (buffer-name x))))
-                       (buffer-list)))
+                           (member (buffer-name x) '("*Messages*" "*scratch*"))))
+                         (buffer-list)))
   (delete-other-frames)
   (message "Closed other buffers and frames."))
 
