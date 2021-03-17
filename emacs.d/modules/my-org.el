@@ -1680,9 +1680,11 @@ it can be passed in POS."
 
 (use-package org-journal
   :after org-roam
+  :custom
+  (org-journal-dir my/org-roam-journal-directory)
+  (org-journal-date-format "%Y-%m-%d")
   :config
-  (setq org-journal-dir my/org-roam-journal-directory)
-  (setq org-journal-date-format "%Y-%m-%d"))
+  (unbind-key "C-c C-j"))
 
 (defun jarfar/org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
