@@ -86,6 +86,10 @@
   my/ledger-company-dir-path (expand-file-name "appdy" my/ledger-base-path)
   my/ledger-company-report-path (expand-file-name "appdy_report.org.gpg" my/ledger-company-dir-path))
 
+(setq my/erc-dir (expand-file-name "erc" my/emacs-directory))
+(setq
+  my/erc-logs (expand-file-name "logs" my/erc-dir))
+
 (setq my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
 
 (provide 'my-path)

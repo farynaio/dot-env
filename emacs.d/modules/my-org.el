@@ -279,15 +279,15 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (use-package japanese-holidays)
 
   (setq
-    general-holidays
-    '((holiday-fixed 1 1 "New Year's Day")
-       (holiday-fixed 2 14 "Valentine's Day")
-       (holiday-fixed 3 8 "International Women's Day")
-       (holiday-fixed 3 17 "St. Patrick's Day")
-       (holiday-fixed 4 1 "April Fools' Day")
-       (holiday-float 5 0 2 "Mother's Day")
-       (holiday-fixed 10 31 "Halloween")
-       (holiday-float 11 4 4 "Thanksgiving"))
+    ;; general-holidays
+    ;; '((holiday-fixed 1 1 "New Year's Day")
+    ;;    (holiday-fixed 2 14 "Valentine's Day")
+    ;;    (holiday-fixed 3 8 "International Women's Day")
+    ;;    (holiday-fixed 3 17 "St. Patrick's Day")
+    ;;    (holiday-fixed 4 1 "April Fools' Day")
+    ;;    (holiday-float 5 0 2 "Mother's Day")
+    ;;    (holiday-fixed 10 31 "Halloween")
+    ;;    (holiday-float 11 4 4 "Thanksgiving"))
     polish-holidays
     '((holiday-fixed  1 21 "Dzień Babci")
        (holiday-fixed  1 22 "Dzień Diadka")
@@ -369,9 +369,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                         polish-holidays
                         english-holidays
                         ;; holiday-local-holidays
-                        general-holidays
-                        holiday-christian-holidays
-                        holiday-solar-holidays)
+                        ;; general-holidays
+                        ;; holiday-christian-holidays
+                        ;; holiday-solar-holidays
+                        )
     ;; calendar-mark-holidays-flag t
     calendar-week-start-day 1
     calendar-date-style 'european))
@@ -382,8 +383,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (setq diary-number-of-entries 31)
 
-(add-hook 'calendar-load-hook
-  (lambda () (calendar-set-date-style 'european)))
+;; (add-hook 'calendar-load-hook
+;;   (lambda () (calendar-set-date-style 'european)))
 
 (setq
   org-clock-into-drawer t

@@ -3,6 +3,8 @@
   display-time-default-load-average nil
   scroll-conservatively most-positive-fixnum ; Always scroll by one line
   view-read-only t
+  require-final-newline nil
+  indent-tabs-mode nil
   mode-require-final-newline nil)
 
 (setq ack-path (executable-find "ack"))
@@ -16,12 +18,9 @@
 (defvaralias 'sgml-basic-offset 'tab-width)
 
 (setq
-  indent-tabs-mode nil
   backward-delete-char-untabify-method 'hungry)
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
-
-(setq-default indent-tabs-mode nil)
 
 (set-face-attribute 'default nil :font "Source Code Pro Medium")
 (set-fontset-font t 'latin "Noto Sans")
@@ -29,16 +28,15 @@
 (setq
   hscroll-margin  1
   hscroll-step 1
-  ;; scroll-conservatively most-positive-fixnum ;; 1001 ;; should be 0?
   word-wrap t
   shift-select-mode nil
   compare-ignore-case t
   compare-ignore-whitespace t
   sentence-end-double-space nil
-  require-final-newline nil
   revert-without-query '(".*")
-  ;; undo-limit 1000
+  undo-limit 1000
   show-paren-delay 0
+  shell-dirtrackp nil
   save-some-buffers-default-predicate t
   help-window-select t
   bookmark-save-flag nil)
@@ -58,10 +56,9 @@
   (push '(?\' . ?\') electric-pair-text-pairs)
   (push '(?\` . ?\`) electric-pair-text-pairs))
 
-(use-package org-pomodoro)
+;; (use-package org-pomodoro)
 
 (use-package hungry-delete
-  ;; :diminish hungry-delete-mode
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
@@ -83,38 +80,6 @@
     company-tooltip-align-annotations t
     company-minimum-prefix-length 1
     company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
-
-;; (require 'hippie-exp)
-;; (eval-after-load 'hippie-exp
-;;   '(progn
-;;      (setq hippie-expand-try-functions-list
-;;        '(
-;;           yas-hippie-try-expand ; requires yasnippet plugin
-;;           try-expand-all-abbrevs
-;;           try-complete-file-name-partially
-;;           try-complete-file-name
-;;           try-expand-dabbrev
-;;           try-expand-dabbrev-from-kill
-;;           try-expand-dabbrev-all-buffers
-;;           try-expand-list
-;;           try-expand-line
-;;           try-complete-lisp-symbol-partially
-;;           try-complete-lisp-symbol))
-;;      (setq hippie-expand-verbose nil)
-;;      (setq hippie-expand-try-functions-list '())
-;;      (bind-key "M-/" 'hippie-expand)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-all-buffers t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-expand-dabbrev-from-kill t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-expand-list t)
-;;      (add-to-list 'hippie-expand-try-functions-list 'try-expand-line t)
-
-;;      (defadvice hippie-expand (around hippie-expand-case-fold)
-;;        "Try to do case-sensitive matching (not effective with all functions)."
-;;        (let ((case-fold-search nil))
-;;          ad-do-it))))
 
 (use-package which-key
   :defer 0.2
@@ -259,10 +224,8 @@ end-of-buffer signals; pass the rest to the default handler."
         (setq deactivate-mark nil))
       (indent-rigidly (line-beginning-position) (line-end-position) offset))))
 
-(bind-key "<S-tab>" 'jarfar/unindent-region)
-;; (defvar flyspell-mode-map (make-sparse-keymap))
-
 (bind-keys
+  ("<S-tab>" . 'jarfar/unindent-region)
   ("C-x C-r" . recentf-open-files)
   ("<home>" . left-word)
   ("<end>" . right-word)
@@ -275,11 +238,11 @@ end-of-buffer signals; pass the rest to the default handler."
 (defalias 'qcalc 'quick-calc)
 
 (column-number-mode 1)
-(global-auto-revert-mode 1)
 (global-visual-line-mode 1)
 (delete-selection-mode 1)
 (auto-compression-mode 1)
 (electric-pair-mode 1)
+(global-auto-revert-mode 1)
 
 (global-hl-line-mode -1)
 (shell-dirtrack-mode -1)
