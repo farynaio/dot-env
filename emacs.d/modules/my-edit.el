@@ -34,7 +34,7 @@
   compare-ignore-whitespace t
   sentence-end-double-space nil
   revert-without-query '(".*")
-  undo-limit 1000
+  undo-limit 16000
   show-paren-delay 0
   shell-dirtrackp nil
   save-some-buffers-default-predicate t
