@@ -2,6 +2,9 @@
 
 # echo "shell/interactive"
 
+export EDITOR="/usr/bin/vim"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
 init_pyenv() {
   eval "$(pyenv init -)"
 }
