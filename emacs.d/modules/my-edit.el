@@ -54,7 +54,8 @@
   (push '(?\" . ?\") electric-pair-text-pairs)
   (push '(?\{ . ?\}) electric-pair-text-pairs)
   (push '(?\' . ?\') electric-pair-text-pairs)
-  (push '(?\` . ?\`) electric-pair-text-pairs))
+  (push '(?\` . ?\`) electric-pair-text-pairs)
+  (electric-pair-mode 1))
 
 ;; (use-package org-pomodoro)
 
@@ -241,14 +242,12 @@ end-of-buffer signals; pass the rest to the default handler."
 (global-visual-line-mode 1)
 (delete-selection-mode 1)
 (auto-compression-mode 1)
-(electric-pair-mode 1)
 (global-auto-revert-mode 1)
-
 (global-hl-line-mode -1)
-(shell-dirtrack-mode -1)
-(global-eldoc-mode -1)
+;; (shell-dirtrack-mode -1)
+;; (global-eldoc-mode -1)
 (blink-cursor-mode -1)
-(file-name-shadow-mode -1)
+;; (file-name-shadow-mode -1)
 
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
