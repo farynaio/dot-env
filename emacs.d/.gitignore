@@ -6,6 +6,10 @@ roam.sqlite
 backups
 autosaves
 .lsp-session-*
+.lsp-eslint-choices
+diary
+erc
+eslint
 ac-comphist.dat
 recentf~
 bookmarks~
