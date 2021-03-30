@@ -160,10 +160,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        org-agenda-start-with-log-mode t
        org-src-preserve-indentation t
        ;; (setq org-list-end-re "^$")
-       org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")
-                                   (todo . " %i %-12:c")
-                                   (tags . " %i %-12:c")
-                                   (search . " %i %-12:c"))
        org-list-demote-modify-bullet
        '(
           ("+" . "-")
@@ -1108,6 +1104,19 @@ Blood type/flavour: %^{Blood type: }
            (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(time-up priority-down todo-state-up effort-down category-keep alpha-up)))
             (org-agenda-files (append org-agenda-files my/org-active-projects)))
+       (agenda "weekly"
+         (
+           (org-agenda-skip-function
+             '(or
+                (org-agenda-skip-if nil '(notdeadline))
+             (org-agenda-skip-entry-if 'todo '("DONE"))))
+            (org-agenda-overriding-header "Weekly Goals:")
+           (org-tags-match-list-sublevels t)
+           (org-agenda-span 'day)
+           (org-deadline-warning-days -7)
+            (org-agenda-hide-tags-regexp "weekly")
+            (org-agenda-todo-keyword-format "")
+            (org-agenda-files (list my/org-yearly-goals-file-path))))
         (agenda ""
           ((org-agenda-skip-function
              '(or
@@ -1117,12 +1126,11 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
             (org-agenda-sorting-strategy '(time-up user-defined-down todo-state-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
             (org-agenda-remove-tags nil)
+            (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")))
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
             (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path)))))
-        )
-     )
-     )
+        )))
   )
 
 (defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
