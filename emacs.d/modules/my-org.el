@@ -1415,6 +1415,9 @@ should be continued."
 - English
   -
 
+* Journal
+* Pickup
+
 ")))
 
   (setq org-roam-capture-templates
