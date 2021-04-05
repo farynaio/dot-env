@@ -1,4 +1,4 @@
-;;; popwin-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; popwin-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "popwin" "popwin.el" (0 0 0 0))
-;;; Generated autoloads from popwin.el
+;;;### (autoloads nil "popwin" "../../../../.emacs.d/elpa/popwin-20210215.1849/popwin.el"
+;;;;;;  "f8cb1f3519b37dc9db37387e674e254e")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/popwin-20210215.1849/popwin.el
 
 (autoload 'popwin:popup-buffer "popwin" "\
 Show BUFFER in a popup window and return the popup window. If
@@ -71,20 +72,26 @@ or call the function `popwin-mode'.")
 (autoload 'popwin-mode "popwin" "\
 Minor mode for `popwin-mode'.
 
-If called interactively, toggle `Popwin mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Popwin mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "popwin" "../../../../.emacs.d/elpa/popwin-20210215.1849/popwin.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/popwin-20210215.1849/popwin.el
 
-(register-definition-prefixes "popwin" '("popwin:"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "popwin" '("popwin:")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/popwin-20210215.1849/popwin-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/popwin-20210215.1849/popwin.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

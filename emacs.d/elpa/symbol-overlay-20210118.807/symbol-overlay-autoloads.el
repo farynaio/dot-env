@@ -1,4 +1,4 @@
-;;; symbol-overlay-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; symbol-overlay-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,23 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "symbol-overlay" "symbol-overlay.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from symbol-overlay.el
+;;;### (autoloads nil "symbol-overlay" "../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay.el"
+;;;;;;  "0d0e2ea54ca4bbd2f217bfc93dc3f7cc")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay.el
 
 (autoload 'symbol-overlay-mode "symbol-overlay" "\
 Minor mode for auto-highlighting symbol at point.
 
-If called interactively, toggle `Symbol-overlay mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Symbol-overlay mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -78,8 +72,21 @@ Query replace symbol at point." t nil)
 
 (autoload 'symbol-overlay-rename "symbol-overlay" "\
 Rename symbol at point on all its occurrences." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "symbol-overlay"
+;;;;;;  "../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay.el
 
-(register-definition-prefixes "symbol-overlay" '("symbol-overlay-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "symbol-overlay" '("symbol-overlay-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/symbol-overlay-20210118.807/symbol-overlay.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

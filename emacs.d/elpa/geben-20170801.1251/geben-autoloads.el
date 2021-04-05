@@ -1,4 +1,4 @@
-;;; geben-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; geben-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "dbgp" "dbgp.el" (0 0 0 0))
-;;; Generated autoloads from dbgp.el
+;;;### (autoloads nil "dbgp" "../../../../.emacs.d/elpa/geben-20170801.1251/dbgp.el"
+;;;;;;  "81a40b1c9cf4a2322e1968f0e61d8f87")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/geben-20170801.1251/dbgp.el
 
 (autoload 'dbgp-start "dbgp" "\
 Start a new DBGp listener listening to PORT.
@@ -54,29 +55,30 @@ Unregister PROXY from a DBGp proxy.
 After unregistration, it kills the listener instance.
 
 \(fn PROXY)" nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "dbgp" "../../../../.emacs.d/elpa/geben-20170801.1251/dbgp.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/geben-20170801.1251/dbgp.el
 
-(register-definition-prefixes "dbgp" '("dbgp-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dbgp" '("dbgp-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "geben" "geben.el" (0 0 0 0))
-;;; Generated autoloads from geben.el
+;;;### (autoloads nil "geben" "../../../../.emacs.d/elpa/geben-20170801.1251/geben.el"
+;;;;;;  "bef36fe189f7f382ff606f81a4fc1cc3")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/geben-20170801.1251/geben.el
 
 (autoload 'geben-mode "geben" "\
 Minor mode for debugging source code with GEBEN.
 The geben-mode buffer commands:
 \\{geben-mode-map}
 
-If called interactively, toggle `Geben mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Geben mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -133,12 +135,22 @@ or call the function `geben-full-frame-mode'.")
 
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "geben" "../../../../.emacs.d/elpa/geben-20170801.1251/geben.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/geben-20170801.1251/geben.el
 
-(register-definition-prefixes "geben" '("geben-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "geben" '("geben-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil nil ("geben-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/geben-20170801.1251/dbgp.el"
+;;;;;;  "../../../../.emacs.d/elpa/geben-20170801.1251/geben-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/geben-20170801.1251/geben-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/geben-20170801.1251/geben.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

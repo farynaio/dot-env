@@ -1,4 +1,4 @@
-;;; git-gutter-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; git-gutter-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "git-gutter" "git-gutter.el" (0 0 0 0))
-;;; Generated autoloads from git-gutter.el
+;;;### (autoloads nil "git-gutter" "../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter.el"
+;;;;;;  "6fc6a07d433ec897db6c88016530ffb6")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter.el
 
 (autoload 'git-gutter:linum-setup "git-gutter" "\
 Setup for linum-mode." nil nil)
@@ -15,16 +16,10 @@ Setup for linum-mode." nil nil)
 (autoload 'git-gutter-mode "git-gutter" "\
 Git-Gutter mode
 
-If called interactively, toggle `Git-Gutter mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or negative,
-disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
-mode if ARG is nil, omitted, or is a positive number.  Disable the
-mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when it is
-disabled.
+If called interactively, enable Git-Gutter mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp, also
+enable the mode if ARG is omitted or nil, and toggle it if ARG is
+`toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -42,11 +37,12 @@ or call the function `global-git-gutter-mode'.")
 
 (autoload 'global-git-gutter-mode "git-gutter" "\
 Toggle Git-Gutter mode in all buffers.
-With prefix ARG, enable Global Git-Gutter mode if ARG is positive; otherwise,
-disable it.  If called from Lisp, enable the mode if ARG is omitted or nil.
+With prefix ARG, enable Global Git-Gutter mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
 
-Git-Gutter mode is enabled in all buffers where `git-gutter--turn-on' would do it.
-
+Git-Gutter mode is enabled in all buffers where
+`git-gutter--turn-on' would do it.
 See `git-gutter-mode' for more information on Git-Gutter mode.
 
 \(fn &optional ARG)" t nil)
@@ -56,8 +52,20 @@ Show diff information in gutter" t nil)
 
 (autoload 'git-gutter:toggle "git-gutter" "\
 Toggle to show diff information." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "git-gutter" "../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter.el
 
-(register-definition-prefixes "git-gutter" '("git-gutter"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-gutter" '("git-gutter")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/git-gutter-20210127.1100/git-gutter.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

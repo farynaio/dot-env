@@ -1,4 +1,4 @@
-;;; auto-compile-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; auto-compile-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,22 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "auto-compile" "auto-compile.el" (0 0 0 0))
-;;; Generated autoloads from auto-compile.el
+;;;### (autoloads nil "auto-compile" "../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile.el"
+;;;;;;  "96a2f990738a51866812ddbeb8134b2c")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile.el
 
 (autoload 'auto-compile-mode "auto-compile" "\
 Compile Emacs Lisp source files after the visiting buffers are saved.
 
-If called interactively, toggle `Auto-Compile mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Auto-Compile mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 After a buffer containing Emacs Lisp code is saved to its source
 file update the respective byte code file.  If the latter does
@@ -49,13 +44,12 @@ or call the function `auto-compile-on-save-mode'.")
 
 (autoload 'auto-compile-on-save-mode "auto-compile" "\
 Toggle Auto-Compile mode in all buffers.
-With prefix ARG, enable Auto-Compile-On-Save mode if ARG is
-positive; otherwise, disable it.  If called from Lisp, enable the mode if ARG
-is omitted or nil.
+With prefix ARG, enable Auto-Compile-On-Save mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
 
 Auto-Compile mode is enabled in all buffers where
 `turn-on-auto-compile-mode' would do it.
-
 See `auto-compile-mode' for more information on Auto-Compile mode.
 
 \(fn &optional ARG)" t nil)
@@ -120,16 +114,10 @@ for a description of this minor mode.")
 (autoload 'auto-compile-on-load-mode "auto-compile" "\
 Before loading a library recompile it if it needs recompilation.
 
-If called interactively, toggle `Auto-Compile-On-Load mode'.  If
-the prefix argument is positive, enable the mode, and if it is
-zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Auto-Compile-On-Load mode if ARG
+is positive, and disable it if ARG is zero or negative.  If
+called from Lisp, also enable the mode if ARG is omitted or nil,
+and toggle it if ARG is `toggle'; disable the mode otherwise.
 
 A library needs to be recompiled if the source file is newer than
 it's byte-compile destination.  Without this advice the outdated
@@ -138,8 +126,21 @@ byte code file would be loaded instead.
 Also see the related `auto-compile-on-save-mode'.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "auto-compile"
+;;;;;;  "../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile.el
 
-(register-definition-prefixes "auto-compile" '("auto-compile-" "byte-compile-log-warning" "load" "mode-line-" "require" "save-buffers-kill-" "turn-on-auto-compile-mode"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "auto-compile" '("auto-compile-" "byte-compile-log-warning" "load" "mode-line-" "require" "save-buffers-kill-" "turn-on-auto-compile-mode")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/auto-compile-20201122.1157/auto-compile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

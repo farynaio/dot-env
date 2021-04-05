@@ -1,4 +1,4 @@
-;;; web-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; web-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,15 +6,28 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "web-mode" "web-mode.el" (0 0 0 0))
-;;; Generated autoloads from web-mode.el
+;;;### (autoloads nil "web-mode" "../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode.el"
+;;;;;;  "994b3cd9f5ba1acdfcb201300bc599c9")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode.el
 
 (autoload 'web-mode "web-mode" "\
 Major mode for editing web templates.
 
 \(fn)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "web-mode" "../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode.el
 
-(register-definition-prefixes "web-mode" '("web-mode-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "web-mode" '("web-mode-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/web-mode-20210131.1758/web-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

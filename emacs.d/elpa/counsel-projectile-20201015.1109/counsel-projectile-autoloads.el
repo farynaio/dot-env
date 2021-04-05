@@ -1,4 +1,4 @@
-;;; counsel-projectile-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; counsel-projectile-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "counsel-projectile" "counsel-projectile.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from counsel-projectile.el
+;;;### (autoloads nil "counsel-projectile" "../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile.el"
+;;;;;;  "a741884aff015310a84822f69a4eeac8")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile.el
 
 (autoload 'counsel-projectile-find-file "counsel-projectile" "\
 Jump to a file in the current project.
@@ -162,8 +162,21 @@ bind keys to counsel-projectile commands that have no projectile
 counterparts.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "counsel-projectile"
+;;;;;;  "../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile.el
 
-(register-definition-prefixes "counsel-projectile" '("counsel-projectile-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "counsel-projectile" '("counsel-projectile-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/counsel-projectile-20201015.1109/counsel-projectile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

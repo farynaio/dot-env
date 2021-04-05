@@ -1,4 +1,4 @@
-;;; hcl-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; hcl-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "hcl-mode" "hcl-mode.el" (0 0 0 0))
-;;; Generated autoloads from hcl-mode.el
+;;;### (autoloads nil "hcl-mode" "../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode.el"
+;;;;;;  "e3ea92283a56b806d40bd33e3a734cf3")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode.el
 
 (autoload 'hcl-mode "hcl-mode" "\
 Major mode for editing hcl configuration file
@@ -17,8 +18,20 @@ Major mode for editing hcl configuration file
 (add-to-list 'auto-mode-alist '("\\.hcl\\'" . hcl-mode))
 
 (add-to-list 'auto-mode-alist '("\\.nomad\\'" . hcl-mode))
+
+;;;### (autoloads "actual autoloads are elsewhere" "hcl-mode" "../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode.el
 
-(register-definition-prefixes "hcl-mode" '("hcl-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "hcl-mode" '("hcl-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/hcl-mode-20200315.2129/hcl-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

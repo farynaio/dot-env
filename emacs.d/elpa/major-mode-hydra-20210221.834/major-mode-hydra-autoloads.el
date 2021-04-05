@@ -1,4 +1,4 @@
-;;; major-mode-hydra-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; major-mode-hydra-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "major-mode-hydra" "major-mode-hydra.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from major-mode-hydra.el
+;;;### (autoloads nil "major-mode-hydra" "../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra.el"
+;;;;;;  "97588ea4292af628000088780e6c0417")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra.el
 
 (autoload 'major-mode-hydra-define "major-mode-hydra" "\
 Generate a major mode hydra for given MODE with given BODY and HEADS-PLIST.
@@ -57,8 +57,21 @@ exactly the same structure as that in `pretty-hydra-define' or
 
 (autoload 'major-mode-hydra "major-mode-hydra" "\
 Show the hydra for the current major mode." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "major-mode-hydra"
+;;;;;;  "../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra.el
 
-(register-definition-prefixes "major-mode-hydra" '("major-mode-hydra-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "major-mode-hydra" '("major-mode-hydra-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/major-mode-hydra-20210221.834/major-mode-hydra.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

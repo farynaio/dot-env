@@ -1,4 +1,4 @@
-;;; ace-jump-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; ace-jump-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "ace-jump-mode" "ace-jump-mode.el" (0 0 0 0))
-;;; Generated autoloads from ace-jump-mode.el
+;;;### (autoloads nil "ace-jump-mode" "../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode.el"
+;;;;;;  "ac95c438a027ff183ad30e153091128a")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode.el
 
 (autoload 'ace-jump-mode-pop-mark "ace-jump-mode" "\
 Pop up a postion from `ace-jump-mode-mark-ring', and jump back to that position" t nil)
@@ -50,8 +51,21 @@ You can constrol whether use the case sensitive via
 `ace-jump-mode-case-fold'.
 
 \(fn &optional PREFIX)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "ace-jump-mode"
+;;;;;;  "../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode.el
 
-(register-definition-prefixes "ace-jump-mode" '("ace-jump-" "aj-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ace-jump-mode" '("ace-jump-" "aj-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/ace-jump-mode-20140616.815/ace-jump-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

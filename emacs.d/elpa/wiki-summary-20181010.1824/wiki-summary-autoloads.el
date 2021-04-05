@@ -1,4 +1,4 @@
-;;; wiki-summary-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; wiki-summary-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "wiki-summary" "wiki-summary.el" (0 0 0 0))
-;;; Generated autoloads from wiki-summary.el
+;;;### (autoloads nil "wiki-summary" "../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary.el"
+;;;;;;  "68234feee9f736e534b1dce48a8551ba")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary.el
 
 (autoload 'wiki-summary/make-api-query "wiki-summary" "\
 Given a wiki page title, generate the url for the API call
@@ -39,8 +40,21 @@ Return the wikipedia page's summary for a term
 Return the wikipedia page's summary for a term
 
 \(fn S)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "wiki-summary"
+;;;;;;  "../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary.el
 
-(register-definition-prefixes "wiki-summary" '("wiki-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "wiki-summary" '("wiki-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/wiki-summary-20181010.1824/wiki-summary.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

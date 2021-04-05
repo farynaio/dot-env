@@ -1,4 +1,4 @@
-;;; pretty-hydra-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; pretty-hydra-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "pretty-hydra" "pretty-hydra.el" (0 0 0 0))
-;;; Generated autoloads from pretty-hydra.el
+;;;### (autoloads nil "pretty-hydra" "../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra.el"
+;;;;;;  "1470599c267ad0c496a3fe16289da820")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra.el
 
 (autoload 'pretty-hydra-define "pretty-hydra" "\
 Define a pretty hydra with given NAME, BODY options and HEADS-PLIST.
@@ -72,8 +73,21 @@ Create a dynamic hint that look like a radio button with given NAME.
 Radio is considered on when STATUS is non-nil, otherwise off.
 
 \(fn NAME STATUS)" nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "pretty-hydra"
+;;;;;;  "../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra.el
 
-(register-definition-prefixes "pretty-hydra" '("pretty-hydra-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pretty-hydra" '("pretty-hydra-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/pretty-hydra-20210221.834/pretty-hydra.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

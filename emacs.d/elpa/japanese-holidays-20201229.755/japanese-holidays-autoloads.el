@@ -1,4 +1,4 @@
-;;; japanese-holidays-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; japanese-holidays-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,11 +6,18 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "japanese-holidays" "japanese-holidays.el"
+;;;### (autoloads "actual autoloads are elsewhere" "japanese-holidays"
+;;;;;;  "../../../../.emacs.d/elpa/japanese-holidays-20201229.755/japanese-holidays.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from japanese-holidays.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/japanese-holidays-20201229.755/japanese-holidays.el
 
-(register-definition-prefixes "japanese-holidays" '("japanese-holiday"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "japanese-holidays" '("japanese-holiday")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/japanese-holidays-20201229.755/japanese-holidays-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/japanese-holidays-20201229.755/japanese-holidays.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

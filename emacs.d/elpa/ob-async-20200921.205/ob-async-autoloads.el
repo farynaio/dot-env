@@ -1,4 +1,4 @@
-;;; ob-async-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; ob-async-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "ob-async" "ob-async.el" (0 0 0 0))
-;;; Generated autoloads from ob-async.el
+;;;### (autoloads nil "ob-async" "../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async.el"
+;;;;;;  "3234d8889677b66e2d19a7c295db6888")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async.el
 
 (defalias 'org-babel-execute-src-block:async 'ob-async-org-babel-execute-src-block)
 
@@ -32,8 +33,20 @@ the header arguments specified at the front of the source code
 block.
 
 \(fn &optional ORIG-FUN ARG INFO PARAMS)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "ob-async" "../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async.el
 
-(register-definition-prefixes "ob-async" '("ob-async-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ob-async" '("ob-async-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/ob-async-20200921.205/ob-async.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

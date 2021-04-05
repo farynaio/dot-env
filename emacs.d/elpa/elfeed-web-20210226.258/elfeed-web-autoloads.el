@@ -1,4 +1,4 @@
-;;; elfeed-web-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; elfeed-web-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,17 +6,27 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "elfeed-web" "elfeed-web.el" (0 0 0 0))
-;;; Generated autoloads from elfeed-web.el
+;;;### (autoloads nil "elfeed-web" "../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web.el"
+;;;;;;  "4bfeb348adcccd3337123bf2af133081")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web.el
 
 (autoload 'elfeed-web-start "elfeed-web" "\
 Start the Elfeed web interface server." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-web" "../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web.el
 
-(register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-web" '("elfeed" "with-elfeed-web")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil nil ("elfeed-web-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-web-20210226.258/elfeed-web.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

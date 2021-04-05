@@ -1,4 +1,4 @@
-;;; pyvenv-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; pyvenv-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "pyvenv" "pyvenv.el" (0 0 0 0))
-;;; Generated autoloads from pyvenv.el
+;;;### (autoloads nil "pyvenv" "../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv.el"
+;;;;;;  "a400d9e9fb1612cc56d67e5c7a9fc642")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv.el
 
 (autoload 'pyvenv-activate "pyvenv" "\
 Activate the virtual environment in DIRECTORY.
@@ -38,16 +39,10 @@ or call the function `pyvenv-mode'.")
 (autoload 'pyvenv-mode "pyvenv" "\
 Global minor mode for pyvenv.
 
-If called interactively, toggle `Pyvenv mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Pyvenv mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
 
 Will show the current virtualenv in the mode line, and respect a
 `pyvenv-workon' setting in files.
@@ -67,16 +62,10 @@ or call the function `pyvenv-tracking-mode'.")
 (autoload 'pyvenv-tracking-mode "pyvenv" "\
 Global minor mode to track the current virtualenv.
 
-If called interactively, toggle `Pyvenv-tracking mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Pyvenv-tracking mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 When this mode is active, pyvenv will activate a buffer-specific
 virtualenv whenever the user switches to a buffer with a
@@ -86,8 +75,20 @@ buffer-local `pyvenv-workon' or `pyvenv-activate' variable.
 
 (autoload 'pyvenv-restart-python "pyvenv" "\
 Restart Python inferior processes." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "pyvenv" "../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv.el
 
-(register-definition-prefixes "pyvenv" '("pyvenv-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pyvenv" '("pyvenv-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/pyvenv-20201227.1623/pyvenv.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

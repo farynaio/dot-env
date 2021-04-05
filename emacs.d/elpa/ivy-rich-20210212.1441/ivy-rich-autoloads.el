@@ -1,4 +1,4 @@
-;;; ivy-rich-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; ivy-rich-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "ivy-rich" "ivy-rich.el" (0 0 0 0))
-;;; Generated autoloads from ivy-rich.el
+;;;### (autoloads nil "ivy-rich" "../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich.el"
+;;;;;;  "074b21eea6d920062f3e5d6fa366958b")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich.el
 
 (defvar ivy-rich-mode nil "\
 Non-nil if Ivy-Rich mode is enabled.
@@ -22,16 +23,10 @@ or call the function `ivy-rich-mode'.")
 (autoload 'ivy-rich-mode "ivy-rich" "\
 Toggle ivy-rich mode globally.
 
-If called interactively, toggle `Ivy-Rich mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Ivy-Rich mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -50,20 +45,27 @@ or call the function `ivy-rich-project-root-cache-mode'.")
 (autoload 'ivy-rich-project-root-cache-mode "ivy-rich" "\
 Toggle ivy-rich-root-cache-mode globally.
 
-If called interactively, toggle `Ivy-Rich-Project-Root-Cache
-mode'.  If the prefix argument is positive, enable the mode, and
-if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Ivy-Rich-Project-Root-Cache mode
+if ARG is positive, and disable it if ARG is zero or negative.
+If called from Lisp, also enable the mode if ARG is omitted or
+nil, and toggle it if ARG is `toggle'; disable the mode
+otherwise.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "ivy-rich" "../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich.el
 
-(register-definition-prefixes "ivy-rich" '("ivy-rich-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ivy-rich" '("ivy-rich-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/ivy-rich-20210212.1441/ivy-rich.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

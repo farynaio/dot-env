@@ -1,4 +1,4 @@
-;;; emojify-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; emojify-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "emojify" "emojify.el" (0 0 0 0))
-;;; Generated autoloads from emojify.el
+;;;### (autoloads nil "emojify" "../../../../.emacs.d/elpa/emojify-20210108.1111/emojify.el"
+;;;;;;  "29bf17b408930553173c3046fba45f4a")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/emojify-20210108.1111/emojify.el
 
 (autoload 'emojify-set-emoji-styles "emojify" "\
 Set the type of emojis that should be displayed.
@@ -19,16 +20,10 @@ STYLES is the styles emoji styles that should be used, see `emojify-emoji-styles
 (autoload 'emojify-mode "emojify" "\
 Emojify mode
 
-If called interactively, toggle `Emojify mode'.  If the prefix
-argument is positive, enable the mode, and if it is zero or
-negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Emojify mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -47,12 +42,11 @@ or call the function `global-emojify-mode'.")
 (autoload 'global-emojify-mode "emojify" "\
 Toggle Emojify mode in all buffers.
 With prefix ARG, enable Global Emojify mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if ARG is
-omitted or nil.
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
 
-Emojify mode is enabled in all buffers where `emojify-mode' would do
-it.
-
+Emojify mode is enabled in all buffers where
+`emojify-mode' would do it.
 See `emojify-mode' for more information on Emojify mode.
 
 \(fn &optional ARG)" t nil)
@@ -60,16 +54,10 @@ See `emojify-mode' for more information on Emojify mode.
 (autoload 'emojify-mode-line-mode "emojify" "\
 Emojify mode line
 
-If called interactively, toggle `Emojify-Mode-Line mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Emojify-Mode-Line mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -87,15 +75,13 @@ or call the function `global-emojify-mode-line-mode'.")
 
 (autoload 'global-emojify-mode-line-mode "emojify" "\
 Toggle Emojify-Mode-Line mode in all buffers.
-With prefix ARG, enable Global Emojify-Mode-Line mode if ARG is
-positive; otherwise, disable it.  If called from Lisp, enable the mode if
+With prefix ARG, enable Global Emojify-Mode-Line mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
 Emojify-Mode-Line mode is enabled in all buffers where
 `emojify-mode-line-mode' would do it.
-
-See `emojify-mode-line-mode' for more information on
-Emojify-Mode-Line mode.
+See `emojify-mode-line-mode' for more information on Emojify-Mode-Line mode.
 
 \(fn &optional ARG)" t nil)
 
@@ -108,12 +94,21 @@ Show Emojis that match PATTERN.
 Interactively prompt for Emojis and insert them in the current buffer.
 
 This respects the `emojify-emoji-styles' variable." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "emojify" "../../../../.emacs.d/elpa/emojify-20210108.1111/emojify.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/emojify-20210108.1111/emojify.el
 
-(register-definition-prefixes "emojify" '("emojify-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "emojify" '("emojify-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil nil ("emojify-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/emojify-20210108.1111/emojify-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/emojify-20210108.1111/emojify-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/emojify-20210108.1111/emojify.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

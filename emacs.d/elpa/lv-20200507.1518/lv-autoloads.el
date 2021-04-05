@@ -1,4 +1,4 @@
-;;; lv-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; lv-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,10 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "lv" "lv.el" (0 0 0 0))
-;;; Generated autoloads from lv.el
+;;;### (autoloads "actual autoloads are elsewhere" "lv" "../../../../.emacs.d/elpa/lv-20200507.1518/lv.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/lv-20200507.1518/lv.el
 
-(register-definition-prefixes "lv" '("lv-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lv" '("lv-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/lv-20200507.1518/lv-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/lv-20200507.1518/lv.el") (0 0
+;;;;;;  0 0))
 
 ;;;***
 

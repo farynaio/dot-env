@@ -1,4 +1,4 @@
-;;; page-break-lines-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; page-break-lines-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,23 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "page-break-lines" "page-break-lines.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from page-break-lines.el
+;;;### (autoloads nil "page-break-lines" "../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines.el"
+;;;;;;  "1d79ac10d25ab05daf664336b55d73cd")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines.el
 
 (autoload 'page-break-lines-mode "page-break-lines" "\
 Toggle Page Break Lines mode.
 
-If called interactively, toggle `Page-Break-Lines mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Page-Break-Lines mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 In Page Break mode, page breaks (^L characters) are displayed as a
 horizontal line of `page-break-lines-char' characters.
@@ -48,19 +42,30 @@ or call the function `global-page-break-lines-mode'.")
 
 (autoload 'global-page-break-lines-mode "page-break-lines" "\
 Toggle Page-Break-Lines mode in all buffers.
-With prefix ARG, enable Global Page-Break-Lines mode if ARG is
-positive; otherwise, disable it.  If called from Lisp, enable the mode if
+With prefix ARG, enable Global Page-Break-Lines mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
 ARG is omitted or nil.
 
 Page-Break-Lines mode is enabled in all buffers where
 `page-break-lines-mode-maybe' would do it.
-
-See `page-break-lines-mode' for more information on Page-Break-Lines
-mode.
+See `page-break-lines-mode' for more information on Page-Break-Lines mode.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "page-break-lines"
+;;;;;;  "../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines.el
 
-(register-definition-prefixes "page-break-lines" '("page-break-lines-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "page-break-lines" '("page-break-lines-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/page-break-lines-20210104.2224/page-break-lines.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

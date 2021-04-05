@@ -1,4 +1,4 @@
-;;; mu4e-maildirs-extension-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; mu4e-maildirs-extension-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "mu4e-maildirs-extension" "mu4e-maildirs-extension.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from mu4e-maildirs-extension.el
+;;;### (autoloads nil "mu4e-maildirs-extension" "../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension.el"
+;;;;;;  "9e1bdc3597a115e90680c43b411623be")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension.el
 
 (autoload 'mu4e-maildirs-extension-load "mu4e-maildirs-extension" "\
 Initialize." nil nil)
@@ -17,8 +17,21 @@ Initialize." nil nil)
 Un-initialize." nil nil)
 
 (defalias 'mu4e-maildirs-extension 'mu4e-maildirs-extension-load)
+
+;;;### (autoloads "actual autoloads are elsewhere" "mu4e-maildirs-extension"
+;;;;;;  "../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension.el
 
-(register-definition-prefixes "mu4e-maildirs-extension" '("mu4e-maildirs-extension-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "mu4e-maildirs-extension" '("mu4e-maildirs-extension-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/mu4e-maildirs-extension-20201028.921/mu4e-maildirs-extension.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

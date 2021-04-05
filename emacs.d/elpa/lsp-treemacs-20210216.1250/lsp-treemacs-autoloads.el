@@ -1,4 +1,4 @@
-;;; lsp-treemacs-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; lsp-treemacs-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "lsp-treemacs" "lsp-treemacs.el" (0 0 0 0))
-;;; Generated autoloads from lsp-treemacs.el
+;;;### (autoloads nil "lsp-treemacs" "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs.el"
+;;;;;;  "1b87d522efa8ca4dfa068355a3449d48")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs.el
 
 (autoload 'lsp-treemacs-symbols "lsp-treemacs" "\
 Show symbols view." t nil)
@@ -30,16 +31,10 @@ or call the function `lsp-treemacs-sync-mode'.")
 (autoload 'lsp-treemacs-sync-mode "lsp-treemacs" "\
 Global minor mode for synchronizing lsp-mode workspace folders and treemacs projects.
 
-If called interactively, toggle `Lsp-treemacs-sync mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Lsp-treemacs-sync mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -62,20 +57,32 @@ With a prefix argument, show the outgoing call hierarchy.
 \(fn OUTGOING)" t nil)
 
 (autoload 'lsp-treemacs-errors-list "lsp-treemacs" nil t nil)
-
-(register-definition-prefixes "lsp-treemacs" '("lsp-tree"))
-
-;;;***
 
-;;;### (autoloads nil "lsp-treemacs-themes" "lsp-treemacs-themes.el"
+;;;### (autoloads "actual autoloads are elsewhere" "lsp-treemacs"
+;;;;;;  "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from lsp-treemacs-themes.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs.el
 
-(register-definition-prefixes "lsp-treemacs-themes" '("lsp-treemacs-theme"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-treemacs" '("lsp-tree")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil nil ("lsp-treemacs-pkg.el") (0 0 0 0))
+;;;### (autoloads "actual autoloads are elsewhere" "lsp-treemacs-themes"
+;;;;;;  "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs-themes.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs-themes.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-treemacs-themes" '("lsp-treemacs-theme")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs-themes.el"
+;;;;;;  "../../../../.emacs.d/elpa/lsp-treemacs-20210216.1250/lsp-treemacs.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

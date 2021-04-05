@@ -1,4 +1,4 @@
-;;; async-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; async-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "async" "async.el" (0 0 0 0))
-;;; Generated autoloads from async.el
+;;;### (autoloads nil "async" "../../../../.emacs.d/elpa/async-20210117.718/async.el"
+;;;;;;  "75a6a8542b0c3876e45847b6b093638f")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/async.el
 
 (autoload 'async-start-process "async" "\
 Start the executable PROGRAM asynchronously named NAME.  See `async-start'.
@@ -68,14 +69,20 @@ returns nil.  It can still be useful, however, as an argument to
 `async-ready' or `async-wait'.
 
 \(fn START-FUNC &optional FINISH-FUNC)" nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "async" "../../../../.emacs.d/elpa/async-20210117.718/async.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/async.el
 
-(register-definition-prefixes "async" '("async-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "async" '("async-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "async-bytecomp" "async-bytecomp.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from async-bytecomp.el
+;;;### (autoloads nil "async-bytecomp" "../../../../.emacs.d/elpa/async-20210117.718/async-bytecomp.el"
+;;;;;;  "67fbe4b788b7564f3470aef8dd4c770d")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/async-bytecomp.el
 
 (autoload 'async-byte-recompile-directory "async-bytecomp" "\
 Compile all *.el files in DIRECTORY asynchronously.
@@ -98,16 +105,10 @@ Byte compile asynchronously packages installed with package.el.
 Async compilation of packages can be controlled by
 `async-bytecomp-allowed-packages'.
 
-If called interactively, toggle `Async-Bytecomp-Package mode'.
-If the prefix argument is positive, enable the mode, and if it is
-zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Async-Bytecomp-Package mode if
+ARG is positive, and disable it if ARG is zero or negative.  If
+called from Lisp, also enable the mode if ARG is omitted or nil,
+and toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -117,13 +118,21 @@ Byte compile Lisp code FILE asynchronously.
 Same as `byte-compile-file' but asynchronous.
 
 \(fn FILE)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "async-bytecomp"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/async-bytecomp.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/async-bytecomp.el
 
-(register-definition-prefixes "async-bytecomp" '("async-byte"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "async-bytecomp" '("async-byte")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "dired-async" "dired-async.el" (0 0 0 0))
-;;; Generated autoloads from dired-async.el
+;;;### (autoloads nil "dired-async" "../../../../.emacs.d/elpa/async-20210117.718/dired-async.el"
+;;;;;;  "fa79509fc62b6f3bbf969df9f4080203")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/dired-async.el
 
 (defvar dired-async-mode nil "\
 Non-nil if Dired-Async mode is enabled.
@@ -138,16 +147,10 @@ or call the function `dired-async-mode'.")
 (autoload 'dired-async-mode "dired-async" "\
 Do dired actions asynchronously.
 
-If called interactively, toggle `Dired-Async mode'.  If the
-prefix argument is positive, enable the mode, and if it is zero
-or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
+If called interactively, enable Dired-Async mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
@@ -170,20 +173,33 @@ Run ‘dired-do-hardlink’ asynchronously.
 Run ‘dired-do-rename’ asynchronously.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "dired-async"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/dired-async.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/dired-async.el
 
-(register-definition-prefixes "dired-async" '("dired-async-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dired-async" '("dired-async-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "smtpmail-async" "smtpmail-async.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from smtpmail-async.el
+;;;### (autoloads "actual autoloads are elsewhere" "smtpmail-async"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/smtpmail-async.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/async-20210117.718/smtpmail-async.el
 
-(register-definition-prefixes "smtpmail-async" '("async-smtpmail-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smtpmail-async" '("async-smtpmail-")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("async-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/async-20210117.718/async-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/async-bytecomp.el"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/async-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/async.el" "../../../../.emacs.d/elpa/async-20210117.718/dired-async.el"
+;;;;;;  "../../../../.emacs.d/elpa/async-20210117.718/smtpmail-async.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

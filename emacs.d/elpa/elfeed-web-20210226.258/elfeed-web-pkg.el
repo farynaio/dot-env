@@ -2,7 +2,7 @@
   '((simple-httpd "1.5.1")
     (elfeed "3.2.0")
     (emacs "24.3"))
-  :commit "0ccd59aaace34546017a1a0d7c393749747d5bc6" :authors
+  :commit "e29c8b91450bd42d90041231f769c4e5fe5070da" :authors
   '(("Christopher Wellons" . "wellons@nullprogram.com"))
   :maintainer
   '("Christopher Wellons" . "wellons@nullprogram.com")

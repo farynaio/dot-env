@@ -1,4 +1,4 @@
-;;; elfeed-goodies-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; elfeed-goodies-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "elfeed-goodies" "elfeed-goodies.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from elfeed-goodies.el
+;;;### (autoloads nil "elfeed-goodies" "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies.el"
+;;;;;;  "1694f742166ce4bbb8d19aca21a2bcd1")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies.el
 
 (autoload 'elfeed-goodies/setup "elfeed-goodies" "\
 Setup Elfeed with extras:
@@ -16,55 +16,81 @@ Setup Elfeed with extras:
 * Adaptive header bar and entries.
 * Header bar using powerline.
 * Split pane view via popwin." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies.el
 
-(register-definition-prefixes "elfeed-goodies" '("elfeed-goodies/powerline-default-separator"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies" '("elfeed-goodies/powerline-default-separator")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "elfeed-goodies-logging" "elfeed-goodies-logging.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from elfeed-goodies-logging.el
+;;;### (autoloads nil "elfeed-goodies-logging" "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-logging.el"
+;;;;;;  "60f8da63ad2ae34002d5f6662cb90794")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-logging.el
 
 (autoload 'elfeed-goodies/toggle-logs "elfeed-goodies-logging" "\
 Toggle the display of Elfeed logs in a popup window." t nil)
-
-(register-definition-prefixes "elfeed-goodies-logging" '("elfeed-goodies/log-window-"))
-
-;;;***
 
-;;;### (autoloads nil "elfeed-goodies-new-entry-hooks" "elfeed-goodies-new-entry-hooks.el"
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies-logging"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-logging.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from elfeed-goodies-new-entry-hooks.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-logging.el
 
-(register-definition-prefixes "elfeed-goodies-new-entry-hooks" '("elfeed-goodies/"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-logging" '("elfeed-goodies/log-window-")))
+
+;;;***
 
 ;;;***
 
-;;;### (autoloads nil "elfeed-goodies-search-mode" "elfeed-goodies-search-mode.el"
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies-new-entry-hooks"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-new-entry-hooks.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from elfeed-goodies-search-mode.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-new-entry-hooks.el
 
-(register-definition-prefixes "elfeed-goodies-search-mode" '("-elfeed/" "-pad-string-to" "elfeed-goodies/" "search-header/"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-new-entry-hooks" '("elfeed-goodies/")))
 
 ;;;***
 
-;;;### (autoloads nil "elfeed-goodies-show-mode" "elfeed-goodies-show-mode.el"
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies-search-mode"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-search-mode.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from elfeed-goodies-show-mode.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-search-mode.el
 
-(register-definition-prefixes "elfeed-goodies-show-mode" '("elfeed-goodies/"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-search-mode" '("-elfeed/" "-pad-string-to" "elfeed-goodies/" "search-header/")))
 
 ;;;***
 
-;;;### (autoloads nil "elfeed-goodies-split-pane" "elfeed-goodies-split-pane.el"
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies-show-mode"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-show-mode.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from elfeed-goodies-split-pane.el
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-show-mode.el
 
-(register-definition-prefixes "elfeed-goodies-split-pane" '("elfeed-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-show-mode" '("elfeed-goodies/")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("elfeed-goodies-pkg.el") (0 0 0 0))
+;;;### (autoloads "actual autoloads are elsewhere" "elfeed-goodies-split-pane"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-split-pane.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-split-pane.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elfeed-goodies-split-pane" '("elfeed-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-logging.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-new-entry-hooks.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-pkg.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-search-mode.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-show-mode.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies-split-pane.el"
+;;;;;;  "../../../../.emacs.d/elpa/elfeed-goodies-20190128.1631/elfeed-goodies.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; vimrc-mode-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; vimrc-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "vimrc-mode" "vimrc-mode.el" (0 0 0 0))
-;;; Generated autoloads from vimrc-mode.el
+;;;### (autoloads nil "vimrc-mode" "../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode.el"
+;;;;;;  "af93c813f6a7c1c5cb4bc5c75a236887")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode.el
  (add-to-list 'auto-mode-alist '("\\.vim\\'" . vimrc-mode))
  (add-to-list 'auto-mode-alist '("[._]?g?vimrc\\'" . vimrc-mode))
  (add-to-list 'auto-mode-alist '("\\.exrc\\'" . vimrc-mode))
@@ -16,8 +17,20 @@
 Major mode for editing `vimrc', `xxx.vim' and `.exrc' configuration files.
 
 \(fn)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "vimrc-mode" "../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode.el
 
-(register-definition-prefixes "vimrc-mode" '("vimrc-"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "vimrc-mode" '("vimrc-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/vimrc-mode-20181116.1919/vimrc-mode.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

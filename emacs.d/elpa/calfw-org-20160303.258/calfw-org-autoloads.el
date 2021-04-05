@@ -1,4 +1,4 @@
-;;; calfw-org-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
+;;; calfw-org-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
 
@@ -6,10 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "calfw-org" "calfw-org.el" (0 0 0 0))
-;;; Generated autoloads from calfw-org.el
+;;;### (autoloads "actual autoloads are elsewhere" "calfw-org" "../../../../.emacs.d/elpa/calfw-org-20160303.258/calfw-org.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../.emacs.d/elpa/calfw-org-20160303.258/calfw-org.el
 
-(register-definition-prefixes "calfw-org" '("cfw:o"))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "calfw-org" '("cfw:o")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/calfw-org-20160303.258/calfw-org-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/calfw-org-20160303.258/calfw-org.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
