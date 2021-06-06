@@ -1419,6 +1419,7 @@ should be continued."
 
 * Journal
 * Pickup
+* Trading
 
 ")))
 
