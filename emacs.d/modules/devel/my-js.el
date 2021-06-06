@@ -37,8 +37,8 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode)
-          (rjsx-mode . my/prettier-mode))
+          (rjsx-mode . mmm-mode))
+          ;; (rjsx-mode . my/prettier-mode))
           ;; (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
