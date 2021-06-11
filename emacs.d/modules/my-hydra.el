@@ -49,7 +49,7 @@
   ("Basic"
    (("a" abbrev-mode "abbrev" :toggle t)
     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
-    ("s" smart-quotes-mode "smart quotes toggle" :toggle t))
+    ("q" smart-quotes-mode "smart quotes toggle" :toggle t))
    "Coding"
    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
     ("e" electric-operator-mode "electric operator" :toggle t)
