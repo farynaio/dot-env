@@ -338,6 +338,21 @@ $0`(yas-escape-text yas-selected-text)`")
       (eldoc-mode 1)
       (unbind-key "C-M-i" emacs-lisp-mode-map))))
 
+(use-package solidity-mode
+  :custom
+  (solidity-solium-path "~/.config/yarn/global/node_modules/.bin/solium")
+  :config
+  (add-hook 'solidity-mode-hook
+    (lambda ()
+      (setq-local c-basic-offset 4))))
+
+(use-package solidity-flycheck
+  :ensure nil
+  :custom
+  (solidity-flycheck-solium-checker-active t))
+
+(use-package company-solidity)
+
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
 ;; (require 'ox-publish)
