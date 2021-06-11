@@ -328,7 +328,8 @@
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
    (("t" org-toggle-timestamp-type "timestamp toggle" :toggle t)
-    ("l" org-link-archive "link archive"))
+    ("l" org-link-archive "link archive")
+    ("i" org-toggle-inline-images "images toggle"))
    "Navigation"
    (("s" counsel-org-goto "goto heading")
     ("a" counsel-org-file "browse attachments"))))
