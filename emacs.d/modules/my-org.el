@@ -637,6 +637,15 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
+    :prepend t :empty-lines-after 1 :kill-buffer t)
+
+  ("th" "Habit" entry (file+headline ,my/org-tasks-file-path "Tasks")
+"* TODO %?
+SCHEDULED: <%<%Y-%m-%d %a .+1d>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
 :STYLE: habit
 :END:
 "
@@ -690,13 +699,26 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 
+[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+[[~/Documents/emacs/coaching/][coaching folder]]
+[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+- tasks
+  - Review last week journal reviews.
+  - Plan goals for following month based on this year goals.
+    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+  - Review all task lists.
+  - Plan long term, bigger events for following 6 months.
+
+
 + Plans for next weak
   -
 
-+ What's good:
+
++ What went good:
   - %?
 
-+ What's could be better:
++ What went bad:
   -
 
 + What do I learned:
@@ -713,13 +735,26 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 
+[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+[[~/Documents/emacs/coaching/][coaching folder]]
+[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+- tasks
+  - Review last month journal reviews.
+  - Plan goals for following month based on this year goals.
+    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+  - Review all task lists.
+  - Plan long term, bigger events for following 6 months.
+
+
 + Plans for next month
   -
 
-+ What's good:
+
++ What went good:
   - %?
 
-+ What's could be better:
++ What went bad:
   -
 
 + What do I learned:
@@ -730,19 +765,69 @@ DEADLINE: <%<%Y-%m-%d %a>>
 "
     :prepend t :empty-lines-after 1 :jump-to-captured t)
 
+  ("rh" "Review 6-month" entry (file+headline ,my/org-review-file-path "Review Life")
+"* [%<%Y-%m-%d %a>]                                                 :HALF-YEAR:
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+
+[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+[[~/Documents/emacs/coaching/][coaching folder]]
+[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+
+- tasks
+  - Review last 6 months journal reviews.
+  - Plan goals for following month based on this year goals.
+    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+  - Review all task lists.
+  - Plan long term, bigger events for following 6 months.
+
+
++ Plans for half year
+  -
+
+
++ What went good:
+  - %?
+
++ What went bad:
+  -
+
++ What do I learned:
+  -
+
++ Plans for improvement:
+  -
+"
+:prepend t :empty-lines-after 1 :jump-to-captured t)
+
   ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>]                                                 :YEARLY:
 :PROPERTIES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 
+[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+[[~/Documents/emacs/coaching/][coaching folder]]
+[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+- tasks
+  - Review last 12 months journal reviews.
+  - Plan goals for following month based on this year goals.
+    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+  - Review all task lists.
+  - Plan long term, bigger events for following 6 months.
+
+
 + Plans for next year
   -
 
-+ What's good:
+
++ What went good:
   - %?
 
-+ What's could be better:
++ What went bad:
   -
 
 + What do I learned:
