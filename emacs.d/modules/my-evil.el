@@ -177,6 +177,7 @@
   (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
   (add-to-list 'evil-emacs-state-modes 'nov-mode)
   (add-to-list 'evil-emacs-state-modes 'helpful-mode)
+  (add-to-list 'evil-emacs-state-modes 'process-menu-mode)
 
   (evil-declare-change-repeat 'company-complete)
 
