@@ -216,8 +216,10 @@
   (lsp-eldoc-enable-hover nil)
   (lsp-restart 'auto-restart)
   (lsp-lens-enable nil)
+  (lsp-eslint-enable nil)
+  (lsp-clients-svlangserver-disableLinting t)
   (lsp-rf-language-server-trace-serve "off")
-  (lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
+  ;; (lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
   :config
 
   (add-hook 'lsp-mode-hook
@@ -228,7 +230,12 @@
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-disabled-clients '((typescript-mode . (eslint)) (json-mode . (eslint json-ls)))))
+  (add-to-list 'lsp-disabled-clients '(
+                                        (typescript-mode . (eslint))
+                                        (json-mode . (eslint json-ls))
+                                        (js-mode . (eslint))
+                                        (rjsx-mode . (eslint))
+                                        )))
 
 (use-package lsp-ui
   :after lsp-mode
