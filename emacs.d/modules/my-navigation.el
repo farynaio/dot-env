@@ -283,6 +283,11 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;   :config
 ;;   (persp-mode))
 
+(use-package ivy-xref
+  :custom
+  (xref-show-xrefs-function 'ivy-xref-show-xrefs)
+  :after ivy)
+
 (use-package ag
   :defer 3
   :custom
