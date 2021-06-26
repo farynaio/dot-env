@@ -301,7 +301,7 @@
 
 (display-time-mode -1)
 
-(defvar *protected-buffers* '("*scratch*" "*Messages*" "*dashboard*" "notes.org")
+(defvar *protected-buffers* '("*scratch*" "*Messages*" "*dashboard*" "Notes.org")
   "Buffers that cannot be killed.")
 
 (defun my/protected-buffers ()

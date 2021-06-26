@@ -17,16 +17,16 @@
 
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
 
-(setq my/notes-file-path (expand-file-name "notes.org" org-agenda-directory))
+(setq my/notes-file-path (expand-file-name "Notes.org" org-agenda-directory))
 
 ;; Tasks
-(setq my/org-backlog-file-path (expand-file-name "backlog.org" org-agenda-directory))
-(setq my/org-events-file-path (expand-file-name "events.org" org-agenda-directory))
-(setq my/org-inbox-file-path (expand-file-name "inbox.org" org-agenda-directory))
-(setq my/org-tasks-file-path (expand-file-name "tasks.org" org-agenda-directory))
-(setq my/org-taxes-file-path (expand-file-name "taxes.org" org-agenda-directory))
-(setq my/org-temp-file-path (expand-file-name "temp.org" org-agenda-directory))
-(setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe_someday.org" org-agenda-directory))
+(setq my/org-backlog-file-path (expand-file-name "Backlog.org" org-agenda-directory))
+(setq my/org-events-file-path (expand-file-name "Events.org" org-agenda-directory))
+(setq my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
+(setq my/org-tasks-file-path (expand-file-name "Tasks.org" org-agenda-directory))
+(setq my/org-taxes-file-path (expand-file-name "Taxes.org" org-agenda-directory))
+(setq my/org-temp-file-path (expand-file-name "Temp.org" org-agenda-directory))
+(setq my/org-tasks-maybe-someday-file-path (expand-file-name "Maybe Someday.org" org-agenda-directory))
 
 (setq
   my/affirmations-file-path (expand-file-name "affirmations.org" my/fast-path)
