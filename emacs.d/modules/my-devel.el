@@ -295,6 +295,8 @@
   :mode "^Dockerfile")
 
 (use-package graphql-mode
+  :custom
+  (graphql-indent-level tab-width)
   :commands graphql-mode)
 
 (use-package yasnippet
