@@ -122,18 +122,18 @@
     ("cs" (find-file "~/dotenv/shells/") "shells")
     )
    "Ledger"
-   (("lp" (find-file my/ledger-private-path) "personal")
-    ("lc" (find-file my/ledger-company-dir-path) "company dir")
-    ("lr" (find-file my/ledger-company-report-path) "company report"))
+   (("lp" (find-file my/ledger-private-path) "Personal")
+    ("lc" (find-file my/ledger-company-dir-path) "Company dir")
+    ("lr" (find-file my/ledger-company-report-path) "Company report"))
    "Notes"
-   (("na" (find-file my/affirmations-file-path) "affirmations")
-    ("nb" (find-file my/path-coaching-brainstorm) "brainstorm")
-    ("ne" (find-file my/path-health-exercises-path) "exercises")
-    ("ng" (find-file my/path-coaching-goals-details) "goals details")
-    ("nj" (find-file my/japanese-file-path) "japanese")
-    ("nn" (find-file my/notes-file-path) "notes")
-    ("nr" (find-file my/org-review-file-path) "reviews")
-    ("nw" (find-file my/path-coaching-wheel-of-life) "wheel of life"))
+   (("na" (find-file my/affirmations-file-path) "Affirmations")
+    ("nb" (find-file my/path-coaching-brainstorm) "Brainstorm")
+    ("ne" (find-file my/path-health-exercises-path) "Exercises")
+    ("ng" (find-file my/path-coaching-goals-details) "Goals details")
+    ("nj" (find-file my/japanese-file-path) "Japanese")
+    ("nn" (find-file my/notes-file-path) "Notes")
+    ("nr" (find-file my/org-review-file-path) "Reviews")
+    ("nw" (find-file my/path-coaching-wheel-of-life) "Wheel of life"))
    "Perspective"
    (("pl" (lambda () (interactive ) (persp-state-restore persp-state-default-file)) "perspective load")
     ("ps" (persp-state-save) "perspective save"))
@@ -227,7 +227,7 @@
     )
    "Project"
    (("a" my/projectile-add-known-project "add")
-    ("r" projectile-remove-known-project "remove"))
+    ("m" projectile-remove-known-project "remove"))
    "Other"
    (("i" projectile-invalidate-cache "reset cache"))
    "Search"
@@ -329,7 +329,8 @@
   ("Action"
    (("t" org-toggle-timestamp-type "timestamp toggle" :toggle t)
     ("l" org-link-archive "link archive")
-    ("i" org-toggle-inline-images "images toggle" :toggle t))
+    ("i" org-toggle-inline-images "images toggle" :toggle t)
+    ("r" jarfar/reverse-org-paragraphs-order "reverse paragraph order"))
    "Navigation"
    (("s" counsel-org-goto "goto heading")
     ("a" counsel-org-file "browse attachments"))))
