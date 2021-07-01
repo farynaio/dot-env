@@ -3,6 +3,7 @@
 # condition: (looking-back "^sless" nil)
 # --
 import React from "react"
+import PropTypes from 'prop-types'
 
 const $1 = (\{$2\}) => {
   return (
