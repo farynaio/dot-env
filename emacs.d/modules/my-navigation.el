@@ -284,9 +284,12 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;   (persp-mode))
 
 (use-package ivy-xref
+  :after ivy
   :custom
   (xref-show-xrefs-function 'ivy-xref-show-xrefs)
-  :after ivy)
+  :init
+  (when (>= emacs-major-version 27)
+    (setq xref-show-definitions-function #'ivy-xref-show-defs)))
 
 (use-package ag
   :defer 3
@@ -445,13 +448,6 @@ point reaches the beginning or end of the buffer, stop there."
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
-
-(defun my/evil-jump-to-tag-other-buffer ()
-  (interactive)
-  (save-excursion
-    (evil-window-vsplit)
-    (windmove-right)
-    (evil-jump-to-tag)))
 
 (bind-keys
   ("C-x |" . my/toggle-window-split)
