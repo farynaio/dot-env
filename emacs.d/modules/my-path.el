@@ -32,7 +32,7 @@
   my/affirmations-file-path (expand-file-name "affirmations.org" my/fast-path)
   my/japanese-file-path (expand-file-name "japanese.org" my/fast-path)
   my/org-languages-file-path (expand-file-name "languages.org" my/fast-path)
-  my/org-yearly-goals-file-path (expand-file-name "yearly_goals.org" my/fast-path)
+  my/org-yearly-goals-file-path (expand-file-name "Yearly goals.org" my/fast-path)
   my/org-goals-file-path (expand-file-name "goals.org" my/fast-path))
 
 (setq my/org-media-reviews-file-path (expand-file-name "media_reviews.org" org-directory))
