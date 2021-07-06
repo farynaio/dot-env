@@ -50,6 +50,7 @@
    (("a" abbrev-mode "abbrev" :toggle t)
     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
     ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
+    ("b" treemacs "treemacs bar toggle" :toggle t)
     ("t" centaur-tabs-mode "centaur tabs toggle" :toggle t))
    "Coding"
    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)

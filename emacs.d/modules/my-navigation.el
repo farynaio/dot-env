@@ -125,14 +125,47 @@
 	    (compilation-start command 'grep-mode))
     ))
 
-;; (use-package treemacs
-;;   :defer t
-;;   :commands treeemacs
-;;   :config
-;;   (treemacs-follow-mode 1)
-;;   (treemacs-fringe-indicator-mode 1)
-;;   (treemacs-git-mode 'simple)
-;;   (treemacs-filewatch-mode 1))
+(use-package treemacs
+  :defer t
+  :commands treeemacs
+  :hook (treemacs-mode . (lambda () (text-scale-adjust -1)))
+  ;; :bind (:map treemacs-mode-map
+  ;;         ("RET" . treemacs-visit-node-in-most-recently-used-window))
+  :custom
+  (treemacs-no-png-images t)
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  ;; (treemacs-fringe-indicator-mode 'always)
+  (treemacs-git-mode 'simple)
+  (treemacs-resize-icons 11)
+  )
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :custom
+  (treemacs-project-follow-cleanup t))
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :config
+  (evil-define-key 'treemacs treemacs-mode-map
+    (kbd "RET") #'treemacs-visit-node-in-most-recently-used-window
+    [S-mouse-1] #'treemacs-visit-node-in-most-recently-used-window
+    [mouse-3] #'treemacs-visit-node-in-most-recently-used-window
+    [C-down-mouse-1] #'treemacs-visit-node-in-most-recently-used-window)
+
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-visit-node-in-most-recently-used-window)
+  ;; (define-key treemacs-mode-map [S-mouse-1] #'treemacs-visit-node-in-most-recently-used-window)
+  ;; (define-key treemacs-mode-map [mouse-3] #'treemacs-visit-node-in-most-recently-used-window)
+  ;; (define-key treemacs-mode-map [C-down-mouse-1] #'treemacs-visit-node-in-most-recently-used-window)
+  )
+
+(use-package treemacs-magit
+  :after (treemacs magit))
+
+;; (use-package treemacs-all-the-icons
+;;   :after treemacs)
 
 (use-package centaur-tabs
   :defer t
@@ -164,16 +197,6 @@
   (centaur-tabs-mode 1)
   (centaur-tabs-headline-match)
   (centaur-tabs-change-fonts "arial" 120))
-
-;; (use-package treemacs-projectile
-;;   :after projectile treemacs)
-
-;; (use-package treemacs-evil
-;;   :after evil treemacs)
-
-;; (use-package treemacs-magit
-;;   :after treemacs magit)
-
 (use-package avy
   :bind (:map help-mode-map
           ("\\c" . avy-goto-char)

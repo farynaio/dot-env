@@ -255,20 +255,20 @@
   (evil-define-key 'normal lsp-ui-mode-map
     (kbd ",l") #'lsp-ui-imenu))
 
-;; (use-package lsp-treemacs
-;;   :after lsp-mode treemacs
-;;   :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
-;;   :config
-;;   (lsp-treemacs-sync-mode 1))
+(use-package lsp-treemacs
+  :after lsp-mode treemacs
+  :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
+  :config
+  (lsp-treemacs-sync-mode 1))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
-(use-package dap-mode
-  :after lsp-mode
-  :config
-  (require 'dap-chrome)
-  (dap-chrome-setup)
-  ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
-  (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
+;; (use-package dap-mode
+;;   :after lsp-mode
+;;   :config
+;;   (require 'dap-chrome)
+;;   (dap-chrome-setup)
+;;   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
+;;   (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
 (use-package dtrt-indent
   :diminish "dtrt")
