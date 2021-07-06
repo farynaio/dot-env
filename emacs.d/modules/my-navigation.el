@@ -134,6 +134,37 @@
 ;;   (treemacs-git-mode 'simple)
 ;;   (treemacs-filewatch-mode 1))
 
+(use-package centaur-tabs
+  :defer t
+  :hook ((prog-mode . (lambda () (centaur-tabs-local-mode 1)))
+          (dashboard-mode . centaur-tabs-local-mode)
+          (dired-mode . centaur-tabs-local-mode)
+          (woman-mode . centaur-tabs-local-mode)
+          (help-mode . centaur-tabs-local-mode)
+          (helpful-mode . centaur-tabs-local-mode)
+          (profiler-report-mode . centaur-tabs-local-mode)
+          (epa-key-list-mode . centaur-tabs-local-mode)
+          (magit-mode . centaur-tabs-local-mode)
+          (process-menu-mode . centaur-tabs-local-mode)
+          (nov-mode . centaur-tabs-local-mode)
+          (flycheck-error-list-mode . centaur-tabs-local-mode)
+          (git-rebase-mode . centaur-tabs-local-mode)
+          (jarfar/org-roam-side-mode . centaur-tabs-local-mode)
+          (magit-mode . centaur-tabs-local-mode)
+          (org-agenda-mode . centaur-tabs-local-mode)
+          (text-mode . centaur-tabs-local-mode))
+  :custom
+  (centaur-tabs-set-icons t)
+  (centaur-tabs-plain-icons t)
+  (centaur-tabs-gray-out-icons t)
+  (centaur-tabs-set-bar 'under)
+  (centaur-tabs-set-modified-marker t)
+  (centaur-tabs-modified-marker "*")
+  :config
+  (centaur-tabs-mode 1)
+  (centaur-tabs-headline-match)
+  (centaur-tabs-change-fonts "arial" 120))
+
 ;; (use-package treemacs-projectile
 ;;   :after projectile treemacs)
 
