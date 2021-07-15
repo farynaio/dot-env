@@ -126,21 +126,21 @@
     ))
 
 (use-package treemacs
-  :defer t
-  :commands treeemacs
-  :hook (treemacs-mode . (lambda () (text-scale-adjust -1)))
+  ;; :commands treeemacs
+  ;; :hook (treemacs-mode . (lambda () (text-scale-adjust -1)))
   ;; :bind (:map treemacs-mode-map
   ;;         ("RET" . treemacs-visit-node-in-most-recently-used-window))
   :custom
   (treemacs-default-visit-action #'treemacs-visit-node-in-most-recently-used-window)
   ;; (treemacs-no-png-images nil)
   :config
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
+  (treemacs-follow-mode 0)
+  (treemacs-filewatch-mode 1)
   ;; (treemacs-fringe-indicator-mode 'always)
   (treemacs-git-mode 'simple)
-  (treemacs-resize-icons 11)
-  (define-key treemacs-mode-map [mouse-1] #'treemacs-visit-node-in-most-recently-used-window))
+  (treemacs-resize-icons 12)
+  ;; (define-key treemacs-mode-map [mouse-1] #'treemacs-visit-node-in-most-recently-used-window)
+  )
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
