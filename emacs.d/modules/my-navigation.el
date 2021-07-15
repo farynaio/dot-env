@@ -252,6 +252,7 @@
           ("C-h a" . counsel-apropos)
           ("C-x r b" . counsel-bookmark)
           ("C-x b" . counsel-switch-buffer)
+          ("C-x C-b" . counsel-switch-buffer)
           ("C-x B" . counsel-switch-buffer-other-window)
           ("C-x C-r" . counsel-recentf)
           ("C-x C-d" . counsel-dired-jump)
