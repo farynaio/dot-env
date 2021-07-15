@@ -192,9 +192,10 @@
   (centaur-tabs-set-modified-marker t)
   (centaur-tabs-modified-marker "*")
   :config
-  (centaur-tabs-mode 1)
+  ;; (centaur-tabs-mode 1)
   (centaur-tabs-headline-match)
   (centaur-tabs-change-fonts "arial" 120))
+
 (use-package avy
   :bind (:map help-mode-map
           ("\\c" . avy-goto-char)
