@@ -87,6 +87,9 @@
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell "/bin/sh"))
 
+(use-package counsel-tramp
+  :after (counsel tramp))
+
 (use-package anzu
   :diminish anzu-mode
   :bind ("M-%" . 'anzu-query-replace-regexp)
