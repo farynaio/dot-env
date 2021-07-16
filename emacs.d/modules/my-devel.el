@@ -204,6 +204,11 @@
 
 (use-package lsp-mode
   :commands lsp lsp-deferred
+  :hook ((lsp-mode .
+           (lambda ()
+             (when (bound-and-true-p which-key-mode)
+               (lsp-enable-which-key-integration))
+             )))
   :custom
   (lsp-enable-snippet t)
   (lsp-enable-semantic-highlighting nil)
@@ -221,21 +226,14 @@
   (lsp-rf-language-server-trace-serve "off")
   ;; (lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
   :config
-
-  (add-hook 'lsp-mode-hook
-    (lambda ()
-      (add-hook 'after-save-hook 'air-revert-buffer-noconfirm -70 t)
-      (when (bound-and-true-p which-key-mode)
-        (lsp-enable-which-key-integration))))
-
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-disabled-clients '(
-                                        (typescript-mode . (eslint))
-                                        (json-mode . (eslint json-ls))
-                                        (js-mode . (eslint))
-                                        (rjsx-mode . (eslint))
-                                        )))
+  (add-to-list 'lsp-disabled-clients
+    '(
+       (typescript-mode . (eslint))
+       (json-mode . (eslint json-ls))
+       (js-mode . (eslint))
+       (rjsx-mode . (eslint)))))
 
 (use-package lsp-ui
   :after lsp-mode
@@ -269,6 +267,9 @@
 ;;   (dap-chrome-setup)
 ;;   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
 ;;   (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
+
+(use-package lsp-ivy
+  :after (lsp-mode ivy))
 
 (use-package dtrt-indent
   :diminish "dtrt")
