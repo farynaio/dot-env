@@ -74,17 +74,15 @@
 			  (:keywords "minibuffer" "completion")
 			  (:url . "https://elpa.gnu.org/packages/aggressive-completion.html"))])
  (aggressive-indent .
-		    [(1 8 3)
+		    [(1 10 0)
 		     ((emacs
-		       (24 1))
-		      (cl-lib
-		       (0 5)))
-		     "Minor mode to aggressively keep your code always indented" single
-		     ((:keywords "indent" "lisp" "maint" "tools")
+		       (24 3)))
+		     "Minor mode to aggressively keep your code always indented" tar
+		     ((:url . "https://github.com/Malabarba/aggressive-indent-mode")
+		      (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
 		      (:authors
 		       ("Artur Malabarba" . "emacs@endlessparentheses.com"))
-		      (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
-		      (:url . "https://github.com/Malabarba/aggressive-indent-mode"))])
+		      (:keywords "indent" "lisp" "maint" "tools"))])
  (ahungry-theme .
 		[(1 10 0)
 		 ((emacs
@@ -409,7 +407,7 @@
 		      ("Jackson Ray Hamilton" . "jackson@jacksonrayhamilton.com"))
 		     (:keywords "convenience" "faces" "tools"))])
  (corfu .
-	[(0 9)
+	[(0 10)
 	 ((emacs
 	   (27 1)))
 	 "Completion Overlay Region FUnction" tar
@@ -480,7 +478,7 @@
 	      ("João Távora" . "joaotavora@gmail.com"))
 	     (:maintainer "João Távora" . "joaotavora@gmail.com"))])
  (dash .
-       [(2 18 1)
+       [(2 19 0)
 	((emacs
 	  (24)))
 	"A modern list library for Emacs" tar
@@ -648,7 +646,7 @@
 	       ("Leo Liu" . "sdl.web@gmail.com"))
 	      (:keywords "killing" "convenience"))])
  (ebdb .
-       [(0 6 24)
+       [(0 7)
 	((emacs
 	  (25 1))
 	 (cl-lib
@@ -692,7 +690,7 @@
 	      (:maintainer "Markus Triska" . "triska@metalevel.at")
 	      (:url . "https://www.metalevel.at/ediprolog/"))])
  (eev .
-      [(20210618)
+      [(20210710)
        ((emacs
 	 (24 4)))
        "Support for e-scripts (eepitch blocks, elisp hyperlinks, etc)" tar
@@ -1494,7 +1492,7 @@
 			  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 			 (:keywords "faces" "theme" "accessibility"))])
  (modus-themes .
-	       [(1 4 0)
+	       [(1 5 0)
 		((emacs
 		  (26 1)))
 		"Highly accessible themes (WCAG AAA)" tar
@@ -1847,7 +1845,7 @@
 	       ("Scott Andrew Borton" . "scott@pp.htv.fi"))
 	      (:maintainer "John Darrington" . "john@darrington.wattle.id.au"))])
  (pyim .
-       [(3 8 3)
+       [(3 9 2)
 	((emacs
 	  (24 4))
 	 (async
