@@ -359,11 +359,11 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
     (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
             (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
   :custom
-  (dashboard-banner-logo-title "Let's do something great today!")
+  (dashboard-banner-logo-title "Let's kick some ass!")
   (dashboard-center-content t)
   (dashboard-items '((packages)
                       (projects . 10)
-                      (recents . 10)))
+                      (recents . 15)))
   (dashboard-set-file-icons t)
   (dashboard-set-heading-icons t)
   (dashboard-set-init-info nil)
