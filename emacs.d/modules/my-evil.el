@@ -77,6 +77,8 @@
     ("<home>" . evil-first-non-blank)
     ("<end>" . evil-end-of-line)
     (",/" . keyboard-quit)
+    ("{" . backward-paragraph)
+    ("}" . forward-paragraph)
     :map evil-motion-state-map
     ("{" . backward-paragraph)
     ("C-d" . evil-scroll-down)
