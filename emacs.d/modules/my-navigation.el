@@ -171,7 +171,7 @@
 
 (use-package centaur-tabs
   :defer t
-  :hook ((dashboard-mode . my/centaur-tabs-local-disable-if-enabled)
+  :hook (
           (dired-mode . my/centaur-tabs-local-disable-if-enabled)
           (woman-mode . my/centaur-tabs-local-disable-if-enabled)
           (help-mode . my/centaur-tabs-local-disable-if-enabled)
@@ -363,7 +363,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (dashboard-center-content t)
   (dashboard-items '((packages)
                       (projects . 10)
-                      (recents . 15)))
+                      (recents . 18)))
   (dashboard-set-file-icons t)
   (dashboard-set-heading-icons t)
   (dashboard-set-init-info nil)

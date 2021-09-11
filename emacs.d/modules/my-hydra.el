@@ -51,10 +51,11 @@
     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
     ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
     ("b" treemacs "treemacs bar toggle" :toggle t)
-    ("t" centaur-tabs-mode "centaur tabs toggle" :toggle t))
+    ("t" centaur-tabs-mode "centaur tabs toggle" :toggle t)
+    ("e" electric-pair-mode "electric pair toggle" :toggle t))
    "Coding"
    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
-    ("e" electric-operator-mode "electric operator" :toggle t)
+    ("o" electric-operator-mode "electric operator" :toggle t)
     ("F" flyspell-mode "flyspell" :toggle t)
     ("f" flycheck-mode "flycheck" :toggle t)
     ("l" lsp-mode "lsp" :toggle t)
@@ -329,7 +330,7 @@
 (pretty-hydra-define hydra-org
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
-   (("t" org-toggle-timestamp-type "timestamp toggle" :toggle t)
+   (("t" org-toggle-timestamp-type "timestamp toggle")
     ("l" org-link-archive "link archive")
     ("i" org-toggle-inline-images "images toggle" :toggle t)
     ("r" jarfar/reverse-org-paragraphs-order "reverse paragraph order"))
