@@ -9,4 +9,6 @@
 . ~/.sh/env
 . ~/.sh/login
 
+# unset HISTFILE
+
 # ulimit -n 4096
