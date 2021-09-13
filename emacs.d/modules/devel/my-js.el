@@ -43,7 +43,7 @@
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode "\\.jsx?\\'")
+  :mode ("\\.jsx?\\'" "Jenkins"))
 
 (use-package vue-mode
   :hook (vue-mode . lsp)
