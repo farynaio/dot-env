@@ -13,6 +13,7 @@
     (lambda () (unless (eq major-mode 'json-mode) (lsp)))))
 
 (use-package js2-mode
+  :mode "Jenkins"
   :custom
   (js2-mode-show-parse-errors nil)
   (js2-mode-show-strict-warnings nil)
@@ -43,7 +44,7 @@
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode ("\\.jsx?\\'" "Jenkins"))
+  :mode "\\.jsx?\\'")
 
 (use-package vue-mode
   :hook (vue-mode . lsp)
