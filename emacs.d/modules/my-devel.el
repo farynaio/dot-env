@@ -336,6 +336,7 @@ $0`(yas-escape-text yas-selected-text)`")
 (add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
 (add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
 (add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'markdown-mode-hook #'my/breadcrumb-set-local t)
 
 (use-package elisp-mode
   :ensure nil
