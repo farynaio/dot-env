@@ -11,7 +11,8 @@
   :config
   (setq-default
     evil-mode-line-format nil
-    evil-shift-width tab-width)
+    evil-shift-width tab-width
+    evil-cross-lines t)
 
   (evil-mode 1)
 
