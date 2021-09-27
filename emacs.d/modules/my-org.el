@@ -1503,6 +1503,7 @@ should be continued."
   -
 
 * Journal
+* Today's wins
 * Pickup
 * Trading
 
