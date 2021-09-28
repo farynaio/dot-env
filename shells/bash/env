@@ -3,3 +3,6 @@
 # echo "bash/env"
 
 . ~/.shell/env
+
+HOMEBREW_NO_INSECURE_REDIRECT=1
+HOMEBREW_CASK_OPTS=--require-sha
