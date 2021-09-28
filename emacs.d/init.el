@@ -1,6 +1,7 @@
 ;; (setq debug-on-error t)
 ;; (setq debug-on-error nil)
 ;; (setq debug-on-quit nil)
+;; (setq auth-source-debug nil)
 
 (setq
  gc-cons-threshold (* 1024 1024 2)
