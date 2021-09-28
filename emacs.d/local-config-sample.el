@@ -1,6 +1,12 @@
 ;; gpg email
 (setq epa-file-encrypt-to '(""))
 
+(add-hook 'find-file-hook
+  (lambda ()
+    (when (and (stringp buffer-file-name)
+            (string-match "\\.gpg\\'" buffer-file-name))
+      (setq-local epa-file-encrypt-to '("")))))
+
 (eval-after-load 'org-caldav
   '(progn
     ; gmail calendar id
