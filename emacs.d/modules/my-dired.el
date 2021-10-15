@@ -1,6 +1,10 @@
-(setq-default
-  delete-by-moving-to-trash t
-  trash-directory "~/.Trash")
+(setq-default delete-by-moving-to-trash t)
+
+(when (eq system-type 'darwin)
+  (setq-default trash-directory "~/.Trash"))
+
+(when (eq system-type 'gnu/linux)
+  (setq-default trash-directory "~/.local/share/Trash/files"))
 
 (use-package ls-lisp
   :ensure nil
