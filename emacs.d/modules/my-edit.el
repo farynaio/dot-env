@@ -236,6 +236,20 @@ end-of-buffer signals; pass the rest to the default handler."
   ("C-x C-SPC" . rectangle-mark-mode)
   ("s-u" . air-revert-buffer-noconfirm))
 
+(when (eq system-type "gnu/linux")
+  (defun jarfar/copy-including-secondary ()
+    (interactive)
+    (call-interactively 'kill-ring-save)
+    (gui-set-selection 'SECONDARY (buffer-substring (point) (mark t))))
+
+  (defun jarfar/paste-including-secondary ()
+    (interactive)
+    (insert (gui-get-selection 'SECONDARY)))
+
+  (bind-keys
+    "M-c" . #'jarfar/copy-including-secondary
+    "M-v" . #'jarfar/paste-including-secondary))
+
 (defalias 'qcalc 'quick-calc)
 
 (column-number-mode 1)
