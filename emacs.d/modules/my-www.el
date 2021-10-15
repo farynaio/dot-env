@@ -32,8 +32,8 @@
 ;;            (eww url))))
 
 ;;      (defalias 'w 'af/eww)))
-
 (use-package w3m
+  :if (executable-find "w3m")
   :hook ((w3m-mode . iscroll-mode))
   :demand t
   :bind (:map w3m-mode-map

@@ -22,8 +22,9 @@
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
 
-(set-face-attribute 'default nil :font "Source Code Pro Medium")
-(set-fontset-font t 'latin "Noto Sans")
+(when (eq system-type 'darwin)
+  (set-face-attribute 'default nil :font "Source Code Pro Medium")
+  (set-fontset-font t 'latin "Noto Sans"))
 
 (setq
   hscroll-margin  1

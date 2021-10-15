@@ -129,9 +129,8 @@
   (symbol-overlay-idle-time 0.1))
 
 (setq tags-add-tables nil)
-(setq my/ctags-path "/usr/local/bin/ctags")
 
-(unless (executable-find my/ctags-path)
+(unless (executable-find "ctags")
   (user-error "Warning no ctags available!"))
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
@@ -140,7 +139,7 @@
   (let ((project-root (projectile-project-root)))
     (if project-root
       (progn
-        (start-process "ctags" nil (format "%s -e -f -R %s" my/ctags-path project-root))
+        (start-process "ctags" nil (format "ctags -e -f -R %s" project-root))
         (my/visit-project-ctags)
         (message "Tags build successfully."))
       (user-error "Cannot generate TAGS, not a projectile project."))))
@@ -161,7 +160,7 @@
           (current-file-path (buffer-file-name (current-buffer)))
           (tags-file (concat project-root "TAGS")))
     (when (and project-root (file-readable-p tags-file))
-      (start-process "ctags update" nil (format "%s -e %s" my/ctags-path project-root))
+      (start-process "ctags update" nil (format "ctags -e %s" project-root))
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package yaml-mode
@@ -350,8 +349,6 @@ $0`(yas-escape-text yas-selected-text)`")
       (unbind-key "C-M-i" emacs-lisp-mode-map))))
 
 (use-package solidity-mode
-  :custom
-  (solidity-solium-path "~/.config/yarn/global/node_modules/.bin/solium")
   :config
   (add-hook 'solidity-mode-hook
     (lambda ()

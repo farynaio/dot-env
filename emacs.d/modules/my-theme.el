@@ -170,9 +170,10 @@
 (my/set-dark-theme)
 
 (setq custom-safe-themes t)
-(setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 
-(set-face-attribute 'default nil :font default-font)
+(when (eq system-type 'darwin)
+  (setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+  (set-face-attribute 'default nil :font default-font))
 
 ;; (require 'chromatext)
 ;; (setq chromatext-color-pairs
