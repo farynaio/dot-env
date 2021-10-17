@@ -233,9 +233,17 @@ end-of-buffer signals; pass the rest to the default handler."
   ("<end>" . right-word)
   ("C-x s" . (lambda () (interactive) (save-some-buffers t)))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
+  ("C-x C-SPC" . rectangle-mark-mode))
+
+(when (eq system-type 'darwin)
+  (bind-keys
   ("s-t" . make-frame-command)
-  ("C-x C-SPC" . rectangle-mark-mode)
-  ("s-u" . air-revert-buffer-noconfirm))
+  ("s-u" . air-revert-buffer-noconfirm)))
+
+(when (eq system-type 'gnu/linux)
+  (bind-keys
+    ("s-t" . make-frame-command)
+    ("s-u" . air-revert-buffer-noconfirm)))
 
 (when (eq system-type 'gnu/linux)
   (defun jarfar/copy-including-secondary ()

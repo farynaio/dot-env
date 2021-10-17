@@ -506,12 +506,20 @@ point reaches the beginning or end of the buffer, stop there."
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
 
+(defun jarfar/prev-frame ()
+  (interactive)
+  (other-frame -1))
+
+(defun jarfar/next-frame ()
+  (interactive)
+  (other-frame 1))
+
 (bind-keys
   ("C-x |" . my/toggle-window-split)
   ("C-x C-c" . my/save-buffers-kill-terminal)
   ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
-  ("<s-right>" . ns-next-frame)
-  ("<s-left>" . ns-prev-frame)
+  ("<s-right>" . jarfar/next-frame)
+  ("<s-left>" . jarfar/prev-frame)
   ("C-c p" . #'pop-to-mark-command))
 
 (unbind-key "s-l")
