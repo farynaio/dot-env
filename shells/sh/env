@@ -5,4 +5,7 @@
 . ~/.shell/env
 
 # fix emacs tramp login issue
-[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+if [ $TERM = "dumb" ]; then
+  command -v unsetopt > /dev/null && unsetopt zle
+  export PS1='$ '
+fi
