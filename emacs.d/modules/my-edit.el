@@ -242,8 +242,8 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (when (eq system-type 'gnu/linux)
   (bind-keys
-    ("s-t" . make-frame-command)
-    ("s-u" . air-revert-buffer-noconfirm)))
+    ("M-t" . make-frame-command)
+    ("M-u" . air-revert-buffer-noconfirm)))
 
 (when (eq system-type 'gnu/linux)
   (defun jarfar/copy-including-secondary ()
