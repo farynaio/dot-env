@@ -449,9 +449,7 @@ point reaches the beginning or end of the buffer, stop there."
           ("C-x <down>" . windmove-down))
   :custom
   (windmove-wrap-around t)
-  (framemove-hook-into-windmove t)
-  :config
-  (windmove-default-keybindings))
+  (framemove-hook-into-windmove t))
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 

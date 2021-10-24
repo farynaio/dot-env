@@ -189,8 +189,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        ("<s-mouse-1>" . org-open-at-point)
        ([remap backward-paragraph] . nil)
        ([remap forward-paragraph] . nil)
-       ("C-x :" . (lambda () (interactive) (save-excursion (org-back-to-heading) (org-set-tags))))
-       )
+       ("C-x :" . (lambda () (interactive) (save-excursion (org-back-to-heading) (org-set-tags)))))
 
      (unbind-key "C-'" org-mode-map)
      (unbind-key "C-," org-mode-map)
@@ -220,10 +219,10 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (add-hook 'org-agenda-mode-hook 'jarfar/org-tasks-refile-targets-local)
 
      ;; org mode conflicts resolution: windmove
-     (add-hook 'org-shiftup-final-hook #'windmove-up)
+     ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
      ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
      ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
-     (add-hook 'org-shiftright-final-hook #'windmove-right)
+     ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
 
      (add-hook 'org-mode-hook #'iscroll-mode)
 
