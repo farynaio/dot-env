@@ -504,7 +504,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
 (setq org-capture-templates `(
-  ("c" "Contact" entry (file ,my/org-contacts-file-path) ;,(expand-file-name "contacts.org.gpg" org-directory))
+  ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
 "* %(org-contacts-template-name)
 :PROPERTIES:
 :TITLE:
