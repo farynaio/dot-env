@@ -3,7 +3,7 @@
      ;; (evil-make-overriding-map eshell-mode-map 'motion)
      ;; (evil-make-overriding-map eshell-mode-map 'normal)))
 
-(setq explicit-shell-file-name "/usr/local/bin/bash")
+;; (setq explicit-shell-file-name "/usr/local/bin/bash")
 
 (defalias 'esh 'eshell)
 

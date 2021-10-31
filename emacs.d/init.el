@@ -32,7 +32,7 @@
 ;; (setenv "LC_MONETARY" "en_US.UTF-8")
 ;; (setenv "LC_NUMERIC" "en_US.UTF-8")
 ;; (setenv "LC_TIME" "en_US.UTF-8")
-(setenv "SHELL" "/usr/local/bin/bash")
+(setenv "SHELL" (executable-find "bash"))
 (setq shell-file-name "/bin/sh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 ;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
