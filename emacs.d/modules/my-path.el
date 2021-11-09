@@ -26,7 +26,7 @@
 (setq my/org-tasks-file-path (expand-file-name "Tasks.org" org-agenda-directory))
 (setq my/org-taxes-file-path (expand-file-name "Taxes.org" org-agenda-directory))
 (setq my/org-temp-file-path (expand-file-name "Temp.org" org-agenda-directory))
-(setq my/org-tasks-maybe-someday-file-path (expand-file-name "Maybe Someday.org" org-agenda-directory))
+(setq my/org-tasks-maybe-someday-file-path (expand-file-name "Maybe someday.org" org-agenda-directory))
 
 (setq
   my/affirmations-file-path (expand-file-name "affirmations.org" my/fast-path)

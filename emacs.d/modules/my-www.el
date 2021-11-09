@@ -221,10 +221,6 @@
 (use-package engine-mode
   :defer 3
   :config
-  (defengine amazon
-    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
-    :keybinding "a")
-
   (defengine duckduckgo
     "https://duckduckgo.com/?q=%s"
     :keybinding "d")
@@ -233,12 +229,12 @@
     "https://github.com/search?ref=simplesearch&q=%s"
     :keybinding "g")
 
-  (defengine google-images
-    "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s"
+  (defengine images
+    "https://duckduckgo.com/?t=h_&iax=images&ia=images&q=%s"
     :keybinding "i")
 
-  (defengine google-maps
-    "http://maps.google.com/maps?q=%s"
+  (defengine maps
+    "https://www.qwant.com/maps/place/osm:way:25739565@%s"
     :keybinding "m"
     :docstring "Mappin' it up.")
 
@@ -246,12 +242,8 @@
     "https://stackoverflow.com/search?q=%s"
     :keybinding "s")
 
-  (defengine youtube
-    "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
-    :keybinding "y")
-
   (defengine wikipedia
-    "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+    "https://wikiless.org/w/index.php?title=Special%3ASearch&fulltext=Search&ns0=1&search=%s"
     :keybinding "w"
     :docstring "Searchin' the wikis.")
 

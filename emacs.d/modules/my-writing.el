@@ -206,21 +206,21 @@
                               "UPPERCASE_SENTENCE_START"
                               "WHITESPACE_RULE")))
 
-(use-package google-translate
-  :custom
-  (google-translate-default-source-language "en")
-  (google-translate-default-target-language "pl")
-  (google-translate-backend-method 'curl)
-  :config
-  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
+;; (use-package google-translate
+;;   :custom
+;;   (google-translate-default-source-language "en")
+;;   (google-translate-default-target-language "pl")
+;;   (google-translate-backend-method 'curl)
+;;   :config
+;;   (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
 
-  (defun my/google-translate-at-point (&optional override-p)
-    (interactive "P")
-    (save-excursion
-      (google-translate-at-point override-p))
-    (deactivate-mark)
-    (when (fboundp 'evil-exit-visual-state)
-      (evil-exit-visual-state))))
+;;   (defun my/google-translate-at-point (&optional override-p)
+;;     (interactive "P")
+;;     (save-excursion
+;;       (google-translate-at-point override-p))
+;;     (deactivate-mark)
+;;     (when (fboundp 'evil-exit-visual-state)
+;;       (evil-exit-visual-state))))
 
 (use-package artbollocks-mode
   :commands artbollocks-mode
