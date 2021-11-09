@@ -3,6 +3,9 @@
 ;; (setq debug-on-quit nil)
 ;; (setq auth-source-debug nil)
 
+
+(setenv "LIBRARY_PATH" "/usr/local/opt/gcc/lib/gcc/10:/usr/local/opt/libgccjit/lib/gcc/10:/usr/local/opt/gcc/lib/gcc/10/gcc/x86_64-apple-darwin19/10.2.0")
+
 (setq
  gc-cons-threshold (* 1024 1024 2)
  ;; gc-cons-threshold (* 1024 800)
@@ -33,6 +36,8 @@
 ;; (setenv "LC_NUMERIC" "en_US.UTF-8")
 ;; (setenv "LC_TIME" "en_US.UTF-8")
 (setenv "SHELL" "/usr/local/bin/bash")
+(setenv "GPG_AGENT_INFO" nil)
+
 (setq shell-file-name "/bin/sh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 ;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
@@ -69,18 +74,18 @@
 (require 'gnutls)
 
 ;; https://www.reddit.com/r/emacs/comments/8sykl1/emacs_tls_defaults_are_downright_dangerous/
-(setq
- network-security-level 'medium
- gnutls-verify-error t
- tls-checktrust t
- gnutls-trustfiles
- '(
-   "/etc/ssl/cert.pem"
-   "/usr/local/etc/openssl/cert.pem"
-   "/usr/local/etc/openssl@1.1/cert.pem"
-   "~/.certs/znc.pem"
-   ))
-(setq-default auth-source '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
+;;(setq
+;; network-security-level 'medium
+;; gnutls-verify-error t
+;; tls-checktrust t
+;; gnutls-trustfiles
+;; '(
+;;   "/etc/ssl/cert.pem"
+;;   "/usr/local/etc/openssl/cert.pem"
+;;   "/usr/local/etc/openssl@1.1/cert.pem"
+;;   "~/.certs/znc.pem"
+;;   ))
+;;(setq-default auth-sources '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
 
 ;; (unless (assoc-default "tromey" package-archives)
 ;;   (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))

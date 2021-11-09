@@ -1194,8 +1194,8 @@ Blood type/flavour: %^{Blood type: }
          (
            (org-agenda-skip-function
              '(or
-                (org-agenda-skip-if nil '(notdeadline))
-             (org-agenda-skip-entry-if 'todo '("DONE"))))
+                (org-agenda-skip-if nil '(notdeadline))))
+             ;; (org-agenda-skip-entry-if 'todo '("DONE"))))
             (org-agenda-overriding-header "Weekly Goals:")
            (org-tags-match-list-sublevels t)
            (org-agenda-span 'day)

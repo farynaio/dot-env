@@ -8,7 +8,7 @@
   (js-chain-indent t)
   (js-indent-align-list-continuation nil)
   :config
-  (flycheck-add-mode 'javascript-eslint 'js-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'js-mode)
   (add-hook 'js-mode-hook
     (lambda () (unless (eq major-mode 'json-mode) (lsp)))))
 

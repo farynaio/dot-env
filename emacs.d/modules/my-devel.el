@@ -17,7 +17,11 @@
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'farynaio/increment
-    (kbd "<S-down>") #'farynaio/decrement)
+    (kbd "<S-down>") #'farynaio/decrement
+    (kbd "C-/") #'company-complete)
+
+  (evil-define-key 'insert prog-mode-map
+    (kbd "C-/") #'company-complete)
 
   (defun my/prog-mode-hook ()
     (modify-syntax-entry ?- "w" (syntax-table))
@@ -164,14 +168,28 @@
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package yaml-mode
-  :hook ((markdown-mode . jarfar/bind-value-togglers))
+  ;; :hook ((markdown-mode . jarfar/bind-value-togglers))
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
-  :hook (markdown-mode . jarfar/bind-value-togglers)
+  ;; :hook (markdown-mode . jarfar/bind-value-togglers)
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
-          ("README\\.md\\'" . gfm-mode)))
+          ("README\\.md\\'" . gfm-mode))
+  ;; :config
+
+  ;; (evil-define-key '(visual normal) markdown-mode-map
+  ;;   "{" #'backward-paragraph
+  ;;   "}" #'forward-paragraph
+  ;;   "M-{" #'backward-paragraph
+  ;;   "M-}" #'forward-paragraph
+  ;;   )
+
+  ;; (advice-add 'markdown-backward-paragraph :override #'backward-paragraph)
+  ;; (advice-add 'markdown-backward-block :override #'backward-paragraph)
+  ;; (advice-add 'markdown-forward-paragraph :override #'forward-paragraph)
+  ;; (advice-add 'markdown-forward-bblock :override #'forward-paragraph)
+  )
 
 (use-package vimrc-mode
   :mode "\\vimrc\\'")

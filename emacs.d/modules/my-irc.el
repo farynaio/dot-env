@@ -30,6 +30,8 @@
   (erc-log-write-after-send t)
   (erc-save-buffer-on-part nil)
   (erc-save-queries-on-quit nil)
+  (erc-log-insert-log-on-open nil)
+  (erc-log-channels-directory  my/erc-logs)
   (erc-query-display 'window)
   (erc-track-exclude-types '("JOIN" "MODE" "NICK" "PART" "QUIT"
                               "324" "329" "332" "333" "353" "477"))
@@ -42,11 +44,11 @@
   (erc-lurker-threshold-time 43200)
   (erc-server-reconnect-timeout 3)
   (erc-server-reconnect-attempts 5)
-  (erc-reuse-buffers nil)
+  (erc-reuse-buffers t)
   (erc-dcc-get-default-directory "~/Download")
-  (erc-log-channels-directory  my/erc-logs)
   ;; (erc-prompt-for-password nil)
   ;; (erc-kill-buffer-on-part t)
+  ;; (erc-autojoin-domain-only t)
   :config
   (require 'erc-services)
   ;; (require 'erc-join)
@@ -57,6 +59,12 @@
   (erc-autojoin-mode -1)
   (erc-update-modules)
   ;; (erc-services-mode 1)
+
+  ;; Save logs of all ERC buffers on Emacs quit
+  (defadvice save-buffers-kill-emacs (before save-logs (arg) activate)
+    (save-some-buffers t (lambda () (when (eq major-mode 'erc-mode) t))))
+
+  (add-hook 'erc-insert-post-hook 'erc-save-buffer-in-logs)
 
   (defun my/erc-detach-channel ()
     (when (erc-server-process-alive)
