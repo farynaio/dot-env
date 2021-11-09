@@ -241,14 +241,12 @@
 (pretty-hydra-define hydra-query
   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))
   ("Query"
-   (("a" engine/search-amazon "amazon")
     ("d" engine/search-duckduckgo "duckduckgo")
     ("g" engine/search-github "github")
-    ("i" engine/search-google-images "google images")
-    ("m" engine/search-google-maps "google maps")
-    ("s" engine/search-stack-overflow "stack overflow")
+    ("i" engine/search-google-images "images")
+    ("m" engine/search-google-maps "maps")
     ("w" engine/search-wikipedia "wikipedia")
-    ("y" engine/search-youtube "youtube"))))
+    ))
 
 (pretty-hydra-define hydra-spelling
   (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Spelling" 1 -0.05))

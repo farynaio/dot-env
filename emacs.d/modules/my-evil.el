@@ -206,8 +206,8 @@
     (kbd "TAB") #'org-cycle)
     ;; (kbd "C-c s") #'hydra-spelling/body)
 
-  (evil-define-key '(visual normal) org-mode-map
-    ",t" #'my/google-translate-at-point)
+  ;; (evil-define-key '(visual normal) org-mode-map
+  ;;   ",t" #'my/google-translate-at-point)
 
   (evil-define-key '(motion normal) org-mode-map
     (kbd "C-c C-s") 'org-schedule)

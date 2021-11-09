@@ -8,7 +8,7 @@
 ;; https://emacs.stackexchange.com/a/18515/18445
 (defun my/online-p (&optional host)
     (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
-                       (if host host "www.google.com"))))
+                       (if host host "gnu.org"))))
 
 ;; https://stackoverflow.com/a/6255409/346921
 (defun my/reformat-xml ()

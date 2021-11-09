@@ -30,7 +30,7 @@
   :requires calfw
   :commands cfw:open-org-calendar)
 
-(defalias 'cal 'cfw:open-org-calendar)
+;; (defalias 'cal 'cfw:open-org-calendar)
 
 (require 'ob-python)
 
@@ -130,6 +130,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (define-key calendar-mode-map ">" 'jarfar/scroll-year-calendar-forward)
 
 (defalias 'calendar-full #'jarfar/year-calendar)
+(defalias 'my/calendar-full #'jarfar/year-calendar)
+(defalias 'my/calendar-full #'jarfar/year-calendar)
 
 (defun my/outline-hide-subtree ()
   (interactive)
@@ -414,7 +416,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (setq
   org-export-creator-string "Adam Faryna (appdy.co.uk)"
-  org-export-exclude-category (list "google" "private")
+  org-export-exclude-category (list "private")
   org-export-babel-evaluate t
   org-export-preserve-breaks nil
   org-export-with-toc nil
@@ -878,9 +880,7 @@ Blood type/flavour: %^{Blood type: }
 :DRILL_CARD_TYPE: twosided
 :END:
 
-[[https://translate.google.pl/?hl=pl#en/pl/%\\1][Google Translate]]
-[[https://www.bing.com/translator?from=en&to=pl&text=%\\1][Bing Translate]]
-
+[[https://simplytranslate.org/?engine=google&sl=en&tl=pl&text=%\\1][Translate]]
 [[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
 
 ** English
