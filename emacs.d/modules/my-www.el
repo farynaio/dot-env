@@ -115,6 +115,7 @@
   (w3m-session-load-last-sessions t)
   (w3m-new-session-url "about:")
   (w3m-type 'w3m-m17n)
+  (w3m-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
   (browse-url-handlers
     '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
        ("." . my/w3m-goto-frame)))
