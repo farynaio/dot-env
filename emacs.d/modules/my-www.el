@@ -1,3 +1,5 @@
+(setq browse-url-browser-function 'browse-url-firefox)
+
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
 
