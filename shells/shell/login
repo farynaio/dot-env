@@ -52,19 +52,19 @@ export GPG_TTY=$(tty)
   # export PATH="$HOME/.rbenv/shims:$PATH"
 # fi
 
-if [[ -z $USER_NAME ]]; then
+if [ -z "$USER_NAME" ]; then
   echo "No USER_NAME provided!"
 else
   git config --global user.name "$USER_NAME"
 fi
 
-if [[ -z $EMAIL ]]; then
+if [ -z "$EMAIL" ]; then
   echo "No EMAIL provided!"
 else
   git config --global user.email "$EMAIL"
 fi
 
-if [[ -n $SIGNING_KEY ]]; then
+if [ -n "$SIGNING_KEY" ]; then
   git config --global user.signingkey "$SIGNING_KEY"
 fi
 
