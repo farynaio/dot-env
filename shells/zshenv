@@ -4,6 +4,8 @@
 
 . ~/.zsh/env
 
+DISABLE_UPDATE_PROMPT=true
+
 # source $HOME/.dotenv/shell.sh
 
 # [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
