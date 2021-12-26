@@ -244,8 +244,7 @@
           erc-session-user-full-name))
       (erc-update-mode-line))
     )
-
-  (user-error "erc-sasl: variable 'my/znc-server-regex' not set, package disabled!")
+  (message "erc-sasl: variable 'my/znc-server-regex' not set, package disabled!")
   )
 
 (use-package erc-image

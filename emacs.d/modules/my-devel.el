@@ -135,7 +135,7 @@
 (setq tags-add-tables nil)
 
 (unless (executable-find "ctags")
-  (user-error "Warning no ctags available!"))
+  (message "ctags: warning no ctags available!"))
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()
@@ -382,8 +382,8 @@ $0`(yas-escape-text yas-selected-text)`")
     (use-package company-solidity)
     )
   (progn
-    (user-error "solidity-flycheck: Warning no 'solium' executable found, package not disabled!")
-    (user-error "company-solidity: Warning no 'solium' executable found, package not disabled!")
+    (message "solidity-flycheck: Warning no 'solium' executable found, package not disabled!")
+    (message "company-solidity: Warning no 'solium' executable found, package not disabled!")
     )
   )
 
