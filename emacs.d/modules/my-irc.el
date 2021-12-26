@@ -216,7 +216,7 @@
 ;;           erc-session-user-full-name))
 ;;       (erc-update-mode-line))))
 
-(if my/znc-server-regex
+(if (boundp 'my/znc-server-regex)
   (use-package erc-sasl
     :after erc
     :ensure nil
