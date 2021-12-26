@@ -372,12 +372,20 @@ $0`(yas-escape-text yas-selected-text)`")
     (lambda ()
       (setq-local c-basic-offset 4))))
 
-(use-package solidity-flycheck
-  :ensure nil
-  :custom
-  (solidity-flycheck-solium-checker-active t))
+(if (executable-find "solium")
+  (progn
+    (use-package solidity-flycheck
+      :ensure nil
+      :custom
+      (solidity-flycheck-solium-checker-active t))
 
-(use-package company-solidity)
+    (use-package company-solidity)
+    )
+  (progn
+    (user-error "solidity-flycheck: Warning no 'solium' executable found, package not disabled!")
+    (user-error "company-solidity: Warning no 'solium' executable found, package not disabled!")
+    )
+  )
 
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
