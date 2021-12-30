@@ -1,5 +1,35 @@
 (setq browse-url-browser-function 'browse-url-firefox)
 
+(defun my/browse-url-tor (url &optional new-window)
+  "Ask the Tor WWW browser to load URL.
+Defaults to the URL around or before point.  Passes the strings
+in the variable `browse-url-firefox-arguments' to Tor.
+
+Interactively, if the variable `browse-url-new-window-flag' is non-nil,
+loads the document in a new Tor window.  A non-nil prefix argument
+reverses the effect of `browse-url-new-window-flag'.
+
+If `browse-url-firefox-new-window-is-tab' is non-nil, then
+whenever a document would otherwise be loaded in a new window, it
+is loaded in a new tab in an existing window instead.
+
+Non-interactively, this uses the optional second argument NEW-WINDOW
+instead of `browse-url-new-window-flag'."
+  (interactive (browse-url-interactive-arg "URL: "))
+  (setq url (browse-url-encode-url url))
+  (let* ((process-environment (browse-url-process-environment)))
+    (apply 'start-process
+           (concat "Tor Browser " url) nil
+           "start-tor-browser"
+           (append
+            browse-url-firefox-arguments
+            (if (browse-url-maybe-new-window new-window)
+		(if browse-url-firefox-new-window-is-tab
+		    '("-new-tab")
+		  '("-new-window")))
+            (list url)))))
+
+
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
 
