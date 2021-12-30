@@ -51,7 +51,7 @@ Plug 'vim-scripts/Rainbow-Parenthsis-Bundle'
 Plug 'tpope/vim-commentary'
 Plug 'benjifisher/matchit.zip'
 " Plug 'craigemery/vim-autotag'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
 Plug 'aperezdc/vim-template'
 Plug 'othree/xml.vim'
@@ -238,13 +238,13 @@ function! PwdStatusLine() abort
   return '[/' . l:cwdLastToken . ']'
 endfunction!
 
-function! GitStatusLine() abort
-  if (winwidth(0)) > 80
-    return fugitive#statusline()
-  endif
-
-  return ''
-endfunction
+"function! GitStatusLine() abort
+"  if (winwidth(0)) > 80
+"    return fugitive#statusline()
+"  endif
+"
+"  return ''
+"endfunction
 
 function! CursorPositionStatusLine() abort
   if (winwidth(0)) < 60
@@ -274,9 +274,9 @@ function! CurrentFileNameStatusLine() abort
   return '%f'
 endfunction
 
-function! BuildStatusLine() abort
-  return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
-endfunction
+"function! BuildStatusLine() abort
+"  return '%<' . CurrentFileNameStatusLine() . ' %{PwdStatusLine()}' . FilePropertiesStatusLine() . ' %{GitStatusLine()}%(\ %{SpellStatusLine()} %)%(%\ %{LinterStatusLine()} %)%=%' . CursorPositionStatusLine() . ' %P'
+"endfunction
 
 " Search down into subfolders
 " Provides tab-completition for all file-related tasks
@@ -301,7 +301,7 @@ function! AfterInit() abort
       autocmd BufNewFile,BufRead * if empty(&ft) && empty(expand('%:e')) | set ft=text | endif
       autocmd BufNewFile,BufRead * call SetupBufferNew()
       autocmd BufEnter * call VimDiffSetupEnv()
-      autocmd BufEnter * call SetTabNameToCurrentBuffer()
+"      autocmd BufEnter * call SetTabNameToCurrentBuffer()
       autocmd BufEnter * call ApplyTemplate()
       autocmd BufEnter * call SetupBufferEnter()
       autocmd BufLeave * call SetupBufferLeave()
@@ -339,7 +339,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *rc setf json
     autocmd BufNewFile,BufRead * call SetupDevelBuffer()
     autocmd BufEnter * call VimDiffSetupEnv()
-    autocmd BufEnter * call SetTabNameToCurrentBuffer()
+"    autocmd BufEnter * call SetTabNameToCurrentBuffer()
     autocmd BufEnter * call ApplyTemplate()
     autocmd FileType netrw call SetupNetrwEnv()
     autocmd CursorHold,CursorHoldI,InsertLeave * call HighlightWordUnderCursor()
@@ -825,12 +825,12 @@ function! LocationListToggle() abort
   endif
 endfunction
 
-function! SetTabNameToCurrentBuffer() abort
-  let l:currentBufferName = expand('%:t')
-  if !empty(l:currentBufferName)
-    exe ':TabooRename ' . l:currentBufferName
-  endif
-endfunction
+"function! SetTabNameToCurrentBuffer() abort
+"  let l:currentBufferName = expand('%:t')
+"  if !empty(l:currentBufferName)
+"    exe ':TabooRename ' . l:currentBufferName
+"  endif
+"endfunction
 
 function! QfRemoveAllMatchingFilesFromTheList() abort
   let l:currentList = getqflist()
@@ -909,7 +909,7 @@ nnoremap <leader>Tn :let &background=(&background=="dark"?"light":"dark")<cr>
 " Look & Feel TODO
 " ================================================
 
-colorscheme mustang
+colorscheme monokai
 set background=dark
 
 augroup vimrc
@@ -1388,4 +1388,4 @@ nnoremap <leader>k :vs .<cr>
 nnoremap <leader>l :e .<cr>
 nnoremap <leader>. :Explore<cr>
 
-set statusline=%!BuildStatusLine()
+"set statusline=%!BuildStatusLine()
