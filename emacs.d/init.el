@@ -3,7 +3,6 @@
 ;; (setq debug-on-quit nil)
 ;; (setq auth-source-debug nil)
 
-
 (setenv "LIBRARY_PATH" "/usr/local/opt/gcc/lib/gcc/10:/usr/local/opt/libgccjit/lib/gcc/10:/usr/local/opt/gcc/lib/gcc/10/gcc/x86_64-apple-darwin19/10.2.0")
 
 (setq
@@ -61,6 +60,7 @@
 (add-to-list 'exec-path "~/.rbenv/shims")
 (add-to-list 'exec-path "/usr/local/bin")
 
+(setq package-enable-at-startup nil)
 (setq package-check-signature nil)
 
 (require 'package)
@@ -69,6 +69,21 @@
 ;; (add-to-list 'package-archives '("elpa" . "https://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+
+;; https://emacs.stackexchange.com/a/31874
+(defun package-menu-find-marks ()
+  "Find packages marked for action in *Packages*."
+  (interactive)
+  (occur "^[A-Z]"))
+;; Only in Emacs 25.1+
+(defun package-menu-filter-by-status (status)
+  "Filter the *Packages* buffer by status."
+  (interactive
+   (list (completing-read
+          "Status: " '("new" "installed" "dependency" "obsolete"))))
+  (package-menu-filter (concat "status:" status)))
+(define-key package-menu-mode-map "s" #'package-menu-filter-by-status)
+(define-key package-menu-mode-map "a" #'package-menu-find-marks)
 
 (require 'tls)
 (require 'gnutls)
@@ -89,14 +104,14 @@
 
 ;; (unless (assoc-default "tromey" package-archives)
 ;;   (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))
-(package-initialize)
+;; (package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
 
 (setq
- use-package-verbose nil
- use-package-always-ensure t)
+ use-package-verbose nil)
+ ;; use-package-always-ensure t)
 
 ;; TODO is it needed?
 ;; (setq exec-path-from-shell-check-startup-files nil)
