@@ -83,13 +83,13 @@
     company-minimum-prefix-length 1
     company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
 
-(use-package which-key
-  :defer 0.2
-  :diminish which-key-mode
-  :custom
-  (which-key-idle-delay 0.5)
-  :config
-  (which-key-mode 1))
+;; (use-package which-key
+;;   :defer 0.2
+;;   :diminish which-key-mode
+;;   :custom
+;;   (which-key-idle-delay 0.5)
+;;   :config
+;;   (which-key-mode 1))
 
 (use-package expand-region
   :bind (("C-=" . er/contract-region)
