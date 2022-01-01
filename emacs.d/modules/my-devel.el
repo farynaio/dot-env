@@ -14,6 +14,7 @@
 
 (use-package prog-mode
   :ensure nil
+  :straight nil
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'farynaio/increment
@@ -75,6 +76,7 @@
 
 (use-package dns-mode
   :ensure nil
+  :straight nil
   :config
   (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode)))
 
@@ -357,6 +359,7 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (use-package elisp-mode
   :ensure nil
+  :straight nil
   :config
   (add-hook 'emacs-lisp-mode-hook
     (lambda ()

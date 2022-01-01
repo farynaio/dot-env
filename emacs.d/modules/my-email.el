@@ -14,6 +14,7 @@
 (use-package message
   ;; :commands message-send message-send-and-exit mu4e
   :ensure nil
+  :straight nil
   :custom
   (send-mail-function 'my/smtpmail-send-it)
   (message-directory "~/.Mail/")
@@ -50,6 +51,7 @@
 (use-package smtpmail
   :after message
   :ensure nil
+  :straight nil
   :custom
   (smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
   (smtpmail-queue-dir "~/Maildir/queue/cur")
@@ -60,6 +62,7 @@
 (use-package shr
   ;; :commands elfeed mu4e
   :ensure nil
+  :straight nil
   :custom
   (shr-inhibit-images t)
   (shr-use-colors nil)
@@ -116,6 +119,7 @@
   :if (file-directory-p my/mu4e-local-path)
   :commands mu4e
   :ensure nil
+  :straight nil
   :ensure-system-package mu
   :bind (:map mu4e-main-mode-map
           ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
@@ -254,6 +258,7 @@
 
 (use-package org-mu4e
   :after mu4e
+  :straight nil
   :ensure nil)
 
 (use-package mu4e-maildirs-extension

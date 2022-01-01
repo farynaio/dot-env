@@ -34,11 +34,13 @@
                                (reusable-frames . nil))))
 
 (use-package simple
+  :straight nil
   :ensure nil
   :custom
   (set-mark-command-repeat-pop t))
 
 (use-package recentf
+  :straight nil
   :ensure nil
   :custom
   (recentf-max-saved-items 200)
@@ -61,6 +63,7 @@
   (openwith-mode 1))
 
 (use-package help
+  :straight nil
   :ensure nil
   :bind (:map help-mode-map
           ("C-w =" . balance-windows)
@@ -74,10 +77,10 @@
           ("b" . evil-backward-word-begin)
           ("B" . evil-backward-WORD-begin)
           ("y" . evil-yank)
-          ("<S-tab>" . backward-button)
-          ))
+          ("<S-tab>" . backward-button)))
 
 (use-package tramp
+  :straight nil
   :ensure nil
   :custom
   (tramp-default-method "ssh")
@@ -442,7 +445,8 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 
 (use-package windmove
-  :ensure nil
+  ;; :ensure nil
+  :straight nil
   :bind (("C-x <left>" . windmove-left)
           ("C-x <right>" . windmove-right)
           ("C-x <up>" . windmove-up)

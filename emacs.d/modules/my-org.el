@@ -1,4 +1,7 @@
 ;; -*- lexical-binding: t; -*-
+
+(use-package org)
+
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-toc)
@@ -18,10 +21,6 @@
 ;; (add-to-list 'org-modules 'org-depend t)
 ;; (add-to-list 'org-modules 'org-eww t)
 (add-to-list 'org-modules 'org-checklist t)
-
-(use-package org-link-archive
-  :ensure nil
-  :after org)
 
 (use-package calfw
   :defer)
@@ -153,8 +152,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       'org-metadown
       'drag-stuff-down)))
 
-(eval-after-load 'org
-  '(progn
+;; TODO duplicated block
+(use-package org
+  :config
      (setq
        org-startup-with-inline-images nil
        org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
@@ -248,8 +248,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (save-excursion
            (when (get-buffer "*Org Agenda*")
-             (with-current-buffer "*Org Agenda*" (org-agenda-redo))))))
-     ))
+             (with-current-buffer "*Org Agenda*" (org-agenda-redo)))))))
 
 (eval-after-load 'org-agenda
   '(progn
@@ -1656,60 +1655,78 @@ should be continued."
          :kill-buffer t)
        ))
 
-  (defun jarfar/org-roam-find-file-other-window (&rest args)
+  ;; (defun jarfar/org-roam-find-file-other-window (&rest args)
+  ;;   (interactive)
+  ;;   (let ((org-roam-find-file-function #'find-file-other-window))
+  ;;     (apply #'org-roam-find-file args)))
+
+  (defun jarfar/org-roam-node-find-other-window (&rest args)
     (interactive)
     (let ((org-roam-find-file-function #'find-file-other-window))
-      (apply #'org-roam-find-file args)))
+      (apply #'org-roam-node-find args)))
 
   ;; faces
   ;; org-roam-link
   ;; org-roam-link-current
 
 
-  (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
-    "Keymap for `jarfar/org-roam-side-mode'.")
+  ;; (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
+  ;;   "Keymap for `jarfar/org-roam-side-mode'.")
 
-  (define-minor-mode jarfar/org-roam-side-mode
-    "Minor mode for org-roam side org buffer."
-    :init-value nil
-    :keymap jarfar/org-roam-side-mode-map)
+  ;; (define-minor-mode jarfar/org-roam-side-mode
+  ;;   "Minor mode for org-roam side org buffer."
+  ;;   :init-value nil
+  ;;   :keymap jarfar/org-roam-side-mode-map)
 
-  (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
-    "Keymap for `jarfar/org-roam-side-mode'.")
+  ;; (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
+  ;;   "Keymap for `jarfar/org-roam-side-mode'.")
 
-  (define-minor-mode jarfar/org-roam-mode
-    "Minor mode for org-roam org buffers."
-    :init-value nil
-    :keymap jarfar/org-roam-mode-map)
+  ;; (define-minor-mode jarfar/org-roam-mode
+  ;;   "Minor mode for org-roam org buffers."
+  ;;   :init-value nil
+  ;;   :keymap jarfar/org-roam-mode-map)
 
-  (defun jarfar/org-roam-mode-hook-org-ram ()
-    (when (string-prefix-p my/org-roam-directory buffer-file-name)
-      (jarfar/org-roam-mode 1))
-    (when (string-equal (buffer-name) "*org-roam*")
-      (jarfar/org-roam-side-mode 1)))
+  ;; (defun jarfar/org-roam-mode-hook-org-ram ()
+  ;;   (when (string-prefix-p my/org-roam-directory buffer-file-name)
+  ;;     (jarfar/org-roam-mode 1))
+  ;;   (when (string-equal (buffer-name) "*org-roam*")
+  ;;     (jarfar/org-roam-side-mode 1)))
 
-  (add-hook 'org-mode-hook 'jarfar/org-roam-mode-hook-org-ram)
+  ;; (add-hook 'org-mode-hook 'jarfar/org-roam-mode-hook-org-ram)
 
 
-  (add-hook 'after-init-hook 'org-roam-mode)
+  ;; (add-hook 'after-init-hook 'org-roam-mode)
 
   (when (fboundp 'org-roam-dailies-today)
     (org-roam-dailies-today))
 
   (defalias 'roam 'org-roam))
 
-(use-package org-roam-server
+(use-package websocket
+  :after org-roam-ui)
+
+(use-package org-roam-ui
   :after org-roam
+  :commands org-roam-ui-open
   :config
-  (setq org-roam-server-host "127.0.0.1")
-  (setq org-roam-server-port 3333)
-  (setq org-roam-server-export-inline-images t)
-  (setq org-roam-server-authenticate nil)
-  (setq org-roam-server-network-poll t)
-  (setq org-roam-server-network-arrows nil)
-  (setq org-roam-server-network-label-truncate t)
-  (setq org-roam-server-network-label-truncate-length 60)
-  (setq org-roam-server-network-label-wrap-length 20))
+  (setq
+    org-roam-ui-sync-theme t
+    org-roam-ui-follow t
+    org-roam-ui-update-on-save t
+    org-roam-ui-open-on-start t))
+
+;; (use-package org-roam-server
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-server-host "127.0.0.1")
+;;   (setq org-roam-server-port 3333)
+;;   (setq org-roam-server-export-inline-images t)
+;;   (setq org-roam-server-authenticate nil)
+;;   (setq org-roam-server-network-poll t)
+;;   (setq org-roam-server-network-arrows nil)
+;;   (setq org-roam-server-network-label-truncate t)
+;;   (setq org-roam-server-network-label-truncate-length 60)
+;;   (setq org-roam-server-network-label-wrap-length 20))
 
 ;;--------------------------
 ;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
@@ -1870,5 +1887,8 @@ it can be passed in POS."
   (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
 
 (add-hook 'org-mode-hook 'ndk/set-header-line-format)
+
+(straight-use-package
+  '(org-link-archive :host github :repo "adamWithF/org-link-archive" :branch "main"))
 
 (provide 'my-org)

@@ -47,6 +47,7 @@
 
 (use-package elec-pair
   :ensure nil
+  :straight nil
   :config
   (push '(?\" . ?\") electric-pair-pairs)
   (push '(?\{ . ?\}) electric-pair-pairs)
@@ -108,6 +109,7 @@
 (use-package ediff
   :commands ediff
   :ensure nil
+  :straight nil
   :custom
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-forward-word-function 'forward-char))
@@ -123,6 +125,7 @@
 
 (use-package savehist
   :ensure nil
+  :straight nil
   :custom
   (savehist-file "~/.emacs.d/savehist")
   (history-length 500)

@@ -1,6 +1,6 @@
-
 (use-package epa
   :ensure nil
+  :straight nil
   :custom
   (epa-file-cache-passphrase-for-symmetric-encryption t)
   :config

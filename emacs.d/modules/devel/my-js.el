@@ -2,6 +2,7 @@
 
 (use-package js
   :ensure nil
+  :straight nil
   :custom
   (js-indent-level tab-width)
   (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
@@ -78,6 +79,7 @@
 ;; Prettier support
 (use-package apheleia
   :ensure nil
+  :straight nil
   :diminish apheleia-mode)
 
 ;; Use binaries in node_modules

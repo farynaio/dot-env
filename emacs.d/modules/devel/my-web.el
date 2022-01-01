@@ -61,6 +61,7 @@
 
 (use-package css-mode
   :ensure nil
+  :straight nil
   :mode "\\.s?css\\'"
   :custom
   (css-indent-offset tab-width)

@@ -114,7 +114,7 @@
     :global nil
     (if ivy-rich-local-mode
       (unless ivy-rich--original-display-transformers-list
-        (ivy-rich-set-display-transformer))
+        (ivy-rich-set-display-transformer nil))
       (ivy-rich-unset-display-transformer))))
 
 (setq custom-theme-directory "~/.emacs.d/themes/")

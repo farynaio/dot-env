@@ -22,3 +22,6 @@ org-roam.db
 .persp-confs
 nov-places
 session.*
+straight/build
+straight/build-cache.el
+straight/repos

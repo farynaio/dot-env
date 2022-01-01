@@ -61,29 +61,23 @@
 (add-to-list 'exec-path "/usr/local/bin")
 
 (setq package-enable-at-startup nil)
-(setq package-check-signature nil)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-;; (add-to-list 'package-archives '("elpa" . "https://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; https://emacs.stackexchange.com/a/31874
-(defun package-menu-find-marks ()
-  "Find packages marked for action in *Packages*."
-  (interactive)
-  (occur "^[A-Z]"))
-;; Only in Emacs 25.1+
-(defun package-menu-filter-by-status (status)
-  "Filter the *Packages* buffer by status."
-  (interactive
-   (list (completing-read
-          "Status: " '("new" "installed" "dependency" "obsolete"))))
-  (package-menu-filter (concat "status:" status)))
-(define-key package-menu-mode-map "s" #'package-menu-filter-by-status)
-(define-key package-menu-mode-map "a" #'package-menu-find-marks)
+(straight-use-package 'use-package)
+
+(setq straight-use-package-by-default t)
 
 (require 'tls)
 (require 'gnutls)
@@ -102,27 +96,8 @@
 ;;   ))
 ;;(setq-default auth-sources '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
 
-;; (unless (assoc-default "tromey" package-archives)
-;;   (add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/")))
-;; (package-initialize)
-
-;; (unless package-archive-contents
-;;   (package-refresh-contents))
-
-(setq
- use-package-verbose nil)
- ;; use-package-always-ensure t)
-
 ;; TODO is it needed?
 ;; (setq exec-path-from-shell-check-startup-files nil)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;; (eval-when-compile
-(require 'use-package)
-;; )
 
 (use-package auto-compile
   :config
@@ -142,8 +117,6 @@
   (package-install 'org-plus-contrib))
 
 (setq load-prefer-newer t)
-
-;; (use-package bind-key)
 
 (use-package use-package-ensure-system-package)
 

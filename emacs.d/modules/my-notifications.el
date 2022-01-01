@@ -1,5 +1,6 @@
 ; source http://article.gmane.org/gmane.emacs.orgmode/66151
 (use-package appt
+  :straight nil
   :ensure nil
   :init
   (setq my-notifier-path "/usr/local/bin/terminal-notifier")

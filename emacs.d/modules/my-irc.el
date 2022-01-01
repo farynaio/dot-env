@@ -1,5 +1,6 @@
 (use-package erc
   :ensure nil
+  :straight nil
   :demand t
   :bind (:map erc-mode-map
           ("C-w =" . balance-windows)
@@ -220,6 +221,7 @@
   (use-package erc-sasl
     :after erc
     :ensure nil
+    :straight nil
     :config
     (add-to-list 'erc-sasl-server-regexp-list my/znc-server-regex)
     (defun erc-login ()

@@ -100,6 +100,7 @@ to invalidate."
   (global-git-gutter-mode 1))
 
 (use-package git-rebase
+  :straight nil
   :ensure nil
   :config
   (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1))))

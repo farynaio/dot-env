@@ -8,13 +8,15 @@
 
 (use-package ls-lisp
   :ensure nil
+  :straight nil
   :if (eq system-type 'darwin)
   :custom
-    (ls-lisp-dirs-first t)
-    (ls-lisp-use-insert-directory-program nil))
+  (ls-lisp-dirs-first t)
+  (ls-lisp-use-insert-directory-program nil))
 
 (use-package dired
   :ensure nil
+  :straight nil
   :delight "Dired "
   :hook ((dired-mode . dired-hide-details-mode)
           (dired-mode . hl-line-mode))

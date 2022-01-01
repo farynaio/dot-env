@@ -30,6 +30,7 @@
     langtool-default-language "pl"))
 
 (use-package abbrev
+  :straight nil
   :ensure nil
   :diminish "Abb"
   :hook ((text-mode . abbrev-mode))
