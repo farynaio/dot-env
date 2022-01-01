@@ -341,11 +341,11 @@
   ("Action"
    (("r" org-roam "org-roam")
     ("k" org-roam "Toggle sidebar")
-    ("l" org-roam-insert "Insert")
+    ("l" org-roam-node-insert "Insert")
     ("j" org-roam-dailies-find-date "Journal")
     ("J" farynaio/org-roam-dailies-find-date-other-window "Journal other window")
-    ("f" org-roam-find-file "Find file")
-    ("F" jarfar/org-roam-find-file-other-window "Find file")
+    ("f" org-roam-node-find "Find node")
+    ("F" jarfar/org-roam-node-find-other-window "Find node other window")
     ("b" org-roam-switch-to-buffer "Switch buffer")
     ("d" org-roam-find-directory "Find dir"))))
 

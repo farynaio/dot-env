@@ -1485,13 +1485,14 @@ should be continued."
 - tags :: "
         :unnarrowed t)))
 
+  (setq org-roam-dailies-directory "journal/")
+
   (setq org-roam-dailies-capture-templates
-    '(("d" "daily" plain (function org-roam-capture--get-point)
-        ""
-        :immediate-finish t
-        :file-name "journal/%<%Y-%m-%d>"
-        :head "#+TITLE: %<%Y-%m-%d>
-#+ROAM_TAGS: private
+    '(("d" "daily" plain "%?" :target
+        (file+head
+          "%<%Y-%m-%d>.org.gpg"
+          "#+TITLE: %<%Y-%m-%d>
+#+FILETAGS: private
 
 
 - Priorities
@@ -1502,157 +1503,118 @@ should be continued."
 
 * Journal
 * Today's wins
-* Pickup
-* Trading
+* Energy Journal
+** Sleep
 
-")))
+* Pickup
+* Trading"))))
 
   (setq org-roam-capture-templates
     '(
-       ("d" "Default" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
+       ("g" "Guru summary" plain "%?" :target
+         (file+head
+           "guru/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
+- tags :: \n \n") :unnarrowed t)
 
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
+       ("c" "Course summary" plain "%?" :target
+         (file+head
+           "course/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
+- tags :: \n \n") :unnarrowed t)
 
-       ("g" "Guru summary" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "guru/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("c" "Course summary" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "course/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+CREATED: %U\n#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
-- tags ::
-- author ::
-- progress-status :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("b" "Book summary" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "book/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
+       ("b" "Book summary" plain "%?" :target
+         (file+head
+           "book/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
 - tags ::
 - author ::
 - recommended-by ::
-- progress-status :: "
-         :unnarrowed t
-         :kill-buffer t)
+- progress-status :: ") :unnarrowed t)
 
-       ("a" "Article summary" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "article/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
+       ("a" "Article summary" plain "%?" :target
+         (file+head
+           "article/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
 - tags ::
 - author ::
-- progress-status :: "
-         :unnarrowed t
-         :kill-buffer t)
+- progress-status :: ") :unnarrowed t)
 
-       ("t" "Topic" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "topic/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
+       ("t" "Topic" plain "%?" :target
+         (file+head
+           "topic/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
+- tags :: ") :unnarrowed t)
+
+       ("p" "Programming" plain "%?" :target
+         (file+head
+           "programming/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+FILETAGS:
+#+CREATED: %t
+#+LAST_MODIFIED: %U\n \n
+- tags :: ") :unnarrowed t)
+
+       ("r" "Travel" plain "%?" :target
+         (file+head
+           "travel/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+CREATED: %t
 #+LAST_MODIFIED: %U
-#+ROAM_TAGS:
+#+FILETAGS: \n \n
+- tags :: ") :unnarrowed t)
 
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("p" "Programming" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "programming/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
+       ("u" "Business" plain "%?" :target
+         (file+head
+           "business/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+CREATED: %t
 #+LAST_MODIFIED: %U
-#+ROAM_TAGS:
+#+FILETAGS: \n \n
+- tags :: ") :unnarrowed t)
 
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("r" "Travel" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "travel/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
+       ("m" "Marketing" plain "%?" :target
+         (file+head
+           "marketing/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+CREATED: %t
 #+LAST_MODIFIED: %U
-#+ROAM_TAGS:
+#+FILETAGS: \n \n
+- tags :: ") :unnarrowed t)
 
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("u" "Business" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "business/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
+       ("r" "web" plain "%?" :target
+         (file+head
+           "website/%<%Y%m%d>-${slug}.org.gpg"
+           "#+TITLE: ${title}
+#+ROAM_ALIASES:
+#+CREATED: %t
 #+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("m" "Marketing" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "marketing/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+ROAM_ALIAS:
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_TAGS:
-
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
-
-       ("r" "web" plain (function org-roam-capture--get-point)
-         "%?"
-         :file-name "website/%<%Y%m%d%H%M%S>"
-         :head "#+TITLE: ${title}
-#+CREATED: %U
-#+LAST_MODIFIED: %U
-#+ROAM_KEY: ${ref}
-
-- progress-status ::
-- tags :: "
-         :unnarrowed t
-         :kill-buffer t)
+#+FILETAGS: \n \n
+- tags :: ") :unnarrowed t)
        ))
 
   ;; (defun jarfar/org-roam-find-file-other-window (&rest args)
