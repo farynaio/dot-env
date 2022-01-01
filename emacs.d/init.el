@@ -321,7 +321,9 @@
                (quote js-mode-hook)
                (lambda nil
                  (flycheck-mode -1))
-               t ))))
+               t ))
+        (browse-url-browser-function . my/browse-url-tor)
+        ))
 
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
