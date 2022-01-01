@@ -57,7 +57,7 @@
   (defun jarfar/ivy-switch-buffer-org-roam-title (candidate)
     (if (ivy-rich-switch-buffer-user-buffer-p candidate)
       (let* ((file (buffer-file-name (get-buffer candidate)))
-              (file (if (and (fboundp 'org-roam--org-roam-file-p) (org-roam--org-roam-file-p file)) (org-roam-db--get-title file) "")))
+              (file (if (and (buffer-file-name) (fboundp 'org-roam--org-roam-file-p) (org-roam--org-roam-file-p file)) (org-roam-db--get-title file) "")))
         (if file file ""))
       ""))
 
