@@ -10,8 +10,8 @@
           ("<s-mouse-1>" . my/elfeed-shr-open-click)
           ("<S-mouse-1>" . my/elfeed-shr-open-click-external)
           :map shr-map
-          ("RET" . my/elfeed-shr-open)
-          ("v" . my/elfeed-shr-open)
+          ("RET" . my/elfeed-shr-open-external)
+          ("v" . my/elfeed-shr-open-external)
           ("O" . my/elfeed-shr-open-external)
           ("<mouse-1>" . my/elfeed-shr-open-click)
           ("<mouse-2>" . my/elfeed-shr-open-click)
@@ -75,7 +75,7 @@
           (if (= (length (frame-list)) 1)
             (make-frame-command)
             (other-frame 1))
-          (w3m url t t))))
+          (browse-url-generic url))))
     (shr--blink-link))
 
   ;; based on shr-browse-url
@@ -91,7 +91,7 @@
           (if (= (length (frame-list)) 1)
             (make-frame-command)
             (other-frame 1))
-          (w3m url t t))))
+          (browse-url-generic url))))
     (shr--blink-link))
 
   ;; based on shr-browse-url
