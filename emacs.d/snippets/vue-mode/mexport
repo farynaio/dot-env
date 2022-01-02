@@ -1,0 +1,4 @@
+# name: module.exports
+# key: mexport
+# --
+module.exports = $0

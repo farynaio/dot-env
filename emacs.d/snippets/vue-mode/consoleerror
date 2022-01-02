@@ -1,0 +1,4 @@
+# name: console.error(...)
+# key: consolee
+# --
+console.error($0)

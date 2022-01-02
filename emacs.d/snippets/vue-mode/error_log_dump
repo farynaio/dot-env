@@ -1,0 +1,4 @@
+# name: PHP error_log(json_encode())
+# key: errorld
+# --
+error_log('$1: ' . json_encode($1));
