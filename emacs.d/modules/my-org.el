@@ -1836,14 +1836,14 @@ it can be passed in POS."
                        (1- (frame-width))
                        nil " > "))
           (title (ndk/heading-title))
-          (filename (car (org-roam--extract-titles-title)))
+          (filename (org-roam-node-file-title (org-roam-node-at-point)))
           (filename (if filename filename (buffer-name))))
 
     (if title
       (if (string-empty-p breadcrumbs)
         (format "[%s] %s" filename title)
         (format "[%s] %s > %s" filename breadcrumbs title))
-      (org-roam--extract-titles-title))))
+      (org-roam-node-file-title (org-roam-node-at-point)))))
 
 (defun ndk/set-header-line-format ()
   (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
