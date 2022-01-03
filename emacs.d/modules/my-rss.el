@@ -39,7 +39,7 @@
     (elfeed-search-update--force)
     (elfeed))
   :custom
-  (elfeed-search-filter "+news -skip -ok -junk")
+  (elfeed-search-filter "+news -ignore -ok -junk")
   (elfeed-search-title-max-width 115)
   (elfeed-search-remain-on-entry t)
   (elfeed-curl-timeout 200)
