@@ -355,7 +355,7 @@
    (
     ;; ("b" (elfeed-search-set-filter "+business") "Show Business")
     ;; ("k" (elfeed-search-set-filter "+marketing") "Show Marketing")
-    ("e" (elfeed-search-set-filter "+entreprenouriship") "Show Entrepreneurship")
+    ("e" (elfeed-search-set-filter "+entreprenouriship") "Show entrepreneurship")
     ;; ("s" (elfeed-search-set-filter "+startup") "Show Startup")
     ;; ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking")
     ;; ("a" (elfeed-search-set-filter "+saas") "Show SaaS")
@@ -365,10 +365,10 @@
     ;; ("f" (elfeed-search-set-filter "+finances") "Show Finances")
     ;; ("m" (elfeed-search-set-filter "+social") "Show Social Media")
     ;; ("y" (elfeed-search-set-filter "+crypto") "Show Crypto")
-    ("n" (elfeed-search-set-filter "+news") "Show News")
-    ("l" (elfeed-search-set-filter "+ok") "Show Read Later")
+    ("n" (elfeed-search-set-filter "+news") "Show news")
+    ("l" (elfeed-search-set-filter "+ok") "Show read later")
     ("f" (elfeed-search-set-filter "+favorite") "Show favorite")
-    ("j" (elfeed-search-set-filter "+junk") "Show Junk"))))
+    ("j" (elfeed-search-set-filter "+junk") "Show junk"))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))
