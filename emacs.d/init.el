@@ -208,8 +208,7 @@
  my-taskjuggler-activate nil
  my-hydra-activate t
  my-presentation-activate nil
- my-debug-activate t
- )
+ my-debug-activate t)
 
 (when my-debug-activate (require 'my-debug))
 (when my-utils-activate (require 'my-utils))
