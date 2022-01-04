@@ -1847,7 +1847,7 @@ it can be passed in POS."
 (defun ndk/set-header-line-format ()
   (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
 
-(add-hook 'org-mode-hook 'ndk/set-header-line-format)
+(add-hook 'org-mode-hook #'ndk/set-header-line-format)
 
 (straight-use-package
   '(org-link-archive :host github :repo "adamWithF/org-link-archive" :branch "main"))
