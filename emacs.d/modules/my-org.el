@@ -1834,7 +1834,8 @@ it can be passed in POS."
                        (1- (frame-width))
                        nil " > "))
           (title (ndk/heading-title))
-          (filename (org-roam-node-file-title (org-roam-node-at-point)))
+          (node (org-roam-node-at-point))
+          (filename (if node (org-roam-node-file-title node)))
           (filename (if filename filename (buffer-name))))
 
     (if title
