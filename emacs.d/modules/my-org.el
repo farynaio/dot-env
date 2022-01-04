@@ -1492,14 +1492,12 @@ should be continued."
         (file+head
           "%<%Y-%m-%d>.org.gpg"
           "#+TITLE: %<%Y-%m-%d>
-#+FILETAGS: private
-
-
+#+FILETAGS: private\n \n
 - Priorities
-  -
+  -\n \n
 
 - English
-  -
+  -\n \n
 
 * Journal
 * Today's wins
