@@ -1462,6 +1462,8 @@ should be continued."
     org-roam-update-db-idle-second 60
     org-roam-verbose nil)
 
+  (org-roam-db-autosync-mode 1)
+
   (make-directory my/org-roam-directory t)
 
   (add-hook 'org-roam-dailies-find-file-hook 'abbrev-mode)
