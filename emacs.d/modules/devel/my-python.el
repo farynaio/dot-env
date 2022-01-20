@@ -1,7 +1,7 @@
 ;; (require 'python)
 (require 'comint)
 
-(setq gud-pdb-command-name "python -m pdb ")
+(setq gud-pdb-command-name "python3 -m pdb ")
 
 (eval-after-load 'python
   '(progn
@@ -17,6 +17,7 @@
 (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
 (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
 
+;; On Debian it requires python3-venv apt package
 (use-package elpy
   :hook (python-mode . elpy-enable)
   :bind (:map elpy-mode-map
@@ -24,17 +25,21 @@
           ("C-c C-e" . elpy-multiedit-python-symbol-at-point)
           ("C-c C-r f" . elpy-format-code)
           ("C-c C-r r" . elpy-refactor))
+  :custom
+  (elpy-shell-echo-output nil)
+  ;; (elpy-rpc-backend "jedi")
+  (elpy-rpc-python-command "python3")
+  (elpy-rpc-timeout 2)
+  ;; (python-shell-interpreter "ipython")
+  ;; (python-shell-interpreter-args "-i --simple-prompt")
   :config
-  (setq
-    elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)
-    elpy-modules (delq 'elpy-module-flymake elpy-modules)
-    elpy-rpc-backend "jedi"
-    python-shell-interpreter "ipython"
-    python-shell-interpreter-args "-i --simple-prompt")
-
   (evil-define-key '(normal motion visual) elpy-mode-map
     (kbd "M-.") #'xref-find-definitions
     (kbd "M-,") #'xref-pop-marker-stack)
+
+  (setq
+    elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)
+    elpy-modules (delq 'elpy-module-flymake elpy-modules))
 
   ;; (setq
   ;; python-shell-interpreter "python"
@@ -43,7 +48,7 @@
   ;; (elpy-enable)
   ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-  (advice-add 'keyboard-quit :before 'elpy-multiedit-stop)
+  (advice-add 'keyboard-quit :before #'elpy-multiedit-stop)
 
   ;; https://www.thedigitalcatonline.com/blog/2020/07/18/emacs-configuration-for-python-javascript-terraform-and-blogging/
   ;; Prevent Elpy from overriding Windmove shortcuts
