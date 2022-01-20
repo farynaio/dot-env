@@ -251,7 +251,8 @@ end-of-buffer signals; pass the rest to the default handler."
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(add-hook 'text-mode-hook #'jarfar/remove-dos-eol)
+;; (add-hook 'text-mode-hook #'jarfar/remove-dos-eol)
+(add-hook 'prog-mode-hook #'jarfar/remove-dos-eol)
 
 (bind-keys
   ("<S-tab>" . 'jarfar/unindent-region)
