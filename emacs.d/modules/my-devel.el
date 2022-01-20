@@ -247,6 +247,7 @@
   :config
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
+  (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
   (add-to-list 'lsp-disabled-clients
     '(
        (typescript-mode . (eslint))
