@@ -76,14 +76,29 @@
   :hook ((prog-mode . company-mode)
           (mu4e-compose-mode . company-mode))
   :diminish company-mode
-  :config
-  (setq
-    company-idle-delay 0.5
-    company-show-numbers t
-    company-tooltip-align-annotations t
-    company-minimum-prefix-length 1
-    company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
+  :custom
+  (company-idle-delay 0.5)
+  (company-show-numbers t)
+  (company-tooltip-align-annotations t)
+  (company-minimum-prefix-length 1)
+  (company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
 
+(use-package company-statistics
+  :after company
+  :hook ((company-mode . company-statistics-mode)))
+
+;; TODO needs key mapping
+;; (use-package company-try-hard
+;;   :after company)
+
+(use-package company-quickhelp
+  :after company
+  :hook ((company-mode . company-quickhelp-mode))
+  :custom
+  (company-quickhelp-delay nil) ;; Invoke popup via shortcut
+  )
+
+;; Used to hang emacs?
 ;; (use-package which-key
 ;;   :defer 0.2
 ;;   :diminish which-key-mode
