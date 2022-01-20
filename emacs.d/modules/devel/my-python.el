@@ -17,7 +17,7 @@
 (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
 (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
 
-;; On Debian it requires python3-venv apt package
+;; On Debian it requires python3-venv apt package, than run elpy-rpc-reinstall-virtualenv
 (use-package elpy
   :hook (python-mode . elpy-enable)
   :bind (:map elpy-mode-map

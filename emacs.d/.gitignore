@@ -25,3 +25,4 @@ session.*
 straight/build
 straight/build-cache.el
 straight/repos
+company-statistics-cache.el
