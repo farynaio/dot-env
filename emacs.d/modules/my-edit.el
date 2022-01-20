@@ -229,6 +229,15 @@ end-of-buffer signals; pass the rest to the default handler."
         (setq deactivate-mark nil))
       (indent-rigidly (line-beginning-position) (line-end-position) offset))))
 
+;; https://stackoverflow.com/a/750933
+(defun jarfar/remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+(add-hook 'text-mode-hook #'jarfar/remove-dos-eol)
+
 (bind-keys
   ("<S-tab>" . 'jarfar/unindent-region)
   ("C-x C-r" . recentf-open-files)
