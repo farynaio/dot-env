@@ -388,6 +388,19 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :custom
   (nov-text-width t)
   ;; (nov-text-width 75)
+
+(use-package pdf-tools
+  ;; :pin manual ;; manually update
+  :bind (:map pdf-view-mode-map
+          ("/" . isearch-forward))
+  :custom
+  (pdf-view-display-size 'fit-page)
+  (pdf-annot-activate-created-annotations t)
+  ;; :config
+  ;; initialise
+  ;; (pdf-tools-install)
+  ;; open pdfs scaled to fit page
+  ;; automatically annotate highlights
   )
 
 ;; Bring back window configuration after ediff quits
