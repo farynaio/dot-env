@@ -376,18 +376,19 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
   (dashboard-setup-startup-hook))
 
-;; (use-package visual-fill-column
-;;   :commands visual-fill-column-mode
+(use-package visual-fill-column
+  :commands visual-fill-column-mode)
 ;;   :hook ((text-mode . visual-fill-column-mode)))
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode)
   :hook ((nov-mode . visual-line-mode)
           (nov-mode . visual-fill-column-mode)
-          (nov-mode . (lambda () (setq visual-fill-column-center-text t))))
+          (nov-mode . (lambda () (setq visual-fill-column-center-text t)))
+          (nov-mode . (lambda () (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 1.5))))
   :custom
-  (nov-text-width t)
-  ;; (nov-text-width 75)
+  (nov-text-width 75)
+  (visual-fill-column-center-text t))
 
 (use-package pdf-tools
   ;; :pin manual ;; manually update
