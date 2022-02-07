@@ -241,6 +241,7 @@
 (defun jarfar/open-buffers-on-startup ()
   (if (file-exists-p my/notes-file-path)
       (find-file my/notes-file-path)
+      (find-file my/whonix-share-file-path)
     (switch-to-buffer "*scratch*")))
 
 (when (eq system-type 'darwin)
