@@ -523,7 +523,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :NOTES:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:"
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("s" "Business Idea" entry (file+headline ,my/org-ideas-file-path "Ideas")
 "* %?
@@ -558,7 +558,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 | Total           |          |     |       |         |       |      |        |           |
 #+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
 "
-:prepend t :empty-lines-after 1 :jump-to-captured nil)
+:prepend t :empty-lines-after 2 :jump-to-captured nil)
 
   ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
 "** _\"%\\1\" %\\2 %?
@@ -600,7 +600,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("tb" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
 "* TODO %?
@@ -610,7 +610,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("ti" "Inbox" entry (file ,my/org-inbox-file-path)
 "* TODO %?
@@ -620,7 +620,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer nil)
+:prepend t :empty-lines-after 2 :kill-buffer nil)
 
   ("tm" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
 "* TODO %?
@@ -630,7 +630,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 :EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("tr" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
@@ -639,7 +639,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-    :prepend t :empty-lines-after 1 :kill-buffer t)
+    :prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("th" "Habit" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* TODO %?
@@ -649,7 +649,7 @@ SCHEDULED: <%<%Y-%m-%d %a .+1d>>
 :STYLE: habit
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("tw" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
 "* WAITING %?
@@ -658,7 +658,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
 "* [%<%Y-%m-%d %a>]\n%?
@@ -677,12 +677,12 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :RECOMMENDED: %^{Who recommended: }
 :END:
 "
-:prepend t :jump-to-captured nil :empty-lines-after 1 :kill-buffer t)
+:prepend t :jump-to-captured nil :empty-lines-after 2 :kill-buffer t)
 
   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
 "* %?
 "
-:prepend nil :empty-lines-after 1 :kill-buffer t)
+:prepend nil :empty-lines-after 2 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* \"%?\"
@@ -690,7 +690,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 :CREATED: [%<%Y-%m-%d %a>]
 :END:
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
 ("r" "Life review")
   ("rw" "Weekly" entry (file+headline ,my/org-review-file-path "Review Life")
@@ -727,7 +727,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 + Plans for improvement:
   -
 "
-    :prepend t :empty-lines-after 1 :jump-to-captured t)
+    :prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("rm" "Monthly" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>]                                                 :MONTHLY:
@@ -763,7 +763,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 + Plans for improvement:
   -
 "
-    :prepend t :empty-lines-after 1 :jump-to-captured t)
+    :prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("rh" "Review 6-month" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>]                                                 :HALF-YEAR:
@@ -800,7 +800,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 + Plans for improvement:
   -
 "
-:prepend t :empty-lines-after 1 :jump-to-captured t)
+:prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
 "* [%<%Y-%m-%d %a>]                                                 :YEARLY:
@@ -836,7 +836,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 + Plans for improvement:
   -
 "
-:prepend t :empty-lines-after 1 :jump-to-captured t)
+:prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("g" "Girl" entry (file+headline ,my/org-girls-file-path "Girls")
 "* %\\1
@@ -870,7 +870,7 @@ Blood type/flavour: %^{Blood type: }
 
 - I Was with her in
 "
-:prepend t :empty-lines-after 1 :jump-to-captured t)
+:prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
 "* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
@@ -890,7 +890,7 @@ Blood type/flavour: %^{Blood type: }
 
 %^{What Polish word: }
 "
-:prepend t :empty-lines-after 1 :kill-buffer t)
+:prepend t :empty-lines-after 2 :kill-buffer t)
 ))
 
 (defun org-priority-cookie ()
