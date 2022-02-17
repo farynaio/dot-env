@@ -270,7 +270,6 @@
  initial-scratch-message nil
  inhibit-startup-screen t
  x-underline-at-descent-line t
- confirm-kill-processes nil
  process-connection-type nil
  fill-column 99
  default-directory "~/"
