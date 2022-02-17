@@ -1853,5 +1853,6 @@ it can be passed in POS."
 
 (straight-use-package
   '(org-link-archive :host github :repo "adamWithF/org-link-archive" :branch "main"))
+(require 'org-link-archive)
 
 (provide 'my-org)
