@@ -397,6 +397,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :custom
   (pdf-view-display-size 'fit-page)
   (pdf-annot-activate-created-annotations t)
+  (pdf-view-resize-factor 1.25)
   ;; :config
   ;; initialise
   ;; (pdf-tools-install)
