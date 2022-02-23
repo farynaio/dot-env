@@ -1,6 +1,4 @@
-(setq
-  browse-url-browser-function 'browse-url-firefox
-  browse-url-generic-program "firefox")
+(setq browse-url-browser-function (lambda (URL &optional NEW-WINDOW)))
 
 (defun my/browse-url-tor (url &optional new-window)
   "Ask the Tor WWW browser to load URL.

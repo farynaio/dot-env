@@ -196,7 +196,7 @@
  my-devel-activate t
  my-email-activate t
  my-dired-activate t
- my-notifications-activate t
+ my-notifications-activate nil
  my-www-activate t
  my-irc-activate t
  my-theme-activate t
@@ -233,8 +233,6 @@
 (when my-irc-activate (require 'my-irc))
 (when my-taskjuggler-activate (require 'my-taskjuggler))
 (when my-org-caldav-activate (require 'my-org-caldav))
-
-(server-start)
 
 (add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
 

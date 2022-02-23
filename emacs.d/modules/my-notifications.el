@@ -1,9 +1,11 @@
 ; source http://article.gmane.org/gmane.emacs.orgmode/66151
+;; TODO this needs alternative notifier app for Linux
 (use-package appt
   :straight nil
   :ensure nil
   :init
-  (setq my-notifier-path "/usr/local/bin/terminal-notifier")
+  (when (eq system-type 'darwin)
+    (setq my-notifier-path "/usr/local/bin/terminal-notifier"))
   :preface
   (defun my-appt-send-notification (title msg)
     (shell-command (concat my-notifier-path " -message \"" msg "\" -title \"" title "\"")))

@@ -187,8 +187,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        ("<S-tab>" . my/outline-hide-subtree)
        ("<M-up>" . my/org-metaup)
        ("<M-down>" . my/org-metadown)
-       ("<S-mouse-1>" . browse-url-generic)
        ("<s-mouse-1>" . org-open-at-point)
+       ("<S-mouse-1>" . org-open-at-point)
        ([remap backward-paragraph] . nil)
        ([remap forward-paragraph] . nil)
        ("C-x :" . (lambda () (interactive) (save-excursion (org-back-to-heading) (org-set-tags)))))
@@ -1417,7 +1417,6 @@ should be continued."
                        ("@computer" . ?m)
                        (:endgroup . nil)
                        ))
-(org-agenda-to-appt t)             ;; generate the appt list from org agenda files on emacs launch
 
 (use-package org-review
   :config
@@ -1854,5 +1853,11 @@ it can be passed in POS."
 (straight-use-package
   '(org-link-archive :host github :repo "adamWithF/org-link-archive" :branch "main"))
 (require 'org-link-archive)
+
+;; TODO
+;; wylaczyc skrot klawiszowy
+
+;; Fixes problem with void function org-clocking-buffer
+(defun org-clocking-buffer ())
 
 (provide 'my-org)
