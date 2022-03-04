@@ -953,6 +953,7 @@ Blood type/flavour: %^{Blood type: }
       ((agenda "*"))
       ((org-agenda-overriding-header "agenda weekly sorted by state, priority, deadline, scheduled, alpha and effort")
         (org-agenda-sorting-strategy '(todo-state-down priority-down deadline-down scheduled-down alpha-down effort-up))))
+
      ("cn" "TODOs not sheduled"
        ((todo "*"))
        ((org-agenda-skip-function
@@ -960,19 +961,23 @@ Blood type/flavour: %^{Blood type: }
          (org-agenda-category-filter-preset '("-Holidays"))
          (org-agenda-overriding-header "TODOs not scheduled")
          (org-agenda-sorting-strategy '(deadline-down priority-down alpha-down effort-up))))
+
      ("cb" "TODOs blocked"
        ((tags "BLOCKED"))
        ((org-agenda-overriding-header "TODOs blocked")
          (org-agenda-sorting-strategy '(priority-down deadline-down alpha-down effort-up))))
+
      ("cc" "TODOs canceled"
        ((todo "CANCELED"))
        ((org-agenda-overriding-header "TODOs canceled")
          (org-agenda-sorting-strategy '(priority-down alpha-down effort-up))))
+
      ("cj" "Journal entries"
        ((search ""))
        ((org-agenda-files (list org-journal-dir))
          (org-agenda-overriding-header "Journal")
          (org-agenda-sorting-strategy '(timestamp-down))))
+
      ("cm" "agenda 1 month ahead"
        ((agenda ""
          ((org-agenda-sorting-strategy '(time-up todo-state-down habit-down))
@@ -980,28 +985,13 @@ Blood type/flavour: %^{Blood type: }
            (org-agenda-remove-tags t)
            (ps-number-of-columns 2)
            (ps-landscape-mode 1)))))
+
      ("cp" "Active projects"
        ((tags "PROJECT_ACTIVE"))
        ((org-agenda-overriding-header "Active Projects")
          (org-tags-match-list-sublevels nil)
          (org-agenda-remove-tags t)
          (org-agenda-files my/org-active-projects)))
-         ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
-     ;; (org-agenda-files (list my/org-active-file-path my/org-projects-file-path))))
-
-     ;; ("b" "Active media"
-     ;;    ((tags-todo "TODO=\"IN-PROCESS\""
-     ;;      ((org-agenda-overriding-header "Active media:")
-     ;;        (org-tags-match-list-sublevels nil)
-     ;;        (org-agenda-remove-tags nil)
-     ;;        (org-agenda-todo-keyword-format "")
-     ;;        (org-agenda-files (list my/org-media-file-path))))
-     ;;    (tags-todo "-TODO=\"DONE\"|-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
-     ;;      ((org-agenda-overriding-header "Active Reviews:")
-     ;;        (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
-     ;;        (org-agenda-remove-tags t)
-     ;;        (org-agenda-files (list my/org-media-reviews-file-path)))))
-     ;;   )
 
      ("i" "Inbox"
         ((tags "*"
@@ -1009,8 +999,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
-            (org-agenda-files (list my/org-inbox-file-path)))))
-       )
+            (org-agenda-files (list my/org-inbox-file-path))))))
 
      ("b" "Backlog"
         ((todo "TODO"
@@ -1018,8 +1007,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
-            (org-agenda-files (list my/org-backlog-file-path)))))
-       )
+            (org-agenda-files (list my/org-backlog-file-path))))))
 
      ("y" "Maybe / Someday"
         ((todo "TODO"
@@ -1027,8 +1015,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
-            (org-agenda-files (list my/org-tasks-maybe-someday-file-path)))))
-       )
+            (org-agenda-files (list my/org-tasks-maybe-someday-file-path))))))
 
      ("x" "FOO"
         ((todo "TODO"
@@ -1036,8 +1023,7 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-remove-tags nil)
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
-            (org-agenda-files (list (expand-file-name "~/Dropbox/emacs/agenda/foo.org"))))))
-       )
+            (org-agenda-files (list (expand-file-name "~/Dropbox/emacs/agenda/foo.org")))))))
 
      ("f" "Done media"
         ((todo "DONE"
@@ -1050,8 +1036,7 @@ Blood type/flavour: %^{Blood type: }
           ((org-agenda-overriding-header "Active Reviews:")
             (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
             (org-agenda-remove-tags t)
-            (org-agenda-files (list my/org-media-reviews-file-path)))))
-       )
+            (org-agenda-files (list my/org-media-reviews-file-path))))))
 
      ("p" "Active places tasks"
        ((tags "@phone"
@@ -1103,12 +1088,13 @@ Blood type/flavour: %^{Blood type: }
                   ))
              (org-tags-match-list-sublevels nil)
              (org-agenda-remove-tags t)
-             (org-agenda-files (append org-agenda-files my/org-active-projects))))
-         ))
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))))
+
      ("z" "DONE tasks not archived"
        ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
          (org-agenda-files (list my/org-tasks-file-path my/org-projects-file-path))))
+
      ("g" "Goals"
        ((tags-todo "weekly"
           ((org-agenda-skip-function
@@ -1143,26 +1129,23 @@ Blood type/flavour: %^{Blood type: }
             (org-agenda-hide-tags-regexp "yearly")
             (org-agenda-todo-keyword-format "")
             (org-agenda-files (list my/org-yearly-goals-file-path))))))
+
      ("f" "Tasks finished"
        ((agenda ""
           ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("DONE" "UNDOABLE" "CANCELED")))
             (org-agenda-log-mode-items '(closed))
             (org-agenda-overriding-header "Tasks finished this week:")
             (org-agenda-files (append org-agenda-files my/org-active-projects (list my/org-archive-tasks-path)))
-            (org-agenda-start-on-weekday 1)
-            ))))
+            (org-agenda-start-on-weekday 1)))))
+
      ("d" "Coprehensive agenda"
-      ;; ((tags "PRIORITY=\"A\"+TODO=\"TODO\"|TODO=\"IN-PROCESS\"|TODO=\"BLOCKED\"|TODO=\"WAITING\""
        ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
           ((org-agenda-skip-function
              '(or
                 (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
-                ;; (my/org-agenda-skip-if-scheduled-later)
                 (and
                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
-                  (my/org-skip-subtree-if-priority ?A)
-                  ;; (org-agenda-skip-entry-if 'notscheduled)
-                  )))
+                  (my/org-skip-subtree-if-priority ?A))))
             (org-agenda-remove-tags nil)
             (org-agenda-overriding-header "TASKS IN PROGRESS:")
             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
@@ -1191,7 +1174,6 @@ Blood type/flavour: %^{Blood type: }
            (org-agenda-skip-function
              '(or
                 (org-agenda-skip-if nil '(notdeadline))))
-             ;; (org-agenda-skip-entry-if 'todo '("DONE"))))
             (org-agenda-overriding-header "Weekly Goals:")
            (org-tags-match-list-sublevels t)
            (org-agenda-span 'day)
@@ -1202,17 +1184,14 @@ Blood type/flavour: %^{Blood type: }
         (agenda ""
           ((org-agenda-skip-function
              '(or
-                (org-agenda-skip-entry-if 'todo '("WAITING"))
-                ;; (my/org-skip-subtree-if-priority ?A)
-                ))
+                (org-agenda-skip-entry-if 'todo '("WAITING"))))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
             (org-agenda-sorting-strategy '(time-up user-defined-down todo-state-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
             (org-agenda-remove-tags nil)
             (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")))
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
-            (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path)))))
-        )))
+            (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path))))))))
   )
 
 (defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
