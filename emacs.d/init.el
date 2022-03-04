@@ -353,7 +353,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes '(wombat))
+ '(company-show-quick-access t nil nil "Customized with use-package company")
  '(ledger-reports
    '(("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
      (#("Net value balance" 0 1
@@ -402,14 +402,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cursor ((t (:inherit nil :background "gray82" :underline nil))))
  '(erc-action-face ((t (:foreground "#8fbcbb"))))
  '(erc-error-face ((t (:foreground "#bf616a"))))
  '(erc-input-face ((t (:foreground "#ebcb8b"))))
  '(erc-notice-face ((t (:foreground "#ebcb8b"))))
  '(erc-timestamp-face ((t (:foreground "#a3be8c"))))
  '(hl-line ((t (:background "gray32"))))
+ '(org-level-2 ((t (:inherit default :extend nil :foreground "goldenrod"))))
  '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
  '(persp-selected-face ((t (:foreground "cyan4" :weight bold))))
- '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8"))))
  '(symbol-overlay-default-face ((t (:background "gray37")))))

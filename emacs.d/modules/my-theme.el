@@ -126,7 +126,7 @@
   (when (featurep 'adwaita-theme)
     (disable-theme 'adwaita)
     (unload-feature 'adwaita-theme))
-  (load-theme 'wombat)
+  (load-theme 'wombat t)
 
   (custom-theme-set-faces
     'wombat
@@ -135,7 +135,7 @@
     ;; '(region ((t (:inherit nil :underline nil :foreground "White" :background "RoyalBlue4"))))
     '(hl-line ((t (:background "gray32"))))
     '(ledger-font-xact-highlight-face ((t nil)))
-    '(org-level-2 ((t (:inherit outline-2 :foreground "LightGoldenrod2"))))
+    '(org-level-2 ((t (:inherit default :extend nil :foreground "goldenrod"))))
     '(org-level-3 ((t (:inherit outline-3 :foreground "DarkGoldenrod2"))))
     '(org-level-4 ((t (:inherit outline-4 :foreground "peru"))))
     '(org-level-5 ((t (:inherit outline-5 :foreground "plum1"))))
@@ -157,7 +157,7 @@
   (when (featurep 'wombat-theme)
     (disable-theme 'wombat)
     (unload-feature 'wombat-theme))
-  (load-theme 'adwaita)
+  (load-theme 'adwaita t)
   (setq my/current-theme 'adwaita))
 
 (defun my/toggle-theme ()
