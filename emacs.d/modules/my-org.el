@@ -1,6 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 
-(use-package org)
 
 (require 'org-agenda)
 (require 'org-contacts)
@@ -18,6 +17,7 @@
 (add-to-list 'org-modules 'org-habit t)
 (add-to-list 'org-modules 'org-drill t)
 (add-to-list 'org-modules 'org-collector t)
+(add-to-list 'org-modules 'org-checklist t)
 ;; (add-to-list 'org-modules 'org-depend t)
 ;; (add-to-list 'org-modules 'org-eww t)
 (add-to-list 'org-modules 'org-checklist t)
@@ -389,8 +389,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-startup-indented t)
 
 (setq org-agenda-files
-  ;; (delq nil
-  ;; (mapcar (lambda (x) (and x (file-exists-p x) x))
   `(
      ,my/org-tasks-file-path
      ;; "~/Documents/emacs/agenda/foo.org"
@@ -398,7 +396,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      ;; my/org-events-file-path
      ;; my/org-projects-file-path
      ))
-;; ))
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 ;; (setq org-refile-targets `(

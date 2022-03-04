@@ -77,7 +77,10 @@
 
 (straight-use-package 'use-package)
 
-(setq straight-use-package-by-default t)
+(setq
+  straight-use-package-by-default t
+  straight-disable-compile t
+  straight-check-for-modifications '())
 
 (require 'tls)
 (require 'gnutls)
@@ -113,8 +116,10 @@
   (add-to-list 'exec-path (concat invocation-directory "bin") t)
   (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/local-config.el" "~/.emacs.d/init.el") t))
 
-(unless (package-installed-p 'org-plus-contrib)
-  (package-install 'org-plus-contrib))
+
+(use-package org)
+(use-package org-contrib)
+
 
 (setq load-prefer-newer t)
 
