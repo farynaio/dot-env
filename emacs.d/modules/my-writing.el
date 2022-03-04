@@ -104,8 +104,6 @@
                     ("arent" "aren't" nil 0)
                     ("cant" "can't" nil 0)
                     ("chinese" "Chinese" nil 0)
-                    ("common" "c'mon" nil 0)
-                    ("Common" "C'mon" nil 0)
                     ("Cmon" "C'mon" nil 0)
                     ("cmon" "c'mon" nil 0)
                     ("couldnt" "couldn't" nil 0)
