@@ -514,7 +514,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 :WORK_PHONE:
 :ADDRESS:
 :URL:
-:BIRTHDAY:
+:_BIRTHDAY:
 :ITOLD_THEM_EMAIL:
 :ITOLD_THEM_PHONE:
 :NOTES:
