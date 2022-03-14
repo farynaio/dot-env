@@ -1,6 +1,4 @@
 ;; -*- lexical-binding: t; -*-
-
-
 (require 'org-agenda)
 (require 'org-contacts)
 (require 'org-toc)
@@ -533,23 +531,23 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
 (setq org-capture-templates `(
-  ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
-"* %(org-contacts-template-name)
-:PROPERTIES:
-:COMPANY:
-:ROLE:
-:EMAIL: %(org-contacts-template-email)
-:MOBILE:
-:WORK_PHONE:
-:ADDRESS:
-:WWW:
-:_BIRTHDAY:
-:I_TOLD_THEM_EMAIL: adam35@puremail.cyou
-:I_TOLD_THEM_PHONE: +447763702049
-:WHERE_MEET:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:"
-:prepend t :empty-lines-after 2 :kill-buffer t)
+;;   ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
+;; "* %(org-contacts-template-name)
+;; :PROPERTIES:
+;; :COMPANY:
+;; :ROLE:
+;; :EMAIL: %(org-contacts-template-email)
+;; :MOBILE:
+;; :WORK_PHONE:
+;; :ADDRESS:
+;; :WWW:
+;; :_BIRTHDAY:
+;; :I_TOLD_THEM_EMAIL: adam35@puremail.cyou
+;; :I_TOLD_THEM_PHONE: +447763702049
+;; :WHERE_MEET:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:"
+;; :prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("s" "Business Idea" entry (file+headline ,my/org-ideas-file-path "Ideas")
 "* %?
@@ -559,63 +557,63 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 "
 :prepend t :empty-lines-after 0 :kill-buffer nil)
 
-  ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
-"* CAL-IN Diet in [%<%Y-%m-%d %a>]
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:Weight: %^{What is my weight (pounds): } pounds
-:END:
+;;   ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
+;; "* CAL-IN Diet in [%<%Y-%m-%d %a>]
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :Weight: %^{What is my weight (pounds): } pounds
+;; :END:
 
-| Food / Exercise | Calories | Fat | Carbs | Protein | Fiber | Salt | Sugars | Saturates |
-|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| breakfast       |          |     |       |         |       |      |        |           |
-|                 |          |     |       |         |       |      |        |           |
-|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| lunch           |          |     |       |         |       |      |        |           |
-|                 |          |     |       |         |       |      |        |           |
-|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| dinner          |          |     |       |         |       |      |        |           |
-|                 |          |     |       |         |       |      |        |           |
-|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| walking         |          |     |       |         |       |      |        |           |
-|                 |          |     |       |         |       |      |        |           |
-|-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-| Expected        |     1713 |     |       |         |       |      |        |           |
-| Total           |          |     |       |         |       |      |        |           |
-#+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
-"
-:prepend t :empty-lines-after 2 :jump-to-captured nil)
+;; | Food / Exercise | Calories | Fat | Carbs | Protein | Fiber | Salt | Sugars | Saturates |
+;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+;; | breakfast       |          |     |       |         |       |      |        |           |
+;; |                 |          |     |       |         |       |      |        |           |
+;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+;; | lunch           |          |     |       |         |       |      |        |           |
+;; |                 |          |     |       |         |       |      |        |           |
+;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+;; | dinner          |          |     |       |         |       |      |        |           |
+;; |                 |          |     |       |         |       |      |        |           |
+;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+;; | walking         |          |     |       |         |       |      |        |           |
+;; |                 |          |     |       |         |       |      |        |           |
+;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
+;; | Expected        |     1713 |     |       |         |       |      |        |           |
+;; | Total           |          |     |       |         |       |      |        |           |
+;; #+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
+;; "
+;; :prepend t :empty-lines-after 2 :jump-to-captured nil)
 
-  ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
-"** _\"%\\1\" %\\2 %?
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:TITLE: \"%^{What Title: }\"
-:AUTHOR: %^{What author: }
-:END:
-[[file:~/Documents/emacs/orgs/archive/books/%\\1 - %\\2.org][link]]
-*** TODO \"%\\1\" after week
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after month
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after half year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-:prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
+;;   ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
+;; "** _\"%\\1\" %\\2 %?
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :TITLE: \"%^{What Title: }\"
+;; :AUTHOR: %^{What author: }
+;; :END:
+;; [[file:~/Documents/emacs/orgs/archive/books/%\\1 - %\\2.org][link]]
+;; *** TODO \"%\\1\" after week
+;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+;; *** TODO \"%\\1\" after month
+;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+;; *** TODO \"%\\1\" after half year
+;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+;; *** TODO \"%\\1\" after year
+;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+;; "
+;; :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
   ("t" "Tasks")
   ("tt" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
@@ -686,29 +684,28 @@ DEADLINE: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 2 :kill-buffer t)
 
-  ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
-"* [%<%Y-%m-%d %a>]\n%?
-"
-:prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
+;;   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
+;; "* [%<%Y-%m-%d %a>]\n%?
+;; "
+;; :prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
 
-  ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-"* TODO %\\3 \"%\\1\" %\\2 %? %^g
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:TITLE: \"%^{What Title: }\"
-:AUTHOR: %^{What author: }
-:TYPE: %^{What type: |BOOK|AUDIO|ARTICLE|MOVIE|PODCAST|YOUTUBE}
-:WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book|audio|youtube}
-:EFFORT: %^{What effort: |unknown|short|medium|big}
-:RECOMMENDED: %^{Who recommended: }
-:END:
-"
-:prepend t :jump-to-captured nil :empty-lines-after 2 :kill-buffer t)
+;;   ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
+;; "* TODO %\\3 \"%\\1\" %\\2 %? %^g
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :TITLE: \"%^{What Title: }\"
+;; :AUTHOR: %^{What author: }
+;; :TYPE: %^{What type: |BOOK|AUDIO|ARTICLE|MOVIE|PODCAST|YOUTUBE}
+;; :WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book|audio|youtube}
+;; :RECOMMENDED: %^{Who recommended: }
+;; :END:
+;; "
+;; :prepend t :jump-to-captured nil :empty-lines-after 2 :kill-buffer t)
 
-  ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
-"* %?
-"
-:prepend nil :empty-lines-after 2 :kill-buffer t)
+;;   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
+;; "* %?
+;; "
+;; :prepend nil :empty-lines-after 2 :kill-buffer t)
 
   ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
 "* \"%?\"
@@ -718,185 +715,151 @@ DEADLINE: <%<%Y-%m-%d %a>>
 "
 :prepend t :empty-lines-after 2 :kill-buffer t)
 
-("r" "Life review")
-  ("rw" "Weekly" entry (file+headline ,my/org-review-file-path "Review Life")
-"* [%<%Y-%m-%d %a>]                                                 :WEEKLY:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
+;; ("r" "Life review")
+;;   ("rw" "Weekly" entry (file+headline ,my/org-review-file-path "Review Life")
+;; "* [%<%Y-%m-%d %a>]                                                 :WEEKLY:
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
 
-[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-[[~/Documents/emacs/coaching/][coaching folder]]
-[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+;; [[~/Documents/emacs/coaching/][coaching folder]]
+;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
 
-- tasks
-  - Review last week journal reviews.
-  - Plan goals for following month based on this year goals.
-    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-  - Review all task lists.
-  - Plan long term, bigger events for following 6 months.
-
-
-+ Plans for next weak
-  -
+;; - tasks
+;;   - Review last week journal reviews.
+;;   - Plan goals for following month based on this year goals.
+;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+;;   - Review all task lists.
+;;   - Plan long term, bigger events for following 6 months.
 
 
-+ What went good:
-  - %?
-
-+ What went bad:
-  -
-
-+ What do I learned:
-  -
-
-+ Plans for improvement:
-  -
-"
-    :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-  ("rm" "Monthly" entry (file+headline ,my/org-review-file-path "Review Life")
-"* [%<%Y-%m-%d %a>]                                                 :MONTHLY:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-
-[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-[[~/Documents/emacs/coaching/][coaching folder]]
-[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-- tasks
-  - Review last month journal reviews.
-  - Plan goals for following month based on this year goals.
-    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-  - Review all task lists.
-  - Plan long term, bigger events for following 6 months.
+;; + Plans for next weak
+;;   -
 
 
-+ Plans for next month
-  -
+;; + What went good:
+;;   - %?
+
+;; + What went bad:
+;;   -
+
+;; + What do I learned:
+;;   -
+
+;; + Plans for improvement:
+;;   -
+;; "
+;;     :prepend t :empty-lines-after 2 :jump-to-captured t)
+
+;;   ("rm" "Monthly" entry (file+headline ,my/org-review-file-path "Review Life")
+;; "* [%<%Y-%m-%d %a>]                                                 :MONTHLY:
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+
+;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+;; [[~/Documents/emacs/coaching/][coaching folder]]
+;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+;; - tasks
+;;   - Review last month journal reviews.
+;;   - Plan goals for following month based on this year goals.
+;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+;;   - Review all task lists.
+;;   - Plan long term, bigger events for following 6 months.
 
 
-+ What went good:
-  - %?
-
-+ What went bad:
-  -
-
-+ What do I learned:
-  -
-
-+ Plans for improvement:
-  -
-"
-    :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-  ("rh" "Review 6-month" entry (file+headline ,my/org-review-file-path "Review Life")
-"* [%<%Y-%m-%d %a>]                                                 :HALF-YEAR:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-
-[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-[[~/Documents/emacs/coaching/][coaching folder]]
-[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+;; + Plans for next month
+;;   -
 
 
-- tasks
-  - Review last 6 months journal reviews.
-  - Plan goals for following month based on this year goals.
-    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-  - Review all task lists.
-  - Plan long term, bigger events for following 6 months.
+;; + What went good:
+;;   - %?
+
+;; + What went bad:
+;;   -
+
+;; + What do I learned:
+;;   -
+
+;; + Plans for improvement:
+;;   -
+;; "
+;;     :prepend t :empty-lines-after 2 :jump-to-captured t)
+
+;;   ("rh" "Review 6-month" entry (file+headline ,my/org-review-file-path "Review Life")
+;; "* [%<%Y-%m-%d %a>]                                                 :HALF-YEAR:
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+
+;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+;; [[~/Documents/emacs/coaching/][coaching folder]]
+;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
 
 
-+ Plans for half year
-  -
+;; - tasks
+;;   - Review last 6 months journal reviews.
+;;   - Plan goals for following month based on this year goals.
+;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+;;   - Review all task lists.
+;;   - Plan long term, bigger events for following 6 months.
 
 
-+ What went good:
-  - %?
-
-+ What went bad:
-  -
-
-+ What do I learned:
-  -
-
-+ Plans for improvement:
-  -
-"
-:prepend t :empty-lines-after 2 :jump-to-captured t)
-
-  ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
-"* [%<%Y-%m-%d %a>]                                                 :YEARLY:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-
-[[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-[[~/Documents/emacs/coaching/][coaching folder]]
-[[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-- tasks
-  - Review last 12 months journal reviews.
-  - Plan goals for following month based on this year goals.
-    - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-  - Review all task lists.
-  - Plan long term, bigger events for following 6 months.
+;; + Plans for half year
+;;   -
 
 
-+ Plans for next year
-  -
+;; + What went good:
+;;   - %?
+
+;; + What went bad:
+;;   -
+
+;; + What do I learned:
+;;   -
+
+;; + Plans for improvement:
+;;   -
+;; "
+;; :prepend t :empty-lines-after 2 :jump-to-captured t)
+
+;;   ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
+;; "* [%<%Y-%m-%d %a>]                                                 :YEARLY:
+;; :PROPERTIES:
+;; :CREATED: [%<%Y-%m-%d %a>]
+;; :END:
+
+;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
+;; [[~/Documents/emacs/coaching/][coaching folder]]
+;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
+
+;; - tasks
+;;   - Review last 12 months journal reviews.
+;;   - Plan goals for following month based on this year goals.
+;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
+;;   - Review all task lists.
+;;   - Plan long term, bigger events for following 6 months.
 
 
-+ What went good:
-  - %?
+;; + Plans for next year
+;;   -
 
-+ What went bad:
-  -
 
-+ What do I learned:
-  -
+;; + What went good:
+;;   - %?
 
-+ Plans for improvement:
-  -
-"
-:prepend t :empty-lines-after 2 :jump-to-captured t)
+;; + What went bad:
+;;   -
 
-  ("g" "Girl" entry (file+headline ,my/org-girls-file-path "Girls")
-"* %\\1
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
+;; + What do I learned:
+;;   -
 
-Name: %^{Name: }
-From: %^{From: }
-Where she live: %^{Where she live: }
-Will stay 'till: %^{Will stay 'till: }
-Contact: %^{Contact: }
-Birthday: %^{Birthday: }
-Blood type/flavour: %^{Blood type: }
-%?
-- What she do
-
-- Her interest
-
-- She have been/seen
-
-- Family/siblings
-
-- Music
-
-- Movies
-
-- Spare Time
-
-- Sport
-
-- I Was with her in
-"
-:prepend t :empty-lines-after 2 :jump-to-captured t)
+;; + Plans for improvement:
+;;   -
+;; "
+;; :prepend t :empty-lines-after 2 :jump-to-captured t)
 
   ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
 "* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
@@ -1494,24 +1457,17 @@ should be continued."
   (setq org-roam-dailies-directory "journal/")
 
   (setq org-roam-dailies-capture-templates
-    '(("d" "daily" plain "%?" :target
+    '(("d" "Daily" plain "%?" :target
         (file+head
-          "%<%Y-%m-%d>.org.gpg"
+          "%<%Y-%m-%d>.org"
           "#+TITLE: %<%Y-%m-%d>
 #+FILETAGS: private\n \n
 - Priorities
   -\n \n
 
 - English
-  -\n \n
-
-* Journal
-* Today's wins
-* Energy Journal
-** Sleep
-
-* Pickup
-* Trading"))))
+  -\n \n"
+))))
 
   (setq org-roam-capture-templates
     '(
@@ -1610,7 +1566,7 @@ should be continued."
 #+FILETAGS: \n \n
 - tags :: ") :unnarrowed t)
 
-       ("r" "web" plain "%?" :target
+       ("r" "Web" plain "%?" :target
          (file+head
            "website/%<%Y%m%d>-${slug}.org.gpg"
            "#+TITLE: ${title}
