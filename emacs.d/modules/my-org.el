@@ -536,19 +536,17 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
 "* %(org-contacts-template-name)
 :PROPERTIES:
-:TITLE:
-:ALIAS:
 :COMPANY:
 :ROLE:
 :EMAIL: %(org-contacts-template-email)
 :MOBILE:
 :WORK_PHONE:
 :ADDRESS:
-:URL:
+:WWW:
 :_BIRTHDAY:
-:ITOLD_THEM_EMAIL:
-:ITOLD_THEM_PHONE:
-:NOTES:
+:I_TOLD_THEM_EMAIL: adam35@puremail.cyou
+:I_TOLD_THEM_PHONE: +447763702049
+:WHERE_MEET:
 :CREATED: [%<%Y-%m-%d %a>]
 :END:"
 :prepend t :empty-lines-after 2 :kill-buffer t)
