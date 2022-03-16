@@ -17,17 +17,18 @@
 
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
 
-(setq my/notes-file-path (expand-file-name "Notes.org" org-agenda-directory))
+(setq my/notes-file-path (expand-file-name "Notes.org" my/fast-path))
 (setq my/whonix-share-file-path (expand-file-name "share.org" "~/Virtual Machines/shared/safe"))
 
 ;; Tasks
-(setq my/org-backlog-file-path (expand-file-name "Backlog.org" org-agenda-directory))
-(setq my/org-events-file-path (expand-file-name "Events.org" org-agenda-directory))
+(setq my/org-tasks-base-dir (expand-file-name "Tasks" org-directory))
+(setq my/org-backlog-file-path (expand-file-name "backlog.org.gpg" my/org-tasks-base-dir))
+(setq my/org-events-file-path (expand-file-name "events.org.gpg" my/org-tasks-base-dir))
 (setq my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
-(setq my/org-tasks-file-path (expand-file-name "Tasks.org" org-agenda-directory))
-(setq my/org-taxes-file-path (expand-file-name "Taxes.org" org-agenda-directory))
+(setq my/org-tasks-file-path (expand-file-name "tasks.org.gpg" my/org-tasks-base-dir))
+(setq my/org-taxes-file-path (expand-file-name "taxes.org.gpg" my/org-tasks-base-dir))
 (setq my/org-temp-file-path (expand-file-name "Temp.org" org-agenda-directory))
-(setq my/org-tasks-maybe-someday-file-path (expand-file-name "Maybe someday.org" org-agenda-directory))
+(setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe someday.org.gpg" my/org-tasks-base-dir))
 
 (setq
   my/affirmations-file-path (expand-file-name "affirmations.org" my/fast-path)

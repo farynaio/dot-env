@@ -211,11 +211,11 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
             (,my/org-temp-file-path :maxlevel . 1)
             )))
 
-     (dir-locals-set-class-variables 'jarfar/org-agenda-dir-class
+     (dir-locals-set-class-variables 'jarfar/org-tasks-dir-class
        '((nil . (
           (eval . (progn (jarfar/org-tasks-refile-targets-local)))
           ))))
-     (dir-locals-set-directory-class org-agenda-directory 'jarfar/org-agenda-dir-class)
+     (dir-locals-set-directory-class my/org-tasks-base-dir 'jarfar/org-tasks-dir-class)
      (add-hook 'org-agenda-mode-hook 'jarfar/org-tasks-refile-targets-local)
 
 
@@ -531,23 +531,23 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
 (setq org-capture-templates `(
-;;   ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
-;; "* %(org-contacts-template-name)
-;; :PROPERTIES:
-;; :COMPANY:
-;; :ROLE:
-;; :EMAIL: %(org-contacts-template-email)
-;; :MOBILE:
-;; :WORK_PHONE:
-;; :ADDRESS:
-;; :WWW:
-;; :_BIRTHDAY:
-;; :I_TOLD_THEM_EMAIL: adam35@puremail.cyou
-;; :I_TOLD_THEM_PHONE: +447763702049
-;; :WHERE_MEET:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:"
-;; :prepend t :empty-lines-after 2 :kill-buffer t)
+  ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
+"* %(org-contacts-template-name)
+:PROPERTIES:
+:COMPANY:
+:ROLE:
+:EMAIL: %(org-contacts-template-email)
+:MOBILE:
+:WORK_PHONE:
+:ADDRESS:
+:WWW:
+:_BIRTHDAY:
+:I_TOLD_THEM_EMAIL: adam35@puremail.cyou
+:I_TOLD_THEM_PHONE: +447763702049
+:WHERE_MEET:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:"
+:prepend t :empty-lines-after 2 :kill-buffer t)
 
   ("s" "Business Idea" entry (file+headline ,my/org-ideas-file-path "Ideas")
 "* %?
@@ -1009,27 +1009,6 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-tasks-maybe-someday-file-path))))))
 
-     ("x" "FOO"
-        ((todo "TODO"
-          ((org-agenda-overriding-header "FOO")
-            (org-agenda-remove-tags nil)
-            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
-            (org-agenda-sorting-strategy '(user-defined-down alpha-up))
-            (org-agenda-files (list (expand-file-name "~/Dropbox/emacs/agenda/foo.org")))))))
-
-     ("f" "Done media"
-        ((todo "DONE"
-          ((org-agenda-overriding-header "Done media:")
-            (org-tags-match-list-sublevels nil)
-            (org-agenda-remove-tags nil)
-            (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-media-file-path))))
-        (tags-todo "-TODO=\"CANCELED\"|-TODO=\"UNDOABLE\""
-          ((org-agenda-overriding-header "Active Reviews:")
-            (org-agenda-skip-function 'my/org-agenda-skip-if-scheduled-later)
-            (org-agenda-remove-tags t)
-            (org-agenda-files (list my/org-media-reviews-file-path))))))
-
      ("p" "Active places tasks"
        ((tags "@phone"
           ((org-agenda-overriding-header "Active Phone tasks:")
@@ -1473,7 +1452,7 @@ should be continued."
     '(
        ("g" "Guru summary" plain "%?" :target
          (file+head
-           "guru/%<%Y%m%d>-${slug}.org.gpg"
+           "guru/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1483,7 +1462,7 @@ should be continued."
 
        ("c" "Course summary" plain "%?" :target
          (file+head
-           "course/%<%Y%m%d>-${slug}.org.gpg"
+           "course/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1493,7 +1472,7 @@ should be continued."
 
        ("b" "Book summary" plain "%?" :target
          (file+head
-           "book/%<%Y%m%d>-${slug}.org.gpg"
+           "book/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1506,7 +1485,7 @@ should be continued."
 
        ("a" "Article summary" plain "%?" :target
          (file+head
-           "article/%<%Y%m%d>-${slug}.org.gpg"
+           "article/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1518,7 +1497,7 @@ should be continued."
 
        ("t" "Topic" plain "%?" :target
          (file+head
-           "topic/%<%Y%m%d>-${slug}.org.gpg"
+           "topic/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1528,7 +1507,7 @@ should be continued."
 
        ("p" "Programming" plain "%?" :target
          (file+head
-           "programming/%<%Y%m%d>-${slug}.org.gpg"
+           "programming/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+FILETAGS:
@@ -1538,7 +1517,7 @@ should be continued."
 
        ("r" "Travel" plain "%?" :target
          (file+head
-           "travel/%<%Y%m%d>-${slug}.org.gpg"
+           "travel/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+CREATED: %t
@@ -1548,7 +1527,7 @@ should be continued."
 
        ("u" "Business" plain "%?" :target
          (file+head
-           "business/%<%Y%m%d>-${slug}.org.gpg"
+           "business/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+CREATED: %t
@@ -1558,7 +1537,7 @@ should be continued."
 
        ("m" "Marketing" plain "%?" :target
          (file+head
-           "marketing/%<%Y%m%d>-${slug}.org.gpg"
+           "marketing/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+CREATED: %t
@@ -1568,7 +1547,7 @@ should be continued."
 
        ("r" "Web" plain "%?" :target
          (file+head
-           "website/%<%Y%m%d>-${slug}.org.gpg"
+           "website/%<%Y%m%d>-${slug}.org"
            "#+TITLE: ${title}
 #+ROAM_ALIASES:
 #+CREATED: %t
