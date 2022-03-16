@@ -26,7 +26,7 @@
   (dired-use-ls-diredto nil)
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
-  (dired-listing-switches "-alh")
+  (dired-listing-switches "-alh --group-directories-first")
   (dired-deletion-confirmer 'y-or-n-p)
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
