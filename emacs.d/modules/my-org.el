@@ -200,23 +200,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
      (diminish 'org-indent-mode)
 
-     (defun jarfar/org-tasks-refile-targets-local ()
-       "Set local 'org-refile-targets for specific org files with tasks."
-       (setq-local org-refile-targets
-         `(
-            (,my/org-backlog-file-path :maxlevel . 1)
-            (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
-            (,my/org-tasks-file-path :maxlevel . 1)
-            (,my/org-taxes-file-path :maxlevel . 1)
-            (,my/org-temp-file-path :maxlevel . 1)
-            )))
-
-     (dir-locals-set-class-variables 'jarfar/org-tasks-dir-class
-       '((nil . (
-          (eval . (progn (jarfar/org-tasks-refile-targets-local)))
-          ))))
-     (dir-locals-set-directory-class my/org-tasks-base-dir 'jarfar/org-tasks-dir-class)
-     (add-hook 'org-agenda-mode-hook 'jarfar/org-tasks-refile-targets-local)
+  (setq org-refile-targets
+    `(
+       (,my/org-backlog-file-path :maxlevel . 1)
+       (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
+       (,my/org-tasks-file-path :maxlevel . 1)
+       (,my/org-taxes-file-path :maxlevel . 1)
+       (,my/org-temp-file-path :maxlevel . 1)))
 
 
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
@@ -440,7 +430,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;;                             (,my/org-projects-file-path :level . 1)))
 
 (setq
-  org-export-creator-string "Adam Faryna (appdy.co.uk)"
   org-export-exclude-category (list "private")
   org-export-babel-evaluate t
   org-export-preserve-breaks nil
@@ -1341,29 +1330,6 @@ should be continued."
 
 (org-clock-persistence-insinuate)
 
-(setq org-tag-alist '(
-                       ("health" . ?h) ; my energy level, my looks
-                       ("wealth" . ?w) ; my legacy
-                       ("career" . ?c) ; my professional reputation, my credability, my professional skills, professional relationships
-                       ("relations" . ?r) ; my social network, my professional network
-                       ("fun" . ?f) ; relax, enjoy life
-                       ("tax" . ?t)
-                       ("service" . ?s)
-                       ("saw" . ?a)
-                       ("work" . ?j)
-                       ("pua" . ?u)
-
-                       ("@poland" . ?n)
-                       (:startgroup . nil)
-                       ("@home" . ?o)
-                       ("@office" . ?i)
-                       ("@delegate" . ?d)
-                       (:endgroup . nil)
-                       (:startgroup . nil)
-                       ("@phone" . ?p)
-                       ("@computer" . ?m)
-                       (:endgroup . nil)
-                       ))
 
 (use-package org-review
   :config
