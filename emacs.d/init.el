@@ -239,15 +239,6 @@
 (when my-taskjuggler-activate (require 'my-taskjuggler))
 (when my-org-caldav-activate (require 'my-org-caldav))
 
-(add-hook 'emacs-startup-hook 'jarfar/open-buffers-on-startup)
-
-(defun jarfar/open-buffers-on-startup ()
-  (if (file-exists-p my/notes-file-path)
-      (progn
-        (find-file my/notes-file-path)
-        (find-file my/whonix-share-file-path))
-    (switch-to-buffer "*scratch*")))
-
 (when (eq system-type 'darwin)
   (setq
    mac-command-modifier 'super
