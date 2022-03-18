@@ -1406,9 +1406,19 @@ should be continued."
     org-roam-db-gc-threshold most-positive-fixnum
     org-roam-tag-sources '(prop)
     org-roam-update-db-idle-second 60
+    org-roam-mode-sections (list
+                             #'org-roam-backlinks-section
+                             #'org-roam-reflinks-section)
     org-roam-verbose nil)
 
   (org-roam-db-autosync-mode 1)
+
+  (add-to-list 'display-buffer-alist
+    '("\\*org-roam\\*"
+       (display-buffer-in-direction)
+       (direction . right)
+       (window-width . 0.35)
+       (window-height . fit-window-to-buffer)))
 
   (make-directory my/org-roam-directory t)
 

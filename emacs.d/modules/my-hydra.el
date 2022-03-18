@@ -339,8 +339,7 @@
 (pretty-hydra-define hydra-org-roam
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ("Action"
-   (("r" org-roam "org-roam")
-    ("k" org-roam "Toggle sidebar")
+   (("r" org-roam-buffer-toggle "Toggle references sidebar")
     ("l" org-roam-node-insert "Insert")
     ("j" org-roam-dailies-find-date "Journal")
     ("J" farynaio/org-roam-dailies-find-date-other-window "Journal other window")
