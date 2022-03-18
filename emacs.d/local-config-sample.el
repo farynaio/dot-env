@@ -1,6 +1,8 @@
 ;; gpg email
 (setq epa-file-encrypt-to '(""))
 
+(setq org-export-creator-string "")
+
 (add-hook 'find-file-hook
   (lambda ()
     (when (and (stringp buffer-file-name)
