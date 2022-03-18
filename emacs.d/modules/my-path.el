@@ -21,7 +21,7 @@
 (setq my/whonix-share-file-path (expand-file-name "share.org" "~/Virtual Machines/shared/safe"))
 
 ;; Tasks
-(setq my/org-tasks-base-dir (expand-file-name "Tasks" org-directory))
+(setq my/org-tasks-base-dir (expand-file-name "Tasks/" org-directory))
 (setq my/org-backlog-file-path (expand-file-name "backlog.org.gpg" my/org-tasks-base-dir))
 (setq my/org-events-file-path (expand-file-name "events.org.gpg" my/org-tasks-base-dir))
 (setq my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
