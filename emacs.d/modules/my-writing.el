@@ -136,6 +136,8 @@
                     ("youve" "you've" nil 0)
                     ("youll" "you'll" nil 0)
                     ("youwll" "you'll" nil 0)
+                    ("FF" "FireFox" nil 0)
+                    ("ff" "FireFox" nil 0)
                     ("YT" "YouTube" nil 0)
                     ("FB" "Facebook" nil 0)
                     ("fb" "Facebook" nil 0)
