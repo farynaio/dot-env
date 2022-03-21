@@ -351,30 +351,110 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (when (>= emacs-major-version 27)
     (setq xref-show-definitions-function #'ivy-xref-show-defs)))
 
+(use-package ivy-rich
+  :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
+  :custom
+  (ivy-rich-parse-remote-buffer nil)
+  (ivy-rich-path-style 'full)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+
+  (defun jarfar/ivy-rich-switch-buffer-icon (candidate)
+    (with-current-buffer
+      (get-buffer candidate)
+      (let ((icon (all-the-icons-icon-for-mode major-mode)))
+        (if (symbolp icon)
+          (all-the-icons-icon-for-mode 'fundamental-mode)
+          icon))))
+
+  (defun jarfar/ivy-switch-buffer-org-roam-title (candidate)
+    (if (ivy-rich-switch-buffer-user-buffer-p candidate)
+      (let* ((file (buffer-file-name (get-buffer candidate)))
+              (file (if (and (buffer-file-name) (fboundp 'org-roam-file-p) (org-roam-file-p file))
+                      (org-roam-with-file file nil (org-roam-node-title (org-roam-node-at-point))) "")))
+        (if file file ""))
+      ""))
+
+  (setq ivy-rich-display-transformers-list
+    '(ivy-switch-buffer
+       (:columns
+         ((jarfar/ivy-rich-switch-buffer-icon (:width 2))
+           (ivy-rich-candidate (:width 30))
+           (jarfar/ivy-switch-buffer-org-roam-title (:width 40))
+           (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+         :predicate (lambda (cand) (get-buffer cand)))
+       counsel-find-file
+       (:columns
+         ((ivy-read-file-transformer)
+           (ivy-rich-counsel-find-file-truename
+             (:face font-lock-doc-face))))
+       counsel-M-x
+       (:columns
+         ((counsel-M-x-transformer
+            (:width 40))
+           (ivy-rich-counsel-function-docstring
+             (:face font-lock-doc-face))))
+       counsel-describe-function
+       (:columns
+         ((counsel-describe-function-transformer
+            (:width 40))
+           (ivy-rich-counsel-function-docstring
+             (:face font-lock-doc-face))))
+       counsel-describe-variable
+       (:columns
+         ((counsel-describe-variable-transformer
+            (:width 40))
+           (ivy-rich-counsel-variable-docstring
+             (:face font-lock-doc-face))))
+       counsel-recentf
+       (:columns
+         ((ivy-rich-candidate
+            (:width 0.8))
+           (ivy-rich-file-last-modified-time
+             (:face font-lock-comment-face))))
+       package-install
+       (:columns
+         ((ivy-rich-candidate
+            (:width 30))
+           (ivy-rich-package-version
+             (:width 16 :face font-lock-comment-face))
+           (ivy-rich-package-archive-summary
+             (:width 7 :face font-lock-builtin-face))
+           (ivy-rich-package-install-summary
+             (:face font-lock-doc-face))))))
+
+  (define-minor-mode ivy-rich-local-mode
+    "Toggle ivy-rich mode locally."
+    :global nil
+    (if ivy-rich-local-mode
+      (unless ivy-rich--original-display-transformers-list
+        (ivy-rich-set-display-transformer nil))
+      (ivy-rich-unset-display-transformer))))
+
 (use-package ag
   :defer 3
   :custom
   (ag-reuse-buffers t))
 
-(use-package dashboard
-  :preface
-  (defun dashboard-load-packages (list-size)
-    (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
-            (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
-  :custom
-  (dashboard-banner-logo-title "Let's kick some ass!")
-  (dashboard-center-content t)
-  (dashboard-items '((packages)
-                      (projects . 10)
-                      (recents . 18)))
-  (dashboard-set-file-icons t)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-init-info nil)
-  (dashboard-set-navigator t)
-  (dashboard-startup-banner 'logo)
-  :config
-  (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
-  (dashboard-setup-startup-hook))
+;; (use-package dashboard
+;;   :preface
+;;   (defun dashboard-load-packages (list-size)
+;;     (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
+;;             (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
+;;   :custom
+;;   (dashboard-banner-logo-title "Let's kick some ass!")
+;;   (dashboard-center-content t)
+;;   (dashboard-items '((packages)
+;;                       (projects . 10)
+;;                       (recents . 18)))
+;;   (dashboard-set-file-icons t)
+;;   (dashboard-set-heading-icons t)
+;;   (dashboard-set-init-info nil)
+;;   (dashboard-set-navigator t)
+;;   (dashboard-startup-banner 'logo)
+;;   :config
+;;   (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
+;;   (dashboard-setup-startup-hook))
 
 (use-package visual-fill-column
   :commands visual-fill-column-mode)
