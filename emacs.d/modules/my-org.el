@@ -155,7 +155,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :config
      (setq
        org-startup-with-inline-images nil
-       org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
+       org-blank-before-new-entry '((heading . auto) (plain-list-item . nil))
        org-hide-emphasis-markers t
        org-agenda-start-with-log-mode t
        org-src-preserve-indentation t
