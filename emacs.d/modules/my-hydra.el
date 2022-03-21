@@ -61,8 +61,7 @@
     ("l" lsp-mode "lsp" :toggle t)
     ("p" my/prettier-mode "Prettier" :toggle t))
    ;; ("s" smartparens-mode "smartparens" :toggle t))
-   "UI"
-   (("i" ivy-rich-local-mode "ivy-rich local" :toggle t))))
+  ))
 
 (pretty-hydra-define hydra-clock
   (:hint nil :color teal :quit-key "q" :title (with-faicon "clock-o" "Clock" 1 -0.05))
