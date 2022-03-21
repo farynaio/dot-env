@@ -1364,8 +1364,10 @@ should be continued."
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
+(use-package emacsql-sqlite3)
+
 (use-package org-roam
-  :after org
+  :after (org emacsql-sqlite3)
   :diminish org-roam-mode
   :config
   (require 'org-roam-protocol)
