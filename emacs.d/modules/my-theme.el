@@ -69,6 +69,7 @@
     '(ledger-font-payee-uncleared-face ((t (:inherit nil :foreground "gold1"))))
     '(persp-selected-face ((t (:foreground "cyan4" :weight bold))))
     '(symbol-overlay-default-face ((t (:background "gray37"))))
+    '(region ((t (:inherit default :extend nil :background "steel blue"))))
     )
 
   (setq my/current-theme 'wombat))
