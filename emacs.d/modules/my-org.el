@@ -1334,27 +1334,23 @@ should be continued."
 
 (org-clock-persistence-insinuate)
 
-
 (use-package org-review
   :config
-  (progn
-    (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map)))
+  (bind-key "C-c C-r" #'org-review-insert-last-review org-agenda-mode-map))
 
 (use-package org-drill
+  :custom
+  (org-drill-use-visible-cloze-face-p t)
+  (org-drill-hide-item-headings-p t)
+  (org-drill-maximum-items-per-session 30)
+  (org-drill-maximum-duration 12)
+  (org-drill-save-buffers-after-drill-sessions-p t)
+  (org-drill-add-random-noise-to-intervals-p t)
+  (org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
+  (org-drill-learn-fraction 0.3)
   :config
-  (progn
-     (setq org-drill-use-visible-cloze-face-p t)
-     (setq org-drill-hide-item-headings-p t)
-     (setq org-drill-maximum-items-per-session 30)
-     (setq org-drill-maximum-duration 12)
-     (setq org-drill-save-buffers-after-drill-sessions-p t)
-     (setq org-drill-add-random-noise-to-intervals-p t)
-     (setq org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
-     (setq org-drill-learn-fraction 0.3)
-
-     (defalias 'drill (lambda (&optional scope drill-match) (interactive) (org-drill scope drill-match t)))
-     (defalias 'resume-drill #'org-drill-resume)
-     ))
+  (defalias 'drill (lambda (&optional scope drill-match) (interactive) (org-drill scope drill-match t)))
+  (defalias 'resume-drill #'org-drill-resume))
 
 ;; org-diet
 (require 'org-diet)
@@ -1369,19 +1365,22 @@ should be continued."
 (use-package org-roam
   :after (org emacsql-sqlite3)
   :diminish org-roam-mode
+  :custom
+  (org-roam-database-connector 'sqlite3)
+  (org-roam-directory my/org-roam-directory)
+  (org-roam-graph-viewer "/usr/bin/open")
+  (org-roam-db-gc-threshold most-positive-fixnum)
+  (org-roam-tag-sources '(prop))
+  (org-roam-update-db-idle-second 60)
+  (org-roam-mode-sections (list
+                            #'org-roam-backlinks-section
+                            #'org-roam-reflinks-section))
+  (org-roam-verbose nil)
   :config
   (require 'org-roam-protocol)
 
   (setq
-    org-roam-directory my/org-roam-directory
-    org-roam-graph-viewer "/usr/bin/open"
-    org-roam-db-gc-threshold most-positive-fixnum
-    org-roam-tag-sources '(prop)
-    org-roam-update-db-idle-second 60
-    org-roam-mode-sections (list
-                             #'org-roam-backlinks-section
-                             #'org-roam-reflinks-section)
-    org-roam-verbose nil)
+    )
 
   (org-roam-db-autosync-mode 1)
 
