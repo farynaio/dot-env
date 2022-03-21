@@ -1066,7 +1066,8 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-tags-match-list-sublevels t)
             (org-agenda-hide-tags-regexp "weekly")
             (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-yearly-goals-file-path))))
+            ;; (org-agenda-files (list my/org-yearly-goals-file-path)))
+          ))
         (tags-todo "monthly"
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -1077,7 +1078,8 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-tags-match-list-sublevels t)
             (org-agenda-hide-tags-regexp "monthly")
             (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-yearly-goals-file-path))))
+            ;; (org-agenda-files (list my/org-yearly-goals-file-path)))
+            ))
         (tags-todo "yearly"
           ((org-agenda-skip-function
              '(or (my/org-skip-subtree-if-priority ?A)
@@ -1088,7 +1090,8 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-tags-match-list-sublevels t)
             (org-agenda-hide-tags-regexp "yearly")
             (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-yearly-goals-file-path))))))
+            ;; (org-agenda-files (list my/org-yearly-goals-file-path)))
+            ))))
 
      ("f" "Tasks finished"
        ((agenda ""
@@ -1128,7 +1131,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
            (org-agenda-remove-tags t)
            (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(time-up priority-down todo-state-up effort-down category-keep alpha-up)))
-            (org-agenda-files (append org-agenda-files my/org-active-projects)))
+          (org-agenda-files (append org-agenda-files my/org-active-projects)))
        (agenda "weekly"
          (
            (org-agenda-skip-function
@@ -1140,7 +1143,8 @@ DEADLINE: <%<%Y-%m-%d %a>>
            (org-deadline-warning-days -7)
             (org-agenda-hide-tags-regexp "weekly")
             (org-agenda-todo-keyword-format "")
-            (org-agenda-files (list my/org-yearly-goals-file-path))))
+           ;; (org-agenda-files (list my/org-yearly-goals-file-path))
+           ))
         (agenda ""
           ((org-agenda-skip-function
              '(or
