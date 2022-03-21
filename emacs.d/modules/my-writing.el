@@ -141,6 +141,8 @@
                     ("fb" "Facebook" nil 0)
                     ("IG" "Instagram" nil 0)
                     ("ig" "Instagram" nil 0)
+                    ("facebook" "Facebook" nil 0)
+                    ("telegram" "Telegram" nil 0)
                     ("youtube" "YouTube" nil 0)
                     ("macos" "MacOS" nil 0)
                     ("mustnt" "mustn't" nil 0)
