@@ -114,6 +114,8 @@
   (unbind-key "M-." evil-normal-state-map)
   (unbind-key "\\" evil-motion-state-map)
   (unbind-key "K" evil-motion-state-map)
+  (unbind-key "RET" evil-motion-state-map)
+  (bind-key "RET" (lambda () (interactive) (evil-ret 0) evil-motion-state-map))
 
   ;; (define-key global-map (kbd "C-u") 'kill-whole-line)
 
@@ -263,7 +265,6 @@
           ("M-d" . evil-multiedit-match-and-next)
           ("M-D" . 'evil-multiedit-match-and-prev)
           ("C-M-D" . 'evil-multiedit-restore)
-          ("RET" . 'evil-multiedit-toggle-or-restrict-region)
           :map evil-visual-state-map
           ("R" . evil-multiedit-match-all)
           ("M-d" . evil-multiedit-match-and-next)
