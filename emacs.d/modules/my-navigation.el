@@ -548,7 +548,18 @@ point reaches the beginning or end of the buffer, stop there."
           ("C-x <down>" . windmove-down))
   :custom
   (windmove-wrap-around t)
-  (framemove-hook-into-windmove t))
+  (framemove-hook-into-windmove t)
+
+  (defun my/evil-switch-to-normal-state-if-insert (&optional arg)
+    "Switched to evil normal state from insert"
+    (when (and (boundp 'evil-state) (string-equal evil-state "insert"))
+      (evil-normal-state)))
+
+  (advice-add 'counsel-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
+  (advice-add 'windmove-right :before #'my/evil-switch-to-normal-state-if-insert)
+  (advice-add 'windmove-left :before #'my/evil-switch-to-normal-state-if-insert)
+  (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
+  (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
