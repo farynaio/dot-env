@@ -394,13 +394,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cursor ((t (:inherit nil :background "gray82" :underline nil))))
  '(erc-action-face ((t (:foreground "#8fbcbb"))))
  '(erc-error-face ((t (:foreground "#bf616a"))))
  '(erc-input-face ((t (:foreground "#ebcb8b"))))
  '(erc-notice-face ((t (:foreground "#ebcb8b"))))
  '(erc-timestamp-face ((t (:foreground "#a3be8c"))))
  '(hl-line ((t (:background "gray32"))))
+ '(org-agenda-dimmed-todo-face ((t (:foreground "gray50"))))
  '(org-level-2 ((t (:inherit default :extend nil :foreground "goldenrod"))))
+ '(org-level-3 ((t (:inherit nil :extend nil :foreground "coral"))))
+ '(org-level-4 ((t (:inherit nil :extend nil :foreground "burlywood1"))))
  '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
  '(persp-selected-face ((t (:foreground "cyan4" :weight bold))))
+ '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8"))))
  '(symbol-overlay-default-face ((t (:background "gray37")))))
