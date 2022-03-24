@@ -114,8 +114,6 @@
   (unbind-key "M-." evil-normal-state-map)
   (unbind-key "\\" evil-motion-state-map)
   (unbind-key "K" evil-motion-state-map)
-  (unbind-key "RET" evil-motion-state-map)
-  (bind-key "RET" (lambda () (interactive) (evil-ret 0) evil-motion-state-map))
 
   ;; (define-key global-map (kbd "C-u") 'kill-whole-line)
 
