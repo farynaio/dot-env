@@ -556,7 +556,7 @@ point reaches the beginning or end of the buffer, stop there."
     (when (and (boundp 'evil-state) (string-equal evil-state "insert"))
       (evil-normal-state)))
 
-  (advice-add 'counsel-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
+  (advice-add 'ivy-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-right :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-left :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
