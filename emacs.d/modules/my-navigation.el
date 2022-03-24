@@ -436,25 +436,25 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :custom
   (ag-reuse-buffers t))
 
-;; (use-package dashboard
-;;   :preface
-;;   (defun dashboard-load-packages (list-size)
-;;     (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
-;;             (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
-;;   :custom
-;;   (dashboard-banner-logo-title "Let's kick some ass!")
-;;   (dashboard-center-content t)
-;;   (dashboard-items '((packages)
-;;                       (projects . 10)
-;;                       (recents . 18)))
-;;   (dashboard-set-file-icons t)
-;;   (dashboard-set-heading-icons t)
-;;   (dashboard-set-init-info nil)
-;;   (dashboard-set-navigator t)
-;;   (dashboard-startup-banner 'logo)
-;;   :config
-;;   (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
-;;   (dashboard-setup-startup-hook))
+(use-package dashboard
+  :preface
+  (defun dashboard-load-packages (list-size)
+    (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
+            (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
+  :custom
+  (dashboard-banner-logo-title "Let's kick some ass!")
+  (dashboard-center-content t)
+  (dashboard-items '((packages)
+                      (projects . 10)
+                      (recents . 18)))
+  (dashboard-set-file-icons t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-init-info nil)
+  (dashboard-set-navigator t)
+  (dashboard-startup-banner 'logo)
+  :config
+  (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
+  (dashboard-setup-startup-hook))
 
 (use-package visual-fill-column
   :commands visual-fill-column-mode)
