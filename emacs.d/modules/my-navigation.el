@@ -464,8 +464,9 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :mode ("\\.epub\\'" . nov-mode)
   :hook ((nov-mode . visual-line-mode)
           (nov-mode . visual-fill-column-mode)
-          (nov-mode . (lambda () (setq visual-fill-column-center-text t)))
-          (nov-mode . (lambda () (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 1.5))))
+          (nov-mode . (lambda ()
+                        (setq-local visual-fill-column-center-text t)
+                        (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 1.5))))
   :custom
   (nov-text-width 75)
   (visual-fill-column-center-text t))
