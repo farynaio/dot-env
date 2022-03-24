@@ -1150,7 +1150,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
              '(or
                 (org-agenda-skip-entry-if 'todo '("WAITING"))))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
-            (org-agenda-sorting-strategy '(time-up user-defined-down todo-state-down habit-down priority-down deadline-up scheduled-up effort-down alpha-up))
+            (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
             (org-agenda-remove-tags nil)
             (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")))
             (ps-number-of-columns 2)
