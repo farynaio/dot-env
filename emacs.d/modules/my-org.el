@@ -461,7 +461,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-cycle-include-plain-lists t)
 (setq org-hide-block-startup t)
 (setq org-list-description-max-indent 5)
-(setq org-agenda-inhibit-startup nil)
+(setq org-agenda-inhibit-startup t)
 (setq org-agenda-use-tag-inheritance nil)
 (setq org-agenda-fontify-priorities 'cookies)
 (setq org-agenda-log-mode-item '(closed clock state))
