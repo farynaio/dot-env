@@ -1,6 +1,7 @@
 ;; (setq debug-on-error t)
 ;; (setq debug-on-error nil)
 ;; (setq debug-on-quit nil)
+;; (toggle-debug-on-quit)
 ;; (setq auth-source-debug nil)
 
 (setenv "LIBRARY_PATH" "/usr/local/opt/gcc/lib/gcc/10:/usr/local/opt/libgccjit/lib/gcc/10:/usr/local/opt/gcc/lib/gcc/10/gcc/x86_64-apple-darwin19/10.2.0")

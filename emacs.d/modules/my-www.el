@@ -1,3 +1,4 @@
+;; Disable open link in browser on click and www link open
 (setq browse-url-browser-function (lambda (URL &optional NEW-WINDOW)))
 
 (defun my/browse-url-tor (url &optional new-window)
