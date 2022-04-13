@@ -159,6 +159,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        org-hide-emphasis-markers t
        org-agenda-start-with-log-mode t
        org-src-preserve-indentation t
+       org-table-header-line-p t
        ;; (setq org-list-end-re "^$")
        org-list-demote-modify-bullet
        '(
