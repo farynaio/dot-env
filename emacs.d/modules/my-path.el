@@ -18,8 +18,7 @@
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
 
 (setq my/notes-file-path (expand-file-name "Notes.org" my/fast-path))
-(setq my/whonix-share-file-path (expand-file-name "share.org" "~/Virtual Machines/shared/safe"))
-
+(setq my/whonix-share-file-path (expand-file-name "share.org" "~/Virtual-Machines/shared/safe"))
 ;; Tasks
 (setq my/org-tasks-base-dir (expand-file-name "Tasks/" org-directory))
 (setq my/org-backlog-file-path (expand-file-name "backlog.org.gpg" my/org-tasks-base-dir))
