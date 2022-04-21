@@ -152,6 +152,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 ;; TODO duplicated block
 (use-package org
+  :hook ((org-mode . org-indent-mode)
+          (org-mode . iscroll-mode))
   :config
      (setq
        org-startup-with-inline-images nil
@@ -245,8 +247,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
      ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
      ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
-
-     (add-hook 'org-mode-hook #'iscroll-mode)
 
      (advice-add #'org-refile :after
        (lambda (&rest args) (org-save-all-org-buffers)))
