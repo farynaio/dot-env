@@ -152,6 +152,7 @@
                     ("shouldnt" "shouldn't" nil 0)
                     ("shouldt" "shouldn't" nil 0)
                     ("shouldve" "should've" nil 0)
+                    ("json" "JSON" nil 0)
                     ("shes" "she's" nil 0)
                     ("shewill" "she'll" nil 0)
                     ("sheill" "she'll" nil 0)
