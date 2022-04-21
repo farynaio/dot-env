@@ -345,6 +345,7 @@
     ("f" org-roam-node-find "Find node")
     ("F" jarfar/org-roam-node-find-other-window "Find node other window")
     ("b" org-roam-switch-to-buffer "Switch buffer")
+    ("n" org-id-get-create "Heading into node")
     ("d" org-roam-find-directory "Find dir"))))
 
 (pretty-hydra-define hydra-elfeed-search
