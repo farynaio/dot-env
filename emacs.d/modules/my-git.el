@@ -91,13 +91,14 @@ to invalidate."
   :custom
   (git-commit-style-convention-checks nil))
 
-(use-package git-gutter
-  :diminish git-gutter-mode
-  :demand t
-  :bind (("C-c p" . 'git-gutter:previous-hunk)
-          ("C-c n" . 'git-gutter:next-hunk))
+(use-package diff-hl
+  :after magit
   :config
-  (global-git-gutter-mode 1))
+  (global-diff-hl-mode 1)
+  (diff-hl-margin-mode 1)
+  (diff-hl-show-hunk-mouse-mode 1)
+  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
 (use-package git-rebase
   :straight nil
