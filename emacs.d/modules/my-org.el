@@ -1658,11 +1658,10 @@ it can be passed in POS."
 
 (defun zp/org-set-last-modified ()
   "Update the LAST_MODIFIED file property in the preamble."
-  ;; (when (derived-mode-p 'org-mode)
-  (when (string-prefix-p my/org-roam-directory buffer-file-name)
+  (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-directory buffer-file-name))
     (zp/org-set-time-file-property "LAST_MODIFIED")))
 
-(add-hook 'before-save-hook #'zp/org-set-last-modified)
+(add-hook 'before-save-hook #'zp/org-set-last-modified 50)
 
 (use-package org-journal
   :after org-roam
