@@ -433,6 +433,7 @@
 --ignore-dir=.bundle
 --ignore-dir=.coverage
 --ignore-dir=coverage
+--ignore-dir=__pycache__
 --ignore-file=match:tags
 --ignore-file=match:readme.md
 --ignore-file=match:yarn.lock
