@@ -223,11 +223,11 @@
 
 (use-package lsp-mode
   :commands lsp lsp-deferred
-  ;; :hook ((lsp-mode .
-  ;;          (lambda ()
-  ;;            (when (bound-and-true-p which-key-mode)
-  ;;              (lsp-enable-which-key-integration))
-  ;;            )))
+  :hook ((lsp-mode .
+           (lambda ()
+             (when (bound-and-true-p which-key-mode)
+               (lsp-enable-which-key-integration))
+             )))
   :custom
   (lsp-enable-snippet t)
   (lsp-enable-semantic-highlighting nil)
