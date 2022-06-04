@@ -80,8 +80,10 @@
 
 (setq
   straight-use-package-by-default t
-  straight-disable-compile t
-  straight-check-for-modifications '())
+  straight-disable-compile nil
+  straight-vc-git-default-protocol 'https
+  straight-check-for-modifications '(check-on-save find-when-checking)
+)
 
 (require 'tls)
 (require 'gnutls)
