@@ -17,6 +17,7 @@
           ("\\.hbs\\'" . web-mode)
           ("\\.ejs\\'" . web-mode)
           ("\\.html?\\'" . web-mode)
+          ("\\.njk\\'" . web-mode)
           ("\\.svg\\'" . web-mode))
   :custom
   (web-mode-engines-alist '(("php" . "\\.php\\'")))
