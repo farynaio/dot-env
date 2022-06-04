@@ -63,9 +63,12 @@
     ("<home>" . evil-first-non-blank)
     ("<end>" . evil-end-of-line)
     (",s" . my/flip-symbol)
+    ("n" . evil-search-next)
+    ("N" . evil-search-previous)
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-s" . evil-search-forward) ;; counsel-grep
+    ("/" . evil-search-forward) ;; counsel-grep
     ("C-c C-S-o" . browse-url-generic)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
