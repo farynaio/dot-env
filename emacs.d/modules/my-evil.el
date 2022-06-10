@@ -150,6 +150,7 @@
   (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
   (evil-set-initial-state 'erc-mode 'emacs)
   (evil-set-initial-state 'dashboard-mode 'emacs)
+  (evil-set-initial-state 'read-only-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
@@ -162,10 +163,7 @@
   (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
   (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
   (add-to-list 'evil-emacs-state-modes 'mu4e-org-mode)
-  ;; (add-to-list 'evil-emacs-state-modes 'woman-mode)
-  ;; (add-to-list 'evil-emacs-state-modes 'help-mode)
   (add-to-list 'evil-emacs-state-modes 'debugger-mode)
-  ;; (add-to-list 'evil-emacs-state-modes 'ediff-mode)
   (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
   (add-to-list 'evil-emacs-state-modes 'epa-key-mode)
   (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
