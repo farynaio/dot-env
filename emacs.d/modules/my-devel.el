@@ -243,11 +243,12 @@
   (lsp-eslint-enable nil)
   (lsp-clients-svlangserver-disableLinting t)
   (lsp-rf-language-server-trace-serve "off")
-  ;; (lsp-eslint-server-command '("node" "/Users/devil/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
+  ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
   :config
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
   (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
+  (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
   (add-to-list 'lsp-disabled-clients
     '(
        (typescript-mode . (eslint))
@@ -286,7 +287,7 @@
 ;;   (require 'dap-chrome)
 ;;   (dap-chrome-setup)
 ;;   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
-;;   (setq dap-chrome-debug-program "/Users/devil/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
+;;   (setq dap-chrome-debug-program "~/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
 (use-package lsp-ivy
   :after (lsp-mode ivy))
