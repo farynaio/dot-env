@@ -80,8 +80,10 @@
 
 (setq
   straight-use-package-by-default t
-  straight-disable-compile t
-  straight-check-for-modifications '())
+  straight-disable-compile nil
+  straight-vc-git-default-protocol 'https
+  straight-check-for-modifications '(check-on-save find-when-checking)
+)
 
 (require 'tls)
 (require 'gnutls)
@@ -320,6 +322,11 @@
         (browse-url-browser-function . my/browse-url-tor)
         ))
 
+;; TODO is this working?
+;; Disable warning on risky variables set on file local level.
+;; (defun risky-local-variable-p (sym &optional _ignored) nil)
+;; (advice-add 'risky-local-variable-p :override #'ignore)
+
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
     :custom
@@ -347,33 +354,14 @@
  '(auth-source-save-behavior nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(ledger-reports
-   '(("Household expenses period" "ledger [[ledger-mode-flags]] -b 2018/09/14 -e 2018/10/13 -f /Users/devil/Dropbox/emacs/ledger/private.ledger reg \"^Assets:Reimbursements:Household\"")
-     (#("Net value balance" 0 1
-        (idx 0))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) bal Assets Liabilities")
-     (#("Net value balance (cleared)" 0 1
-        (idx 1))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --cleared bal Assets Liabilities")
-     (#("Net value balance (uncleared)" 0 1
-        (idx 2))
-      "%(binary) [[ledger-mode-flags]] -f %(ledger-file) --uncleared bal Assets Liabilities")
-     (#("bal" 0 1
-        (idx 3))
-      "%(binary) -f %(ledger-file) bal")
-     (#("reg" 0 1
-        (idx 4))
-      "%(binary) -f %(ledger-file) reg")
-     (#("payee" 0 1
-        (idx 5))
-      "%(binary) -f %(ledger-file) reg @%(payee)")
-     (#("account" 0 1
-        (idx 6))
-      "%(binary) -f %(ledger-file) reg %(account)")))
+ '(lsp-semantic-tokens-enable nil nil nil "Customized with use-package lsp-mode")
+ '(org-agenda-files
+   '("~/Documents/roam/journal/2022-03-11.org" "~/Documents/emacs/orgs/Tasks/tasks.org.gpg"))
  '(package-selected-packages
    '(expand-region use-package-ensure-system-package flycheck-ledger helpful visual-fill-column visual-fill-column-mode nov dired-narrow dired-subtree dired dashboard all-the-icons-dired counsel-projectile wiki-summary org-pomodoro hungry-delete electric-operator major-mode-hydra xml-mode iscroll mu4e-maildirs-extension openwith w3m evil-multiedit lsp-ui yaml-mode which-key web-mode web-beautify vue-mode vimrc-mode use-package undo-fu typescript-mode terraform-mode symbol-overlay smartscan request rainbow-mode rainbow-delimiters projectile-rails prettier-js prettier persistent-scratch org-roam-server org-review org-plus-contrib org-mime org-journal org-drill ob-async oauth2 magit ledger-mode langtool json-mode japanese-holidays jade-mode ivy-rich ivy-hydra hl-todo graphql-mode goto-last-change google-translate git-gutter geben flycheck evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy elfeed-web elfeed-org elfeed-goodies editorconfig dtrt-indent drag-stuff dockerfile-mode diminish dap-mode counsel company-php company-org-roam calfw-org calfw auto-highlight-symbol auto-compile artbollocks-mode all-the-icons ag add-node-modules-path))
  '(safe-local-variable-values
-   '((j2-basic-offset . 2)
+   '((j2-basic-offset . 4)
+     (j2-basic-offset . 2)
      (css-indent-offset . 4)
      (graphql-indent-level . 4)
      (sgml-basic-offset . 4)
