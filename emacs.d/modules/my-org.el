@@ -44,8 +44,16 @@
 
 (setq org-babel-python-command "python3")
 
+(use-package async
+  :straight (:type git
+             :host github
+             :repo "jwiegley/emacs-async"))
+
 ;; This is for async evalaution of org-babel blocks.
 (use-package ob-async
+  :straight (:type git
+             :host github
+             :repo "astahlman/ob-async")
   :config
   (setq ob-async-no-async-languages-alist '("ipython")))
 
@@ -68,7 +76,7 @@
     (org-agenda-to-appt t)))
 
 ;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
-(defun jarfar/year-calendar (&optional year)
+(defun jarfar/calendar-year (&optional year)
   "Generate a one year calendar that can be scrolled by year in each direction.
 This is a modification of:  http://homepage3.nifty.com/oatu/emacs/calendar.html
 See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months"
@@ -291,8 +299,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (lambda ()
          (hl-line-mode 1)))))
 
-(use-package japanese-holidays)
-
+(use-package japanese-holidays
+  :straight (
+             :type git
+             :host github
+             :repo "emacs-jp/japanese-holidays"
+             :branch "master"))
 (setq
   polish-holidays
   '((holiday-fixed  1 21 "Dzień Babci")
@@ -367,6 +379,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (holiday-fixed 12 6 "Saint Nicholas Day")
      (holiday-fixed 12 25 "Christmas Day")))
 
+(defvar calendar-holidays)
 (setq
   holiday-local-holidays nil
   diary-show-holidays-flag nil
@@ -1394,12 +1407,7 @@ should be continued."
 
   (make-directory my/org-roam-directory t)
 
-  (add-hook 'org-roam-dailies-find-file-hook 'abbrev-mode)
-  (add-hook 'after-save-hook
-    (lambda ()
-      (let ((bname (buffer-name (current-buffer))))
-        (when (string-equal bname "*org-roam*")
-          (org-roam-buffer-update)))))
+  (add-hook 'org-roam-dailies-find-file-hook #'abbrev-mode)
 
   (setq org-roam-capture-ref-templates
     '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -1427,8 +1435,9 @@ should be continued."
   -\n \n
 
 - English
-  -\n \n"
-))))
+  -\n \n
+
+* Guitar practice"))))
 
   (setq org-roam-capture-templates
     '(
