@@ -99,13 +99,13 @@
   )
 
 ;; Used to hang emacs?
-;; (use-package which-key
-;;   :defer 0.2
-;;   :diminish which-key-mode
-;;   :custom
-;;   (which-key-idle-delay 0.5)
-;;   :config
-;;   (which-key-mode 1))
+(use-package which-key
+  :defer 0.2
+  :diminish which-key-mode
+  :custom
+  (which-key-idle-delay 0.5)
+  :config
+  (which-key-mode 1))
 
 (use-package expand-region
   :bind (("C-=" . er/contract-region)
