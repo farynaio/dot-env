@@ -587,36 +587,36 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;; "
 ;; :prepend t :empty-lines-after 2 :jump-to-captured nil)
 
-;;   ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
-;; "** _\"%\\1\" %\\2 %?
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :TITLE: \"%^{What Title: }\"
-;; :AUTHOR: %^{What author: }
-;; :END:
-;; [[file:~/Documents/emacs/orgs/archive/books/%\\1 - %\\2.org][link]]
-;; *** TODO \"%\\1\" after week
-;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-;; *** TODO \"%\\1\" after month
-;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-;; *** TODO \"%\\1\" after half year
-;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-;; *** TODO \"%\\1\" after year
-;; SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-;; "
-;; :prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
+  ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
+"** _\"%\\1\" %\\2 %?
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:TITLE: \"%^{What Title: }\"
+:AUTHOR: %^{What author: }
+:END:
+[[file:~/Documents/emacs/orgs/archive/books/%\\1 - %\\2.org][link]]
+*** TODO \"%\\1\" after week
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+*** TODO \"%\\1\" after month
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+*** TODO \"%\\1\" after half year
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+*** TODO \"%\\1\" after year
+SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:END:
+"
+:prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
 
   ("t" "Tasks")
   ("tt" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
@@ -692,18 +692,18 @@ DEADLINE: <%<%Y-%m-%d %a>>
 ;; "
 ;; :prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
 
-;;   ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-;; "* TODO %\\3 \"%\\1\" %\\2 %? %^g
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :TITLE: \"%^{What Title: }\"
-;; :AUTHOR: %^{What author: }
-;; :TYPE: %^{What type: |BOOK|AUDIO|ARTICLE|MOVIE|PODCAST|YOUTUBE}
-;; :WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book|audio|youtube}
-;; :RECOMMENDED: %^{Who recommended: }
-;; :END:
-;; "
-;; :prepend t :jump-to-captured nil :empty-lines-after 2 :kill-buffer t)
+  ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
+"* TODO %\\3 \"%\\1\" %\\2 %? %^g
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:TITLE: \"%^{What Title: }\"
+:AUTHOR: %^{What author: }
+:TYPE: %^{What type: |BOOK|AUDIO|ARTICLE|MOVIE|PODCAST|YOUTUBE}
+:WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book|audio|youtube}
+:RECOMMENDED: %^{Who recommended: }
+:END:
+"
+:prepend t :jump-to-captured nil :empty-lines-after 2 :kill-buffer t)
 
 ;;   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
 ;; "* %?
