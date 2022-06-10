@@ -10,14 +10,14 @@ export EDITOR=vim
 # export VISUAL=$EDITOR
 
 # Language
-export LANG='pl_PL.UTF-8'
+# export LANG='pl_PL.UTF-8'
 # export LC_ALL=$LANG
-export LC_COLLATE=$LANG
-export LC_CTYPE=$LANG
-export LC_MESSAGES=$LANG
-export LC_MONETARY=$LANG
-export LC_NUMERIC=$LANG
-export LC_TIME=$LANG
+# export LC_COLLATE=$LANG
+# export LC_CTYPE=$LANG
+# export LC_MESSAGES=$LANG
+# export LC_MONETARY=$LANG
+# export LC_NUMERIC=$LANG
+# export LC_TIME=$LANG
 
 # Path settings
 #pathprepend ~/bin PATH

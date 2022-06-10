@@ -4,7 +4,7 @@
 
 . ~/.zsh/env
 
-DISABLE_UPDATE_PROMPT=true
+DISABLE_UPDATE_PROMPT=false
 
 # source $HOME/.dotenv/shell.sh
 
