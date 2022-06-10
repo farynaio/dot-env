@@ -137,10 +137,11 @@
     ("nr" (find-file my/org-review-file-path) "Reviews")
     ("nw" (find-file my/path-coaching-wheel-of-life) "Wheel of life"))
    "Perspective"
-   (("pl" (lambda () (interactive ) (persp-state-restore persp-state-default-file)) "perspective load")
+   (("pl" (lambda () (interactive) (persp-state-restore persp-state-default-file)) "perspective load")
     ("ps" (persp-state-save) "perspective save"))
    "Other"
-   (("ob" (find-file my/org-media-file-path) "media"))
+    (("ob" (find-file my/org-media-file-path) "media")
+      ("om" demap-toggle "minimap" :toggle t))
    ;; ("ol" (find-file "~/.personal/other/long-goals.org") "long-terms goals")
    ;; ("om" (find-file "~/.personal/other/movies.org"))
    ;; ("op" (find-file "~/.personal/other/purchases.org") "purchase")
