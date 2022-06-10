@@ -461,6 +461,10 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;   :hook ((text-mode . visual-fill-column-mode)))
 
 (use-package nov
+  :straight (:type git
+             :host github
+             :repo "emacs-pe/nov.el"
+             :branch "master")
   :mode ("\\.epub\\'" . nov-mode)
   :hook ((nov-mode . visual-line-mode)
           (nov-mode . visual-fill-column-mode)
