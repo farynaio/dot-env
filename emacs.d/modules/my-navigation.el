@@ -566,7 +566,7 @@ point reaches the beginning or end of the buffer, stop there."
   (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
-(use-package demap)
+;; (use-package demap)
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
