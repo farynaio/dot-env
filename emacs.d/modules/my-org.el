@@ -1428,7 +1428,7 @@ should be continued."
   (setq org-roam-dailies-capture-templates
     '(("d" "Daily" plain "%?" :target
         (file+head
-          "%<%Y-%m-%d>.org"
+          "%<%Y-%m-%d>.org.gpg"
           "#+TITLE: %<%Y-%m-%d>
 #+FILETAGS: private\n \n
 - Priorities
@@ -1437,6 +1437,10 @@ should be continued."
 - English
   -\n \n
 
+
+* Journal
+* Trading
+* Pickup
 * Guitar practice"))))
 
   (setq org-roam-capture-templates
