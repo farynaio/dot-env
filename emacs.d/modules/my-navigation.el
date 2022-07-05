@@ -1,7 +1,7 @@
 (when (display-graphic-p)
   (setq-default scroll-up-aggressively 0.01)
   (setq
-    mouse-wheel-scroll-amount '(1 ((shift) . 1))
+    ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
     redisplay-dont-pause t
     scroll-margin 1
     scroll-conservatively 10000
@@ -22,11 +22,17 @@
 ;; https://emacs.stackexchange.com/a/42158/18445
 (setq pixel-dead-time 0) ; Never go back to the old scrolling behaviour.
 (setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
-(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
+;; (setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
 (setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
 (setq fast-but-imprecise-scrolling t) ; No (less) lag while scrolling lots.
 (setq jit-lock-defer-time 0) ; Just don't even fontify if we're still catching up on user input.
 
+(setq mouse-wheel-scroll-amount '(5
+ ((shift)
+  . 1)
+ ((meta))
+ ((control)
+  . text-scale)))
 
 (setq display-buffer-alist '(("\\*[hH]elp.*"
                               (display-buffer-reuse-window display-buffer-at-bottom)
