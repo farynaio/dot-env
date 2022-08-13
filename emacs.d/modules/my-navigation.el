@@ -61,6 +61,12 @@
   (recentf-mode 1)
   (run-at-time nil (* 60 5) #'recentf-save-list))
 
+(use-package tab-bar
+  :straight nil
+  :ensure nil
+  :config
+  (tab-bar-mode 1))
+
 (use-package openwith
   :if (eq system-type 'darwin)
   :custom
