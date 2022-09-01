@@ -154,6 +154,7 @@
   (evil-set-initial-state 'erc-mode 'emacs)
   (evil-set-initial-state 'dashboard-mode 'emacs)
   (evil-set-initial-state 'read-only-mode 'emacs)
+  (evil-set-initial-state 'Info-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
@@ -183,6 +184,7 @@
   (add-to-list 'evil-emacs-state-modes 'nov-mode)
   (add-to-list 'evil-emacs-state-modes 'helpful-mode)
   (add-to-list 'evil-emacs-state-modes 'process-menu-mode)
+  (add-to-list 'evil-emacs-state-modes 'Info-mode)
 
   (evil-declare-change-repeat 'company-complete)
 
