@@ -1124,45 +1124,48 @@ DEADLINE: <%<%Y-%m-%d %a>>
                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
                   (my/org-skip-subtree-if-priority ?A))))
             (org-agenda-remove-tags nil)
-            (org-agenda-overriding-header "TASKS IN PROGRESS:")
+            (org-agenda-overriding-header "Tasks in progress:")
             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files  my/org-active-projects `(,my/org-taxes-file-path)))))
         (tags "PROJECT_ACTIVE"
-          ((org-agenda-overriding-header "ACTIVE PROJECTS:")
+          ((org-agenda-overriding-header "Active projects:")
             (org-tags-match-list-sublevels nil)
             (org-agenda-remove-tags t)
             (org-agenda-files my/org-active-projects)))
         (tags-todo "TODO=\"WAITING\""
-          ((org-agenda-overriding-header "WAITING TASKS:")
+          ((org-agenda-overriding-header "Waiting tasks:")
             (org-agenda-remove-tags t)
             (org-agenda-skip-function 'my/org-agenda-skip-deadline-if-not-today)
             (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
-        (tags-todo "TODO=\"BLOCKED\""
-          ((org-agenda-overriding-header "BLOCKED TASKS:")
-            (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))
-           (org-agenda-remove-tags t)
-           (org-agenda-todo-keyword-format "")
-            (org-agenda-sorting-strategy '(time-up priority-down todo-state-up effort-down category-keep alpha-up)))
-          (org-agenda-files (append org-agenda-files my/org-active-projects)))
-       (agenda "weekly"
-         (
-           (org-agenda-skip-function
-             '(or
-                (org-agenda-skip-if nil '(notdeadline))))
-            (org-agenda-overriding-header "Weekly Goals:")
-           (org-tags-match-list-sublevels t)
-           (org-agenda-span 'day)
-           (org-deadline-warning-days -7)
-            (org-agenda-hide-tags-regexp "weekly")
-            (org-agenda-todo-keyword-format "")
+        ;; (tags-todo "TODO=\"BLOCKED\""
+        ;;   ((org-agenda-overriding-header "BLOCKED TASKS:")
+        ;;     (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))
+        ;;    (org-agenda-remove-tags t)
+        ;;    (org-agenda-todo-keyword-format "")
+        ;;     (org-agenda-sorting-strategy '(time-up priority-down todo-state-up effort-down category-keep alpha-up)))
+        ;;   (org-agenda-files (append org-agenda-files my/org-active-projects)))
+       ;; (agenda "weekly"
+       ;;   (
+       ;;     (org-agenda-skip-function
+       ;;       '(or
+       ;;          (org-agenda-skip-if nil '(notdeadline))
+       ;;          (org-agenda-skip-entry-if 'todo 'done)
+       ;;          ))
+       ;;      (org-agenda-overriding-header "Weekly Goals:")
+       ;;     (org-tags-match-list-sublevels t)
+       ;;     (org-agenda-span 'day)
+       ;;     (org-deadline-warning-days -7)
+       ;;      (org-agenda-hide-tags-regexp "weekly")
+       ;;      (org-agenda-todo-keyword-format "")
            ;; (org-agenda-files (list my/org-yearly-goals-file-path))
-           ))
+           ;; ))
         (agenda ""
           ((org-agenda-skip-function
              '(or
-                (org-agenda-skip-entry-if 'todo '("WAITING"))))
+                (org-agenda-skip-entry-if 'todo '("WAITING" "IN-PROCESS"))
+                ))
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
             (org-agenda-remove-tags nil)
