@@ -42,6 +42,8 @@
   help-window-select t
   bookmark-save-flag nil)
 
+(setq calc-internal-prec 20)
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'same-window-buffer-names "*SQL*")
 
