@@ -64,6 +64,9 @@
 (use-package tab-bar
   :straight nil
   :ensure nil
+  :custom
+  (tab-bar-tab-name-truncated-max 15)
+  (tab-bar-tab-name-current 'tab-bar-tab-name-truncated)
   :config
   (tab-bar-mode 1))
 
