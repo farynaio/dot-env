@@ -392,6 +392,8 @@ $0`(yas-escape-text yas-selected-text)`")
     )
   )
 
+(use-package jenkinsfile-mode)
+
 ;; blogging
 ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
 ;; (require 'ox-publish)
