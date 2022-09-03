@@ -889,7 +889,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 
 (setq org-todo-keywords
   '( (sequence "TODO(t)" "IN-PROCESS(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
-     (sequence "|" "DONE(d!)" "CANCELED(c@)" "UNDOABLE(u@)")))
+     (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
 
 (setq org-todo-keyword-faces
   '( ("TODO"       . (:foreground "LimeGreen"   :weight bold))
@@ -899,7 +899,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
      ("NOTE"       . (:foreground "white"       :weight bold))
      ("DONE"       . (:foreground "dark grey"   :weight normal))
-     ("CANCELED"   . (:foreground "dark grey"   :weight normal))
+     ("SKIP"   . (:foreground "dark grey"   :weight normal))
      ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
@@ -961,9 +961,9 @@ DEADLINE: <%<%Y-%m-%d %a>>
        ((org-agenda-overriding-header "TODOs blocked")
          (org-agenda-sorting-strategy '(priority-down deadline-down alpha-down effort-up))))
 
-     ("cc" "TODOs canceled"
-       ((todo "CANCELED"))
-       ((org-agenda-overriding-header "TODOs canceled")
+     ("cc" "TODOs skip"
+       ((todo "SKIP"))
+       ((org-agenda-overriding-header "TODOs skip")
          (org-agenda-sorting-strategy '(priority-down alpha-down effort-up))))
 
      ("cj" "Journal entries"
@@ -1016,7 +1016,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
           ((org-agenda-overriding-header "Active Phone tasks:")
             (org-agenda-skip-function
               '(or
-                 (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                 (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
                  (my/org-agenda-skip-if-scheduled-later)
                  ))
             (org-tags-match-list-sublevels nil)
@@ -1026,7 +1026,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
            ((org-agenda-overriding-header "Active Computer tasks:")
              (org-agenda-skip-function
                '(or
-                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
                   (my/org-agenda-skip-if-scheduled-later)
                   ))
              (org-tags-match-list-sublevels nil)
@@ -1036,7 +1036,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
            ((org-agenda-overriding-header "Active Office tasks:")
              (org-agenda-skip-function
                '(or
-                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
                   (my/org-agenda-skip-if-scheduled-later)
                   ))
              (org-tags-match-list-sublevels nil)
@@ -1046,7 +1046,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
            ((org-agenda-overriding-header "Active Home tasks:")
              (org-agenda-skip-function
                '(or
-                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
                   (my/org-agenda-skip-if-scheduled-later)
                   ))
              (org-tags-match-list-sublevels nil)
@@ -1056,7 +1056,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
            ((org-agenda-overriding-header "Active Delegate tasks:")
              (org-agenda-skip-function
                '(or
-                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED" "IN-PROCESS" "WAITING"))
+                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
                   (my/org-agenda-skip-if-scheduled-later)
                   ))
              (org-tags-match-list-sublevels nil)
@@ -1064,7 +1064,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
              (org-agenda-files (append org-agenda-files my/org-active-projects))))))
 
      ("z" "DONE tasks not archived"
-       ((tags "TODO=\"DONE\"|TODO=\"CANCELED\"|TODO=\"UNDOABLE\""))
+       ((tags "TODO=\"DONE\"|TODO=\"SKIP\"|TODO=\"UNDOABLE\""))
        ((org-agenda-overriding-header "DONE tasks not archived")
          (org-agenda-files (list my/org-tasks-file-path my/org-projects-file-path))))
 
@@ -1108,7 +1108,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
 
      ("f" "Tasks finished"
        ((agenda ""
-          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("DONE" "UNDOABLE" "CANCELED")))
+          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("DONE" "UNDOABLE" "SKIP")))
             (org-agenda-log-mode-items '(closed))
             (org-agenda-overriding-header "Tasks finished this week:")
             (org-agenda-files (append org-agenda-files my/org-active-projects (list my/org-archive-tasks-path)))
@@ -1118,7 +1118,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
        ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
           ((org-agenda-skip-function
              '(or
-                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "CANCELED"))
+                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))
                 (and
                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
                   (my/org-skip-subtree-if-priority ?A))))
@@ -1281,7 +1281,7 @@ should be continued."
   (save-excursion
     (let ((state (org-get-todo-state)))
       (cond
-        ((equal state "CANCELED")
+        ((equal state "SKIP")
           (when (and
                   (org-get-deadline-time (point))
                   (search-forward-regexp "DEADLINE: .*" nil t)
