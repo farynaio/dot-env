@@ -1168,7 +1168,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
             (org-agenda-remove-tags nil)
-            (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t [%-4e] % s")))
+            (org-agenda-prefix-format '((agenda . " %-12:c%?-12t [%-4e] ")))
             (ps-number-of-columns 2)
             (ps-landscape-mode 1)
             (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path))))))))
