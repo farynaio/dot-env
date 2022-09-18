@@ -43,7 +43,7 @@
 (setq my/org-media-file-path (expand-file-name "media.org" org-directory))
 (setq my/org-tools-file-path (expand-file-name "tools.org" org-directory))
 
-(setq my/org-ideas-file-path (expand-file-name "ideas.org.gpg" my/org-topics-directory))
+(setq my/org-ideas-file-path (expand-file-name "ideas.org.gpg" org-directory))
 (setq my/org-contacts-file-path (expand-file-name "contacts.org.gpg" org-gpg-directory))
 (setq my/org-journal-file-path (expand-file-name "journal.org" org-directory))
 (setq my/org-journal-dating-file-path (expand-file-name "journal_dating.org.gpg" org-gpg-directory))

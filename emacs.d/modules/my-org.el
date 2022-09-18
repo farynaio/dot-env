@@ -216,8 +216,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
        (,my/org-tasks-file-path :maxlevel . 1)
        (,my/org-taxes-file-path :maxlevel . 1)
-       (,my/org-temp-file-path :maxlevel . 1)))
-
+       (,my/org-temp-file-path :maxlevel . 1)
+       (,my/org-ideas-file-path :maxlevel . 1)
+       ))
 
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
   (defun ndk/heading-title ()
