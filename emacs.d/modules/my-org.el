@@ -136,6 +136,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 
 (defalias 'calendar-year #'jarfar/calendar-year)
 (defalias 'my/calendar-full #'jarfar/calendar-year)
+(defalias 'yearly-calendar #'jarfar/calendar-year)
 
 (defun my/outline-hide-subtree ()
   (interactive)
