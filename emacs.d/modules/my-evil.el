@@ -68,7 +68,7 @@
     ("/" . evil-ex-search-forward)
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
-    ("C-s" . evil-ex-search-forward) ;; counsel-grep
+    ("C-s" . counsel-grep)
     ("C-c C-S-o" . browse-url-generic)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
