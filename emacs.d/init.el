@@ -1,9 +1,3 @@
-;; (setq debug-on-error t)
-;; (setq debug-on-error nil)
-;; (setq debug-on-quit nil)
-;; (toggle-debug-on-quit)
-;; (setq auth-source-debug nil)
-
 (setq
   gc-cons-threshold (* 1024 1024 2)
   ;; gc-cons-threshold (* 1024 800)
@@ -172,79 +166,6 @@
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
-
-(defvar my-utils-activate nil)
-(defvar my-edit-activate nil)
-(defvar my-writing-activate nil)
-(defvar my-evil-activate nil)
-(defvar my-org-activate nil)
-(defvar my-navigation-activate nil)
-(defvar my-devel-activate nil)
-(defvar my-email-activate nil)
-(defvar my-dired-activate nil)
-(defvar my-notifications-activate nil)
-(defvar my-www-activate nil)
-(defvar my-irc-activate nil)
-(defvar my-theme-activate nil)
-(defvar my-shell-activate nil)
-(defvar my-encrypt-activate nil)
-(defvar my-cleanup-activate nil)
-(defvar my-rss-activate nil)
-(defvar my-org-caldav-activate nil)
-(defvar my-taskjuggler-activate nil)
-(defvar my-git-activate nil)
-(defvar my-hydra-activate nil)
-(defvar my-presentation-activate nil)
-(defvar my-debug-activate nil)
-
-(setq
-  my-utils-activate t
-  my-edit-activate t
-  my-git-activate t
-  my-evil-activate t
-  my-navigation-activate t
-  my-org-activate t
-  my-writing-activate t
-  my-devel-activate t
-  my-email-activate t
-  my-dired-activate t
-  my-notifications-activate nil
-  my-www-activate t
-  my-irc-activate t
-  my-theme-activate t
-  my-shell-activate t
-  my-encrypt-activate t
-  my-cleanup-activate t
-  my-rss-activate t
-  my-org-caldav-activate nil
-  my-taskjuggler-activate nil
-  my-hydra-activate t
-  my-presentation-activate nil
-  my-debug-activate t)
-
-(when my-debug-activate (require 'my-debug))
-(when my-utils-activate (require 'my-utils))
-(when my-evil-activate (require 'my-evil))
-(when my-edit-activate (require 'my-edit))
-(when my-encrypt-activate (require 'my-encrypt))
-(when my-navigation-activate (require 'my-navigation))
-(when my-theme-activate (require 'my-theme))
-(when my-git-activate (require 'my-git))
-(when my-hydra-activate (require 'my-hydra))
-(when my-org-activate (require 'my-org))
-(when my-writing-activate (require 'my-writing))
-(when my-dired-activate (require 'my-dired))
-(when my-cleanup-activate (require 'my-cleanup))
-(when my-notifications-activate (require 'my-notifications))
-(when my-devel-activate (require 'my-devel))
-(when my-shell-activate (require 'my-shell))
-(when my-rss-activate (require 'my-rss))
-(when my-email-activate (require 'my-email))
-(when my-www-activate (require 'my-www))
-(when my-presentation-activate (require 'my-presentation))
-(when my-irc-activate (require 'my-irc))
-(when my-taskjuggler-activate (require 'my-taskjuggler))
-(when my-org-caldav-activate (require 'my-org-caldav))
 
 (setq-default
   ring-bell-function 'ignore
