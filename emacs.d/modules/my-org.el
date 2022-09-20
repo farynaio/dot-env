@@ -510,6 +510,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-icalendar-alarm-time 60)
 (setq plstore-cache-passphrase-for-symmetric-encryption t)
 (setq org-agenda-file-regexp ".*org\(.gpg\)?$")
+(setq org-element-use-cache nil)
 
 (setq org-icalendar-with-timestamps 'active)
 (setq org-icalendar-include-todo t)
