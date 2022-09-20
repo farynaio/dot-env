@@ -344,3 +344,4 @@
   (error (concat "custom.el file not exists. Create one from custo.el.sample")))
 
 (setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
