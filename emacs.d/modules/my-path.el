@@ -40,7 +40,7 @@
 (setq my/org-diet-log-file-path (expand-file-name "health/diet.org" org-directory))
 (setq my/org-projects-file-path (expand-file-name "projects.org" org-directory))
 (setq my/org-blog-file-path (expand-file-name "blog_post_ideas.org" org-gpg-directory))
-(setq my/org-media-file-path (expand-file-name "media.org" org-directory))
+(setq my/org-media-file-path (expand-file-name "media.org.gpg" org-directory))
 (setq my/org-tools-file-path (expand-file-name "tools.org" org-directory))
 
 (setq my/org-ideas-file-path (expand-file-name "ideas.org.gpg" org-directory))
