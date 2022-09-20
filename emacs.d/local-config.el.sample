@@ -1,0 +1,37 @@
+;; gpg email
+(setq epa-file-encrypt-to '(""))
+
+(setq org-export-creator-string "")
+
+(add-hook 'find-file-hook
+  (lambda ()
+    (when (and (stringp buffer-file-name)
+            (string-match "\\.gpg\\'" buffer-file-name))
+      (setq-local epa-file-encrypt-to '("")))))
+
+(eval-after-load 'org-caldav
+  '(progn
+    ; gmail calendar id
+     (setq org-caldav-calendar-id "@group.calendar.google.com")
+     ; google app id name
+    (setq org-caldav-oauth2-client-id ".apps.googleusercontent.com")
+    (setq org-caldav-oauth2-client-secret "")))
+
+;; Mu
+(setq user-mail-address "")
+(defvar my/mu4e-local-path "/usr/local/Cellar/mu/1.0_1/share/emacs/site-lisp/mu/mu4e")
+
+(eval-after-load 'mu4e
+  '(progn
+     (setq smtpmail-default-smtp-server "smtp.gmail.com")
+     (setq mu4e-contexts `())
+     ))
+
+(setq
+  mml-secure-openpgp-sign-with-sender t
+  ; gpg key id
+  mml-secure-openpgp-signers '("")
+  ; gpg key id
+  epg-user-id "")
+
+(setq gnus-ignored-from-addresses "devil")
