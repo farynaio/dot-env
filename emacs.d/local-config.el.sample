@@ -1,3 +1,5 @@
+;; -*- mode: emacs-lisp -*-
+
 ;; (setq tramp-verbose 3)
 ;; (setq debug-on-error t)
 ;; (setq debug-on-error nil)
