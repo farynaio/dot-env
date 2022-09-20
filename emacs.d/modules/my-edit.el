@@ -7,6 +7,8 @@
   indent-tabs-mode nil
   mode-require-final-newline nil)
 
+(setq auto-save-no-message t)
+
 (setq ack-path (executable-find "ack"))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
