@@ -52,8 +52,8 @@
   (ispell-dictionary-alist
     '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
        ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
-  ;; (ispell-program-name (executable-find "hunspell"))
-  (ispell-program-name (executable-find "aspell"))
+  (ispell-program-name (executable-find "hunspell"))
+  ;; (ispell-program-name (executable-find "aspell"))
   (ispell-really-hunspell t)
   (ispell-silently-savep t)
   (ispell-extra-args '("--sug-mode=ultra"))
