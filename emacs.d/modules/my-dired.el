@@ -40,7 +40,7 @@
        ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
        ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
   :preface
-  (defun farynaio/dired-shell-command ()
+  (defun my/dired-shell-command ()
     "Run any shell command in Dired."
     (interactive )
     (let ((cmd (read-string "Run shell command: ")))
@@ -62,7 +62,7 @@
     (kbd "/") #'evil-ex-search-forward
     (kbd "n") #'evil-ex-search-next
     (kbd "N") #'evil-ex-search-previous
-    (kbd "<backspace>") (lambda () (interactive) (farynaio/dired-go-up-reuse "..")))
+    (kbd "<backspace>") (lambda () (interactive) (my/dired-go-up-reuse "..")))
 
   (when (file-executable-p "/usr/local/bin/gls")
     (setq
@@ -71,7 +71,7 @@
 
   (put 'dired-find-alternate-file 'disabled nil)
 
-  (defun farynaio/dired-go-up-reuse (&optional dir)
+  (defun my/dired-go-up-reuse (&optional dir)
     (interactive)
     (let ((new-dir (if dir (expand-file-name dir) (dired-get-file-for-visit)))
            (buffer

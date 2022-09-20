@@ -201,7 +201,7 @@
           (nov-mode . my/centaur-tabs-local-disable-if-enabled)
           (flycheck-error-list-mode . my/centaur-tabs-local-disable-if-enabled)
           (git-rebase-mode . my/centaur-tabs-local-disable-if-enabled)
-          (jarfar/org-roam-side-mode . my/centaur-tabs-local-disable-if-enabled)
+          (my/org-roam-side-mode . my/centaur-tabs-local-disable-if-enabled)
           (magit-mode . my/centaur-tabs-local-disable-if-enabled)
           (org-agenda-mode . my/centaur-tabs-local-disable-if-enabled)
           (text-mode . my/centaur-tabs-local-disable-if-enabled))
@@ -374,7 +374,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   :config
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
-  (defun jarfar/ivy-rich-switch-buffer-icon (candidate)
+  (defun my/ivy-rich-switch-buffer-icon (candidate)
     (with-current-buffer
       (get-buffer candidate)
       (let ((icon (all-the-icons-icon-for-mode major-mode)))
@@ -382,7 +382,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
           (all-the-icons-icon-for-mode 'fundamental-mode)
           icon))))
 
-  (defun jarfar/ivy-switch-buffer-org-roam-title (candidate)
+  (defun my/ivy-switch-buffer-org-roam-title (candidate)
     (if (ivy-rich-switch-buffer-user-buffer-p candidate)
       (let* ((file (buffer-file-name (get-buffer candidate)))
               (file (if (and (buffer-file-name) (fboundp 'org-roam-file-p) (org-roam-file-p file))
@@ -393,9 +393,9 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (setq ivy-rich-display-transformers-list
     '(ivy-switch-buffer
        (:columns
-         ((jarfar/ivy-rich-switch-buffer-icon (:width 2))
+         ((my/ivy-rich-switch-buffer-icon (:width 2))
            (ivy-rich-candidate (:width 30))
-           (jarfar/ivy-switch-buffer-org-roam-title (:width 40))
+           (my/ivy-switch-buffer-org-roam-title (:width 40))
            (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
          :predicate (lambda (cand) (get-buffer cand)))
        counsel-find-file
@@ -636,11 +636,11 @@ point reaches the beginning or end of the buffer, stop there."
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
 
-(defun jarfar/prev-frame ()
+(defun my/prev-frame ()
   (interactive)
   (other-frame -1))
 
-(defun jarfar/next-frame ()
+(defun my/next-frame ()
   (interactive)
   (other-frame 1))
 
@@ -648,8 +648,8 @@ point reaches the beginning or end of the buffer, stop there."
   ("C-x |" . my/toggle-window-split)
   ("C-x C-c" . my/save-buffers-kill-terminal)
   ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
-  ("<s-right>" . jarfar/next-frame)
-  ("<s-left>" . jarfar/prev-frame)
+  ("<s-right>" . my/next-frame)
+  ("<s-left>" . my/prev-frame)
   ("C-c p" . #'pop-to-mark-command))
 
 (unbind-key "s-l")

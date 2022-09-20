@@ -170,32 +170,32 @@ end-of-buffer signals; pass the rest to the default handler."
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
-(defun farynaio/increment ()
+(defun my/increment ()
   (interactive)
   (if (number-at-point)
     (increment-integer-at-point)
-    (farynaio/flip-symbol)))
+    (my/flip-symbol)))
 
-(defun farynaio/decrement ()
+(defun my/decrement ()
   (interactive)
   (if (number-at-point)
     (decrement-integer-at-point)
-    (farynaio/flip-symbol)))
+    (my/flip-symbol)))
 
-(defvar farynaio/flip-symbol-alist
+(defvar my/flip-symbol-alist
   '(("true" . "false")
     ("false" . "true"))
   "symbols to be quick flipped when editing")
 
-(defun farynaio/flip-symbol ()
+(defun my/flip-symbol ()
   "I don't want to type here, just do it for me."
   (interactive)
   (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
           (sym (buffer-substring-no-properties beg end)))
-    (when (member sym (cl-loop for cell in farynaio/flip-symbol-alist
+    (when (member sym (cl-loop for cell in my/flip-symbol-alist
                                collect (car cell)))
       (delete-region beg end)
-      (insert (alist-get sym farynaio/flip-symbol-alist "" nil 'equal)))))
+      (insert (alist-get sym my/flip-symbol-alist "" nil 'equal)))))
 
 (defun my/copy-file-name ()
   "Copy the current buffer file name to the clipboard."
@@ -240,7 +240,7 @@ end-of-buffer signals; pass the rest to the default handler."
   (require pkg))
 
 ;; https://stackoverflow.com/a/11624677/346921
-(defun jarfar/unindent-region ()
+(defun my/unindent-region ()
   (interactive)
   (let ((offset (* tab-width -1)))
     (if (use-region-p)
@@ -249,17 +249,17 @@ end-of-buffer signals; pass the rest to the default handler."
       (indent-rigidly (line-beginning-position) (line-end-position) offset))))
 
 ;; https://stackoverflow.com/a/750933
-(defun jarfar/remove-dos-eol ()
+(defun my/remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-;; (add-hook 'text-mode-hook #'jarfar/remove-dos-eol)
-(add-hook 'prog-mode-hook #'jarfar/remove-dos-eol)
+;; (add-hook 'text-mode-hook #'my/remove-dos-eol)
+(add-hook 'prog-mode-hook #'my/remove-dos-eol)
 
 (bind-keys
-  ("<S-tab>" . 'jarfar/unindent-region)
+  ("<S-tab>" . 'my/unindent-region)
   ("C-x C-r" . recentf-open-files)
   ("<home>" . left-word)
   ("<end>" . right-word)
@@ -278,18 +278,18 @@ end-of-buffer signals; pass the rest to the default handler."
     ("M-u" . air-revert-buffer-noconfirm)))
 
 (when (eq system-type 'gnu/linux)
-  (defun jarfar/copy-including-secondary ()
+  (defun my/copy-including-secondary ()
     (interactive)
     (call-interactively 'kill-ring-save)
     (gui-set-selection 'SECONDARY (buffer-substring (point) (mark t))))
 
-  (defun jarfar/paste-including-secondary ()
+  (defun my/paste-including-secondary ()
     (interactive)
     (insert (gui-get-selection 'SECONDARY)))
 
   (bind-keys
-    ("M-c" . jarfar/copy-including-secondary)
-    ("M-v" . jarfar/paste-including-secondary)))
+    ("M-c" . my/copy-including-secondary)
+    ("M-v" . my/paste-including-secondary)))
 
 (defalias 'qcalc 'quick-calc)
 

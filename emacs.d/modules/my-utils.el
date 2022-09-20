@@ -30,7 +30,7 @@
       (indent-region beg end nil))))
 
 ;; https://emacs.stackexchange.com/questions/5441/function-to-delete-all-comments-from-a-buffer-without-moving-them-to-kill-ring
-(defun jarfar/comment-delete (arg)
+(defun my/comment-delete (arg)
   "Delete the first comment on this line, if any.  Don't touch
 the kill ring.  With prefix ARG, delete comments on that many
 lines starting with this one."
@@ -51,7 +51,7 @@ lines starting with this one."
     (if arg (forward-line 1))))
 
 ;; https://emacs.stackexchange.com/questions/5441/function-to-delete-all-comments-from-a-buffer-without-moving-them-to-kill-ring
-(defun jarfar/comment-delete-dwim (beg end arg)
+(defun my/comment-delete-dwim (beg end arg)
   "Delete comments without touching the kill ring.  With active
 region, delete comments in region.  With prefix, delete comments
 in whole buffer.  With neither, delete comments on current line."
@@ -63,16 +63,16 @@ in whole buffer.  With neither, delete comments on current line."
     (save-excursion
       (when lines
         (goto-char (if arg (point-min) beg)))
-      (jarfar/comment-delete (or lines 1)))))
+      (my/comment-delete (or lines 1)))))
 
-(defun jarfar/comments-delete-buffer ()
+(defun my/comments-delete-buffer ()
   "Remove all comments from the buffer."
   (interactive)
-  (jarfar/comment-delete-dwim (point-min) (point-max) 1)
-  (jarfar/remove-empty-lines))
+  (my/comment-delete-dwim (point-min) (point-max) 1)
+  (my/remove-empty-lines))
 
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
-(defun jarfar/remove-empty-lines ()
+(defun my/remove-empty-lines ()
   (interactive)
   (let ($begin $end)
     (if (region-active-p)
@@ -88,7 +88,7 @@ in whole buffer.  With neither, delete comments on current line."
           (while (re-search-forward "\n\n+" nil "move")
             (replace-match "\n")))))))
 
-(defun jarfar/wp-gutenberg-to-md ()
+(defun my/wp-gutenberg-to-md ()
   (interactive)
   (save-excursion
     (beginning-of-buffer)

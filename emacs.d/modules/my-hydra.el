@@ -281,8 +281,8 @@
   ("Format"
    (("x" my/reformat-xml "format XML"))
    "Remove"
-   (("c" jarfar/comments-delete-buffer "remove comments from buffer")
-    ("l" jarfar/remove-empty-lines "remove empty lines"))))
+   (("c" my/comments-delete-buffer "remove comments from buffer")
+    ("l" my/remove-empty-lines "remove empty lines"))))
 
 ;; (pretty-hydra-define hydra-upload
 ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "cloud-upload" "Upload" 1 -0.05))
@@ -316,7 +316,7 @@
 (pretty-hydra-define hydra-dired
   (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
   ("Actions"
-   (("c" farynaio/dired-shell-command "run command")
+   (("c" my/dired-shell-command "run command")
     ("g" magit-status "magit status"))))
 
 (pretty-hydra-define hydra-buffer
@@ -331,7 +331,7 @@
    (("t" org-toggle-timestamp-type "timestamp toggle")
     ("l" org-link-archive "link archive")
     ("i" org-toggle-inline-images "images toggle" :toggle t)
-    ("r" jarfar/reverse-org-paragraphs-order "reverse paragraph order"))
+    ("r" my/reverse-org-paragraphs-order "reverse paragraph order"))
    "Navigation"
    (("s" counsel-org-goto "goto heading")
     ("a" counsel-org-file "browse attachments"))))
@@ -342,9 +342,9 @@
    (("r" org-roam-buffer-toggle "Toggle references sidebar")
     ("l" org-roam-node-insert "Insert")
     ("j" org-roam-dailies-find-date "Journal")
-    ("J" farynaio/org-roam-dailies-find-date-other-window "Journal other window")
+    ("J" my/org-roam-dailies-find-date-other-window "Journal other window")
     ("f" org-roam-node-find "Find node")
-    ("F" jarfar/org-roam-node-find-other-window "Find node other window")
+    ("F" my/org-roam-node-find-other-window "Find node other window")
     ("b" org-roam-switch-to-buffer "Switch buffer")
     ("n" org-id-get-create "Heading into node")
     ("d" org-roam-find-directory "Find dir"))))

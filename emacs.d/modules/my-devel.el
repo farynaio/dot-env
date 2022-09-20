@@ -17,8 +17,8 @@
   :straight nil
   :config
   (evil-define-key 'normal prog-mode-map
-    (kbd "<S-up>") #'farynaio/increment
-    (kbd "<S-down>") #'farynaio/decrement
+    (kbd "<S-up>") #'my/increment
+    (kbd "<S-down>") #'my/decrement
     (kbd "C-/") #'company-complete)
 
   (evil-define-key 'insert prog-mode-map
@@ -170,11 +170,11 @@
       (message (format "Tags for file %s updated." current-file)))))
 
 (use-package yaml-mode
-  ;; :hook ((markdown-mode . jarfar/bind-value-togglers))
+  ;; :hook ((markdown-mode . my/bind-value-togglers))
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
-  ;; :hook (markdown-mode . jarfar/bind-value-togglers)
+  ;; :hook (markdown-mode . my/bind-value-togglers)
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode))

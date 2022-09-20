@@ -176,7 +176,7 @@
   (add-to-list 'evil-emacs-state-modes 'custom-mode)
   (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
   (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-  (add-to-list 'evil-emacs-state-modes 'jarfar/org-roam-side-mode)
+  (add-to-list 'evil-emacs-state-modes 'my/org-roam-side-mode)
   (add-to-list 'evil-emacs-state-modes 'deft-mode)
   (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
   (add-to-list 'evil-emacs-state-modes 'treemacs-mode)

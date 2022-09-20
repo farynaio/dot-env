@@ -5,33 +5,33 @@
   :bind (:map elfeed-show-mode-map
           ("SPC" . elfeed-scroll-up-command)
           ("S-SPC" . elfeed-scroll-down-command)
-          ("<mouse-1>" . jarfar/elfeed-shr-open-click)
-          ("<s-mouse-1>" . jarfar/elfeed-shr-open-click)
-          ("<S-mouse-1>" . jarfar/elfeed-shr-open-click)
+          ("<mouse-1>" . my/elfeed-shr-open-click)
+          ("<s-mouse-1>" . my/elfeed-shr-open-click)
+          ("<S-mouse-1>" . my/elfeed-shr-open-click)
           :map shr-map
-          ("RET" . jarfar/elfeed-shr-open-external)
-          ("v" . jarfar/elfeed-shr-open-external)
-          ("O" . jarfar/elfeed-shr-open-external)
-          ("<mouse-1>" . jarfar/elfeed-shr-open-click)
-          ("<mouse-2>" . jarfar/elfeed-shr-open-click)
-          ("<S-mouse-1>" . jarfar/elfeed-shr-open-click)
+          ("RET" . my/elfeed-shr-open-external)
+          ("v" . my/elfeed-shr-open-external)
+          ("O" . my/elfeed-shr-open-external)
+          ("<mouse-1>" . my/elfeed-shr-open-click)
+          ("<mouse-2>" . my/elfeed-shr-open-click)
+          ("<S-mouse-1>" . my/elfeed-shr-open-click)
           :map elfeed-search-mode-map
           ("h" . hydra-elfeed-search/body)
-          ("q" . jarfar/elfeed-save-db-and-bury)
-          ("d" . jarfar/elfeed-youtube-download)
-          ("o" . jarfar/elfeed-tag-toggle-ok)
-          ("f" . jarfar/elfeed-tag-toggle-favorite)
-          ("j" . jarfar/elfeed-tag-toggle-junk)
-          ("m" . jarfar/elfeed-send-emails)
-          ("r" . jarfar/elfeed-mark-read-move-next)
-          ("u" . jarfar/elfeed-mark-unread-move-next)
-          ("O" . jarfar/elfeed-open-in-external-browser)
-          ("g" . jarfar/elfeed-update)
-          ("<S-mouse-1>" . jarfar/elfeed-search-open-in-external-click)
+          ("q" . my/elfeed-save-db-and-bury)
+          ("d" . my/elfeed-youtube-download)
+          ("o" . my/elfeed-tag-toggle-ok)
+          ("f" . my/elfeed-tag-toggle-favorite)
+          ("j" . my/elfeed-tag-toggle-junk)
+          ("m" . my/elfeed-send-emails)
+          ("r" . my/elfeed-mark-read-move-next)
+          ("u" . my/elfeed-mark-unread-move-next)
+          ("O" . my/elfeed-open-in-external-browser)
+          ("g" . my/elfeed-update)
+          ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
           ("<s-mouse-1>" . elfeed-search-browse-url)
-          ("M" . (lambda () (interactive) (jarfar/elfeed-send-emails t))))
+          ("M" . (lambda () (interactive) (my/elfeed-send-emails t))))
   :preface
-  (defun jarfar/elfeed-load-db-and-open ()
+  (defun my/elfeed-load-db-and-open ()
     "Wrapper to load the elfeed db from disk before opening"
     (interactive)
     (elfeed-db-load)
@@ -46,7 +46,7 @@
   (elfeed-web-limit 500)
   (url-queue-timeout 60)
   :config
-  (defun jarfar/elfeed-search-open-in-external-click (event)
+  (defun my/elfeed-search-open-in-external-click (event)
     "Open link with external browser"
     (interactive "e")
     (mouse-set-point event)
@@ -61,7 +61,7 @@
         (browse-url-generic url))))
 
   ;; based on shr-browse-url
-  (defun jarfar/elfeed-shr-open-click (event)
+  (defun my/elfeed-shr-open-click (event)
     (interactive "e")
     (mouse-set-point event)
     (let ((url (get-text-property (point) 'shr-url)))
@@ -80,7 +80,7 @@
   ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
   ;;functions to support syncing .elfeed between machines
   ;;makes sure elfeed reads index from disk before launching
-  (defun jarfar/elfeed-open-in-external-browser (&optional use-generic-p)
+  (defun my/elfeed-open-in-external-browser (&optional use-generic-p)
     (interactive "P")
     (let ((urls (list))
            (entries (elfeed-search-selected)))
@@ -95,13 +95,13 @@
         (message url)
         (browse-url-generic url))))
 
-  (defun jarfar/elfeed-update ()
+  (defun my/elfeed-update ()
     (interactive)
     (elfeed-update)
     (elfeed-web-update))
 
   ;; based on shr-browse-url
-  (defun jarfar/elfeed-shr-open-external (&optional mouse-event)
+  (defun my/elfeed-shr-open-external (&optional mouse-event)
     (interactive (list last-nonmenu-event))
     (let ((url (get-text-property (point) 'shr-url)))
       (cond
@@ -115,7 +115,7 @@
 
   ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
   ;;write to disk when quiting
-  (defun jarfar/elfeed-save-db-and-bury ()
+  (defun my/elfeed-save-db-and-bury ()
     "Wrapper to save the elfeed db to disk before burying buffer"
     (interactive)
     (elfeed-db-save)
@@ -127,14 +127,14 @@
     (elfeed-db-compact))
 
   ;; https://noonker.github.io/posts/2020-04-22-elfeed/
-  (defun jarfar/elfeed-youtube-download (&optional use-generic-p)
+  (defun my/elfeed-youtube-download (&optional use-generic-p)
     "Youtube-DL link"
     (interactive "P")
     (let ((entries (elfeed-search-selected)))
       (cl-loop for entry in entries
         do (elfeed-untag entry 'unread)
         when (elfeed-entry-link entry)
-        do (jarfar/youtube-download it))
+        do (my/youtube-download it))
       (mapc 'elfeed-search-update-entry entries)
       (unless (use-region-p) (forward-line))))
 
@@ -154,7 +154,7 @@
         (scroll-down-command arg)
         (error (elfeed-show-prev)))))
 
-  (defun jarfar/elfeed-send-emails (&optional all)
+  (defun my/elfeed-send-emails (&optional all)
     (interactive)
     (let ((entries (if all
                      (progn
@@ -171,7 +171,7 @@
         if (elfeed-tagged-p 'mail entry)
         do (message "The email for entry was already send. No email send now.")
         else
-        do (jarfar/elfeed-send-emails-processing entry)
+        do (my/elfeed-send-emails-processing entry)
         ;; else
         ;; do (message "The entry is not tagged as 'ok'. No email send now.")
         ;; else
@@ -181,7 +181,7 @@
       (mapc 'elfeed-search-update-entry entries))
     (elfeed-search-update--force))
 
-  (defun jarfar/elfeed-send-emails-processing (entry)
+  (defun my/elfeed-send-emails-processing (entry)
     (interactive)
     (let ((link (elfeed-entry-link entry))
            (title (elfeed-entry-title entry))
@@ -216,14 +216,14 @@
         (elfeed-tag entry 'ok)
         (elfeed-untag entry 'unread))))
 
-  (defun jarfar/elfeed-tag-toggle-ok ()
+  (defun my/elfeed-tag-toggle-ok ()
     "Mark as 'ok' on an entry or entries, and send email with the content."
     (interactive)
     (elfeed-search-untag-all 'junk)
     (elfeed-search-toggle-all 'ok)
     (unless (use-region-p) (next-line)))
 
-  (defun jarfar/elfeed-tag-toggle-junk ()
+  (defun my/elfeed-tag-toggle-junk ()
     "Mark as 'junk'."
     (interactive)
     (elfeed-search-untag-all 'ok)
@@ -231,7 +231,7 @@
     (elfeed-search-toggle-all 'junk)
     (unless (use-region-p) (next-line)))
 
-  (defun jarfar/elfeed-tag-toggle-favorite ()
+  (defun my/elfeed-tag-toggle-favorite ()
     "Mark as 'favorite'."
     (interactive)
     (elfeed-search-untag-all 'ok)
@@ -240,12 +240,12 @@
     (elfeed-search-toggle-all 'favorite)
     (unless (use-region-p) (next-line)))
 
-  (defun jarfar/elfeed-mark-read-move-next ()
+  (defun my/elfeed-mark-read-move-next ()
     (interactive)
     (elfeed-search-untag-all-unread)
     (unless (use-region-p) (next-line)))
 
-  (defun jarfar/elfeed-mark-unread-move-next ()
+  (defun my/elfeed-mark-unread-move-next ()
     (interactive)
     (elfeed-search-tag-all-unread)
     (unless (use-region-p) (next-line))))
@@ -267,6 +267,6 @@
   :config
   (elfeed-org))
 
-(defalias 'rss #'jarfar/elfeed-load-db-and-open)
+(defalias 'rss #'my/elfeed-load-db-and-open)
 
 (provide 'my-rss)

@@ -35,12 +35,12 @@ instead of `browse-url-new-window-flag'."
   (setq process-connection-type nil))
 
 ; https://noonker.github.io/posts/2020-04-22-elfeed/
-(defun jarfar/youtube-download (url)
+(defun my/youtube-download (url)
   "Downloads the URL in an async shell"
   (let ((default-directory "~/Documents/bibliography/videos"))
     (async-shell-command (format "youtube-dl %s" url))))
 
-(defun jarfar/browse-url-mpv (url &optional single)
+(defun my/browse-url-mpv (url &optional single)
   (start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
 ;; (require 'eww)
@@ -83,8 +83,8 @@ instead of `browse-url-new-window-flag'."
           ("s-{" . w3m-previous-buffer)
           ("<right>" . w3m-view-next-page)
           ("S" . my/w3m-search-new-session)
-          ("C-c C-t" . farynaio/w3m-create-empty-session)
-          ("C-t t" . farynaio/w3m-create-empty-session)
+          ("C-c C-t" . my/w3m-create-empty-session)
+          ("C-t t" . my/w3m-create-empty-session)
           ("<S-mouse-1>" . my/w3m-open-in-external-click)
           ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
           ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
@@ -150,13 +150,13 @@ instead of `browse-url-new-window-flag'."
   (w3m-type 'w3m-m17n)
   (w3m-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
   (browse-url-handlers
-    '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+    '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
        ("." . my/w3m-goto-frame)))
   ;; (browse-url-browser-function
-  ;;   '(("https:\\/\\/www\\.youtu\\.*be." . jarfar/browse-url-mpv)
+  ;;   '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
   ;;      ("." . my/w3m-goto-frame)))
   :config
-  (defun farynaio/w3m-create-empty-session ()
+  (defun my/w3m-create-empty-session ()
     (interactive)
     (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
 

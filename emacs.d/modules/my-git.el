@@ -53,7 +53,7 @@
   ;;                   projectile-known-projects)
   ;;             (projectile-serialize-cache))))
 
-(defun jarfar/projectile-show-relative-path ()
+(defun my/projectile-show-relative-path ()
   (interactive)
   (when (projectile-project-root)
     (message (substring buffer-file-name (length (projectile-project-root))))))

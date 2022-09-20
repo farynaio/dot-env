@@ -19,7 +19,7 @@
     (setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
     (setq org-caldav-show-sync-result nil)
 
-    (defun jarfar/org-caldav-delete-everything ()
+    (defun my/org-caldav-delete-everything ()
       "Delete all entries from remote calendar."
       (interactive)
       (org-caldav-delete-everything t))

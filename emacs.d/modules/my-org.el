@@ -76,7 +76,7 @@
     (org-agenda-to-appt t)))
 
 ;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
-(defun jarfar/calendar-year (&optional year)
+(defun my/calendar-year (&optional year)
   "Generate a one year calendar that can be scrolled by year in each direction.
 This is a modification of:  http://homepage3.nifty.com/oatu/emacs/calendar.html
 See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months"
@@ -111,7 +111,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (goto-char (point-min))
     (setq buffer-read-only t)))
 
-(defun jarfar/scroll-year-calendar-forward (&optional arg event)
+(defun my/scroll-year-calendar-forward (&optional arg event)
   "Scroll the yearly calendar by year in a forward direction."
   (interactive (list (prefix-numeric-value current-prefix-arg)
                      last-nonmenu-event))
@@ -121,22 +121,22 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (unless (zerop arg)
       (let* (
               (year (+ displayed-year arg)))
-        (jarfar/year-calendar year)))
+        (my/year-calendar year)))
     (goto-char (point-min))
     (run-hooks 'calendar-move-hook)))
 
-(defun jarfar/scroll-year-calendar-backward (&optional arg event)
+(defun my/scroll-year-calendar-backward (&optional arg event)
   "Scroll the yearly calendar by year in a backward direction."
   (interactive (list (prefix-numeric-value current-prefix-arg)
                      last-nonmenu-event))
-  (jarfar/scroll-year-calendar-forward (- (or arg 1)) event))
+  (my/scroll-year-calendar-forward (- (or arg 1)) event))
 
-(define-key calendar-mode-map "<" 'jarfar/scroll-year-calendar-backward)
-(define-key calendar-mode-map ">" 'jarfar/scroll-year-calendar-forward)
+(define-key calendar-mode-map "<" 'my/scroll-year-calendar-backward)
+(define-key calendar-mode-map ">" 'my/scroll-year-calendar-forward)
 
-(defalias 'calendar-year #'jarfar/calendar-year)
-(defalias 'my/calendar-full #'jarfar/calendar-year)
-(defalias 'yearly-calendar #'jarfar/calendar-year)
+(defalias 'calendar-year #'my/calendar-year)
+(defalias 'my/calendar-full #'my/calendar-year)
+(defalias 'yearly-calendar #'my/calendar-year)
 
 (defun my/outline-hide-subtree ()
   (interactive)
@@ -305,90 +305,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
              :type git
              :host github
              :repo "emacs-jp/japanese-holidays"
-             :branch "master"))
-(setq
-  polish-holidays
-  '((holiday-fixed  1 21 "Dzień Babci")
-     (holiday-fixed  1 22 "Dzień Diadka")
-     (holiday-fixed  2 22 "Ofiarowanie Pańskie (Matki Boskiej Gromnicznej)")
-     (holiday-fixed  2  8 "Tłusty Czwartek")
-     (holiday-fixed  2 10 "Ostatnia Sobota Karnawału")
-     (holiday-fixed  2 13 "Ostatki")
-     (holiday-fixed  3  1 "Narodowy Dzień Pamięci Żołnierzy Wyklętych")
-     (holiday-fixed  3 10 "Dzień Mężczyzn")
-     (holiday-fixed  3 20 "Początek Astronomicznej Wiosny")
-     (holiday-fixed  3 25 "Zmiana czasu z zimowego na letni")
-     (holiday-fixed  3 25 "Niedziela Palmowa")
-     (holiday-fixed  3 29 "Wielki Czwartek")
-     (holiday-fixed  3 30 "Wielki Piątek")
-     (holiday-fixed  3 31 "Wielka Sobota")
-     (holiday-fixed  4  2 "(bank) Poniedziałek Wielkanocny")
-     (holiday-fixed  4  8 "Święto Bożego Miłosierdzia")
-     (holiday-fixed  4 22 "Międzynarodowy Dzień Ziemi")
-     (holiday-fixed  5  1 "(bank) Międzynarodowe Święto Pracy")
-     (holiday-fixed  5  2 "Dzień Flagi Rzeczypospolitej Polskiej")
-     (holiday-fixed  5  3 "(bank) Święto Konstytucji 3 Maja")
-     (holiday-fixed  5 13 "Wniebowstąpienie")
-     (holiday-fixed  5 20 "(bank) Zesłanie Ducha Świętego (Zielone Świątki)")
-     (holiday-fixed  5 26 "Dzień Matki")
-     (holiday-fixed  5 31 "(bank) Boże Ciało")
-     (holiday-fixed  6  1 "Międzynarodowy Dzień Dziecka")
-     (holiday-fixed  6 21 "Pierwszy Dzień Lata (najdłuższy dzień roku)")
-     (holiday-fixed  6 23 "Dzień Ojca")
-     (holiday-fixed  8  1 "Narodowy Dzień Pamięci Powstania Warszawskiego")
-     (holiday-fixed  8 15 "(bank) Święto Wojska Polskiego")
-     (holiday-fixed  8 15 "Wniebowzięcie Najświętrzej Maryi Panny")
-     (holiday-fixed  8 31 "Dzień Solidarności i Wolności")
-     (holiday-fixed  9 23 "Początek Astronomicznej Jesieni")
-     (holiday-fixed  9 30 "Dzień Chłopaka")
-     (holiday-fixed 10 14 "Dzień Nauczyciela (Dzień Edukacji Narodowej)")
-     (holiday-fixed 10 28 "Zmiana czasu z letniego na zimowy")
-     (holiday-fixed 11  1 "(bank) Wszystkich Świętych")
-     (holiday-fixed 11  2 "Dzień Zaduszny")
-     (holiday-fixed 11 11 "(bank) Narodowe Święto Niepodległości")
-     (holiday-fixed 11 29 "Andrzejki")
-     (holiday-fixed 12  4 "Barbórka (Dzień górnika, naftowca i gazownika)")
-     (holiday-fixed 12  6 "Dzień św. Mikołaja")
-     (holiday-fixed 12 21 "Początek Astronomicznej Zimy")
-     (holiday-fixed 12 24 "Wigilia Bożego Narodzenia")
-     (holiday-fixed 12 25 "(bank) Boże Narodzenie (1 dzień)")
-     (holiday-fixed 12 26 "(bank) Boże Narodzenie (2 dzień)"))
-  english-holidays
-  '((holiday-fixed  3 30 "(bank) Good Friday")
-     (holiday-fixed  4 10 "(bank) Good Friday (England, Wales)")
-     (holiday-fixed  4 13 "(bank) Easter Monday (England, Wales)")
-     (holiday-fixed  5  8 "(bank) Early May bank holiday (England, Wales)")
-     (holiday-fixed  5  7 "(bank) Spring bank holiday (England, Wales)")
-     (holiday-fixed  8 27 "(bank) Spring bank holiday")
-     (holiday-fixed  9 31 "(bank) Summer bank holiday")
-     (holiday-fixed 12 25 "(bank) Christmas Day")
-     (holiday-fixed 12 28 "(bank) Boxing Day"))
-  christian-holidays
-  '((holiday-fixed 1 6 "Epiphany")
-     (holiday-fixed 2 2 "Candlemas")
-     (holiday-easter-etc -47 "Mardi Gras")
-     (holiday-easter-etc 0 "Easter Day")
-     (holiday-easter-etc 1 "Easter Monday")
-     (holiday-easter-etc 39 "Ascension")
-     (holiday-easter-etc 49 "Pentecost")
-     (holiday-fixed 8 15 "Assumption")
-     (holiday-fixed 11 1 "All Saints' Day")
-     (holiday-fixed 11 2 "Day of the Dead")
-     (holiday-fixed 11 22 "Saint Cecilia's Day")
-     (holiday-fixed 12 1 "Saint Eloi's Day")
-     (holiday-fixed 12 4 "Saint Barbara")
-     (holiday-fixed 12 6 "Saint Nicholas Day")
-     (holiday-fixed 12 25 "Christmas Day")))
+              :branch "master"))
 
 (defvar calendar-holidays)
 (setq
   holiday-local-holidays nil
   diary-show-holidays-flag nil
   calendar-christian-all-holidays-flag t
-  calendar-holidays (append calendar-holidays
-                      japanese-holidays
-                      polish-holidays
-                      english-holidays)
   ;; calendar-mark-holidays-flag t
   calendar-week-start-day 1
   calendar-date-style 'european)
@@ -535,358 +458,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-tags-exclude-from-inheritance '("project" "taskjuggler_project" "taskjuggler_resource") ; prj
       org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
-(setq org-capture-templates `(
-  ("c" "Contact" entry (file+headline ,my/org-contacts-file-path "Friends") ;,(expand-file-name "contacts.org.gpg" org-directory))
-"* %(org-contacts-template-name)
-:PROPERTIES:
-:COMPANY:
-:ROLE:
-:EMAIL: %(org-contacts-template-email)
-:MOBILE:
-:WORK_PHONE:
-:ADDRESS:
-:WWW:
-:_BIRTHDAY:
-:I_TOLD_THEM_EMAIL: adam35@puremail.cyou
-:I_TOLD_THEM_PHONE: +447763702049
-:WHERE_MEET:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("s" "Business Idea" entry (file+headline ,my/org-ideas-file-path "Ideas")
-"* %?
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-:prepend t :empty-lines-after 0 :kill-buffer nil)
-
-;;   ("d" "Diet Log" entry (file+headline ,my/org-diet-log-file-path "Daily Logs")
-;; "* CAL-IN Diet in [%<%Y-%m-%d %a>]
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :Weight: %^{What is my weight (pounds): } pounds
-;; :END:
-
-;; | Food / Exercise | Calories | Fat | Carbs | Protein | Fiber | Salt | Sugars | Saturates |
-;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-;; | breakfast       |          |     |       |         |       |      |        |           |
-;; |                 |          |     |       |         |       |      |        |           |
-;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-;; | lunch           |          |     |       |         |       |      |        |           |
-;; |                 |          |     |       |         |       |      |        |           |
-;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-;; | dinner          |          |     |       |         |       |      |        |           |
-;; |                 |          |     |       |         |       |      |        |           |
-;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-;; | walking         |          |     |       |         |       |      |        |           |
-;; |                 |          |     |       |         |       |      |        |           |
-;; |-----------------+----------+-----+-------+---------+-------+------+--------+-----------|
-;; | Expected        |     1713 |     |       |         |       |      |        |           |
-;; | Total           |          |     |       |         |       |      |        |           |
-;; #+TBLFM: @>$2=vsum(@2..@-2)::@>$3=vsum(@2..@-2)::@>$4=vsum(@2..@-2)::@>$5=vsum(@2..@-2)::@>$6=vsum(@2..@-2)::@>$7=vsum(@2..@-2)::@>$8=vsum(@2..@-2)::@>$9=vsum(@2..@-2)
-;; "
-;; :prepend t :empty-lines-after 2 :jump-to-captured nil)
-
-  ("e" "Media Review" entry (file+headline ,my/org-media-reviews-file-path "Media Reviews")
-"** _\"%\\1\" %\\2 %?
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:TITLE: \"%^{What Title: }\"
-:AUTHOR: %^{What author: }
-:END:
-[[file:~/Documents/emacs/orgs/archive/books/%\\1 - %\\2.org][link]]
-*** TODO \"%\\1\" after week
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 7)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after month
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 37)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after half year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 189)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-*** TODO \"%\\1\" after year
-SCHEDULED: %(org-insert-time-stamp (time-add (current-time) (days-to-time 372)) nil t)
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-:prepend t :empty-lines-after 0 :jump-to-captured nil :kill-buffer nil)
-
-  ("t" "Tasks")
-  ("tt" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %(org-priority-cookie) %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("tb" "Backlog" entry (file+headline ,my/org-backlog-file-path "Backlog")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("ti" "Inbox" entry (file ,my/org-inbox-file-path)
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer nil)
-
-  ("tm" "Maybe / Someday" entry (file+headline ,my/org-tasks-maybe-someday-file-path "Maybe / Someday")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("tr" "Repeatable Tasks" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a .+2d/4d>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-    :prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("th" "Habit" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* TODO %?
-SCHEDULED: <%<%Y-%m-%d %a .+1d>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:STYLE: habit
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-  ("tw" "Waiting" entry (file+headline ,my/org-tasks-file-path "Tasks")
-"* WAITING %?
-DEADLINE: <%<%Y-%m-%d %a>>
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-;;   ("l" "Dating Log" entry (file+headline ,my/org-journal-dating-file-path "Journal Dating")
-;; "* [%<%Y-%m-%d %a>]\n%?
-;; "
-;; :prepend t :jump-to-captured t :empty-lines-after 0 :kill-buffer t)
-
-  ("m" "Media" entry (file+headline ,my/org-media-file-path "Media")
-"* TODO %\\3 \"%\\1\" %\\2 %? %^g
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:TITLE: \"%^{What Title: }\"
-:AUTHOR: %^{What author: }
-:TYPE: %^{What type: |BOOK|AUDIO|ARTICLE|MOVIE|PODCAST|YOUTUBE}
-:WHERE: %^{Where do I have it: |none|cloud|kindle|audible|eBook|book|audio|youtube}
-:RECOMMENDED: %^{Who recommended: }
-:END:
-"
-:prepend t :jump-to-captured nil :empty-lines-after 1 :kill-buffer t)
-
-;;   ("o" "Quote" entry (file+headline ,my/org-quotes-file-path "Quotes")
-;; "* %?
-;; "
-;; :prepend nil :empty-lines-after 2 :kill-buffer t)
-
-  ("p" "Blog post" entry (file+headline ,my/org-blog-file-path "Posts")
-"* \"%?\"
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:END:
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-
-;; ("r" "Life review")
-;;   ("rw" "Weekly" entry (file+headline ,my/org-review-file-path "Review Life")
-;; "* [%<%Y-%m-%d %a>]                                                 :WEEKLY:
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-
-;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-;; [[~/Documents/emacs/coaching/][coaching folder]]
-;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-;; - tasks
-;;   - Review last week journal reviews.
-;;   - Plan goals for following month based on this year goals.
-;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-;;   - Review all task lists.
-;;   - Plan long term, bigger events for following 6 months.
-
-
-;; + Plans for next weak
-;;   -
-
-
-;; + What went good:
-;;   - %?
-
-;; + What went bad:
-;;   -
-
-;; + What do I learned:
-;;   -
-
-;; + Plans for improvement:
-;;   -
-;; "
-;;     :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-;;   ("rm" "Monthly" entry (file+headline ,my/org-review-file-path "Review Life")
-;; "* [%<%Y-%m-%d %a>]                                                 :MONTHLY:
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-
-;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-;; [[~/Documents/emacs/coaching/][coaching folder]]
-;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-;; - tasks
-;;   - Review last month journal reviews.
-;;   - Plan goals for following month based on this year goals.
-;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-;;   - Review all task lists.
-;;   - Plan long term, bigger events for following 6 months.
-
-
-;; + Plans for next month
-;;   -
-
-
-;; + What went good:
-;;   - %?
-
-;; + What went bad:
-;;   -
-
-;; + What do I learned:
-;;   -
-
-;; + Plans for improvement:
-;;   -
-;; "
-;;     :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-;;   ("rh" "Review 6-month" entry (file+headline ,my/org-review-file-path "Review Life")
-;; "* [%<%Y-%m-%d %a>]                                                 :HALF-YEAR:
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-
-;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-;; [[~/Documents/emacs/coaching/][coaching folder]]
-;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-
-;; - tasks
-;;   - Review last 6 months journal reviews.
-;;   - Plan goals for following month based on this year goals.
-;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-;;   - Review all task lists.
-;;   - Plan long term, bigger events for following 6 months.
-
-
-;; + Plans for half year
-;;   -
-
-
-;; + What went good:
-;;   - %?
-
-;; + What went bad:
-;;   -
-
-;; + What do I learned:
-;;   -
-
-;; + Plans for improvement:
-;;   -
-;; "
-;; :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-;;   ("ry" "Yearly" entry (file+headline ,my/org-review-file-path "Review Life")
-;; "* [%<%Y-%m-%d %a>]                                                 :YEARLY:
-;; :PROPERTIES:
-;; :CREATED: [%<%Y-%m-%d %a>]
-;; :END:
-
-;; [[~/Documents/emacs/coaching/wheel of life.org][whell of life.org]]
-;; [[~/Documents/emacs/coaching/][coaching folder]]
-;; [[~/Documents/emacs/private/reviews.org.gpg][reviews.org]]
-
-;; - tasks
-;;   - Review last 12 months journal reviews.
-;;   - Plan goals for following month based on this year goals.
-;;     - [[file:~/Documents/emacs/orgs/goals_brainstorm.org][Goals Brainstorm]]
-;;   - Review all task lists.
-;;   - Plan long term, bigger events for following 6 months.
-
-
-;; + Plans for next year
-;;   -
-
-
-;; + What went good:
-;;   - %?
-
-;; + What went bad:
-;;   -
-
-;; + What do I learned:
-;;   -
-
-;; + Plans for improvement:
-;;   -
-;; "
-;; :prepend t :empty-lines-after 2 :jump-to-captured t)
-
-  ("w" "New word (English)" entry (file+headline ,my/org-english-drill-file-path "English drill")
-"* %\\1 - %\\2 %? %(org-set-tags nil t) :drill:
-:PROPERTIES:
-:CREATED: [%<%Y-%m-%d %a>]
-:DRILL_CARD_TYPE: twosided
-:END:
-
-[[https://simplytranslate.org/?engine=google&sl=en&tl=pl&text=%\\1][Translate]]
-[[https://dictionary.cambridge.org/dictionary/english/%\\1][Cambridge]]
-
-** English
-
-%^{What English word: }
-
-** Polish
-
-%^{What Polish word: }
-"
-:prepend t :empty-lines-after 1 :kill-buffer t)
-))
-
 (defun org-priority-cookie ()
   (format "[#%c]" org-default-priority))
 
@@ -902,7 +473,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
      ("NOTE"       . (:foreground "white"       :weight bold))
      ("DONE"       . (:foreground "dark grey"   :weight normal))
-     ("SKIP"   . (:foreground "dark grey"   :weight normal))
+     ("SKIP"       . (:foreground "dark grey"   :weight normal))
      ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
 
 ; from https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
@@ -994,7 +565,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
         ((tags "*"
           ((org-agenda-overriding-header "Inbox")
             (org-agenda-remove-tags nil)
-            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-cmp-user-defined 'my/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-inbox-file-path))))))
 
@@ -1002,7 +573,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
         ((todo "TODO"
           ((org-agenda-overriding-header "Backlog")
             (org-agenda-remove-tags nil)
-            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-cmp-user-defined 'my/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-backlog-file-path))))))
 
@@ -1010,7 +581,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
         ((todo "TODO"
           ((org-agenda-overriding-header "Maybe / Someday")
             (org-agenda-remove-tags nil)
-            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-created-date)
+            (org-agenda-cmp-user-defined 'my/org-agenda-cmp-user-defined-created-date)
             (org-agenda-sorting-strategy '(user-defined-down alpha-up))
             (org-agenda-files (list my/org-tasks-maybe-someday-file-path))))))
 
@@ -1168,7 +739,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
              '(or
                 (org-agenda-skip-entry-if 'todo '("WAITING" "IN-PROCESS"))
                 ))
-            (org-agenda-cmp-user-defined 'jarfar/org-agenda-cmp-user-defined-birthday)
+            (org-agenda-cmp-user-defined 'my/org-agenda-cmp-user-defined-birthday)
             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
             (org-agenda-remove-tags nil)
             (org-agenda-prefix-format '((agenda . " %-12:c%?-12t [%-4e] ")))
@@ -1177,7 +748,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
             (org-agenda-files (append org-agenda-files `(,my/org-events-file-path ,my/org-taxes-file-path))))))))
   )
 
-(defun jarfar/org-agenda-cmp-user-defined-birthday (a b)
+(defun my/org-agenda-cmp-user-defined-birthday (a b)
   "Org Agenda user function to sort categories against other categories. The birthday category is considered to be behind other category by default."
   (let* (
           (pla (get-text-property 0 'org-category a))
@@ -1191,7 +762,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
         -1
         +1))))
 
-(defun jarfar/org-agenda-cmp-user-defined-created-date (a b)
+(defun my/org-agenda-cmp-user-defined-created-date (a b)
   "Org Agenda user function to sort tasks based on CREATED property."
   (let* (
           (marker-a (get-text-property 0 'org-marker a))
@@ -1279,7 +850,7 @@ should be continued."
         (>= scheduled-seconds now)
         subtree-end))))
 
-(defun jarfar/org-state-canceled-timestamp-toggle ()
+(defun my/org-state-canceled-timestamp-toggle ()
   "Toggle active/inactive SCHEDULED or DEADLINE timestamp Remove SCHEDULED-cookie is switching state to WAITING."
   (save-excursion
     (let ((state (org-get-todo-state)))
@@ -1309,10 +880,10 @@ should be continued."
     (when (equal (buffer-name (current-buffer)) "*Org Agenda*")
       (with-current-buffer "*Org Agenda*" (org-agenda-redo)))))
 
-(add-hook 'org-after-todo-state-change-hook 'jarfar/org-state-canceled-timestamp-toggle)
+(add-hook 'org-after-todo-state-change-hook 'my/org-state-canceled-timestamp-toggle)
 
 ;; https://www.emacswiki.org/emacs/ReverseParagraphs
-(defun jarfar/reverse-org-paragraphs-order ()
+(defun my/reverse-org-paragraphs-order ()
   (interactive)
   "Reverse the order of paragraphs in a region. From a program takes two point or marker arguments, BEG and END."
   (let ((beg (point-min)) (end (point-max)) (mid))
@@ -1430,24 +1001,6 @@ should be continued."
 
   (setq org-roam-dailies-directory "journal/")
 
-  (setq org-roam-dailies-capture-templates
-    '(("d" "Daily" plain "%?" :target
-        (file+head
-          "%<%Y-%m-%d>.org.gpg"
-          "#+TITLE: %<%Y-%m-%d>
-#+FILETAGS: private\n \n
-- Priorities
-  -\n \n
-
-- English
-  -\n \n
-
-
-* Journal
-* Trading
-* Pickup
-* Guitar practice"))))
-
   (setq org-roam-capture-templates
     '(
        ("g" "Guru summary" plain "%?" :target
@@ -1556,12 +1109,12 @@ should be continued."
 - tags :: ") :unnarrowed t)
        ))
 
-  ;; (defun jarfar/org-roam-find-file-other-window (&rest args)
+  ;; (defun my/org-roam-find-file-other-window (&rest args)
   ;;   (interactive)
   ;;   (let ((org-roam-find-file-function #'find-file-other-window))
   ;;     (apply #'org-roam-find-file args)))
 
-  (defun jarfar/org-roam-node-find-other-window (&rest args)
+  (defun my/org-roam-node-find-other-window (&rest args)
     (interactive)
     (let ((org-roam-find-file-function #'find-file-other-window))
       (apply #'org-roam-node-find args)))
@@ -1571,29 +1124,29 @@ should be continued."
   ;; org-roam-link-current
 
 
-  ;; (defvar jarfar/org-roam-side-mode-map (make-sparse-keymap)
-  ;;   "Keymap for `jarfar/org-roam-side-mode'.")
+  ;; (defvar my/org-roam-side-mode-map (make-sparse-keymap)
+  ;;   "Keymap for `my/org-roam-side-mode'.")
 
-  ;; (define-minor-mode jarfar/org-roam-side-mode
+  ;; (define-minor-mode my/org-roam-side-mode
   ;;   "Minor mode for org-roam side org buffer."
   ;;   :init-value nil
-  ;;   :keymap jarfar/org-roam-side-mode-map)
+  ;;   :keymap my/org-roam-side-mode-map)
 
-  ;; (defvar jarfar/org-roam-mode-map (make-sparse-keymap)
-  ;;   "Keymap for `jarfar/org-roam-side-mode'.")
+  ;; (defvar my/org-roam-mode-map (make-sparse-keymap)
+  ;;   "Keymap for `my/org-roam-side-mode'.")
 
-  ;; (define-minor-mode jarfar/org-roam-mode
+  ;; (define-minor-mode my/org-roam-mode
   ;;   "Minor mode for org-roam org buffers."
   ;;   :init-value nil
-  ;;   :keymap jarfar/org-roam-mode-map)
+  ;;   :keymap my/org-roam-mode-map)
 
-  ;; (defun jarfar/org-roam-mode-hook-org-ram ()
+  ;; (defun my/org-roam-mode-hook-org-ram ()
   ;;   (when (string-prefix-p my/org-roam-directory buffer-file-name)
-  ;;     (jarfar/org-roam-mode 1))
+  ;;     (my/org-roam-mode 1))
   ;;   (when (string-equal (buffer-name) "*org-roam*")
-  ;;     (jarfar/org-roam-side-mode 1)))
+  ;;     (my/org-roam-side-mode 1)))
 
-  ;; (add-hook 'org-mode-hook 'jarfar/org-roam-mode-hook-org-ram)
+  ;; (add-hook 'org-mode-hook 'my/org-roam-mode-hook-org-ram)
 
 
   ;; (add-hook 'after-init-hook 'org-roam-mode)
@@ -1689,7 +1242,7 @@ it can be passed in POS."
   :config
   (unbind-key "C-c C-j"))
 
-(defun jarfar/org-link-copy (&optional arg)
+(defun my/org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
   (interactive "P")
   (let* ((link (org-element-lineage (org-element-context) '(link) t))
@@ -1699,7 +1252,7 @@ it can be passed in POS."
     (kill-new url)
     (message (concat "Copied URL: " url))))
 
-(defun farynaio/org-roam-dailies-find-date-other-window ()
+(defun my/org-roam-dailies-find-date-other-window ()
   (interactive)
   (let ((current (current-buffer)))
     (org-roam-dailies-find-date)
@@ -1707,7 +1260,7 @@ it can be passed in POS."
       (switch-to-buffer current)
       (switch-to-buffer-other-window dailies-buffer))))
 
-(bind-key "C-x C-l" 'jarfar/org-link-copy org-mode-map)
+(bind-key "C-x C-l" 'my/org-link-copy org-mode-map)
 
 ;; (eval-after-load 'bibtex
 ;;   '(progn
@@ -1746,7 +1299,7 @@ it can be passed in POS."
 ;;     org-latex-default-packages-alist))
 
 ;; https://emacs.stackexchange.com/a/48385/18445
-(defun jarfar/print-duplicate-headings ()
+(defun my/print-duplicate-headings ()
   "Print duplicate headings from the current org buffer."
   (interactive)
   (with-output-to-temp-buffer "*temp-out*"
