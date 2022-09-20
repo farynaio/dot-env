@@ -1155,7 +1155,7 @@ DEADLINE: <%<%Y-%m-%d %a>>
         (tags-todo "TODO=\"WAITING\""
           ((org-agenda-overriding-header "Waiting tasks:")
             (org-agenda-remove-tags t)
-            (org-agenda-skip-function 'my/org-agenda-skip-deadline-if-not-today)
+            ;; (org-agenda-skip-function 'my/org-agenda-skip-deadline-if-not-today)
             (org-agenda-todo-keyword-format "")
             (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files my/org-active-projects))))
