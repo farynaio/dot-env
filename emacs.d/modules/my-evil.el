@@ -155,6 +155,7 @@
   (evil-set-initial-state 'dashboard-mode 'emacs)
   (evil-set-initial-state 'read-only-mode 'emacs)
   (evil-set-initial-state 'Info-mode 'emacs)
+  (evil-set-initial-state 'grep-mode 'emacs)
 
   (add-to-list 'evil-emacs-state-modes 'shell-mode)
   (add-to-list 'evil-emacs-state-modes 'eshell-mode)
