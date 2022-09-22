@@ -686,6 +686,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
             (org-agenda-log-mode-items '(closed))
             (org-agenda-overriding-header "Tasks finished this week:")
             (org-agenda-files (append org-agenda-files my/org-active-projects (list my/org-archive-tasks-path)))
+            (org-agenda-prefix-format '((agenda . " %-12:c%?-12t [%-4e] ")))
             (org-agenda-start-on-weekday 1)))))
 
      ("d" "Coprehensive agenda"
