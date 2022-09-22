@@ -168,6 +168,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        org-blank-before-new-entry '((heading . auto) (plain-list-item . nil))
        org-hide-emphasis-markers t
        org-agenda-start-with-log-mode t
+       org-agenda-sort-noeffort-is-high nil
+       org-agenda-skip-additional-timestamps-same-entry t
+       org-agenda-skip-deadline-prewarning-if-scheduled t
        org-src-preserve-indentation t
        org-table-header-line-p t
        ;; (setq org-list-end-re "^$")
@@ -444,7 +447,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-refile-use-outline-path t)
 
 ;; (setq org-blank-before-new-entry nil)
-(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+(setq org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
 (setq org-odt-preferred-output-format "doc")
 (setq org-agenda-start-on-weekday nil)
 (setq org-fast-tag-selection-single-key t) ; expert ?
