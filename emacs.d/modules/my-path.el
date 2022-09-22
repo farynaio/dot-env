@@ -9,16 +9,12 @@
 (setq org-gpg-directory (expand-file-name "private" my/org-base-path))
 (setq my/org-topics-directory (expand-file-name "topics" my/org-base-path))
 (setq my/drills-base-path (expand-file-name "drills" my/org-base-path))
-
 (setq my/org-archive-path (expand-file-name "archive" my/org-base-path))
-(setq my/org-archive-tasks-path (expand-file-name "tasks_archive.org" my/org-archive-path))
-
 (setq my/org-english-drill-file-path (expand-file-name "english_drill.org" my/drills-base-path))
-
 (setq my/org-girls-file-path (expand-file-name "friends.org" org-directory))
-
 (setq my/notes-file-path (expand-file-name "Notes.org" my/fast-path))
 (setq my/whonix-share-file-path (expand-file-name "share.org" "~/Virtual-Machines/shared/safe"))
+
 ;; Tasks
 (setq my/org-tasks-base-dir (expand-file-name "Tasks/" org-directory))
 (setq my/org-backlog-file-path (expand-file-name "backlog.org.gpg" my/org-tasks-base-dir))
@@ -27,6 +23,7 @@
 (setq my/org-tasks-file-path (expand-file-name "tasks.org.gpg" my/org-tasks-base-dir))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org.gpg" my/org-tasks-base-dir))
 (setq my/org-temp-file-path (expand-file-name "Temp.org" org-agenda-directory))
+(setq my/org-archive-tasks-path (expand-file-name "tasks_archive.org.gpg" my/org-tasks-base-dir))
 (setq my/org-tasks-maybe-someday-file-path (expand-file-name "maybe someday.org.gpg" my/org-tasks-base-dir))
 
 (setq
