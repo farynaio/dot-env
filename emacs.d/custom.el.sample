@@ -42,6 +42,7 @@
  '(erc-notice-face ((t (:foreground "#ebcb8b"))))
  '(erc-timestamp-face ((t (:foreground "#a3be8c"))))
  '(hl-line ((t (:background "gray32"))))
+ '(ledger-font-xact-highlight-face ((t (:background "gray32"))))
  '(org-agenda-dimmed-todo-face ((t (:foreground "gray50"))))
  '(org-level-2 ((t (:inherit default :extend nil :foreground "goldenrod"))))
  '(org-level-3 ((t (:inherit nil :extend nil :foreground "coral"))))
