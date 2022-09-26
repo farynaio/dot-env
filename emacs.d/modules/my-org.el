@@ -121,7 +121,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
     (unless (zerop arg)
       (let* (
               (year (+ displayed-year arg)))
-        (my/year-calendar year)))
+        (my/calendar-year year)))
     (goto-char (point-min))
     (run-hooks 'calendar-move-hook)))
 
