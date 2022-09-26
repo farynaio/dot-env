@@ -31,14 +31,15 @@
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
   (dired-hide-details-mode 1)
-  (dired-guess-shell-alist-user
-    '(("\\.pdf\\'" "open")
-       ("\\.html\\'" "open")
-       ("\\.xlsx?m?\\'" "open")
-       ("\\.ods\\'" "open")
-       ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
-       ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
-       ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
+  ;; (dired-guess-shell-alist-user
+  ;;   '(
+       ;; ("\\.pdf\\'" "open")
+       ;; ("\\.html\\'" "open")
+       ;; ("\\.xlsx?m?\\'" "open")
+       ;; ("\\.ods\\'" "open")
+       ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
+       ;; ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
+       ;; ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
   :preface
   (defun my/dired-shell-command ()
     "Run any shell command in Dired."

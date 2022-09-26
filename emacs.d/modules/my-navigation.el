@@ -581,6 +581,20 @@ point reaches the beginning or end of the buffer, stop there."
   (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
+(use-package openwith
+  :custom
+  (large-file-warning-threshold nil)
+  (openwith-associations '(
+                            ("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
+                            ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "/usr/bin/open" (file))
+                            ("\\.\\(?:ods\\|odt\\)\\'" "/usr/bin/open" (file))
+                            ("\\.\\(?:mp4\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
+                            ("\\.pdf\\'" "/usr/bin/open" (file))
+                            ))
+  :config
+  (openwith-mode t)
+  (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist))
+
 ;; (use-package demap)
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
