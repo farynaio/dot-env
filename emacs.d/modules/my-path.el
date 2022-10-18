@@ -21,6 +21,7 @@
 (setq my/org-events-file-path (expand-file-name "events.org.gpg" my/org-tasks-base-dir))
 (setq my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
 (setq my/org-tasks-file-path (expand-file-name "tasks.org.gpg" my/org-tasks-base-dir))
+(setq my/org-goals-file-path (expand-file-name "goals.org.gpg" my/org-tasks-base-dir))
 (setq my/org-taxes-file-path (expand-file-name "taxes.org.gpg" my/org-tasks-base-dir))
 (setq my/org-temp-file-path (expand-file-name "Temp.org" org-agenda-directory))
 (setq my/org-archive-tasks-path (expand-file-name "tasks_archive.org.gpg" my/org-tasks-base-dir))
