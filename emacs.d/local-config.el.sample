@@ -129,6 +129,7 @@
                        (:startgroup . nil)
                        ("@poland" . ?o)
                        ("@uk" . ?k)
+                       ("@spain" . ?k)
                        (:endgroup . nil)
                        (:startgroup . nil)
                        ("@home" . ?m)
