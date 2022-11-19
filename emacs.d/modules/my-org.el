@@ -704,12 +704,12 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
             (org-agenda-overriding-header "Tasks in progress:")
             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
             (org-agenda-files (append org-agenda-files  my/org-active-projects `(,my/org-taxes-file-path)))))
-         (tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
+         (tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\"|TODO=\"WAITING\""
            ((org-agenda-skip-function
               '(or
                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))
                  (and
-                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
+                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS" "WAITING"))
                    (my/org-skip-subtree-if-priority ?A))))
              (org-agenda-remove-tags nil)
              (org-agenda-overriding-header "Active Goals:")
