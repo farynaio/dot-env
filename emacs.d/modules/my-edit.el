@@ -315,4 +315,7 @@ end-of-buffer signals; pass the rest to the default handler."
   (scroll-bar-mode -1)
   (tooltip-mode -1))
 
+(unbind-key "C-x C-z" global-map)
+(unbind-key "C-z" global-map)
+
 (provide 'my-edit)
