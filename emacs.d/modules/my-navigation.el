@@ -588,7 +588,7 @@ point reaches the beginning or end of the buffer, stop there."
                             ("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
                             ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "/usr/bin/open" (file))
                             ("\\.\\(?:ods\\|odt\\)\\'" "/usr/bin/open" (file))
-                            ("\\.\\(?:mp4\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
+                            ("\\.\\(?:mp4\\|mkv\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
                             ("\\.pdf\\'" "/usr/bin/open" (file))
                             ))
   :config
