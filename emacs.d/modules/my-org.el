@@ -714,7 +714,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                    (my/org-skip-subtree-if-priority ?A))))
              (org-agenda-remove-tags nil)
              (org-agenda-overriding-header "Active Goals:")
-             (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
+             (org-agenda-sorting-strategy '(todo-state-up category-keep alpha-up))
+             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
              (org-agenda-files `(,my/org-goals-file-path))))
         ;; (tags "PROJECT_ACTIVE"
         ;;   ((org-agenda-overriding-header "Active projects:")
