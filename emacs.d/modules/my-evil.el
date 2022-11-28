@@ -202,6 +202,10 @@
       (kbd "<down>") 'evil-next-visual-line
       (kbd "<up>")   'evil-previous-visual-line))
 
+  ;; Unbind 'evil-backward-char'
+  (evil-define-key '(normal) 'global-map
+    (kbd "DEL") #'ignore)
+
   (evil-define-key 'normal prog-mode-map
     (kbd "C-c m") #'hydra-merge/body)
 
