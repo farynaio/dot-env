@@ -69,7 +69,8 @@
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
-  (global-hungry-delete-mode))
+  (global-hungry-delete-mode)
+  )
 
 (use-package with-editor)  ; dependency for other package
 
