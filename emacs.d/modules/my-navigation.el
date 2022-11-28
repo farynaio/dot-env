@@ -123,7 +123,12 @@
   (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
   (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down))
 
-(use-package goto-last-change)
+(use-package goto-last-change
+  :config
+  (evil-define-key '(normal) global-map
+    (kbd "[x") #'goto-last-change
+    (kbd "]x") #'goto-last-change-reverse)
+  )
 
 (use-package iscroll)
 
