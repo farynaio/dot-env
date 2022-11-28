@@ -319,4 +319,12 @@ end-of-buffer signals; pass the rest to the default handler."
 (unbind-key "C-x C-z" global-map)
 (unbind-key "C-z" global-map)
 
+;; Unbind 'undo'
+(unbind-key "C-/" global-map)
+(unbind-key "C-_" global-map)
+(unbind-key "C-x u" global-map)
+
+;; Unbind 'toggle-input-method'
+(unbind-key "C-\"" global-map)
+
 (provide 'my-edit)
