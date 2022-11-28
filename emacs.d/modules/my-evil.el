@@ -114,6 +114,9 @@
 
   ;; (bind-key ",\\"    'skk-mode                            evil-normal-state-map)
 
+  (unbind-key "=" evil-normal-state-map)
+  (unbind-key "+" evil-normal-state-map)
+  (unbind-key "+" evil-motion-state-map)
   (unbind-key "M-." evil-normal-state-map)
   (unbind-key "\\" evil-motion-state-map)
   (unbind-key "K" evil-motion-state-map)
