@@ -348,15 +348,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-hide-leading-stars t)
 (setq org-startup-indented t)
 
-(setq org-agenda-files
-  `(
-     ,my/org-tasks-file-path
-     ;; "~/Documents/emacs/agenda/foo.org"
-     ;; "~/Documents/emacs/agenda/bar.org"
-     ;; my/org-events-file-path
-     ;; my/org-projects-file-path
-     ))
-
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 ;; (setq org-refile-targets `(
 ;;                             (,my/org-tasks-file-path :level . 1) ; pool of tasks
@@ -664,7 +655,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                 (my/org-skip-subtree-if-habit)
                 (org-agenda-skip-if nil '(scheduled deadline))
                 (org-agenda-skip-entry-if 'todo '("DONE"))))
-            (org-agenda-overriding-header "This Monthly Goals:")
+            (org-agenda-overriding-header "This Month Goals:")
             (org-tags-match-list-sublevels t)
             (org-agenda-hide-tags-regexp "monthly")
             (org-agenda-todo-keyword-format "")

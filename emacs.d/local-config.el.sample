@@ -10,6 +10,8 @@
 ;; (setq mu4e-debug t)
 ;; (setq smtpmail-debug-verb t)
 
+(setq org-agenda-filesa '())
+
 ;; gpg email
 (setq epa-file-encrypt-to '(""))
 

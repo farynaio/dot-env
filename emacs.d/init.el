@@ -161,8 +161,9 @@
 (require 'tls)
 (require 'gnutls)
 
-;; My modules
-(require 'my-path)
+(setq my/local-config-file-path (expand-file-name "~/.emacs.d/local-config.el"))
+
+;; Load my custom modules
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
@@ -262,7 +263,7 @@
 (find-file "~/.emacs.d/modules/my-hydra.el")
 
 (unless (file-exists-p (expand-file-name "custom.el" user-emacs-directory))
-  (error (concat "custom.el file not exists. Create one from custo.el.sample")))
+  (error (concat "custom.el file not exists. Create one from custom.el.sample")))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
