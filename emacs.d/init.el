@@ -96,15 +96,14 @@
   :config
   (auto-compile-on-load-mode))
 
-(when (and (fboundp 'native-comp-available-p)
-        (native-comp-available-p))
+(when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
   (setq
     comp-speed 2
     comp-deferred-compilation t
     package-native-compile t
     comp-async-report-warnings-errors nil)
   (add-to-list 'exec-path (concat invocation-directory "bin") t)
-  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/local-config.el" "~/.emacs.d/init.el") t))
+  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t))
 
 (use-package org)
 (use-package org-contrib)
@@ -159,12 +158,17 @@
 (require 'tls)
 (require 'gnutls)
 
-(setq my/local-config-file-path (expand-file-name "~/.emacs.d/local-config.el"))
+(setq my/local-config-file-path (expand-file-name "~/.emacs.d/emacs-local-config/local-config.el"))
 
 ;; Load my custom modules
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
-  (load my/local-config-file-path))
+  (load my/local-config-file-path)
+  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
+    (native--compile-async '(my/local-config-file-path) t)))
+
+(unless (file-exists-p my/local-config-file-path)
+  (error (concat "'emacs-local-config/local-config.el' file not exists")))
 
 (setq-default
   ring-bell-function 'ignore
@@ -260,8 +264,14 @@
 (find-file "~/.emacs.d/init.el")
 (find-file "~/.emacs.d/modules/my-hydra.el")
 
-(unless (file-exists-p (expand-file-name "custom.el" user-emacs-directory))
-  (error (concat "custom.el file not exists. Create one from custom.el.sample")))
+(setq my/local-custom-variables-file-path (expand-file-name "~/.emacs.d/emacs-local-config/custom.el"))
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+; Load my custom-set-variables settings
+(when (file-exists-p my/local-custom-variables-file-path)
+  (message (concat "Loading " my/local-custom-variables-file-path "..."))
+  (load my/local-custom-variables-file-path)
+  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
+    (native--compile-async '(my/local-custom-variables-file-path) t)))
+
+(unless (file-exists-p my/local-custom-variables-file-path)
+  (error (concat "'emacs-local/config/custom.el' file not exists")))

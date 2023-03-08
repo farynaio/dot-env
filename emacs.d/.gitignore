@@ -20,6 +20,7 @@ elpy
 erc
 eslint
 ido.last
+emacs-local-config
 nov-places
 org-clock-save.el
 org-journal.cache
@@ -36,3 +37,4 @@ session.*
 straight/build
 straight/build-cache.el
 straight/repos
+#*
