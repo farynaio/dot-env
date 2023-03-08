@@ -53,7 +53,8 @@
     (kbd "C-s") #'find-name-dired
     (kbd "<") #'beginning-of-buffer
     (kbd ">") #'end-of-buffer
-    (kbd "W") #'my/dired-copy-dirname-as-kill
+    (kbd "C-x w") #'my/dired-copy-dirname-as-kill
+    (kbd "W") #'my/dired-copy-path-to-file-as-kill
     (kbd "k") (lambda () (interactive) (dired-do-kill-lines t))
     (kbd "r") #'my/rgrep
     (kbd "C-w =") #'balance-windows
@@ -91,10 +92,33 @@
     (dired-jump))
 
   (defun my/dired-copy-dirname-as-kill ()
-    "Copy the current directory into the kill ring."
+    "Copy current file directory into the kill ring."
     (interactive)
     (message (format "Path '%s' copied to clipboard." default-directory))
-    (kill-new default-directory)))
+    (kill-new default-directory))
+
+  (defun my/dired-copy-path-to-file-as-kill (&optional arg)
+    "Copy current file path into the kill ring."
+    (interactive "P")
+    (let ((string
+            (or (dired-get-subdir)
+              (mapconcat #'identity
+                (if arg
+                  (cond ((zerop (prefix-numeric-value arg))
+                          (dired-get-marked-files))
+                    ((consp arg)
+                      (dired-get-marked-files t))
+                    (t
+                      (dired-get-marked-files
+				                'no-dir (prefix-numeric-value arg))))
+                  (dired-get-marked-files 'no-dir))
+                " "))))
+      (unless (string= string "")
+        (let ((new-kill (concat default-directory string)))
+               (kill-new new-kill)
+               (message "%s" new-kill)
+               ))))
+  )
 
 (use-package dired-subtree
   :after dired
