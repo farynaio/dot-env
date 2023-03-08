@@ -202,6 +202,8 @@
     (evil-make-overriding-map edebug-mode-map '(normal motion))
     (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
 
+  (setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
+
   (dolist (element my/text-modes)
     (evil-define-key '(motion normal) element
       (kbd "<down>") 'evil-next-visual-line

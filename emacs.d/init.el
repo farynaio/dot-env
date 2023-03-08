@@ -141,8 +141,6 @@
 
 ;; (use-package oauth2)
 
-(setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
-
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
