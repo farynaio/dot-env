@@ -173,6 +173,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
        org-agenda-skip-deadline-prewarning-if-scheduled t
        org-src-preserve-indentation t
        org-table-header-line-p t
+       org-image-actual-width 1200
        ;; (setq org-list-end-re "^$")
        org-list-demote-modify-bullet
        '(
