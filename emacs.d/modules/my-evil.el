@@ -279,7 +279,11 @@
 (use-package evil-multiedit
   :after evil
   :config
-  (evil-multiedit-default-keybinds))
+  (evil-multiedit-default-keybinds)
+  (defun make-evil-multiedit-case-sensitive (fn &rest args)
+    (let ((case-fold-search (not iedit-case-sensitive)))
+      (apply fn args)))
+  (advice-add #'evil-multiedit-match-and-next :around #'make-evil-multiedit-case-sensitive))
 
 (use-package undo-fu
   :after evil
