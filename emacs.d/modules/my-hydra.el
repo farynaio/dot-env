@@ -331,10 +331,13 @@
    (("t" org-toggle-timestamp-type "timestamp toggle")
     ("l" org-link-archive "link archive")
     ("i" org-toggle-inline-images "images toggle" :toggle t)
-    ("r" my/reverse-org-paragraphs-order "reverse paragraph order"))
+     ("r" my/reverse-org-paragraphs-order "reverse paragraph order")
+     ("h" org-archive-subtree "archive heading subtree")
+     )
    "Navigation"
    (("s" counsel-org-goto "goto heading")
-    ("a" counsel-org-file "browse attachments"))))
+     ("a" counsel-org-file "browse attachments")))
+  )
 
 (pretty-hydra-define hydra-org-roam
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
