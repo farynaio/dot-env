@@ -64,7 +64,7 @@ instead of `browse-url-new-window-flag'."
 ;;            (eww-mode)
 ;;            (eww url))))
 
-;;      (defalias 'w 'af/eww)))
+;;      (defalias 'w #'af/eww)))
 (use-package w3m
   :if (executable-find "w3m")
   :hook ((w3m-mode . iscroll-mode))

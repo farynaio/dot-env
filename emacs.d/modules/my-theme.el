@@ -87,7 +87,7 @@
     (my/set-light-theme)
     (my/set-dark-theme)))
 
-(defalias 'toggle-theme 'my/toggle-theme)
+(defalias 'toggle-theme #'my/toggle-theme)
 
 (my/set-dark-theme)
 

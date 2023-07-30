@@ -27,7 +27,7 @@
   :requires calfw
   :commands cfw:open-org-calendar)
 
-;; (defalias 'cal 'cfw:open-org-calendar)
+;; (defalias 'cal #'cfw:open-org-calendar)
 
 (require 'ob-python)
 
@@ -1163,7 +1163,7 @@ should be continued."
   (when (fboundp 'org-roam-dailies-today)
     (org-roam-dailies-today))
 
-  (defalias 'roam 'org-roam))
+  (defalias 'roam #'org-roam))
 
 (use-package websocket
   :after org-roam-ui)

@@ -256,7 +256,7 @@
   ;; (my/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
   ;; (my/move-key evil-motion-state-map evil-normal-state-map " ")
 
-  (defalias 'forward-evil-word 'forward-evil-symbol))
+  (defalias 'forward-evil-word #'forward-evil-symbol))
 
 (use-package evil-surround
   :after evil

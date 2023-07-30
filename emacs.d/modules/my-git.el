@@ -166,7 +166,7 @@ to invalidate."
   :config
   (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
-  (defalias 'magit-blame-echo 'magit-blame-addition)
+  (defalias 'magit-blame-echo #'magit-blame-addition)
 
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
