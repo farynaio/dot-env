@@ -8,6 +8,7 @@
           ("<mouse-1>" . my/elfeed-shr-open-click)
           ("<s-mouse-1>" . my/elfeed-shr-open-click)
           ("<S-mouse-1>" . my/elfeed-shr-open-click)
+          ("C-x C-l" . shr-copy-url)
           :map shr-map
           ("RET" . my/elfeed-shr-open-external)
           ("v" . my/elfeed-shr-open-external)
@@ -37,9 +38,10 @@
     (elfeed-db-load)
     (elfeed-update)
     (elfeed-search-update--force)
+    (elfeed-db-save)
     (elfeed))
   :custom
-  (elfeed-search-filter "+news -ignore -ok -junk")
+  (elfeed-search-filter "-ignore -ok -junk")
   (elfeed-search-title-max-width 115)
   (elfeed-search-remain-on-entry t)
   (elfeed-curl-timeout 200)
@@ -97,8 +99,8 @@
 
   (defun my/elfeed-update ()
     (interactive)
-    (elfeed-update)
-    (elfeed-web-update))
+    (message "Updating feeds...")
+    (elfeed-update))
 
   ;; based on shr-browse-url
   (defun my/elfeed-shr-open-external (&optional mouse-event)
