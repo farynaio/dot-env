@@ -1,4 +1,4 @@
-﻿(setq
+(setq
   gc-cons-threshold (* 1024 1024 2)
   ;; gc-cons-threshold (* 1024 800)
   gc-cons-percentage 0.1
@@ -29,7 +29,7 @@
 ;; (setenv "LC_TIME" "en_US.UTF-8")
 ;; (setenv "GPG_AGENT_INFO" nil)
 
-(setq shell-file-name "/bin/sh")
+;; (setq shell-file-name "/bin/sh")
 ;; (setenv "PATH" (concat "/usr/local/opt/rbenv/shims:/usr/local/opt/rbenv/bin:" (getenv "PATH")))
 ;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
@@ -47,8 +47,8 @@
 (add-to-list 'exec-path "~/.rbenv/shims")
 (add-to-list 'exec-path "/usr/local/bin")
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(add-to-list 'load-path "~/.emacs.d/modules/")
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/modules")
 (add-to-list 'load-path "~/.emacs.d/modules/devel")
 
 (setq package-enable-at-startup nil)
@@ -68,6 +68,8 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
+
+(setq use-package-compute-statistics t)
 
 (setq
   straight-use-package-by-default t
@@ -96,15 +98,9 @@
 ;; TODO is it needed?
 ;; (setq exec-path-from-shell-check-startup-files nil)
 
-;; (use-package auto-compile
-  ;; :config
-  ;; (auto-compile-on-load-mode))
-
-;; (use-package emacsql-sqlite-builtin
-;;   :straight (:type git
-;; 		   :host github
-;; 		   :repo "magit/emacsql"
-;; 		   :branch "master"))
+(use-package auto-compile
+  :config
+  (auto-compile-on-load-mode))
 
 (use-package use-package-ensure-system-package)
 
@@ -121,11 +117,21 @@
 
 (setq load-prefer-newer t)
 
-(use-package emacsql-sqlite3)
+(use-package emacsql
+  :straight (:type git
+             :host github
+             :repo "magit/emacsql"
+             :branch "main"))
+
+(use-package emacsql-sqlite3
+  :straight (:type git
+             :host github
+             :repo "cireu/emacsql-sqlite3"
+             :branch "master"))
+
 (use-package org)
 (use-package org-contrib
   :after org)
-
 
 ;; (setq safe-local-eval-forms (list))
 (add-to-list 'safe-local-eval-forms '(progn (jarfar/org-tasks-refile-targets-local)))
@@ -162,12 +168,21 @@
 (require 'gnutls)
 
 (defvar my/local-config-file-path (expand-file-name "~/.emacs.d/emacs-local-config/local-config.el"))
+(defvar my/emacs-should-compile nil)
+
+(when my/emacs-should-compile
+  (setq
+    comp-speed 2
+    comp-deferred-compilation t
+    package-native-compile t
+    comp-async-report-warnings-errors nil)
+  (add-to-list 'exec-path (concat invocation-directory "bin") t))
 
 ;; Load my custom modules
 (when (file-exists-p my/local-config-file-path)
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
-  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
+  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
     (native--compile-async `(,my/local-config-file-path) nil))
 (unless (file-exists-p my/local-config-file-path)
   (error (concat "'emacs-local-config/local-config.el' file not exists")))
@@ -272,19 +287,13 @@
 (when (file-exists-p my/local-custom-variables-file-path)
   (message (concat "Loading " my/local-custom-variables-file-path "..."))
   ;; (load my/local-custom-variables-file-path)
-  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
+  (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
     (native--compile-async `(,my/local-custom-variables-file-path) nil)))
 
 (unless (file-exists-p my/local-custom-variables-file-path)
   (error (concat "'emacs-local/config/custom.el' file not exists")))
 
-(when (and (fboundp 'native-comp-available-p) (native-comp-available-p))
-  (setq
-    comp-speed 2
-    comp-deferred-compilation t
-    package-native-compile t
-    comp-async-report-warnings-errors nil)
-  (add-to-list 'exec-path (concat invocation-directory "bin") t)
+(when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
   (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t))
 
 (custom-set-variables
