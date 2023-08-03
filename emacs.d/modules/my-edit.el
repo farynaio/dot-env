@@ -313,8 +313,8 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (when window-system
   (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
+  (menu-bar-mode 1)
+  (scroll-bar-mode 1)
   (tooltip-mode -1))
 
 (unbind-key "C-x C-z" global-map)
