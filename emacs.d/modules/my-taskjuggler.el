@@ -6,7 +6,8 @@
 
 (define-derived-mode my/org-taskjuggler-mode org-mode "TJP"
   "Major mode for TaskJuggler projects."
+  (lambda ())
   ;; (add-hook 'before-save-hook (lambda () (interactive) (org-update-statistics-cookies t)) nil t)
   )
 
-(provide 'my-taskjuggler')
+(provide 'my-taskjuggler)
