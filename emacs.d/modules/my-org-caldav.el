@@ -16,7 +16,7 @@
     (setq org-caldav-backup-file "/tmp/emacs/org-caldav-backup.org")
     (setq org-icalendar-combined-agenda-file (expand-file-name "org.ics" org-caldav-save-directory))
     (setq org-caldav-select-tags '("work"))
-    (setq org-caldav-inbox (expand-file-name "google.org" org-agenda-directory))
+    (setq org-caldav-inbox (expand-file-name "google.org" my/org-agenda-directory))
     (setq org-caldav-show-sync-result nil)
 
     (defun my/org-caldav-delete-everything ()
