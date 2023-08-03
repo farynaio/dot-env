@@ -51,9 +51,11 @@
 
 ;; This is for async evalaution of org-babel blocks.
 (use-package ob-async
-  :straight (:type git
-             :host github
-             :repo "astahlman/ob-async")
+  :straight (ob-async
+              :type git
+              :host github
+              :repo "astahlm/ob-async"
+              :fork (:host github :repo "adamWithF/ob-async"))
   :config
   (setq ob-async-no-async-languages-alist '("ipython")))
 
