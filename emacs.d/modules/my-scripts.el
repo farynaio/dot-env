@@ -5,3 +5,5 @@
 ;;     (with-selected-window x
 ;;       (evil-ex-nohighlight)
 ;;       )))
+
+(provide 'my-scripts)
