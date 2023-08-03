@@ -1,11 +1,11 @@
-;; -*- lexical-binding: t; -*-
+﻿;; -*- lexical-binding: t; -*-
 (require 'org-agenda)
-(require 'org-contacts)
 (require 'org-toc)
 (require 'org-habit)
 (require 'org-collector)
 ;; (require 'org-depend)
 ;; (require 'org-eww)
+(require 'org-contrib)
 (require 'org-checklist)
 (require 'org-table-cell-move)
 (require 'org-protocol)
@@ -131,8 +131,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
                      last-nonmenu-event))
   (my/scroll-year-calendar-forward (- (or arg 1)) event))
 
-(define-key calendar-mode-map "<" 'my/scroll-year-calendar-backward)
-(define-key calendar-mode-map ">" 'my/scroll-year-calendar-forward)
+(define-key calendar-mode-map "<" #'my/scroll-year-calendar-backward)
+(define-key calendar-mode-map ">" #'my/scroll-year-calendar-forward)
 
 (defalias 'calendar-year #'my/calendar-year)
 (defalias 'my/calendar-full #'my/calendar-year)
@@ -284,6 +284,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
      (advice-add #'org-archive-subtree-default :after
        (lambda () (org-save-all-org-buffers)))
 
+     (advice-add #'org-agenda-archive-default :after
+       (lambda () (org-save-all-org-buffers)))
+
      (advice-add #'org-clock-in  :after (lambda (&rest args) (org-save-all-org-buffers)))
      (advice-add #'org-clock-out :after (lambda (&rest args) (org-save-all-org-buffers)))
 
@@ -299,6 +302,9 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
          (save-excursion
            (when (get-buffer "*Org Agenda*")
              (with-current-buffer "*Org Agenda*" (org-agenda-redo)))))))
+
+(use-package org-contacts
+  :after org)
 
 (eval-after-load 'org-agenda
   '(progn
@@ -976,13 +982,10 @@ should be continued."
 
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
-(use-package emacsql-sqlite3)
-
 (use-package org-roam
-  :after (org emacsql-sqlite3)
+  :after (org emacsql emacsql-sqlite)
   :diminish org-roam-mode
   :custom
-  (org-roam-database-connector 'sqlite3)
   (org-roam-directory my/org-roam-directory)
   (org-roam-graph-viewer "/usr/bin/open")
   (org-roam-db-gc-threshold most-positive-fixnum)
@@ -994,9 +997,6 @@ should be continued."
   (org-roam-verbose nil)
   :config
   (require 'org-roam-protocol)
-
-  (setq
-    )
 
   (org-roam-db-autosync-mode 1)
 
@@ -1209,7 +1209,7 @@ should be continued."
 ;;   (setq org-roam-server-network-label-wrap-length 20))
 
 ;;--------------------------
-;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+;; Handling file properties for CREATED & LAST_MODIFIED
 ;;--------------------------
 (defun zp/org-find-time-file-property (property &optional anywhere)
   "Return the position of the time file PROPERTY if it exists.
