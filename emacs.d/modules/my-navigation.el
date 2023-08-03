@@ -108,11 +108,11 @@
 (use-package counsel-tramp
   :after (counsel tramp))
 
-(use-package anzu
-  :diminish anzu-mode
-  :bind ("M-%" . 'anzu-query-replace-regexp)
-  :config
-  (global-anzu-mode 1))
+;; (use-package anzu
+;;   :diminish anzu-mode
+;;   :bind ("M-%" . 'anzu-query-replace-regexp)
+;;   :config
+;;   (global-anzu-mode 1))
 
 (use-package drag-stuff
   :diminish drag-stuff-mode
@@ -152,7 +152,7 @@
     ))
 
 (use-package treemacs
-  ;; :commands treeemacs
+  :commands treeemacs
   ;; :hook (treemacs-mode . (lambda () (text-scale-adjust -1)))
   ;; :bind (:map treemacs-mode-map
   ;;         ("RET" . treemacs-visit-node-in-most-recently-used-window))
@@ -457,9 +457,13 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (ag-reuse-buffers t))
 
 (use-package dashboard
+  :straight (:type git
+             :host github
+             :repo "emacs-dashboard/emacs-dashboard"
+             :branch "master")
   :preface
   (defun dashboard-load-packages (list-size)
-    (insert (make-string (ceiling (max 0 (- dashboard-banner-length 38)) 5) ? )
+    (insert (make-string 5 ? )
             (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
   :custom
   (dashboard-banner-logo-title "Let's kick some ass!")
@@ -496,6 +500,10 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (visual-fill-column-center-text t))
 
 (use-package pdf-tools
+  :straight (:type git
+             :host github
+             :repo "vedang/pdf-tools"
+             :branch "master")
   ;; :pin manual ;; manually update
   :bind (:map pdf-view-mode-map
           ("/" . isearch-forward))
@@ -669,7 +677,8 @@ point reaches the beginning or end of the buffer, stop there."
   ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
   ("<s-right>" . my/next-frame)
   ("<s-left>" . my/prev-frame)
-  ("C-c p" . #'pop-to-mark-command))
+  ;; ("C-c p" . #'pop-to-mark-command)
+  )
 
 (unbind-key "s-l")
 
