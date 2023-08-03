@@ -162,7 +162,24 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (use-package org
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode))
+  :bind (:map org-mode-map
+          ("C-c C-l" . hydra-org/body)
+          )
   :config
+  (pretty-hydra-define hydra-org
+    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
+    ("Action"
+      (("t" org-toggle-timestamp-type "timestamp toggle")
+        ("l" org-link-archive "link archive")
+        ("i" org-toggle-inline-images "images toggle" :toggle t)
+        ("r" my/reverse-org-paragraphs-order "reverse paragraph order")
+        ("h" org-archive-subtree "archive heading subtree")
+        )
+      "Navigation"
+      (("s" counsel-org-goto "goto heading")
+        ("a" counsel-org-file "browse attachments")))
+    )
+
      (setq
        org-startup-with-inline-images nil
        org-blank-before-new-entry '((heading . auto) (plain-list-item . nil))

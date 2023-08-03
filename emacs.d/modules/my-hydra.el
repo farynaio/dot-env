@@ -1,23 +1,26 @@
 (use-package hydra
+  :straight (:type git
+             :host github
+             :repo "abo-abo/hydra"
+             :branch "master")
   :bind (("C-c I" . hydra-image/body)
          ("C-c T" . hydra-tool/body)
          ("C-c t" . hydra-btoggle/body)
          ("C-c C" . hydra-clock/body)
-         ("C-c e" . hydra-erc/body)
          ("C-c n" . hydra-navigate-to/body)
          ("C-c g" . hydra-git/body)
          ("C-c p" . hydra-projectile/body)
-         ("C-c q" . hydra-query/body)
-         ("C-c b" . hydra-browser/body)
+         ;; ("C-c q" . hydra-query/body) ;;
+         ;; ("C-c b" . hydra-browser/body) ;;
          ("C-c s" . hydra-spelling/body)
          ("C-c v" . hydra-org-roam/body)
          :map evil-normal-state-map
          (",b" . hydra-buffer/body)
-         (",w" . hydra-browser/body)
+         ;; (",w" . hydra-browser/body)
          (",i" . hydra-snippet/body)
-         (",p" . hydra-project/body)
+         ;; (",p" . hydra-project/body)
          ("C-c f" . hydra-flycheck/body)
-         ("C-c o" . hydra-org/body)
+         ;; ("C-c o" . hydra-org/body)
          ("C-c v" . hydra-org-roam/body)
          (",g" . hydra-git/body)
          :map dired-mode-map
@@ -26,6 +29,10 @@
          ))
 
 (use-package major-mode-hydra
+  :straight (:type git
+             :host github
+             :repo "jerrypnz/major-mode-hydra.el"
+             :branch "master")
   :after hydra
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
@@ -75,18 +82,6 @@
     ("p" org-pomodoro "pomodoro")
     ("r" org-clock-report "report"))))
 
-(pretty-hydra-define hydra-erc
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "ERC" 1 -0.05))
-  ("Action"
-   (
-    ;; ("b" my/erc-browse-last-url "browse last url")
-    ("c" my/erc-start-or-switch "connect")
-    ("d" erc-quit-server "disconnect")
-    ("j" erc-join-channel "join")
-    ("n" erc-channel-names "names")
-    ("o" my/erc-get-ops "ops")
-    ("u" my/erc-count-users "users")
-    ("r" my/erc-reset-track-mode "reset track mode"))))
 
 (pretty-hydra-define hydra-flycheck
   (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
@@ -325,22 +320,8 @@
    (("i" ibuffer "ibuffer")
     ("k" my/kill-all-buffers-except-toolkit))))
 
-(pretty-hydra-define hydra-org
-  (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
-  ("Action"
-   (("t" org-toggle-timestamp-type "timestamp toggle")
-    ("l" org-link-archive "link archive")
-    ("i" org-toggle-inline-images "images toggle" :toggle t)
-     ("r" my/reverse-org-paragraphs-order "reverse paragraph order")
-     ("h" org-archive-subtree "archive heading subtree")
-     )
-   "Navigation"
-   (("s" counsel-org-goto "goto heading")
-     ("a" counsel-org-file "browse attachments")))
-  )
-
 (pretty-hydra-define hydra-org-roam
-  (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org roam" 1 -0.05))
   ("Action"
    (("r" org-roam-buffer-toggle "Toggle references sidebar")
     ("l" org-roam-node-insert "Insert")
@@ -351,27 +332,6 @@
     ("b" org-roam-switch-to-buffer "Switch buffer")
     ("n" org-id-get-create "Heading into node")
     ("d" org-roam-find-directory "Find dir"))))
-
-(pretty-hydra-define hydra-elfeed-search
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "rss" "RSS" 1 -0.05))
-  ("Filter"
-   (
-    ;; ("b" (elfeed-search-set-filter "+business") "Show Business")
-    ;; ("k" (elfeed-search-set-filter "+marketing") "Show Marketing")
-    ("e" (elfeed-search-set-filter "+entreprenouriship") "Show entrepreneurship")
-    ;; ("s" (elfeed-search-set-filter "+startup") "Show Startup")
-    ;; ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking")
-    ;; ("a" (elfeed-search-set-filter "+saas") "Show SaaS")
-    ;; ("o" (elfeed-search-set-filter "+seo") "Show SEO")
-    ;; ("g" (elfeed-search-set-filter "+blog") "Show Blogging")
-    ;; ("c" (elfeed-search-set-filter "+copy") "Show Copywriting")
-    ;; ("f" (elfeed-search-set-filter "+finances") "Show Finances")
-    ;; ("m" (elfeed-search-set-filter "+social") "Show Social Media")
-    ;; ("y" (elfeed-search-set-filter "+crypto") "Show Crypto")
-    ("n" (elfeed-search-set-filter "+news") "Show news")
-    ("l" (elfeed-search-set-filter "+ok") "Show read later")
-    ("f" (elfeed-search-set-filter "+favorite") "Show favorite")
-    ("j" (elfeed-search-set-filter "+junk") "Show junk"))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))

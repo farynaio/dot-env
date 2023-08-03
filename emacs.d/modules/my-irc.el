@@ -1,13 +1,14 @@
 (use-package erc
   :ensure nil
   :straight nil
-  :demand t
+  :commands erc-tls
   :bind (:map erc-mode-map
           ("C-w =" . balance-windows)
           ("C-w |" . evil-window-set-width)
           ("C-w q" . evil-quit)
           ("C-w v" . evil-window-vsplit)
-          ("C-c C-j" . my/erc-join-channel))
+          ("C-c C-j" . my/erc-join-channel)
+          ("C-c C-l" . hydra-erc/body))
   ;; :hook ((erc-send-pre . my/erc-preprocess))
   :custom-face
   (erc-action-face ((t (:foreground "#8fbcbb"))))
@@ -53,6 +54,18 @@
   :config
   (require 'erc-services)
   ;; (require 'erc-join)
+
+  (pretty-hydra-define hydra-erc
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "IRC" 1 -0.05))
+    ("Action"
+      (
+        ("c" my/erc-start-or-switch "connect")
+        ("d" erc-quit-server "disconnect")
+        ("j" erc-join-channel "join")
+        ("n" erc-channel-names "names")
+        ("o" my/erc-get-ops "ops")
+        ("u" my/erc-count-users "users")
+        ("r" my/erc-reset-track-mode "reset track mode"))))
 
   (setq erc-debug-irc-protocol t)
   (setq erc-modules (nconc erc-modules '(autoaway dcc irccontrols keep-place move-to-prompt spelling noncommands readonly services stamp track)))
