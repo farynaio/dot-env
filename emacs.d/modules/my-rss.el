@@ -5,17 +5,21 @@
   :bind (:map elfeed-show-mode-map
           ("SPC" . elfeed-scroll-up-command)
           ("S-SPC" . elfeed-scroll-down-command)
-          ("<mouse-1>" . my/elfeed-shr-open-click)
-          ("<s-mouse-1>" . my/elfeed-shr-open-click)
-          ("<S-mouse-1>" . my/elfeed-shr-open-click)
+          ("<mouse-1>" . shr-copy-url)
+          ("<s-mouse-1>" . shr-copy-url)
+          ("<S-mouse-1>" . shr-copy-url)
           ("C-x C-l" . shr-copy-url)
+          ("C-c C-l" . hydra-elfeed/body)
           :map shr-map
-          ("RET" . my/elfeed-shr-open-external)
-          ("v" . my/elfeed-shr-open-external)
-          ("O" . my/elfeed-shr-open-external)
-          ("<mouse-1>" . my/elfeed-shr-open-click)
-          ("<mouse-2>" . my/elfeed-shr-open-click)
-          ("<S-mouse-1>" . my/elfeed-shr-open-click)
+          ;; ("RET" . my/elfeed-shr-open-external)
+          ;; ("v" . my/elfeed-shr-open-external)
+          ;; ("O" . my/elfeed-shr-open-external)
+          ("<mouse-1>" . shr-copy-url)
+          ("<mouse-2>" . shr-copy-url)
+          ("<S-mouse-1>" . shr-copy-url)
+          ;; ("<mouse-1>" . my/elfeed-shr-open-click)
+          ;; ("<mouse-2>" . my/elfeed-shr-open-click)
+          ;; ("<S-mouse-1>" . my/elfeed-shr-open-click)
           :map elfeed-search-mode-map
           ("h" . hydra-elfeed-search/body)
           ("q" . my/elfeed-save-db-and-bury)
@@ -23,19 +27,21 @@
           ("o" . my/elfeed-tag-toggle-ok)
           ("f" . my/elfeed-tag-toggle-favorite)
           ("j" . my/elfeed-tag-toggle-junk)
-          ("m" . my/elfeed-send-emails)
           ("r" . my/elfeed-mark-read-move-next)
           ("u" . my/elfeed-mark-unread-move-next)
-          ("O" . my/elfeed-open-in-external-browser)
+          ;; ("O" . my/elfeed-open-in-external-browser)
           ("g" . my/elfeed-update)
-          ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
-          ("<s-mouse-1>" . elfeed-search-browse-url)
-          ("M" . (lambda () (interactive) (my/elfeed-send-emails t))))
+          ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
+          ;; ("<s-mouse-1>" . elfeed-search-browse-url)
+          ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
+          ("C-c C-l" . hydra-elfeed-search/body)
+          )
   :preface
   (defun my/elfeed-load-db-and-open ()
     "Wrapper to load the elfeed db from disk before opening"
     (interactive)
     (elfeed-db-load)
+    (message "Updating feeds...")
     (elfeed-update)
     (elfeed-search-update--force)
     (elfeed-db-save)
@@ -48,6 +54,39 @@
   (elfeed-web-limit 500)
   (url-queue-timeout 60)
   :config
+  (pretty-hydra-define hydra-elfeed
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
+    ("Action"
+      (
+        ;; ("b" my/erc-browse-last-url "browse last url")
+        ("c" my/erc-start-or-switch "connect")
+        ("r" my/erc-reset-track-mode "reset track mode")))
+    )
+
+  (pretty-hydra-define hydra-elfeed-search
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "rss" "RSS search" 1 -0.05))
+    ("Filter"
+      (
+        ;; ("b" (elfeed-search-set-filter "+business") "Show Business")
+        ;; ("k" (elfeed-search-set-filter "+marketing") "Show Marketing")
+        ("e" (elfeed-search-set-filter "+entreprenouriship") "Show entrepreneurship")
+        ;; ("s" (elfeed-search-set-filter "+startup") "Show Startup")
+        ;; ("h" (elfeed-search-set-filter "+growth") "Show Growth Hacking")
+        ;; ("a" (elfeed-search-set-filter "+saas") "Show SaaS")
+        ;; ("o" (elfeed-search-set-filter "+seo") "Show SEO")
+        ;; ("g" (elfeed-search-set-filter "+blog") "Show Blogging")
+        ;; ("c" (elfeed-search-set-filter "+copy") "Show Copywriting")
+        ;; ("f" (elfeed-search-set-filter "+finances") "Show Finances")
+        ;; ("m" (elfeed-search-set-filter "+social") "Show Social Media")
+        ;; ("y" (elfeed-search-set-filter "+crypto") "Show Crypto")
+        ("n" (elfeed-search-set-filter "+news") "Show news")
+        ("l" (elfeed-search-set-filter "+ok") "Show read later")
+        ("f" (elfeed-search-set-filter "+favorite") "Show favorite")
+        ("j" (elfeed-search-set-filter "+junk") "Show junk"))
+    "Action"
+      (("m" my/elfeed-send-emails "Send emails")
+        ("g" my/elfeed-update "Update feeds"))))
+
   (defun my/elfeed-search-open-in-external-click (event)
     "Open link with external browser"
     (interactive "e")
