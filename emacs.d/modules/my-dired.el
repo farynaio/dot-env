@@ -17,6 +17,7 @@
 (use-package dired
   :ensure nil
   :straight nil
+  :demand t
   :delight "Dired "
   :hook ((dired-mode . dired-hide-details-mode)
           (dired-mode . hl-line-mode))
