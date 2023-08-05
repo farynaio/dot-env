@@ -49,6 +49,18 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'same-window-buffer-names "*SQL*")
 
+;; Based on https://stackoverflow.com/questions/10594208/how-do-i-get-the-region-selection-programmatically-in-emacs-lisp/10595146#10595146
+(defun my/kill-ring-save (beg end)
+  "Save into killring region or word below the cursor."
+  (interactive (if (use-region-p)
+                 (list (region-beginning) (region-end))
+                 (list nil nil)))
+  (let ((str (if (and beg end)
+               (buffer-substring-no-properties beg end)
+               (thing-at-point 'word))))
+    (kill-new str)
+    (message str)))
+
 (use-package elec-pair
   :ensure nil
   :straight nil
@@ -316,6 +328,8 @@ end-of-buffer signals; pass the rest to the default handler."
   (menu-bar-mode 1)
   (scroll-bar-mode 1)
   (tooltip-mode -1))
+
+(bind-key "M-w" #'my/kill-ring-save)
 
 (unbind-key "C-x C-z" global-map)
 (unbind-key "C-z" global-map)
