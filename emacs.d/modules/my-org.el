@@ -985,7 +985,7 @@ should be continued."
 (add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
 
 (use-package org-roam
-  :after (org emacsql emacsql-sqlite)
+  :after (org emacsql)
   :diminish org-roam-mode
   :custom
   (org-roam-directory my/org-roam-directory)
