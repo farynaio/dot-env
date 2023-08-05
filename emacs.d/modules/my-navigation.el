@@ -61,14 +61,17 @@
   (recentf-mode 1)
   (run-at-time nil (* 60 5) #'recentf-save-list))
 
-(use-package tab-bar
-  :straight nil
-  :ensure nil
+(use-package awesome-tab
+  :straight (:type git
+             :host github
+             :repo "manateelazycat/awesome-tab"
+              :branch "master")
   :custom
-  (tab-bar-tab-name-truncated-max 15)
-  (tab-bar-tab-name-current 'tab-bar-tab-name-truncated)
+  (awesome-tab-display-icon t)
+  (awesome-tab-label-fixed-length 14)
+  (awesome-tab-height 120)
   :config
-  (tab-bar-mode 1))
+  (awesome-tab-mode t))
 
 (use-package openwith
   :if (eq system-type 'darwin)
