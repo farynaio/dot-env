@@ -151,6 +151,8 @@
                     ("prefered" "preferred" nil 0)
                     ("sim" "SIM" nil 0)
                     ("voip" "VoIP" nil 0)
+                    ("ppl" "people" nil 0)
+                    ("Ppl" "People" nil 0)
                     ("shouldnt" "shouldn't" nil 0)
                     ("shouldt" "shouldn't" nil 0)
                     ("shouldve" "should've" nil 0)
