@@ -1039,8 +1039,8 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
-- tags :: \n \n") :unnarrowed t)
+#+LAST_MODIFIED: %U\n
+- tags :: \n") :unnarrowed t)
 
        ("c" "Course summary" plain "%?" :target
          (file+head
@@ -1049,8 +1049,8 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
-- tags :: \n \n") :unnarrowed t)
+#+LAST_MODIFIED: %U\n
+- tags :: \n") :unnarrowed t)
 
        ("b" "Book summary" plain "%?" :target
          (file+head
@@ -1059,7 +1059,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
+#+LAST_MODIFIED: %U\n
 - tags ::
 - author ::
 - recommended-by ::
@@ -1072,7 +1072,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
+#+LAST_MODIFIED: %U\n
 - tags ::
 - author ::
 - progress-status :: ") :unnarrowed t)
@@ -1084,7 +1084,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
+#+LAST_MODIFIED: %U\n
 - tags :: ") :unnarrowed t)
 
        ("p" "Programming" plain "%?" :target
@@ -1094,7 +1094,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+FILETAGS:
 #+CREATED: %t
-#+LAST_MODIFIED: %U\n \n
+#+LAST_MODIFIED: %U\n
 - tags :: ") :unnarrowed t)
 
        ("r" "Travel" plain "%?" :target
@@ -1104,7 +1104,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+CREATED: %t
 #+LAST_MODIFIED: %U
-#+FILETAGS: \n \n
+#+FILETAGS: \n
 - tags :: ") :unnarrowed t)
 
        ("u" "Business" plain "%?" :target
@@ -1114,7 +1114,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+CREATED: %t
 #+LAST_MODIFIED: %U
-#+FILETAGS: \n \n
+#+FILETAGS: \n
 - tags :: ") :unnarrowed t)
 
        ("m" "Marketing" plain "%?" :target
@@ -1124,7 +1124,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+CREATED: %t
 #+LAST_MODIFIED: %U
-#+FILETAGS: \n \n
+#+FILETAGS: \n
 - tags :: ") :unnarrowed t)
 
        ("r" "Web" plain "%?" :target
@@ -1134,7 +1134,7 @@ should be continued."
 #+ROAM_ALIASES:
 #+CREATED: %t
 #+LAST_MODIFIED: %U
-#+FILETAGS: \n \n
+#+FILETAGS: \n
 - tags :: ") :unnarrowed t)
        ))
 
