@@ -176,6 +176,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/reverse-org-paragraphs-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
+        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
         )
       "Navigation"
       (("s" counsel-org-goto "goto heading")
@@ -1367,5 +1368,19 @@ it can be passed in POS."
   ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
+
+(defun my/org-remove-duplicate-lines-in-list ()
+  "Remove duplicate lines inside plain-list at point."
+  (interactive)
+  (let ((list-element (org-element-lineage (org-element-at-point) '(plain-list) t)))
+    (if (not list-element)
+        (user-error "Not at plain-list")
+      (let ((nlines
+	     (delete-duplicate-lines
+	      (org-element-property :post-affiliated list-element)
+	      (save-excursion (goto-char (org-element-property :end list-element)) (skip-chars-backward "\r\n\t ") (point)))))
+        (if (= 0 nlines)
+	    (message "List contains no duplicate lines")
+          (message "Removed %d duplicate lines from list" nlines))))))
 
 (provide 'my-org)
