@@ -123,6 +123,7 @@
   (unbind-key "\\" evil-motion-state-map)
   (unbind-key "K" evil-motion-state-map)
 
+  (unbind-key "SPC" evil-motion-state-map)
   (unbind-key "C-z" evil-motion-state-map)
   (unbind-key "C-z" evil-normal-state-map)
   (unbind-key "C-z" evil-insert-state-map)
