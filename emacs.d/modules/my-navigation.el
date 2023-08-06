@@ -308,6 +308,8 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       :action 'counsel-ibuffer-visit-buffer-other-window
       :caller 'counsel-ibuffer))
 
+  (unbind-key "C-x C-h" global-map)
+
   (advice-add 'counsel-grep :around #'my/counsel-grep-fallback)
   (ivy-set-display-transformer 'counsel-describe-function nil))
 
