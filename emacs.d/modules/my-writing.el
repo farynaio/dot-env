@@ -149,6 +149,8 @@
                     ("macos" "MacOS" nil 0)
                     ("mustnt" "mustn't" nil 0)
                     ("seo" "SEO" nil 0)
+                    ("irc" "IRC" nil 0)
+                    ("rss" "RSS" nil 0)
                     ("url" "URL" nil 0)
                     ("crm" "CRM" nil 0)
                     ("erp" "ERP" nil 0)
