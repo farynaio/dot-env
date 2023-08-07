@@ -5,7 +5,7 @@
   :bind (:map ledger-mode-map
           ("C-c C-c" . ledger-post-align-dwim)
           ("C-x C-s" . my/ledger-save)
-          ("C-c C-l" . hydra-ledger/body))
+          ("C-x m" . hydra-ledger/body))
   :mode "\\.ledger\\'"
   :preface
   (defun my/ledger-save ()

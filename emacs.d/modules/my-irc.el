@@ -8,7 +8,7 @@
           ("C-w q" . evil-quit)
           ("C-w v" . evil-window-vsplit)
           ("C-c C-j" . my/erc-join-channel)
-          ("C-c C-l" . hydra-erc/body))
+          ("C-x m" . hydra-erc/body))
   ;; :hook ((erc-send-pre . my/erc-preprocess))
   :custom-face
   (erc-action-face ((t (:foreground "#8fbcbb"))))

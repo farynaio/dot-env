@@ -34,8 +34,7 @@
           ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
           ;; ("<s-mouse-1>" . elfeed-search-browse-url)
           ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
-          ("C-c C-l" . hydra-elfeed-search/body)
-          )
+          ("C-x m" . hydra-elfeed-search/body))
   :preface
   (defun my/elfeed-load-db-and-open ()
     "Wrapper to load the elfeed db from disk before opening"

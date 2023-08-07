@@ -119,4 +119,12 @@ in whole buffer.  With neither, delete comments on current line."
     (while (re-search-forward "</?code>" nil t)
       (replace-match "`" nil nil))))
 
+;; (defun my/evil-ex-nohighlight-frame ()
+;;   ""
+;;   (interactive)
+;;   (dolist (x (window-list (selected-frame)))
+;;     (with-selected-window x
+;;       (evil-ex-nohighlight)
+;;       )))
+
 (provide 'my-utils)

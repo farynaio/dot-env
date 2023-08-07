@@ -86,6 +86,8 @@
 
 (use-package with-editor)  ; dependency for other package
 
+(use-package free-keys)
+
 (use-package emojify
   :hook (org-mode . emojify-mode))
 
@@ -338,6 +340,7 @@ end-of-buffer signals; pass the rest to the default handler."
 (unbind-key "C-/" global-map)
 (unbind-key "C-_" global-map)
 (unbind-key "C-x u" global-map)
+(unbind-key "C-x m" global-map)
 
 ;; Unbind 'toggle-input-method'
 (unbind-key "C-\"" global-map)

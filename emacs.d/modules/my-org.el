@@ -160,13 +160,13 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
       'org-metadown
       'drag-stuff-down)))
 
-;; TODO duplicated block
+;; TODO duplicated block?
 (use-package org
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode))
   :bind (:map org-mode-map
-          ("C-c C-l" . hydra-org/body)
-          )
+          ("C-x m" . hydra-org/body)
+          ("C-c C-l" . org-insert-link))
   :config
   (pretty-hydra-define hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
@@ -180,8 +180,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         )
       "Navigation"
       (("s" counsel-org-goto "goto heading")
-        ("a" counsel-org-file "browse attachments")))
-    )
+        ("a" counsel-org-file "browse attachments"))))
 
      (setq
        org-startup-with-inline-images nil
