@@ -59,7 +59,9 @@
                (buffer-substring-no-properties beg end)
                (thing-at-point 'word))))
     (kill-new str)
-    (message str)))
+    (setq deactivate-mark t)
+    (message str))
+  nil)
 
 (use-package elec-pair
   :ensure nil
