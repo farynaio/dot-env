@@ -180,7 +180,14 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         )
       "Navigation"
       (("s" counsel-org-goto "goto heading")
-        ("a" counsel-org-file "browse attachments"))))
+        ("a" counsel-org-file "browse attachments")
+        ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer"))))
+
+  (defun my/org-roam-toggle-buffer-if-roam ()
+    (interactive)
+    (if (and (fboundp 'org-roam-mode) (org-roam-file-p))
+      (org-roam-buffer-toggle)
+      (message "Not org-roam buffer!")))
 
      (setq
        org-startup-with-inline-images nil
