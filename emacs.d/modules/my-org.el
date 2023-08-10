@@ -983,14 +983,6 @@ should be continued."
   (defalias 'drill (lambda (&optional scope drill-match) (interactive) (org-drill scope drill-match t)))
   (defalias 'resume-drill #'org-drill-resume))
 
-;; org-diet
-(require 'org-diet)
-(eval-after-load 'org-diet
-  '(progn
-     (setq org-diet-file my/org-diet-log-file-path)))
-
-(add-to-list 'safe-local-variable-values '(org-hide-emphasis-markers . t))
-
 (use-package org-roam
   :after (org emacsql)
   :diminish org-roam-mode
@@ -1197,12 +1189,11 @@ should be continued."
 (use-package org-roam-ui
   :after org-roam
   :commands org-roam-ui-open
-  :config
-  (setq
-    org-roam-ui-sync-theme t
-    org-roam-ui-follow t
-    org-roam-ui-update-on-save t
-    org-roam-ui-open-on-start t))
+  :custom
+  (org-roam-ui-sync-theme t)
+  (org-roam-ui-follow t)
+  (org-roam-ui-update-on-save t)
+  (org-roam-ui-open-on-start t))
 
 ;; (use-package org-roam-server
 ;;   :after org-roam
@@ -1347,12 +1338,12 @@ it can be passed in POS."
               (terpri))
             (push header header-list)))))))
 
-(straight-use-package
-  '(org-link-archive :host github :repo "adamWithF/org-link-archive" :branch "main"))
-(require 'org-link-archive)
-
-;; TODO
-;; wylaczyc skrot klawiszowy
+(use-package org-link-archive
+  :straight (
+              :type git
+              :host github
+              :repo "adamWithF/org-link-archive"
+              :branch "main"))
 
 ;; Fixes problem with void function org-clocking-buffer
 (defun org-clocking-buffer ())
