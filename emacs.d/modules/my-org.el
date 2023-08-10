@@ -986,6 +986,7 @@ should be continued."
 (use-package org-roam
   :after (org emacsql)
   :diminish org-roam-mode
+  :demand t
   :custom
   (org-roam-directory my/org-roam-directory)
   (org-roam-graph-viewer "/usr/bin/open")
@@ -995,6 +996,8 @@ should be continued."
   (org-roam-mode-sections (list
                             #'org-roam-backlinks-section
                             #'org-roam-reflinks-section))
+  (org-roam-completion-everywhere t)
+  (org-roam-dailies-directory "journal-archive/") ;; TODO probably later change name to "dailies" for official/public updates
   (org-roam-verbose nil)
   :config
   (require 'org-roam-protocol)
@@ -1010,7 +1013,9 @@ should be continued."
 
   (make-directory my/org-roam-directory t)
 
-  (add-hook 'org-roam-dailies-find-file-hook #'abbrev-mode)
+  (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
+
+  ;; (add-hook 'org-roam-dailies-find-file-hook #'abbrev-mode)
 
   (setq org-roam-capture-ref-templates
     '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -1025,8 +1030,6 @@ should be continued."
 - progress-status ::
 - tags :: "
         :unnarrowed t)))
-
-  (setq org-roam-dailies-directory "journal/")
 
   (setq org-roam-capture-templates
     '(
@@ -1264,9 +1267,35 @@ it can be passed in POS."
   :after org-roam
   :custom
   (org-journal-dir my/org-roam-journal-directory)
+  (org-journal-file-type 'yearly)
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-encrypt-journal t)
+  (org-journal-created-property-timestamp-format "%Y-%m-%d")
+  (org-journal-find-file 'find-file)
   (org-journal-date-format "%Y-%m-%d")
+  (org-journal-time-prefix "*** ")
   :config
-  (unbind-key "C-c C-j"))
+  (unbind-key "C-c C-j")
+
+  (defun my/org-journal-after-header-create-hook ()
+    (beginning-of-buffer)
+    (mark-whole-buffer)
+    (org-sort-entries nil ?A)
+    (org-back-to-heading)
+    (let ((anchor (point)))
+      (next-line)
+      (kill-visual-line)
+      (insert (concat
+                "\n** Today's wins\n"
+                "** Gratefulness\n"
+                "** Achievements\n"
+                "** Thoughts\n"
+                "** Timeline"))
+      (goto-char anchor)
+      (next-line)
+      (yank)))
+
+  (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
 
 (defun my/org-link-copy (&optional arg)
   "Extract URL from org-mode link and add it to kill ring."
