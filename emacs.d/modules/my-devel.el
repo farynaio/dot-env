@@ -369,6 +369,8 @@ $0`(yas-escape-text yas-selected-text)`")
 ;; (setq org-html-head-include-scripts nil)
 ;; (setq org-html-validation-link nil)
 
+(defalias 'elisp-mode 'emacs-lisp-mode)
+
 (require 'my-python)
 (require 'my-web)
 (require 'my-js)
