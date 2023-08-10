@@ -734,8 +734,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
               '(or
                  (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))
                  (and
-                   (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS" "WAITING"))
-                   (my/org-skip-subtree-if-priority ?A))))
+                   (org-agenda-skip-entry-if 'notscheduled)
+                   (org-agenda-skip-entry-if 'notdeadline))))
              (org-agenda-remove-tags nil)
              (org-agenda-overriding-header "Active Goals:")
              (org-agenda-sorting-strategy '(todo-state-up category-keep alpha-up))
