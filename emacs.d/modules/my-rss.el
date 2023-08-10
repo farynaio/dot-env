@@ -303,7 +303,7 @@
 (use-package elfeed-org
   :after (org elfeed)
   :custom
-  (rmh-elfeed-org-files '("~/.elfeed/feeds.org"))
+  (rmh-elfeed-org-files '("~/.rss/feeds.org"))
   :config
   (elfeed-org))
 
