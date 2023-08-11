@@ -975,7 +975,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (org-roam-mode-sections (list
                             #'org-roam-backlinks-section
                             #'org-roam-reflinks-section))
-  (org-roam-completion-everywhere t)
   (org-roam-dailies-directory "journal-archive/") ;; TODO probably later change name to "dailies" for official/public updates
   (org-roam-verbose nil)
   (org-roam-capture-ref-templates
