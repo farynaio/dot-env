@@ -219,19 +219,20 @@
   (advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer))
 
 (use-package langtool
-  :commands langtool-check-buffer langtool-check-done
-  :init
-  (setq langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
+  :commands (langtool-check-buffer langtool-check-done)
+  :if (executable-find (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
   :custom
+  (langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
   (langtool-default-language "en")
   (langtool-mother-tongue "en")
-  (langtool-disabled-rules '("COMMA_PARENTHESIS_WHITESPACE"
-                              "COPYRIGHT"
-                              "DASH_RULE"
-                              "EN_QUOTES"
-                              "EN_UNPAIRED_BRACKETS"
-                              "UPPERCASE_SENTENCE_START"
-                              "WHITESPACE_RULE")))
+  (langtool-disabled-rules
+    '("COMMA_PARENTHESIS_WHITESPACE"
+       "COPYRIGHT"
+       "DASH_RULE"
+       "EN_QUOTES"
+       "EN_UNPAIRED_BRACKETS"
+       "UPPERCASE_SENTENCE_START"
+       "WHITESPACE_RULE")))
 
 ;; (use-package google-translate
 ;;   :custom
@@ -259,5 +260,10 @@
                        "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                        ) t) "\\b")
     artbollocks-jargon nil))
+
+(use-package auctex
+  :disabled t
+  :hook (LaTeX-mode . turn-on-reftex)
+  :defer 0.3)
 
 (provide 'my-writing)

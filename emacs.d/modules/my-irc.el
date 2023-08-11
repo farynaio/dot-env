@@ -204,7 +204,8 @@
 
 ;; (if (file-exists-p (concat user-emacs-directory "lisp/erc-sasl.el"))
 ;;   (use-package erc-sasl
-;;     :load-path "lisp/"
+;;     :load-path "~/.emacs.d/lisp"
+;;     :straight (:type built-in)
 ;;     :after erc
 ;;     :config
 ;;     (add-to-list 'erc-sasl-server-regexp-list "chat\\.freenode\\.net")

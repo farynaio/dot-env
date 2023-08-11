@@ -3,7 +3,7 @@
 
 (if (file-directory-p my/mu4e-local-path)
   (add-to-list 'load-path my/mu4e-local-path)
-  (message "'mu' not found"))
+  (message "No executable 'mu' found"))
 
 (defun my/smtpmail-send-it  (&rest args)
   ""
@@ -118,6 +118,7 @@
 (use-package mu4e
   :if (file-directory-p my/mu4e-local-path)
   :commands mu4e
+  :hook (mu4e-compose-mode . company-mode)
   :ensure nil
   :straight nil
   :ensure-system-package mu

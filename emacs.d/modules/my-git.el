@@ -4,8 +4,9 @@
 
 ;; (use-package git-timemachine)
 
-(setq vc-follow-symlinks t)
-(setq vc-handled-backends '(Git))
+(setq
+  vc-follow-symlinks t
+  vc-handled-backends '(Git))
 
 (use-package smerge-mode
   :bind (:map smerge-mode-map
@@ -22,22 +23,20 @@
   (projectile-do-log nil)
   (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
   (projectile-track-known-projects-automatically nil)
-  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
   (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
   :config
   (setq projectile-globally-ignored-directories (append '("node-modules" "dist" "target" "*elpa") projectile-globally-ignored-directories))
-
   (unbind-key "C-c p" projectile-mode-map)
 
   (if (executable-find "ctags")
     (setq projectile-tags-command "ctags -R -e .")
-    (user-error "'ctags' not installed!"))
-
+    (message "No executable 'ctags' found!"))
   ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
   (projectile-mode 1))
 
 (use-package counsel-projectile
-  :after projectile ivy
+  :after (projectile ivy)
   :config
   (counsel-projectile-mode 1))
 
@@ -140,10 +139,7 @@ to invalidate."
           ("C-s" . isearch-forward)
           ("n" . evil-search-next)
           ("p" . evil-search-previous)
-          ("=" . balance-windows)
-          :map magit-status-mode-map
-          ("\\w" . avy-goto-word-or-subword-1)
-          ("\\c" . avy-goto-char))
+          ("=" . balance-windows))
   :custom
   (magit-completing-read-function 'ivy-completing-read)
   (magit-refresh-status-buffer nil)

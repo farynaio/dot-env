@@ -27,12 +27,13 @@
 (setq fast-but-imprecise-scrolling t) ; No (less) lag while scrolling lots.
 (setq jit-lock-defer-time 0) ; Just don't even fontify if we're still catching up on user input.
 
-(setq mouse-wheel-scroll-amount '(5
- ((shift)
-  . 1)
- ((meta))
- ((control)
-  . text-scale)))
+(setq mouse-wheel-scroll-amount
+  '(5
+     ((shift)
+       . 1)
+     ((meta))
+     ((control)
+       . text-scale)))
 
 (setq display-buffer-alist '(("\\*[hH]elp.*"
                               (display-buffer-reuse-window display-buffer-at-bottom)
@@ -51,12 +52,13 @@
   :custom
   (recentf-max-saved-items 200)
   (recentf-max-menu-items 15)
-  (recentf-exclude '("COMMIT_EDITMSG"
-                     "~$"
-                     "/scp:"
-                     "/ssh:"
-                     "/sudo:"
-                     "/tmp/"))
+  (recentf-exclude
+    '("COMMIT_EDITMSG"
+       "~$"
+       "/scp:"
+       "/ssh:"
+       "/sudo:"
+       "/tmp/"))
   :config
   (recentf-mode 1)
   (run-at-time nil (* 60 5) #'recentf-save-list))
@@ -69,13 +71,6 @@
   (tab-bar-tab-name-current 'tab-bar-tab-name-truncated)
   :config
   (tab-bar-mode 1))
-
-(use-package openwith
-  :if (eq system-type 'darwin)
-  :custom
-  (openwith-associations '(("\\.pdf\\'" "open" (file))))
-  :config
-  (openwith-mode 1))
 
 (use-package help
   :straight nil
@@ -95,6 +90,7 @@
           ("<S-tab>" . backward-button)))
 
 (use-package tramp
+  :demand 0.3
   :straight nil
   :ensure nil
   :custom
@@ -108,12 +104,14 @@
 (use-package counsel-tramp
   :after (counsel tramp))
 
-;; (use-package anzu
-;;   :diminish anzu-mode
-;;   :bind ("M-%" . 'anzu-query-replace-regexp)
-;;   :config
-;;   (global-anzu-mode 1))
+(use-package anzu
+  :defer 0.3
+  :diminish anzu-mode
+  :bind ("M-%" . 'anzu-query-replace-regexp)
+  :config
+  (global-anzu-mode 1))
 
+;; Allow to move selected lines up and down
 (use-package drag-stuff
   :diminish drag-stuff-mode
   :config
@@ -124,16 +122,17 @@
   (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down))
 
 (use-package goto-last-change
+  :demand 0.3
+  :commands (goto-last-change goto-last-change-reverse)
   :config
   (evil-define-key '(normal) global-map
     (kbd "[x") #'goto-last-change
-    (kbd "]x") #'goto-last-change-reverse)
-  )
+    (kbd "]x") #'goto-last-change-reverse))
 
 (use-package iscroll)
 
 (use-package smartscan
-  :defer t
+  :defer 0.3
   :config
   (global-smartscan-mode 1))
 
@@ -149,7 +148,7 @@
       (unless (file-accessible-directory-p dir)
         (error (concat "directory: '" dir "' is not accessible.")))
 	    (compilation-start command 'grep-mode))
-    ))
+    (message "No executable 'ack' found!")))
 
 (use-package treemacs
   :commands treeemacs
@@ -188,41 +187,8 @@
 ;; (use-package treemacs-all-the-icons
 ;;   :after treemacs)
 
-(defun my/centaur-tabs-local-disable-if-enabled ()
-  (when centaur-tabs-mode
-    (centaur-tabs-local-mode -1)))
-
-(use-package centaur-tabs
-  :defer t
-  :hook (
-          (dired-mode . my/centaur-tabs-local-disable-if-enabled)
-          (woman-mode . my/centaur-tabs-local-disable-if-enabled)
-          (help-mode . my/centaur-tabs-local-disable-if-enabled)
-          (helpful-mode . my/centaur-tabs-local-disable-if-enabled)
-          (profiler-report-mode . my/centaur-tabs-local-disable-if-enabled)
-          (epa-key-list-mode . my/centaur-tabs-local-disable-if-enabled)
-          (magit-mode . my/centaur-tabs-local-disable-if-enabled)
-          (process-menu-mode . my/centaur-tabs-local-disable-if-enabled)
-          (nov-mode . my/centaur-tabs-local-disable-if-enabled)
-          (flycheck-error-list-mode . my/centaur-tabs-local-disable-if-enabled)
-          (git-rebase-mode . my/centaur-tabs-local-disable-if-enabled)
-          (my/org-roam-side-mode . my/centaur-tabs-local-disable-if-enabled)
-          (magit-mode . my/centaur-tabs-local-disable-if-enabled)
-          (org-agenda-mode . my/centaur-tabs-local-disable-if-enabled)
-          (text-mode . my/centaur-tabs-local-disable-if-enabled))
-  :custom
-  (centaur-tabs-set-icons t)
-  (centaur-tabs-plain-icons t)
-  (centaur-tabs-gray-out-icons t)
-  (centaur-tabs-set-bar 'under)
-  (centaur-tabs-set-modified-marker t)
-  (centaur-tabs-modified-marker "*")
-  :config
-  ;; (centaur-tabs-mode 1)
-  (centaur-tabs-headline-match)
-  (centaur-tabs-change-fonts "arial" 120))
-
 (use-package avy
+  :disabled t
   :bind (:map help-mode-map
           ("\\c" . avy-goto-char)
           ("\\w" . avy-goto-word-or-subword-1)
@@ -295,6 +261,8 @@
   (counsel-find-file-ignore-regexp "\\`\\.")
   (counsel-grep-base-command "grep -E -n -i -e %s %s")
   :config
+  (unbind-key "C-x C-h" global-map)
+
   (defun my/counsel-ibuffer-other-window (&optional name)
     "Use ibuffer to switch to another buffer.
 NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
@@ -304,8 +272,6 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       :history 'counsel-ibuffer-history
       :action 'counsel-ibuffer-visit-buffer-other-window
       :caller 'counsel-ibuffer))
-
-  (unbind-key "C-x C-h" global-map)
 
   (advice-add 'counsel-grep :around #'my/counsel-grep-fallback)
   (ivy-set-display-transformer 'counsel-describe-function nil))
@@ -391,10 +357,10 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 
   (defun my/ivy-switch-buffer-org-roam-title (candidate)
     (if (ivy-rich-switch-buffer-user-buffer-p candidate)
-      (let* ((file (buffer-file-name (get-buffer candidate)))
-              (file (if (and (buffer-file-name) (fboundp 'org-roam-file-p) (org-roam-file-p file))
-                      (org-roam-with-file file nil (org-roam-node-title (org-roam-node-at-point))) "")))
-        (if file file ""))
+        (let* ((file (buffer-file-name (get-buffer candidate)))
+                (file (if (and (buffer-file-name) (fboundp 'org-roam-file-p) (org-roam-file-p file))
+                        (ignore-errors (org-roam-with-file file nil (org-roam-node-title (org-roam-node-at-point)))) "")))
+          (if file file ""))
       ""))
 
   (setq ivy-rich-display-transformers-list
@@ -453,11 +419,6 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
         (ivy-rich-set-display-transformer nil))
       (ivy-rich-unset-display-transformer))))
 
-(use-package ag
-  :defer 3
-  :custom
-  (ag-reuse-buffers t))
-
 (use-package dashboard
   :straight (:type git
              :host github
@@ -506,7 +467,8 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
              :host github
              :repo "vedang/pdf-tools"
              :branch "master")
-  ;; :pin manual ;; manually update
+  ;; :pin manual ;; manually updat
+  :demand 0.3
   :bind (:map pdf-view-mode-map
           ("/" . isearch-forward))
   :custom
@@ -597,15 +559,15 @@ point reaches the beginning or end of the buffer, stop there."
   (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
 (use-package openwith
+  :if (eq system-type 'darwin)
+  :disabled t
   :custom
   (large-file-warning-threshold nil)
-  (openwith-associations '(
-                            ("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
+  (openwith-associations '(("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
                             ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "/usr/bin/open" (file))
                             ("\\.\\(?:ods\\|odt\\)\\'" "/usr/bin/open" (file))
                             ("\\.\\(?:mp4\\|mkv\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
-                            ("\\.pdf\\'" "/usr/bin/open" (file))
-                            ))
+                            ("\\.pdf\\'" "/usr/bin/open" (file))))
   :config
   (openwith-mode t)
   (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist))

@@ -58,7 +58,6 @@
     ("h" global-hungry-delete-mode "hungry delete" :toggle t)
     ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
     ("b" treemacs "treemacs bar toggle" :toggle t)
-    ("t" centaur-tabs-mode "centaur tabs toggle" :toggle t)
     ("e" electric-pair-mode "electric pair toggle" :toggle t))
    "Coding"
    (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
@@ -325,8 +324,7 @@
   ("Action"
    (("r" org-roam-buffer-toggle "Toggle references sidebar")
     ("l" org-roam-node-insert "Insert")
-    ("j" org-roam-dailies-find-date "Journal")
-    ("J" my/org-roam-dailies-find-date-other-window "Journal other window")
+    ("j" org-journal-open-current-journal-file "Journal")
     ("f" org-roam-node-find "Find node")
     ("F" my/org-roam-node-find-other-window "Find node other window")
     ("b" org-roam-switch-to-buffer "Switch buffer")

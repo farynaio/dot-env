@@ -78,8 +78,6 @@
 
 ;; Prettier support
 (use-package apheleia
-  :ensure nil
-  :straight nil
   :diminish apheleia-mode)
 
 ;; Use binaries in node_modules

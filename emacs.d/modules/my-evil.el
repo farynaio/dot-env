@@ -1,23 +1,18 @@
 (require 'inc-dec-at-point)
 
 (use-package evil
-  :init
-  (setq
-    evil-want-fine-undo t
-    evil-want-C-u-scroll t
-    evil-want-C-i-jump nil
-    evil-search-module 'evil-search
-    evil-undo-system 'undo-fu)
-  :config
-  (setq-default
-    evil-mode-line-format nil
-    evil-shift-width tab-width
-    evil-cross-lines t)
-
-  (evil-mode 1)
-
-  (bind-keys
-    ("C-f" . universal-argument)
+  :demand t
+  :custom
+  (evil-want-fine-undo t)
+  (evil-want-C-u-scroll t)
+  (evil-want-C-i-jump nil)
+  (evil-search-module 'evil-search)
+  (evil-undo-system 'undo-fu)
+  (evil-mode-line-format nil)
+  (evil-shift-width tab-width)
+  (evil-cross-lines t)
+  :bind
+  (("C-f" . universal-argument)
     :map universal-argument-map
     ("C-f" . universal-argument-more)
     ("C-u" . nil)
@@ -92,8 +87,9 @@
     ("C-u" . evil-scroll-up)
     ("C-w T" . my/move-current-window-to-new-frame)
     ("<down>" . evil-next-visual-line)
-    ("<up>" . evil-previous-visual-line)
-    )
+    ("<up>" . evil-previous-visual-line))
+  :config
+  (evil-mode 1)
 
   (defun my/next-error ()
     (interactive)
@@ -107,7 +103,7 @@
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-previous-error))
       (t (previous-error))))
 
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  (add-hook 'with-editor-mode-hook #'evil-insert-state)
   (add-hook 'evil-insert-state-entry-hook (lambda ()
                                             (when current-input-method
                                               (deactivate-input-method))))
@@ -115,6 +111,12 @@
   ;; (bind-key "<M-left>" 'left-word                           evil-normal-state-map)
 
   ;; (bind-key ",\\"    'skk-mode                            evil-normal-state-map)
+
+  (defun my/goto-last-change ()
+    (unless (diff-hl-next-hunk)
+      )
+    )
+
 
   (unbind-key "=" evil-normal-state-map)
   (unbind-key "+" evil-normal-state-map)
@@ -221,8 +223,14 @@
   (evil-define-key 'normal ledger-mode-map
     (kbd "C-c L") #'hydra-ledger/body)
 
+  (evil-define-key 'insert org-mode-map
+    (kbd "C-n" ) #'completion-at-point
+    (kbd "C-p" ) #'completion-at-point)
+
   (evil-define-key 'normal org-mode-map
     (kbd "C-x ,") #'hydra-org/body
+    (kbd "C-n" ) #'completion-at-point
+    (kbd "C-p" ) #'completion-at-point
     (kbd "C-x C-,") #'hydra-org/body
     (kbd "<tab>") #'org-cycle
     (kbd "TAB") #'org-cycle)
@@ -289,10 +297,8 @@
 
 (use-package undo-fu
   :after evil
-  :config
-  (bind-keys
-    :map evil-normal-state-map
-    ("u" . undo-fu-only-undo)
-    ("C-r" . undo-fu-only-redo)))
+  :bind (:map evil-normal-state-map
+          ("u" . undo-fu-only-undo)
+          ("C-r" . undo-fu-only-redo)))
 
 (provide 'my-evil)

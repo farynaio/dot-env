@@ -9,10 +9,8 @@
 
 (setq auto-save-no-message t)
 
-(setq ack-path (executable-find "ack"))
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'ar 'align-regexp)
+(defalias 'yes-or-no-p #'y-or-n-p)
+(defalias 'ar #'align-regexp)
 
 (setq-default tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
@@ -94,8 +92,8 @@
   :hook (org-mode . emojify-mode))
 
 (use-package company
-  :hook ((prog-mode . company-mode)
-          (mu4e-compose-mode . company-mode))
+  :hook (prog-mode . company-mode)
+  :demand t
   :diminish company-mode
   :custom
   (company-idle-delay 0.5)
@@ -329,8 +327,8 @@ end-of-buffer signals; pass the rest to the default handler."
 
 (when window-system
   (tool-bar-mode -1)
-  (menu-bar-mode 1)
-  (scroll-bar-mode 1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
   (tooltip-mode -1))
 
 (bind-key "M-w" #'my/kill-ring-save)

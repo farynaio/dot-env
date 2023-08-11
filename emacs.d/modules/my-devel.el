@@ -8,6 +8,18 @@
 ;; (require 'dns-mode)
 ;; (require 'company-graphql)
 
+(setq-default sh-basic-offset tab-width)
+(setq tags-add-tables nil)
+
+(add-hook 'conf-space-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-unix-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
+(add-hook 'markdown-mode-hook #'my/breadcrumb-set-local t)
+
+(defalias 'elisp-mode #'emacs-lisp-mode)
+
 (use-package rainbow-delimiters
   :after prog-mode
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -15,6 +27,7 @@
 (use-package prog-mode
   :ensure nil
   :straight nil
+  :hook ((prog-mode . eldoc-mode))
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'my/increment
@@ -28,7 +41,6 @@
     (modify-syntax-entry ?- "w" (syntax-table))
     (modify-syntax-entry ?_ "w" (syntax-table))
     (modify-syntax-entry ?$ "w" (syntax-table))
-
     (abbrev-mode -1)
     (flyspell-mode -1)
     (hungry-delete-mode 1)
@@ -39,9 +51,9 @@
 
 (use-package mmm-mode
   :commands mmm-mode
+  :custom
+  (mmm-submode-decoration-level 0)
   :config
-  (setq mmm-submode-decoration-level 0)
-
   (mmm-add-classes
     '((mmm-styled-mode
         :submode css-mode
@@ -68,8 +80,6 @@
   ;; (mmm-add-mode-ext-class 'typescript-mode nil 'mmm-jsx-mode)
   )
 
-(setq-default sh-basic-offset tab-width)
-
 (define-derived-mode guest-mode fundamental-mode "guest"
   "major mode for guest editing."
   (editorconfig-mode -1))
@@ -77,12 +87,11 @@
 (use-package dns-mode
   :ensure nil
   :straight nil
-  :config
-  (add-to-list 'auto-mode-alist '("\\.zone?\\'" . zone-mode)))
+  :mode ("\\.zone?\\'" . zone-mode))
 
 (use-package electric-operator
-  :diminish electric-operator-mode
-  :commands electric-operator-mode)
+  :commands electric-operator-mode
+  :diminish electric-operator-mode)
 
 (use-package sh-script
   :mode "\\.z?sh\\'"
@@ -101,21 +110,18 @@
   :custom
   (symbol-overlay-idle-time 0.1))
 
-(setq tags-add-tables nil)
-
-(unless (executable-find "ctags")
-  (message "ctags: warning no ctags available!"))
-
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()
   (interactive)
   (let ((project-root (projectile-project-root)))
     (if project-root
       (progn
+        (if (not (executable-find "ctags"))
+          (message "No executable 'ctags' found!")
         (start-process "ctags" nil (format "ctags -e -f -R %s" project-root))
         (my/visit-project-ctags)
         (message "Tags build successfully."))
-      (user-error "Cannot generate TAGS, not a projectile project."))))
+      (user-error "Cannot generate TAGS, not a projectile project.")))))
 
 (defalias 'ctags #'my/ctags-build)
 
@@ -132,12 +138,13 @@
           (current-file (file-name-nondirectory (buffer-file-name (current-buffer))))
           (current-file-path (buffer-file-name (current-buffer)))
           (tags-file (concat project-root "TAGS")))
+    (if (not (executable-find "ctags"))
+      (message "No executable 'ctags' found")
     (when (and project-root (file-readable-p tags-file))
       (start-process "ctags update" nil (format "ctags -e %s" project-root))
-      (message (format "Tags for file %s updated." current-file)))))
+      (message (format "Tags for file %s updated." current-file))))))
 
 (use-package yaml-mode
-  ;; :hook ((markdown-mode . my/bind-value-togglers))
   :mode "\\.yaml\\'")
 
 (use-package markdown-mode
@@ -164,6 +171,7 @@
   :mode "\\vimrc\\'")
 
 (use-package flycheck
+  :commands (flycheck-mode flycheck-buffer)
   :custom
   (flymake-phpcs-show-rule t)
   (flycheck-display-errors-delay .3)
@@ -189,7 +197,7 @@
     nil t))
 
 (use-package lsp-mode
-  :commands lsp lsp-deferred
+  :commands (lsp lsp-deferred)
   :hook ((lsp-mode .
            (lambda ()
              (when (bound-and-true-p which-key-mode)
@@ -242,8 +250,8 @@
     (kbd ",l") #'lsp-ui-imenu))
 
 (use-package lsp-treemacs
-  :after lsp-mode treemacs
-  :commands lsp-treemacs-errors-list lsp-treemacs-call-hierarch
+  :after (lsp-mode treemacs)
+  :commands (lsp-treemacs-errors-list lsp-treemacs-call-hierarch)
   :config
   (lsp-treemacs-sync-mode 1))
 
@@ -270,7 +278,6 @@
     (dtrt-indent-mode 1)))
 
 (use-package terraform-mode
-  :hook (terraform-mode . terraform-format-on-save-mode)
   :mode "\\.tf\\'")
 
 ;; TODO what it does?
@@ -281,15 +288,16 @@
 ;; :requires company-mode)
 
 (use-package dockerfile-mode
-  :mode "^Dockerfile")
+  :mode "^Dockerfile\\'")
 
 (use-package graphql-mode
+  :commands graphql-mode
+  :mode "\\.graphql\\'"
   :custom
-  (graphql-indent-level tab-width)
-  :commands graphql-mode)
+  (graphql-indent-level tab-width))
 
 (use-package yasnippet
-  :hook (prog-mode . (lambda () (yas-reload-all) (yas-minor-mode)))
+  :defer 0.3
   :diminish yas-minor-mode
   :custom
   (yas-new-snippet-default
@@ -298,6 +306,7 @@
 # --
 $0`(yas-escape-text yas-selected-text)`")
   :config
+  (add-hook 'prog-mode-hook (lambda () (yas-reload-all) (yas-minor-mode)))
   (yas-reload-all))
 
 ;; (use-package plantuml-mode
@@ -319,57 +328,34 @@ $0`(yas-escape-text yas-selected-text)`")
       '(:eval
          (buffer-name (current-buffer)))))))
 
-(add-hook 'conf-space-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-unix-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'markdown-mode-hook #'my/breadcrumb-set-local t)
-
 (use-package elisp-mode
   :ensure nil
   :straight nil
+  :diminish "Elisp"
   :config
+  (unbind-key "C-M-i" emacs-lisp-mode-map)
+
   (add-hook 'emacs-lisp-mode-hook
     (lambda ()
-      (setq mode-name "Elisp")
       (flycheck-mode -1)
-      (electric-operator-mode -1)
-      (eldoc-mode 1)
-      (unbind-key "C-M-i" emacs-lisp-mode-map))))
+      (electric-operator-mode -1))))
 
 (use-package solidity-mode
-  :config
-  (add-hook 'solidity-mode-hook
-    (lambda ()
-      (setq-local c-basic-offset 4))))
+  :defer 0.3
+  :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4)))))
 
-(if (executable-find "solium")
-  (progn
-    (use-package solidity-flycheck
-      :ensure nil
-      :custom
-      (solidity-flycheck-solium-checker-active t))
+(use-package solidity-flycheck
+  :defer 0.3
+  :if (executable-find "solium")
+  :ensure nil
+  :custom
+  (solidity-flycheck-solium-checker-active t))
 
-    (use-package company-solidity)
-    )
-  (progn
-    (message "solidity-flycheck: Warning no 'solium' executable found, package not disabled!")
-    (message "company-solidity: Warning no 'solium' executable found, package not disabled!")
-    )
-  )
+(use-package company-solidity
+  :mode "\\.sol\\'")
 
-(use-package jenkinsfile-mode)
-
-;; blogging
-;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
-;; (require 'ox-publish)
-;; (setq org-html-coding-system 'utf-8-unix)
-;; (setq org-html-head-include-default-style nil)
-;; (setq org-html-head-include-scripts nil)
-;; (setq org-html-validation-link nil)
-
-(defalias 'elisp-mode 'emacs-lisp-mode)
+(use-package jenkinsfile-mode
+  :mode "^Jenkinsfile\\'")
 
 (require 'my-python)
 (require 'my-web)
