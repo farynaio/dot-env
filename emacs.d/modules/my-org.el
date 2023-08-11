@@ -375,7 +375,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (setq org-default-notes-file my/org-inbox-file-path)
 (setq org-contacts-files `(,my/org-contacts-file-path))
 (setq org-contacts-birthday-format "%h (%Y)")
-;; (setq org-journal-dir (expand-file-name "journal" user-emacs-directory))
 ;; (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 
 (setq org-hide-leading-stars t)
@@ -1285,12 +1284,12 @@ it can be passed in POS."
     (let ((anchor (point)))
       (next-line)
       (kill-visual-line)
-      (insert (concat
-                "\n** Today's wins\n"
-                "** Gratefulness\n"
-                "** Achievements\n"
-                "** Thoughts\n"
-                "** Timeline"))
+      (insert
+        "\n** Today's wins\n"
+        "** Gratefulness\n"
+        "** Achievements\n"
+        "** Thoughts\n"
+        "** Timeline")
       (goto-char anchor)
       (next-line)
       (yank)))
