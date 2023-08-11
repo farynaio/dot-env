@@ -163,7 +163,8 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 ;; TODO duplicated block?
 (use-package org
   :hook ((org-mode . org-indent-mode)
-          (org-mode . iscroll-mode))
+          (org-mode . iscroll-mode)
+          (org-mode . abbrev-mode))
   :bind (:map org-mode-map
           ("C-x m" . hydra-org/body)
           ("C-c C-l" . org-insert-link))
