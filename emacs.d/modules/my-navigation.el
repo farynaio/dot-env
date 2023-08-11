@@ -558,6 +558,13 @@ point reaches the beginning or end of the buffer, stop there."
   (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
+;; Folding blocks of code by indention
+(use-package origami
+  :commands origami-mode
+  :custom
+  (evil-define-key '(normal) origami-mode-map
+    (kbd "<C-return>") 'origami-toggle-node))
+
 (use-package openwith
   :if (eq system-type 'darwin)
   :disabled t

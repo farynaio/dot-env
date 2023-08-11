@@ -33,6 +33,7 @@
 ;;   :config (js2r-add-keybindings-with-prefix "C-c C-r"))
 
 (use-package json-mode
+  :hook ((json-mode . origami-mode))
   :mode ("\\.json\\'" "\\rc\\'"))
 
   ;; (flycheck-add-mode 'javascript-eslint 'typescript-mode))
