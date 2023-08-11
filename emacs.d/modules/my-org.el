@@ -1268,7 +1268,7 @@ it can be passed in POS."
   :custom
   (org-journal-dir my/org-roam-journal-directory)
   (org-journal-file-type 'yearly)
-  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-file-format "%Y.org")
   (org-journal-encrypt-journal t)
   (org-journal-created-property-timestamp-format "%Y-%m-%d")
   (org-journal-find-file 'find-file)
