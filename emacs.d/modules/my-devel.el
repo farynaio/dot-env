@@ -24,6 +24,12 @@
   :after prog-mode
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package eldoc
+  :ensure nil
+  :straight nil
+  :custom
+  (eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
+
 (use-package prog-mode
   :ensure nil
   :straight nil
