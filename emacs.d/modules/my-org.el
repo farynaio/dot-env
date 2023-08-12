@@ -1346,4 +1346,9 @@ it can be passed in POS."
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
 
+(use-package org-appear
+  :after org
+  :hook (org-mode . org-appear-mode)
+  :custom
+  (org-hide-emphasis-markers t))
 (provide 'my-org)
