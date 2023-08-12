@@ -280,72 +280,15 @@
 (find-file "~/.emacs.d/init.el")
 (find-file "~/.emacs.d/modules/my-hydra.el")
 
-(defvar my/local-custom-variables-file-path (expand-file-name "~/.emacs.d/emacs-local-config/custom.el"))
+(defvar my/local-custom-variables-file-path (expand-file-name "/home/user/.emacs.d/emacs-local-config/custom.el"))
 
 ; Load my custom-set-variables settings
-(when (file-exists-p my/local-custom-variables-file-path)
+(if (not (file-exists-p my/local-custom-variables-file-path))
+  (error (concat "'emacs-local/config/custom.el' file not exists"))
   (message (concat "Loading " my/local-custom-variables-file-path "..."))
-  ;; (load my/local-custom-variables-file-path)
+  (load my/local-custom-variables-file-path)
   (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
     (native--compile-async `(,my/local-custom-variables-file-path) nil)))
 
-(unless (file-exists-p my/local-custom-variables-file-path)
-  (error (concat "'emacs-local/config/custom.el' file not exists")))
-
 (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
   (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(company-show-quick-access t nil nil "Customized with use-package company")
- '(lsp-semantic-tokens-enable nil nil nil "Customized with use-package lsp-mode")
- '(org-agenda-files
-    '("~/Documents/emacs/private/phones.org.gpg" "/home/user/Documents/emacs/orgs/Tasks/tasks.org.gpg"))
- '(org-modules '(ol-bbdb org-habit ol-info org-drill org-checklist))
- '(package-selected-packages
-    '(expand-region use-package-ensure-system-package flycheck-ledger helpful visual-fill-column visual-fill-column-mode nov dired-narrow dired-subtree dired dashboard all-the-icons-dired counsel-projectile wiki-summary org-pomodoro hungry-delete electric-operator major-mode-hydra xml-mode iscroll mu4e-maildirs-extension openwith w3m evil-multiedit lsp-ui yaml-mode which-key web-mode web-beautify vue-mode vimrc-mode use-package undo-fu typescript-mode terraform-mode symbol-overlay smartscan request rainbow-mode rainbow-delimiters projectile-rails prettier-js prettier persistent-scratch org-roam-server org-review org-plus-contrib org-mime org-journal org-drill ob-async oauth2 magit ledger-mode langtool json-mode japanese-holidays jade-mode ivy-rich ivy-hydra hl-todo graphql-mode goto-last-change google-translate git-gutter geben flycheck evil-visualstar evil-surround evil-matchit evil-anzu eslintd-fix emojify emmet-mode elpy elfeed-web elfeed-org elfeed-goodies editorconfig dtrt-indent drag-stuff dockerfile-mode diminish dap-mode counsel company-php company-org-roam calfw-org calfw auto-highlight-symbol auto-compile artbollocks-mode all-the-icons ag add-node-modules-path))
- '(safe-local-variable-values
-    '((j2-basic-offset . 4)
-       (j2-basic-offset . 2)
-       (css-indent-offset . 4)
-       (graphql-indent-level . 4)
-       (sgml-basic-offset . 4)
-       (nil . dtrt-indent-mode)
-       (org-hide-emphasis-markers . t)
-       (ispell-dictionary . "en")
-       (ispell-dictionary . "pl")
-       (my/language-local . "pl")
-       (my/language-local . "en")
-       (org-use-property-inheritance . t)
-       (org-confirm-babel-evaluate)
-       (eval progn
-         (add-hook 'js-mode-hook
-           (lambda nil
-             (flycheck-mode -1))
-           t)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(cursor ((t (:inherit nil :background "gray82" :underline nil))))
- '(erc-action-face ((t (:foreground "#8fbcbb"))) t)
- '(erc-error-face ((t (:foreground "#bf616a"))) t)
- '(erc-input-face ((t (:foreground "#ebcb8b"))) t)
- '(erc-notice-face ((t (:foreground "#ebcb8b"))) t)
- '(erc-timestamp-face ((t (:foreground "#a3be8c"))) t)
- '(hl-line ((t (:background "gray32"))))
- '(ledger-font-xact-highlight-face ((t (:background "gray32"))))
- '(org-agenda-dimmed-todo-face ((t (:foreground "gray50"))))
- '(org-level-2 ((t (:inherit default :extend nil :foreground "goldenrod"))))
- '(org-level-3 ((t (:inherit nil :extend nil :foreground "coral"))))
- '(org-level-4 ((t (:inherit nil :extend nil :foreground "burlywood1"))))
- '(org-priority ((t (:inherit font-lock-keyword-face :foreground "gold3"))))
- '(persp-selected-face ((t (:foreground "cyan4" :weight bold))))
- '(region ((t (:background "DodgerBlue4" :foreground "#f6f3e8"))))
- '(symbol-overlay-default-face ((t (:background "gray37")))))
