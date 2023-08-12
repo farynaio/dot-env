@@ -302,7 +302,13 @@
   :custom
   (graphql-indent-level tab-width))
 
+(use-package tempo
+  :defer 0.3
+  :straight nil
+  :ensure nil)
+
 (use-package yasnippet
+  :disabled t
   :defer 0.3
   :diminish yas-minor-mode
   :custom
