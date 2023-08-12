@@ -196,7 +196,13 @@
           (untabify (point-min) (point-max)))))
     nil t))
 
+(use-package eglot
+  :commands eglot
+  :straight nil
+  :ensure nil)
+
 (use-package lsp-mode
+  :disabled t
   :commands (lsp lsp-deferred)
   :hook ((lsp-mode .
            (lambda ()
