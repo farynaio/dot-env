@@ -244,6 +244,7 @@
        (rjsx-mode . (eslint)))))
 
 (use-package lsp-ui
+  :disabled t
   :after lsp-mode
 	:commands lsp-ui-imenu
   :hook ((lsp-mode . lsp-ui-mode)
@@ -262,6 +263,7 @@
     (kbd ",l") #'lsp-ui-imenu))
 
 (use-package lsp-treemacs
+  :disabled t
   :after (lsp-mode treemacs)
   :commands (lsp-treemacs-errors-list lsp-treemacs-call-hierarch)
   :config
@@ -277,6 +279,7 @@
 ;;   (setq dap-chrome-debug-program "~/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
 
 (use-package lsp-ivy
+  :disabled t
   :after (lsp-mode ivy))
 
 (use-package dtrt-indent

@@ -160,7 +160,7 @@
   (evil-set-initial-state 'image-mode 'emacs)
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'treemacs-mode 'emacs)
-  (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
+  ;; (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
   (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
   (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
   (evil-set-initial-state 'erc-mode 'emacs)

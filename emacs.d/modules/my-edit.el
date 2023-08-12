@@ -88,8 +88,8 @@
 
 (use-package free-keys)
 
-(use-package emojify
-  :hook (org-mode . emojify-mode))
+;; (use-package emojify
+;;   :hook (org-mode . emojify-mode))
 
 (use-package company
   :hook (prog-mode . company-mode)
@@ -100,9 +100,13 @@
   (company-show-numbers t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
-  (company-backends '(company-files (company-yasnippet company-dabbrev-code) company-keywords company-capf company-gtags company-etags)))
+  ;; (company-backends '(company-capf))
+  (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate :with company-tempo)))
+  (company-files-exclusions '(".git/" ".DS_Store"))
+  )
 
 (use-package company-statistics
+  :disabled t
   :after company
   :hook ((company-mode . company-statistics-mode)))
 
@@ -111,6 +115,7 @@
 ;;   :after company)
 
 (use-package company-quickhelp
+  :disabled t
   :after company
   :hook ((company-mode . company-quickhelp-mode))
   :custom
@@ -163,9 +168,9 @@
   :straight nil
   :custom
   (savehist-file "~/.emacs.d/savehist")
-  (history-length 500)
+  (history-length 100)
   (history-delete-duplicates t)
-  (auto-save-visited-interval 60)
+  ;; (auto-save-visited-interval 60)
   (savehist-save-minibuffer-history 1)
   (savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
   :config
@@ -316,8 +321,8 @@ end-of-buffer signals; pass the rest to the default handler."
 (global-auto-revert-mode 1)
 (global-hl-line-mode -1)
 ;; (shell-dirtrack-mode -1)
-;; (global-eldoc-mode -1)
 (blink-cursor-mode -1)
+(auto-save-mode -1)
 ;; (file-name-shadow-mode -1)
 
 (advice-add 'visual-line-mode :around

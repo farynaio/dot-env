@@ -3,22 +3,21 @@
   :diminish rainbow-mode)
 
 (use-package web-mode
-  :hook ((web-mode . lsp)
-          (web-mode . rainbow-mode))
+  :hook (web-mode . rainbow-mode)
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)
           ("<backtab>" . indent-relative)
           ("<f5>" . my/toggle-php-flavor-mode))
-  :mode (("\\.php\\'" . web-mode)
-          ("\\.phtml\\'" . web-mode)
-          ("\\.tpl\\.php\\'" . web-mode)
-          ("\\.html\\.twig\\'" . web-mode)
-          ("\\.hbs\\'" . web-mode)
-          ("\\.ejs\\'" . web-mode)
-          ("\\.html?\\'" . web-mode)
-          ("\\.njk\\'" . web-mode)
-          ("\\.svg\\'" . web-mode))
+  :mode ("\\.php\\'"
+          "\\.phtml\\'"
+          "\\.tpl\\.php\\'"
+          "\\.html\\.twig\\'"
+          "\\.hbs\\'"
+          "\\.ejs\\'"
+          "\\.html?\\'"
+          "\\.njk\\'"
+          "\\.svg\\'")
   :custom
   (web-mode-engines-alist '(("php" . "\\.php\\'")))
   (web-mode-markup-indent-offset tab-width)
@@ -69,7 +68,7 @@
   :config
   (add-hook 'css-mode-hook
     (lambda ()
-      (setq-local company-backends '((company-css company-keywords company-files))))))
+      (setq-local company-backends '((company-css company-capf company-keywords company-files))))))
 
 (use-package web-beautify
   :commands web-beautify-js web-beautify-css web-beautify-html)

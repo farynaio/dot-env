@@ -8,13 +8,13 @@
   (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
   (js-chain-indent t)
   (js-indent-align-list-continuation nil)
-  :config
+  ;; :config
   ;; (flycheck-add-mode 'javascript-eslint 'js-mode)
-  (add-hook 'js-mode-hook
-    (lambda () (unless (eq major-mode 'json-mode) (lsp)))))
+  ;; (add-hook 'js-mode-hook
+  ;;   (lambda () (unless (eq major-mode 'json-mode) (lsp))))
+  )
 
 (use-package js2-mode
-  :mode "Jenkins"
   :custom
   (js2-mode-show-parse-errors nil)
   (js2-mode-show-strict-warnings nil)
@@ -49,8 +49,7 @@
   :mode "\\.jsx?\\'")
 
 (use-package vue-mode
-  :hook (vue-mode . lsp)
-  :mode "//.vue//'")
+  :mode "\\.vue\\'")
 
 (add-hook 'mmm-mode-hook
   (lambda () (set-face-background 'mmm-default-submode-face nil)))
@@ -89,8 +88,7 @@
 
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
-  :hook ((typescript-mode . lsp)
-          (typescript-mode . mmm-mode)))
+  :hook ((typescript-mode . mmm-mode)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
