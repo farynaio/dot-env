@@ -199,6 +199,7 @@
   (add-to-list 'evil-emacs-state-modes 'helpful-mode)
   (add-to-list 'evil-emacs-state-modes 'process-menu-mode)
   (add-to-list 'evil-emacs-state-modes 'Info-mode)
+  (add-to-list 'evil-emacs-state-modes 'fireplace-mode)
 
   (evil-declare-change-repeat 'company-complete)
 
