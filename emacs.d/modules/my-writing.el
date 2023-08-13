@@ -196,6 +196,8 @@
                     ("therell" "there'll" nil 0)
                     ("theyre" "they're" nil 0)
                     ("totaly" "totally" nil 0)
+                    ("email" "e-mail" nil 0)
+                    ("emails" "e-mails" nil 0)
                     ) nil :case-fixed nil)
 
 (defvar my/pl-abbrevs nil)
