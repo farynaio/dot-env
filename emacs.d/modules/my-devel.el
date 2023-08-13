@@ -38,7 +38,17 @@
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'my/increment
     (kbd "<S-down>") #'my/decrement
-    (kbd "C-/") #'company-complete)
+    (kbd "C-/") #'company-complete
+    (kbd ",l") #'hydra-prog/body)
+
+(pretty-hydra-define hydra-prog
+  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Programming" 1 -0.05))
+  ("Action"
+    (("d" xref-find-definitions "find definitions" :exit t)
+      ("r" xref-find-references "find references" :exit t)
+      ("l" counsel-imenu "functions" :exit t)
+      ;; ("a" "run linter")
+  )))
 
   (evil-define-key 'insert prog-mode-map
     (kbd "C-/") #'company-complete)
@@ -151,7 +161,7 @@
       (message (format "Tags for file %s updated." current-file))))))
 
 (use-package yaml-mode
-  :mode "\\.yaml\\'")
+  :mode "\\.ya?ml\\'")
 
 (use-package markdown-mode
   ;; :hook (markdown-mode . my/bind-value-togglers)
@@ -310,6 +320,14 @@
   :mode "\\.graphql\\'"
   :custom
   (graphql-indent-level tab-width))
+
+(use-package go-mode
+  :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'"))
+
+(use-package emacs-lisp-mode
+  :ensure nil
+  :straight nil
+  :hook (emacs-lisp-mode . flycheck-mode))
 
 (use-package tempo
   :defer 0.3

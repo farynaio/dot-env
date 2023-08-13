@@ -19,6 +19,9 @@
   (js2-mode-show-parse-errors nil)
   (js2-mode-show-strict-warnings nil)
   :config
+  ;; Use js2-mode for Node scripts
+  (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
+
   (evil-define-key '(normal motion visual) js2-mode-map
     (kbd "M-.") #'xref-find-definitions
     (kbd "M-,") #'xref-pop-marker-stack))
@@ -78,6 +81,7 @@
 
 ;; Prettier support
 (use-package apheleia
+  :commands (my/prettier-mode)
   :diminish apheleia-mode)
 
 ;; Use binaries in node_modules
@@ -99,6 +103,5 @@
 ;;          (let ((empty-spaces (match-string 1)))
 ;;            (while (search-forward empty-spaces      (line-end-position) t)
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
-
 
 (provide 'my-js)
