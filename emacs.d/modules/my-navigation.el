@@ -248,14 +248,10 @@
           ("C-x C-b" . counsel-switch-buffer)
           ("C-x B" . counsel-switch-buffer-other-window)
           ("C-x C-r" . counsel-recentf)
-          ("C-x C-d" . counsel-dired-jump)
-          ("C-x C-h" . counsel-minibuffer-history)
-          ("C-x C-l" . counsel-find-library)
+          ("C-h l" . counsel-find-library)
           :map read-expression-map
           ("C-r" . counsel-minibuffer-history)
-          ("C-r" . counsel-expression-history)
-          :map evil-motion-state-map
-          ("\\a" . counsel-imenu))
+          ("C-r" . counsel-expression-history))
   :custom
   (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
   (counsel-find-file-ignore-regexp "\\`\\.")
