@@ -313,10 +313,7 @@
            (tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\"|TODO=\"WAITING\""
              ((org-agenda-skip-function
                 '(or
-                   (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))
-                   (and
-                     (org-agenda-skip-entry-if 'notscheduled)
-                     (org-agenda-skip-entry-if 'notdeadline))))
+                   (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))))
                (org-agenda-remove-tags nil)
                (org-agenda-overriding-header "Active goals:")
                (org-agenda-sorting-strategy '(todo-state-up category-keep alpha-up))
