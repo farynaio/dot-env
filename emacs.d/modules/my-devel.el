@@ -42,7 +42,7 @@
     (kbd ",l") #'hydra-prog/body)
 
 (pretty-hydra-define hydra-prog
-  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Programming" 1 -0.05))
+  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
   ("Find"
     (("d" xref-find-definitions "find definitions" :exit t)
       ("r" xref-find-references "find references" :exit t)

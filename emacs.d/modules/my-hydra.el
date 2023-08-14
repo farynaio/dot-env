@@ -59,7 +59,7 @@
       ("e" electric-pair-mode "electric pair toggle" :toggle t))))
 
 (pretty-hydra-define hydra-flycheck
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Flycheck" 1 -0.05))
   ("Checker"
     (("f" flyspell-mode "flyspell" :toggle t)
       ("?" flycheck-describe-checker "describe")
@@ -86,7 +86,7 @@
     ("=" image-transform-reset "reset"))))
 
 (pretty-hydra-define hydra-ledger
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "usd" "Ledger" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "money" "Ledger" 1 -0.05))
   ("Action"
    (("b" leadger-add-transaction "add")
     ("c" ledger-mode-clean-buffer "clear")
@@ -138,7 +138,7 @@
    (("R" smerge-refine "redefine"))))
 
 (pretty-hydra-define hydra-projectile
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "Projectile" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
   ("Buffers"
    (("b" counsel-projectile-switch-to-buffer "list")
     ("k" projectile-kill-buffers "kill all")
@@ -171,7 +171,7 @@
     ("w" engine/search-wikipedia "wikipedia"))))
 
 (pretty-hydra-define hydra-spelling
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Spelling" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Spelling" 1 -0.05))
   ("Checker"
    (("c" langtool-correct-buffer "correction")
     ("C" langtool-check-done "clear")
@@ -214,7 +214,7 @@
 ;;     ("r" webpaste-paste-region "region"))))
 
 (pretty-hydra-define hydra-snippet
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "file" "Snippets" 1 -0.05))
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "sticky-note" "Snippets" 1 -0.05))
   ("Snippet"
    (("s" yas-insert-snippet "insert")
     ("n" yas-new-snippet "new")
@@ -250,14 +250,16 @@
 (pretty-hydra-define hydra-org-roam
   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org roam" 1 -0.05))
   ("Action"
-   (("r" org-roam-buffer-toggle "Toggle references sidebar")
-    ("l" org-roam-node-insert "Insert")
-    ("j" my/org-journal-open-current-journal-file "Journal")
-    ("f" org-roam-node-find "Find node")
-    ("F" my/org-roam-node-find-other-window "Find node other window")
-    ("b" org-roam-switch-to-buffer "Switch buffer")
-    ("n" org-id-get-create "Heading into node")
-    ("d" org-roam-find-directory "Find dir"))))
+    (("r" org-roam-buffer-toggle "Toggle references sidebar")
+     ("l" org-roam-node-insert "Insert")
+     ("j" my/org-journal-open-current-journal-file "Journal")
+     ("f" org-roam-node-find "Find node")
+     ("F" my/org-roam-node-find-other-window "Find node other window")
+     ("b" org-roam-switch-to-buffer "Switch buffer")
+     ("n" org-id-get-create "Turn heading into node")
+     ("d" org-roam-find-directory "Find dir"))
+    "Visualization"
+    (("u" org-roam-ui-open "Open UI view"))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))
