@@ -175,6 +175,59 @@
   :config
   (savehist-mode 1))
 
+;; https://github.com/xenodium/chatgpt-shell
+(use-package chatgpt-shell
+  :commands chatgpt-shell
+  :custom
+  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon")))
+  ;; dall-e-shell-openai-key
+(defun my/chatgpt-shell-start-new ()
+  "If `chatgpt-shell` session exists kill it, and start new session."
+  (interactive)
+  (let ((chatgpt-buffer (seq-find (lambda (item) (string-prefix-p "*chatgpt" (buffer-name item))) (buffer-list))))
+    (when chatgpt-buffer
+      (kill-buffer chatgpt-buffer)))
+  (chatgpt-shell))
+
+  (defalias 'ai 'my/chatgpt-shell-start-new))
+
+(use-package ob-chatgpt-shell
+  :after chatgpt-shell
+  :config
+  (ob-chatgpt-shell-setup))
+
+(use-package gptel
+  :disabled t
+  :commands gptel
+  :custom
+  (gptel-api-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon"))))
+
+(use-package starhugger
+  :defer 0.2
+  :custom
+  (starhugger-api-token (lambda () (auth-source-pick-first-password :host "huggingface.co-api-key-anon")))
+  ;; :config
+  ;; resolve conflict with blamer.el
+  ;; (defvar-local my-starhugger-inlining-mode--blamer-mode-state nil)
+  ;; (defvar-local blamer-mode nil)
+
+  ;; (defun my-starhugger-inlining-mode-h ()
+  ;;   (if starhugger-inlining-mode
+  ;;     (progn
+  ;;       (add-hook 'my-evil-force-normal-state-hook
+  ;;         (lambda () (starhugger-dismiss-suggestion t))
+  ;;         nil t)
+  ;;       (setq my-starhugger-inlining-mode--blamer-mode-state blamer-mode)
+  ;;       (when my-starhugger-inlining-mode--blamer-mode-state
+  ;;         (blamer-mode 0)))
+  ;;     (progn
+  ;;       (when (and my-starhugger-inlining-mode--blamer-mode-state
+  ;;               (not blamer-mode))
+  ;;         (blamer-mode 1)))))
+
+  ;; (add-hook 'starhugger-inlining-mode-hook #'my-starhugger-inlining-mode-h)
+  )
+
 ; https://emacs.stackexchange.com/questions/10932/how-do-you-disable-the-buffer-end-beginning-warnings-in-the-minibuffer/20039#20039
 (defun my/command-error-function (data context caller)
   "Ignore the buffer-read-only, beginning-of-buffer,
