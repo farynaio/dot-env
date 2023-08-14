@@ -1,6 +1,6 @@
 ;; (require 'text-mode)
-(require 'smart-quotes)
-(require 'cl)
+;; (require 'smart-quotes)
+;; (require 'cl)
 
 ;; (if (executable-find "hunspell")
 ;;     (progn
@@ -273,3 +273,4 @@
   :defer 0.3)
 
 (provide 'my-writing)
+;;; my-writing.el ends here
