@@ -6,7 +6,6 @@
   :bind (("C-c I" . hydra-image/body)
          ("C-c T" . hydra-tool/body)
          ("C-c t" . hydra-btoggle/body)
-         ("C-c C" . hydra-clock/body)
          ("C-c n" . hydra-navigate-to/body)
          ("C-c g" . hydra-git/body)
          ("C-c p" . hydra-projectile/body)
@@ -54,95 +53,27 @@
 (pretty-hydra-define hydra-btoggle
   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
   ("Basic"
-   (("a" abbrev-mode "abbrev" :toggle t)
-    ("h" global-hungry-delete-mode "hungry delete" :toggle t)
-    ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
-    ("b" treemacs "treemacs bar toggle" :toggle t)
-    ("e" electric-pair-mode "electric pair toggle" :toggle t))
-   "Coding"
-   (("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t)
-    ("o" electric-operator-mode "electric operator" :toggle t)
-    ("F" flyspell-mode "flyspell" :toggle t)
-    ("f" flycheck-mode "flycheck" :toggle t)
-    ("l" lsp-mode "lsp" :toggle t)
-    ("p" my/prettier-mode "Prettier" :toggle t))
-   ;; ("s" smartparens-mode "smartparens" :toggle t))
-  ))
-
-(pretty-hydra-define hydra-clock
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "clock-o" "Clock" 1 -0.05))
-  ("Action"
-   (("c" org-clock-cancel "cancel")
-    ("d" org-clock-display "display")
-    ("e" org-clock-modify-effort-estimate "effort")
-    ("i" org-clock-in "in")
-    ("j" org-clock-goto "jump")
-    ("o" org-clock-out "out")
-    ("p" org-pomodoro "pomodoro")
-    ("r" org-clock-report "report"))))
-
+    (("a" abbrev-mode "abbrev" :toggle t)
+      ("h" global-hungry-delete-mode "hungry delete" :toggle t)
+      ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
+      ("e" electric-pair-mode "electric pair toggle" :toggle t))))
 
 (pretty-hydra-define hydra-flycheck
   (:hint nil :color teal :quit-key "q" :title (with-faicon "plane" "Flycheck" 1 -0.05))
   ("Checker"
-   (("?" flycheck-describe-checker "describe")
-    ("d" flycheck-disable-checker "disable")
-    ("m" flycheck-mode "mode")
-    ("s" flycheck-select-checker "select"))
-   "Errors"
-   (("<" flycheck-previous-error "previous" :color pink)
-    (">" flycheck-next-error "next" :color pink)
-    ("f" flycheck-buffer "check")
-    ("l" flycheck-list-errors "list"))
-   "Other"
-   (("M" flycheck-manual "manual")
-    ("v" flycheck-verify-setup "verify setup"))))
-
-(pretty-hydra-define hydra-navigate-to
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "file-text-o" "Navigate To" 1 -0.05))
-  ("Agenda"
-   (("ac" (find-file my/org-contacts-file-path) "contacts"))
-   ;; ("ao" (find-file "~/.personal/agenda/organizer.org") "organizer")
-   ;; ("ap" (find-file "~/.personal/agenda/people.org") "people")
-   ;; ("ar" (find-file "~/.personal/agenda/routine.org") "routine")
-   "Config"
-   (
-    ("cs" (find-file "~/.authinfo.gpg") "authinfo.gpg")
-    ("cE" (find-file "~/dotenv/editorconfig") "editorconfig")
-    ("ce" (find-file "~/dotenv/emacs.d/") "emacs.d")
-    ("cl" (find-file "~/dotenv/emacs.d/lisp/") "emacs.d/lisp")
-    ("cm" (find-file "~/dotenv/emacs.d/modules/") "emacs.d/modules")
-    ("ci" (find-file "~/dotenv/emacs.d/init.el") "init.el")
-    ("cg" (find-file "~/dotenv/gitconfig") "gitconfig")
-    ("cS" (find-file "~/.mbsyncrc") "mbsync")
-    ("cs" (find-file "~/dotenv/shells/") "shells")
-    )
-   "Ledger"
-   (("lp" (find-file my/ledger-private-path) "Personal")
-    ("lc" (find-file my/ledger-company-dir-path) "Company dir")
-    ("lr" (find-file my/ledger-company-report-path) "Company report"))
-   "Notes"
-   (("na" (find-file my/affirmations-file-path) "Affirmations")
-    ("nb" (find-file my/path-coaching-brainstorm) "Brainstorm")
-    ("ne" (find-file my/path-health-exercises-path) "Exercises")
-    ("ng" (find-file my/path-coaching-goals-details) "Goals details")
-    ("nj" (find-file my/japanese-file-path) "Japanese")
-    ("nn" (find-file my/notes-file-path) "Notes")
-    ("nr" (find-file my/org-review-file-path) "Reviews")
-    ("nw" (find-file my/path-coaching-wheel-of-life) "Wheel of life"))
-   "Perspective"
-   (("pl" (lambda () (interactive) (persp-state-restore persp-state-default-file)) "perspective load")
-    ("ps" (persp-state-save) "perspective save"))
-   "Other"
-    (("ob" (find-file my/org-media-file-path) "media")
-      ("om" demap-toggle "minimap" :toggle t))
-   ;; ("ol" (find-file "~/.personal/other/long-goals.org") "long-terms goals")
-   ;; ("om" (find-file "~/.personal/other/movies.org"))
-   ;; ("op" (find-file "~/.personal/other/purchases.org") "purchase")
-   ;; ("os" (find-file "~/.personal/other/short-goals.org") "short-terms goals")
-   ;; ("ou" (find-file "~/.personal/other/usb.org") "usb")
-   ;; ("oL" (find-file "~/.personal/other/learning.org") "learning")
-   ))
+    (("f" flyspell-mode "flyspell" :toggle t)
+      ("?" flycheck-describe-checker "describe")
+      ("d" flycheck-disable-checker "disable")
+      ("m" flycheck-mode "mode")
+      ("s" flycheck-select-checker "select"))
+    "Errors"
+    (("<" flycheck-previous-error "previous" :color pink)
+      (">" flycheck-next-error "next" :color pink)
+      ("b" flycheck-buffer "check")
+      ("l" flycheck-list-errors "list"))
+    "Other"
+    (("M" flycheck-manual "manual")
+      ("v" flycheck-verify-setup "verify setup"))))
 
 (pretty-hydra-define hydra-image
   (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
@@ -169,8 +100,7 @@
    (("b" magit-blame "blame")
     ("l" magit-log-buffer-file "commit log (current file)")
     ("L" magit-log-current "commit log (project)")
-    ("s" magit-status "status")
-    )))
+    ("s" magit-status "status"))))
 
 (pretty-hydra-define hydra-git
   (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
@@ -220,8 +150,7 @@
     ("F" projectile-find-file-other-window "file other window")
     ("p" counsel-projectile-switch-project "project")
     ("o" projectile-find-other-file "other file")
-    ("t" projectile-find-tag "tag")
-    )
+    ("t" projectile-find-tag "tag"))
    "Project"
    (("a" my/projectile-add-known-project "add")
     ("m" projectile-remove-known-project "remove"))
@@ -239,8 +168,7 @@
     ("g" engine/search-github "github")
     ("i" engine/search-images "images")
     ("m" engine/search-maps "maps")
-    ("w" engine/search-wikipedia "wikipedia")
-    )))
+    ("w" engine/search-wikipedia "wikipedia"))))
 
 (pretty-hydra-define hydra-spelling
   (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Spelling" 1 -0.05))
@@ -249,7 +177,7 @@
     ("C" langtool-check-done "clear")
     ("d" ispell-change-dictionary "dictionary")
     ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-    ("l" my/lang-toggle "language switch")
+    ("l" my/lang-toggle "language switch" :exit t)
     ("w" wiki-summary "wiki"))
    "Japanese"
    (("k" japanese-katakana-region "katakana charset")
@@ -331,17 +259,6 @@
     ("n" org-id-get-create "Heading into node")
     ("d" org-roam-find-directory "Find dir"))))
 
-(defun my/org-journal-open-current-journal-file ()
-  "Do `org-journal-open-current-journal-file` and go to the most recent entry."
-  (interactive)
-  (org-journal-open-current-journal-file)
-  (let* ((heading-title "Timeline")
-          (poslist (org-map-entries #'point (format "ITEM=\"%s\"" heading-title) 'file)))
-    (if (<= (length poslist) 0)
-      (message (format "No heading with title '%s' found!" heading-title))
-      (goto-char (nth 0 poslist))
-      (org-cycle))))
-
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))
 ;;   ("Debug"
@@ -396,3 +313,4 @@
 ;;   ("t" js2r-var-to-this "'var' which 'this'" :exit t))
 
 (provide 'my-hydra)
+;;; my-hydra.el ends here
