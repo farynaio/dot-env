@@ -225,25 +225,25 @@
 
   ;; Unbind 'evil-backward-char'
   (evil-define-key '(normal) 'global-map
-    (kbd "DEL") #'ignore)
+    (kbd "DEL") 'ignore)
 
   (evil-define-key 'normal prog-mode-map
-    (kbd "C-c m") #'hydra-merge/body)
+    (kbd "C-c m") 'hydra-merge/body)
 
   (evil-define-key 'normal ledger-mode-map
-    (kbd "C-c L") #'hydra-ledger/body)
+    (kbd "C-c L") 'hydra-ledger/body)
 
   (evil-define-key 'insert org-mode-map
-    (kbd "C-n" ) #'completion-at-point
-    (kbd "C-p" ) #'completion-at-point)
+    (kbd "C-n" ) 'completion-at-point
+    (kbd "C-p" ) 'completion-at-point)
 
   (evil-define-key 'normal org-mode-map
-    (kbd "C-x ,") #'hydra-org/body
-    (kbd "C-n" ) #'completion-at-point
-    (kbd "C-p" ) #'completion-at-point
-    (kbd "C-x C-,") #'hydra-org/body
-    (kbd "<tab>") #'org-cycle
-    (kbd "TAB") #'org-cycle)
+    (kbd "C-x ,") 'hydra-org/body
+    (kbd "C-n" ) 'completion-at-point
+    (kbd "C-p" ) 'completion-at-point
+    (kbd "C-x C-,") 'hydra-org/body
+    (kbd "<tab>") 'org-cycle
+    (kbd "TAB") 'org-cycle)
     ;; (kbd "C-c s") #'hydra-spelling/body)
 
   ;; (evil-define-key '(visual normal) org-mode-map
