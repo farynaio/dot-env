@@ -278,9 +278,6 @@
     (add-to-list 'exec-path-from-shell-variables "LC_TIME")
     (exec-path-from-shell-initialize)))
 
-(find-file-noselect "~/.emacs.d/init.el")
-(find-file-noselect "~/.emacs.d/modules/my-hydra.el")
-
 (defvar my/local-custom-variables-file-path (expand-file-name "/home/user/.emacs.d/emacs-local-config/custom.el"))
 
 ; Load my custom-set-variables settings
@@ -293,3 +290,4 @@
 
 (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
   (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t))
+;;; init.el ends here

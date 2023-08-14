@@ -112,11 +112,19 @@
 
   ;; (bind-key ",\\"    'skk-mode                            evil-normal-state-map)
 
-  (defun my/goto-last-change ()
-    (unless (diff-hl-next-hunk)
-      )
-    )
+  (unbind-key "C-w" global-map)
+  (unbind-key "C-w q" global-map)
+  (unbind-key "C-w C-q" global-map)
+  (unbind-key "C-x C-z" global-map)
+  (unbind-key "C-z" global-map)
+  (unbind-key "C-/" global-map)
+  (unbind-key "C-_" global-map) ;; undo
+  (unbind-key "C-x u" global-map)
+  (unbind-key "C-x m" global-map)
+  (unbind-key "C-\"" global-map) ;; 'toggle-input-method'
 
+  (bind-key "C-w q" #'delete-window)
+  (bind-key "C-w C-q" #'delete-window)
 
   (unbind-key "=" evil-normal-state-map)
   (unbind-key "+" evil-normal-state-map)
@@ -200,6 +208,7 @@
   (add-to-list 'evil-emacs-state-modes 'process-menu-mode)
   (add-to-list 'evil-emacs-state-modes 'Info-mode)
   (add-to-list 'evil-emacs-state-modes 'fireplace-mode)
+  (add-to-list 'evil-emacs-state-modes 'chatgpt-shell-mode)
 
   (evil-declare-change-repeat 'company-complete)
 

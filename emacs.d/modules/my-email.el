@@ -116,11 +116,11 @@
   (imagemagick-register-types))
 
 (use-package mu4e
+  :straight nil
+  :ensure nil
   :if (file-directory-p my/mu4e-local-path)
   :commands mu4e
   :hook (mu4e-compose-mode . company-mode)
-  :ensure nil
-  :straight nil
   :ensure-system-package mu
   :bind (:map mu4e-main-mode-map
           ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
@@ -178,6 +178,7 @@
     (mu4e-mark-execute-all 'no-confirm))
   :custom
   (mail-user-agent 'mu4e-user-agent)
+  (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy 'ask)
   (mu4e-view-prefer-html t)
   (mu4e-confirm-quit nil)

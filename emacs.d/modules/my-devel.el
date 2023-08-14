@@ -43,12 +43,22 @@
 
 (pretty-hydra-define hydra-prog
   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Programming" 1 -0.05))
-  ("Action"
+  ("Find"
     (("d" xref-find-definitions "find definitions" :exit t)
       ("r" xref-find-references "find references" :exit t)
       ("l" counsel-imenu "functions" :exit t)
-      ;; ("a" "run linter")
-  )))
+      ("b" treemacs "treemacs" :toggle t))
+    "Syntax"
+    (("p" my/prettier-mode "Prettier" :toggle t)
+       ("c" flycheck-mode "flycheck" :toggle t)
+       ("m" flymake-mode "flymake" :toggle t)
+       ;; ("o" electric-operator-mode "electric operator" :toggle t)
+       ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t))
+    "AI"
+    (("s" starhugger-trigger-suggestion "generate suggestion" :exit t)
+      ("a" starhugger-accept-suggestion "accept suggestion" :exit t)
+      (">" starhugger-show-next-suggestion "next suggestion" :exit t)
+      ("<" starhugger-show-prev-suggestion "previous suggestion" :exit t))))
 
   (evil-define-key 'insert prog-mode-map
     (kbd "C-/") #'company-complete)

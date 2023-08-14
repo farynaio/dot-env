@@ -47,19 +47,22 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (add-to-list 'same-window-buffer-names "*SQL*")
 
-;; Based on https://stackoverflow.com/questions/10594208/how-do-i-get-the-region-selection-programmatically-in-emacs-lisp/10595146#10595146
-(defun my/kill-ring-save (beg end)
-  "Save into killring region or word below the cursor."
-  (interactive (if (use-region-p)
-                 (list (region-beginning) (region-end))
-                 (list nil nil)))
-  (let ((str (if (and beg end)
-               (buffer-substring-no-properties beg end)
-               (thing-at-point 'word))))
-    (kill-new str)
-    (setq deactivate-mark t)
-    (message str))
-  nil)
+(defun my/copy-region-or-word ()
+  "Copy the selected region or the word below the cursor."
+  (interactive)
+  (if (region-active-p)
+      (kill-ring-save (region-beginning) (region-end))
+    (let ((word (thing-at-point 'word)))
+      (when word
+        (kill-new word)
+        (message "Copied word '%s'." word)))))
+
+(use-package auth-source
+  :ensure nil
+  :straight nil
+  ;; :config
+  ;; (auth-source-debug 'trivi) ;; for debug info in *Messages*
+  )
 
 (use-package elec-pair
   :ensure nil
@@ -75,14 +78,11 @@
   (push '(?\` . ?\`) electric-pair-text-pairs)
   (electric-pair-mode 1))
 
-;; (use-package org-pomodoro)
-
 (use-package hungry-delete
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
-  (global-hungry-delete-mode)
-  )
+  (global-hungry-delete-mode))
 
 (use-package with-editor)  ; dependency for other package
 
@@ -102,8 +102,7 @@
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
   (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate :with company-tempo)))
-  (company-files-exclusions '(".git/" ".DS_Store"))
-  )
+  (company-files-exclusions '(".git/" ".DS_Store")))
 
 (use-package company-statistics
   :disabled t
@@ -119,8 +118,7 @@
   :after company
   :hook ((company-mode . company-quickhelp-mode))
   :custom
-  (company-quickhelp-delay nil) ;; Invoke popup via shortcut
-  )
+  (company-quickhelp-delay nil)) ;; Invoke popup via shortcut
 
 ;; Used to hang emacs?
 (use-package which-key
@@ -133,8 +131,7 @@
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
-         ("C-+" . er/contract-region))
-  )
+         ("C-+" . er/contract-region)))
 
 (use-package persistent-scratch
   :config
@@ -150,6 +147,8 @@
   :commands ediff
   :ensure nil
   :straight nil
+  :config
+  (ediff-diff-options "-w")
   :custom
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-forward-word-function 'forward-char))
@@ -250,7 +249,8 @@ end-of-buffer signals; pass the rest to the default handler."
 (defun my/advice-around-skip (orig-fun &rest args)
   "Skip around adviced function.")
 
-(defun sudo-dired ()
+(defun my/sudo-dired ()
+  "Run Dired in sudo mode."
   (interactive)
   (dired "/sudo::/"))
 
@@ -260,14 +260,18 @@ end-of-buffer signals; pass the rest to the default handler."
   (package-reinstall pkg)
   (require pkg))
 
-;; https://stackoverflow.com/a/11624677/346921
 (defun my/unindent-region ()
   (interactive)
-  (let ((offset (* tab-width -1)))
-    (if (use-region-p)
-      (progn (indent-rigidly (region-beginning) (region-end) offset)
-        (setq deactivate-mark nil))
-      (indent-rigidly (line-beginning-position) (line-end-position) offset))))
+  (let ((beg (region-beginning))
+         (end (region-end)))
+    (save-excursion
+      (goto-char beg)
+      (while (< (point) end)
+        (unless (bolp)
+          (back-to-indentation))
+        (when (<= (current-column) 0)
+          (indent-line-to 0))
+        (forward-line)))))
 
 ;; https://stackoverflow.com/a/750933
 (defun my/remove-dos-eol ()
@@ -286,7 +290,8 @@ end-of-buffer signals; pass the rest to the default handler."
   ("<end>" . right-word)
   ("C-x s" . (lambda () (interactive) (save-some-buffers t)))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
-  ("C-x C-SPC" . rectangle-mark-mode))
+  ("C-x C-SPC" . rectangle-mark-mode)
+  ("M-w" . #'my/copy-region-or-word))
 
 (when (eq system-type 'darwin)
   (bind-keys
@@ -296,9 +301,8 @@ end-of-buffer signals; pass the rest to the default handler."
 (when (eq system-type 'gnu/linux)
   (bind-keys
     ("M-t" . make-frame-command)
-    ("M-u" . air-revert-buffer-noconfirm)))
+    ("M-u" . air-revert-buffer-noconfirm))
 
-(when (eq system-type 'gnu/linux)
   (defun my/copy-including-secondary ()
     (interactive)
     (call-interactively 'kill-ring-save)
@@ -336,18 +340,5 @@ end-of-buffer signals; pass the rest to the default handler."
   (scroll-bar-mode -1)
   (tooltip-mode -1))
 
-(bind-key "M-w" #'my/kill-ring-save)
-
-(unbind-key "C-x C-z" global-map)
-(unbind-key "C-z" global-map)
-
-;; Unbind 'undo'
-(unbind-key "C-/" global-map)
-(unbind-key "C-_" global-map)
-(unbind-key "C-x u" global-map)
-(unbind-key "C-x m" global-map)
-
-;; Unbind 'toggle-input-method'
-(unbind-key "C-\"" global-map)
-
 (provide 'my-edit)
+;;; my-edit.el ends here
