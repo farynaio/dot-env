@@ -12,34 +12,35 @@
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
 (define-minor-mode my/en-mode
-  "Language mode for 'en'."
+  "Language mode for `en`."
   :init-value nil
   :lighter " en"
   (setq-local
     ispell-local-dictionary "en"
     local-abbrev-table my/en-abbrevs
-    langtool-default-language "en"))
+    langtool-default-language "en")
+  (message "English language activated."))
 
 (define-minor-mode my/pl-mode
-  "Language mode for 'pl'."
+  "Language mode for `pl`."
   :init-value nil
   :lighter " pl"
   (setq-local
     ispell-local-dictionary "pl"
     local-abbrev-table my/pl-abbrevs
-    langtool-default-language "pl"))
+    langtool-default-language "pl")
+  (message "Polish language activated."))
 
 (use-package abbrev
   :straight nil
   :ensure nil
   :diminish "Abb"
-  :hook ((text-mode . abbrev-mode))
+  :demand t
+  :hook ((text-mode . abbrev-mode)
+          (text-mode . my/en-mode))
   :custom
-  (save-abbrevs 'silently)
+  (save-abbrevs nil)
   (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
-
-(add-hook 'org-mode-hook 'my/en-mode)
-(add-hook 'org-roam-dailies-find-file-hook 'my/en-mode)
 
 (use-package ispell
   :defer 2
@@ -157,6 +158,9 @@
                     ("b2b" "B2B" nil 0)
                     ("b2c" "B2C" nil 0)
                     ("btc" "BTC" nil 0)
+                    ("eth" "ETH" nil 0)
+                    ("arb" "ARB" nil 0)
+                    ("matic" "MATIC" nil 0)
                     ("cms" "CMS" nil 0)
                     ("prefered" "preferred" nil 0)
                     ("sim" "SIM" nil 0)
