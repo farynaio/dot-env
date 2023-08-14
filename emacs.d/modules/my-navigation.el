@@ -562,8 +562,8 @@ point reaches the beginning or end of the buffer, stop there."
     (kbd "<C-return>") 'origami-toggle-node))
 
 (use-package openwith
-  :if (eq system-type 'darwin)
   :disabled t
+  :if (eq system-type 'darwin)
   :custom
   (large-file-warning-threshold nil)
   (openwith-associations '(("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
@@ -656,3 +656,4 @@ point reaches the beginning or end of the buffer, stop there."
 (unbind-key "s-l")
 
 (provide 'my-navigation)
+;;; my-navigation.el ends here

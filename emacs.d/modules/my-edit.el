@@ -91,6 +91,7 @@
 ;; (use-package emojify
 ;;   :hook (org-mode . emojify-mode))
 
+;; alternative https://github.com/minad/corfu
 (use-package company
   :hook (prog-mode . company-mode)
   :demand t
