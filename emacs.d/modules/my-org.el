@@ -105,6 +105,8 @@
           ("N" . evil-search-previous)
           ("*" . evil-search-word-forward)
           ("'" . org-agenda-filter-by-tag))
+  :preface
+  (defun my/org-priority-cookie-print () (format "[#%c]" org-default-priority))
   :custom
   (org-adapt-indentation nil)
 
