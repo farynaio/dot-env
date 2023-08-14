@@ -33,8 +33,7 @@
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
 (when (eq system-type 'darwin)
-  (setq default-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (set-face-attribute 'default nil :font default-font))
+  (set-face-attribute 'default nil :font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
 
 ;; https://github.com/doomemacs/themes
 (use-package doom-themes
@@ -49,14 +48,14 @@
   (load-theme 'doom-vibrant t))
 
 ;; https://github.com/hlissner/emacs-solaire-mode
-(use-package solaire-mode
-  :config
-  (solaire-global-mode 1))
+;; (use-package solaire-mode
+;;   :config
+;;   (solaire-global-mode 1))
 
 ;; After install run nerd-icons-install-fonts
 (use-package doom-modeline
   :init
-  (setq
+  (setq-default
     doom-modeline-support-imenu t
     doom-modeline-window-width-limit 85
     doom-modeline-minor-modes t
@@ -67,10 +66,8 @@
   (set-face-attribute 'mode-line-inactive nil :family "Noto Sans" :height 120)
   :hook (after-init . doom-modeline-mode)
   ;; :config
-
-
   ;; (unless (find-font (font-spec :name "nerd-icons"))
-            ;; (nerd-icons-install-fonts t))
+  ;; (nerd-icons-install-fonts t))
 )
 
 ;; (require 'chromatext)
@@ -80,3 +77,4 @@
 ;;           (color-lighten-name (face-foreground 'default) 80))))
 
 (provide 'my-theme)
+;;; my-theme.el ends here

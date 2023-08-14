@@ -56,7 +56,6 @@
   (make-directory my/org-base-path t)
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
-          (org-mode . abbrev-mode)
           (org-mode . company-mode)
           (org-mode . ndk/set-header-line-format)
           (org-mode . (lambda ()
@@ -1253,13 +1252,25 @@ it can be passed in POS."
   :config
   (unbind-key "C-c C-j")
 
+  (defun my/org-journal-open-current-journal-file ()
+    "Do `org-journal-open-current-journal-file` and go to the most recent entry."
+    (interactive)
+    (org-journal-open-current-journal-file)
+    (let* ((heading-title "Timeline")
+            (poslist (org-map-entries #'point (format "ITEM=\"%s\"" heading-title) 'file)))
+      (if (<= (length poslist) 0)
+        (message (format "No heading with title '%s' found!" heading-title))
+        (goto-char (nth 0 poslist))
+        (org-cycle))))
+
   (defun my/org-journal-after-header-create-hook ()
-    (beginning-of-buffer)
+    (goto-char (point-min))
+    ;; (beginning-of-buffer)
     (mark-whole-buffer)
     (org-sort-entries nil ?A)
     (org-back-to-heading)
     (let ((anchor (point)))
-      (next-line)
+      (forward-line)
       (kill-visual-line)
       (insert
         "\n** Web links\n"
@@ -1269,10 +1280,10 @@ it can be passed in POS."
         "** Thoughts\n"
         "** Timeline")
       (goto-char anchor)
-      (next-line)
+      (forward-line)
       (yank)))
 
-  (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
+  (add-hook 'org-journal-after-header-create-hook 'my/org-journal-after-header-create-hook))
 
 ;; (defun my/org-roam-dailies-find-date-other-window ()
 ;;   (interactive)
@@ -1354,3 +1365,4 @@ it can be passed in POS."
   (org-hide-emphasis-markers t))
 
 (provide 'my-org)
+;;; my-org.el ends here
