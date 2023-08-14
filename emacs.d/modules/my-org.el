@@ -110,7 +110,6 @@
   :custom
   (org-adapt-indentation nil)
 
-
   (org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
   (org-agenda-start-on-weekday nil)
   (org-agenda-sort-noeffort-is-high nil)
@@ -1353,4 +1352,5 @@ it can be passed in POS."
   :hook (org-mode . org-appear-mode)
   :custom
   (org-hide-emphasis-markers t))
+
 (provide 'my-org)
