@@ -43,10 +43,10 @@
 
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
+(add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.npm-packages/bin")
 (add-to-list 'exec-path "~/.rbenv/bin")
 (add-to-list 'exec-path "~/.rbenv/shims")
-(add-to-list 'exec-path "/usr/local/bin")
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/modules")
