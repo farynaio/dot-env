@@ -324,12 +324,23 @@
   ("Action"
    (("r" org-roam-buffer-toggle "Toggle references sidebar")
     ("l" org-roam-node-insert "Insert")
-    ("j" org-journal-open-current-journal-file "Journal")
+    ("j" my/org-journal-open-current-journal-file "Journal")
     ("f" org-roam-node-find "Find node")
     ("F" my/org-roam-node-find-other-window "Find node other window")
     ("b" org-roam-switch-to-buffer "Switch buffer")
     ("n" org-id-get-create "Heading into node")
     ("d" org-roam-find-directory "Find dir"))))
+
+(defun my/org-journal-open-current-journal-file ()
+  "Do `org-journal-open-current-journal-file` and go to the most recent entry."
+  (interactive)
+  (org-journal-open-current-journal-file)
+  (let* ((heading-title "Timeline")
+          (poslist (org-map-entries #'point (format "ITEM=\"%s\"" heading-title) 'file)))
+    (if (<= (length poslist) 0)
+      (message (format "No heading with title '%s' found!" heading-title))
+      (goto-char (nth 0 poslist))
+      (org-cycle))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))

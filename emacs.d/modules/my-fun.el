@@ -1,5 +1,5 @@
 (use-package fireplace
-  :disabled t
+  :commands fireplace
   :defer 0.3)
 
 (provide 'my-fun)
