@@ -575,6 +575,12 @@ point reaches the beginning or end of the buffer, stop there."
   (openwith-mode t)
   (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist))
 
+(use-package orderless
+  :custom
+  (completion-styles '(orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
+
 ;; (use-package demap)
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
