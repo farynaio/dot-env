@@ -163,6 +163,7 @@
                     ("therell" "there'll" nil 0)
                     ("theyre" "they're" nil 0)
                     ("totaly" "totally" nil 0)
+                    ("readonly" "read-only" nil 0)
 
                     ("FF" "FireFox" nil 0)
                     ("ff" "FireFox" nil 0)
