@@ -68,14 +68,14 @@
   :ensure nil
   :straight nil
   :config
-  (push '(?\" . ?\") electric-pair-pairs)
+  ;; (push '(?\" . ?\") electric-pair-pairs)
   (push '(?\{ . ?\}) electric-pair-pairs)
-  (push '(?\` . ?\`) electric-pair-pairs)
+  ;; (push '(?\` . ?\`) electric-pair-pairs)
   (push '(?\( . ?\)) electric-pair-pairs)
   ;; (push '(?\" . ?\") electric-pair-text-pairs)
   (push '(?\{ . ?\}) electric-pair-text-pairs)
   ;; (push '(?\' . ?\') electric-pair-text-pairs)
-  (push '(?\` . ?\`) electric-pair-text-pairs)
+  ;; (push '(?\` . ?\`) electric-pair-text-pairs)
   (electric-pair-mode 1))
 
 (use-package hungry-delete
