@@ -345,7 +345,7 @@ end-of-buffer signals; pass the rest to the default handler."
   ("C-x s" . (lambda () (interactive) (save-some-buffers t)))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
   ("C-x C-SPC" . rectangle-mark-mode)
-  ("M-w" . #'my/copy-region-or-word))
+  ("M-w" . my/copy-region-or-word))
 
 (when (eq system-type 'darwin)
   (bind-keys
