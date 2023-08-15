@@ -1,3 +1,4 @@
+;; -*-  lexical-binding; -*-
 (when (display-graphic-p)
   (setq-default scroll-up-aggressively 0.01)
   (setq
@@ -635,6 +636,17 @@ point reaches the beginning or end of the buffer, stop there."
 	  (set-window-buffer (next-window) next-win-buffer)
 	  (select-window first-win)
 	  (if this-win-2nd (other-window 1))))))
+
+(defvar aok/read-only-folders
+  '("~/emacs" "~/.emacs.d/lisp" "~/.emacs.d/straight")
+  "Files in these folders will be opened in read-only mode.")
+
+(defun aok/file-set-read-only-if-listed ()
+  "Set current file buffer as `read-only' if it's in `aok/read-only-folders'."
+  (when (seq-some (lambda (i) (string-prefix-p (expand-file-name i) buffer-file-name)) aok/read-only-folders)
+    (read-only-mode 1)))
+
+(add-hook 'find-file-hook 'aok/file-set-read-only-if-listed)
 
 (defun my/prev-frame ()
   (interactive)

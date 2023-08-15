@@ -246,6 +246,10 @@
     (kbd "TAB") 'org-cycle)
     ;; (kbd "C-c s") #'hydra-spelling/body)
 
+  (evil-define-key 'visual org-mode-map
+    (kbd "C-c C-n") 'org-next-visible-heading
+    (kbd "C-c C-p") 'org-previous-visible-heading)
+
   ;; (evil-define-key '(visual normal) org-mode-map
   ;;   ",t" #'my/google-translate-at-point)
 
