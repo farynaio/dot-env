@@ -530,7 +530,7 @@
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
     ("Action"
       (("t" org-toggle-timestamp-type "timestamp toggle")
-        ("l" org-link-archive "link archive")
+        ("l" org-link-archive-at-point "link archive")
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
