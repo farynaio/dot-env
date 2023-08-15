@@ -534,8 +534,9 @@
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
-        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        )
+        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates"))
+      "Mode"
+        (("b" org-table-header-line-mode "toggle org-table-header-line-mode"))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
         ("a" counsel-org-file "browse attachments")
