@@ -433,7 +433,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
                       (recents . 18)))
   (dashboard-set-file-icons t)
   (dashboard-set-heading-icons t)
-  (dashboard-set-init-info nil)
+  (dashboard-set-init-info t)
   (dashboard-set-navigator t)
   (dashboard-startup-banner 'logo)
   :config
