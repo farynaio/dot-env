@@ -638,7 +638,7 @@ point reaches the beginning or end of the buffer, stop there."
 	  (if this-win-2nd (other-window 1))))))
 
 (defvar aok/read-only-folders
-  '("~/emacs" "~/.emacs.d/lisp" "~/.emacs.d/straight")
+  '("~/emacs" "~/.emacs.d/lisp" "~/.emacs.d/straight" "~/.dotenv/emacs.d/straight")
   "Files in these folders will be opened in read-only mode.")
 
 (defun aok/file-set-read-only-if-listed ()
