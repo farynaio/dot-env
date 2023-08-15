@@ -97,12 +97,13 @@
   :demand t
   :diminish company-mode
   :custom
+  (require 'company-tempo)
   (company-idle-delay 0.5)
   (company-show-numbers t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
-  (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate :with company-tempo)))
+  (company-backends '((company-tempo company-capf company-files company-keywords company-dabbrev-code  :separate)))
   (company-files-exclusions '(".git/" ".DS_Store")))
 
 (use-package company-statistics
@@ -393,6 +394,39 @@ end-of-buffer signals; pass the rest to the default handler."
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (tooltip-mode -1))
+
+;; https://github.com/minad/tempel
+;; https://www.lysator.liu.se/~davidk/elisp/tempo-examples.html
+;; https://www.lysator.liu.se/~davidk/elisp/
+(use-package tempo
+  :straight nil
+  :ensure nil
+  :config
+  (defvar general-tags nil
+    "Tags for all modes.")
+
+  (add-hook 'text-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'general-tags)))
+
+  (add-hook 'prog-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'general-tags)))
+
+  (tempo-define-template
+    "elisp file variables"
+    '("-*-" p "-*-" > (comment-line))
+    "file-vars"
+    "Insert file variables block"
+    'general-tags)
+
+  (tempo-define-template
+    "TODO tag"
+    '("TODO ")
+    "todo"
+    "Insert TODO block"
+    'general-tags)
+  )
 
 (provide 'my-edit)
 ;;; my-edit.el ends here
