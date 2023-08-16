@@ -1,16 +1,13 @@
 ﻿;; -*- lexical-binding: t; -*-
-;; (require 'org-agenda)
-;; (require 'org-toc)
-;; (require 'org-habit)
-;; (require 'org-collector)
+
+;;; Code:
+
 (use-package org-contrib
   :after org)
 
 (use-package org-table-cell-move
   :after org
-  :ensure nil
-  :straight (:type built-in)
-  :load-path "~/.emacs.d/lisp")
+  :straight (:type built-in))
 
 (use-package calfw
   :after calendar
@@ -58,6 +55,7 @@
           (org-mode . iscroll-mode)
           (org-mode . company-mode)
           (org-mode . ndk/set-header-line-format)
+          (org-mode . org-appear-mode)
           (org-mode . (lambda ()
                         (setq-local
                           paragraph-start "[:graph:]+$"
@@ -199,8 +197,7 @@
               (org-agenda-skip-function
                 '(or
                    (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
-                   (my/org-agenda-skip-if-scheduled-later)
-                   ))
+                   (my/org-agenda-skip-if-scheduled-later)))
               (org-tags-match-list-sublevels nil)
               (org-agenda-remove-tags t)
               (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -209,8 +206,7 @@
                (org-agenda-skip-function
                  '(or
                     (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
-                    (my/org-agenda-skip-if-scheduled-later)
-                    ))
+                    (my/org-agenda-skip-if-scheduled-later)))
                (org-tags-match-list-sublevels nil)
                (org-agenda-remove-tags t)
                (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -219,8 +215,7 @@
                (org-agenda-skip-function
                  '(or
                     (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
-                    (my/org-agenda-skip-if-scheduled-later)
-                    ))
+                    (my/org-agenda-skip-if-scheduled-later)))
                (org-tags-match-list-sublevels nil)
                (org-agenda-remove-tags t)
                (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -229,8 +224,7 @@
                (org-agenda-skip-function
                  '(or
                     (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
-                    (my/org-agenda-skip-if-scheduled-later)
-                    ))
+                    (my/org-agenda-skip-if-scheduled-later)))
                (org-tags-match-list-sublevels nil)
                (org-agenda-remove-tags t)
                (org-agenda-files (append org-agenda-files my/org-active-projects))))
@@ -239,8 +233,7 @@
                (org-agenda-skip-function
                  '(or
                     (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP" "IN-PROCESS" "WAITING"))
-                    (my/org-agenda-skip-if-scheduled-later)
-                    ))
+                    (my/org-agenda-skip-if-scheduled-later)))
                (org-tags-match-list-sublevels nil)
                (org-agenda-remove-tags t)
                (org-agenda-files (append org-agenda-files my/org-active-projects))))))
@@ -498,6 +491,30 @@
   (unbind-key "C-c C-x C-s" org-mode-map) ; remove archive subtree shortcut
   (unbind-key "C-c C-x A" org-mode-map) ; remove archive to archive siblings shortcut
   (unbind-key "\\" org-agenda-mode-map)
+
+  (evil-define-key '(motion normal) org-mode-map
+    (kbd "<down>") 'evil-next-visual-line
+    (kbd "<up>")   'evil-previous-visual-line
+    (kbd "C-c C-s") 'org-schedule)
+
+  (evil-define-key 'insert org-mode-map
+    (kbd "C-n" ) 'completion-at-point
+    (kbd "C-p" ) 'completion-at-point)
+
+  (evil-define-key 'normal org-mode-map
+    (kbd "C-x ,") 'hydra-org/body
+    (kbd "C-n" ) 'completion-at-point
+    (kbd "C-p" ) 'completion-at-point
+    (kbd "C-x C-,") 'hydra-org/body
+    (kbd "<tab>") 'org-cycle
+    (kbd "TAB") 'org-cycle)
+  ;; (kbd "C-c s") 'hydra-spelling/body)
+  ;; (kbd ",t") 'my/google-translate-at-point)
+
+  ;; TODO maybe it's not needed
+  (evil-define-key 'visual org-mode-map
+    (kbd "C-c C-n") 'org-next-visible-heading
+    (kbd "C-c C-p") 'org-previous-visible-heading)
 
   ;; blogging
   ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
@@ -806,13 +823,17 @@ should be continued."
       (when (equal (buffer-name (current-buffer)) "*Org Agenda*")
         (with-current-buffer "*Org Agenda*" (org-agenda-redo)))))
 
-  (define-minor-mode my/org-agenda-appt-mode
-    "Minor mode for org agenda updating appt"
-    :init-value nil
-    :lighter " appt"
-    (add-hook 'after-save-hook #'my/org-agenda-to-appt-if-not-terminated nil t))
+  ;; (define-minor-mode my/org-agenda-appt-mode
+  ;;   "Minor mode for org agenda updating appt"
+  ;;   :init-value nil
+  ;;   :lighter " appt"
+  ;;   (add-hook 'after-save-hook 'my/org-agenda-to-appt-if-not-terminated nil t))
+  ;; (diminish 'my/org-agenda-appt-mode)
 
-  (diminish 'my/org-agenda-appt-mode)
+  ;; (defvar my/save-buffers-kill-terminal-was-called nil)
+  ;; (defun my/org-agenda-to-appt-if-not-terminated ()
+  ;;   (unless my/save-buffers-kill-terminal-was-called
+  ;;     (org-agenda-to-appt t)))
 
   (defun my/outline-hide-subtree ()
     (interactive)
@@ -834,23 +855,11 @@ should be continued."
         'org-metadown
         'drag-stuff-down)))
 
-  (defvar my/save-buffers-kill-terminal-was-called nil)
-
-  (defun my/org-agenda-to-appt-if-not-terminated ()
-    (unless my/save-buffers-kill-terminal-was-called
-      (org-agenda-to-appt t)))
-
-  (advice-add #'org-refile :after
-    (lambda (&rest args) (org-save-all-org-buffers)))
-
-  (advice-add #'org-archive-subtree-default :after
-    (lambda () (org-save-all-org-buffers)))
-
-  (advice-add #'org-agenda-archive-default :after
-    (lambda () (org-save-all-org-buffers)))
-
-  (advice-add #'org-clock-in  :after (lambda (&rest args) (org-save-all-org-buffers)))
-  (advice-add #'org-clock-out :after (lambda (&rest args) (org-save-all-org-buffers))))
+  (advice-add 'org-refile :after (lambda (&rest args) (org-save-all-org-buffers)))
+  (advice-add 'org-archive-subtree-default :after (lambda () (org-save-all-org-buffers)))
+  (advice-add 'org-agenda-archive-default :after (lambda () (org-save-all-org-buffers)))
+  (advice-add 'org-clock-in  :after (lambda (&rest args) (org-save-all-org-buffers)))
+  (advice-add 'org-clock-out :after (lambda (&rest args) (org-save-all-org-buffers))))
 
 (use-package org-contacts
   :after org
@@ -865,7 +874,6 @@ should be continued."
               :branch "master"))
 
 (use-package calendar
-  :ensure nil
   :demand t
   :bind (:map calendar-mode-map
           ("<" . my/scroll-year-calendar-backward)
@@ -964,6 +972,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :after (org emacsql)
   :diminish org-roam-mode
   :demand t
+  :bind ("C-c v" . hydra-org-roam/body)
   :custom
   (org-roam-directory my/org-roam-directory)
   (org-roam-graph-viewer "/usr/bin/open")
@@ -1098,6 +1107,20 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :config
   (require 'org-roam-protocol)
 
+  (pretty-hydra-define hydra-org-roam
+    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org roam" 1 -0.05))
+    ("Action"
+      (("r" org-roam-buffer-toggle "Toggle references sidebar")
+        ("l" org-roam-node-insert "Insert")
+        ("j" my/org-journal-open-current-journal-file "Journal")
+        ("f" org-roam-node-find "Find node")
+        ("F" my/org-roam-node-find-other-window "Find node other window")
+        ("b" org-roam-switch-to-buffer "Switch buffer")
+        ("n" org-id-get-create "Turn heading into node")
+        ("d" org-roam-find-directory "Find dir"))
+      "Visualization"
+      (("u" org-roam-ui-open "Open UI view"))))
+
   (org-roam-db-autosync-mode 1)
 
   (add-to-list 'display-buffer-alist
@@ -1209,7 +1232,7 @@ it can be passed in POS."
   ;; (when (fboundp 'org-roam-dailies-today)
   ;;   (org-roam-dailies-today))
 
-  (defalias 'roam #'org-roam))
+  (defalias 'roam 'org-roam))
 
 (use-package websocket
   :after org-roam-ui)
@@ -1313,11 +1336,11 @@ it can be passed in POS."
 ;; the headings of an org file
 (use-package org-mind-map
   :after org
+  :if (executable-find "graphviz")
+  :commands (org-mind-map-write org-mind-map-write-current-branch org-mind-map-write-current-tree)
   :init
-  (require 'ox-org)
-  ;; :ensure t
-  ;; Uncomment the below if 'ensure-system-packages` is installed
-  ;;:ensure-system-package (gvgen . graphviz)
+  (unless (executable-find "graphviz")
+    (message "No executable 'graphviz' found"))
   :custom
   (org-mind-map-engine "dot")       ; Default. Directed Graph
   ;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
@@ -1326,11 +1349,12 @@ it can be passed in POS."
   ;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
   ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
-  )
+  :config
+  (require 'ox-org))
 
 (use-package org-appear
   :after org
-  :hook (org-mode . org-appear-mode)
+  :commands org-appear
   :custom
   (org-hide-emphasis-markers t))
 

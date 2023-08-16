@@ -60,7 +60,6 @@
     0 t))
 
 (use-package css-mode
-  :ensure nil
   :straight nil
   :mode "\\.s?css\\'"
   :custom

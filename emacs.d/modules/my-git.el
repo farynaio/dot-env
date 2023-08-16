@@ -1,17 +1,22 @@
-(require 'smerge-mode)
-(require 'vc-git)
+;;; Code:
+
+;; (require 'vc-git)
 ;; (require 'git-rebase)
 
 ;; (use-package git-timemachine)
 
-(setq
+;; (use-package 'vc-git
+;;   :straight nil)
+
+(setq-default
   vc-follow-symlinks t
   vc-handled-backends '(Git))
 
 (use-package smerge-mode
+  :straight nil
   :bind (:map smerge-mode-map
-          ("[w" . #'smerge-prev)
-          ("]w" . #'smerge-next)))
+          ("[w" . 'smerge-prev)
+          ("]w" . 'smerge-next)))
 
 (use-package projectile
   :diminish projectile-mode
@@ -31,12 +36,42 @@
 
   (if (executable-find "ctags")
     (setq projectile-tags-command "ctags -R -e .")
-    (message "No executable 'ctags' found!"))
+    (message "No executable 'ctags' found"))
   ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+
+  (defun my/projectile-show-relative-path ()
+    (interactive)
+    (when (projectile-project-root)
+      (message (substring buffer-file-name (length (projectile-project-root))))))
+
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
+
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
+
+With a prefix argument ARG prompts for the name of the project whose cache
+to invalidate."
+    (interactive "P")
+    (let ((project-root
+            (if arg
+              (completing-read "Remove cache for: " projectile-projects-cache)
+              (projectile-project-root))))
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
+        (message "Invalidated Projectile cache for %s."
+          (propertize project-root 'face 'font-lock-keyword-face)))))
+
   (projectile-mode 1))
 
 (use-package counsel-projectile
-  :after (projectile ivy)
+  :after (projectile ivy counsel)
   :config
   (counsel-projectile-mode 1))
 
@@ -52,43 +87,17 @@
   ;;                   projectile-known-projects)
   ;;             (projectile-serialize-cache))))
 
-(defun my/projectile-show-relative-path ()
-  (interactive)
-  (when (projectile-project-root)
-    (message (substring buffer-file-name (length (projectile-project-root))))))
-
-(defun my/projectile-add-known-project (project-root)
-  (interactive (list (read-directory-name "Add to known projects: ")))
-  (projectile-add-known-project project-root)
-  (projectile-cleanup-known-projects))
-
-(defun my/projectile-invalidate-cache (arg)
-  "Remove the current project's files from `projectile-projects-cache'.
-
-With a prefix argument ARG prompts for the name of the project whose cache
-to invalidate."
-  (interactive "P")
-  (let ((project-root
-         (if arg
-             (completing-read "Remove cache for: " projectile-projects-cache)
-           (projectile-project-root))))
-    (setq projectile-project-root-cache (make-hash-table :test 'equal))
-    (remhash project-root projectile-project-type-cache)
-    (remhash project-root projectile-projects-cache)
-    (remhash project-root projectile-projects-cache-time)
-    (projectile-serialize-cache)
-    (when projectile-verbose
-      (message "Invalidated Projectile cache for %s."
-               (propertize project-root 'face 'font-lock-keyword-face)))))
-
 ;; (use-package counsel-projectile
 ;;   :config
 ;;   (progn
 ;;     (counsel-projectile-mode 1)))
 
-(use-package git-commit
-  :custom
-  (git-commit-style-convention-checks nil))
+(setq-default git-commit-style-convention-checks nil)
+
+;; (use-package git-commit
+;;   :after magit
+;;   :custom
+;;   (git-commit-style-convention-checks nil))
 
 (use-package diff-hl
   :after magit
@@ -97,23 +106,24 @@ to invalidate."
   (diff-hl-margin-mode 1)
   (diff-hl-amend-mode 1)
   (diff-hl-show-hunk-mouse-mode 1)
-  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package git-rebase
+  :after magit
   :straight nil
-  :ensure nil
-  :config
-  (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1))))
+  :hook (git-rebase-mode . (lambda () (read-only-mode -1))))
+  ;; :config
+  ;; (add-hook 'git-rebase-mode-hook (lambda () (read-only-mode -1))))
 
 ;; magit dependency
-(use-package transient
-  :defer 0.3)
+;; (use-package transient
+;;   :defer 0.3)
 
 (use-package magit
-  :defer 0.3
+  ;; :after transient
+  :commands hydra-magit/body
   :diminish magit-auto-revert-mode
-  :after transient
   :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
           (magit-status-mode . (lambda () (save-some-buffers t))))
   :bind (:map magit-mode-map
@@ -162,18 +172,19 @@ to invalidate."
   :config
   (add-to-list 'magit-blame-disable-modes 'evil-mode)
 
-  (defalias 'magit-blame-echo #'magit-blame-addition)
+  (defalias 'magit-blame-echo 'magit-blame-addition)
 
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent))
+  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
 
-(defun my/copy-diff-region ()
-  "Copy diff region without + or - markers."
-  (interactive)
-  (deactivate-mark)
-  (let ((text (buffer-substring-no-properties
-               (region-beginning) (region-end))))
-    (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text))))
+  (defun my/copy-diff-region ()
+    "Copy diff region without + or - markers."
+    (interactive)
+    (deactivate-mark)
+    (let ((text (buffer-substring-no-properties
+                  (region-beginning) (region-end))))
+      (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text)))))
 
 (provide 'my-git)
+;;; my-git.el ends here

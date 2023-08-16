@@ -1,5 +1,6 @@
+;;; Code:
+
 (use-package epa
-  :ensure nil
   :straight nil
   :custom
   (epa-file-cache-passphrase-for-symmetric-encryption t)
@@ -17,3 +18,4 @@
     (evil-make-overriding-map epa-key-mode-map 'normal)))
 
 (provide 'my-encrypt)
+;;; my-encrypt.el ends here

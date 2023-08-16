@@ -128,3 +128,4 @@ in whole buffer.  With neither, delete comments on current line."
 ;;       )))
 
 (provide 'my-utils)
+;;; my-utils.el ends here

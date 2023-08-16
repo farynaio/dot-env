@@ -1,19 +1,10 @@
-;; (require 'cl)
-(defvar my/mu4e-local-path "/usr/local/opt/mu/share/emacs/site-lisp/mu/mu4e")
-
-(if (file-directory-p my/mu4e-local-path)
-  (add-to-list 'load-path my/mu4e-local-path)
-  (message "No executable 'mu' found"))
-
 (defun my/smtpmail-send-it  (&rest args)
-  ""
   (let ((gnutls-verify-error nil)
          (tls-checktrust nil))
     (apply 'smtpmail-send-it args)))
 
 (use-package message
   ;; :commands message-send message-send-and-exit mu4e
-  :ensure nil
   :straight nil
   :custom
   (send-mail-function 'my/smtpmail-send-it)
@@ -50,7 +41,6 @@
 
 (use-package smtpmail
   :after message
-  :ensure nil
   :straight nil
   :custom
   (smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
@@ -61,7 +51,6 @@
 
 (use-package shr
   ;; :commands elfeed mu4e
-  :ensure nil
   :straight nil
   :custom
   (shr-inhibit-images t)
@@ -72,7 +61,6 @@
 
 (use-package gnus
   ;; :commands message-send message-send-and-exit mu4e
-  :ensure nil
   :custom
   (gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
   (gnus-treat-hide-citation t)
@@ -116,12 +104,14 @@
   (imagemagick-register-types))
 
 (use-package mu4e
-  :straight nil
-  :ensure nil
+  :init
+  (defvar my/mu4e-local-path "/usr/local/opt/mu/share/emacs/site-lisp/mu/mu4e")
+  (unless (file-directory-p my/mu4e-local-path)
+    (message "No executable 'mu' found"))
   :if (file-directory-p my/mu4e-local-path)
   :commands mu4e
+  :straight nil
   :hook (mu4e-compose-mode . company-mode)
-  :ensure-system-package mu
   :bind (:map mu4e-main-mode-map
           ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
           ("x" . mu4e-kill-update-mail)
@@ -197,9 +187,9 @@
   (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
   (mu4e-org-contacts-file (expand-file-name "~/Documents/emacs/private/contacts.org.gpg"))
   (mu4e-headers-fields '((:human-date . 22)
-                         (:flags . 6)
-                         (:from . 22)
-                         (:subject)))
+                          (:flags . 6)
+                          (:from . 22)
+                          (:subject)))
   (mu4e-change-filenames-when-moving t)
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-attachment-dir  "~/Downloads")
@@ -208,6 +198,8 @@
   (mu4e-index-lazy-check t)
   (mu4e-headers-skip-duplicates t)
   :config
+  (add-to-list 'load-path my/mu4e-local-path)
+
   (evil-define-key '(motion emacs normal) mu4e:view-mode-map
     (kbd "C-d") #'evil-scroll-down
     (kbd "C-u") #'evil-scroll-up)
@@ -260,8 +252,7 @@
 
 (use-package org-mu4e
   :after mu4e
-  :straight nil
-  :ensure nil)
+  :straight nil)
 
 (use-package mu4e-maildirs-extension
   :after mu4e
@@ -271,6 +262,7 @@
 (use-package org-mime
   :after mu4e)
 
-(defalias 'mu #'mu4e)
+(defalias 'mu 'mu4e)
 
 (provide 'my-email)
+;;; my-email.el ends here

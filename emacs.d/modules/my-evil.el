@@ -1,16 +1,8 @@
-(require 'inc-dec-at-point)
+
+;;; Code:
 
 (use-package evil
   :demand t
-  :custom
-  (evil-want-fine-undo t)
-  (evil-want-C-u-scroll t)
-  (evil-want-C-i-jump nil)
-  (evil-search-module 'evil-search)
-  (evil-undo-system 'undo-fu)
-  (evil-mode-line-format nil)
-  (evil-shift-width tab-width)
-  (evil-cross-lines t)
   :bind
   (("C-f" . universal-argument)
     :map universal-argument-map
@@ -19,25 +11,16 @@
     :map evil-insert-state-map
     ("TAB" . tab-to-tab-stop)
     ("C-k" . kill-line)
-    ("C-n" . company-next-page)
-    ("C-p" . company-previous-page)
     :map evil-normal-state-map
+    ("DEL" . ignore) ;; Unbind 'evil-backward-char'
     ("C-e" . move-end-of-line)
-    ("C-a" . my/smarter-move-beginning-of-line)
     ("TAB" . indent-for-tab-command)
-    ("C-x T" . my/move-current-window-to-new-frame)
     ("C-]" . xref-find-definitions)
     ("C-}" . xref-find-definitions-other-window)
     (",." . dired-jump)
-    (",m" . my/dired-jump-make-new-window)
-    (",n" . minimap-mode)
-    (",f" . my/rgrep)
-    (",w" . my/hydra-browser/body)
+    (",g" . hydra-git/body)
     (",x b" . my/kill-all-buffers-except-toolkit)
     (",x t" . delete-frame)
-    (",c d" . my/copy-file-name)
-    (",a" . 'artbollocks-mode)
-    (",cd" . my/copy-file-name-to-clipboard)
     (",/" . evil-ex-nohighlight)
     ("h" . evil-first-non-blank)
     ("l" . evil-end-of-line)
@@ -46,7 +29,6 @@
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-p" . evil-jump-forward)
-    ("C-w T" . my/move-current-window-to-new-frame)
     ("]c" . diff-hl-next-hunk)
     ("[c" . diff-hl-previous-hunk)
     ("[l" . langtool-goto-previous-error)
@@ -67,6 +49,10 @@
     ("C-u" . evil-scroll-up)
     ("C-s" . counsel-grep)
     ("C-c C-S-o" . browse-url-generic)
+    ;; (",w" . hydra-browser/body)
+    ;; (",p" . hydra-project/body)
+    ;; ("C-c o" . hydra-org/body)
+    ("C-c v" . hydra-org-roam/body)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
     ("C-a" . my/smarter-move-beginning-of-line)
@@ -88,6 +74,15 @@
     ("C-w T" . my/move-current-window-to-new-frame)
     ("<down>" . evil-next-visual-line)
     ("<up>" . evil-previous-visual-line))
+  :custom
+  (evil-want-fine-undo t)
+  (evil-want-C-u-scroll t)
+  (evil-want-C-i-jump nil)
+  (evil-search-module 'evil-search)
+  (evil-undo-system 'undo-fu)
+  (evil-mode-line-format nil)
+  (evil-shift-width tab-width)
+  (evil-cross-lines t)
   :config
   (evil-mode 1)
 
@@ -103,7 +98,7 @@
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-previous-error))
       (t (previous-error))))
 
-  (add-hook 'with-editor-mode-hook #'evil-insert-state)
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
   (add-hook 'evil-insert-state-entry-hook (lambda ()
                                             (when current-input-method
                                               (deactivate-input-method))))
@@ -123,8 +118,8 @@
   (unbind-key "C-x m" global-map)
   (unbind-key "C-\"" global-map) ;; 'toggle-input-method'
 
-  (bind-key "C-w q" #'delete-window)
-  (bind-key "C-w C-q" #'delete-window)
+  (bind-key "C-w q" 'delete-window)
+  (bind-key "C-w C-q" 'delete-window)
 
   (unbind-key "=" evil-normal-state-map)
   (unbind-key "+" evil-normal-state-map)
@@ -209,67 +204,15 @@
   (add-to-list 'evil-emacs-state-modes 'Info-mode)
   (add-to-list 'evil-emacs-state-modes 'fireplace-mode)
   (add-to-list 'evil-emacs-state-modes 'chatgpt-shell-mode)
-
-  (evil-declare-change-repeat 'company-complete)
-
-  (with-eval-after-load 'edebug
-    (evil-make-overriding-map edebug-mode-map '(normal motion))
-    (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
-
-  (setq my/text-modes (list 'org-mode-map 'emacs-lisp-mode-map))
-
-  (dolist (element my/text-modes)
-    (evil-define-key '(motion normal) element
-      (kbd "<down>") 'evil-next-visual-line
-      (kbd "<up>")   'evil-previous-visual-line))
-
-  ;; Unbind 'evil-backward-char'
-  (evil-define-key '(normal) 'global-map
-    (kbd "DEL") 'ignore)
-
-  (evil-define-key 'normal prog-mode-map
-    (kbd "C-c m") 'hydra-merge/body)
-
-  (evil-define-key 'normal ledger-mode-map
-    (kbd "C-c L") 'hydra-ledger/body)
-
-  (evil-define-key 'insert org-mode-map
-    (kbd "C-n" ) 'completion-at-point
-    (kbd "C-p" ) 'completion-at-point)
-
-  (evil-define-key 'normal org-mode-map
-    (kbd "C-x ,") 'hydra-org/body
-    (kbd "C-n" ) 'completion-at-point
-    (kbd "C-p" ) 'completion-at-point
-    (kbd "C-x C-,") 'hydra-org/body
-    (kbd "<tab>") 'org-cycle
-    (kbd "TAB") 'org-cycle)
-    ;; (kbd "C-c s") #'hydra-spelling/body)
-
-  (evil-define-key 'visual org-mode-map
-    (kbd "C-c C-n") 'org-next-visible-heading
-    (kbd "C-c C-p") 'org-previous-visible-heading)
-
-  ;; (evil-define-key '(visual normal) org-mode-map
-  ;;   ",t" #'my/google-translate-at-point)
-
-  (evil-define-key '(motion normal) org-mode-map
-    (kbd "C-c C-s") 'org-schedule)
+  (add-to-list 'evil-emacs-state-modes 'jump-tree-visualizer-mode)
+  (add-to-list 'evil-emacs-state-modes 'edebug-x-breakpoint-list-mode)
+  (add-to-list 'evil-emacs-state-modes 'edebug-x-instrumented-function-list-mode)
 
   ;; (evil-define-key '(motion normal) help-mode-map
   ;;   "l" 'help-go-back
   ;;   "r" 'help-go-forward
   ;;   "s-TAB" 'backward-button
   ;;   "TAB" 'forward-button)
-
-  ;; (evil-define-key 'normal ediff-mode-map
-  ;;   "[c" 'ediff-next-difference
-  ;;   "]c" 'ediff-previous-difference)
-
-  ;; (evil-define-key 'normal tide-mode-map
-  ;;   ",t" 'hydra-tide/body
-  ;;   "M-." 'tide-jump-to-implementation
-  ;;   "M-," 'tide-jump-back)
 
   ;; https://www.emacswiki.org/emacs/Evil#toc12
   ;; Brings back the access to RET and SPC in some modes.
@@ -280,7 +223,12 @@
   ;; (my/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
   ;; (my/move-key evil-motion-state-map evil-normal-state-map " ")
 
-  (defalias 'forward-evil-word #'forward-evil-symbol))
+  (defalias 'forward-evil-word 'forward-evil-symbol)
+
+  (defun my/evil-switch-to-normal-state-if-insert (&optional arg)
+    "Switched to evil normal state from insert"
+    (when (and (boundp 'evil-state) (string-equal evil-state "insert"))
+      (evil-normal-state))))
 
 (use-package evil-surround
   :after evil
@@ -307,12 +255,11 @@
   (defun make-evil-multiedit-case-sensitive (fn &rest args)
     (let ((case-fold-search (not iedit-case-sensitive)))
       (apply fn args)))
-  (advice-add #'evil-multiedit-match-and-next :around #'make-evil-multiedit-case-sensitive))
+  (advice-add 'evil-multiedit-match-and-next :around 'make-evil-multiedit-case-sensitive))
 
-(use-package undo-fu
+(use-package evil-numbers
   :after evil
-  :bind (:map evil-normal-state-map
-          ("u" . undo-fu-only-undo)
-          ("C-r" . undo-fu-only-redo)))
+  :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-pt))
 
 (provide 'my-evil)
+;;; my-evil.el ends here

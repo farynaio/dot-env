@@ -1,13 +1,10 @@
-;; (require 'text-mode)
-;; (require 'smart-quotes)
-;; (require 'cl)
+;;; Code:
 
 ;; (if (executable-find "hunspell")
 ;;     (progn
 ;;       (setenv "DICPATH" (concat (getenv "HOME") "/Documents/Dropbox/devel/spelling"))
 ;;       (setq ispell-program-name (executable-find "hunspell")))
 ;;   (message "'hunspell' not installed!"))
-
 
 (setq skk-large-jisyo "~/.emacs.d/dict/SKK-JISYO.L") ;; is this needed?
 
@@ -33,7 +30,6 @@
 
 (use-package abbrev
   :straight nil
-  :ensure nil
   :diminish "Abb"
   :demand t
   :hook ((text-mode . abbrev-mode)
@@ -318,12 +314,35 @@
                                         ; test
                        "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                        ) t) "\\b")
-    artbollocks-jargon nil))
+    artbollocks-jargon nil)
+  )
 
 (use-package auctex
   :disabled t
   :hook (LaTeX-mode . turn-on-reftex)
   :defer 0.3)
+
+(pretty-hydra-define hydra-spelling
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Spelling" 1 -0.05))
+  ("Checker"
+   (("c" langtool-correct-buffer "correction")
+    ("C" langtool-check-done "clear")
+    ("d" ispell-change-dictionary "dictionary")
+    ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+    ("l" my/lang-toggle "language switch" :exit t)
+    ("w" wiki-summary "wiki"))
+   "Japanese"
+   (("k" japanese-katakana-region "katakana charset")
+    ("h" japanese-hiragana-region "hiragana charset"))
+   ;; TODO add encoding switch
+   "Errors"
+   (("<" flyspell-correct-previous "previous" :color pink)
+    (">" flyspell-correct-next "next" :color pink)
+    ("x" langtool-check-buffer "langtool check")
+    ("q" langtool-check-done "langtool done")
+    ("a" artbollocks-mode "artbollocks"))))
+
+(bind-key "C-c s" 'hydra-spelling/body)
 
 (provide 'my-writing)
 ;;; my-writing.el ends here

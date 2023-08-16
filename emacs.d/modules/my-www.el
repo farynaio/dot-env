@@ -1,5 +1,8 @@
 ;; Disable open link in browser on click and www link open
-(setq browse-url-browser-function (lambda (URL &optional NEW-WINDOW)))
+
+;;; Code:
+
+(setq-default browse-url-browser-function (lambda (URL &optional NEW-WINDOW)))
 
 (defun my/browse-url-tor (url &optional new-window)
   "Ask the Tor WWW browser to load URL.
@@ -67,8 +70,8 @@ instead of `browse-url-new-window-flag'."
 ;;      (defalias 'w #'af/eww)))
 (use-package w3m
   :if (executable-find "w3m")
-  :hook ((w3m-mode . iscroll-mode))
-  :demand t
+  :hook (w3m-mode . iscroll-mode)
+  :commands (w3m w3m-goto-url w3m-search)
   :bind (:map w3m-mode-map
           ("M-h" . my/w3m-history-full)
           ("<" . beginning-of-buffer)
@@ -90,6 +93,9 @@ instead of `browse-url-new-window-flag'."
           ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
           ("C-c C-e" . my/w3m-goto-new-session-url))
   :preface
+  (unless (executable-find "w3m")
+    (message (concat "Executable 'w3m' not found!")))
+
   (defun my/w3m-goto-frame (url &rest args)
     (interactive (list (read-string "URL: ")))
     (let ((w3m-alive (w3m-alive-p))
@@ -156,6 +162,23 @@ instead of `browse-url-new-window-flag'."
   ;;   '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
   ;;      ("." . my/w3m-goto-frame)))
   :config
+  (pretty-hydra-define hydra-browser
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
+    ("Go to"
+      ;; ("S" my/w3m-search-frame "search in frame" :exit t)
+      (("G" w3m-goto-url-new-session "go to")
+        ("g" my/w3m-goto-frame "go to in frame"))
+      "Open"
+      (("w" my/w3m-open-frame "open browser in frame")
+        ("W" my/w3m-open-other-window "open browser"))
+      "Search"
+      (("s" my/w3m-search-frame "search"))
+      ;; ("s" my/w3m-search-new-session "search" :exit t)
+      ))
+
+  (evil-define-key 'normal global-map
+    (kbd ",w") 'my/hydra-browser/body)
+
   (defun my/w3m-create-empty-session ()
     (interactive)
     (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
@@ -248,9 +271,6 @@ instead of `browse-url-new-window-flag'."
     (lambda (orig-fun &rest args)
       (funcall orig-fun t))))
 
-(when (not (executable-find "w3m"))
-  (message (concat "Executable 'w3m' not found!")))
-
 (use-package engine-mode
   :defer 3
   :config
@@ -283,3 +303,4 @@ instead of `browse-url-new-window-flag'."
   (engine-mode t))
 
 (provide 'my-www)
+;;; my-www.el ends here

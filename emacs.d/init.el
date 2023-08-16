@@ -43,7 +43,6 @@
 
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
-(add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.npm-packages/bin")
 (add-to-list 'exec-path "~/.rbenv/bin")
 (add-to-list 'exec-path "~/.rbenv/shims")
@@ -102,14 +101,13 @@
   (auto-compile-on-load-mode))
 
 ;; TODO safe to remove?
-(use-package use-package-ensure-system-package)
+;; (use-package use-package-ensure-system-package)
 
 (use-package diminish
   :config
   ;; (diminish 'editorconfig-mode)
   (diminish 'emacs-lock-mode)
   (diminish 'auto-revert-mode)
-  (diminish 'eldoc-mode)
   (diminish 'visual-line-mode)
   (diminish 'js-mode "JS")
   (diminish 'reveal-mode)
@@ -136,10 +134,8 @@
 ;; (setq safe-local-eval-forms (list))
 (add-to-list 'safe-local-eval-forms '(progn (jarfar/org-tasks-refile-targets-local)))
 
-(when (eq system-type 'darwin)
-  (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem"))
 
-(use-package dash)
+;; (use-package dash)
 
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 ;; (use-package exec-path-from-shell
@@ -155,6 +151,7 @@
 (run-with-idle-timer (* 60 5) t 'garbage-collect)
 
 (when (eq system-type 'darwin)
+  (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
   (setq
     mac-command-modifier 'super
     ns-right-alternate-modifier nil))
@@ -220,7 +217,7 @@
   auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-(defun reload-config ()
+(defun my/reload-config ()
 	"Reload config."
 	(interactive)
 	(load-file (expand-file-name "init.el" user-emacs-directory))
@@ -228,7 +225,7 @@
 
 (display-time-mode -1)
 
-(defvar *protected-buffers* '("*scratch*" "*Messages*" "*dashboard*" "Notes.org")
+(defvar *protected-buffers* '("*scratch*" "*Messages*" "Notes.org")
   "Buffers that cannot be killed.")
 
 (defun my/protected-buffers ()
@@ -262,21 +259,21 @@
 ;; (defun risky-local-variable-p (sym &optional _ignored) nil)
 ;; (advice-add 'risky-local-variable-p :override #'ignore)
 
-(when (memq window-system '(mac ns x))
-  (use-package exec-path-from-shell
-    :custom
-    (exec-path-from-shell-arguments '("-l"))
-    :config
-    (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
-    (add-to-list 'exec-path-from-shell-variables "LANG")
-    (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
-    (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
-    (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
-    (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
-    (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
-    (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
-    (add-to-list 'exec-path-from-shell-variables "LC_TIME")
-    (exec-path-from-shell-initialize)))
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :custom
+  (exec-path-from-shell-arguments '("-l"))
+  :config
+  (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
+  (add-to-list 'exec-path-from-shell-variables "LANG")
+  (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
+  (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
+  (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
+  (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
+  (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
+  (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
+  (add-to-list 'exec-path-from-shell-variables "LC_TIME")
+  (exec-path-from-shell-initialize))
 
 (defvar my/local-custom-variables-file-path (expand-file-name "/home/user/.emacs.d/emacs-local-config/custom.el"))
 

@@ -1,8 +1,8 @@
-(use-package hydra
+(use-package major-mode-hydra
   :straight (:type git
              :host github
-             :repo "abo-abo/hydra"
-             :branch "master")
+             :repo "jerrypnz/major-mode-hydra.el"
+              :branch "master")
   :bind (("C-c I" . hydra-image/body)
          ("C-c T" . hydra-tool/body)
          ("C-c t" . hydra-btoggle/body)
@@ -11,28 +11,7 @@
          ("C-c p" . hydra-projectile/body)
          ;; ("C-c q" . hydra-query/body) ;;
          ;; ("C-c b" . hydra-browser/body) ;;
-         ("C-c s" . hydra-spelling/body)
-         ("C-c v" . hydra-org-roam/body)
-         :map evil-normal-state-map
-         (",b" . hydra-buffer/body)
-         ;; (",w" . hydra-browser/body)
-         (",i" . hydra-snippet/body)
-         ;; (",p" . hydra-project/body)
-         ("C-c f" . hydra-flycheck/body)
-         ;; ("C-c o" . hydra-org/body)
-         ("C-c v" . hydra-org-roam/body)
-         (",g" . hydra-git/body)
-         :map dired-mode-map
-         ("C-c d" . hydra-dired/body)
-         ;; ("C-c u" . hydra-upload/body)
-         ))
-
-(use-package major-mode-hydra
-  :straight (:type git
-             :host github
-             :repo "jerrypnz/major-mode-hydra.el"
-             :branch "master")
-  :after hydra
+          )
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
     "Displays an icon from all-the-icon."
@@ -58,23 +37,6 @@
       ("q" smart-quotes-mode "smart quotes toggle" :toggle t)
       ("e" electric-pair-mode "electric pair toggle" :toggle t))))
 
-(pretty-hydra-define hydra-flycheck
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Flycheck" 1 -0.05))
-  ("Checker"
-    (("f" flyspell-mode "flyspell" :toggle t)
-      ("?" flycheck-describe-checker "describe")
-      ("d" flycheck-disable-checker "disable")
-      ("m" flycheck-mode "mode")
-      ("s" flycheck-select-checker "select"))
-    "Errors"
-    (("<" flycheck-previous-error "previous" :color pink)
-      (">" flycheck-next-error "next" :color pink)
-      ("b" flycheck-buffer "check")
-      ("l" flycheck-list-errors "list"))
-    "Other"
-    (("M" flycheck-manual "manual")
-      ("v" flycheck-verify-setup "verify setup"))))
-
 (pretty-hydra-define hydra-image
   (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
   ("Action"
@@ -84,58 +46,6 @@
    (("-" image-decrease-size "out")
     ("+" image-increase-size "in")
     ("=" image-transform-reset "reset"))))
-
-(pretty-hydra-define hydra-ledger
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "money" "Ledger" 1 -0.05))
-  ("Action"
-   (("b" leadger-add-transaction "add")
-    ("c" ledger-mode-clean-buffer "clear")
-    ("i" ledger-copy-transaction-at-point "copy")
-    ("s" ledger-delete-current-transaction "delete")
-    ("r" ledger-report "report"))))
-
-(pretty-hydra-define hydra-magit
-  (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
-  ("Action"
-   (("b" magit-blame "blame")
-    ("l" magit-log-buffer-file "commit log (current file)")
-    ("L" magit-log-current "commit log (project)")
-    ("s" magit-status "status"))))
-
-(pretty-hydra-define hydra-git
-  (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-  ("Action"
-   (("s" magit-status "status")
-    ("b" magit-branch "branch")
-    ("z" magit-stash "stash")
-    ("r" magit-rebase "rebase")
-    ("B" magit-blame "blame")
-    ("x" magit-reset "reset")
-    ("c" magit-checkout "checkout")
-    ("S" magit-bisect "bisect"))
-   "Diff"
-   (("dc" magit-diff "diff" :exit t)
-    ("df" magit-diff-buffer-file "diff file" :exit t))
-   "Log"
-   (("ll" magit-log-all "log")
-    ("lf" magit-log-buffer-file "file log"))
-   "Update"
-   (("f" magit-fetch "fetch")
-    ("F" magit-pull "pull"))
-   "Other"
-   (("oi" magit-init "init")
-    ("oc" magit-clone "clone"))))
-
-(pretty-hydra-define hydra-merge
-  (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
-  ("Move"
-   (("n" smerge-next "next")
-    ("p" smerge-prev "previous"))
-   "Keep"
-   (("l" smerge-keep-lower "lower")
-    ("u" smerge-keep-upper "upper"))
-   "Diff"
-   (("R" smerge-refine "redefine"))))
 
 (pretty-hydra-define hydra-projectile
   (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
@@ -161,34 +71,47 @@
     ("R" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace")
     ("s" counsel-rg "search"))))
 
-(pretty-hydra-define hydra-query
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))
-  ("Query"
-    (("d" engine/search-duckduckgo "duckduckgo")
-    ("g" engine/search-github "github")
-    ("i" engine/search-images "images")
-    ("m" engine/search-maps "maps")
-    ("w" engine/search-wikipedia "wikipedia"))))
+  (pretty-hydra-define hydra-magit
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
+    ("Action"
+      (("b" magit-blame "blame")
+        ("l" magit-log-buffer-file "commit log (current file)")
+        ("L" magit-log-current "commit log (project)")
+        ("s" magit-status "status"))))
 
-(pretty-hydra-define hydra-spelling
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Spelling" 1 -0.05))
-  ("Checker"
-   (("c" langtool-correct-buffer "correction")
-    ("C" langtool-check-done "clear")
-    ("d" ispell-change-dictionary "dictionary")
-    ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-    ("l" my/lang-toggle "language switch" :exit t)
-    ("w" wiki-summary "wiki"))
-   "Japanese"
-   (("k" japanese-katakana-region "katakana charset")
-    ("h" japanese-hiragana-region "hiragana charset"))
-   ;; TODO add encoding switch
-   "Errors"
-   (("<" flyspell-correct-previous "previous" :color pink)
-    (">" flyspell-correct-next "next" :color pink)
-    ("x" langtool-check-buffer "langtool check")
-    ("q" langtool-check-done "langtool done")
-    ("a" artbollocks-mode "artbollocks"))))
+  (pretty-hydra-define hydra-git
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
+    ("Action"
+      (("s" magit-status "status")
+        ("b" magit-branch "branch")
+        ("z" magit-stash "stash")
+        ("r" magit-rebase "rebase")
+        ("B" magit-blame "blame")
+        ("x" magit-reset "reset")
+        ("c" magit-checkout "checkout")
+        ("S" magit-bisect "bisect"))
+      "Diff"
+      (("dc" magit-diff "diff" :exit t)
+        ("df" magit-diff-buffer-file "diff file" :exit t))
+      "Log"
+      (("ll" magit-log-all "log")
+        ("lf" magit-log-buffer-file "file log"))
+      "Update"
+      (("f" magit-fetch "fetch")
+        ("F" magit-pull "pull"))
+      "Other"
+      (("oi" magit-init "init")
+        ("oc" magit-clone "clone"))))
+
+;; (pretty-hydra-define hydra-query
+;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))
+;;   ("Query"
+;;     (("d" engine/search-duckduckgo "duckduckgo")
+;;     ("g" engine/search-github "github")
+;;     ("i" engine/search-images "images")
+;;     ("m" engine/search-maps "maps")
+;;     ("w" engine/search-wikipedia "wikipedia"))))
+
 
 ;; (pretty-hydra-define hydra-tex
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "tex" "LaTeX" 1 -0.05))
@@ -198,13 +121,13 @@
 ;;       ("s" counsel-rg "search")
 ;;       ("t" reftex-toc "table of content"))))
 
-(pretty-hydra-define hydra-tool
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "briefcase" "Tool" 1 -0.05))
-  ("Format"
-   (("x" my/reformat-xml "format XML"))
-   "Remove"
-   (("c" my/comments-delete-buffer "remove comments from buffer")
-    ("l" my/remove-empty-lines "remove empty lines"))))
+;; (pretty-hydra-define hydra-tool
+;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "briefcase" "Tool" 1 -0.05))
+;;   ("Format"
+;;    (("x" my/reformat-xml "format XML"))
+;;    "Remove"
+;;    (("c" my/comments-delete-buffer "remove comments from buffer")
+;;     ("l" my/remove-empty-lines "remove empty lines"))))
 
 ;; (pretty-hydra-define hydra-upload
 ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "cloud-upload" "Upload" 1 -0.05))
@@ -212,54 +135,6 @@
 ;;    (("b" webpaste-paste-buffe "buffer")
 ;;     ("i" imgbb-upload "image")
 ;;     ("r" webpaste-paste-region "region"))))
-
-(pretty-hydra-define hydra-snippet
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "sticky-note" "Snippets" 1 -0.05))
-  ("Snippet"
-   (("s" yas-insert-snippet "insert")
-    ("n" yas-new-snippet "new")
-    ("e" yas-visit-snippet-file "edit")
-    ("r" yas-reload-all "reload"))))
-
-(pretty-hydra-define hydra-browser
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
-  ("Go to"
-   ;; ("S" my/w3m-search-frame "search in frame" :exit t)
-   (("G" w3m-goto-url-new-session "go to")
-    ("g" my/w3m-goto-frame "go to in frame"))
-   "Open"
-   (("w" my/w3m-open-frame "open browser in frame")
-    ("W" my/w3m-open-other-window "open browser"))
-   "Search"
-   (("s" my/w3m-search-frame "search"))
-   ;; ("s" my/w3m-search-new-session "search" :exit t)
-   ))
-
-(pretty-hydra-define hydra-dired
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
-  ("Actions"
-   (("c" my/dired-shell-command "run command")
-    ("g" magit-status "magit status"))))
-
-(pretty-hydra-define hydra-buffer
-  (:hint nil :color teal :quit-key "q" :title (with-faicon "align-justify" "Buffer" 1 -0.05))
-  ("Actions"
-   (("i" ibuffer "ibuffer")
-    ("k" my/kill-all-buffers-except-toolkit))))
-
-(pretty-hydra-define hydra-org-roam
-  (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org roam" 1 -0.05))
-  ("Action"
-    (("r" org-roam-buffer-toggle "Toggle references sidebar")
-     ("l" org-roam-node-insert "Insert")
-     ("j" my/org-journal-open-current-journal-file "Journal")
-     ("f" org-roam-node-find "Find node")
-     ("F" my/org-roam-node-find-other-window "Find node other window")
-     ("b" org-roam-switch-to-buffer "Switch buffer")
-     ("n" org-id-get-create "Turn heading into node")
-     ("d" org-roam-find-directory "Find dir"))
-    "Visualization"
-    (("u" org-roam-ui-open "Open UI view"))))
 
 ;; (pretty-hydra-define hydra-php-debug
 ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "php" "PHP" 1 -0.05))

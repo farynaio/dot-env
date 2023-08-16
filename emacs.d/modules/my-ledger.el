@@ -29,7 +29,7 @@
        ("income statement" "%(binary) --invert --real -S -T [[ledger-mode-flags]] -f %(ledger-file) bal ^income ^expenses -p \"this month\"")))
   :config
   (pretty-hydra-define hydra-ledger
-    (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "Ledger" 1 -0.05))
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "money" "Ledger" 1 -0.05))
     ("Action"
       (
         ;; ("b" my/erc-browse-last-url "browse last url")
@@ -38,7 +38,10 @@
         ("t" ledger-display-ledger-stats "stats")
         ("r" ledger-report "report"))))
 
-  (unbind-key "<tab>" ledger-mode-map))
+  (unbind-key "<tab>" ledger-mode-map)
+
+  (evil-define-key 'normal ledger-mode-map
+    (kbd "C-c L") 'hydra-ledger/body))
 
 (use-package flycheck-ledger
   :after ledger-mode)

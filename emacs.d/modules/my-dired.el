@@ -1,13 +1,21 @@
 (setq-default delete-by-moving-to-trash t)
 
-(when (eq system-type 'darwin)
-  (setq-default trash-directory "~/.Trash"))
-
-(when (eq system-type 'gnu/linux)
-  (setq-default trash-directory "~/.local/share/Trash/files"))
+(cond
+  ((eq system-type 'darwin)
+    (setq-default trash-directory "~/.Trash")
+    ;; https://emacs.stackexchange.com/questions/63336/deleting-a-file-with-name-that-already-exists-in-trash/63342#63342
+    (when (eq system-type 'darwin)
+      (defun system-move-file-to-trash (filename)
+        "Move file or directory named FILENAME to the trash."
+        (save-excursion
+          (ns-do-applescript
+            (format
+              "tell application \"Finder\" to delete POSIX file \"%s\""
+              filename))))))
+  ((eq system-type 'gnu/linux)
+    (setq-default trash-directory "~/.local/share/Trash/files")))
 
 (use-package ls-lisp
-  :ensure nil
   :straight nil
   :if (eq system-type 'darwin)
   :custom
@@ -15,12 +23,30 @@
   (ls-lisp-use-insert-directory-program nil))
 
 (use-package dired
-  :ensure nil
   :straight nil
   :demand t
   :delight "Dired "
   :hook ((dired-mode . dired-hide-details-mode)
-          (dired-mode . hl-line-mode))
+          (dired-mode . hl-line-mode)
+          (dired-mode . all-the-icons-dired-mode))
+  :bind (:map dired-mode-map
+          ("<tab>" . dired-subtree-cycle)
+          ("<S-tab>" . dired-subtree-toggle)
+          ("i" . dired-subtree-toggle)
+          ("C-c C-n" . dired-narrow)
+          ("C-c C-f" . dired-narrow-fuzzy)
+          ("C-c C-r" . dired-narrow-regexp)
+          ("C-c d" . hydra-dired/body)
+          ;; ("C-c u" . hydra-upload/body)
+	  )
+  :preface
+  (defun my/dired-shell-command ()
+    "Run any shell command in Dired."
+    (interactive )
+    (let ((cmd (read-string "Run shell command: ")))
+      (if cmd
+        (dired-run-shell-command cmd)
+        (user-error "Command is required!"))))
   :custom
   (find-name-arg "-iname")
   (dired-dwim-target t)
@@ -41,38 +67,46 @@
        ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "open")
        ;; ("\\.\\(?:mp3\\|ogg\\)\\'" "open")
        ;; ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
-  :preface
-  (defun my/dired-shell-command ()
-    "Run any shell command in Dired."
-    (interactive )
-    (let ((cmd (read-string "Run shell command: ")))
-      (if cmd
-        (dired-run-shell-command cmd)
-        (user-error "Command is required!"))))
   :config
   (evil-define-key 'normal dired-mode-map
-    (kbd "C-s") #'find-name-dired
-    (kbd "<") #'beginning-of-buffer
-    (kbd ">") #'end-of-buffer
-    (kbd "C-x w") #'my/dired-copy-dirname-as-kill
-    (kbd "W") #'my/dired-copy-path-to-file-as-kill
+    (kbd "C-s") 'find-name-dired
+    (kbd "<") 'beginning-of-buffer
+    (kbd ">") 'end-of-buffer
+    (kbd "C-x w") 'my/dired-copy-dirname-as-kill
+    (kbd "W") 'my/dired-copy-path-to-file-as-kill
     (kbd "k") (lambda () (interactive) (dired-do-kill-lines t))
-    (kbd "r") #'my/rgrep
-    (kbd "C-w =") #'balance-windows
-    (kbd "C-w |") #'maximize-window
-    (kbd "C-w q") #'evil-quit
-    (kbd "C-w v") #'split-window-right
-    (kbd "/") #'evil-ex-search-forward
-    (kbd "n") #'evil-ex-search-next
-    (kbd "N") #'evil-ex-search-previous
+    (kbd "r") 'my/rgrep
+    (kbd "C-w =") 'balance-windows
+    (kbd "C-w |") 'maximize-window
+    (kbd "C-w q") 'evil-quit
+    (kbd "C-w v") 'split-window-right
+    (kbd "/") 'evil-ex-search-forward
+    (kbd "n") 'evil-ex-search-next
+    (kbd "N") 'evil-ex-search-previous
     (kbd "<backspace>") (lambda () (interactive) (my/dired-go-up-reuse "..")))
 
-  (when (file-executable-p "/usr/local/bin/gls")
-    (setq
-      insert-directory-program "/usr/local/bin/gls"
-      dired-listing-switches "-alh1v"))
+  (evil-define-key 'normal global-map
+    (kbd ",m") 'my/dired-jump-make-new-window)
+
+  ;; (pretty-hydra-define hydra-dired
+  ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
+  ;;   ("Actions"
+  ;;     (("c" my/dired-shell-command "run command")
+  ;;       ("g" magit-status "magit status"))))
+
+  (when (eq system-type 'darwin)
+    (if (executable-find "gls")
+      (setq
+        insert-directory-program "/usr/local/bin/gls"
+        dired-listing-switches "-alh1v")
+      (message "Executable 'gls' not found")))
 
   (put 'dired-find-alternate-file 'disabled nil)
+
+  (defun my/sudo-dired ()
+    "Run Dired in sudo mode."
+    (interactive)
+    (dired "/sudo::/"))
 
   (defun my/dired-go-up-reuse (&optional dir)
     (interactive)
@@ -117,31 +151,20 @@
       (unless (string= string "")
         (let ((new-kill (concat default-directory string)))
                (kill-new new-kill)
-               (message "%s" new-kill)
-               ))))
-  )
+          (message "%s" new-kill))))))
+
+(use-package all-the-icons-dired
+  :diminish all-the-icons-dired-mode
+  :after (dired all-the-icons)
+  :commands all-the-icons-dired-mode)
 
 (use-package dired-subtree
   :after dired
-  :bind (:map dired-mode-map
-          ("<tab>" . dired-subtree-cycle)
-          ("<S-tab>" . dired-subtree-toggle)
-          ("i" . dired-subtree-toggle)))
+  :commands (dired-subtree-cycle dired-subtree-toggle dired-subtree-toggle))
 
 (use-package dired-narrow
   :after dired
-  :bind (("C-c C-n" . dired-narrow)
-         ("C-c C-f" . dired-narrow-fuzzy)
-         ("C-c C-r" . dired-narrow-regexp)))
-
-  ;; https://emacs.stackexchange.com/questions/63336/deleting-a-file-with-name-that-already-exists-in-trash/63342#63342
-  (when (eq system-type 'darwin)
-    (defun system-move-file-to-trash (filename)
-      "Move file or directory named FILENAME to the trash."
-      (save-excursion
-        (ns-do-applescript
-          (format
-            "tell application \"Finder\" to delete POSIX file \"%s\""
-            filename)))))
+  :commands (dired-narrow dired-narrow-fuzzy dired-narrow-regexp))
 
 (provide 'my-dired)
+;;; my-dired.el ends here

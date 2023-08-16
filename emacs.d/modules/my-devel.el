@@ -1,67 +1,78 @@
-;; (require 'cc-mode)
-;; (require 'elisp-mode)
-;; (require 'sql)
-;; (require 'gud)
-;; (require 'sh-script)
-;; (require 'conf-mode)
-;; (require 'ruby-mode)
-;; (require 'dns-mode)
-;; (require 'company-graphql)
+;;; Code:
 
 (setq-default sh-basic-offset tab-width)
-(setq tags-add-tables nil)
+(setq-default tags-add-tables nil)
 
-(add-hook 'conf-space-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-unix-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'prog-mode-hook #'my/breadcrumb-set-local t)
-(add-hook 'markdown-mode-hook #'my/breadcrumb-set-local t)
-
-(defalias 'elisp-mode #'emacs-lisp-mode)
+;; (add-hook 'conf-space-mode-hook #'my/breadcrumb-set-local t)
+;; (add-hook 'conf-unix-mode-hook #'my/breadcrumb-set-local t)
+;; (add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
+;; (add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
 
 (use-package rainbow-delimiters
-  :after prog-mode
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :commands rainbow-delimiters-mode)
 
 (use-package eldoc
-  :ensure nil
+  :commands eldoc-mode
   :straight nil
+  :diminish eldoc-mode
   :custom
   (eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
 
 (use-package prog-mode
-  :ensure nil
   :straight nil
-  :hook ((prog-mode . eldoc-mode))
+  :hook ((prog-mode . eldoc-mode)
+          (prog-mode . rainbow-delimiters-mode)
+          (prog-mode . my/breadcrumb-set-local)
+          (prog-mode . hl-todo-mode)
+          (prog-mode . symbol-overlay-mode)
+          (prog-mode . company-mode))
   :config
   (evil-define-key 'normal prog-mode-map
-    (kbd "<S-up>") #'my/increment
-    (kbd "<S-down>") #'my/decrement
-    (kbd "C-/") #'company-complete
-    (kbd ",l") #'hydra-prog/body)
-
-(pretty-hydra-define hydra-prog
-  (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
-  ("Find"
-    (("d" xref-find-definitions "find definitions" :exit t)
-      ("r" xref-find-references "find references" :exit t)
-      ("l" counsel-imenu "functions" :exit t)
-      ("b" treemacs "treemacs" :toggle t))
-    "Syntax"
-    (("p" my/prettier-mode "Prettier" :toggle t)
-       ("c" flycheck-mode "flycheck" :toggle t)
-       ("m" flymake-mode "flymake" :toggle t)
-       ;; ("o" electric-operator-mode "electric operator" :toggle t)
-       ("d" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t))
-    "AI"
-    (("s" starhugger-trigger-suggestion "generate suggestion" :exit t)
-      ("a" starhugger-accept-suggestion "accept suggestion" :exit t)
-      (">" starhugger-show-next-suggestion "next suggestion" :exit t)
-      ("<" starhugger-show-prev-suggestion "previous suggestion" :exit t))))
+    (kbd "<S-up>") 'evil-numbers/inc-at-pt
+    (kbd "<S-down>") 'evil-numbers/dec-at-pt
+    (kbd "C-/") 'company-complete
+    (kbd ",l") 'hydra-prog/body
+    (kbd "C-=") 'er/expand-region
+    (kbd "C-+") 'er/contract-region)
 
   (evil-define-key 'insert prog-mode-map
-    (kbd "C-/") #'company-complete)
+    (kbd "C-/") 'company-complete)
+
+  (evil-define-key 'normal prog-mode-map
+    (kbd "C-c m") 'hydra-merge/body)
+
+  (pretty-hydra-define hydra-prog
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
+    ("Action"
+      (("f" ediff "ediff files" :exit t)
+        ("b" ediff-buffers "ediff buffers" :exit t))
+      "Find"
+      (("d" xref-find-definitions "find definitions" :exit t)
+        ("r" xref-find-references "find references" :exit t)
+        ("l" counsel-imenu "functions" :exit t)
+        ("t" treemacs "treemacs" :toggle t))
+      "Syntax"
+      (("p" my/prettier-mode "prettier" :toggle t)
+        ("c" flycheck-mode "flycheck" :toggle t)
+        ("m" flymake-mode "flymake" :toggle t)
+        ;; ("o" electric-operator-mode "electric operator" :toggle t)
+        ("i" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t))
+      "AI"
+      (("s" starhugger-trigger-suggestion "generate suggestion" :exit t)
+        ("a" starhugger-accept-suggestion "accept suggestion" :exit t)
+        (">" starhugger-show-next-suggestion "next suggestion" :exit t)
+        ("<" starhugger-show-prev-suggestion "previous suggestion" :exit t))))
+
+  (pretty-hydra-define hydra-merge
+    (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
+    ("Move"
+      (("n" smerge-next "next")
+        ("p" smerge-prev "previous"))
+      "Keep"
+      (("l" smerge-keep-lower "lower")
+        ("u" smerge-keep-upper "upper"))
+      "Diff"
+      (("R" smerge-refine "redefine"))))
 
   (defun my/prog-mode-hook ()
     (modify-syntax-entry ?- "w" (syntax-table))
@@ -73,7 +84,7 @@
     (hl-line-mode 1)
     (show-paren-mode 1))
 
-  (add-hook 'prog-mode-hook #'my/prog-mode-hook -50))
+  (add-hook 'prog-mode-hook 'my/prog-mode-hook -50))
 
 (use-package mmm-mode
   :commands mmm-mode
@@ -107,11 +118,11 @@
   )
 
 (define-derived-mode guest-mode fundamental-mode "guest"
-  "major mode for guest editing."
+  "Major mode for editing as a guest in a file.
+Use when `json-mode' or similar get stuck."
   (editorconfig-mode -1))
 
 (use-package dns-mode
-  :ensure nil
   :straight nil
   :mode ("\\.zone?\\'" . zone-mode))
 
@@ -123,16 +134,16 @@
   :mode "\\.z?sh\\'"
   :hook (after-save . executable-make-buffer-file-executable-if-script-p))
 
-(use-package sql-indent
-  :after (:any sql sql-interactive-mode)
-  :diminish sql-indent-mode)
+;; (use-package sql-indent
+;;   :after (:any sql sql-interactive-mode)
+;;   :diminish sql-indent-mode)
 
 (use-package hl-todo
-  :hook (prog-mode . hl-todo-mode))
+  :commands hl-todo-mode)
 
 (use-package symbol-overlay
+  :commands symbol-overlay-mode
   :diminish symbol-overlay-mode
-  :hook (prog-mode . symbol-overlay-mode)
   :custom
   (symbol-overlay-idle-time 0.1))
 
@@ -149,7 +160,7 @@
         (message "Tags build successfully."))
       (user-error "Cannot generate TAGS, not a projectile project.")))))
 
-(defalias 'ctags #'my/ctags-build)
+(defalias 'ctags 'my/ctags-build)
 
 (defun my/visit-project-ctags ()
   (interactive)
@@ -175,6 +186,7 @@
 
 (use-package markdown-mode
   ;; :hook (markdown-mode . my/bind-value-togglers)
+  :hook (markdown-mode . my/breadcrumb-set-local)
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode))
@@ -203,6 +215,26 @@
   (flycheck-display-errors-delay .3)
   (flycheck-phpcs-standard "WordPress")
   :config
+  (pretty-hydra-define hydra-flycheck
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "check" "Flycheck" 1 -0.05))
+    ("Checker"
+      (("f" flyspell-mode "flyspell" :toggle t)
+        ("?" flycheck-describe-checker "describe")
+        ("d" flycheck-disable-checker "disable")
+        ("m" flycheck-mode "mode")
+        ("s" flycheck-select-checker "select"))
+      "Errors"
+      (("<" flycheck-previous-error "previous" :color pink)
+        (">" flycheck-next-error "next" :color pink)
+        ("b" flycheck-buffer "check")
+        ("l" flycheck-list-errors "list"))
+      "Other"
+      (("M" flycheck-manual "manual")
+        ("v" flycheck-verify-setup "verify setup"))))
+
+  (evil-define-key 'normal global-map
+    (kbd "C-c f") 'hydra-flycheck/body)
+
   (add-to-list 'display-buffer-alist
     `(,(rx bos "*Flycheck errors*" eos)
        (display-buffer-reuse-window
@@ -224,8 +256,7 @@
 
 (use-package eglot
   :commands eglot
-  :straight nil
-  :ensure nil)
+  :straight nil)
 
 (use-package lsp-mode
   :disabled t
@@ -303,14 +334,15 @@
   :after (lsp-mode ivy))
 
 (use-package dtrt-indent
-  :diminish "dtrt")
-
-(defun my/dtrt-indent-mode-toggle ()
-  "Toggle dtrt-indent mode."
-  (interactive)
-  (if (eq dtrt-indent-mode t)
-    (dtrt-indent-mode -1)
-    (dtrt-indent-mode 1)))
+  :commands (dtrt-indent-mode my/dtrt-indent-mode-toggle)
+  :diminish "dtrt"
+  :preface
+  (defun my/dtrt-indent-mode-toggle ()
+    "Toggle dtrt-indent mode."
+    (interactive)
+    (if (eq dtrt-indent-mode t)
+      (dtrt-indent-mode -1)
+      (dtrt-indent-mode 1))))
 
 (use-package terraform-mode
   :mode "\\.tf\\'")
@@ -334,15 +366,9 @@
 (use-package go-mode
   :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'"))
 
-(use-package emacs-lisp-mode
-  :ensure nil
-  :straight nil
-  :hook (emacs-lisp-mode . flycheck-mode))
-
 (use-package tempo
   :defer 0.3
-  :straight nil
-  :ensure nil)
+  :straight nil)
 
 (use-package yasnippet
   :disabled t
@@ -356,7 +382,18 @@
 $0`(yas-escape-text yas-selected-text)`")
   :config
   (add-hook 'prog-mode-hook (lambda () (yas-reload-all) (yas-minor-mode)))
-  (yas-reload-all))
+  (yas-reload-all)
+
+  (pretty-hydra-define hydra-snippet
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "sticky-note" "Snippets" 1 -0.05))
+    ("Snippet"
+      (("s" yas-insert-snippet "insert")
+        ("n" yas-new-snippet "new")
+        ("e" yas-visit-snippet-file "edit")
+        ("r" yas-reload-all "reload"))))
+
+  (evil-define-key 'normal global-map
+    (kbd ",i") 'hydra-snippet/body))
 
 ;; (use-package plantuml-mode
 ;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
@@ -378,33 +415,87 @@ $0`(yas-escape-text yas-selected-text)`")
          (buffer-name (current-buffer)))))))
 
 (use-package elisp-mode
-  :ensure nil
+  :commands emacs-lisp-mode
+  :hook (emacs-lisp-mode . flycheck-mode)
   :straight nil
   :diminish "Elisp"
   :config
   (unbind-key "C-M-i" emacs-lisp-mode-map)
 
-  (add-hook 'emacs-lisp-mode-hook
-    (lambda ()
-      (flycheck-mode -1)
-      (electric-operator-mode -1))))
+  (evil-define-key 'normal emacs-lisp-mode-map
+    (kbd ",d") 'hydra-debug-elisp/body
+    (kbd "<down>") 'evil-next-visual-line
+    (kbd "<up>") 'evil-previous-visual-line)
+
+  (pretty-hydra-define hydra-debug-elisp
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "bug" "Debug" 1 -0.05))
+    ("Toggle"
+      (("e" afa/edebug-on-entry-on-point "debug function on entry" :exit t)
+        ("c" edebug-cancel-on-entry "cancel debug function" :exit t)
+        ("r" toggle-debug-on-error "toggle debug on error" :exit t)
+        ("q" toggle-debug-on-quit "toggle debug on quit" :exit t)
+        ("o" edebug-remove-instrumentation "remove instrumentation" :exit t))
+        ;; ("c" edebug-x-kill-breakpoint "kill breakpoint" :exit t)
+      "Breakpoint"
+      (("s" edebug-set-breakpoint "set breakpoint" :exit t)
+        ("u" edebug-unset-breakpoint "unset breakpoint" :exit t)
+        ("t" edebug-toggle-disable-breakpoint "toggle disable breakpoint" :exit t))
+      "Show"
+      (("b" edebug-x-show-breakpoints "show breakpoints" :exit t)
+        ("i" edebug-x-show-instrumented "show instrumented functions" :exit t)
+        ("d" edebug-x-show-data "show breakpoints and instrumented functions buffer" :exit t)
+        ("h" edebug-menu "menu" :exit t)
+        ("v" edebug-visit-eval-list "visit eval list" :exit t))
+      "Navigation"
+      (("x" edebug-next "next" :exit t)
+        ("n" edebug-step-in "step in" :exit t)
+        ("o" edebug-step-out "step out" :exit t)
+        ("g" edebug-goto-here "goto to point" :exit t))))
+
+  (defun afa/edebug-on-entry-on-point (&optional flag)
+    "Enhanced `edebug-on-entry'.
+ets function symbol on point as initial suggestion."
+    (interactive "P")
+    (let ((function-name
+            (intern
+              (funcall
+                completing-read-function
+                "Edebug on entry to: "
+                (mapcar 'symbol-name (apropos-internal ".*"))
+                'commandp
+                t
+                (symbol-name (symbol-at-point))))))
+      (edebug-on-entry function-name flag)))
+
+  (defalias 'elisp-mode 'emacs-lisp-mode))
 
 (use-package solidity-mode
-  :defer 0.3
-  :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4)))))
-
-(use-package solidity-flycheck
-  :defer 0.3
-  :if (executable-find "solium")
-  :ensure nil
+  :straight (:type git
+              :host github
+              :repo "ethereum/emacs-solidity"
+              :branch "master")
+  :mode "\\.sol\\'"
+  :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4))))
   :custom
-  (solidity-flycheck-solium-checker-active t))
+  (solidity-flycheck-solium-checker-active t)
+  :config
+  (when (executable-find "solium")
+    (message "Executable 'solium' not found!")))
 
 (use-package company-solidity
+  :after company
   :mode "\\.sol\\'")
 
 (use-package jenkinsfile-mode
   :mode "^Jenkinsfile\\'")
+
+(use-package ivy-xref
+  :after ivy
+  :init
+  (when (>= emacs-major-version 27)
+    (setq-default xref-show-definitions-function 'ivy-xref-show-defs))
+  :custom
+  (setq xref-show-xrefs-function 'ivy-xref-show-xrefs))
 
 (require 'my-python)
 (require 'my-web)
@@ -413,3 +504,4 @@ $0`(yas-escape-text yas-selected-text)`")
 (require 'my-ruby)
 
 (provide 'my-devel)
+;;; my-devel.el ends here

@@ -9,22 +9,17 @@
 
 (setq auto-save-no-message t)
 
-(defalias 'yes-or-no-p #'y-or-n-p)
-(defalias 'ar #'align-regexp)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'ar 'align-regexp)
 
 (setq-default tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 (defvaralias 'sgml-basic-offset 'tab-width)
 
-(setq
-  backward-delete-char-untabify-method 'hungry)
+(setq backward-delete-char-untabify-method 'hungry)
 
 (setq visual-line-fringe-indicators '(left-curly-arrow nil))
-
-(when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :font "Source Code Pro Medium")
-  (set-fontset-font t 'latin "Noto Sans"))
 
 (setq
   hscroll-margin  1
@@ -58,14 +53,13 @@
         (message "Copied word '%s'." word)))))
 
 (use-package auth-source
-  :ensure nil
   :straight nil
   ;; :config
   ;; (auth-source-debug 'trivi) ;; for debug info in *Messages*
   )
 
 (use-package elec-pair
-  :ensure nil
+  :defer 0.3
   :straight nil
   :config
   ;; (push '(?\" . ?\") electric-pair-pairs)
@@ -79,32 +73,39 @@
   (electric-pair-mode 1))
 
 (use-package hungry-delete
+  :defer 0.3
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
   (global-hungry-delete-mode))
 
-(use-package with-editor)  ; dependency for other package
-
-(use-package free-keys)
+;; (use-package with-editor)  ; dependency for other package
 
 ;; (use-package emojify
 ;;   :hook (org-mode . emojify-mode))
 
 ;; alternative https://github.com/minad/corfu
 (use-package company
-  :hook (prog-mode . company-mode)
+  :commands company-mode
   :demand t
   :diminish company-mode
-  :custom
+  :init
   (require 'company-tempo)
+  :custom
   (company-idle-delay 0.5)
   (company-show-numbers t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
-  (company-backends '((company-tempo company-capf company-files company-keywords company-dabbrev-code  :separate)))
-  (company-files-exclusions '(".git/" ".DS_Store")))
+  (company-backends '((company-tempo company-capf company-files company-keywords company-dabbrev-code :separate)))
+  (company-files-exclusions '(".git/" ".DS_Store"))
+  :config
+  (evil-declare-change-repeat 'company-complete)
+
+  (evil-define-key 'normal global-map
+    (kbd "C-n") 'company-next-page
+    (kbd "C-p") 'company-previous-page)
+  )
 
 (use-package company-statistics
   :disabled t
@@ -127,45 +128,48 @@
   :defer 0.2
   :diminish which-key-mode
   :custom
-  (which-key-idle-delay 0.5)
+  (which-key-idle-delay 0.3)
   :config
   (which-key-mode 1))
 
 (use-package expand-region
-  :bind (("C-=" . er/expand-region)
-         ("C-+" . er/contract-region)))
+  :commands (er/expand-region er/contract-region))
 
 (use-package persistent-scratch
   :config
   (persistent-scratch-setup-default))
 
 (use-package editorconfig
-  :defer 0.3
   :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 
 (use-package ediff
-  :commands ediff
-  :ensure nil
+  :commands (ediff ediff-buffers)
   :straight nil
   :config
   (ediff-diff-options "-w")
   :custom
   (ediff-window-setup-function 'ediff-setup-windows-plain)
-  (ediff-forward-word-function 'forward-char))
+  (ediff-forward-word-function 'forward-char)
+  :config
+  ;; (evil-define-key 'normal ediff-mode-map
+  ;;   "[c" 'ediff-next-difference
+  ;;   "]c" 'ediff-previous-difference)
+  )
 
 (use-package helpful
   :bind (("C-h f" . helpful-callable)
           ("C-h v" . helpful-variable)
           ("C-h k" . helpful-key)
-          ("C-c C-d" . helpful-at-point))
+          ("C-c C-d" . helpful-at-point)
+          :map helpful-mode-map
+          ("/" . isearch-forward))
   :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable))
+  (counsel-describe-function-function 'helpful-callable)
+  (counsel-describe-variable-function 'helpful-variable))
 
 (use-package savehist
-  :ensure nil
   :straight nil
   :custom
   (savehist-file "~/.emacs.d/savehist")
@@ -190,7 +194,6 @@
     (when chatgpt-buffer
       (kill-buffer chatgpt-buffer)))
   (chatgpt-shell))
-
   (defalias 'ai 'my/chatgpt-shell-start-new))
 
 (use-package ob-chatgpt-shell
@@ -204,31 +207,11 @@
   :custom
   (gptel-api-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon"))))
 
+;; has conflick with Blamer resolution https://github.com/daanturo/starhugger.el
 (use-package starhugger
-  :defer 0.2
+  :commands (starhugger-trigger-suggestion starhugger-accept-suggestion starhugger-show-next-suggestion starhugger-show-prev-suggestion)
   :custom
-  (starhugger-api-token (lambda () (auth-source-pick-first-password :host "huggingface.co-api-key-anon")))
-  ;; :config
-  ;; resolve conflict with blamer.el
-  ;; (defvar-local my-starhugger-inlining-mode--blamer-mode-state nil)
-  ;; (defvar-local blamer-mode nil)
-
-  ;; (defun my-starhugger-inlining-mode-h ()
-  ;;   (if starhugger-inlining-mode
-  ;;     (progn
-  ;;       (add-hook 'my-evil-force-normal-state-hook
-  ;;         (lambda () (starhugger-dismiss-suggestion t))
-  ;;         nil t)
-  ;;       (setq my-starhugger-inlining-mode--blamer-mode-state blamer-mode)
-  ;;       (when my-starhugger-inlining-mode--blamer-mode-state
-  ;;         (blamer-mode 0)))
-  ;;     (progn
-  ;;       (when (and my-starhugger-inlining-mode--blamer-mode-state
-  ;;               (not blamer-mode))
-  ;;         (blamer-mode 1)))))
-
-  ;; (add-hook 'starhugger-inlining-mode-hook #'my-starhugger-inlining-mode-h)
-  )
+  (starhugger-api-token (lambda () (auth-source-pick-first-password :host "huggingface.co-api-key-anon"))))
 
 ; https://emacs.stackexchange.com/questions/10932/how-do-you-disable-the-buffer-end-beginning-warnings-in-the-minibuffer/20039#20039
 (defun my/command-error-function (data context caller)
@@ -239,23 +222,11 @@ end-of-buffer signals; pass the rest to the default handler."
                                  beginning-of-buffer
                                  end-of-buffer)))
     (command-error-default-function data context caller)))
-
 (setq command-error-function 'my/command-error-function)
 
-(when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-
-(defun my/increment ()
-  (interactive)
-  (if (number-at-point)
-    (increment-integer-at-point)
-    (my/flip-symbol)))
-
-(defun my/decrement ()
-  (interactive)
-  (if (number-at-point)
-    (decrement-integer-at-point)
-    (my/flip-symbol)))
+(if (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types)
+  (message "No imagemagick support"))
 
 (defvar my/flip-symbol-alist
   '(("true" . "false")
@@ -283,17 +254,26 @@ end-of-buffer signals; pass the rest to the default handler."
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
-(defun air-revert-buffer-noconfirm ()
+(evil-define-key 'normal global-map
+  (kbd ",c d") 'my/copy-file-name)
+
+(defun my/revert-buffer-noconfirm ()
+  "Revert current buffer without asking for confirmation."
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
-  (message (concat "Buffer '" (file-name-nondirectory buffer-file-name) "' reloaded.")))
+  (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
 
 (defun my/move-current-window-to-new-frame ()
+  "Move current window to new frame."
   (interactive)
   (let ((buffer (current-buffer)))
     (unless (one-window-p)
       (delete-window))
     (display-buffer-pop-up-frame buffer nil)))
+
+(evil-define-key 'normal global-map
+  (kbd "C-x T") 'my/move-current-window-to-new-frame
+  (kbd "C-w T") 'my/move-current-window-to-new-frame)
 
 (defun my/buffer-tramp-p ()
   "Returns t if buffer is tramp buffer."
@@ -304,29 +284,25 @@ end-of-buffer signals; pass the rest to the default handler."
 (defun my/advice-around-skip (orig-fun &rest args)
   "Skip around adviced function.")
 
-(defun my/sudo-dired ()
-  "Run Dired in sudo mode."
-  (interactive)
-  (dired "/sudo::/"))
-
 (defun my/reinstall-package (pkg)
   (interactive (list (intern (completing-read "Reinstall package: " (mapcar #'car package-alist)))))
   (unload-feature pkg)
   (package-reinstall pkg)
   (require pkg))
 
-(defun my/unindent-region ()
-  (interactive)
-  (let ((beg (region-beginning))
-         (end (region-end)))
-    (save-excursion
-      (goto-char beg)
-      (while (< (point) end)
-        (unless (bolp)
-          (back-to-indentation))
-        (when (<= (current-column) 0)
-          (indent-line-to 0))
-        (forward-line)))))
+;; (defun my/unindent-region ()
+;;   "Unindent selected region."
+;;   (interactive)
+;;   (let ((beg (region-beginning))
+;;          (end (region-end)))
+;;     (save-excursion
+;;       (goto-char beg)
+;;       (while (< (point) end)
+;;         (unless (bolp)
+;;           (back-to-indentation))
+;;         (when (<= (current-column) 0)
+;;           (indent-line-to 0))
+;;         (forward-line)))))
 
 ;; https://stackoverflow.com/a/750933
 (defun my/remove-dos-eol ()
@@ -339,24 +315,24 @@ end-of-buffer signals; pass the rest to the default handler."
 (add-hook 'prog-mode-hook #'my/remove-dos-eol)
 
 (bind-keys
-  ("<S-tab>" . 'my/unindent-region)
-  ("C-x C-r" . recentf-open-files)
+  ;; ("<S-tab>" . 'my/unindent-region)
+  ;; ("C-x C-r" . recentf-open-files)
   ("<home>" . left-word)
   ("<end>" . right-word)
-  ("C-x s" . (lambda () (interactive) (save-some-buffers t)))
+  ("C-x s" . (lambda () (interactive) (save-some-buffers t) (message "Saved all buffers")))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
   ("C-x C-SPC" . rectangle-mark-mode)
   ("M-w" . my/copy-region-or-word))
 
-(when (eq system-type 'darwin)
-  (bind-keys
-  ("s-t" . make-frame-command)
-  ("s-u" . air-revert-buffer-noconfirm)))
-
-(when (eq system-type 'gnu/linux)
-  (bind-keys
-    ("M-t" . make-frame-command)
-    ("M-u" . air-revert-buffer-noconfirm))
+(cond
+  ((eq system-type 'darwin)
+    (bind-keys
+      ("s-t" . make-frame-command)
+      ("s-u" . my/revert-buffer-noconfirm)))
+  ((eq system-type 'gnu/linux)
+    (bind-keys
+      ("M-t" . make-frame-command)
+      ("M-u" . my/revert-buffer-noconfirm))
 
   (defun my/copy-including-secondary ()
     (interactive)
@@ -369,7 +345,7 @@ end-of-buffer signals; pass the rest to the default handler."
 
   (bind-keys
     ("M-c" . my/copy-including-secondary)
-    ("M-v" . my/paste-including-secondary)))
+    ("M-v" . my/paste-including-secondary))))
 
 (defalias 'qcalc 'quick-calc)
 
@@ -399,8 +375,8 @@ end-of-buffer signals; pass the rest to the default handler."
 ;; https://www.lysator.liu.se/~davidk/elisp/tempo-examples.html
 ;; https://www.lysator.liu.se/~davidk/elisp/
 (use-package tempo
+  :defer 0.4
   :straight nil
-  :ensure nil
   :config
   (defvar general-tags nil
     "Tags for all modes.")
@@ -427,6 +403,13 @@ end-of-buffer signals; pass the rest to the default handler."
     "Insert TODO block"
     'general-tags)
   )
+
+(use-package undo-fu
+  :commands (undo-fu-only-undo undo-fu-only-redo)
+  :config
+  (evil-define-key '(normal) 'global-map
+    (kbd "u") 'undo-fu-only-undo
+    (kbd "C-r") 'undo-fu-only-redo))
 
 (provide 'my-edit)
 ;;; my-edit.el ends here

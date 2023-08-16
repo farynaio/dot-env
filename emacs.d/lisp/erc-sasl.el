@@ -88,7 +88,6 @@ current session"
   (erc-server-send "CAP END"))
 
 (provide 'erc-sasl)
-
 ;;; erc-sasl.el ends here
 ;; Local Variables:
 ;; indent-tabs-mode: nil

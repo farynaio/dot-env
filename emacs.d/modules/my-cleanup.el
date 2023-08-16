@@ -1,3 +1,6 @@
+
+;;; Code:
+
 (unbind-key "C-x c")
 (unbind-key "C-x <C-left>")
 (unbind-key "C-x <C-right>")
@@ -11,7 +14,8 @@
 (unbind-key "C-x C-l")
 ;; (unbind-key "C-x <down>")
 
-(when (boundp 'global-undo-tree-mode)
-  (global-undo-tree-mode -1))
+;; (when (boundp 'global-undo-tree-mode)
+;;   (global-undo-tree-mode -1))
 
 (provide 'my-cleanup)
+;;; my-cleanup.el ends here

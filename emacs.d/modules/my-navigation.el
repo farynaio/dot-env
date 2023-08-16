@@ -43,13 +43,11 @@
 
 (use-package simple
   :straight nil
-  :ensure nil
   :custom
   (set-mark-command-repeat-pop t))
 
 (use-package recentf
   :straight nil
-  :ensure nil
   :custom
   (recentf-max-saved-items 200)
   (recentf-max-menu-items 15)
@@ -66,7 +64,6 @@
 
 (use-package tab-bar
   :straight nil
-  :ensure nil
   :custom
   (tab-bar-tab-name-truncated-max 15)
   (tab-bar-tab-name-current 'tab-bar-tab-name-truncated)
@@ -75,7 +72,6 @@
 
 (use-package help
   :straight nil
-  :ensure nil
   :bind (:map help-mode-map
           ("C-w =" . balance-windows)
           ("/" . evil-search-forward)
@@ -93,7 +89,6 @@
 (use-package tramp
   :demand 0.3
   :straight nil
-  :ensure nil
   :custom
   (tramp-default-method "ssh")
   (tramp-inline-compress-start-size 40960)
@@ -103,7 +98,8 @@
   (tramp-encoding-shell "/bin/sh"))
 
 (use-package counsel-tramp
-  :after (counsel tramp))
+  :after (counsel tramp)
+  :commands counsel-tramp)
 
 (use-package anzu
   :defer 0.3
@@ -151,6 +147,9 @@
 	    (compilation-start command 'grep-mode))
     (message "No executable 'ack' found!")))
 
+(evil-define-key 'normal global-map
+  (kbd ",f") 'my/rgrep)
+
 (use-package treemacs
   :commands treeemacs
   ;; :hook (treemacs-mode . (lambda () (text-scale-adjust -1)))
@@ -177,10 +176,10 @@
   :after (treemacs evil)
   :config
   (evil-define-key 'treemacs treemacs-mode-map
-    (kbd "RET") #'treemacs-visit-node-in-most-recently-used-window
-    [S-mouse-1] #'treemacs-visit-node-in-most-recently-used-window
-    [mouse-3] #'treemacs-visit-node-in-most-recently-used-window
-    [C-down-mouse-1] #'treemacs-visit-node-in-most-recently-used-window))
+    (kbd "RET") 'treemacs-visit-node-in-most-recently-used-window
+    [S-mouse-1] 'treemacs-visit-node-in-most-recently-used-window
+    [mouse-3] 'treemacs-visit-node-in-most-recently-used-window
+    [C-down-mouse-1] 'treemacs-visit-node-in-most-recently-used-window))
 
 (use-package treemacs-magit
   :after (treemacs magit))
@@ -199,6 +198,7 @@
 
 (use-package ivy
   :diminish ivy-mode
+  :demand t
   :bind (:map ivy-minibuffer-map
           ("<return>" . ivy-alt-done)
           ("<backspace>" . ivy-backward-delete-char)
@@ -219,6 +219,7 @@
   ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
+  (advice-add 'ivy-switch-buffer :before 'my/evil-switch-to-normal-state-if-insert)
 
   (defun ivy-dired ()
     (interactive)
@@ -328,15 +329,8 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;   :config
 ;;   (persp-mode))
 
-(use-package ivy-xref
-  :after ivy
-  :custom
-  (xref-show-xrefs-function 'ivy-xref-show-xrefs)
-  :init
-  (when (>= emacs-major-version 27)
-    (setq xref-show-definitions-function #'ivy-xref-show-defs)))
-
 (use-package ivy-rich
+  :after ivy
   :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
   :custom
   (ivy-rich-parse-remote-buffer nil)
@@ -416,30 +410,6 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
         (ivy-rich-set-display-transformer nil))
       (ivy-rich-unset-display-transformer))))
 
-(use-package dashboard
-  :straight (:type git
-             :host github
-             :repo "emacs-dashboard/emacs-dashboard"
-             :branch "master")
-  :preface
-  (defun dashboard-load-packages (list-size)
-    (insert (make-string 5 ? )
-            (format "%d packages loaded in %s" (length package-activated-list) (emacs-init-time))))
-  :custom
-  (dashboard-banner-logo-title "Let's kick some ass!")
-  (dashboard-center-content t)
-  (dashboard-items '((packages)
-                      (projects . 10)
-                      (recents . 18)))
-  (dashboard-set-file-icons t)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-init-info t)
-  (dashboard-set-navigator t)
-  (dashboard-startup-banner 'logo)
-  :config
-  (add-to-list 'dashboard-item-generators '(packages . dashboard-load-packages))
-  (dashboard-setup-startup-hook))
-
 (use-package visual-fill-column
   :commands visual-fill-column-mode)
 ;;   :hook ((text-mode . visual-fill-column-mode)))
@@ -460,55 +430,51 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (visual-fill-column-center-text t))
 
 (use-package pdf-tools
+  :disabled t
   :straight (:type git
              :host github
              :repo "vedang/pdf-tools"
              :branch "master")
   ;; :pin manual ;; manually updat
-  :demand 0.3
   :bind (:map pdf-view-mode-map
           ("/" . isearch-forward))
   :custom
   (pdf-view-display-size 'fit-page)
   (pdf-annot-activate-created-annotations t)
   (pdf-view-resize-factor 1.25)
-  ;; :config
-  ;; initialise
-  ;; (pdf-tools-install)
-  ;; open pdfs scaled to fit page
-  ;; automatically annotate highlights
-  )
+  :config
+  (pdf-loader-install))
 
 ;; Bring back window configuration after ediff quits
-(defvar my-ediff-bwin-config nil "Window configuration before ediff.")
-(defcustom my-ediff-bwin-reg ?b
-  "*Register to be set up to hold `my-ediff-bwin-config'
+(defvar my/ediff-bwin-config nil "Window configuration before ediff.")
+(defcustom my/ediff-bwin-reg ?b
+  "*Register to be set up to hold `my/ediff-bwin-config'
     configuration.")
 
-(defvar my-ediff-awin-config nil "Window configuration after ediff.")
-(defcustom my-ediff-awin-reg ?e
-  "*Register to be used to hold `my-ediff-awin-config' window
+(defvar my/ediff-awin-config nil "Window configuration after ediff.")
+(defcustom my/ediff-awin-reg ?e
+  "*Register to be used to hold `my/ediff-awin-config' window
     configuration.")
 
 (defun my-ediff-bsh ()
   "Function to be called before any buffers or window setup for
     ediff."
-  (setq my-ediff-bwin-config (current-window-configuration))
-  (when (characterp my-ediff-bwin-reg)
-    (set-register my-ediff-bwin-reg
-		  (list my-ediff-bwin-config (point-marker)))))
+  (setq my/ediff-bwin-config (current-window-configuration))
+  (when (characterp my/ediff-bwin-reg)
+    (set-register my/ediff-bwin-reg
+		  (list my/ediff-bwin-config (point-marker)))))
 
 (defun my-ediff-ash ()
   "Function to be called after buffers and window setup for ediff."
-  (setq my-ediff-awin-config (current-window-configuration))
-  (when (characterp my-ediff-awin-reg)
-    (set-register my-ediff-awin-reg
-		  (list my-ediff-awin-config (point-marker)))))
+  (setq my/ediff-awin-config (current-window-configuration))
+  (when (characterp my/ediff-awin-reg)
+    (set-register my/ediff-awin-reg
+		  (list my/ediff-awin-config (point-marker)))))
 
 (defun my-ediff-qh ()
   "Function to be called when ediff quits."
-  (when my-ediff-bwin-config
-    (set-window-configuration my-ediff-bwin-config)))
+  (when my/ediff-bwin-config
+    (set-window-configuration my/ediff-bwin-config)))
 
 (defun my/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -533,8 +499,10 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
+(evil-define-key 'normal global-map
+  (kbd "C-a") 'my/smarter-move-beginning-of-line)
+
 (use-package windmove
-  ;; :ensure nil
   :straight nil
   :bind (("C-x <left>" . windmove-left)
           ("C-x <right>" . windmove-right)
@@ -543,13 +511,6 @@ point reaches the beginning or end of the buffer, stop there."
   :custom
   (windmove-wrap-around t)
   (framemove-hook-into-windmove t)
-
-  (defun my/evil-switch-to-normal-state-if-insert (&optional arg)
-    "Switched to evil normal state from insert"
-    (when (and (boundp 'evil-state) (string-equal evil-state "insert"))
-      (evil-normal-state)))
-
-  (advice-add 'ivy-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-right :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-left :before #'my/evil-switch-to-normal-state-if-insert)
   (advice-add 'windmove-up :before #'my/evil-switch-to-normal-state-if-insert)
@@ -586,13 +547,14 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 
-(defun my/save-buffers-kill-terminal ()
-  (interactive)
-  (setq my/save-buffers-kill-terminal-was-called t)
-  (save-buffers-kill-terminal t))
+;; (defun my/save-buffers-kill-terminal ()
+;;   (interactive)
+;;   (setq my/save-buffers-kill-terminal-was-called t)
+;;   (save-buffers-kill-terminal t))
 
 (defun my/kill-all-buffers-except-toolkit ()
-  "Kill all buffers except current one and toolkit (*Messages*, *scratch*). Close other windows."
+  "Kill all buffers except current one and toolkit (*Messages*, *scratch*).
+Close other windows."
   (interactive)
   (mapc 'kill-buffer (remove-if
                        (lambda (x)
@@ -612,30 +574,30 @@ point reaches the beginning or end of the buffer, stop there."
   (windmove-left))
 
 ; https://www.emacswiki.org/emacs/ToggleWindowSplit
-(defun my/toggle-window-split ()
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-	     (next-win-buffer (window-buffer (next-window)))
-	     (this-win-edges (window-edges (selected-window)))
-	     (next-win-edges (window-edges (next-window)))
-	     (this-win-2nd (not (and (<= (car this-win-edges)
-					 (car next-win-edges))
-				     (<= (cadr this-win-edges)
-					 (cadr next-win-edges)))))
-	     (splitter
-	      (if (= (car this-win-edges)
-		     (car (window-edges (next-window))))
-		  'split-window-horizontally
-		'split-window-vertically)))
-	(delete-other-windows)
-	(let ((first-win (selected-window)))
-	  (funcall splitter)
-	  (if this-win-2nd (other-window 1))
-	  (set-window-buffer (selected-window) this-win-buffer)
-	  (set-window-buffer (next-window) next-win-buffer)
-	  (select-window first-win)
-	  (if this-win-2nd (other-window 1))))))
+;; (defun my/toggle-window-split ()
+;;   (interactive)
+;;   (if (= (count-windows) 2)
+;;       (let* ((this-win-buffer (window-buffer))
+;; 	     (next-win-buffer (window-buffer (next-window)))
+;; 	     (this-win-edges (window-edges (selected-window)))
+;; 	     (next-win-edges (window-edges (next-window)))
+;; 	     (this-win-2nd (not (and (<= (car this-win-edges)
+;; 					 (car next-win-edges))
+;; 				     (<= (cadr this-win-edges)
+;; 					 (cadr next-win-edges)))))
+;; 	     (splitter
+;; 	      (if (= (car this-win-edges)
+;; 		     (car (window-edges (next-window))))
+;; 		  'split-window-horizontally
+;; 		'split-window-vertically)))
+;; 	(delete-other-windows)
+;; 	(let ((first-win (selected-window)))
+;; 	  (funcall splitter)
+;; 	  (if this-win-2nd (other-window 1))
+;; 	  (set-window-buffer (selected-window) this-win-buffer)
+;; 	  (set-window-buffer (next-window) next-win-buffer)
+;; 	  (select-window first-win)
+;; 	  (if this-win-2nd (other-window 1))))))
 
 (defvar aok/read-only-folders
   '("~/emacs" "~/.emacs.d/lisp" "~/.emacs.d/straight" "~/.dotenv/emacs.d/straight")
@@ -648,24 +610,33 @@ point reaches the beginning or end of the buffer, stop there."
 
 (add-hook 'find-file-hook 'aok/file-set-read-only-if-listed)
 
-(defun my/prev-frame ()
-  (interactive)
-  (other-frame -1))
+;; (defun my/prev-frame ()
+;;   (interactive)
+;;   (other-frame -1))
 
-(defun my/next-frame ()
-  (interactive)
-  (other-frame 1))
+;; (defun my/next-frame ()
+;;   (interactive)
+;;   (other-frame 1))
 
 (bind-keys
-  ("C-x |" . my/toggle-window-split)
-  ("C-x C-c" . my/save-buffers-kill-terminal)
+  ;; ("C-x |" . my/toggle-window-split)
+  ;; ("C-x C-c" . my/save-buffers-kill-terminal)
   ([remap move-beginning-of-line] . my/smarter-move-beginning-of-line)
-  ("<s-right>" . my/next-frame)
-  ("<s-left>" . my/prev-frame)
+  ;; ("<s-right>" . my/next-frame)
+  ;; ("<s-left>" . my/prev-frame)
   ;; ("C-c p" . #'pop-to-mark-command)
   )
 
 (unbind-key "s-l")
+
+(pretty-hydra-define hydra-buffer
+  (:hint nil :color teal :quit-key "q" :title (with-faicon "align-justify" "Buffer" 1 -0.05))
+  ("Actions"
+   (("i" ibuffer "ibuffer")
+    ("k" my/kill-all-buffers-except-toolkit))))
+
+(evil-define-key 'normal global-map
+  (kbd ",b") 'hydra-buffer/body)
 
 (provide 'my-navigation)
 ;;; my-navigation.el ends here

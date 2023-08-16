@@ -1,7 +1,8 @@
+;;; Code:
+
 (require 'js)
 
 (use-package js
-  :ensure nil
   :straight nil
   :custom
   (js-indent-level tab-width)
@@ -105,3 +106,4 @@
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
 
 (provide 'my-js)
+;;; my-js.el ends here

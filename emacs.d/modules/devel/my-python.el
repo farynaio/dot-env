@@ -1,4 +1,5 @@
-;; (require 'python)
+;;; Code:
+
 (require 'comint)
 
 (setq gud-pdb-command-name "python3 -m pdb ")
@@ -71,3 +72,4 @@
 ;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
 
 (provide 'my-python)
+;;; my-python.el ends here

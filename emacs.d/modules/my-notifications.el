@@ -1,8 +1,10 @@
 ; source http://article.gmane.org/gmane.emacs.orgmode/66151
 ;; TODO this needs alternative notifier app for Linux
+
+;;; Code:
+
 (use-package appt
   :straight nil
-  :ensure nil
   :init
   (when (eq system-type 'darwin)
     (setq my-notifier-path "/usr/local/bin/terminal-notifier"))
@@ -26,3 +28,4 @@
       (format "'%s'" msg))))
 
 (provide 'my-notifications)
+;;; my-notifications.el ends here

@@ -1,5 +1,6 @@
+;;; Code:
+
 (use-package erc
-  :ensure nil
   :straight nil
   :commands erc-tls
   :bind (:map erc-mode-map
@@ -234,7 +235,6 @@
 (if (boundp 'my/znc-server-regex)
   (use-package erc-sasl
     :after erc
-    :ensure nil
     :straight nil
     :config
     (add-to-list 'erc-sasl-server-regexp-list my/znc-server-regex)
@@ -269,8 +269,9 @@
 (use-package erc-hl-nicks
   :after erc)
 
-(defalias 'irc #'my/erc-freenode)
-(defalias 'irc-freenode #'my/erc-freenode)
-(defalias 'irc-oftc #'my/erc-oftc)
+(defalias 'irc 'my/erc-freenode)
+(defalias 'irc-freenode 'my/erc-freenode)
+(defalias 'irc-oftc 'my/erc-oftc)
 
 (provide 'my-irc)
+;;; my-irc.el ends here

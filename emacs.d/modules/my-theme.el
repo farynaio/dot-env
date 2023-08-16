@@ -24,16 +24,13 @@
   ;;       (setq vc-mode noback))))
   )
 
-(use-package all-the-icons-dired
-  :diminish all-the-icons-dired-mode
-  :after all-the-icons
-  :config
-  (add-hook 'dired-mode-hook #'all-the-icons-dired-mode))
-
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
+  (set-face-attribute 'default nil :font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+;;   (set-face-attribute 'default nil :font "Source Code Pro Medium")
+;;   (set-fontset-font t 'latin "Noto Sans")
+  )
 
 ;; https://github.com/doomemacs/themes
 (use-package doom-themes
@@ -64,6 +61,7 @@
     (set-face-attribute 'mode-line-active nil :family "Noto Sans" :height 120) ; For 29+
     (set-face-attribute 'mode-line nil :family "Noto Sans" :height 120))
   (set-face-attribute 'mode-line-inactive nil :family "Noto Sans" :height 120)
+  :demand t
   :hook (after-init . doom-modeline-mode)
   ;; :config
   ;; (unless (find-font (font-spec :name "nerd-icons"))
