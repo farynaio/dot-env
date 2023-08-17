@@ -100,7 +100,7 @@ to invalidate."
 ;;   (git-commit-style-convention-checks nil))
 
 (use-package diff-hl
-  :after magit
+  :commands (diff-hl-next-hunk diff-hl-previous-hunk)
   :config
   (global-diff-hl-mode 1)
   (diff-hl-margin-mode 1)
