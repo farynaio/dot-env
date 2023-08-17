@@ -53,11 +53,15 @@
       (("f" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t))
       "Find"
-      (("d" xref-find-definitions "find definitions" :exit t)
-        ("r" xref-find-references "find references" :exit t)
-        ("l" counsel-imenu "functions" :exit t)
-        ("t" treemacs "treemacs" :toggle t))
-      "Syntax"
+      (("d" my/xref-find-definitions "find definitions" :exit t)
+        ("r" my/xref-find-references "find references" :exit t)
+        ("t" projectile-find-tag "find tag" :exit t)
+        ("l" counsel-imenu "imenu" :exit t)
+        ("g" counsel-projectile-git-grep "git grep" :toggle t :exit t)
+        ("k" treemacs "treemacs" :toggle t :exit t))
+      "Refactor"
+      (("x" xref-find-references-and-replace "replace references" :exit t))
+      "Syntax check"
       (("p" my/prettier-mode "prettier" :toggle t)
         ("c" flycheck-mode "flycheck" :toggle t)
         ("m" flymake-mode "flymake" :toggle t)
@@ -68,6 +72,34 @@
         ("a" starhugger-accept-suggestion "accept suggestion" :exit t)
         (">" starhugger-show-next-suggestion "next suggestion" :exit t)
         ("<" starhugger-show-prev-suggestion "previous suggestion" :exit t))))
+
+  (defun my/xref-find-references ()
+    (interactive)
+    (let* ((symbol (symbol-at-point))
+           (function-name
+            (intern
+              (funcall
+                completing-read-function
+                "Find references to: "
+                (mapcar 'symbol-name (apropos-internal ".*"))
+                'commandp
+                t
+                (if symbol (symbol-name symbol) "")))))
+      (xref-find-references (symbol-name function-name))))
+
+  (defun my/xref-find-definitions ()
+    (interactive)
+    (let* ((symbol (symbol-at-point))
+           (function-name
+            (intern
+              (funcall
+                completing-read-function
+                "Find definitions of: "
+                (mapcar 'symbol-name (apropos-internal ".*"))
+                'commandp
+                t
+                (if symbol (symbol-name symbol) "")))))
+      (xref-find-definitions (symbol-name function-name))))
 
   (pretty-hydra-define hydra-merge
     (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
