@@ -48,7 +48,40 @@
      ("\\*eshell\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)
        (window-height . 0.3)
-       (reusable-frames . nil))))
+       (reusable-frames . nil))
+     ("\\*Backtrace\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*Warnings\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*Completions\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*Flycheck error messages\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*Async-native-compile-log\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*straight-byte-compilation\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*straight-process\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*chatgpt.*"
+       (display-buffer-in-previous-window)
+       (reusable-frames . nil))
+     ))
+;; switch-to-buffer-obey-display-actions
 
 (use-package simple
   :straight nil
