@@ -91,6 +91,21 @@
           ("y" . evil-yank)
           ("<S-tab>" . backward-button)))
 
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+          ("C-h v" . helpful-variable)
+          ("C-h k" . helpful-key)
+          ("C-c C-d" . helpful-at-point)
+          :map helpful-mode-map
+          ("/" . isearch-forward)
+          ("q" . (lambda ()
+                   (interactive)
+                   (kill-buffer)
+                   (delete-window))))
+  :custom
+  (counsel-describe-function-function 'helpful-callable)
+  (counsel-describe-variable-function 'helpful-variable))
+
 (use-package tramp
   :demand 0.3
   :straight nil
