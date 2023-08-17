@@ -152,22 +152,11 @@
   :custom
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-forward-word-function 'forward-char)
-  :config
+  ;; :config
   ;; (evil-define-key 'normal ediff-mode-map
   ;;   "[c" 'ediff-next-difference
   ;;   "]c" 'ediff-previous-difference)
   )
-
-(use-package helpful
-  :bind (("C-h f" . helpful-callable)
-          ("C-h v" . helpful-variable)
-          ("C-h k" . helpful-key)
-          ("C-c C-d" . helpful-at-point)
-          :map helpful-mode-map
-          ("/" . isearch-forward))
-  :custom
-  (counsel-describe-function-function 'helpful-callable)
-  (counsel-describe-variable-function 'helpful-variable))
 
 (use-package savehist
   :straight nil
