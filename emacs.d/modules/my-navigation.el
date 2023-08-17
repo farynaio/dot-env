@@ -665,6 +665,53 @@ Close other windows."
 
 (unbind-key "s-l")
 
+;; https://github.com/minad/consult#live-previews
+;; (use-package consult
+;;   ;; :bind (("C-s" . consult-line)
+;;   ;;        ("C-M-l" . consult-imenu)
+;;   ;;        ("C-M-j" . persp-switch-to-buffer*)
+;;   ;;        :map minibuffer-local-map
+;;   ;;        ("C-r" . consult-history))
+;;   :custom
+;;   (consult-project-root-function
+;;     (lambda () (when (fboundp 'projectile-project-root)
+;;                  (projectile-project-root))))
+;;   (completion-in-region-function 'consult-completion-in-region)
+;;   ;; (xref-show-xrefs-function 'ivy-xref-show-xrefs)
+;;   ;; (xref-show-definitions-function 'ivy-xref-show-defs)
+;;   :config
+;;   (add-to-list 'ivy-completing-read-handlers-alist '(consult-git-grep completing-read-default))
+;;   (add-to-list 'ivy-completing-read-handlers-alist '(consult-man completing-read-default))
+;;   (add-to-list 'ivy-completing-read-handlers-alist '(consult-buffer completing-read-default))
+;;   (consult-preview-at-point-mode 1)
+;;   (setq consult-preview-key any)
+;;   )
+
+;; (defun my/counsel-mark-ring-global ()
+;;   "Browse `global-mark-ring' interactively.
+;; Obeys `widen-automatically', which see."
+;;   (interactive)
+;;   (let* ((counsel--mark-ring-calling-point (point))
+;;          (marks (copy-sequence global-mark-ring))
+;;          (marks (delete-dups marks))
+;;          (marks
+;;            ;; mark-marker is empty?
+;;           (if (equal (mark-marker) (make-marker))
+;;               marks
+;;             (message "foo 1")
+;;             (cons (copy-marker (mark-marker)) marks)))
+;;          (candidates (counsel-mark--get-candidates marks)))
+;;     (message "foo 2")
+;;     (if candidates
+;;         (counsel-mark--ivy-read "Mark: " candidates 'my/counsel-mark-ring-global)
+;;       (message "Mark ring is empty"))))
+
+;; (require 'cl)
+;; (use-package imenu-anywhere)
+;; (use-package jump-tree)
+;; (use-package ace-jump-buffer)
+;; (use-package frog-jump-buffer)
+
 (pretty-hydra-define hydra-buffer
   (:hint nil :color teal :quit-key "q" :title (with-faicon "align-justify" "Buffer" 1 -0.05))
   ("Actions"
