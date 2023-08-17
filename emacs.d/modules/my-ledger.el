@@ -1,5 +1,5 @@
 (use-package ledger-mode
-  :hook ((ledger-mode . company-mode)
+  :hook ((ledger-mode . (lambda () (when (and (fboundp company-mode) company-mode) (company-mode 1))))
           ;; (ledger-mode . ledger-flymake-enable)
           )
   :bind (:map ledger-mode-map

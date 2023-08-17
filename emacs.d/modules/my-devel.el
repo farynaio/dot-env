@@ -30,10 +30,16 @@
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") 'evil-numbers/inc-at-pt
     (kbd "<S-down>") 'evil-numbers/dec-at-pt
-    (kbd "C-/") 'company-complete
     (kbd ",l") 'hydra-prog/body
     (kbd "C-=") 'er/expand-region
     (kbd "C-+") 'er/contract-region)
+
+  (cond ((and (fboundp 'company-mode) company-mode)
+    (evil-define-key 'normal prog-mode-map
+      (kbd "C-/") 'company-complete))
+    ((and (fbound 'corfu-mode) corfu-mode)
+      (evil-define-key 'normal prog-mode-map
+        (kbd "C-/") 'corfu-insert)))
 
   (evil-define-key 'insert prog-mode-map
     (kbd "C-/") 'company-complete)

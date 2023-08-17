@@ -53,8 +53,8 @@
   (make-directory my/org-base-path t)
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
-          (org-mode . company-mode)
           (org-mode . ndk/set-header-line-format)
+          (org-mode . (lambda () (when (and (fboundp company-mode) company-mode) (company-mode 1))))
           (org-mode . org-appear-mode)
           (org-mode . (lambda ()
                         (setq-local

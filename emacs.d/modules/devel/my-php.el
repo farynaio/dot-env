@@ -1,6 +1,5 @@
-;; TODO what it does?
-(use-package company-php
-  :requires company-mode)
+
+;;; Code:
 
 ;; (defun my/toggle-php-flavor-mode ()
 ;;   (interactive)
@@ -21,11 +20,11 @@
 (use-package php-mode
   :hook ((php-mode . emmet-mode)
           (php-mode . (lambda ()
-                       (make-local-variable 'company-backends)
-                       (add-to-list 'company-backends 'company-ac-php-backend t)
-                       (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
-                       (setq php-template-compatibility nil)
-                       ))
+                        (when (and (fboundp 'company-mode) company-mode)
+                          (make-local-variable 'company-backends)
+                          (add-to-list 'company-backends 'company-ac-php-backend t))
+                        (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
+                       (setq php-template-compatibility nil)))
           (php-mode . (lambda ()
                       (defun ywb-php-lineup-arglist-intro (langelem)
                         (save-excursion
@@ -42,8 +41,8 @@
   :mode ("\\.php\\'" "\\.inc\\'")
   :config
   (evil-define-key 'normal php-mode-map
-    (kbd ",d") #'hydra-php-debug/body
-    (kbd ",t") #'my/toggle-php-flavor-mode)
+    (kbd ",d") 'hydra-php-debug/body
+    (kbd ",t") 'my/toggle-php-flavor-mode)
 
   (defun my/php-setup ()
     (web-mode)
@@ -60,4 +59,8 @@
         (message "No symbol at point.")
         (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol)))))))
 
+(use-package company-php
+  :after (php-mode company-mode))
+
 (provide 'my-php)
+;;; my-php.el ends here

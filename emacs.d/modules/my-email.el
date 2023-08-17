@@ -111,7 +111,7 @@
   :if (file-directory-p my/mu4e-local-path)
   :commands mu4e
   :straight nil
-  :hook (mu4e-compose-mode . company-mode)
+  :hook (mu4e-compose-mode . (lambda () (when (and (fboundp company-mode) company-mode) (company-mode 1))))
   :bind (:map mu4e-main-mode-map
           ("U" . (lambda () (interactive) (mu4e-update-mail-and-index t)))
           ("x" . mu4e-kill-update-mail)

@@ -84,10 +84,38 @@
 ;; (use-package emojify
 ;;   :hook (org-mode . emojify-mode))
 
+(use-package corfu
+  :disabled t
+  :defer 0.2
+  :custom
+  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-auto t)                  ; Enable auto completion
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (corfu-popupinfo-delay '(0.5 . 0.2))
+  (corfu-preview-current 'insert) ; Do not preview current candidate
+  (corfu-preselect 'prompt)
+  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+  :init
+  (add-to-list 'load-path (expand-file-name "straight/repos/corfu/extensions" user-emacs-directory))
+  (require 'corfu-history)
+  (require 'corfu-popupinfo)
+  (require 'corfu-echo)
+  (require 'corfu-info)
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode) ; Popup completion info
+  (corfu-echo-mode)
+  :config
+  (add-hook 'eshell-mode-hook
+    (lambda () (setq-local corfu-quit-at-boundary t
+                 corfu-quit-no-match t
+                 corfu-auto nil)
+      (corfu-mode))))
+
 ;; alternative https://github.com/minad/corfu
 (use-package company
-  :commands company-mode
-  :demand t
+  :defer 0.2
   :diminish company-mode
   :init
   (require 'company-tempo)
@@ -97,15 +125,13 @@
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
-  (company-backends '((company-tempo company-capf company-files company-keywords company-dabbrev-code :separate)))
+  (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
   (company-files-exclusions '(".git/" ".DS_Store"))
   :config
   (evil-declare-change-repeat 'company-complete)
-
   (evil-define-key 'normal global-map
     (kbd "C-n") 'company-next-page
-    (kbd "C-p") 'company-previous-page)
-  )
+    (kbd "C-p") 'company-previous-page))
 
 (use-package company-statistics
   :disabled t
