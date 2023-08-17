@@ -53,8 +53,8 @@
   (make-directory my/org-base-path t)
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
-          (org-mode . ndk/set-header-line-format)
           (org-mode . (lambda () (when (and (fboundp company-mode) company-mode) (company-mode 1))))
+          (org-mode . afa/org-breadcrums-mode)
           (org-mode . org-appear-mode)
           (org-mode . (lambda ()
                         (setq-local
@@ -658,34 +658,44 @@
   (defun ndk/heading-title ()
     "Get the heading title."
     (save-excursion
-      (if (not (org-at-heading-p))
-        (org-previous-visible-heading 1))
-      (org-element-property :title (org-element-at-point))))
+      (if (org-at-heading-p)
+        (org-element-property :title (org-element-at-point))
+        (unless (org-before-first-heading-p) (org-get-heading)))))
 
   (defun ndk/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
-    (let* ((breadcrumbs (org-format-outline-path
-                          (org-get-outline-path)
-                          (1- (frame-width))
-                          nil " > "))
-            (title (ignore-errors (ndk/heading-title)))
-            (node (ignore-errors (org-roam-node-at-point)))
-            (filename (if node (org-roam-node-file-title node)))
-            (filename (if filename filename (buffer-name))))
-      (if title
-        (if (string-empty-p breadcrumbs)
-          (format "[%s] %s" filename title)
-          (format "[%s] %s > %s" filename breadcrumbs title))
-        (org-roam-node-file-title (org-roam-node-at-point)))))
-
-  (defun ndk/set-header-line-format ()
-    (setq header-line-format '(:eval (ndk/org-breadcrumbs))))
+    (when (derived-mode-p 'org-mode)
+      (let* ((path (org-get-outline-path))
+              (breadcrumbs
+                (when path
+                  (org-format-outline-path
+                    path
+                    (1- (frame-width))
+                    nil " > ")))
+              (title (ndk/heading-title))
+              (node (org-roam-node-at-point))
+              (filename (if node (org-roam-node-file-title node)))
+              (filename (if filename filename (buffer-name))))
+        (if title
+          (if breadcrumbs
+            (format "[%s] %s > %s" filename breadcrumbs title)
+            (format "[%s] %s" filename title))
+          (format "[%s]" (org-roam-node-file-title (org-roam-node-at-point)))))))
 
   ;; org mode conflicts resolution: windmove
   ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
   ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
   ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
   ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
+
+  (define-minor-mode afa/org-breadcrums-mode
+    "Minor mode to display org breadcrumbs
+    Toggle `afa/org-breadcrums-mode'"
+    :lighter "hlp"
+    :init-value nil
+    (make-variable-buffer-local header-line-format)
+    (setq-local header-line-format
+      (when afa/org-breadcrums-mode '(:eval (ndk/org-breadcrumbs)))))
 
   (defun my/org-link-copy (&optional arg)
     "Extract URL from org-mode link and add it to kill ring."
