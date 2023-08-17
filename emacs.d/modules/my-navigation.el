@@ -36,15 +36,19 @@
      ((control)
        . text-scale)))
 
-(setq display-buffer-alist '(("\\*[hH]elp.*"
-                               (display-buffer-reuse-window display-buffer-at-bottom)
-                               (window-width . 0.5)
-                               (reusable-frames . nil))
-                              ("\\*grep\\*"
-                                ;; (display-buffer-reuse-window display-buffer-below-selected)
-                                (display-buffer-reuse-window display-buffer-at-bottom)
-                                (window-height . 0.3)
-                                (reusable-frames . nil))))
+(setq display-buffer-alist
+  '(("\\*[hH]elp.*"
+      (display-buffer-reuse-window display-buffer-below-selected)
+      (window-width . 0.5)
+      (reusable-frames . nil))
+     ("\\*grep\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))
+     ("\\*eshell\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.3)
+       (reusable-frames . nil))))
 
 (use-package simple
   :straight nil
