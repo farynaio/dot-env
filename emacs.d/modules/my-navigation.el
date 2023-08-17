@@ -259,6 +259,16 @@
       (user-error
         "Not completing files currently"))))
 
+(use-package prescient
+  :after counsel
+  :config
+  (prescient-persist-mode 1))
+
+(use-package ivy-prescient
+  :after prescient
+  :config
+  (ivy-prescient-mode 1))
+
 (use-package counsel
   :after ivy
   :bind (("M-x" . counsel-M-x)
