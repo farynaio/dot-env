@@ -216,6 +216,8 @@
   (ivy-count-format "(%d/%d) ")
   (ivy-use-virtual-buffer t)
   (ivy-re-builders-alist '((t . ivy--regex-plus)))
+  (xref-show-xrefs-function 'ivy-xref-show-xrefs)
+  (xref-show-definitions-function 'ivy-xref-show-defs)
   ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
