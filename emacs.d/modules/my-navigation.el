@@ -261,7 +261,6 @@
           ("<return>" . ivy-alt-done)
           ("<backspace>" . ivy-backward-delete-char)
           ("C-M-h" . ivy-previous-line-and-call)
-          ("C-:" . ivy-dired)
           ("C-c o" . ivy-occur)
           ("C-'" . ivy-avy))
   :custom
@@ -279,19 +278,7 @@
   ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
-  (advice-add 'ivy-switch-buffer :before 'my/evil-switch-to-normal-state-if-insert)
-
-  (defun ivy-dired ()
-    (interactive)
-    (if ivy--directory
-      (ivy-quit-and-run
-        (dired ivy--directory)
-        (when (re-search-forward
-                (regexp-quote
-                  (substring ivy--current 0 -1)) nil t)
-          (goto-char (match-beginning 0))))
-      (user-error
-        "Not completing files currently"))))
+  (advice-add 'ivy-switch-buffer :before 'my/evil-switch-to-normal-state-if-insert))
 
 (use-package prescient
   :after counsel
