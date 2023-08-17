@@ -253,6 +253,7 @@
           ("\\w" . avy-goto-word-or-subword-1)
           ("\\c" . avy-goto-char)))
 
+;; https://oremacs.com/swiper/
 (use-package ivy
   :diminish ivy-mode
   :demand t

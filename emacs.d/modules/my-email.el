@@ -92,8 +92,8 @@
 	                         (nnimap-stream network)
 	                         (nnimap-authenticator login))))
   :config
-  (add-hook 'message-sent-hook #'gnus-score-followup-thread)
-  (add-hook 'gnus-group-mode-hook #'gnus-topic-mode))
+  (add-hook 'message-sent-hook 'gnus-score-followup-thread)
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode))
 
 (setq
   starttls-gnutls-program "gnutls-cli"
@@ -201,15 +201,15 @@
   (add-to-list 'load-path my/mu4e-local-path)
 
   (evil-define-key '(motion emacs normal) mu4e:view-mode-map
-    (kbd "C-d") #'evil-scroll-down
-    (kbd "C-u") #'evil-scroll-up)
+    (kbd "C-d") 'evil-scroll-down
+    (kbd "C-u") 'evil-scroll-up)
 
   (evil-define-key '(motion emacs) mu4e-headers-mode-map
-    (kbd "C-d") #'evil-scroll-down
-    (kbd "C-u") #'evil-scroll-up)
+    (kbd "C-d") 'evil-scroll-down
+    (kbd "C-u") 'evil-scroll-up)
 
   (evil-define-key '(visual) mu4e-compose-mode-map
-    (kbd "H") #'org-mime-htmlize)
+    (kbd "H") 'org-mime-htmlize)
 
   (evil-make-overriding-map mu4e-headers-mode-map 'motion)
   (evil-make-overriding-map mu4e-headers-mode-map 'normal)
