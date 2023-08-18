@@ -89,35 +89,33 @@
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (commandp symbol) (symbol-name symbol) ""))
+            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
-           (function-name
-            (intern
+            (function-name
               (funcall
                 completing-read-function
                 "Find references to: "
                 symbols-names
                 'commandp
                 t
-                symbol))))
-      (xref-find-references (symbol-name function-name))))
+                symbol)))
+      (xref-find-references function-name)))
 
   (defun my/xref-find-definitions ()
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (commandp symbol) (symbol-name symbol) ""))
+            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
             (function-name
-              (intern
                 (funcall
                   completing-read-function
                   "Find definitions of: "
-                  symbol-names
+                  symbols-names
                   'commandp
                   t
-                  symbol))))
-      (xref-find-definitions (symbol-name function-name))))
+                  symbol)))
+      (xref-find-definitions function-name)))
 
   (pretty-hydra-define hydra-merge
     (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
