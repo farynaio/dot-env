@@ -392,15 +392,10 @@ end-of-buffer signals; pass the rest to the default handler."
 (use-package tempo
   :defer 0.4
   :straight nil
+  :commands (tempo-complete-tag my/tempo-insert)
   :custom
   (tempo-interactive t)
   :config
-  (defvar general-tags nil
-    "Tags for all modes.")
-
-  (defvar tempo-initial-pos nil
-    "Initial position in template after expansion")
-
   (defun my/tempo-insert ()
     (interactive)
     (let* ((evil-state-pre (when (boundp 'evil-state) evil-state))
@@ -425,6 +420,9 @@ end-of-buffer signals; pass the rest to the default handler."
       (tempo-complete-tag)
       (when evil-state-pre
         (evil-change-state evil-state-pre))))
+
+  (defvar general-tags nil
+    "Tags for all modes.")
 
   (defvar tempo-initial-pos nil
     "Initial position in template after expansion")
