@@ -18,13 +18,23 @@
   :custom
   (eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
 
+(use-package highlight-thing
+  :commands highlight-thing-mode
+  :custom
+  (highlight-thing-delay-seconds 0)
+  (highlight-thing-case-sensitive-p t)
+  (highlight-thing-ignore-list '("False" "True"))
+  (highlight-thing-limit-to-region-in-large-buffers-p nil)
+  (highlight-thing-narrow-region-lines 15)
+  (highlight-thing-large-buffer-limit 5000))
+
 (use-package prog-mode
   :straight nil
   :hook ((prog-mode . eldoc-mode)
           (prog-mode . rainbow-delimiters-mode)
           (prog-mode . my/breadcrumb-set-local)
           (prog-mode . hl-todo-mode)
-          (prog-mode . symbol-overlay-mode)
+          (prog-mode . highlight-thing-mode)
           (prog-mode . company-mode)
           (prog-mode . electric-pair-local-mode))
   :config
@@ -179,12 +189,6 @@ Use when `json-mode' or similar get stuck."
 
 (use-package hl-todo
   :commands hl-todo-mode)
-
-(use-package symbol-overlay
-  :commands symbol-overlay-mode
-  :diminish symbol-overlay-mode
-  :custom
-  (symbol-overlay-idle-time 0.1))
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()

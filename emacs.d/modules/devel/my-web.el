@@ -79,7 +79,7 @@
   :hook (geben-mode . evil-emacs-state))
 
 (use-package jade-mode
-  :hook (jade-mode . symbol-overlay-mode)
+  :hook (jade-mode . highlight-thing-mode)
   :mode "\\.jade\\'")
 
 (use-package emmet-mode
