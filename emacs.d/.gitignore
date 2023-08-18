@@ -41,3 +41,4 @@ straight/repos
 chatgpt
 projects
 var/prescient-save.el
+flycheck_*
