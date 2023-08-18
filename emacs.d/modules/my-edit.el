@@ -388,6 +388,7 @@ end-of-buffer signals; pass the rest to the default handler."
 ;; https://github.com/minad/tempel
 ;; https://www.lysator.liu.se/~davidk/elisp/tempo-examples.html
 ;; https://www.lysator.liu.se/~davidk/elisp/
+;; https://www.emacswiki.org/emacs/TempoMode
 (use-package tempo
   :defer 0.4
   :straight nil
@@ -396,6 +397,9 @@ end-of-buffer signals; pass the rest to the default handler."
   :config
   (defvar general-tags nil
     "Tags for all modes.")
+
+  (defvar tempo-initial-pos nil
+    "Initial position in template after expansion")
 
   (defun my/tempo-insert ()
     (interactive)
@@ -421,6 +425,26 @@ end-of-buffer signals; pass the rest to the default handler."
       (tempo-complete-tag)
       (when evil-state-pre
         (evil-change-state evil-state-pre))))
+
+  (defadvice tempo-insert (around tempo-insert-pos act)
+    "Define initial position."
+    (if (eq element '~)
+      (setq tempo-initial-pos (point-marker))
+      ad-do-it))
+
+  (defadvice tempo-insert-template (around tempo-insert-template-pos act)
+    "Set initial position when defined. ChristophConrad"
+    (setq tempo-initial-pos nil)
+    ad-do-it
+    (if tempo-initial-pos
+      (progn
+        (put template 'no-self-insert t)
+        (goto-char tempo-initial-pos))
+      (put template 'no-self-insert nil)))
+
+  (defadvice tempo-define-template (after no-self-insert-in-abbrevs activate)
+    "Skip self-insert if template function is called by an abbrev."
+    (put (intern (concat "tempo-template-" (ad-get-arg 0))) 'no-self-insert t))
 
   (add-hook 'text-mode-hook
     (lambda ()
