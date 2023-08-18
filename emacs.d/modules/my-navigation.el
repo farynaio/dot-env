@@ -112,6 +112,10 @@
   :config
   (tab-bar-mode 1))
 
+(use-package beacon
+  :custom
+  (beacon-mode 1))
+
 (use-package help
   :straight nil
   :bind (:map help-mode-map
