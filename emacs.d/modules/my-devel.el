@@ -88,29 +88,35 @@
   (defun my/xref-find-references ()
     (interactive)
     (let* ((symbol (symbol-at-point))
+            (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
+            (symbol (if (commandp symbol) (symbol-name symbol) ""))
+            (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
            (function-name
             (intern
               (funcall
                 completing-read-function
                 "Find references to: "
-                (mapcar 'symbol-name (apropos-internal ".*"))
+                symbols-names
                 'commandp
                 t
-                (if symbol (symbol-name symbol) "")))))
+                symbol))))
       (xref-find-references (symbol-name function-name))))
 
   (defun my/xref-find-definitions ()
     (interactive)
     (let* ((symbol (symbol-at-point))
-           (function-name
-            (intern
-              (funcall
-                completing-read-function
-                "Find definitions of: "
-                (mapcar 'symbol-name (apropos-internal ".*"))
-                'commandp
-                t
-                (if symbol (symbol-name symbol) "")))))
+            (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
+            (symbol (if (commandp symbol) (symbol-name symbol) ""))
+            (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
+            (function-name
+              (intern
+                (funcall
+                  completing-read-function
+                  "Find definitions of: "
+                  symbol-names
+                  'commandp
+                  t
+                  symbol))))
       (xref-find-definitions (symbol-name function-name))))
 
   (pretty-hydra-define hydra-merge
