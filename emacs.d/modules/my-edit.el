@@ -426,6 +426,9 @@ end-of-buffer signals; pass the rest to the default handler."
       (when evil-state-pre
         (evil-change-state evil-state-pre))))
 
+  (defvar tempo-initial-pos nil
+    "Initial position in template after expansion")
+
   (defadvice tempo-insert (around tempo-insert-pos act)
     "Define initial position."
     (if (eq element '~)
