@@ -391,9 +391,36 @@ end-of-buffer signals; pass the rest to the default handler."
 (use-package tempo
   :defer 0.4
   :straight nil
+  :custom
+  (tempo-interactive t)
   :config
   (defvar general-tags nil
     "Tags for all modes.")
+
+  (defun my/tempo-insert ()
+    (interactive)
+    (let* ((evil-state-pre (when (boundp 'evil-state) evil-state))
+            (tags (mapcar 'car (tempo-build-collection)))
+            (symbol (symbol-at-point))
+            (symbol (if symbol (symbol-name symbol) ""))
+            (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) tags)) symbol ""))
+            (tag
+              (funcall
+                completing-read-function
+                "Choose template: "
+                tags
+                nil
+                t
+                symbol))
+            (inhibit-message t)
+            (message-log-max nil))
+      (if (eq symbol "")
+        (insert tag)
+        (unless (string= symbol tag)
+          (insert (format " %s" tag))))
+      (tempo-complete-tag)
+      (when evil-state-pre
+        (evil-change-state evil-state-pre))))
 
   (add-hook 'text-mode-hook
     (lambda ()
@@ -403,15 +430,19 @@ end-of-buffer signals; pass the rest to the default handler."
     (lambda ()
       (tempo-use-tag-list 'general-tags)))
 
+  (add-hook 'emacs-lisp-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'general-tags)))
+
   (tempo-define-template
-    "elisp file variables"
-    '("-*-" p "-*-" > (comment-line))
     "file-vars"
+    '("-*- " ~ " -*-")
+    "filev"
     "Insert file variables block"
     'general-tags)
 
   (tempo-define-template
-    "TODO tag"
+    "todo-tag"
     '("TODO ")
     "todo"
     "Insert TODO block"
