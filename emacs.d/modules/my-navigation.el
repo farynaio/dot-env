@@ -126,9 +126,12 @@
           ("b" . evil-backward-word-begin)
           ("B" . evil-backward-WORD-begin)
           ("y" . evil-yank)
-          ("<S-tab>" . backward-button)))
+          ("<S-tab>" . backward-button))
+  :custom
+  (help-window-select t))
 
 (use-package helpful
+  :after counsel
   :bind (("C-h f" . helpful-callable)
           ("C-h v" . helpful-variable)
           ("C-h k" . helpful-key)
@@ -281,17 +284,18 @@
   (advice-add 'ivy-switch-buffer :before 'my/evil-switch-to-normal-state-if-insert))
 
 (use-package prescient
-  :after counsel
+  :after ivy
   :config
   (prescient-persist-mode 1))
 
 (use-package ivy-prescient
-  :after prescient
+  :after ivy
   :config
   (ivy-prescient-mode 1))
 
 (use-package counsel
   :after ivy
+  :commands (counsel-projectile-switch-to-buffer counsel-projectile-find-dir counsel-projectile-find-file counsel-rg)
   :bind (("M-x" . counsel-M-x)
           ("C-x C-f" . counsel-find-file)
           ("<f1> f" . counsel-describe-function)
@@ -328,7 +332,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
       :action 'counsel-ibuffer-visit-buffer-other-window
       :caller 'counsel-ibuffer))
 
-  (advice-add 'counsel-grep :around #'my/counsel-grep-fallback)
+  (advice-add 'counsel-grep :around 'my/counsel-grep-fallback)
   (ivy-set-display-transformer 'counsel-describe-function nil))
 
 (defun my/counsel-grep-fallback (orig-fun &rest args)
@@ -387,13 +391,13 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;   (persp-mode))
 
 (use-package ivy-rich
-  :after ivy
+  :after (org counsel)
   :hook (org-mode . (lambda () (ivy-rich-local-mode 1)))
   :custom
   (ivy-rich-parse-remote-buffer nil)
   (ivy-rich-path-style 'full)
   :config
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+  (setcdr (assq t ivy-format-functions-alist) 'ivy-format-function-line)
 
   (defun my/ivy-rich-switch-buffer-icon (candidate)
     (with-current-buffer

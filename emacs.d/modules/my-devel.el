@@ -114,9 +114,9 @@
       (("R" smerge-refine "redefine"))))
 
   (defun my/prog-mode-hook ()
-    (modify-syntax-entry ?- "w" (syntax-table))
-    (modify-syntax-entry ?_ "w" (syntax-table))
-    (modify-syntax-entry ?$ "w" (syntax-table))
+    (modify-syntax-entry ?- "w")
+    (modify-syntax-entry ?_ "w")
+    (modify-syntax-entry ?$ "w")
     (abbrev-mode -1)
     (flyspell-mode -1)
     (hungry-delete-mode 1)

@@ -693,7 +693,6 @@
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
     :init-value nil
-    (make-variable-buffer-local header-line-format)
     (setq-local header-line-format
       (when afa/org-breadcrums-mode '(:eval (ndk/org-breadcrumbs)))))
 
@@ -989,9 +988,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (org-roam-db-gc-threshold most-positive-fixnum)
   (org-roam-tag-sources '(prop))
   (org-roam-update-db-idle-second 60)
-  (org-roam-mode-sections (list
-                            #'org-roam-backlinks-section
-                            #'org-roam-reflinks-section))
   (org-roam-dailies-directory "journal-archive/") ;; TODO probably later change name to "dailies" for official/public updates
   (org-roam-verbose nil)
   (org-roam-capture-ref-templates
@@ -1154,7 +1150,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (defun my/org-roam-node-find-other-window (&rest args)
     (interactive)
     (let ((org-roam-find-file-function #'find-file-other-window))
-      (apply #'org-roam-node-find args)))
+      (apply 'org-roam-node-find args)))
 
 ;;--------------------------
   ;; Handling file properties for CREATED & LAST_MODIFIED
