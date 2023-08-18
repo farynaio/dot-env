@@ -25,7 +25,8 @@
           (prog-mode . my/breadcrumb-set-local)
           (prog-mode . hl-todo-mode)
           (prog-mode . symbol-overlay-mode)
-          (prog-mode . company-mode))
+          (prog-mode . company-mode)
+          (prog-mode . electric-pair-local-mode))
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") 'evil-numbers/inc-at-pt
@@ -37,7 +38,7 @@
   (cond ((and (fboundp 'company-mode) company-mode)
     (evil-define-key 'normal prog-mode-map
       (kbd "C-/") 'company-complete))
-    ((and (fbound 'corfu-mode) corfu-mode)
+    ((and (fboundp 'corfu-mode) corfu-mode)
       (evil-define-key 'normal prog-mode-map
         (kbd "C-/") 'corfu-insert)))
 

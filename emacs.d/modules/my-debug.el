@@ -20,7 +20,7 @@
 
 (use-package edebug
   :straight nil
-  :commands edebug
+  :commands edebug-on-entry
   :hook ((edebug-mode . edebug-x-mode)
           (edebug-mode . edebug-step-mode)
           (edebug-mode . edebug-inline-result-mode))

@@ -498,13 +498,13 @@
     (kbd "C-c C-s") 'org-schedule)
 
   (evil-define-key 'insert org-mode-map
-    (kbd "C-n" ) 'completion-at-point
-    (kbd "C-p" ) 'completion-at-point)
+    (kbd "C-n") 'completion-at-point
+    (kbd "C-p") 'completion-at-point)
 
   (evil-define-key 'normal org-mode-map
     (kbd "C-x ,") 'hydra-org/body
-    (kbd "C-n" ) 'completion-at-point
-    (kbd "C-p" ) 'completion-at-point
+    (kbd "C-n") 'completion-at-point
+    (kbd "C-p") 'completion-at-point
     (kbd "C-x C-,") 'hydra-org/body
     (kbd "<tab>") 'org-cycle
     (kbd "TAB") 'org-cycle)
@@ -540,8 +540,8 @@
 
   (if (executable-find "unoconv")
     (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
-    (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d.xls %i")))
-    (message "No executable 'unoconv' found."))
+    (message "No executable 'unoconv' found.")
+    (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d.xls %i"))))
 
   (pretty-hydra-define hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
@@ -976,7 +976,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (org-drill-learn-fraction 0.3)
   :config
   (defalias 'drill (lambda (&optional scope drill-match) (interactive) (org-drill scope drill-match t)))
-  (defalias 'resume-drill #'org-drill-resume))
+  (defalias 'resume-drill 'org-drill-resume))
 
 (use-package org-roam
   :after (org emacsql)
@@ -1206,7 +1206,7 @@ it can be passed in POS."
     (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-directory buffer-file-name))
       (zp/org-set-time-file-property "LAST_MODIFIED")))
 
-  (add-hook 'before-save-hook #'zp/org-set-last-modified 50)
+  (add-hook 'before-save-hook 'zp/org-set-last-modified 50)
 
   ;; faces
   ;; org-roam-link
@@ -1345,6 +1345,7 @@ it can be passed in POS."
 ;; This is an Emacs package that creates graphviz directed graphs from
 ;; the headings of an org file
 (use-package org-mind-map
+  :disabled t
   :after org
   :if (executable-find "graphviz")
   :commands (org-mind-map-write org-mind-map-write-current-branch org-mind-map-write-current-tree)
