@@ -39,7 +39,7 @@
 (setq display-buffer-alist
   '(("\\*[hH]elp.*"
       (display-buffer-reuse-window display-buffer-below-selected)
-      (window-width . 0.5)
+      (window-height . 0.4)
       (reusable-frames . nil))
      ("\\*grep\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)

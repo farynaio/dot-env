@@ -63,27 +63,27 @@
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("f" ediff "ediff files" :exit t)
-        ("b" ediff-buffers "ediff buffers" :exit t))
+        ("b" ediff-buffers "ediff buffers" :exit t)
+        ("x" xref-find-references-and-replace "replace references" :exit t)
+        ("s" my/tempo-insert "insert snippet" :exit t))
+      "AI"
+      (("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
+        ("aa" starhugger-accept-suggestion "accept suggestion" :exit t)
+        (">" starhugger-show-next-suggestion "next suggestion")
+        ("<" starhugger-show-prev-suggestion "previous suggestion"))
       "Find"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
+        ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
-        ("g" counsel-projectile-git-grep "git grep" :toggle t :exit t)
         ("k" treemacs "treemacs" :toggle t :exit t))
-      "Refactor"
-      (("x" xref-find-references-and-replace "replace references" :exit t))
       "Syntax check"
-      (("p" my/prettier-mode "prettier" :toggle t)
-        ("c" flycheck-mode "flycheck" :toggle t)
+      (("c" flycheck-mode "flycheck" :toggle t)
         ("m" flymake-mode "flymake" :toggle t)
+        ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
-        ("i" my/dtrt-indent-mode-toggle "Toggle dtrt-indent-mode" :toggle t))
-      "AI"
-      (("s" starhugger-trigger-suggestion "generate suggestion" :exit t)
-        ("a" starhugger-accept-suggestion "accept suggestion" :exit t)
-        (">" starhugger-show-next-suggestion "next suggestion" :exit t)
-        ("<" starhugger-show-prev-suggestion "previous suggestion" :exit t))))
+        ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t))))
 
   (defun my/xref-find-references ()
     (interactive)
