@@ -21,12 +21,13 @@
 (use-package highlight-thing
   :commands highlight-thing-mode
   :custom
-  (highlight-thing-delay-seconds 0)
+  (setq highlight-thing-delay-seconds 0.1)
   (highlight-thing-case-sensitive-p t)
   (highlight-thing-ignore-list '("False" "True"))
   (highlight-thing-limit-to-region-in-large-buffers-p nil)
   (highlight-thing-narrow-region-lines 15)
-  (highlight-thing-large-buffer-limit 5000))
+  (highlight-thing-large-buffer-limit 5000)
+  (highlight-thing-exclude-thing-under-point t))
 
 (use-package prog-mode
   :straight nil
