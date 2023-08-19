@@ -29,7 +29,7 @@
        ("income statement" "%(binary) --invert --real -S -T [[ledger-mode-flags]] -f %(ledger-file) bal ^income ^expenses -p \"this month\"")))
   :config
   (pretty-hydra-define hydra-ledger
-    (:hint nil :color teal :quit-key "q" :title (with-faicon "money" "Ledger" 1 -0.05))
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
     ("Action"
       (
         ;; ("b" my/erc-browse-last-url "browse last url")
