@@ -57,7 +57,8 @@
     (kbd "C-/") 'company-complete)
 
   (evil-define-key 'normal prog-mode-map
-    (kbd "C-c m") 'hydra-merge/body)
+    (kbd "C-c m") 'hydra-merge/body
+    (kbd "/") 'counsel-grep)
 
   (pretty-hydra-define hydra-prog
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
