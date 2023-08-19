@@ -1277,7 +1277,33 @@ it can be passed in POS."
   (org-journal-date-format "%Y-%m-%d")
   (org-journal-time-prefix "*** ")
   :config
-  (unbind-key "C-c C-j"))
+  (unbind-key "C-c C-j")
+
+  (defun my/org-journal-open-current-journal-file ()
+    "Do `org-journal-open-current-journal-file` and go to the most recent entry."
+    (interactive)
+    (org-journal-open-current-journal-file)
+    (let* ((heading-title "Timeline")
+            (poslist (org-map-entries 'point (format "ITEM=\"%s\"" heading-title) 'file)))
+      (if (<= (length poslist) 0)
+        (message (format "No heading with title '%s' found!" heading-title))
+        (goto-char (nth 0 poslist))
+        (org-cycle))))
+
+  (defun my/org-journal-after-header-create-hook ()
+    (goto-char (point-min))
+    (mark-whole-buffer)
+    (org-sort-entries nil ?A)
+    (org-back-to-heading)
+    (let ((anchor (point)))
+      (forward-line)
+      (kill-visual-line)
+      (insert my/org-journal-template)
+      (goto-char anchor)
+      (forward-line)
+      (yank)))
+
+  (add-hook 'org-journal-after-header-create-hook 'my/org-journal-after-header-create-hook))
 
 (defun my/org-fold-other-headings ()
   "Fold all `org-mode` headings other than the current one."
