@@ -141,14 +141,28 @@
           ("C-h k" . helpful-key)
           ("C-c C-d" . helpful-at-point)
           :map helpful-mode-map
-          ("/" . isearch-forward)
+          ("/" . counsel-grep)
+          ("C-s" . counsel-grep)
+          ("," . 'my/hydra-help/body)
           ("q" . (lambda ()
                    (interactive)
                    (kill-buffer)
                    (delete-window))))
   :custom
   (counsel-describe-function-function 'helpful-callable)
-  (counsel-describe-variable-function 'helpful-variable))
+  (counsel-describe-variable-function 'helpful-variable)
+
+  (pretty-hydra-define my/hydra-help
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "info" "Help" 1 -0.05))
+    ("Action"
+      (("l" my/helpful-org-link-store "store org link to page" :exit t))))
+
+  (defun my/helpful-org-link-store ()
+    "Copy org style link to current help buffer."
+    (interactive)
+    (let* ((link  (plist-get (helpful--org-link-store) :link)))
+      (kill-new link)
+      (message (format "Link to help page '%s' copied" link)))))
 
 (use-package tramp
   :demand 0.3
