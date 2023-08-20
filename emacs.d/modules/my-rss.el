@@ -310,3 +310,4 @@
 (defalias 'rss #'my/elfeed-load-db-and-open)
 
 (provide 'my-rss)
+;;; my-rss.el ends here

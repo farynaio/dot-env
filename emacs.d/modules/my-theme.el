@@ -1,3 +1,6 @@
+
+;;; Code:
+
 (use-package all-the-icons
   :config
   (unless (find-font (font-spec :name "all-the-icons"))

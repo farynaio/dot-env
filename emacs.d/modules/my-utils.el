@@ -1,4 +1,8 @@
+
+;;; Code:
+
 (defun my/func-call (&rest func)
+  "Call `FUNC' (function or functions) interactively."
   (interactive)
   (dolist (i func)
     (if (listp i)
@@ -73,6 +77,7 @@ in whole buffer.  With neither, delete comments on current line."
 
 ;; http://ergoemacs.org/emacs/elisp_compact_empty_lines.html
 (defun my/remove-empty-lines ()
+  "Remove empty lines in region."
   (interactive)
   (let ($begin $end)
     (if (region-active-p)
@@ -89,35 +94,57 @@ in whole buffer.  With neither, delete comments on current line."
             (replace-match "\n")))))))
 
 (defun my/wp-gutenberg-to-md ()
+  "Convert wordpress Gutenberg post content to markdown."
   (interactive)
   (save-excursion
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "<!-- /?wp:\\(heading\\|image\\|paragraph\\|list\\|code\\|preformatted\\).*?-->\n?" nil t)
       (replace-match "" nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "<!-- /?wp:\\(qubely\\|html\\).*?-->\n?" nil t)
       (replace-match "" nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "</?p>" nil t)
       (replace-match "" nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "</h[1-6]>" nil t)
       (replace-match "" nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "<h2>" nil t)
       (replace-match "## " nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "<h3>" nil t)
       (replace-match "### " nil nil))
 
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (while (re-search-forward "</?code>" nil t)
       (replace-match "`" nil nil))))
+
+(defun my/copy-file-name ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename
+          (if (equal major-mode 'dired-mode)
+            default-directory
+            (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun my/buffer-tramp-p ()
+  "Return t if buffer is tramp buffer, otherwise nil."
+  (interactive)
+  (let ((name (buffer-file-name)))
+    (and name (string-prefix-p "/ssh:" name))))
+
+(defun my/advice-around-skip (func &rest args)
+  "Skip around adviced function `FUNC'.
+ARGS are omited")
 
 ;; (defun my/evil-ex-nohighlight-frame ()
 ;;   ""

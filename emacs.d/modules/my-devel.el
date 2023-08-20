@@ -16,7 +16,7 @@
   :commands eldoc-mode
   :diminish eldoc-mode
   :custom
-  (eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
+  (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly))
 
 (use-package highlight-thing
   :commands highlight-thing-mode
@@ -66,7 +66,8 @@
       (("f" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
         ("x" xref-find-references-and-replace "replace references" :exit t)
-        ("s" my/tempo-insert "insert snippet" :exit t))
+        ("." my/tempo-insert "insert snippet" :exit t)
+        ("s" eshell-toggle "eshell toggle" :toggle t :exit t))
       "AI"
       (("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
         ("aa" starhugger-accept-suggestion "accept suggestion" :exit t)
@@ -139,7 +140,7 @@
     (hl-line-mode 1)
     (show-paren-mode 1))
 
-  (add-hook 'prog-mode-hook 'my/prog-mode-hook -50))
+  (add-hook 'prog-mode-hook #'my/prog-mode-hook -50))
 
 (use-package mmm-mode
   :commands mmm-mode
@@ -468,9 +469,9 @@ $0`(yas-escape-text yas-selected-text)`")
   (unbind-key "C-M-i" emacs-lisp-mode-map)
 
   (evil-define-key 'normal emacs-lisp-mode-map
-    (kbd ",d") 'hydra-debug-elisp/body
-    (kbd "<down>") 'evil-next-visual-line
-    (kbd "<up>") 'evil-previous-visual-line)
+    (kbd ",d") #'hydra-debug-elisp/body
+    (kbd "<down>") #'evil-next-visual-line
+    (kbd "<up>") #'evil-previous-visual-line)
 
   (pretty-hydra-define hydra-debug-elisp
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "bug" "Debug" 1 -0.05))
@@ -538,9 +539,10 @@ ets function symbol on point as initial suggestion."
   :after ivy
   :init
   (when (>= emacs-major-version 27)
-    (setq-default xref-show-definitions-function 'ivy-xref-show-defs))
+    (setq-default xref-show-definitions-function #'ivy-xref-show-defs))
   :custom
-  (setq xref-show-xrefs-function 'ivy-xref-show-xrefs))
+  (xref-show-xrefs-function #'ivy-xref-show-xrefs)
+  (xref-show-definitions-function #'ivy-xref-show-defs))
 
 (require 'my-python)
 (require 'my-web)

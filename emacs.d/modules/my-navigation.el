@@ -108,7 +108,7 @@
   :straight nil
   :custom
   (tab-bar-tab-name-truncated-max 15)
-  (tab-bar-tab-name-current 'tab-bar-tab-name-truncated)
+  (tab-bar-tab-name-current #'tab-bar-tab-name-truncated)
   :config
   (tab-bar-mode 1))
 
@@ -141,7 +141,7 @@
           ("C-h k" . helpful-key)
           ("C-c C-d" . helpful-at-point)
           :map helpful-mode-map
-          ("/" . counsel-grep)
+          ("/" . isearch-forward)
           ("C-s" . counsel-grep)
           ("," . 'my/hydra-help/body)
           ("q" . (lambda ()
@@ -149,8 +149,8 @@
                    (kill-buffer)
                    (delete-window))))
   :custom
-  (counsel-describe-function-function 'helpful-callable)
-  (counsel-describe-variable-function 'helpful-variable)
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
 
   (pretty-hydra-define my/hydra-help
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "info" "Help" 1 -0.05))
@@ -165,7 +165,6 @@
       (message (format "Link to help page '%s' copied" link)))))
 
 (use-package tramp
-  :demand 0.3
   :straight nil
   :custom
   (tramp-default-method "ssh")
@@ -175,14 +174,18 @@
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell "/bin/sh"))
 
+(use-package docker-tramp
+  :disabled t
+  :after tramp)
+
 (use-package counsel-tramp
   :after (counsel tramp)
   :commands counsel-tramp)
 
 (use-package anzu
-  :defer 0.3
+  :demand t
   :diminish anzu-mode
-  :bind ("M-%" . 'anzu-query-replace-regexp)
+  :bind ("M-%" . #'anzu-query-replace-regexp)
   :config
   (global-anzu-mode 1))
 
@@ -190,11 +193,11 @@
 (use-package drag-stuff
   :diminish drag-stuff-mode
   :config
-  (add-to-list 'drag-stuff-except-modes 'org-mode)
+  (add-to-list 'drag-stuff-except-modes #'org-mode)
   ;; (add-to-list 'drag-stuff-except-modes 'my/org-taskjuggler-mode)
   (drag-stuff-global-mode 1)
-  (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) 'drag-stuff-up)
-  (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) 'drag-stuff-down))
+  (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) #'drag-stuff-up)
+  (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) #'drag-stuff-down))
 
 (use-package goto-last-change
   :demand 0.3
@@ -253,11 +256,11 @@
 (use-package treemacs-evil
   :after (treemacs evil)
   :config
-  (evil-define-key 'treemacs treemacs-mode-map
-    (kbd "RET") 'treemacs-visit-node-in-most-recently-used-window
-    [S-mouse-1] 'treemacs-visit-node-in-most-recently-used-window
-    [mouse-3] 'treemacs-visit-node-in-most-recently-used-window
-    [C-down-mouse-1] 'treemacs-visit-node-in-most-recently-used-window))
+  (evil-define-key 'normal treemacs-mode-map
+    (kbd "RET") #'treemacs-visit-node-in-most-recently-used-window
+    [S-mouse-1] #'treemacs-visit-node-in-most-recently-used-window
+    [mouse-3] #'treemacs-visit-node-in-most-recently-used-window
+    [C-down-mouse-1] #'treemacs-visit-node-in-most-recently-used-window))
 
 (use-package treemacs-magit
   :after (treemacs magit))
@@ -294,8 +297,6 @@
   (ivy-count-format "(%d/%d) ")
   (ivy-use-virtual-buffer t)
   (ivy-re-builders-alist '((t . ivy--regex-plus)))
-  (xref-show-xrefs-function 'ivy-xref-show-xrefs)
-  (xref-show-definitions-function 'ivy-xref-show-defs)
   ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
@@ -332,7 +333,9 @@
           ("C-h l" . counsel-find-library)
           :map read-expression-map
           ("C-r" . counsel-minibuffer-history)
-          ("C-r" . counsel-expression-history))
+          ("C-r" . counsel-expression-history)
+          :map evil-normal-state-map
+          ("C-s" . counsel-grep))
   :custom
   (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
   (counsel-find-file-ignore-regexp "\\`\\.")
@@ -364,11 +367,11 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 
   ;; (if (or (string= major-mode "dired-mode") (string= major-mode "org-mode") (string= major-mode "help-mode") (string= "*scratch*" (buffer-name)) (string= "*Org Agenda*" (buffer-name)) (string-match ".gpg\\'" (buffer-name)))
 
-  (if (fboundp 'swiper)
-    (apply 'swiper args)
-    (if (fboundp 'evil-search-forward)
-      (apply 'evil-search-forward args)
-      (apply 'search-forward args))))
+  (if (fboundp #'swiper)
+    (apply #'swiper args)
+    (if (fboundp #'evil-search-forward)
+      (apply #'evil-search-forward args)
+      (apply #'search-forward args))))
 
 ;; (use-package undo-tree
 ;;   :defer t
@@ -416,7 +419,7 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
   (ivy-rich-parse-remote-buffer nil)
   (ivy-rich-path-style 'full)
   :config
-  (setcdr (assq t ivy-format-functions-alist) 'ivy-format-function-line)
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
   (defun my/ivy-rich-switch-buffer-icon (candidate)
     (with-current-buffer
@@ -580,7 +583,7 @@ point reaches the beginning or end of the buffer, stop there."
       (move-beginning-of-line 1))))
 
 (evil-define-key 'normal global-map
-  (kbd "C-a") 'my/smarter-move-beginning-of-line)
+  (kbd "C-a") #'my/smarter-move-beginning-of-line)
 
 (use-package windmove
   :straight nil
@@ -600,8 +603,8 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package origami
   :commands origami-mode
   :custom
-  (evil-define-key '(normal) origami-mode-map
-    (kbd "<C-return>") 'origami-toggle-node))
+  (evil-define-key 'normal origami-mode-map
+    (kbd "<C-return>") #'origami-toggle-node))
 
 (use-package openwith
   :disabled t
@@ -688,7 +691,7 @@ Close other windows."
   (when (seq-some (lambda (i) (string-prefix-p (expand-file-name i) buffer-file-name)) aok/read-only-folders)
     (read-only-mode 1)))
 
-(add-hook 'find-file-hook 'aok/file-set-read-only-if-listed)
+(add-hook 'find-file-hook #'aok/file-set-read-only-if-listed)
 
 ;; (defun my/prev-frame ()
 ;;   (interactive)
@@ -706,8 +709,6 @@ Close other windows."
   ;; ("<s-left>" . my/prev-frame)
   ;; ("C-c p" . #'pop-to-mark-command)
   )
-
-(unbind-key "s-l")
 
 ;; https://github.com/minad/consult#live-previews
 ;; (use-package consult
@@ -763,7 +764,15 @@ Close other windows."
     ("k" my/kill-all-buffers-except-toolkit))))
 
 (evil-define-key 'normal global-map
-  (kbd ",b") 'hydra-buffer/body)
+  (kbd ",b") #'hydra-buffer/body)
+
+(defun my/move-current-window-to-new-frame ()
+  "Move current window to new frame."
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (unless (one-window-p)
+      (delete-window))
+    (display-buffer-pop-up-frame buffer nil)))
 
 (provide 'my-navigation)
 ;;; my-navigation.el ends here

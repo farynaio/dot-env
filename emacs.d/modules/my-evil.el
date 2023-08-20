@@ -30,6 +30,7 @@
     ("l" . evil-end-of-line)
     ("v" . set-mark-command)
     ("C-y" . yank)
+    ("C-w T" . my/move-current-window-to-new-frame)
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-p" . evil-jump-forward)
@@ -51,7 +52,6 @@
     ("/" . evil-search-forward)
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
-    ("C-s" . counsel-grep)
     ("C-c C-S-o" . browse-url-generic)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
@@ -223,7 +223,7 @@
   ;; (my/move-key evil-motion-state-map evil-normal-state-map (kbd "RET"))
   ;; (my/move-key evil-motion-state-map evil-normal-state-map " ")
 
-  (defalias 'forward-evil-word 'forward-evil-symbol)
+  (defalias 'forward-evil-word #'forward-evil-symbol)
 
   (defun my/evil-switch-to-normal-state-if-insert (&optional arg)
     "Switched to evil normal state from insert"
@@ -255,11 +255,17 @@
   (defun make-evil-multiedit-case-sensitive (fn &rest args)
     (let ((case-fold-search (not iedit-case-sensitive)))
       (apply fn args)))
-  (advice-add 'evil-multiedit-match-and-next :around 'make-evil-multiedit-case-sensitive))
+  (advice-add 'evil-multiedit-match-and-next :around #'make-evil-multiedit-case-sensitive))
 
 (use-package evil-numbers
   :after evil
   :commands (evil-numbers/inc-at-pt evil-numbers/dec-at-pt))
+
+(use-package undo-fu
+  :config
+  (evil-define-key 'normal 'global-map
+    (kbd "u") #'undo-fu-only-undo
+    (kbd "C-r") #'undo-fu-only-redo))
 
 (provide 'my-evil)
 ;;; my-evil.el ends here

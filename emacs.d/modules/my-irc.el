@@ -269,9 +269,9 @@
 (use-package erc-hl-nicks
   :after erc)
 
-(defalias 'irc 'my/erc-freenode)
-(defalias 'irc-freenode 'my/erc-freenode)
-(defalias 'irc-oftc 'my/erc-oftc)
+(defalias 'irc #'my/erc-freenode)
+(defalias 'irc-freenode #'my/erc-freenode)
+(defalias 'irc-oftc #'my/erc-oftc)
 
 (provide 'my-irc)
 ;;; my-irc.el ends here

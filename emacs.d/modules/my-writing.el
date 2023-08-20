@@ -68,10 +68,10 @@
     (unless (derived-mode-p 'prog-mode)
       (let ((new-mode (symbol-function
                         (cond
-                          ((bound-and-true-p my/pl-mode) 'my/en-mode)
-                          ((bound-and-true-p my/en-mode) 'my/pl-mode)
+                          ((bound-and-true-p my/pl-mode) #'my/en-mode)
+                          ((bound-and-true-p my/en-mode) #'my/pl-mode)
                           ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
-                          (t 'my/en-mode))
+                          (t #'my/en-mode))
                         )))
         (my/lang-modes-deactivate)
         (funcall new-mode 1)))))
@@ -342,7 +342,7 @@
     ("q" langtool-check-done "langtool done")
     ("a" artbollocks-mode "artbollocks"))))
 
-(bind-key "C-c s" 'hydra-spelling/body)
+(bind-key "C-c s" #'hydra-spelling/body)
 
 (provide 'my-writing)
 ;;; my-writing.el ends here

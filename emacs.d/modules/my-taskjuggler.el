@@ -1,4 +1,5 @@
-(require 'taskjuggler-mode)
+
+;;; Code:
 
 (use-package taskjuggler-mode
   :straight (:type built-in)

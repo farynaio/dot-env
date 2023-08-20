@@ -67,7 +67,6 @@
   )
 
 (use-package elec-pair
-  :defer 0.3
   :straight nil
   :config
   ;; (push '(?\" . ?\") electric-pair-pairs)
@@ -80,11 +79,10 @@
   ;; (push '(?\` . ?\`) electric-pair-text-pairs)
 
 (use-package hungry-delete
-  :defer 0.3
   :init
   (setq-default hungry-delete-join-reluctantly t)
   :config
-  (global-hungry-delete-mode))
+  (global-hungry-delete-mode 1))
 
 ;; (use-package with-editor)  ; dependency for other package
 
@@ -122,10 +120,13 @@
 
 ;; alternative https://github.com/minad/corfu
 (use-package company
-  :defer 0.2
+  :after evil
   :diminish company-mode
   :init
-  (require 'company-tempo)
+  :demand t
+  :bind (:map evil-normal-state-map
+          ("C-n" . company-next-page)
+          ("C-p" . company-previous-page))
   :custom
   (company-idle-delay 0.5)
   (company-show-numbers t)
@@ -135,10 +136,7 @@
   (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
   (company-files-exclusions '(".git/" ".DS_Store"))
   :config
-  (evil-declare-change-repeat 'company-complete)
-  (evil-define-key 'normal global-map
-    (kbd "C-n") 'company-next-page
-    (kbd "C-p") 'company-previous-page))
+  (evil-declare-change-repeat #'company-complete))
 
 (use-package company-statistics
   :disabled t
@@ -156,9 +154,7 @@
   :custom
   (company-quickhelp-delay nil)) ;; Invoke popup via shortcut
 
-;; Used to hang emacs?
 (use-package which-key
-  :defer 0.2
   :diminish which-key-mode
   :custom
   (which-key-idle-delay 0.3)
@@ -183,8 +179,8 @@
   :config
   (ediff-diff-options "-w")
   :custom
-  (ediff-window-setup-function 'ediff-setup-windows-plain)
-  (ediff-forward-word-function 'forward-char)
+  (ediff-window-setup-function #'ediff-setup-windows-plain)
+  (ediff-forward-word-function #'forward-char)
   ;; :config
   ;; (evil-define-key 'normal ediff-mode-map
   ;;   "[c" 'ediff-next-difference
@@ -216,9 +212,10 @@
     (when chatgpt-buffer
       (kill-buffer chatgpt-buffer)))
   (chatgpt-shell))
-  (defalias 'ai 'my/chatgpt-shell-start-new))
+  (defalias 'ai #'my/chatgpt-shell-start-new))
 
 (use-package ob-chatgpt-shell
+  :disabled t
   :after chatgpt-shell
   :config
   (ob-chatgpt-shell-setup))
@@ -244,7 +241,7 @@ end-of-buffer signals; pass the rest to the default handler."
                                  beginning-of-buffer
                                  end-of-buffer)))
     (command-error-default-function data context caller)))
-(setq command-error-function 'my/command-error-function)
+(setq command-error-function #'my/command-error-function)
 
 (if (fboundp 'imagemagick-register-types)
   (imagemagick-register-types)
@@ -267,52 +264,18 @@ end-of-buffer signals; pass the rest to the default handler."
         (insert (alist-get symbol my/flip-symbol-alist "" nil 'equal)))
       (message "Nothing to flip here"))))
 
-(defun my/copy-file-name ()
-  "Copy the current buffer file name to the clipboard."
-  (interactive)
-  (let ((filename
-          (if (equal major-mode 'dired-mode)
-            default-directory
-            (buffer-file-name))))
-    (when filename
-      (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard." filename))))
-
-(evil-define-key 'normal global-map
-  (kbd ",c d") 'my/copy-file-name)
-
 (defun my/revert-buffer-noconfirm ()
   "Revert current buffer without asking for confirmation."
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
   (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
 
-(defun my/move-current-window-to-new-frame ()
-  "Move current window to new frame."
-  (interactive)
-  (let ((buffer (current-buffer)))
-    (unless (one-window-p)
-      (delete-window))
-    (display-buffer-pop-up-frame buffer nil)))
-
-(evil-define-key 'normal global-map
-  (kbd "C-x T") 'my/move-current-window-to-new-frame
-  (kbd "C-w T") 'my/move-current-window-to-new-frame)
-
-(defun my/buffer-tramp-p ()
-  "Returns t if buffer is tramp buffer."
-  (interactive)
-  (let ((name (buffer-file-name)))
-    (and name (string-prefix-p "/ssh:" name))))
-
-(defun my/advice-around-skip (orig-fun &rest args)
-  "Skip around adviced function.")
-
-(defun my/reinstall-package (pkg)
-  (interactive (list (intern (completing-read "Reinstall package: " (mapcar #'car package-alist)))))
-  (unload-feature pkg)
-  (package-reinstall pkg)
-  (require pkg))
+(unless (boundp 'straight-version)
+  (defun my/reinstall-package (pkg)
+    (interactive (list (intern (completing-read "Reinstall package: " (mapcar #'car package-alist)))))
+    (unload-feature pkg)
+    (package-reinstall pkg)
+    (require 'pkg)))
 
 ;; (defun my/unindent-region ()
 ;;   "Unindent selected region."
@@ -384,17 +347,11 @@ end-of-buffer signals; pass the rest to the default handler."
 (auto-save-mode -1)
 ;; (file-name-shadow-mode -1)
 
+;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)
     (unless (memq major-mode (list 'org-agenda-mode))
       (apply orig-fun args))))
-
-(use-package undo-fu
-  :commands (undo-fu-only-undo undo-fu-only-redo)
-  :config
-  (evil-define-key 'normal 'global-map
-    (kbd "u") 'undo-fu-only-undo
-    (kbd "C-r") 'undo-fu-only-redo))
 
 (provide 'my-edit)
 ;;; my-edit.el ends here

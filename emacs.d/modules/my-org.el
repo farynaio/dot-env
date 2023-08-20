@@ -37,23 +37,10 @@
 (use-package org
   :demand t
   :init
-  (setq my/org-active-projects
-    (list
-      ;; my/org-project-indie-dev
-      ;; my/org-project-service-arbitrage
-      ;; my/org-project-best-offers-club
-      ;; my/org-project-setup-digital-agency
-      ;; my/org-project-setup-career-it-blog
-      ;; my/org-project-launch-diy-app
-      ;; my/org-project-launch-amazon-business
-      ;; my/org-project-become-confident-pua
-      ;; my/org-project-trip-edinburgh
-      ;; my/org-project-trip-nottingham
-      ))
   (make-directory my/org-base-path t)
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
-          (org-mode . (lambda () (when (and (fboundp company-mode) company-mode) (company-mode 1))))
+          (org-mode . (lambda () (when (and (fboundp 'company-mode) company-mode) (company-mode 1))))
           (org-mode . afa/org-breadcrums-mode)
           (org-mode . org-appear-mode)
           (org-mode . (lambda ()
@@ -980,7 +967,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
 (use-package org-roam
   :after (org emacsql)
   :diminish org-roam-mode
-  :demand t
+  :commands (org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create)
   :bind ("C-c v" . hydra-org-roam/body)
   :custom
   (org-roam-directory my/org-roam-directory)
@@ -1267,6 +1254,7 @@ it can be passed in POS."
 
 (use-package org-journal
   :after org
+  :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
   :custom
   (org-journal-dir my/org-roam-journal-directory)
   (org-journal-file-type 'yearly)
@@ -1303,7 +1291,7 @@ it can be passed in POS."
       (forward-line)
       (yank)))
 
-  (add-hook 'org-journal-after-header-create-hook 'my/org-journal-after-header-create-hook))
+  (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
 
 (defun my/org-fold-other-headings ()
   "Fold all `org-mode` headings other than the current one."

@@ -106,8 +106,8 @@ to invalidate."
   (diff-hl-margin-mode 1)
   (diff-hl-amend-mode 1)
   (diff-hl-show-hunk-mouse-mode 1)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
 (use-package git-rebase
   :after magit

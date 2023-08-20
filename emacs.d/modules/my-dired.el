@@ -35,14 +35,11 @@
           ("i" . dired-subtree-toggle)
           ("C-c C-n" . dired-narrow)
           ("C-c C-f" . dired-narrow-fuzzy)
-          ("C-c C-r" . dired-narrow-regexp)
-          ("C-c d" . hydra-dired/body)
-          ;; ("C-c u" . hydra-upload/body)
-	  )
+          ("C-c C-r" . dired-narrow-regexp))
   :preface
   (defun my/dired-shell-command ()
     "Run any shell command in Dired."
-    (interactive )
+    (interactive)
     (let ((cmd (read-string "Run shell command: ")))
       (if cmd
         (dired-run-shell-command cmd)
@@ -69,30 +66,46 @@
        ;; ("\\.\\(?:mpe?g\\|mp4\\|avi\\|wmv\\)\\'" "open")))
   :config
   (evil-define-key 'normal dired-mode-map
-    (kbd "C-s") 'find-name-dired
-    (kbd "<") 'beginning-of-buffer
-    (kbd ">") 'end-of-buffer
-    (kbd "C-x w") 'my/dired-copy-dirname-as-kill
-    (kbd "W") 'my/dired-copy-path-to-file-as-kill
+    (kbd "C-s") #'find-name-dired
+    (kbd "<") #'beginning-of-buffer
+    (kbd ">") #'end-of-buffer
+    (kbd "C-x w") #'my/dired-copy-dirname-as-kill
+    (kbd "W") #'my/dired-copy-path-to-file-as-kill
     (kbd "k") (lambda () (interactive) (dired-do-kill-lines t))
-    (kbd "r") 'my/rgrep
-    (kbd "C-w =") 'balance-windows
-    (kbd "C-w |") 'maximize-window
-    (kbd "C-w q") 'evil-quit
-    (kbd "C-w v") 'split-window-right
-    (kbd "/") 'evil-ex-search-forward
-    (kbd "n") 'evil-ex-search-next
-    (kbd "N") 'evil-ex-search-previous
+    (kbd "r") #'my/rgrep
+    (kbd "C-w =") #'balance-windows
+    (kbd "C-w |") #'maximize-window
+    (kbd "C-w q") #'evil-quit
+    (kbd "C-w v") #'split-window-right
+    (kbd "/") #'evil-ex-search-forward
+    (kbd "n") #'evil-ex-search-next
+    (kbd "N") #'evil-ex-search-previous
     (kbd "<backspace>") (lambda () (interactive) (my/dired-go-up-reuse "..")))
 
-  (evil-define-key 'normal global-map
-    (kbd ",m") 'my/dired-jump-make-new-window)
+  (evil-define-key '(normal visual) dired-mode-map
+    (kbd ",l") #'my/hydra-dired/body)
 
-  ;; (pretty-hydra-define hydra-dired
-  ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
-  ;;   ("Actions"
-  ;;     (("c" my/dired-shell-command "run command")
-  ;;       ("g" magit-status "magit status"))))
+  (evil-define-key 'normal global-map
+    (kbd ",m") #'my/dired-jump-make-new-window)
+
+  (pretty-hydra-define my/hydra-dired
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
+    ("Basic"
+      (("x" my/dired-shell-command "run command" :exit t)
+        ("s" find-name-dired "find regexp" :exit t)
+        ("c" dired-copy-filename-as-kill "copy filename" :exit t)
+        ("u" my/sudo-dired "sudo dired" :exit t))
+      "Encryption"
+      (("ee" epa-dired-do-encrypt "encrypt files" :exit t)
+        ("ed" epa-dired-do-decrypt "decrypt files" :exit t)
+        ("es" epa-dired-do-sign "sign files" :exit t)
+        ("ev" epa-dired-do-verify "decrypt file" :exit t))
+      "File"
+      (("fg" dired-do-chgrp "chgrp" :exit t)
+        ("fm" dired-do-chmod "chmod" :exit t)
+        ("fo" dired-do-chown "chown" :exit t)
+        ("fl" dired-do-symlink "symlink" :exit t)
+        ("fc" dired-do-compress "compress" :exit t))))
 
   (when (eq system-type 'darwin)
     (if (executable-find "gls")
@@ -154,8 +167,8 @@
           (message "%s" new-kill))))))
 
 (use-package all-the-icons-dired
-  :diminish all-the-icons-dired-mode
   :after (dired all-the-icons)
+  :diminish all-the-icons-dired-mode
   :commands all-the-icons-dired-mode)
 
 (use-package dired-subtree

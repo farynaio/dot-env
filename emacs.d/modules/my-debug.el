@@ -8,7 +8,7 @@
         (time-subtract after-init-time before-init-time)))
     gcs-done))
 
-(add-hook 'emacs-startup-hook 'efs/display-startup-time)
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
 (use-package profiler
   :straight nil
@@ -26,7 +26,7 @@
           (edebug-mode . edebug-inline-result-mode))
   :config
   (evil-make-overriding-map edebug-mode-map '(normal motion))
-  (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
+  (add-hook 'edebug-mode-hook #'evil-normalize-keymaps))
 
 (use-package edebug-x
   :commands edebug-x-mode)

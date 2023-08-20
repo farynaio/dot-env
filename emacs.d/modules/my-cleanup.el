@@ -12,6 +12,7 @@
 (unbind-key "<S-up>")
 (unbind-key "<S-down>")
 (unbind-key "C-x C-l")
+(unbind-key "s-l")
 ;; (unbind-key "C-x <down>")
 
 ;; (when (boundp 'global-undo-tree-mode)

@@ -1,5 +1,8 @@
 ;;; Code:
 
+;; (require 'org-tempo)
+;; (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+
 ;; https://github.com/minad/tempel
 ;; https://www.lysator.liu.se/~davidk/elisp/tempo-examples.html
 ;; https://www.lysator.liu.se/~davidk/elisp/
