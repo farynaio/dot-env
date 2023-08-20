@@ -1,3 +1,11 @@
+;;; Code:
+
+(when window-system
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
+
 (setq-default
   cursor-in-non-selected-windows t
   display-time-default-load-average nil
@@ -170,8 +178,8 @@
   (editorconfig-mode 1))
 
 (use-package ediff
-  :commands (ediff ediff-buffers)
   :straight nil
+  :commands (ediff ediff-buffers)
   :config
   (ediff-diff-options "-w")
   :custom
@@ -379,16 +387,10 @@ end-of-buffer signals; pass the rest to the default handler."
     (unless (memq major-mode (list 'org-agenda-mode))
       (apply orig-fun args))))
 
-(when window-system
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tooltip-mode -1))
-
 (use-package undo-fu
   :commands (undo-fu-only-undo undo-fu-only-redo)
   :config
-  (evil-define-key '(normal) 'global-map
+  (evil-define-key 'normal 'global-map
     (kbd "u") 'undo-fu-only-undo
     (kbd "C-r") 'undo-fu-only-redo))
 
