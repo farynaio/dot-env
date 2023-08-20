@@ -255,15 +255,17 @@ end-of-buffer signals; pass the rest to the default handler."
     ("false" . "true"))
   "symbols to be quick flipped when editing")
 
-(defun my/flip-symbol ()
-  "I don't want to type here, just do it for me."
+(defun my/flip-symbol-at-point ()
+  "Flip symbol at point"
   (interactive)
-  (-let* (((beg . end) (bounds-of-thing-at-point 'symbol))
-          (sym (buffer-substring-no-properties beg end)))
-    (when (member sym (cl-loop for cell in my/flip-symbol-alist
-                               collect (car cell)))
-      (delete-region beg end)
-      (insert (alist-get sym my/flip-symbol-alist "" nil 'equal)))))
+  (-let* ((symbol (symbol-at-point))
+           (symbol (when symbol (symbol-name symbol)))
+           ((beg . end) (bounds-of-thing-at-point 'symbol)))
+    (if (assoc symbol my/flip-symbol-alist)
+      (progn
+        (delete-region beg end)
+        (insert (alist-get symbol my/flip-symbol-alist "" nil 'equal)))
+      (message "Nothing to flip here"))))
 
 (defun my/copy-file-name ()
   "Copy the current buffer file name to the clipboard."
