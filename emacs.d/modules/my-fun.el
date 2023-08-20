@@ -1,6 +1,7 @@
+;;; Code:
+
 (use-package fireplace
-  :commands fireplace
-  :defer 0.3)
+  :commands fireplace)
 
 (provide 'my-fun)
 ;;; my-fun.el ends here
