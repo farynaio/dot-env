@@ -12,8 +12,8 @@
   :commands rainbow-delimiters-mode)
 
 (use-package eldoc
-  :commands eldoc-mode
   :straight nil
+  :commands eldoc-mode
   :diminish eldoc-mode
   :custom
   (eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly))
@@ -415,10 +415,6 @@ Use when `json-mode' or similar get stuck."
 (use-package go-mode
   :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'"))
 
-(use-package tempo
-  :defer 0.3
-  :straight nil)
-
 (use-package yasnippet
   :disabled t
   :defer 0.3
@@ -464,9 +460,9 @@ $0`(yas-escape-text yas-selected-text)`")
          (buffer-name (current-buffer)))))))
 
 (use-package elisp-mode
+  :straight nil
   :commands emacs-lisp-mode
   :hook (emacs-lisp-mode . flycheck-mode)
-  :straight nil
   :diminish "Elisp"
   :config
   (unbind-key "C-M-i" emacs-lisp-mode-map)
