@@ -12,14 +12,19 @@
 
 (use-package eshell-toggle
   :commands eshell-toggle
-  :straight (:type: git
-              :host github
-              :repo "4DA/eshell-toggle"
-              :branch "master")
+  :bind (:map evil-normal-state-map
+          ("C-`" . eshell-toggle)
+         :map eshell-mode-map
+          ("C-`" . eshell-toggle))
+  ;; :straight (:type: git
+  ;;             :host github
+  ;;             :repo "4DA/eshell-toggle"
+  ;;             :branch "master")
   :custom
   (eshell-toggle-size-fraction 3)
   (eshell-toggle-use-projectile-root t)
-  (eshell-toggle-run-command nil))
+  (eshell-toggle-run-command nil)
+  (eshell-toggle-default-directory "~/"))
 
 (use-package vterm
   :disabled t

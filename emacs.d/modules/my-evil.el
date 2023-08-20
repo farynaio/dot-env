@@ -121,6 +121,7 @@
   (bind-key "C-w q" 'delete-window)
   (bind-key "C-w C-q" 'delete-window)
 
+  (unbind-key "~" evil-normal-state-map)
   (unbind-key "=" evil-normal-state-map)
   (unbind-key "+" evil-normal-state-map)
   (unbind-key "+" evil-motion-state-map)
