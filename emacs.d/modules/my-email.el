@@ -20,7 +20,7 @@
   (message-cite-function 'message-cite-original)
   ;; message-cite-function 'message-cite-original-without-signature
   (message-cite-style 'message-cite-style-gmail)
-  :config
+  ;; :config
   ;; (add-hook 'message-sent-hook 'mml-secure-message-sign-pgpmime)
   )
 
