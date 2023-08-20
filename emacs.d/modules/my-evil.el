@@ -43,7 +43,7 @@
     (">"  . end-of-buffer)
     ("<home>" . evil-first-non-blank)
     ("<end>" . evil-end-of-line)
-    (",s" . my/flip-symbol)
+    (",s" . my/flip-symbol-at-point)
     ("*" . evil-search-word-forward)
     ("#" . evil-search-word-backward)
     ("N" . evil-search-previous)
