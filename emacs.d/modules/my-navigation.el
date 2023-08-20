@@ -83,6 +83,12 @@
      ))
 ;; switch-to-buffer-obey-display-actions
 
+(bind-keys
+  ("C-<mouse-4>" . ignore)
+  ("C-<mouse-5>" . ignore)
+  ("C-<wheel-down>" . ignore)
+  ("C-<wheel-up>" . ignore))
+
 (use-package simple
   :straight nil
   :custom
