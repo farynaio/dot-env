@@ -118,9 +118,6 @@
   (unbind-key "C-x m" global-map)
   (unbind-key "C-\"" global-map) ;; 'toggle-input-method'
 
-  (bind-key "C-w q" 'delete-window)
-  (bind-key "C-w C-q" 'delete-window)
-
   (unbind-key "~" evil-normal-state-map)
   (unbind-key "=" evil-normal-state-map)
   (unbind-key "+" evil-normal-state-map)
@@ -133,6 +130,10 @@
   (unbind-key "C-z" evil-motion-state-map)
   (unbind-key "C-z" evil-normal-state-map)
   (unbind-key "C-z" evil-insert-state-map)
+
+  (bind-keys
+    ("C-w q" . delete-window)
+    ("C-w C-q" . delete-window))
 
   ;; (define-key global-map (kbd "C-u") 'kill-whole-line)
 

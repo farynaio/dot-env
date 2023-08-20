@@ -304,8 +304,6 @@ end-of-buffer signals; pass the rest to the default handler."
 (bind-keys
   ;; ("<S-tab>" . 'my/unindent-region)
   ;; ("C-x C-r" . recentf-open-files)
-  ("<home>" . left-word)
-  ("<end>" . right-word)
   ("C-x s" . (lambda () (interactive) (save-some-buffers t) (message "Saved all buffers")))
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
   ("C-x C-SPC" . rectangle-mark-mode)
@@ -323,7 +321,7 @@ end-of-buffer signals; pass the rest to the default handler."
 
   (defun my/copy-including-secondary ()
     (interactive)
-    (call-interactively 'kill-ring-save)
+    (call-interactively #'kill-ring-save)
     (gui-set-selection 'SECONDARY (buffer-substring (point) (mark t))))
 
   (defun my/paste-including-secondary ()
@@ -334,7 +332,7 @@ end-of-buffer signals; pass the rest to the default handler."
     ("M-c" . my/copy-including-secondary)
     ("M-v" . my/paste-including-secondary))))
 
-(defalias 'qcalc 'quick-calc)
+(defalias 'qcalc #'quick-calc)
 
 (column-number-mode 1)
 (global-visual-line-mode 1)
