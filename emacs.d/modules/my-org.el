@@ -378,7 +378,7 @@
   (org-habit-show-habits-only-for-today nil)
   (org-habit-graph-column 62)
 
-  (org-startup-with-inline-images nil)
+  (org-startup-with-inline-images t)
   (org-startup-indented t)
   (org-startup-folded t)
 
@@ -514,6 +514,18 @@
   (org-clock-persistence-insinuate)
 
   (diminish 'org-indent-mode)
+
+  (defun my/dnd-file-line-insert (uri action)
+    "URI to the asset. ACTION is ignored."
+    (insert (format "[[%s]]" uri))
+    (when (and (eq major-mode 'org-mode) org-startup-with-inline-images)
+      (org-toggle-inline-images)))
+
+  (setq dnd-protocol-alist
+    '(("^file:.*\\(jpe?g\\|png\\)\\'" . my/dnd-file-line-insert)
+       ("^file:.*\\(pdf\\)\\'" . my/dnd-file-line-insert)
+       ("^file:.*\\(ods\\|odt\\)\\'" . my/dnd-file-line-insert)
+       ("^file:.*\\(mp3\\|mp4\\|avi\\)\\'" . my/dnd-file-line-insert)))
 
   (require 'ob-python)
   (org-babel-do-load-languages
