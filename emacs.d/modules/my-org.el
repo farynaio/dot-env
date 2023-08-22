@@ -1379,5 +1379,11 @@ it can be passed in POS."
   :custom
   (org-hide-emphasis-markers t))
 
+(use-package org-download
+  :after org
+  :defer 15
+  :custom
+  org-download-annotate-function (lambda (_) ""))
+
 (provide 'my-org)
 ;;; my-org.el ends here
