@@ -19,6 +19,7 @@
     ("C-}" . xref-find-definitions-other-window)
     (",." . dired-jump)
     (",g" . hydra-git/body)
+    ("C-<tab>" . popper-toggle-latest)
     ;; (",w" . hydra-browser/body)
     ;; (",p" . hydra-project/body)
     ;; ("C-c o" . hydra-org/body)

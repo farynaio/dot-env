@@ -122,6 +122,24 @@
   :custom
   (beacon-mode 1))
 
+(use-package popper
+  :commands popper-toggle-latest
+  :custom
+  (popper-reference-buffers
+    '("\\*Messages\\*"
+       "\\*Error\\*"
+       "Output*$"
+       "\\*Warnings\\*"
+       "\\*Async Shell Command\\*"
+       "\\*straight-process\\*"
+       "\\*Flycheck error messages\\*"
+       "\\*Backtrace\\*"
+       help-mode
+       compilation-mode))
+  :config
+  (popper-mode 1)
+  (popper-echo-mode 1))
+
 (use-package help
   :straight nil
   :bind (:map help-mode-map
