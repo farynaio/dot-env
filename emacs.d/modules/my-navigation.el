@@ -227,7 +227,7 @@
   :demand 0.3
   :commands (goto-last-change goto-last-change-reverse)
   :config
-  (evil-define-key '(normal) global-map
+  (evil-define-key 'normal global-map
     (kbd "[x") #'goto-last-change
     (kbd "]x") #'goto-last-change-reverse))
 
