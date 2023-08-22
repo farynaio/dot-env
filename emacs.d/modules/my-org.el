@@ -965,6 +965,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (defalias 'resume-drill 'org-drill-resume))
 
 (use-package org-roam
+  :defer 10
   :after (org emacsql)
   :diminish org-roam-mode
   :commands (org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create)
@@ -1253,6 +1254,7 @@ it can be passed in POS."
 ;;   (setq org-roam-server-network-label-wrap-length 20))
 
 (use-package org-journal
+  :defer 10
   :after org
   :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
   :custom
