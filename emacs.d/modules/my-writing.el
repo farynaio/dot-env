@@ -161,6 +161,7 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("nft" "NFT" nil 0)
                     ("FF" "FireFox" nil 0)
                     ("ff" "FireFox" nil 0)
                     ("YT" "YouTube" nil 0)
@@ -210,6 +211,7 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                    ("nft" "NFT" nil 0)
                     ("FF" "FireFox" nil 0)
                     ("ff" "FireFox" nil 0)
                     ("YT" "YouTube" nil 0)
