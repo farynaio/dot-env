@@ -122,7 +122,7 @@ to invalidate."
 
 (use-package magit
   ;; :after transient
-  :commands hydra-magit/body
+  :commands (magit-get-current-branch hydra-magit/body)
   :diminish magit-auto-revert-mode
   :hook ((magit-git-mode . (lambda () (read-only-mode nil)))
           (magit-status-mode . (lambda () (save-some-buffers t))))

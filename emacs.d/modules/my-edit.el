@@ -214,6 +214,10 @@
   :custom
   (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon")))
   ;; dall-e-shell-openai-key
+  :config
+  (bind-keys
+    :map chatgpt-shell-mode-map
+    ("C-w v" . split-window-right))
   )
 
 (use-package ob-chatgpt-shell
@@ -306,10 +310,16 @@ end-of-buffer signals; pass the rest to the default handler."
 (bind-keys
   ;; ("<S-tab>" . 'my/unindent-region)
   ;; ("C-x C-r" . recentf-open-files)
-  ("C-x s" . (lambda () (interactive) (save-some-buffers t) (message "Saved all buffers")))
+  ("C-x s" . my/save-all-buffers)
   ("C-x 4 c" . my/clone-indirect-buffer-new-window)
   ("C-x C-SPC" . rectangle-mark-mode)
   ("M-w" . my/copy-region-or-word))
+
+(defun my/save-all-buffers ()
+  "Save all buffers."
+  (interactive)
+  (save-some-buffers t)
+  (message "Saved all buffers"))
 
 (cond
   ((eq system-type 'darwin)
