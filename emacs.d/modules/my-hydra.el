@@ -1,16 +1,20 @@
+
+;;; Code:
+
 (use-package major-mode-hydra
   :straight (:type git
              :host github
              :repo "jerrypnz/major-mode-hydra.el"
               :branch "master")
   :bind (("C-c I" . hydra-image/body)
-         ;; ("C-c T" . hydra-tool/body)
-         ("C-c t" . hydra-general/body)
-         ;; ("C-c n" . hydra-navigate-to/body)
-         ("C-c g" . hydra-git/body)
-         ("C-c p" . hydra-projectile/body)
-         ;; ("C-c q" . hydra-query/body) ;;
-         ;; ("C-c b" . hydra-browser/body) ;;
+          ;; ("C-c T" . hydra-tool/body)
+          ("C-c t" . hydra-general/body)
+          ;; ("C-c n" . hydra-navigate-to/body)
+          ("C-c g" . hydra-git/body)
+          ("C-c p" . hydra-projectile/body)
+          ("C-c v" . hydra-common/body)
+          ;; ("C-c q" . hydra-query/body) ;;
+          ;; ("C-c b" . hydra-browser/body) ;;
           )
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
@@ -108,6 +112,23 @@
       "Other"
       (("oi" magit-init "init")
         ("oc" magit-clone "clone"))))
+
+  (pretty-hydra-define hydra-common
+    ;; (:hint nil :color teal :quit-key "q" :title (with-octicon "light-bulb" "Common" 1 -0.05))
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
+    ;; (:hint nil :color teal :quit-key "q" :title (with-faicon "wand-magic-sparkles" "Common" 1 -0.05))
+    ("org-roam"
+      (("r" org-roam-buffer-toggle "Toggle references sidebar")
+        ("l" org-roam-node-insert "Insert")
+        ("j" my/org-journal-open-current-journal-file "Journal")
+        ("f" org-roam-node-find "Find node")
+        ("F" my/org-roam-node-find-other-window "Find node other window")
+        ("b" org-roam-switch-to-buffer "Switch buffer")
+        ("n" org-id-get-create "Turn heading into node")
+        ("d" org-roam-find-directory "Find dir")
+        ("u" org-roam-ui-open "Open UI view"))
+      "Help"
+      (("m" woman "man" :exit t))))
 
   ;; (pretty-hydra-define hydra-query
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))

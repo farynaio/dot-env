@@ -89,6 +89,17 @@
   ("C-<wheel-down>" . ignore)
   ("C-<wheel-up>" . ignore))
 
+(use-package woman
+  :straight nil
+  :commands woman
+  :config
+  (bind-keys
+    :map woman-mode-map
+    ("C-d" . evil-scroll-down)
+    ("C-u" . evil-scroll-up)
+    ("C-s" . counsel-grep)
+    ("/" . counsel-grep)))
+
 (use-package simple
   :straight nil
   :custom

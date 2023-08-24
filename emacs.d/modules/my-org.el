@@ -1113,20 +1113,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :config
   (require 'org-roam-protocol)
 
-  (pretty-hydra-define hydra-org-roam
-    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org roam" 1 -0.05))
-    ("Action"
-      (("r" org-roam-buffer-toggle "Toggle references sidebar")
-        ("l" org-roam-node-insert "Insert")
-        ("j" my/org-journal-open-current-journal-file "Journal")
-        ("f" org-roam-node-find "Find node")
-        ("F" my/org-roam-node-find-other-window "Find node other window")
-        ("b" org-roam-switch-to-buffer "Switch buffer")
-        ("n" org-id-get-create "Turn heading into node")
-        ("d" org-roam-find-directory "Find dir"))
-      "Visualization"
-      (("u" org-roam-ui-open "Open UI view"))))
-
   (org-roam-db-autosync-mode 1)
 
   (add-to-list 'display-buffer-alist

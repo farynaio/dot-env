@@ -23,7 +23,6 @@
     ;; (",w" . hydra-browser/body)
     ;; (",p" . hydra-project/body)
     ;; ("C-c o" . hydra-org/body)
-    ("C-c v" . hydra-org-roam/body)
     (",x b" . my/kill-all-buffers-except-toolkit)
     (",x t" . delete-frame)
     (",/" . evil-ex-nohighlight)
