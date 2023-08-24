@@ -12,7 +12,7 @@
           ;; ("C-c n" . hydra-navigate-to/body)
           ("C-c g" . hydra-git/body)
           ("C-c p" . hydra-projectile/body)
-          ("C-c v" . hydra-common/body)
+          ("C-c v" . my/hydra-common/body)
           ;; ("C-c q" . hydra-query/body) ;;
           ;; ("C-c b" . hydra-browser/body) ;;
           )
@@ -113,22 +113,30 @@
       (("oi" magit-init "init")
         ("oc" magit-clone "clone"))))
 
-  (pretty-hydra-define hydra-common
+  (pretty-hydra-define my/hydra-common
     ;; (:hint nil :color teal :quit-key "q" :title (with-octicon "light-bulb" "Common" 1 -0.05))
     (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
     ;; (:hint nil :color teal :quit-key "q" :title (with-faicon "wand-magic-sparkles" "Common" 1 -0.05))
     ("org-roam"
-      (("r" org-roam-buffer-toggle "Toggle references sidebar")
-        ("l" org-roam-node-insert "Insert")
-        ("j" my/org-journal-open-current-journal-file "Journal")
-        ("f" org-roam-node-find "Find node")
-        ("F" my/org-roam-node-find-other-window "Find node other window")
-        ("b" org-roam-switch-to-buffer "Switch buffer")
-        ("n" org-id-get-create "Turn heading into node")
-        ("d" org-roam-find-directory "Find dir")
-        ("u" org-roam-ui-open "Open UI view"))
-      "Help"
-      (("m" woman "man" :exit t))))
+      (("j" my/org-journal-open-current-journal-file "journal")
+        ("f" org-roam-node-find "find node")
+        ("F" my/org-roam-node-find-other-window "find node other window")
+        ("b" org-roam-switch-to-buffer "switch buffer")
+        ("d" org-roam-find-directory "find dir"))
+      "Commands"
+      (("m" woman "man" :exit t)
+        ("r" rss "RSS" :exit t)
+        ("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t))
+      "Language"
+      (("d" ispell-change-dictionary "change dictionary")
+        ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+        ("l" my/lang-toggle "language switch" :exit t))
+      "Spelling errors"
+      (("o" artbollocks-mode "artbollocks" :toggle t)
+        ("x" langtool-check-buffer "langtool check")
+        ("q" langtool-check-done "langtool done")
+        ("<" flyspell-correct-previous "previous")
+        (">" flyspell-correct-next "next"))))
 
   ;; (pretty-hydra-define hydra-query
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))

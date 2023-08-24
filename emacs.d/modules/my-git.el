@@ -100,7 +100,7 @@ to invalidate."
 ;;   (git-commit-style-convention-checks nil))
 
 (use-package diff-hl
-  :commands (save-buffer diff-hl-next-hunk diff-hl-previous-hunk)
+  :commands (save-buffer my/save-all-buffers diff-hl-next-hunk diff-hl-previous-hunk)
   :config
   (global-diff-hl-mode 1)
   (diff-hl-margin-mode 1)
@@ -170,13 +170,13 @@ to invalidate."
                          (headings
                            (heading-format . "%-20a %C %s"))))
   :config
-  (add-to-list 'magit-blame-disable-modes 'evil-mode)
+  (add-to-list 'magit-blame-disable-modes #'evil-mode)
 
-  (defalias 'magit-blame-echo 'magit-blame-addition)
+  (defalias 'magit-blame-echo #'magit-blame-addition)
 
-  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream 'magit-insert-unpushed-to-upstream-or-recent)
-  (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-recent-commits 'magit-insert-unpushed-to-upstream-or-recent)
-  (remove-hook 'magit-status-sections-hook 'magit-insert-unpushed-to-upstream-or-recent)
+  (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
+  (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
+  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent)
 
   (defun my/copy-diff-region ()
     "Copy diff region without + or - markers."

@@ -489,10 +489,9 @@
     (kbd "C-p") 'completion-at-point)
 
   (evil-define-key 'normal org-mode-map
-    (kbd "C-x ,") 'hydra-org/body
+    (kbd ",l") (lambda () (interactive) (if (org-roam-buffer-p) (my/hydra-org-roam/body) (my/hydra-org/body)))
     (kbd "C-n") 'completion-at-point
     (kbd "C-p") 'completion-at-point
-    (kbd "C-x C-,") 'hydra-org/body
     (kbd "<tab>") 'org-cycle
     (kbd "TAB") 'org-cycle)
   ;; (kbd "C-c s") 'hydra-spelling/body)
@@ -542,7 +541,7 @@
     (message "No executable 'unoconv' found.")
     (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d.xls %i"))))
 
-  (pretty-hydra-define hydra-org
+  (pretty-hydra-define my/hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
     ("Action"
       (("t" org-toggle-timestamp-type "timestamp toggle")
@@ -552,11 +551,34 @@
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates"))
       "Mode"
-        (("b" org-table-header-line-mode "toggle org-table-header-line-mode"))
+      (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
+        ("b" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        )
       "Navigation"
       (("s" counsel-org-goto "goto heading")
         ("a" counsel-org-file "browse attachments")
         ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer"))))
+
+  (pretty-hydra-define my/hydra-org-roam
+    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
+    ("Edit"
+      (("t" org-toggle-timestamp-type "timestamp toggle")
+        ("a" org-link-archive-at-point "link archive")
+        ("i" org-toggle-inline-images "images toggle" :toggle t)
+        ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
+        ("c" org-archive-subtree "archive heading subtree")
+        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
+        ("n" org-id-get-create "turn heading into node")
+        ("l" org-roam-node-insert "insert node"))
+      "Toggle"
+      (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
+        ("b" afa/org-breadcrums-mode "breadcrumbs" :toggle t))
+      "Navigation"
+      (("s" counsel-org-goto "goto heading")
+        ("o" counsel-org-file "browse attachments")
+        ;; ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer")
+        ("u" org-roam-ui-open "open UI view")
+        ("z" org-roam-buffer-toggle "toggle references sidebar"))))
 
   ;; Fixes problem with void function org-clocking-buffer
   (defun org-clocking-buffer ())
@@ -663,23 +685,25 @@
 
   (defun ndk/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
-    (when (derived-mode-p 'org-mode)
-      (let* ((path (org-get-outline-path))
-              (breadcrumbs
-                (when path
-                  (org-format-outline-path
-                    path
-                    (1- (frame-width))
-                    nil " > ")))
-              (title (ndk/heading-title))
-              (node (org-roam-node-at-point))
-              (filename (if node (org-roam-node-file-title node)))
-              (filename (if filename filename (buffer-name))))
-        (if title
-          (if breadcrumbs
-            (format "[%s] %s > %s" filename breadcrumbs title)
-            (format "[%s] %s" filename title))
-          (format "[%s]" (org-roam-node-file-title (org-roam-node-at-point)))))))
+    ;; (when (derived-mode-p 'org-mode)
+    ;;   (let* ((path (org-get-outline-path))
+    ;;           (breadcrumbs
+    ;;             (when path
+    ;;               (org-format-outline-path
+    ;;                 path
+    ;;                 (1- (frame-width))
+    ;;                 nil " > ")))
+    ;;           (title (ndk/heading-title))
+    ;;           (node (org-roam-node-at-point))
+    ;;           (filename (if node (org-roam-node-file-title node)))
+    ;;           (filename (if filename filename (buffer-name))))
+    ;;     (if title
+    ;;       (if breadcrumbs
+    ;;         (format "[%s] %s > %s" filename breadcrumbs title)
+    ;;         (format "[%s] %s" filename title))
+    (format "[%s]" (org-roam-node-file-title (org-roam-node-at-point))
+      ))
+  ;; )))
 
   ;; org mode conflicts resolution: windmove
   ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
@@ -980,8 +1004,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :defer 10
   :after (org emacsql)
   :diminish org-roam-mode
-  :commands (org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create)
-  :bind ("C-c v" . hydra-org-roam/body)
+  :commands (org-roam-buffer-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/hydra-org-roam/body)
   :custom
   (org-roam-directory my/org-roam-directory)
   (org-roam-graph-viewer "/usr/bin/open")

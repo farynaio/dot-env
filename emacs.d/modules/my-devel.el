@@ -29,6 +29,9 @@
   (highlight-thing-large-buffer-limit 5000)
   (highlight-thing-exclude-thing-under-point t))
 
+(use-package lorem-ipsum
+  :commands (lorem-ipsum-insert-sentences lorem-ipsum-insert-paragraphs lorem-ipsum-insert-list))
+
 (use-package prog-mode
   :straight nil
   :hook ((prog-mode . eldoc-mode)
@@ -40,25 +43,25 @@
           (prog-mode . electric-pair-local-mode))
   :config
   (evil-define-key 'normal prog-mode-map
-    (kbd "<S-up>") 'evil-numbers/inc-at-pt
-    (kbd "<S-down>") 'evil-numbers/dec-at-pt
-    (kbd ",l") 'hydra-prog/body
-    (kbd "C-=") 'er/expand-region
-    (kbd "C-+") 'er/contract-region)
+    (kbd "<S-up>") #'evil-numbers/inc-at-pt
+    (kbd "<S-down>") #'evil-numbers/dec-at-pt
+    (kbd ",l") #'hydra-prog/body
+    (kbd "C-=") #'er/expand-region
+    (kbd "C-+") #'er/contract-region)
 
   (cond ((and (fboundp 'company-mode) company-mode)
     (evil-define-key 'normal prog-mode-map
-      (kbd "C-/") 'company-complete))
+      (kbd "C-/") #'company-complete))
     ((and (fboundp 'corfu-mode) corfu-mode)
       (evil-define-key 'normal prog-mode-map
-        (kbd "C-/") 'corfu-insert)))
+        (kbd "C-/") #'corfu-insert)))
 
   (evil-define-key 'insert prog-mode-map
-    (kbd "C-/") 'company-complete)
+    (kbd "C-/") #'company-complete)
 
   (evil-define-key 'normal prog-mode-map
-    (kbd "C-c m") 'hydra-merge/body
-    (kbd "/") 'counsel-grep)
+    (kbd "C-c m") #'hydra-merge/body
+    (kbd "/") #'counsel-grep)
 
   (pretty-hydra-define hydra-prog
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
@@ -67,9 +70,10 @@
         ("b" ediff-buffers "ediff buffers" :exit t)
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("." my/tempo-insert "insert snippet" :exit t)
-        ("s" eshell-toggle "eshell toggle" :toggle t :exit t))
+        ("u" lorem-ipsum-insert-sentences))
       "AI"
-      (("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
+      (("ac" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
+        ("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
         ("aa" starhugger-accept-suggestion "accept suggestion" :exit t)
         (">" starhugger-show-next-suggestion "next suggestion")
         ("<" starhugger-show-prev-suggestion "previous suggestion"))
@@ -91,7 +95,7 @@
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+            ;; (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
             (function-name
               (funcall
@@ -107,7 +111,7 @@
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+            ;; (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
             (function-name
                 (funcall
