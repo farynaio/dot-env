@@ -221,7 +221,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
              (ps-number-of-columns 2)
              (ps-landscape-mode 1))))))
 
-(setq org-refile-targets
+(setq-default org-refile-targets
   `((,my/org-backlog-file-path :maxlevel . 1)
      (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
      (,my/org-tasks-file-path :maxlevel . 1)))
