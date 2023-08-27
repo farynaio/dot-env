@@ -151,4 +151,79 @@ SCHEDULED: <%<%Y-%m-%d %a>>
 "
       :prepend t :empty-lines-after 1 :kill-buffer nil)))
 
+(setq-default org-agenda-custom-commands
+  '(
+     ("d" "Coprehensive agenda"
+       ((tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\""
+          ((org-agenda-skip-function
+             '(or
+                (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))
+                (and
+                  (org-agenda-skip-entry-if 'nottodo '("IN-PROCESS"))
+                  (my/org-skip-subtree-if-priority ?A))))
+            (org-agenda-remove-tags nil)
+            (org-agenda-overriding-header "Tasks in progress:")
+            (org-agenda-sorting-strategy '(time-up priority-down effort-down category-keep alpha-up))
+            (org-agenda-files (append org-agenda-files my/org-active-projects)))))
+
+         (tags-todo "PRIORITY=\"A\"|TODO=\"IN-PROCESS\"|TODO=\"WAITING\""
+           ((org-agenda-skip-function
+              '(or
+                 (org-agenda-skip-entry-if 'todo '("DONE" "UNDOABLE" "SKIP"))))
+             (org-agenda-remove-tags nil)
+             (org-agenda-overriding-header "Active goals:")
+             (org-agenda-sorting-strategy '(todo-state-up category-keep alpha-up))
+             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
+             (org-agenda-files `(,my/org-goals-file-path))))
+         ;; (tags "PROJECT_ACTIVE"
+         ;;   ((org-agenda-overriding-header "Active projects:")
+         ;;     (org-tags-match-list-sublevels nil)
+         ;;     (org-agenda-remove-tags t)
+         ;;     (org-agenda-files my/org-active-projects)))
+         (tags-todo "TODO=\"WAITING\""
+           ((org-agenda-overriding-header "Waiting tasks:")
+             (org-agenda-remove-tags t)
+             ;; (org-agenda-skip-function 'my/org-agenda-skip-deadline-if-not-today)
+             (org-agenda-todo-keyword-format "")
+             (org-agenda-sorting-strategy '(tsia-up priority-down category-keep alpha-up))
+             (org-agenda-files (append org-agenda-files my/org-active-projects))))
+         ;; (tags-todo "TODO=\"BLOCKED\""
+         ;;   ((org-agenda-overriding-header "BLOCKED TASKS:")
+         ;;     (org-agenda-skip-function '(org-agenda-skip-entry-if 'notscheduled))
+         ;;    (org-agenda-remove-tags t)
+         ;;    (org-agenda-todo-keyword-format "")
+         ;;     (org-agenda-sorting-strategy '(time-up priority-down todo-state-up effort-down category-keep alpha-up)))
+         ;;   (org-agenda-files (append org-agenda-files my/org-active-projects)))
+         ;; (agenda "weekly"
+         ;;   (
+         ;;     (org-agenda-skip-function
+         ;;       '(or
+         ;;          (org-agenda-skip-if nil '(notdeadline))
+         ;;          (org-agenda-skip-entry-if 'todo 'done)
+         ;;          ))
+         ;;      (org-agenda-overriding-header "Weekly Goals:")
+         ;;     (org-tags-match-list-sublevels t)
+         ;;     (org-agenda-span 'day)
+         ;;     (org-deadline-warning-days -7)
+         ;;      (org-agenda-hide-tags-regexp "weekly")
+         ;;      (org-agenda-todo-keyword-format "")
+         ;; (org-agenda-files (list my/org-yearly-goals-file-path))
+         ;; ))
+         (agenda ""
+           ((org-agenda-skip-function
+              '(or
+                 (org-agenda-skip-entry-if 'todo '("WAITING" "IN-PROCESS"))
+                 ))
+             (org-agenda-cmp-user-defined 'my/org-agenda-cmp-user-defined-birthday)
+             (org-agenda-sorting-strategy '(time-up todo-state-up priority-down deadline-up scheduled-up user-defined-down effort-down alpha-up))
+             (org-agenda-remove-tags nil)
+             (org-agenda-prefix-format '((agenda . " %-12:c%?-12t [%-4e] ")))
+             (ps-number-of-columns 2)
+             (ps-landscape-mode 1))))))
+
+(setq org-refile-targets
+  `((,my/org-backlog-file-path :maxlevel . 1)
+     (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
+     (,my/org-tasks-file-path :maxlevel . 1)))
+
 ;;; local-config.el ends here
