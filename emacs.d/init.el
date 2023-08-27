@@ -231,8 +231,9 @@
 (defun my/protected-buffers ()
   "Protects some buffers from being killed."
   (dolist (buffer *protected-buffers*)
-    (with-current-buffer buffer
-      (emacs-lock-mode 'kill))))
+    (when (get-buffer buffer)
+      (with-current-buffer buffer
+        (emacs-lock-mode 'kill)))))
 
 (add-hook 'emacs-startup-hook 'my/protected-buffers 90)
 
