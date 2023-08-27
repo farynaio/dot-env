@@ -39,12 +39,7 @@
 
 (setq org-agenda-files
   `(
-     ,my/org-tasks-file-path
-     ;; ,my/org-tasks-investing-file-path
-     ;; "~/Documents/emacs/agenda/foo.org"
-     ;; "~/Documents/emacs/agenda/bar.org"
-     ;; my/org-events-file-path
-     ;; my/org-projects-file-path
+  ,my/org-tasks-file-path
      ))
 
 (set-register ?n (cons 'file "/ssh:vps1:~/"))
@@ -58,6 +53,7 @@
 
 (defvar my/org-roam-enabled nil)
 (defvar my/org-journal-enabled nil)
+(defvar my/org-contacts-enabled t)
 (defvar my/dashboard-enabled t)
 
 (setq-default browse-url-browser-function #'ignore)

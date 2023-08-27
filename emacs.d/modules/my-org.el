@@ -914,6 +914,7 @@ should be continued."
   (advice-add 'org-clock-out :after (lambda (&rest args) (org-save-all-org-buffers))))
 
 (use-package org-contacts
+  :if my/org-contacts-enabled
   :after org
   :custom
   (org-contacts-files `(,my/org-contacts-file-path))
