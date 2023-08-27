@@ -1021,7 +1021,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (defalias 'resume-drill 'org-drill-resume))
 
 (use-package org-roam
-  :disabled my/org-roam-disabled
+  :if my/org-roam-enabled
   :defer 10
   :after (org emacsql)
   :diminish org-roam-mode
@@ -1296,7 +1296,7 @@ it can be passed in POS."
 ;;   (setq org-roam-server-network-label-wrap-length 20))
 
 (use-package org-journal
-  :disabled my/org-journal-disabled
+  :if my/org-journal-enabled
   :defer 10
   :after org
   :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
