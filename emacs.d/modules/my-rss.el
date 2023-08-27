@@ -226,7 +226,7 @@
     (let ((link (elfeed-entry-link entry))
            (title (elfeed-entry-title entry))
            (name (elfeed-feed-title (elfeed-entry-feed entry))))
-      (compose-mail elfeed-email-destination (format "RSS: [%s] %s" name title) nil nil)
+      (compose-mail my/elfeed-email-destination (format "RSS: [%s] %s" name title) nil nil)
 
       (when link
         (mail-text)

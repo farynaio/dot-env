@@ -178,13 +178,12 @@
   (add-to-list 'exec-path (concat invocation-directory "bin") t))
 
 ;; Load my custom modules
-(when (file-exists-p my/local-config-file-path)
+(if (not (file-exists-p my/local-config-file-path))
+  (error (concat "'emacs-local-config/local-config.el' file not exists"))
   (message (concat "Loading " my/local-config-file-path "..."))
   (load my/local-config-file-path))
   (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
-    (native--compile-async `(,my/local-config-file-path) nil))
-(unless (file-exists-p my/local-config-file-path)
-  (error (concat "'emacs-local-config/local-config.el' file not exists")))
+    (native--compile-async `(,my/local-config-file-path) t nil))
 
 (setq
   ring-bell-function 'ignore
@@ -283,11 +282,11 @@
 ; Load my custom-set-variables settings
 (if (not (file-exists-p my/local-custom-variables-file-path))
   (error (concat "'emacs-local/config/custom.el' file not exists"))
-  (message (concat "Loading " my/local-custom-variables-file-path "..."))
+  (message (format "Loading %s..." my/local-custom-variables-file-path))
   (load my/local-custom-variables-file-path)
   (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
-    (native--compile-async `(,my/local-custom-variables-file-path) nil)))
+    (native--compile-async `(,my/local-custom-variables-file-path) t nil)))
 
 (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
-  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t))
+  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t nil))
 ;;; init.el ends here

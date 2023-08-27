@@ -1422,7 +1422,7 @@ it can be passed in POS."
   :after org
   :commands org-appear
   :custom
-  (org-appear-delay 1)
+  (org-appear-delay 0.6)
   (org-hide-emphasis-markers t))
 
 (provide 'my-org)
