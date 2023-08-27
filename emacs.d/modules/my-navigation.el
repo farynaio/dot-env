@@ -36,6 +36,10 @@
      ((control)
        . text-scale)))
 
+(setq
+  switch-to-buffer-in-dedicated-window 'pop
+  switch-to-buffer-obey-display-actions t)
+
 (setq display-buffer-alist
   '(("\\*[hH]elp.*"
       (display-buffer-reuse-window display-buffer-below-selected)
@@ -88,6 +92,11 @@
   ("C-<mouse-5>" . ignore)
   ("C-<wheel-down>" . ignore)
   ("C-<wheel-up>" . ignore))
+
+(use-package dashboard
+  :disabled my/dashboard-disabled
+  :config
+  (dashboard-setup-startup-hook))
 
 (use-package woman
   :straight nil

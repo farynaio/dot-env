@@ -139,6 +139,7 @@
 ;;   (set-face-background 'company-preview nil))
 
 (use-package eshell-toggle
+  :after eshell
   :commands eshell-toggle
   :bind (:map evil-normal-state-map
           ("C-`" . eshell-toggle)

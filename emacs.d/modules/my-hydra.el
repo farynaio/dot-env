@@ -122,7 +122,8 @@
         ("f" org-roam-node-find "find node")
         ("F" my/org-roam-node-find-other-window "find node other window")
         ("b" org-roam-switch-to-buffer "switch buffer")
-        ("d" org-roam-find-directory "find dir"))
+        ("d" org-roam-find-directory "find dir")
+        ("l" org-roam-node-insert "insert node"))
       "Commands"
       (("m" woman "man" :exit t)
         ("r" rss "RSS" :exit t)
@@ -130,7 +131,7 @@
       "Language"
       (("d" ispell-change-dictionary "change dictionary")
         ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-        ("l" my/lang-toggle "language switch" :exit t))
+        ("w" my/lang-toggle "language switch" :exit t))
       "Spelling errors"
       (("o" artbollocks-mode "artbollocks" :toggle t)
         ("x" langtool-check-buffer "langtool check")

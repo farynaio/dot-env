@@ -2,7 +2,6 @@
 
 ;;; Code:
 
-(setq-default browse-url-browser-function (lambda (URL &optional NEW-WINDOW)))
 
 (defun my/browse-url-tor (url &optional new-window)
   "Ask the Tor WWW browser to load URL.
@@ -272,6 +271,7 @@ instead of `browse-url-new-window-flag'."
       (funcall orig-fun t))))
 
 (use-package engine-mode
+  :disabled t
   :defer 3
   :config
   (defengine duckduckgo

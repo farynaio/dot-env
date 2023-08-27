@@ -11,6 +11,8 @@
     :map evil-insert-state-map
     ("TAB" . tab-to-tab-stop)
     ("C-k" . kill-line)
+    ("C-x ." . my/tempo-insert)
+    ("C-x ." . my/tempo-insert)
     :map evil-normal-state-map
     ("DEL" . ignore) ;; Unbind 'evil-backward-char'
     ("C-e" . move-end-of-line)
@@ -19,6 +21,8 @@
     ("C-}" . xref-find-definitions-other-window)
     (",." . dired-jump)
     (",g" . hydra-git/body)
+    ("C-x ." . my/tempo-insert)
+    ("C-x C-." . my/tempo-insert)
     ("C-<tab>" . popper-toggle-latest)
     ;; (",w" . hydra-browser/body)
     ;; (",p" . hydra-project/body)

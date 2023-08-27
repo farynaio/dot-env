@@ -249,9 +249,9 @@ end-of-buffer signals; pass the rest to the default handler."
     (command-error-default-function data context caller)))
 (setq command-error-function #'my/command-error-function)
 
-(if (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types)
-  (message "No imagemagick support"))
+;; (if (fboundp 'imagemagick-register-types)
+;;   (imagemagick-register-types)
+;;   (message "No imagemagick support"))
 
 (defvar my/flip-symbol-alist
   '(("true" . "false")

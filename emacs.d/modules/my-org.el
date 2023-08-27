@@ -550,13 +550,13 @@
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates"))
-      "Mode"
+      "Toggle"
       (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
-        ("b" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
-        )
+        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
-        ("a" counsel-org-file "browse attachments")
+        ("fa" counsel-org-file "browse attachments")
         ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer"))))
 
   (pretty-hydra-define my/hydra-org-roam
@@ -572,10 +572,11 @@
         ("l" org-roam-node-insert "insert node"))
       "Toggle"
       (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
-        ("b" afa/org-breadcrums-mode "breadcrumbs" :toggle t))
+        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
-        ("o" counsel-org-file "browse attachments")
+        ("fa" counsel-org-file "browse attachments")
         ;; ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer")
         ("u" org-roam-ui-open "open UI view")
         ("z" org-roam-buffer-toggle "toggle references sidebar"))))
@@ -701,8 +702,13 @@
     ;;       (if breadcrumbs
     ;;         (format "[%s] %s > %s" filename breadcrumbs title)
     ;;         (format "[%s] %s" filename title))
-    (format "[%s]" (org-roam-node-file-title (org-roam-node-at-point))
-      ))
+    (ignore-errors
+      (when (org-roam-buffer-p)
+        (format "[%s]"  (org-roam-node-file-title (org-roam-node-at-point))))))
+
+    ;; (when (org-roam-buffer-p)
+    ;;   (format "[%s]"  (org-roam-node-file-title (org-roam-node-at-point)))
+    ;;   ))
   ;; )))
 
   ;; org mode conflicts resolution: windmove
@@ -711,13 +717,27 @@
   ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
   ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
 
+
   (define-minor-mode afa/org-breadcrums-mode
     "Minor mode to display org breadcrumbs
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
     :init-value nil
-    (setq-local header-line-format
-      (when afa/org-breadcrums-mode '(:eval (ndk/org-breadcrumbs)))))
+    (defvar-local afa/org-breadcrums-mode-timer nil)
+    ;; TODO check if line number changed
+    (setq-local afa/org-breadcrums-mode-timer
+      (run-with-idle-timer
+        2
+        t
+        (lambda ()
+          (setq-local header-line-format
+            (ndk/org-breadcrumbs))))))
+
+  (add-hook 'afa/org-breadcrums-mode-hook
+    (lambda ()
+      (when afa/org-breadcrums-mode-timer
+        (cancel-timer afa/org-breadcrums-mode-timer)
+        (setq-local afa/org-breadcrums-mode-timer nil))))
 
   (defun my/org-link-copy (&optional arg)
     "Extract URL from org-mode link and add it to kill ring."
@@ -1001,6 +1021,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (defalias 'resume-drill 'org-drill-resume))
 
 (use-package org-roam
+  :disabled my/org-roam-disabled
   :defer 10
   :after (org emacsql)
   :diminish org-roam-mode
@@ -1275,6 +1296,7 @@ it can be passed in POS."
 ;;   (setq org-roam-server-network-label-wrap-length 20))
 
 (use-package org-journal
+  :disabled my/org-journal-disabled
   :defer 10
   :after org
   :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
@@ -1400,6 +1422,7 @@ it can be passed in POS."
   :after org
   :commands org-appear
   :custom
+  (org-appear-delay 1)
   (org-hide-emphasis-markers t))
 
 (provide 'my-org)

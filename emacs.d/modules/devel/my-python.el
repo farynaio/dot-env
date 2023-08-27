@@ -2,6 +2,9 @@
 
 (require 'comint)
 
+;;; TODO install Python formatter
+;; https://github.com/pythonic-emacs/blacken
+
 (setq gud-pdb-command-name "python3 -m pdb ")
 
 (eval-after-load 'python

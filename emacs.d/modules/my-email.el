@@ -108,8 +108,9 @@ ARGS is not processed."
   starttls-extra-arguments nil
   starttls-use-gnutls t)
 
-(when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
+;; (when (fboundp 'imagemagick-register-types)
+;;   (imagemagick-register-types)
+;;   )
 
 (use-package mu4e
   :straight nil
