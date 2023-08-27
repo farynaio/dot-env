@@ -35,6 +35,8 @@
 ;;   (set-fontset-font t 'latin "Noto Sans")
   )
 
+(use-package nerd-icons)
+
 ;; https://github.com/doomemacs/themes
 (use-package doom-themes
   :custom
