@@ -94,7 +94,31 @@
   ("C-<wheel-up>" . ignore))
 
 (use-package dashboard
-  :disabled my/dashboard-disabled
+  :if my/dashboard-enabled
+  :custom
+  (dashboard-icon-type 'all-the-icons)
+  (dashboard-display-icons-p t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-heading-icons
+    '((recents . "history")
+       (bookmarks . "bookmark")
+       (agenda . "calendar")
+       (projects . "rocket")
+       (registers . "database")))
+  (dashboard-center-content t)
+  (dashboard-set-init-info t)
+  (dashboard-items
+    '((agenda . 5)
+       (projects . 5)
+       (registers . 5)
+       (recents . 5)))
+  (dashboard-item-names
+    '(("Recent Files:" . "Recent files:")
+       ("Agenda for today:" . "Today's agenda:")
+       ("Agenda for the coming week:" . "Agenda for the week:")))
+  (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
+  (dashboard-projects-backend 'projectile)
   :config
   (dashboard-setup-startup-hook))
 
