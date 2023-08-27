@@ -20,7 +20,6 @@ elpy
 erc
 eslint
 ido.last
-emacs-local-config
 nov-places
 org-clock-save.el
 org-journal.cache
@@ -43,3 +42,7 @@ projects
 var/prescient-save.el
 flycheck_*
 elpa
+
+/emacs-local-config/local-config.el
+/emacs-local-config/custom.el
+/elfeed

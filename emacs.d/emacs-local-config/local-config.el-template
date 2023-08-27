@@ -1,0 +1,158 @@
+;;; Code:
+
+(defvar my/org-base-path "~/Documents/emacs")
+(defvar my/org-roam-directory (expand-file-name "~/Documents/roam/database"))
+(defvar my/org-roam-journal-directory (expand-file-name "journal" my/org-roam-directory))
+(defvar my/tools-path (expand-file-name "tools" my/org-base-path))
+(setq org-directory (expand-file-name "orgs" my/org-base-path))
+
+;; Tasks
+(defvar my/org-tasks-base-dir (expand-file-name "Tasks/" org-directory))
+(defvar my/org-tasks-file-path (expand-file-name "tasks.org.gpg" my/org-tasks-base-dir))
+(defvar my/org-backlog-file-path (expand-file-name "backlog.org.gpg" my/org-tasks-base-dir))
+(defvar my/org-tasks-maybe-someday-file-path (expand-file-name "maybe-someday.org.gpg" my/org-tasks-base-dir))
+(defvar my/org-archive-tasks-path (expand-file-name "tasks_archive.org.gpg" my/org-tasks-base-dir))
+(defvar my/org-events-file-path (expand-file-name "events.org.gpg" my/org-tasks-base-dir))
+(defvar my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
+
+(setq-default
+  mml-secure-openpgp-sign-with-sender t
+  epa-file-encrypt-to '("foo@bar.com")
+  mml-secure-openpgp-signers '(""))
+
+(setq org-export-creator-string "")
+
+(setq-default solidity-solium-path "~/.nvm/versions/node/v16.11.1/bin/solium")
+(defvar my/ruby-gems-path "~/.rbenv/versions/2.3.3/bin/")
+
+(defvar my/elfeed-email-destination "contact@example.com")
+
+;; (setq tramp-verbose 3)
+;; (setq debug-on-error t)
+;; (setq debug-on-error nil)
+;; (setq debug-on-quit nil)
+;; (toggle-debug-on-quit)
+;; (setq auth-source-debug nil)
+;; (setq garbage-collection-messages t)
+;; (setq mu4e-debug t)
+;; (setq smtpmail-debug-verb t)
+
+(setq org-agenda-files
+  `(
+     ,my/org-tasks-file-path
+     ;; ,my/org-tasks-investing-file-path
+     ;; "~/Documents/emacs/agenda/foo.org"
+     ;; "~/Documents/emacs/agenda/bar.org"
+     ;; my/org-events-file-path
+     ;; my/org-projects-file-path
+     ))
+
+(set-register ?n (cons 'file "/ssh:vps1:~/"))
+(set-register ?n (cons 'file "/ssh:vps2:~/"))
+
+(add-hook 'emacs-startup-hook #'far/open-buffers-on-startup)
+
+(defun far/open-buffers-on-startup ()
+  (find-file-noselect (expand-file-name "init.el" user-emacs-directory)))
+
+
+(defvar my/org-roam-enabled nil)
+(defvar my/org-journal-enabled nil)
+(defvar my/dashboard-enabled t)
+
+(setq-default browse-url-browser-function #'ignore)
+
+(defvar my-utils-activate nil)
+(defvar my-edit-activate nil)
+(defvar my-writing-activate nil)
+(defvar my-evil-activate nil)
+(defvar my-org-activate nil)
+(defvar my-navigation-activate nil)
+(defvar my-devel-activate nil)
+(defvar my-ledger-activate nil)
+(defvar my-email-activate nil)
+(defvar my-dired-activate nil)
+(defvar my-notifications-activate nil)
+(defvar my-www-activate nil)
+(defvar my-irc-activate nil)
+(defvar my-theme-activate nil)
+(defvar my-shell-activate nil)
+(defvar my-encrypt-activate nil)
+(defvar my-cleanup-activate nil)
+(defvar my-rss-activate nil)
+(defvar my-org-caldav-activate nil)
+(defvar my-taskjuggler-activate nil)
+(defvar my-git-activate nil)
+(defvar my-hydra-activate nil)
+(defvar my-presentation-activate nil)
+(defvar my-debug-activate nil)
+(defvar my-fun-activate nil)
+(defvar my-snippet-activate nil)
+
+(setq
+  my-utils-activate t
+  my-edit-activate t
+  my-git-activate t
+  my-evil-activate t
+  my-navigation-activate t
+  my-org-activate t
+  my-writing-activate nil
+  my-devel-activate t
+  my-ledger-activate nil
+  my-email-activate nil
+  my-dired-activate t
+  my-notifications-activate nil
+  my-www-activate t
+  my-irc-activate nil
+  my-theme-activate t
+  my-shell-activate t
+  my-encrypt-activate t
+  my-cleanup-activate t
+  my-snippet-activate t
+  my-rss-activate nil
+  my-org-caldav-activate nil
+  my-taskjuggler-activate nil
+  my-hydra-activate t
+  my-presentation-activate nil
+  my-debug-activate t
+  my-fun-activate nil)
+
+(when my-debug-activate (require 'my-debug))
+(when my-utils-activate (require 'my-utils))
+(when my-evil-activate (require 'my-evil))
+(when my-theme-activate (require 'my-theme))
+(when my-hydra-activate (require 'my-hydra))
+(when my-dired-activate (require 'my-dired))
+(when my-encrypt-activate (require 'my-encrypt))
+(when my-edit-activate (require 'my-edit))
+(when my-navigation-activate (require 'my-navigation))
+(when my-git-activate (require 'my-git))
+(when my-org-activate (require 'my-org))
+(when my-writing-activate (require 'my-writing))
+(when my-snippet-activate (require 'my-snippet))
+(when my-cleanup-activate (require 'my-cleanup))
+(when my-notifications-activate (require 'my-notifications))
+(when my-devel-activate (require 'my-devel))
+(when my-ledger-activate (require 'my-ledger))
+(when my-shell-activate (require 'my-shell))
+(when my-rss-activate (require 'my-rss))
+(when my-email-activate (require 'my-email))
+(when my-www-activate (require 'my-www))
+(when my-presentation-activate (require 'my-presentation))
+(when my-irc-activate (require 'my-irc))
+(when my-taskjuggler-activate (require 'my-taskjuggler))
+(when my-org-caldav-activate (require 'my-org-caldav))
+(when my-fun-activate (require 'my-fun))
+
+(setq-default org-capture-templates
+  `(("t" "Todo" entry (file+headline ,my/org-tasks-file-path "Tasks")
+       "* TODO %(my/org-priority-cookie-print) %?
+SCHEDULED: <%<%Y-%m-%d %a>>
+:PROPERTIES:
+:CREATED: [%<%Y-%m-%d %a>]
+:EFFORT: %^{What Effort: |0:15|0:30|1:00|2:00|4:00}
+:END:
+"
+      :prepend t :empty-lines-after 1 :kill-buffer nil)))
+
+;;; local-config.el ends here
