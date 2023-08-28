@@ -95,7 +95,7 @@
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            ;; (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
             (function-name
               (funcall
@@ -111,7 +111,7 @@
     (interactive)
     (let* ((symbol (symbol-at-point))
             (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            ;; (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
             (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
             (function-name
                 (funcall
