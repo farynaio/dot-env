@@ -94,7 +94,8 @@
       (("x" my/dired-shell-command "run command" :exit t)
         ("s" find-name-dired "find regexp" :exit t)
         ("c" dired-copy-filename-as-kill "copy filename" :exit t)
-        ("u" my/sudo-dired "sudo dired" :exit t))
+        ("u" my/sudo-dired "sudo dired" :exit t)
+        ("m" dired-mark-files-regexp "mark files with regexp" :exit t))
       "Encryption"
       (("ee" epa-dired-do-encrypt "encrypt files" :exit t)
         ("ed" epa-dired-do-decrypt "decrypt files" :exit t)
