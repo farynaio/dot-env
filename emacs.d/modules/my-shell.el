@@ -19,7 +19,7 @@
           ("C-p" . company-previous-page)
 
           ;; ("<tab>" . my/eshell-list-dir)
-          ;; ("<tab>" . company-next-page)
+          ("<tab>" . company-next-page)
           ;; ("<backtab>" . company-previous-page)
           )
   :hook ((eshell-mode . company-mode))
