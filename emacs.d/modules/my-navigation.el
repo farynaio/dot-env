@@ -368,7 +368,19 @@
   ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
   :config
   (ivy-mode 1)
-  (advice-add 'ivy-switch-buffer :before 'my/evil-switch-to-normal-state-if-insert))
+  (advice-add #'ivy-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
+
+  (ivy-set-actions
+    'counsel-colors-emacs
+    '(("o" my/counsel-colors-action-insert-hex "insert hexadecimal value")))
+
+  (defun my/counsel-colors-action-insert-hex (color)
+    "Insert the hexadecimal RGB value of COLOR."
+    (let* ((color-long (apply #'color-rgb-to-hex (color-name-to-rgb color)))
+            (r (substring color-long 0 3))
+            (g (substring color-long 5 7))
+            (b (substring color-long 9 11)))
+      (insert r g b))))
 
 (use-package prescient
   :after ivy

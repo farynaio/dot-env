@@ -71,7 +71,7 @@
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("." my/tempo-insert "insert snippet" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("c" my/insert-color-hex "color picker" :exit t))
+        ("c" counsel-colors-emacs "color picker" :exit t))
       "AI"
       (("ac" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
         ("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
@@ -123,22 +123,6 @@
                   t
                   symbol)))
       (xref-find-definitions function-name)))
-
-  ;; https://emacs.stackexchange.com/a/5583
-  (defun my/insert-color-hex (&optional arg)
-    "Select a color and insert its 24-bit hexadecimal RGB format.
-With prefix argument \\[universal-argument] insert the 48-bit value."
-    (interactive "*P")
-    (let ((buf (current-buffer)))
-      (list-colors-display
-        nil nil `(lambda (name)
-                   (interactive)
-                   (quit-window)
-                   (with-current-buffer ,buf
-                     (insert (apply #'color-rgb-to-hex
-                               (nconc (color-name-to-rgb name)
-                                 (unless (consp ',arg)
-                                   (list (or ,arg 2)))))))))))
 
   (pretty-hydra-define hydra-merge
     (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
