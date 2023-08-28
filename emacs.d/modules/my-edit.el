@@ -17,8 +17,8 @@
 
 (setq auto-save-no-message t)
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'ar 'align-regexp)
+(defalias 'yes-or-no-p #'y-or-n-p)
+(defalias 'ar #'align-regexp)
 
 (setq-default tab-width 2)
 (defvaralias 'c-basic-offset 'tab-width)
@@ -319,7 +319,7 @@ end-of-buffer signals; pass the rest to the default handler."
   "Save all buffers."
   (interactive)
   (save-some-buffers t)
-  (message "Saved all buffers"))
+  (message "All buffers saved"))
 
 (cond
   ((eq system-type 'darwin)
