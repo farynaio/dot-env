@@ -53,7 +53,7 @@
     ("#" . evil-search-word-backward)
     ("N" . evil-search-previous)
     ("n" . evil-search-next)
-    ("/" . evil-search-forward)
+    ("/" . counsel-grep)
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-c C-S-o" . browse-url-generic)
