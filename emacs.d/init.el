@@ -71,7 +71,9 @@
 
 (straight-use-package 'use-package)
 
-(setq use-package-compute-statistics t)
+(setq
+  use-package-compute-statistics t
+  use-package-expand-minimally t)
 
 (setq
   straight-use-package-by-default t
