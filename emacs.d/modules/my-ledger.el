@@ -31,6 +31,11 @@
        ("equity" "%(binary) --real [[ledger-mode-flags]] -f %(ledger-file) equity")
        ("income statement" "%(binary) --invert --real -S -T [[ledger-mode-flags]] -f %(ledger-file) bal ^income ^expenses -p \"this month\"")))
   :config
+  (unbind-key "<tab>" ledger-mode-map)
+
+  (evil-define-key 'normal ledger-mode-map
+    (kbd "C-c L") #'hydra-ledger/body)
+
   (pretty-hydra-define hydra-ledger
     (:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
     ("Action"
@@ -39,12 +44,7 @@
         ("b" ledger-display-balance-at-point "bal at point")
         ("s" (lambda () (interactive) (ledger-sort-buffer) (save-buffer))  "sort")
         ("t" ledger-display-ledger-stats "stats")
-        ("r" ledger-report "report"))))
-
-  (unbind-key "<tab>" ledger-mode-map)
-
-  (evil-define-key 'normal ledger-mode-map
-    (kbd "C-c L") 'hydra-ledger/body))
+        ("r" ledger-report "report")))))
 
 (use-package flycheck-ledger
   :after ledger-mode)
