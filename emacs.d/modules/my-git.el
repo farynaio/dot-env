@@ -99,15 +99,17 @@ to invalidate."
 ;;   :custom
 ;;   (git-commit-style-convention-checks nil))
 
-(use-package diff-hl
-  :commands (save-buffer my/save-all-buffers diff-hl-next-hunk diff-hl-previous-hunk)
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-margin-mode 1)
-  (diff-hl-amend-mode 1)
-  (diff-hl-show-hunk-mouse-mode 1)
-  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+(add-hook 'after-save-hook
+  (lambda ()
+    (unless (fboundp #'diff-hl-mode)
+      (use-package diff-hl
+        :config
+        (global-diff-hl-mode 1)
+        (diff-hl-margin-mode 1)
+        (diff-hl-amend-mode 1)
+        (diff-hl-show-hunk-mouse-mode 1)
+        (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+        (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))))
 
 (use-package git-rebase
   :after magit
