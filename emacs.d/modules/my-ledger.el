@@ -9,7 +9,7 @@
           ("C-c C-c" . ledger-post-align-dwim)
           ("C-x C-s" . my/ledger-save)
           ("C-x m" . hydra-ledger/body))
-  :mode "\\.ledger\\'"
+  :mode ("\\.ledger\\'" "\\.ledger.gpg\\'")
   :preface
   (defun my/ledger-save ()
     "Automatically clean the ledger buffer at each save."
