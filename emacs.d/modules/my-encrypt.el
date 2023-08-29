@@ -14,10 +14,10 @@
 
   (add-hook 'find-file-hook
     (lambda ()
-      (when (and (stringp buffer-file-name)
-              (string-match "\\.gpg\\'" buffer-file-name))
-        (unless (and epa-file-encrypt-to (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default)
-          (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))
+      (when (and (stringp buffer-file-name) (string-match "\\.gpg\\'" buffer-file-name))
+        (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
+          (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
+            (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default))))))
 
   ;; (epa-file-enable)
 
