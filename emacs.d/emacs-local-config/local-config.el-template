@@ -15,9 +15,10 @@
 (defvar my/org-events-file-path (expand-file-name "events.org.gpg" my/org-tasks-base-dir))
 (defvar my/org-inbox-file-path (expand-file-name "Inbox.org" org-agenda-directory))
 
+(defvar my/epa-file-encrypt-to-default '("foo@bar.com"))
+
 (setq-default
   mml-secure-openpgp-sign-with-sender t
-  epa-file-encrypt-to '("foo@bar.com")
   mml-secure-openpgp-signers '(""))
 
 (setq org-export-creator-string "")

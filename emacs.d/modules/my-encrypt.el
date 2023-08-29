@@ -3,12 +3,21 @@
 (use-package epa
   :straight nil
   :custom
-  (epa-file-cache-passphrase-for-symmetric-encryption t)
+  (epg-pinentry-mode 'loopback)
+  (epa-file-select-keys nil)
+  ;; (epa-file-cache-passphrase-for-symmetric-encryption t)
   :config
   (require 'epa-file)
   (require 'epg-config)
   ;; (setenv "GPG_AGENT_INFO" nil)
   ;; (setq epa-pinentry-mode 'loopback)
+
+  (add-hook 'find-file-hook
+    (lambda ()
+      (when (and (stringp buffer-file-name)
+              (string-match "\\.gpg\\'" buffer-file-name))
+        (unless (and epa-file-encrypt-to (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default)
+          (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))
 
   ;; (epa-file-enable)
 
