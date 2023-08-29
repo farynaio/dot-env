@@ -388,11 +388,12 @@
   (prescient-persist-mode 1))
 
 (use-package ivy-prescient
-  :after ivy
+  :after (ivy prescient)
   :config
   (ivy-prescient-mode 1))
 
 (use-package counsel
+  :defer 10
   :after ivy
   :commands (counsel-projectile-switch-to-buffer counsel-projectile-find-dir counsel-projectile-find-file counsel-rg)
   :bind (("M-x" . counsel-M-x)
@@ -667,6 +668,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package windmove
   :straight nil
+  :defer 10
   :bind (("C-x <left>" . windmove-left)
           ("C-x <right>" . windmove-right)
           ("C-x <up>" . windmove-up)

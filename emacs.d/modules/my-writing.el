@@ -262,7 +262,7 @@
 
 ;; TODO is this working?
 (use-package wiki-summary
-  :defer 1
+  :commands (wiki-summary wiki-summary-insert)
   :config
   (defun my/format-summary-in-buffer (summary)
     "Given a summary, sticks it in the *wiki-summary* buffer and displays

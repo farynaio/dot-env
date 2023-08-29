@@ -10,8 +10,7 @@
   :straight (:type built-in))
 
 (use-package calfw
-  :after calendar
-  :defer t)
+  :after calendar)
 
 (use-package calfw-org
   :after (calfw calendar)
@@ -1028,9 +1027,6 @@ it can be passed in POS."
 
   (defalias 'roam 'org-roam))
 
-(use-package websocket
-  :after org-roam-ui)
-
 (use-package org-roam-ui
   :after org-roam
   :commands org-roam-ui-open
@@ -1039,6 +1035,9 @@ it can be passed in POS."
   (org-roam-ui-follow t)
   (org-roam-ui-update-on-save t)
   (org-roam-ui-open-on-start t))
+
+(use-package websocket
+  :after org-roam-ui)
 
 ;; (use-package org-roam-server
 ;;   :after org-roam

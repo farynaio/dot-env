@@ -5,6 +5,7 @@
 
 (use-package appt
   :straight nil
+  :commands appt-activate
   :init
   (when (eq system-type 'darwin)
     (setq my-notifier-path "/usr/local/bin/terminal-notifier"))

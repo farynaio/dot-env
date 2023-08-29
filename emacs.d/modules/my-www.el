@@ -272,7 +272,7 @@ instead of `browse-url-new-window-flag'."
 
 (use-package engine-mode
   :disabled t
-  :defer 3
+  :defer 20
   :config
   (defengine duckduckgo
     "https://duckduckgo.com/?q=%s"

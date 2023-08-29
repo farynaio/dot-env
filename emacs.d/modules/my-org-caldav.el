@@ -26,4 +26,5 @@
 
     (defalias 'caldav-sync #'org-caldav-sync)))
 
-(provide 'my-org-cal-dav)
+(provide 'my-org-caldav)
+;;; my-org-caldav.el ends here

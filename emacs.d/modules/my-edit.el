@@ -122,7 +122,6 @@
 (use-package company
   :after evil
   :diminish company-mode
-  :init
   :demand t
   :bind (:map evil-normal-state-map
           ("C-n" . company-next-page)

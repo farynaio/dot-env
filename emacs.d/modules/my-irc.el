@@ -2,7 +2,7 @@
 
 (use-package erc
   :straight nil
-  :commands erc-tls
+  :commands (erc erc-tls)
   :bind (:map erc-mode-map
           ("C-w =" . balance-windows)
           ("C-w |" . evil-window-set-width)
