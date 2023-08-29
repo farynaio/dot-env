@@ -132,8 +132,8 @@
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
-  (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
   (company-files-exclusions '(".git/" ".DS_Store"))
+  (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
   :config
   (evil-declare-change-repeat #'company-complete))
 

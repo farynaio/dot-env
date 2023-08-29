@@ -9,8 +9,6 @@
 ;; https://www.emacswiki.org/emacs/TempoMode
 (use-package tempo
   :straight nil
-  :defer 10
-  :commands (tempo-complete-tag my/tempo-insert)
   :custom
   (tempo-interactive t)
   :config

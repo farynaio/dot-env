@@ -57,7 +57,8 @@
         (kbd "C-/") #'corfu-insert)))
 
   (evil-define-key 'insert prog-mode-map
-    (kbd "C-/") #'company-complete)
+    (kbd "C-/") #'company-complete
+    (kbd "C-<return>") #'tempo-expand-if-complete)
 
   (evil-define-key 'normal prog-mode-map
     (kbd "C-c m") #'hydra-merge/body
