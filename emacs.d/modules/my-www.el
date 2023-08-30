@@ -45,6 +45,26 @@ instead of `browse-url-new-window-flag'."
 (defun my/browse-url-mpv (url &optional single)
   (start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
+
+(setq-default url-privacy-level 'paranoid)
+
+(use-package eww
+  :straight nil
+  :commands eww
+  :custom
+  (eww-search-prefix "https://duckduckgo.com/html/?q=")
+  :config
+  (defun my/eww-init ()
+    (setq-local
+      shr-use-colors nil
+      shr-width 70
+      ;; shr-use-fonts  nil
+      ))
+
+  (add-hook 'eww-mode-hook #'my/eww-init))
+
+(defalias 'www #'eww)
+
 ;; (require 'eww)
 ;; (eval-after-load 'eww
 ;;   '(progn
@@ -68,6 +88,7 @@ instead of `browse-url-new-window-flag'."
 
 ;;      (defalias 'w #'af/eww)))
 (use-package w3m
+  :disabled t
   :if (executable-find "w3m")
   :hook (w3m-mode . iscroll-mode)
   :commands (w3m w3m-goto-url w3m-search)

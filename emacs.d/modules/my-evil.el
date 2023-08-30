@@ -345,6 +345,8 @@ of the block."
   (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
   (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
   (add-to-list 'evil-emacs-state-modes 'eww-mode)
+  (add-to-list 'evil-emacs-state-modes 'eww-history-mode)
+  (add-to-list 'evil-emacs-state-modes 'eww-bookmark-mode)
   (add-to-list 'evil-emacs-state-modes 'magit-mode)
   (add-to-list 'evil-emacs-state-modes 'magit-log-mode)
   (add-to-list 'evil-emacs-state-modes 'magit-process-mode)

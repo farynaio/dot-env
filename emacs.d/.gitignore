@@ -43,6 +43,9 @@ var/prescient-save.el
 flycheck_*
 elpa
 
+/url/cookies
+/eww-bookmarks
+
 /emacs-local-config/local-config.el
 /emacs-local-config/custom.el
 /elfeed
