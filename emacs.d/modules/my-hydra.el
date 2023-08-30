@@ -127,7 +127,8 @@
       "Commands"
       (("m" woman "man" :exit t)
         ("r" rss "RSS" :exit t)
-        ("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t))
+        ("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
+        ("k" my/kill-clear "clear kill-ring"))
       "Language"
       (("d" ispell-change-dictionary "change dictionary")
         ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
@@ -138,6 +139,13 @@
         ("q" langtool-check-done "langtool done")
         ("<" flyspell-correct-previous "previous")
         (">" flyspell-correct-next "next"))))
+
+  (defun my/kill-clear ()
+    "Clear kill-ring."
+    (interactive)
+    (setq kill-ring nil)
+    (garbage-collect)
+    (message "kill-ring cleared"))
 
   ;; (pretty-hydra-define hydra-query
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "search" "Engine-Mode" 1 -0.05))
