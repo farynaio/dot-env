@@ -97,7 +97,7 @@ to invalidate."
 ;; (use-package git-commit
 ;;   :after magit
 ;;   :custom
-;;   (git-commit-style-convention-checks nil))
+;; (git-commit-style-convention-checks nil))
 
 (add-hook 'after-save-hook
   (lambda ()
