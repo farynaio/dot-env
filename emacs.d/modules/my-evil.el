@@ -57,6 +57,12 @@
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-c C-S-o" . browse-url-generic)
+    ("x" . my/evil-delete-char-no-yank)
+    ("<deletechar>" . my/evil-delete-char-no-yank)
+    ("C" . my/evil-change-line-no-yank)
+    ("D" . my/evil-delete-line-no-yank)
+    ("c" . my/evil-change-no-yank)
+    ("d" . evil-delete)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
     ("C-a" . my/smarter-move-beginning-of-line)
@@ -70,6 +76,8 @@
     (",/" . keyboard-quit)
     ("{" . backward-paragraph)
     ("}" . forward-paragraph)
+    ("x" . my/evil-delete-char-no-yank)
+    ("C" . my/evil-change-line-no-yank)
     :map evil-motion-state-map
     ("{" . backward-paragraph)
     ("C-d" . evil-scroll-down)
@@ -89,6 +97,159 @@
   (evil-cross-lines t)
   :config
   (evil-mode 1)
+
+  (evil-define-operator my/evil-delete-no-yank (beg end type register yank-handler)
+    "Delete text from BEG to END with TYPE.
+Save in REGISTER or in the kill-ring with YANK-HANDLER."
+    (interactive "<R><x><y>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+    (when (and (memq type '(inclusive exclusive))
+            (not (evil-visual-state-p))
+            (eq 'evil-delete evil-this-operator)
+            (save-excursion (goto-char beg) (bolp))
+            (save-excursion (goto-char end) (eolp))
+            (<= 1 (evil-count-lines beg end)))
+      ;; Imitate Vi strangeness: if motion meets above criteria,
+      ;; delete linewise. Not for change operator or visual state.
+      (let ((new-range (evil-line-expand beg end)))
+        (setq beg (car new-range)
+          end (cadr new-range)
+          type 'line)))
+    (unless register
+      (let ((text (filter-buffer-substring beg end)))
+        (unless (string-match-p "\n" text)
+          ;; set the small delete register
+          (evil-set-register ?- text))))
+    (let ((evil-was-yanked-without-register nil))
+      (evil-yank beg end type register yank-handler))
+    (cond
+      ((eq type 'block)
+        (evil-apply-on-block #'delete-region beg end nil))
+      ((and (eq type 'line)
+         (= end (point-max))
+         (or (= beg end)
+           (/= (char-before end) ?\n))
+         (/= beg (point-min))
+         (= (char-before beg) ?\n))
+        (delete-region (1- beg) end))
+      (t (delete-region beg end)))
+    (when (and (eq type 'line)
+            (called-interactively-p 'any))
+      (evil-first-non-blank)
+      (when (and (not evil-start-of-line)
+              evil-operator-start-col
+              ;; Special exceptions to ever saving column:
+              (not (memq evil-this-motion '(evil-forward-word-begin
+                                             evil-forward-WORD-begin))))
+        (move-to-column evil-operator-start-col)))))
+
+  (evil-define-operator my/evil-delete-char-no-yank (beg end type register)
+    "Delete market characters not yank."
+    :motion evil-forward-char
+    (interactive "<R><x>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+      (evil-delete beg end type register)))
+
+  (evil-define-operator my/evil-change-no-yank
+    (beg end type register yank-handler delete-func)
+    "Change text from BEG to END with TYPE.
+Save in REGISTER or the kill-ring with YANK-HANDLER.
+DELETE-FUNC is a function for deleting text, default `evil-delete'.
+If TYPE is `line', insertion starts on an empty line.
+If TYPE is `block', the inserted text in inserted at each line
+of the block. No yank."
+    (interactive "<R><x><y>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+    (let ((delete-func (or delete-func #'evil-delete))
+           (nlines (1+ (evil-count-lines beg end)))
+           opoint leftmost-point)
+      (save-excursion
+        (goto-char beg)
+        (setq opoint (line-beginning-position))
+        (setq leftmost-point
+          (let ((inhibit-field-text-motion t)) (line-beginning-position))))
+      (unless (eq evil-want-fine-undo t)
+        (evil-start-undo-step))
+      (funcall delete-func beg end type register yank-handler)
+      (cond
+        ((eq type 'line)
+          (setq this-command 'evil-change-whole-line) ; for evil-maybe-remove-spaces
+          (cond
+            ((/= opoint leftmost-point) (evil-insert 1)) ; deletion didn't delete line
+            ((= opoint (point)) (evil-open-above 1))
+            (t (evil-open-below 1))))
+        ((eq type 'block)
+          (evil-insert 1 nlines))
+        (t (evil-insert 1)))
+      (setq evil-this-register nil))))
+
+  (evil-define-operator my/evil-change-line-no-yank (beg end type register yank-handler)
+    "Change to end of line, or change whole line if characterwise visual mode.
+Not yank."
+    :motion evil-end-of-line-or-visual-line
+    (interactive "<R><x><y>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+      (if (and (evil-visual-state-p) (eq type 'inclusive))
+        (cl-destructuring-bind (beg end &rest) (evil-line-expand beg end)
+          (evil-change-whole-line beg end register yank-handler))
+        (evil-change beg end type register yank-handler #'evil-delete-line))))
+
+  (evil-define-operator my/evil-delete-line-no-yank (beg end type register yank-handler)
+    "Delete to end of line without yank."
+    :motion evil-end-of-line-or-visual-line
+    (interactive "<R><x>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+      ;; Act linewise in Visual state
+      (when (and (evil-visual-state-p) (eq type 'inclusive))
+        (let ((range (evil-expand
+                       beg end
+                       (if (and evil-respect-visual-line-mode visual-line-mode)
+                         'screen-line 'line))))
+          (setq beg (car range)
+            end (cadr range)
+            type (evil-type range))))
+      (if (eq type 'block)
+        ;; Equivalent to $d, i.e., we use the block-to-eol selection and
+        ;; call `evil-delete'. In this case we fake the call to
+        ;; `evil-end-of-line' by setting `temporary-goal-column' and
+        ;; `last-command' appropriately as `evil-end-of-line' would do.
+        (let ((temporary-goal-column most-positive-fixnum)
+               (last-command 'next-line))
+          (evil-delete beg end 'block register yank-handler))
+        (evil-delete beg end type register yank-handler))))
+
+  (evil-define-operator my/evil-change-no-yank
+    (beg end type register yank-handler delete-func)
+    "Change text from BEG to END with TYPE.
+Save in REGISTER or the kill-ring with YANK-HANDLER.
+DELETE-FUNC is a function for deleting text, default `evil-delete'.
+If TYPE is `line', insertion starts on an empty line.
+If TYPE is `block', the inserted text in inserted at each line
+of the block."
+    (interactive "<R><x><y>")
+    (cl-letf (((symbol-function #'kill-new) #'ignore))
+    (let ((delete-func (or delete-func #'evil-delete))
+           (nlines (1+ (evil-count-lines beg end)))
+           opoint leftmost-point)
+      (save-excursion
+        (goto-char beg)
+        (setq opoint (line-beginning-position))
+        (setq leftmost-point
+          (let ((inhibit-field-text-motion t)) (line-beginning-position))))
+      (unless (eq evil-want-fine-undo t)
+        (evil-start-undo-step))
+      (funcall delete-func beg end type register yank-handler)
+      (cond
+        ((eq type 'line)
+          (setq this-command 'evil-change-whole-line) ; for evil-maybe-remove-spaces
+          (cond
+            ((/= opoint leftmost-point) (evil-insert 1)) ; deletion didn't delete line
+            ((= opoint (point)) (evil-open-above 1))
+            (t (evil-open-below 1))))
+        ((eq type 'block)
+          (evil-insert 1 nlines))
+        (t (evil-insert 1)))
+      (setq evil-this-register nil))))
 
   (defun my/next-error ()
     (interactive)
