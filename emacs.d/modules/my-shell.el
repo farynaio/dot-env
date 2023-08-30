@@ -12,6 +12,7 @@
 
 (use-package eshell
   :straight nil
+  :demand t
   :commands eshell
   :bind (:map eshell-mode-map
           ("C-r" . counsel-shell-history)
@@ -23,6 +24,8 @@
           ;; ("<backtab>" . company-previous-page)
           )
   :hook ((eshell-mode . company-mode))
+  :init
+  (require 'esh-mode)
   :custom
   (eshell-destroy-buffer-when-process-dies t)
   (eshell-prompt-function #'dw/eshell-prompt)
@@ -33,7 +36,7 @@
   (eshell-highlight-prompt t)
   (eshell-scroll-to-bottom-on-input t)
   (eshell-prefer-lisp-functions nil)
-:config
+  :config
   (defun my/eshell-init ()
     (setq-local company-backends '(company-files company-capf))
     ;; (setq-local company-backends '(esh-autosuggest company-files ))
