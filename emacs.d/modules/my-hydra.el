@@ -128,7 +128,8 @@
       (("m" woman "man" :exit t)
         ("r" rss "RSS" :exit t)
         ("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
-        ("k" my/kill-clear "clear kill-ring"))
+        ("k" my/kill-clear "clear kill-ring")
+        ("." my/tempo-insert "insert snippet" :exit t))
       "Language"
       (("d" ispell-change-dictionary "change dictionary")
         ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
