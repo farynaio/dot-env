@@ -161,6 +161,9 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("coo" "COO" nil 0)
+                    ("cfo" "CFO" nil 0)
+                    ("ceo" "CEO" nil 0)
                     ("dao" "DAO" nil 0)
                     ("nft" "NFT" nil 0)
                     ("FF" "FireFox" nil 0)
@@ -212,6 +215,9 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                    ("coo" "COO" nil 0)
+                    ("cfo" "CFO" nil 0)
+                    ("ceo" "CEO" nil 0)
                     ("dao" "DAO" nil 0)
                     ("nft" "NFT" nil 0)
                     ("FF" "FireFox" nil 0)
