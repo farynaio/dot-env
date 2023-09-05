@@ -50,30 +50,32 @@ instead of `browse-url-new-window-flag'."
 
 (use-package eww
   :straight nil
-  :commands eww
+  :commands (eww www)
   :hook (eww-mode . visual-fill-column-mode)
   :custom
   (eww-search-prefix "https://duckduckgo.com/html/?q=")
   :config
   (defun my/eww-init ()
-    (setq-local
+    ;; (setq-local
+    (setq
       shr-use-colors nil
-      ;; shr-width 70
+      shr-width 70
       ;; shr-use-fonts  nil
       ))
 
   (add-hook 'eww-mode-hook #'my/eww-init)
 
-  (defun my/eww-change-text-width (val)
-    (setq fill-column (+ fill-column val))
-    (switch-to-buffer (current-buffer))
-    (message "Text area resized to %s" fill-column))
+  ;; (defun my/eww-change-text-width (val)
+  ;;   (setq
+  ;;     fill-column (+ fill-column val)
+  ;;     shr-width  (+ fill-column val))
+  ;;   (switch-to-buffer (current-buffer))
+  ;;   (message "Text area resized to %s" fill-column))
 
   (bind-keys
     :map eww-mode-map
-    ("C-w v" . split-window-right)
-    ("+" . (lambda () (interactive) (my/eww-change-text-width 5)))
-    ("_" . (lambda () (interactive) (my/eww-change-text-width -5)))))
+    ("C-w v" . split-window-right))
+  )
 
 (defalias 'www #'eww)
 
