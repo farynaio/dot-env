@@ -200,6 +200,7 @@
 
 ;; https://github.com/xenodium/chatgpt-shell
 (use-package chatgpt-shell
+  :if (and (boundp 'my/chatgpt-enabled) my/chatgpt-enabled)
   :commands (chatgpt-shell my/chatgpt-shell-start-new ai)
   :init
   (defun my/chatgpt-shell-start-new ()

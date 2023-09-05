@@ -56,6 +56,7 @@
 (defvar my/org-journal-enabled nil)
 (defvar my/org-contacts-enabled t)
 (defvar my/dashboard-enabled t)
+(defvar my/chatgpt-enabled nil)
 
 (setq-default browse-url-browser-function #'ignore)
 
