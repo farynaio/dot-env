@@ -279,15 +279,15 @@
   (add-to-list 'exec-path-from-shell-variables "LC_TIME")
   (exec-path-from-shell-initialize))
 
-(defvar my/local-custom-variables-file-path (expand-file-name "/home/user/.emacs.d/emacs-local-config/custom.el"))
+(setq custom-file "/home/user/.emacs.d/emacs-local-config/custom.el")
 
 ; Load my custom-set-variables settings
-(if (not (file-exists-p my/local-custom-variables-file-path))
-  (error (concat "'emacs-local/config/custom.el' file not exists"))
-  (message (format "Loading %s..." my/local-custom-variables-file-path))
-  (load my/local-custom-variables-file-path)
+(if (or (null custom-file) (not (file-exists-p custom-file)))
+  (error (format "File '%s' not exists" custom-file))
+  (message (format "Loading %s..." custom-file))
+  (load custom-file)
   (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
-    (native--compile-async `(,my/local-custom-variables-file-path) t nil)))
+    (native--compile-async `(,custom-file) t nil)))
 
 (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
   (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t nil))
