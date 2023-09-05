@@ -161,6 +161,8 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("debian" "Debian" nil 0)
+                    ("github" "GitHub" nil 0)
                     ("coo" "COO" nil 0)
                     ("cfo" "CFO" nil 0)
                     ("ceo" "CEO" nil 0)
@@ -215,6 +217,9 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+
+                    ("debian" "Debian" nil 0)
+                    ("github" "GitHub" nil 0)
                     ("coo" "COO" nil 0)
                     ("cfo" "CFO" nil 0)
                     ("ceo" "CEO" nil 0)
