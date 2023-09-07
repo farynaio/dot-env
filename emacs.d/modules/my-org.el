@@ -433,39 +433,19 @@
             (delete-char -1))))))
 
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
-  (defun ndk/heading-title ()
-    "Get the heading title."
-    (save-excursion
-      (if (org-at-heading-p)
-        (org-element-property :title (org-element-at-point))
-        (unless (org-before-first-heading-p) (org-get-heading)))))
-
-  (defun ndk/org-breadcrumbs ()
+  (defun afa/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
-    ;; (when (derived-mode-p 'org-mode)
-    ;;   (let* ((path (org-get-outline-path))
-    ;;           (breadcrumbs
-    ;;             (when path
-    ;;               (org-format-outline-path
-    ;;                 path
-    ;;                 (1- (frame-width))
-    ;;                 nil " > ")))
-    ;;           (title (ndk/heading-title))
-    ;;           (node (org-roam-node-at-point))
-    ;;           (filename (if node (org-roam-node-file-title node)))
-    ;;           (filename (if filename filename (buffer-name))))
-    ;;     (if title
-    ;;       (if breadcrumbs
-    ;;         (format "[%s] %s > %s" filename breadcrumbs title)
-    ;;         (format "[%s] %s" filename title))
-    (ignore-errors
-      (when (org-roam-buffer-p)
-        (format "[%s]"  (org-roam-node-file-title (org-roam-node-at-point))))))
-
-    ;; (when (org-roam-buffer-p)
-    ;;   (format "[%s]"  (org-roam-node-file-title (org-roam-node-at-point)))
-    ;;   ))
-  ;; )))
+    (when (org-roam-buffer-p)
+      (let* ((filename (org-roam-node-file-title (org-roam-node-at-point)))
+              (path (ignore-errors (org-get-outline-path t)))
+              (breadcrumbs
+                (if path
+                  (org-format-outline-path
+                    path
+                    (1- (frame-width))
+                    nil " > ")
+                  "")))
+        (format "[%s] %s" filename breadcrumbs))))
 
   ;; org mode conflicts resolution: windmove
   ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
@@ -473,9 +453,8 @@
   ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
   ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
 
-
   (define-minor-mode afa/org-breadcrums-mode
-    "Minor mode to display org breadcrumbs
+    "Minor mode to display org breadcrumbs.
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
     :init-value nil
@@ -487,13 +466,15 @@
         t
         (lambda ()
           (setq-local header-line-format
-            (ndk/org-breadcrumbs))))))
+            (afa/org-breadcrumbs))))))
 
   (add-hook 'afa/org-breadcrums-mode-hook
     (lambda ()
-      (when afa/org-breadcrums-mode-timer
+      (when (and (not afa/org-breadcrums-mode) afa/org-breadcrums-mode-timer)
         (cancel-timer afa/org-breadcrums-mode-timer)
-        (setq-local afa/org-breadcrums-mode-timer nil))))
+        (setq-local
+          afa/org-breadcrums-mode-timer nil
+          header-line-format nil))))
 
   (defun my/org-link-copy (&optional arg)
     "Extract URL from org-mode link and add it to kill ring."
