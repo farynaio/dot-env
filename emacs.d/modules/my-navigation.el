@@ -330,13 +330,12 @@
 ;;   :after treemacs)
 
 (use-package avy
-  :disabled t
   :bind (:map help-mode-map
-          ("\\c" . avy-goto-char)
+          ("\\w" . avy-goto-word-or-subword-1)
+          :map evil-normal-state-map
           ("\\w" . avy-goto-word-or-subword-1)
           :map evil-motion-state-map
-          ("\\w" . avy-goto-word-or-subword-1)
-          ("\\c" . avy-goto-char)))
+          ("\\w" . avy-goto-word-or-subword-1)))
 
 ;; https://oremacs.com/swiper/
 (use-package ivy
