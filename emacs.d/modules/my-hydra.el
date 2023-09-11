@@ -125,9 +125,9 @@
         ("d" org-roam-find-directory "find dir")
         ("l" org-roam-node-insert "insert node"))
       "Commands"
-      (("m" woman "man" :exit t)
+      (("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
+        ("m" woman "man" :exit t)
         ("r" rss "RSS" :exit t)
-        ("a" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
         ("k" my/kill-clear "clear kill-ring")
         ("." my/tempo-insert "insert snippet" :exit t))
       "Language"
