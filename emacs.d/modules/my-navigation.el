@@ -265,16 +265,6 @@
   :config
   (global-anzu-mode 1))
 
-;; Allow to move selected lines up and down
-(use-package drag-stuff
-  :diminish drag-stuff-mode
-  :config
-  (add-to-list 'drag-stuff-except-modes #'org-mode)
-  ;; (add-to-list 'drag-stuff-except-modes 'my/org-taskjuggler-mode)
-  (drag-stuff-global-mode 1)
-  (define-key drag-stuff-mode-map (drag-stuff--kbd 'up) #'drag-stuff-up)
-  (define-key drag-stuff-mode-map (drag-stuff--kbd 'down) #'drag-stuff-down))
-
 (use-package goto-last-change
   :demand 0.3
   :commands (goto-last-change goto-last-change-reverse)
