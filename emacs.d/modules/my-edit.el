@@ -140,6 +140,7 @@
   :custom
   (company-idle-delay 0.5)
   (company-show-numbers t)
+  (company-show-quick-access t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
   ;; (company-backends '(company-capf))
