@@ -303,7 +303,9 @@
 (use-package elfeed-org
   :after (org elfeed)
   :custom
-  (rmh-elfeed-org-files '("~/.rss/feeds.org"))
+  (rmh-elfeed-org-files
+    (list
+      (expand-file-name "elfeed/feeds.org" user-emacs-directory)))
   :config
   (elfeed-org))
 

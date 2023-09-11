@@ -217,15 +217,15 @@ ARGS is not processed."
   (unbind-key "g" mu4e-view-mode-map)
 
   (evil-define-key '(motion emacs normal) mu4e:view-mode-map
-    (kbd "C-d") 'evil-scroll-down
-    (kbd "C-u") 'evil-scroll-up)
+    (kbd "C-d") #'evil-scroll-down
+    (kbd "C-u") #'evil-scroll-up)
 
   (evil-define-key '(motion emacs) mu4e-headers-mode-map
-    (kbd "C-d") 'evil-scroll-down
-    (kbd "C-u") 'evil-scroll-up)
+    (kbd "C-d") #'evil-scroll-down
+    (kbd "C-u") #'evil-scroll-up)
 
   (evil-define-key 'visual mu4e-compose-mode-map
-    (kbd "H") 'org-mime-htmlize)
+    (kbd "H") #'org-mime-htmlize)
 
   (evil-make-overriding-map mu4e-headers-mode-map 'motion)
   (evil-make-overriding-map mu4e-headers-mode-map 'normal)
