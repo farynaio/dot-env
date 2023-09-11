@@ -54,7 +54,7 @@
 
 (defvar my/org-roam-enabled nil)
 (defvar my/org-journal-enabled nil)
-(defvar my/org-contacts-enabled t)
+(defvar my/org-contacts-enabled nil)
 (defvar my/dashboard-enabled t)
 (defvar my/chatgpt-enabled nil)
 
