@@ -58,6 +58,12 @@
 (defvar my/dashboard-enabled t)
 (defvar my/chatgpt-enabled nil)
 
+(setq-default dashboard-items
+  '((agenda . 5)
+     (projects . 5)
+     (registers . 5)
+     (recents . 5)))
+
 (setq-default browse-url-browser-function #'ignore)
 
 (defvar my-utils-activate nil)

@@ -116,11 +116,6 @@
        (registers . "database")))
   (dashboard-center-content t)
   (dashboard-set-init-info t)
-  (dashboard-items
-    '((agenda . 5)
-       (projects . 5)
-       (registers . 5)
-       (recents . 5)))
   (dashboard-item-names
     '(("Recent Files:" . "Recent files:")
        ("Agenda for today:" . "Today's agenda:")
