@@ -135,19 +135,11 @@
 (use-package org-contrib
   :after org)
 
-;; (setq safe-local-eval-forms (list))
-(add-to-list 'safe-local-eval-forms '(progn (jarfar/org-tasks-refile-targets-local)))
-
-
-;; (use-package dash)
-
 ;; This is necessary to fix PATH problems in Mac OS environments for shell-command.
 ;; (use-package exec-path-from-shell
 ;;   :if (memq window-system '(mac ns x))
 ;;   :config
 ;;   (exec-path-from-shell-initialize))
-
-;; (use-package oauth2)
 
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
