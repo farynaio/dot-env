@@ -279,7 +279,7 @@
   (add-to-list 'exec-path-from-shell-variables "LC_TIME")
   (exec-path-from-shell-initialize))
 
-(setq custom-file "/home/user/.emacs.d/emacs-local-config/custom.el")
+(setq custom-file (expand-file-name "emacs-local-config/custom.el" user-emacs-directory))
 
 ; Load my custom-set-variables settings
 (if (or (null custom-file) (not (file-exists-p custom-file)))
