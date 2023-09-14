@@ -211,6 +211,8 @@
   auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/" t))
   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
+(set-language-environment "UTF-8")
+
 (defun my/reload-config ()
 	"Reload config."
 	(interactive)
