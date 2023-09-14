@@ -46,7 +46,6 @@
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/shims")
 ;; (add-to-list 'exec-path "/usr/local/opt/rbenv/bin")
 (add-to-list 'exec-path "~/.npm-packages/bin")
-(add-to-list 'exec-path "~/.rbenv/bin")
 (add-to-list 'exec-path "~/.rbenv/shims")
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
@@ -258,18 +257,29 @@
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
   :custom
-  (exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-variables '("MANPATH"))
   :config
-  (add-to-list 'exec-path-from-shell-variables "NPM_TOKEN")
-  (add-to-list 'exec-path-from-shell-variables "LANG")
-  (add-to-list 'exec-path-from-shell-variables "LANGUAGE")
-  (add-to-list 'exec-path-from-shell-variables "LC_COLLATE")
-  (add-to-list 'exec-path-from-shell-variables "LC_CTYPE")
-  (add-to-list 'exec-path-from-shell-variables "LC_MESSAGES")
-  (add-to-list 'exec-path-from-shell-variables "LC_MONETARY")
-  (add-to-list 'exec-path-from-shell-variables "LC_NUMERIC")
-  (add-to-list 'exec-path-from-shell-variables "LC_TIME")
-  (exec-path-from-shell-initialize))
+  (dolist
+    (var
+      '(
+         "LANG"
+         "LANGUAGE"
+         "LC_COLLATE"
+         "LC_CTYPE"
+         "LC_MESSAGES"
+         "LC_MONETARY"
+         "LC_NUMERIC"
+         "LC_TIME"
+         "GPG_AGENT_INFO"
+         "NPM_TOKEN"
+         "NVM_BIN"
+         "SSH_AUTH_SOCK"
+         "SSH_AGENT_PID"
+         ))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize)
+  (add-to-list 'exec-path (getenv "NVM_BIN"))
+  (setenv "PATH" (format "%s:%s" (getenv "NVM_BIN") (getenv "PATH"))))
 
 (setq custom-file (expand-file-name "emacs-local-config/custom.el" user-emacs-directory))
 

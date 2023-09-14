@@ -32,11 +32,13 @@
 (use-package lorem-ipsum
   :commands (lorem-ipsum-insert-sentences lorem-ipsum-insert-paragraphs lorem-ipsum-insert-list))
 
+(use-package hl-todo
+  :commands hl-todo-mode)
+
 (use-package prog-mode
   :straight nil
   :hook ((prog-mode . eldoc-mode)
           (prog-mode . rainbow-delimiters-mode)
-          (prog-mode . my/breadcrumb-set-local)
           (prog-mode . hl-todo-mode)
           (prog-mode . highlight-thing-mode)
           (prog-mode . company-mode)
@@ -86,12 +88,21 @@
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
         ("k" treemacs "treemacs" :toggle t :exit t))
-      "Syntax check"
+      "Assess"
       (("fc" flycheck-mode "flycheck" :toggle t)
         ("fm" flymake-mode "flymake" :toggle t)
         ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
-        ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t))))
+        ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
+        ("s" my/hydra-seeing-is-believing/body "seeing-is-believing" :exit t)
+        )))
+
+  (pretty-hydra-define my/hydra-seeing-is-believing
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Seeing is believing" 1 -0.05))
+    ("Action"
+      (("t" seeing-is-believing "toggle" :toggle t :exit t)
+        ("r" seeing-is-believing-run "run")
+        ("c" seeing-is-believing-clear "clear" :exit t))))
 
   (defun my/xref-find-references ()
     (interactive)
@@ -193,15 +204,17 @@ Use when `json-mode' or similar get stuck."
   :diminish electric-operator-mode)
 
 (use-package sh-script
-  :mode "\\.z?sh\\'"
-  :hook (after-save . executable-make-buffer-file-executable-if-script-p))
+  :straight nil
+  :hook (after-save . executable-make-buffer-file-executable-if-script-p)
+  :mode (("\\.bashrc\\'" . sh-mode)
+          ("\\.bash_logout\\'" . sh-mode)
+          ("\\.sh\\'" . sh-mode)
+          ("\\.z?sh\\'" . sh-mode)
+          ("\\.profile\\'" . sh-mode)))
 
 ;; (use-package sql-indent
 ;;   :after (:any sql sql-interactive-mode)
 ;;   :diminish sql-indent-mode)
-
-(use-package hl-todo
-  :commands hl-todo-mode)
 
 ;; http://mattbriggs.net/blog/2012/03/18/awesome-emacs-plugins-ctags/
 (defun my/ctags-build ()
@@ -241,8 +254,6 @@ Use when `json-mode' or similar get stuck."
   :mode "\\.ya?ml\\'")
 
 (use-package markdown-mode
-  ;; :hook (markdown-mode . my/bind-value-togglers)
-  :hook (markdown-mode . my/breadcrumb-set-local)
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode))
@@ -312,69 +323,14 @@ Use when `json-mode' or similar get stuck."
 
 (use-package eglot
   :commands eglot
-  :straight nil)
-
-(use-package lsp-mode
-  :disabled t
-  :commands (lsp lsp-deferred)
-  :hook ((lsp-mode .
-           (lambda ()
-             (when (bound-and-true-p which-key-mode)
-               (lsp-enable-which-key-integration))
-             )))
+  :straight nil
   :custom
-  (lsp-enable-snippet t)
-  (lsp-enable-semantic-highlighting nil)
-  (lsp-enable-symbol-highlighting nil)
-  (lsp-enable-file-watchers nil)
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-modeline-code-actions-enable nil)
-  (lsp-modeline-diagnostics-enable nil)
-  (lsp-signature-render-documentation nil)
-  (lsp-eldoc-enable-hover nil)
-  (lsp-restart 'auto-restart)
-  (lsp-lens-enable nil)
-  (lsp-eslint-enable nil)
-  (lsp-clients-svlangserver-disableLinting t)
-  (lsp-rf-language-server-trace-serve "off")
-  ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
-  :config
-  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
-  (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
-  (add-to-list 'lsp-disabled-clients
-    '(
-       (typescript-mode . (eslint))
-       (json-mode . (eslint json-ls))
-       (js-mode . (eslint))
-       (rjsx-mode . (eslint)))))
+  (eglot-extend-to-xref t)
+  (eglot-events-buffer-size 100000)
+  ;; :config
+  ;; eglot-workspace-configuration
 
-(use-package lsp-ui
-  :disabled t
-  :after lsp-mode
-	:commands lsp-ui-imenu
-  :hook ((lsp-mode . lsp-ui-mode)
-          (lsp-mode . lsp-ui-imenu-buffer-mode))
-  :custom
-  (lsp-ui-doc-enable nil)
-  (lsp-ui-doc-show-with-cursor nil)
-  (lsp-ui-doc-show-with-mouse nil)
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-imenu-window-width 50)
-  (lsp-ui-doc-position 'top)
-  (lsp-ui-doc-header t)
-  :config
-  (evil-define-key 'normal lsp-ui-mode-map
-    (kbd ",l") #'lsp-ui-imenu))
-
-(use-package lsp-treemacs
-  :disabled t
-  :after (lsp-mode treemacs)
-  :commands (lsp-treemacs-errors-list lsp-treemacs-call-hierarch)
-  :config
-  (lsp-treemacs-sync-mode 1))
+  )
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 ;; (use-package dap-mode
@@ -384,10 +340,6 @@ Use when `json-mode' or similar get stuck."
 ;;   (dap-chrome-setup)
 ;;   ;; https://emacs-lsp.github.io/dap-mode/page/configuration/#javascript
 ;;   (setq dap-chrome-debug-program "~/.vscode/extensions/msjsdiag.debugger-for-chrome-4.12.11/out/src/chromeDebug.js"))
-
-(use-package lsp-ivy
-  :disabled t
-  :after (lsp-mode ivy))
 
 (use-package dtrt-indent
   :commands (dtrt-indent-mode my/dtrt-indent-mode-toggle)
@@ -451,21 +403,6 @@ $0`(yas-escape-text yas-selected-text)`")
 ;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
 ;;   :custom (plantuml-jar-path (expand-file-name (format "%s/plantuml.jar" xdg-lib))))
 
-(defun my/breadcrumb-set-local ()
-  (when buffer-file-name
-  (if (projectile-project-p)
-    (let* ((path (string-remove-prefix (projectile-project-root) buffer-file-name))
-            (tokens (split-string path "/"))
-            (path (string-join tokens " > ")))
-      (setq-local header-line-format
-        `(:eval
-           (format "%s %s"
-             (propertize (format "[%s]" (projectile-project-name)) 'face 'bold)
-             ,path))))
-    (setq-local header-line-format
-      '(:eval
-         (buffer-name (current-buffer)))))))
-
 (use-package elisp-mode
   :straight nil
   :commands emacs-lisp-mode
@@ -528,11 +465,13 @@ ets function symbol on point as initial suggestion."
               :branch "master")
   :mode "\\.sol\\'"
   :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4))))
+  :preface
+  (setq-default solidity-solium-path (format "%s/solium" (getenv "NVM_BIN")))
+  (unless (file-exists-p solidity-solium-path)
+    (message "'solium' not installed!"))
+  :if (file-exists-p solidity-solium-path)
   :custom
-  (solidity-flycheck-solium-checker-active t)
-  :config
-  (when (executable-find "solium")
-    (message "Executable 'solium' not found!")))
+  (solidity-flycheck-solium-checker-active t))
 
 (use-package company-solidity
   :after company
@@ -549,6 +488,9 @@ ets function symbol on point as initial suggestion."
   :custom
   (xref-show-xrefs-function #'ivy-xref-show-xrefs)
   (xref-show-definitions-function #'ivy-xref-show-defs))
+
+(use-package seeing-is-believing
+  :commands seeing-is-believing)
 
 (require 'my-python)
 (require 'my-web)

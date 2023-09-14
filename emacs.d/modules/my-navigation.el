@@ -59,7 +59,7 @@
        (reusable-frames . nil))
      ("\\*Warnings\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)
-       (window-height . 0.3)
+       (window-height . 0.2)
        (reusable-frames . nil))
      ("\\*Completions\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)
@@ -91,6 +91,13 @@
      ("\\*eww bookmarks\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)
        (window-height . 0.2)
+       (reusable-frames . nil))
+     ("\\*ruby\\*"
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.2)
+       (reusable-frames . nil))
+     ("\\magit:"
+       (display-buffer-in-previous-window)
        (reusable-frames . nil))
      ))
 ;; switch-to-buffer-obey-display-actions
@@ -385,9 +392,8 @@
   (ivy-prescient-mode 1))
 
 (use-package counsel
-  :defer 10
   :after ivy
-  :commands (counsel-projectile-switch-to-buffer counsel-projectile-find-dir counsel-projectile-find-file counsel-rg)
+  :demand t
   :bind (("M-x" . counsel-M-x)
           ("C-x C-f" . counsel-find-file)
           ("<f1> f" . counsel-describe-function)

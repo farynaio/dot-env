@@ -37,26 +37,29 @@
       (when evil-state-pre
         (evil-change-state evil-state-pre))))
 
-  (defvar general-tags nil
+  (defvar my/tempo-general-tags nil
     "Tags for all modes.")
 
-  (defvar tempo-initial-pos nil
+  (defvar my/tempo-js-tags nil
+    "Tags for all modes.")
+
+  (defvar my/tempo-initial-pos nil
     "Initial position in template after expansion")
 
   (defadvice tempo-insert (around tempo-insert-pos act)
     "Define initial position."
     (if (eq element '~)
-      (setq tempo-initial-pos (point-marker))
+      (setq my/tempo-initial-pos (point-marker))
       ad-do-it))
 
   (defadvice tempo-insert-template (around tempo-insert-template-pos act)
     "Set initial position when defined. ChristophConrad"
-    (setq tempo-initial-pos nil)
+    (setq my/tempo-initial-pos nil)
     ad-do-it
-    (if tempo-initial-pos
+    (if my/tempo-initial-pos
       (progn
         (put template 'no-self-insert t)
-        (goto-char tempo-initial-pos))
+        (goto-char my/tempo-initial-pos))
       (put template 'no-self-insert nil)))
 
   (defadvice tempo-define-template (after no-self-insert-in-abbrevs activate)
@@ -65,29 +68,41 @@
 
   (add-hook 'text-mode-hook
     (lambda ()
-      (tempo-use-tag-list 'general-tags)))
+      (tempo-use-tag-list 'my/tempo-general-tags)))
 
   (add-hook 'prog-mode-hook
     (lambda ()
-      (tempo-use-tag-list 'general-tags)))
+      (tempo-use-tag-list 'my/tempo-general-tags)))
 
   (add-hook 'emacs-lisp-mode-hook
     (lambda ()
-      (tempo-use-tag-list 'general-tags)))
+      (tempo-use-tag-list 'my/tempo-general-tags)))
+
+  (add-hook 'rjsx-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'my/tempo-js-tags)))
 
   (tempo-define-template
     "file-vars"
     '("-*- " ~ " -*-")
     "filev"
     "Insert file variables block"
-    'general-tags)
+    'my/tempo-general-tags)
 
   (tempo-define-template
     "todo-tag"
     '("TODO ")
     "todo"
     "Insert TODO block"
-    'general-tags)
+    'my/tempo-general-tags)
+
+  (tempo-define-template
+    "console-log-tag"
+    '("console.log(" ~ ")")
+    "console"
+    "Insert console.log"
+    'my/tempo-general-tags)
+
   )
 
 (provide 'my-snippet)

@@ -7,19 +7,21 @@
 
 (setq gud-pdb-command-name "python3 -m pdb ")
 
-(eval-after-load 'python
-  '(progn
-     (evil-make-overriding-map inferior-python-mode-map 'motion)
-     (evil-make-overriding-map inferior-python-mode-map 'normal)
-     (bind-key "C-d" 'evil-scroll-down inferior-python-mode-map)
+(use-package python
+  :straight nil
+  :config
+  (evil-make-overriding-map inferior-python-mode-map 'motion)
+  (evil-make-overriding-map inferior-python-mode-map 'normal)
+  (bind-key "C-d" 'evil-scroll-down inferior-python-mode-map)
 
-     (add-hook 'python-mode-hook
-       (lambda ()
-         (setq-local tab-width 4)
-         (setq python-indent-offset 4)))))
+  (defun my/python-setup ()
+    (setq-local tab-width 4)
+    (setq-local python-indent-offset 4))
 
-(add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
-(add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
+  (add-hook 'python-mode-hook #'my/python-setup))
+
+;; (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
+;; (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)
 
 ;; On Debian it requires python3-venv apt package, than run elpy-rpc-reinstall-virtualenv
 (use-package elpy

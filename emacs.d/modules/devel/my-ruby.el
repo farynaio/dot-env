@@ -10,7 +10,30 @@
 ;;                               (add-to-list 'company-backends 'company-robe t)))
 ;;   (add-hook 'ruby-mode-hook 'robe-mode)
 ;;   ))
-;; (use-package inf-ruby)
+
+(use-package inf-ruby
+  :commands inf-ruby-minor-mode
+  :config
+  (add-to-list 'evil-emacs-state-modes 'inf-ruby-mode)
+  ;; (evil-set-initial-state 'inf-ruby-minor-mode 'emacs)
+
+  ;; (add-hook 'compilation-filter-hook #'inf-ruby-auto-enter)
+
+  ;; (add-hook 'compilation-filter-hook #'inf-ruby-auto-enter-and-focus)
+  )
+
+(use-package ruby-mode
+  :straight nil
+  :mode "\\.rb\\'"
+  :hook ((ruby-mode . seeing-is-believing)
+          (ruby-mode . inf-ruby-minor-mode)
+          ))
+
+;; (use-package rbenv
+;;   :after ruby-mode
+;;   :config
+;;   (global-rbenv-mode)
+;;   (rbenv-use-global))
 
 (use-package projectile-rails
   :requires projectile

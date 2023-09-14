@@ -24,9 +24,10 @@
   :hook ((edebug-mode . edebug-x-mode)
           (edebug-mode . edebug-step-mode)
           (edebug-mode . edebug-inline-result-mode))
-  :config
-  (evil-make-overriding-map edebug-mode-map '(normal motion))
-  (add-hook 'edebug-mode-hook #'evil-normalize-keymaps))
+  :custom
+  (when (fboundp 'evil-make-overriding-map)
+    (evil-make-overriding-map edebug-mode-map '(normal motion))
+    (add-hook 'edebug-mode-hook #'evil-normalize-keymaps)))
 
 (use-package edebug-x
   :commands edebug-x-mode)

@@ -21,7 +21,7 @@
   (js2-mode-show-strict-warnings nil)
   :config
   ;; Use js2-mode for Node scripts
-  (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
+  ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
 
   (evil-define-key '(normal motion visual) js2-mode-map
     (kbd "M-.") #'xref-find-definitions
@@ -44,9 +44,9 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode))
+          (rjsx-mode . mmm-mode)
+          (rjsx-mode . eglot-ensure))
           ;; (rjsx-mode . my/prettier-mode))
-          ;; (rjsx-mode . my/rjsx-mode-setup))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))

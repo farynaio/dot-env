@@ -17,6 +17,18 @@
 
 (defvar my/epa-file-encrypt-to-default '("foo@bar.com"))
 
+(if (file-exists-p "~/.rbenv")
+  (if (file-exists-p "~/.rbenv/version")
+    (let* ((ruby-version
+             (with-temp-buffer
+               (insert-file-contents "~/.rbenv/version")
+               (string-trim (buffer-string))))
+            (ruby-bin-path (format "~/.rbenv/versions/%s/bin" ruby-version)))
+      (setenv "PATH" (format "%s:%s" ruby-bin-path (getenv "PATH")))
+      (add-to-list 'exec-path ruby-bin-path))
+    (message "'rbenv' is installed but global version is not set!"))
+  (message "'rbenv' is not installed!"))
+
 (setq-default
   mml-secure-openpgp-sign-with-sender t
   mml-secure-openpgp-signers '(""))
