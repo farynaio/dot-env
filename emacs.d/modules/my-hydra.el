@@ -129,6 +129,7 @@
         ("m" woman "man" :exit t)
         ("r" rss "RSS" :exit t)
         ("k" my/kill-clear "clear kill-ring")
+        ("R" my/refactoring-mode "my refactoring mode" :toggle t :exit t)
         ("." my/tempo-insert "insert snippet" :exit t))
       "Language"
       (("d" ispell-change-dictionary "change dictionary")

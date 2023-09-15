@@ -57,11 +57,6 @@
     ("C-d" . evil-scroll-down)
     ("C-u" . evil-scroll-up)
     ("C-c C-S-o" . browse-url-generic)
-    ("x" . my/evil-delete-char-no-yank)
-    ("<deletechar>" . my/evil-delete-char-no-yank)
-    ("C" . my/evil-change-line-no-yank)
-    ("D" . my/evil-delete-line-no-yank)
-    ("c" . my/evil-change-no-yank)
     ("d" . evil-delete)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
@@ -76,8 +71,6 @@
     (",/" . keyboard-quit)
     ("{" . backward-paragraph)
     ("}" . forward-paragraph)
-    ("x" . my/evil-delete-char-no-yank)
-    ("C" . my/evil-change-line-no-yank)
     :map evil-motion-state-map
     ("{" . backward-paragraph)
     ("C-d" . evil-scroll-down)
@@ -97,6 +90,24 @@
   (evil-cross-lines t)
   :config
   (evil-mode 1)
+
+  (defvar my/refactoring-mode-map (make-sparse-keymap))
+  (evil-define-key 'normal my/refactoring-mode-map
+    (kbd "x") #'my/evil-delete-char-no-yank
+    (kbd "<deletechar>") #'my/evil-delete-char-no-yank
+    (kbd "C") #'my/evil-change-line-no-yank
+    (kbd "D") #'my/evil-delete-line-no-yank
+    (kbd "c") #'my/evil-change-no-yank)
+
+  (evil-define-key 'visual my/refactoring-mode-map
+    (kbd "x") #'my/evil-delete-char-no-yank
+    (kbd "C") #'my/evil-change-line-no-yank)
+
+  (define-minor-mode my/refactoring-mode
+    "Minor mode for major refactoring."
+    :init-value nil
+    :global nil
+    :lighter "mf")
 
   (evil-define-operator my/evil-delete-no-yank (beg end type register yank-handler)
     "Delete text from BEG to END with TYPE.
