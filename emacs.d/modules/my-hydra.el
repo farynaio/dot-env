@@ -6,6 +6,8 @@
              :host github
              :repo "jerrypnz/major-mode-hydra.el"
               :branch "master")
+  :demand t
+  :commands major-mode-hydra
   :bind (("C-c I" . hydra-image/body)
           ;; ("C-c T" . hydra-tool/body)
           ("C-c t" . hydra-general/body)
@@ -15,7 +17,8 @@
           ("C-c v" . my/hydra-common/body)
           ;; ("C-c q" . hydra-query/body) ;;
           ;; ("C-c b" . hydra-browser/body) ;;
-          )
+          :map evil-normal-state-map
+          (",l" . major-mode-hydra))
   :preface
   (defun with-alltheicon (icon str &optional height v-adjust)
     "Displays an icon from all-the-icon."

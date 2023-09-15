@@ -133,11 +133,11 @@
   my-fun-activate nil
   my-snippet-activate t)
 
-(when my-debug-activate (require 'my-debug))
 (when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
-(when my-theme-activate (require 'my-theme))
 (when my-hydra-activate (require 'my-hydra))
+(when my-theme-activate (require 'my-theme))
+(when my-debug-activate (require 'my-debug))
 (when my-dired-activate (require 'my-dired))
 (when my-encrypt-activate (require 'my-encrypt))
 (when my-edit-activate (require 'my-edit))

@@ -47,7 +47,6 @@
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'evil-numbers/inc-at-pt
     (kbd "<S-down>") #'evil-numbers/dec-at-pt
-    (kbd ",l") #'hydra-prog/body
     (kbd "C-=") #'er/expand-region
     (kbd "C-+") #'er/contract-region)
 
@@ -66,7 +65,7 @@
     (kbd "C-c m") #'hydra-merge/body
     (kbd "/") #'counsel-grep)
 
-  (pretty-hydra-define hydra-prog
+  (major-mode-hydra-define (prog-mode ruby-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("e" ediff "ediff files" :exit t)
@@ -74,35 +73,55 @@
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("." my/tempo-insert "insert snippet" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("c" counsel-colors-emacs "color picker" :exit t))
-      "AI"
-      (("ac" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
-        ("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
-        ("aa" starhugger-accept-suggestion "accept suggestion" :exit t)
-        (">" starhugger-show-next-suggestion "next suggestion")
-        ("<" starhugger-show-prev-suggestion "previous suggestion"))
-      "Find"
+        ("c" counsel-colors-emacs "color picker" :exit t)
+        ("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
+        ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
+        (">" starhugger-show-next-suggestion "AI next suggestion")
+        ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
+      "Navigate"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
         ("k" treemacs "treemacs" :toggle t :exit t))
-      "Assess"
+      "Debug"
       (("fc" flycheck-mode "flycheck" :toggle t)
         ("fm" flymake-mode "flymake" :toggle t)
-        ("p" my/prettier-mode "prettier" :toggle t)
+        ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
-        ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
-        ("s" my/hydra-seeing-is-believing/body "seeing-is-believing" :exit t)
+        ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
 
-  (pretty-hydra-define my/hydra-seeing-is-believing
-    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Seeing is believing" 1 -0.05))
-    ("Action"
-      (("t" seeing-is-believing "toggle" :toggle t :exit t)
-        ("r" seeing-is-believing-run "run")
-        ("c" seeing-is-believing-clear "clear" :exit t))))
+
+  ;; (pretty-hydra-define hydra-prog
+  ;;   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
+  ;;   ("Action"
+  ;;     (("e" ediff "ediff files" :exit t)
+  ;;       ("b" ediff-buffers "ediff buffers" :exit t)
+  ;;       ("x" xref-find-references-and-replace "replace references" :exit t)
+  ;;       ("." my/tempo-insert "insert snippet" :exit t)
+  ;;       ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
+  ;;       ("c" counsel-colors-emacs "color picker" :exit t))
+  ;;     "AI"
+  ;;     (("ac" my/chatgpt-shell-start-new "ChatGpt shell" :exit t)
+  ;;       ("as" starhugger-trigger-suggestion "generate suggestion" :exit t)
+  ;;       ("aa" starhugger-accept-suggestion "accept suggestion" :exit t)
+  ;;       (">" starhugger-show-next-suggestion "next suggestion")
+  ;;       ("<" starhugger-show-prev-suggestion "previous suggestion"))
+  ;;     "Find"
+  ;;     (("d" my/xref-find-definitions "find definitions" :exit t)
+  ;;       ("r" my/xref-find-references "find references" :exit t)
+  ;;       ("t" projectile-find-tag "find tag" :exit t)
+  ;;       ("g" counsel-projectile-git-grep "git grep" :exit t)
+  ;;       ("l" counsel-imenu "imenu" :exit t)
+  ;;       ("k" treemacs "treemacs" :toggle t :exit t))
+  ;;     "Assess"
+  ;;     (("fc" flycheck-mode "flycheck" :toggle t)
+  ;;       ("fm" flymake-mode "flymake" :toggle t)
+  ;;       ("p" my/prettier-mode "prettier" :toggle t)
+  ;;       ;; ("o" electric-operator-mode "electric operator" :toggle t)
+  ;;       ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t))))
 
   (defun my/xref-find-references ()
     (interactive)
@@ -488,9 +507,6 @@ ets function symbol on point as initial suggestion."
   :custom
   (xref-show-xrefs-function #'ivy-xref-show-xrefs)
   (xref-show-definitions-function #'ivy-xref-show-defs))
-
-(use-package seeing-is-believing
-  :commands seeing-is-believing)
 
 (require 'my-python)
 (require 'my-web)
