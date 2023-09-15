@@ -60,7 +60,6 @@
           ("C-c j" . org-clock-goto) ;; jump to current task from anywhere
           ("C-c C-o" . org-open-at-point-global)
           :map org-mode-map
-          ("C-x m" . hydra-org/body)
           ("C-c C-l" . org-insert-link)
           ("C-x C-l" . my/org-link-copy)
           ("C-c l" . org-store-link)
@@ -245,7 +244,6 @@
     (kbd "C-p") 'completion-at-point)
 
   (evil-define-key 'normal org-mode-map
-    (kbd ",l") (lambda () (interactive) (if (org-roam-buffer-p) (my/hydra-org-roam/body) (my/hydra-org/body)))
     (kbd "C-n") 'completion-at-point
     (kbd "C-p") 'completion-at-point
     (kbd "<tab>") 'org-cycle
@@ -297,45 +295,22 @@
     (message "No executable 'unoconv' found.")
     (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d.xls %i"))))
 
-  (pretty-hydra-define my/hydra-org
+  (major-mode-hydra-define (org-mode my/org-roam-mode)
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
     ("Action"
       (("t" org-toggle-timestamp-type "timestamp toggle")
-        ("l" org-link-archive-at-point "link archive")
+        ("a" org-link-archive-at-point "link archive")
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates"))
       "Toggle"
-      (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
+      (("h" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
-        ("fa" counsel-org-file "browse attachments")
-        ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer"))))
-
-  (pretty-hydra-define my/hydra-org-roam
-    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
-    ("Edit"
-      (("t" org-toggle-timestamp-type "timestamp toggle")
-        ("a" org-link-archive-at-point "link archive")
-        ("i" org-toggle-inline-images "images toggle" :toggle t)
-        ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
-        ("c" org-archive-subtree "archive heading subtree")
-        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        ("n" org-id-get-create "turn heading into node")
-        ("l" org-roam-node-insert "insert node"))
-      "Toggle"
-      (("h" org-table-header-line-mode "toggle org-table-header-line-mode" :toggle t)
-        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
-        ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
-      "Navigation"
-      (("s" counsel-org-goto "goto heading")
-        ("fa" counsel-org-file "browse attachments")
-        ;; ("z" my/org-roam-toggle-buffer-if-roam "toggle org-roam buffer")
-        ("u" org-roam-ui-open "open UI view")
-        ("z" org-roam-buffer-toggle "toggle references sidebar"))))
+        ("fa" counsel-org-file "browse attachments"))))
 
   ;; Fixes problem with void function org-clocking-buffer
   (defun org-clocking-buffer ())
@@ -386,12 +361,6 @@
         (or (outline-next-heading)
           (goto-char (point-max))))))
 
-  (defun my/org-roam-toggle-buffer-if-roam ()
-    (interactive)
-    (if (and (fboundp 'org-roam-mode) (org-roam-file-p))
-      (org-roam-buffer-toggle)
-      (message "Not org-roam buffer!")))
-
 ;; https://www.emacswiki.org/emacs/ReverseParagraphs
   (defun my/org-paragraphs-reverse-order ()
     (interactive)
@@ -435,7 +404,7 @@
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
   (defun afa/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
-    (when (org-roam-buffer-p)
+    (when (org-roam-file-p)
       (let* ((filename (org-roam-node-file-title (org-roam-node-at-point)))
               (path (ignore-errors (org-get-outline-path t)))
               (breadcrumbs
@@ -763,7 +732,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   :defer 10
   :after (org emacsql)
   :diminish org-roam-mode
-  :commands (org-roam-buffer-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/hydra-org-roam/body)
+  :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/org-roam-mode)
   :custom
   (org-roam-directory my/org-roam-directory)
   (org-roam-graph-viewer "/usr/bin/open")
@@ -896,6 +865,18 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (require 'org-roam-protocol)
 
   (org-roam-db-autosync-mode 1)
+
+  (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
+    "Major mode for org-roam ready org buffers.")
+
+  (major-mode-hydra-define+ my/org-roam-mode
+    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
+    ("Edit"
+      (("n" org-id-get-create "turn heading into node")
+        ("l" org-roam-node-insert "insert node"))
+      "Navigation"
+      (("u" org-roam-ui-open "open UI view")
+        ("z" org-roam-buffer-toggle "toggle references sidebar"))))
 
   (add-to-list 'display-buffer-alist
     '("\\*org-roam\\*"
@@ -1162,6 +1143,8 @@ it can be passed in POS."
   :custom
   (org-appear-delay 0.6)
   (org-hide-emphasis-markers t))
+
+(add-to-list 'magic-mode-alist '(org-roam-file-p . my/org-roam-mode))
 
 (provide 'my-org)
 ;;; my-org.el ends here
