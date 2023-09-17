@@ -303,7 +303,8 @@
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
-        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates"))
+        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
+        ("R" org-reset "reset all org checkbox in subtree" :exit t))
       "Toggle"
       (("h" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
