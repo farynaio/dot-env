@@ -341,15 +341,12 @@ Use when `json-mode' or similar get stuck."
     nil t))
 
 (use-package eglot
-  :commands eglot
+  :commands (eglot eglot-alternatives)
   :straight nil
   :custom
   (eglot-extend-to-xref t)
-  (eglot-events-buffer-size 100000)
-  ;; :config
-  ;; eglot-workspace-configuration
-
-  )
+  (eglot-events-buffer-size 100000))
+  ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 ;; (use-package dap-mode
