@@ -94,10 +94,13 @@
        (reusable-frames . nil))
      ("\\*ruby\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)
-       (window-height . 0.2)
+       (window-height . 0.1)
        (reusable-frames . nil))
      ("\\magit:"
        (display-buffer-in-previous-window)
+       (reusable-frames . nil))
+     ("\\*eldoc"
+       (display-buffer-reuse-window display-buffer-in-previous-window)
        (reusable-frames . nil))
      ))
 ;; switch-to-buffer-obey-display-actions

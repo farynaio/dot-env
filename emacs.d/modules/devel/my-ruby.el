@@ -18,11 +18,12 @@
   (major-mode-hydra-define+ ruby-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-alltheicon "ruby" "Ruby" 1 -0.05))
     ("Assess"
-      (("s" my/hydra-seeing-is-believing/body "toggle seeing-is-believing" :exit t))))
+      (("s" my/hydra-seeing-is-believing/body "toggle seeing-is-believing" :exit t)
+        ("d" eldoc-box-help-at-point "show eldoc" :exit t))))
 
   (pretty-hydra-define my/hydra-seeing-is-believing
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "eye" "Seeing is believing" 1 -0.05))
-    ("Action"
+    ("Assess"
       (("t" seeing-is-believing "toggle" :toggle t :exit t)
         ("r" seeing-is-believing-run "run")
         ("c" seeing-is-believing-clear "clear" :exit t)))))

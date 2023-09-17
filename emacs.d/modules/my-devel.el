@@ -16,12 +16,29 @@
   :commands eldoc-mode
   :diminish eldoc-mode
   :custom
-  (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly))
+  (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :config
+  (add-to-list 'evil-emacs-state-modes 'eldoc-mode))
+
+(use-package eldoc-box
+  :after eldoc
+  :straight (:type git
+              :host github
+              :repo "casouri/eldoc-box"
+              :branch "master"))
+
+;; (defun my/eldoc-buffer-toggle ()
+;;   "Toggle the display of the Eldoc buffer."
+;;   (interactive)
+;;   (let (buffer (eldoc-doc-buffer))
+;;     (if buffer
+;;       (delete-windows-on buffer)
+;;       (eldoc-doc-buffer))))
 
 (use-package highlight-thing
   :commands highlight-thing-mode
   :custom
-  (setq highlight-thing-delay-seconds 0.1)
+  (highlight-thing-delay-seconds 0.1)
   (highlight-thing-case-sensitive-p t)
   (highlight-thing-ignore-list '("False" "True"))
   (highlight-thing-limit-to-region-in-large-buffers-p nil)
@@ -65,34 +82,34 @@
     (kbd "C-c m") #'hydra-merge/body
     (kbd "/") #'counsel-grep)
 
-  (major-mode-hydra-define (prog-mode ruby-mode)
+  (major-mode-hydra-define (prog-mode ruby-mode web-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
-      (("e" ediff "ediff files" :exit t)
-        ("b" ediff-buffers "ediff buffers" :exit t)
+      (("." my/tempo-insert "insert snippet" :exit t)
         ("x" xref-find-references-and-replace "replace references" :exit t)
-        ("." my/tempo-insert "insert snippet" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("c" counsel-colors-emacs "color picker" :exit t)
-        ("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
-        ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
-        (">" starhugger-show-next-suggestion "AI next suggestion")
-        ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
+        ("p" counsel-colors-emacs "color picker" :exit t))
       "Navigate"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
-        ("k" treemacs "treemacs" :toggle t :exit t))
-      "Debug"
-      (("fc" flycheck-mode "flycheck" :toggle t)
-        ("fm" flymake-mode "flymake" :toggle t)
+        ("k" treemacs "treemacs" :toggle t :exit t)
+        ("e" ediff "ediff files" :exit t)
+        ("b" ediff-buffers "ediff buffers" :exit t))
+      "AI"
+      (("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
+        ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
+        (">" starhugger-show-next-suggestion "AI next suggestion")
+        ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
+      "Assess"
+      (("cc" flycheck-mode "flycheck" :toggle t)
+        ("cm" flymake-mode "flymake" :toggle t)
         ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
-
 
   ;; (pretty-hydra-define hydra-prog
   ;;   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))

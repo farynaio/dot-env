@@ -3,7 +3,8 @@
   :diminish rainbow-mode)
 
 (use-package web-mode
-  :hook (web-mode . rainbow-mode)
+  :hook ((web-mode . rainbow-mode)
+          (web-mode . eglot-ensure))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)

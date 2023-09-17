@@ -271,7 +271,7 @@ end-of-buffer signals; pass the rest to the default handler."
   "symbols to be quick flipped when editing")
 
 (defun my/flip-symbol-at-point ()
-  "Flip symbol at point"
+  "Flip symbol at point."
   (interactive)
   (-let* ((symbol (symbol-at-point))
            (symbol (when symbol (symbol-name symbol)))
