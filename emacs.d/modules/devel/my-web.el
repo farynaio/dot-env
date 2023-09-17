@@ -51,6 +51,20 @@
   (web-mode-enable-auto-pairing nil)
   (web-mode-enable-auto-quoting nil)
   :config
+  (add-to-list 'eglot-server-programs `(web-mode . ,(eglot-alternatives '(("vscode-html-language-server" "--stdio") ("html-languageserver" "--stdio")))))
+
+  (major-mode-hydra-define+ web-mode
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "HTML" 1 -0.05))
+    ("Action"
+      (("f" my/html-buffer-format "format buffer" :exit t))))
+
+  (defun my/html-buffer-format ()
+    (interactive)
+    (eglot--when-live-buffer
+      (unless (ignore-errors (eglot-format))
+        (sgml-pretty-print (point-min) (point-max))
+        (save-buffer))))
+
   (evil-define-key 'normal web-mode-map
     (kbd ",t") #'my/toggle-php-flavor-mode)
 
@@ -63,6 +77,7 @@
 (use-package css-mode
   :straight nil
   :mode "\\.s?css\\'"
+  ;; :hook (css-mode . eglot-ensure)
   :custom
   (css-indent-offset tab-width)
   :config
