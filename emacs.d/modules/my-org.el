@@ -406,7 +406,8 @@
   (defun afa/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
     (when (org-roam-file-p)
-      (let* ((filename (org-roam-node-file-title (org-roam-node-at-point)))
+      (let* ((org-roam-node-title (ignore-errors (org-roam-node-file-title (org-roam-node-at-point))))
+              (filename (if org-roam-node-title org-roam-node-title (buffer-name)))
               (path (ignore-errors (org-get-outline-path t)))
               (breadcrumbs
                 (if path
