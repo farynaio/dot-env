@@ -161,6 +161,10 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("linkedin" "LinkedIn" nil 0)
+                    ("skype" "Skype" nil 0)
+                    ("dns" "DNS" nil 0)
+                    ("cloudflare" "Cloudflare" nil 0)
                     ("svg" "SVG" nil 0)
                     ("tlds" "TLDs" nil 0)
                     ("tld" "TLD" nil 0)
@@ -230,6 +234,10 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                    ("linkedin" "LinkedIn" nil 0)
+                    ("skype" "Skype" nil 0)
+                    ("dns" "DNS" nil 0)
+                    ("cloudflare" "Cloudflare" nil 0)
                     ("svg" "SVG" nil 0)
                     ("tlds" "TLDs" nil 0)
                     ("tld" "TLD" nil 0)
