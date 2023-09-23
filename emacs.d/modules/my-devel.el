@@ -293,15 +293,14 @@ Use when `json-mode' or similar get stuck."
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode))
+  :hook (markdown-mode . abbrev-mode)
   ;; :config
-
   ;; (evil-define-key '(visual normal) markdown-mode-map
   ;;   "{" #'backward-paragraph
   ;;   "}" #'forward-paragraph
   ;;   "M-{" #'backward-paragraph
   ;;   "M-}" #'forward-paragraph
   ;;   )
-
   ;; (advice-add 'markdown-backward-paragraph :override #'backward-paragraph)
   ;; (advice-add 'markdown-backward-block :override #'backward-paragraph)
   ;; (advice-add 'markdown-forward-paragraph :override #'forward-paragraph)
