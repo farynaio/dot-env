@@ -428,6 +428,7 @@
 --ignore-dir=tmp
 --ignore-dir=vendor
 --ignore-dir=cache
+--ignore-dir=.cache
 --ignore-dir=.tmp
 --ignore-dir=.log
 --ignore-dir=.sass-cache
