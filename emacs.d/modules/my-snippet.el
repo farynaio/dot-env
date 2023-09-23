@@ -80,29 +80,38 @@
 
   (add-hook 'rjsx-mode-hook
     (lambda ()
+      (tempo-use-tag-list 'my/tempo-general-tags)
       (tempo-use-tag-list 'my/tempo-js-tags)))
 
-  (tempo-define-template
-    "file-vars"
+  (tempo-define-template "file-vars"
     '("-*- " ~ " -*-")
     "filev"
     "Insert file variables block"
     'my/tempo-general-tags)
 
-  (tempo-define-template
-    "todo-tag"
+  (tempo-define-template "todo-tag"
     '("TODO ")
     "todo"
     "Insert TODO block"
     'my/tempo-general-tags)
 
-  (tempo-define-template
-    "console-log-tag"
+  (tempo-define-template "console-log-tag"
     '("console.log(" ~ ")")
     "console"
     "Insert console.log"
     'my/tempo-general-tags)
 
+  (tempo-define-template "sless"
+    '("const " (p "name: " name) " = () => {" n>
+       "return (" n>
+       ~ n>
+       ")" > n>
+       "}" > n n
+       "export default " (s name)
+       )
+    "sless"
+    "Insert stateless component"
+    'my/tempo-js-tags)
   )
 
 (provide 'my-snippet)
