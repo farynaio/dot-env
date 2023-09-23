@@ -323,7 +323,7 @@
 
 (use-package langtool
   :commands (langtool-check-buffer langtool-check-done)
-  :if (executable-find (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
+  :if (and (boundp 'my/tools-path) (executable-find (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path)))
   :custom
   (langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
   (langtool-default-language "en")
