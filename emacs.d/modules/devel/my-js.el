@@ -50,7 +50,7 @@
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode "\\.jsx?\\'")
+  :mode "\\.m?jsx?\\'")
 
 (use-package vue-mode
   :mode "\\.vue\\'")
