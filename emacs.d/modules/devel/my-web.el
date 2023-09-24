@@ -4,7 +4,7 @@
 
 (use-package web-mode
   :hook ((web-mode . rainbow-mode)
-          (web-mode . eglot-ensure))
+          (web-mode . lsp-deferred))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)
@@ -51,8 +51,6 @@
   (web-mode-enable-auto-pairing nil)
   (web-mode-enable-auto-quoting nil)
   :config
-  (add-to-list 'eglot-server-programs `(web-mode . ,(eglot-alternatives '(("vscode-html-language-server" "--stdio") ("html-languageserver" "--stdio")))))
-
   (major-mode-hydra-define+ web-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "HTML" 1 -0.05))
     ("Action"
@@ -105,6 +103,8 @@
   (setq
     emmet-self-closing-tag-style " /"
     emmet-expand-jsx-className? t))
+
+(use-package lsp-tailwindcss)
 
 (provide 'my-web)
 ;;; my-web.el ends here

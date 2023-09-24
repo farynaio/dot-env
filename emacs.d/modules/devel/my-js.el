@@ -45,7 +45,7 @@
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . mmm-mode)
-          (rjsx-mode . eglot-ensure))
+          (rjsx-mode . lsp-deferred))
           ;; (rjsx-mode . my/prettier-mode))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map

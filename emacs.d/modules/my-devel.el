@@ -357,12 +357,76 @@ Use when `json-mode' or similar get stuck."
     nil t))
 
 (use-package eglot
+  :disabled t
   :commands (eglot eglot-alternatives)
   :straight nil
   :custom
   (eglot-extend-to-xref t)
   (eglot-events-buffer-size 100000))
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook ((lsp-mode .
+           (lambda ()
+             (when (bound-and-true-p which-key-mode)
+               (lsp-enable-which-key-integration))
+             )))
+  :custom
+  (lsp-enable-snippet nil)
+  (lsp-enable-semantic-highlighting nil)
+  (lsp-enable-symbol-highlighting nil)
+  (lsp-enable-file-watchers nil)
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-diagnostics-enable nil)
+  (lsp-signature-render-documentation nil)
+  (lsp-keymap-prefix "C-c l")
+  (lsp-eldoc-enable-hover nil)
+  (lsp-restart 'auto-restart)
+  (lsp-lens-enable nil)
+  (lsp-eslint-enable nil)
+  (lsp-clients-svlangserver-disableLinting t)
+  (lsp-rf-language-server-trace-serve "off")
+  ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
+  :config
+  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
+  (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
+  (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
+  (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
+  (add-to-list 'lsp-disabled-clients
+    '(
+       (typescript-mode . (eslint))
+       (json-mode . (eslint json-ls))
+       (js-mode . (eslint))
+       (rjsx-mode . (eslint)))))
+
+(use-package lsp-ui
+  :after lsp-mode
+	:commands lsp-ui-imenu
+  :hook ((lsp-mode . lsp-ui-mode)
+          (lsp-mode . lsp-ui-imenu-buffer-mode))
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-doc-show-with-cursor nil)
+  (lsp-ui-doc-show-with-mouse nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-imenu-window-width 50)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-header t)
+  :config
+  (evil-define-key 'normal lsp-ui-mode-map
+    (kbd ",l") #'lsp-ui-imenu))
+
+(use-package lsp-treemacs
+  :after (lsp-mode treemacs)
+  :commands (lsp-treemacs-errors-list lsp-treemacs-call-hierarch)
+  :config
+  (lsp-treemacs-sync-mode 1))
+
+(use-package lsp-ivy
+  :after (lsp-mode ivy))
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 ;; (use-package dap-mode
