@@ -23,7 +23,7 @@
     (",g" . hydra-git/body)
     ("C-x ." . my/tempo-insert)
     ("C-x C-." . my/tempo-insert)
-    ("C-<tab>" . popper-toggle-latest)
+    ;; ("C-<tab>" . popper-toggle-latest)
     ;; (",w" . hydra-browser/body)
     ;; (",p" . hydra-project/body)
     ;; ("C-c o" . hydra-org/body)

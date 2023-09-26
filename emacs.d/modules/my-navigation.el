@@ -184,6 +184,7 @@
   (beacon-mode 1))
 
 (use-package popper
+  :disabled t
   :commands popper-toggle-latest
   :custom
   (popper-reference-buffers
