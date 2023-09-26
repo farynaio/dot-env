@@ -368,57 +368,72 @@ Use when `json-mode' or similar get stuck."
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook ((lsp-mode .
-           (lambda ()
-             (when (bound-and-true-p which-key-mode)
-               (lsp-enable-which-key-integration))
-             )))
+  :hook (lsp-mode . lsp-enable-which-key-integration)
   :custom
   (lsp-enable-snippet nil)
   (lsp-enable-semantic-highlighting nil)
   (lsp-enable-symbol-highlighting nil)
-  (lsp-enable-file-watchers nil)
-  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-enable-file-watchers t)
+  ;; (lsp-enable-indentation t)
+  ;; (lsp-javascript-format-enable t)
+  ;; (lsp-enable-on-type-formatting nil)
+  ;; (lsp-javascript-suggest-enabled nil)
+  ;; (lsp-javascript-validate-enabled nil)
+  ;; (lsp-enable-relative-indentation nil)
+  ;; (lsp-completion-enable-additional-text-edit nil)
+  ;; (lsp-javascript-update-imports-on-file-move-enabled nil)
+  (lsp-headerline-breadcrumb-enable t)
   (lsp-modeline-code-actions-enable nil)
   (lsp-modeline-diagnostics-enable nil)
-  (lsp-signature-render-documentation nil)
-  (lsp-keymap-prefix "C-c l")
-  (lsp-eldoc-enable-hover nil)
+  (lsp-signature-render-documentation t)
+  ;; (lsp-keymap-prefix "C-c l")
+  (lsp-eldoc-enable-hover t)
   (lsp-restart 'auto-restart)
-  (lsp-lens-enable nil)
+  (lsp-lens-enable t)
   (lsp-eslint-enable nil)
+  ;; (lsp-log-io t)
   (lsp-clients-svlangserver-disableLinting t)
   (lsp-rf-language-server-trace-serve "off")
   ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
   :config
-  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
-  (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
-  (add-to-list 'lsp-disabled-clients
+  (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascriptreact"))
+  (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascript"))
+  ;; (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
+  ;; (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
+  ;; (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
+
+  (setq lsp-disabled-clients
     '(
-       (typescript-mode . (eslint))
-       (json-mode . (eslint json-ls))
-       (js-mode . (eslint))
-       (rjsx-mode . (eslint)))))
+       ;; (typescript-mode . (eslint))
+       ;; (json-mode . (eslint json-ls))
+       ;; (js-mode . (eslint))
+       (rjsx-mode . (eslint))
+       lsp-emmet-ls
+       emmet-ls
+       ))
+  )
+
+(use-package lsp-origami
+  :after (lsp-mode origami)
+  :hook (lsp-after-open . lsp-origami-try-enable))
 
 (use-package lsp-ui
+  :disabled t
   :after lsp-mode
-	:commands lsp-ui-imenu
-  :hook ((lsp-mode . lsp-ui-mode)
-          (lsp-mode . lsp-ui-imenu-buffer-mode))
+	:commands lsp-ui-mode
+  ;; :hook ((lsp-mode . lsp-ui-mode)
+  ;;         (lsp-mode . lsp-ui-imenu-buffer-mode))
   :custom
   (lsp-ui-doc-enable nil)
-  (lsp-ui-doc-show-with-cursor nil)
-  (lsp-ui-doc-show-with-mouse nil)
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-enable nil)
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-show-with-mouse t)
+  (lsp-ui-sideline-enable t)
   (lsp-ui-imenu-window-width 50)
   (lsp-ui-doc-position 'top)
-  (lsp-ui-doc-header t)
-  :config
-  (evil-define-key 'normal lsp-ui-mode-map
-    (kbd ",l") #'lsp-ui-imenu))
+  (lsp-ui-doc-header t))
+  ;; :config
+  ;; (evil-define-key 'normal lsp-ui-mode-map
+  ;;   (kbd ",l") #'lsp-ui-imenu))
 
 (use-package lsp-treemacs
   :after (lsp-mode treemacs)
@@ -427,7 +442,8 @@ Use when `json-mode' or similar get stuck."
   (lsp-treemacs-sync-mode 1))
 
 (use-package lsp-ivy
-  :after (lsp-mode ivy))
+  :after (lsp-mode ivy)
+  :commands lsp-ivy-workspace-symbol)
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 ;; (use-package dap-mode
