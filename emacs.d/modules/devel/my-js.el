@@ -93,7 +93,8 @@
 
 (use-package typescript-mode
   :mode "\\.tsx?\\'"
-  :hook ((typescript-mode . mmm-mode)))
+  :hook ((typescript-mode . mmm-mode)
+          (typescript-mode . lsp-deferred)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."

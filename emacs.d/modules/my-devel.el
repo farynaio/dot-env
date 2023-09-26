@@ -98,7 +98,8 @@
         ("l" counsel-imenu "imenu" :exit t)
         ("k" treemacs "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
-        ("b" ediff-buffers "ediff buffers" :exit t))
+        ("b" ediff-buffers "ediff buffers" :exit t)
+        ("i" lsp-ui-imenu "imenu" :exit t))
       "AI"
       (("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
         ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
@@ -143,27 +144,31 @@
 
   (defun my/xref-find-references ()
     (interactive)
-    (let* ((symbol (symbol-at-point))
-            (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
-            (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
-            (function-name
-              (funcall
-                completing-read-function
-                "Find references to: "
-                symbols-names
-                'commandp
-                t
-                symbol)))
-      (xref-find-references function-name)))
+    (if lsp-managed-mode
+      (funcall-interactively 'lsp-ui-peek-find-references)
+      (let* ((symbol (symbol-at-point))
+              (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
+              (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+              (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
+              (function-name
+                (funcall
+                  completing-read-function
+                  "Find references to: "
+                  symbols-names
+                  'commandp
+                  t
+                  symbol)))
+        (funcall-interactively 'xref-find-references function-name))))
 
   (defun my/xref-find-definitions ()
     (interactive)
-    (let* ((symbol (symbol-at-point))
-            (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
-            (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
-            (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
-            (function-name
+    (if lsp-managed-mode
+      (funcall-interactively 'lsp-ui-peek-find-definitions)
+      (let* ((symbol (symbol-at-point))
+              (symbols-names (mapcar 'symbol-name (apropos-internal ".*")))
+              (symbol (if (symbol-function symbol) (symbol-name symbol) ""))
+              (symbol (if (and (not (string-empty-p symbol)) (seq-some (lambda (i) (string-match-p (regexp-quote symbol) i)) symbols-names)) symbol ""))
+              (function-name
                 (funcall
                   completing-read-function
                   "Find definitions of: "
@@ -171,7 +176,7 @@
                   'commandp
                   t
                   symbol)))
-      (xref-find-definitions function-name)))
+        (funcall-interactively 'xref-find-definitions function-name))))
 
   (pretty-hydra-define hydra-merge
     (:hint nil :color pink :quit-key "q" :title (with-alltheicon "git" "Merge" 1 -0.05))
@@ -389,7 +394,7 @@ Use when `json-mode' or similar get stuck."
   ;; (lsp-keymap-prefix "C-c l")
   (lsp-eldoc-enable-hover t)
   (lsp-restart 'auto-restart)
-  (lsp-lens-enable t)
+  (lsp-lens-enable nil)
   (lsp-eslint-enable nil)
   ;; (lsp-log-io t)
   (lsp-clients-svlangserver-disableLinting t)
@@ -418,19 +423,27 @@ Use when `json-mode' or similar get stuck."
   :hook (lsp-after-open . lsp-origami-try-enable))
 
 (use-package lsp-ui
-  :disabled t
   :after lsp-mode
 	:commands lsp-ui-mode
   ;; :hook ((lsp-mode . lsp-ui-mode)
   ;;         (lsp-mode . lsp-ui-imenu-buffer-mode))
   :custom
-  (lsp-ui-doc-enable nil)
-  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-show-with-cursor nil)
   (lsp-ui-doc-show-with-mouse t)
+  (lsp-ui-doc-max-height 50)
+  (lsp-ui-doc-max-width 350)
   (lsp-ui-sideline-enable t)
   (lsp-ui-imenu-window-width 50)
   (lsp-ui-doc-position 'top)
-  (lsp-ui-doc-header t))
+  (lsp-ui-doc-header t)
+  (lsp-ui-imenu-auto-refresh t)
+  (lsp-ui-imenu-refresh-delay 1)
+  (lsp-ui-peek-enable t)
+  (lsp-ui-peek-show-directory t)
+  :config
+
+  )
   ;; :config
   ;; (evil-define-key 'normal lsp-ui-mode-map
   ;;   (kbd ",l") #'lsp-ui-imenu))
