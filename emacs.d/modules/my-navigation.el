@@ -709,6 +709,34 @@ point reaches the beginning or end of the buffer, stop there."
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
 
+(use-package centaur-tabs
+  :demand t
+  :custom
+  (centaur-tabs-style "alternate")
+  (centaur-tabs-height 32)
+  (centaur-tabs-plain-icons nil)
+  (centaur-tabs-gray-out-icons nil)
+  (centaur-tabs-set-bar 'under)
+  (centaur-tabs-set-icons t)
+  (x-underline-at-descent-line t)
+  (centaur-tabs-close-button "x")
+  (centaur-tabs-set-modified-marker t)
+  (centaur-tabs-modified-marker "*")
+  (centaur-tabs-label-fixed-length 0)
+  (centaur-tabs-show-count nil)
+  (centaur-tabs-left-edge-margin nil)
+  (centaur-tabs-show-navigation-buttons t)
+  (uniquify-separator "/")
+  (uniquify-buffer-name-style 'forward)
+  (centaur-tabs-adjust-buffer-order t)
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
+  (centaur-tabs-headline-match)
+  (centaur-tabs-enable-buffer-reordering)
+  (centaur-tabs-enable-buffer-alphabetical-reordering)
+  (centaur-tabs-group-by-projectile-project))
+
 ;; (use-package demap)
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
