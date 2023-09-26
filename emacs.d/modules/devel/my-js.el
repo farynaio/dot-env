@@ -105,5 +105,12 @@
 ;;            (while (search-forward empty-spaces      (line-end-position) t)
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
 
+(use-package prisma-mode
+  :mode "\\.prisma\\'"
+  :straight (:type git
+              :host github
+              :repo "pimeys/emacs-prisma-mode"
+              :branch "main"))
+
 (provide 'my-js)
 ;;; my-js.el ends here
