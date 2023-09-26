@@ -40,8 +40,11 @@
   (defvar my/tempo-general-tags nil
     "Tags for all modes.")
 
+  (defvar my/tempo-lisp-tags nil
+    "Tags for lisp mode.")
+
   (defvar my/tempo-js-tags nil
-    "Tags for all modes.")
+    "Tags for JS mode.")
 
   (defvar my/tempo-initial-pos nil
     "Initial position in template after expansion")
@@ -76,7 +79,8 @@
 
   (add-hook 'emacs-lisp-mode-hook
     (lambda ()
-      (tempo-use-tag-list 'my/tempo-general-tags)))
+      (tempo-use-tag-list 'my/tempo-general-tags)
+      (tempo-use-tag-list 'my/tempo-lisp-tags)))
 
   (add-hook 'rjsx-mode-hook
     (lambda ()
@@ -90,10 +94,10 @@
     'my/tempo-general-tags)
 
   (tempo-define-template "todo-tag"
-    '("TODO ")
+    '(";; TODO " ~)
     "todo"
     "Insert TODO block"
-    'my/tempo-general-tags)
+    'my/tempo-lisp-tags)
 
   (tempo-define-template "console-log-tag"
     '("console.log(" ~ ")")
@@ -129,6 +133,25 @@
     "exportf"
     "Insert 'export default function'"
     'my/tempo-js-tags)
+
+  (tempo-define-template "exportc"
+    '("export const " ~ " = " >)
+    "exportc"
+    "Insert 'export const'"
+    'my/tempo-js-tags)
+
+  (tempo-define-template "todo-tag"
+    '("// TODO " ~)
+    "todo"
+    "Insert TODO block"
+    'my/tempo-js-tags)
+
+  (tempo-define-template "cn-tag"
+    '("className=\"" ~ "\"")
+    "cn"
+    "Insert className=\"\""
+    'my/tempo-js-tags)
+
   )
 
 (provide 'my-snippet)
