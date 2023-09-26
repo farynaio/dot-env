@@ -58,10 +58,8 @@
 
   (defun my/html-buffer-format ()
     (interactive)
-    (eglot--when-live-buffer
-      (unless (ignore-errors (eglot-format))
-        (sgml-pretty-print (point-min) (point-max))
-        (save-buffer))))
+    (sgml-pretty-print (point-min) (point-max))
+    (save-buffer))
 
   (evil-define-key 'normal web-mode-map
     (kbd ",t") #'my/toggle-php-flavor-mode)
