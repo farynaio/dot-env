@@ -729,7 +729,7 @@ point reaches the beginning or end of the buffer, stop there."
   (centaur-tabs-label-fixed-length 0)
   (centaur-tabs-show-count nil)
   (centaur-tabs-left-edge-margin nil)
-  (centaur-tabs-show-navigation-buttons t)
+  (centaur-tabs-show-navigation-buttons nil)
   (uniquify-separator "/")
   (uniquify-buffer-name-style 'forward)
   (centaur-tabs-adjust-buffer-order t)
@@ -739,7 +739,8 @@ point reaches the beginning or end of the buffer, stop there."
   (centaur-tabs-headline-match)
   (centaur-tabs-enable-buffer-reordering)
   (centaur-tabs-enable-buffer-alphabetical-reordering)
-  (centaur-tabs-group-by-projectile-project))
+  (centaur-tabs-group-by-projectile-project)
+  (add-to-list 'evil-emacs-state-modes 'lsp-ui-imenu-mode))
 
 ;; (use-package demap)
 
