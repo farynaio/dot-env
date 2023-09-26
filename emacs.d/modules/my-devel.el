@@ -96,7 +96,7 @@
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
-        ("k" treemacs "treemacs" :toggle t :exit t)
+        ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
         ("i" lsp-ui-imenu "imenu" :exit t))
@@ -112,6 +112,13 @@
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
+
+  (defun my/treemacs-project-toggle ()
+    "Toggle treemacs for current project."
+    (interactive)
+    (if (string-equal (treemacs-current-visibility) "visible")
+      (treemacs)
+      (treemacs-add-and-display-current-project-exclusively)))
 
   ;; (pretty-hydra-define hydra-prog
   ;;   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
