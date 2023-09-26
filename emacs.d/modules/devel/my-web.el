@@ -104,7 +104,5 @@
     emmet-self-closing-tag-style " /"
     emmet-expand-jsx-className? t))
 
-(use-package lsp-tailwindcss)
-
 (provide 'my-web)
 ;;; my-web.el ends here
