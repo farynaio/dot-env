@@ -59,7 +59,8 @@
           (prog-mode . hl-todo-mode)
           (prog-mode . highlight-thing-mode)
           (prog-mode . company-mode)
-          (prog-mode . electric-pair-local-mode))
+          (prog-mode . electric-pair-local-mode)
+          (prog-mode . origami-mode))
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'evil-numbers/inc-at-pt

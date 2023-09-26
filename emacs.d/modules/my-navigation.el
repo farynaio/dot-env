@@ -691,7 +691,7 @@ point reaches the beginning or end of the buffer, stop there."
   :commands origami-mode
   :custom
   (evil-define-key 'normal origami-mode-map
-    (kbd "<C-return>") #'origami-toggle-node))
+    (kbd "<C-backspace>") #'origami-toggle-node))
 
 (use-package openwith
   :disabled t
