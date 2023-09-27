@@ -134,7 +134,8 @@
         ("k" my/kill-clear "clear kill-ring")
         ("R" my/refactoring-mode "my refactoring mode" :toggle t :exit t)
         ("." my/tempo-insert "insert snippet" :exit t)
-        ("t" tab-rename "rename tab" :exit t))
+        ("t" tab-rename "rename tab" :exit t)
+        ("e" emojify-insert-emoji "insert emoji" :exit t))
       "Language"
       (("d" ispell-change-dictionary "change dictionary")
         ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")

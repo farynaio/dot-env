@@ -86,8 +86,13 @@
 
 ;; (use-package with-editor)  ; dependency for other package
 
-;; (use-package emojify
-;;   :hook (org-mode . emojify-mode))
+(use-package emojify
+  :custom
+  (emojify-emoji-set "twemoji-v2-22")
+  ;; (emojify-emoji-set "openmoji-v13-0")
+  :commands global-emojify-mode)
+
+(add-hook 'after-init-hook #'global-emojify-mode)
 
 ;; Allow to move selected lines up and down
 (use-package drag-stuff
