@@ -305,7 +305,7 @@
   :custom
   (rmh-elfeed-org-files
     (list
-      (expand-file-name "elfeed/feeds.org" user-emacs-directory)))
+      (expand-file-name "rss/feeds.org" user-emacs-directory)))
   :config
   (elfeed-org))
 
