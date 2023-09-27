@@ -106,6 +106,9 @@
        (display-buffer-reuse-window display-buffer-at-bottom)
        (window-height . 0.2)
        (reusable-frames . nil))
+     ("\\*tree-sitter"
+        (display-buffer-reuse-window display-buffer-same-window)
+        (window-parameters . ((quit-restore . delete))))
      ))
 ;; switch-to-buffer-obey-display-actions
 

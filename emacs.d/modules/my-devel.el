@@ -108,6 +108,8 @@
       "Assess"
       (("cc" flycheck-mode "flycheck" :toggle t)
         ("cm" flymake-mode "flymake" :toggle t)
+        ("si" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
+        ("se" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
         ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
