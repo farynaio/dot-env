@@ -302,6 +302,10 @@ Use when `json-mode' or similar get stuck."
 (use-package yaml-mode
   :mode "\\.ya?ml\\'")
 
+(use-package conf-mode
+  :straight nil
+  :mode "\\.env")
+
 (use-package markdown-mode
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
