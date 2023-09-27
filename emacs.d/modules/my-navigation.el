@@ -308,12 +308,13 @@
   (kbd ",f") 'my/rgrep)
 
 (use-package treemacs
-  :commands treeemacs
+  :commands (treeemacs treemacs-current-visibility)
   :custom
   (treemacs-default-visit-action #'treemacs-visit-node-in-most-recently-used-window)
   (treemacs-project-follow-cleanup t)
   :config
   (treemacs-follow-mode 1)
+  (treemacs-project-follow-mode nil)
   (treemacs-filewatch-mode 1)
   (treemacs-git-mode 'simple)
   (treemacs-resize-icons 22)
