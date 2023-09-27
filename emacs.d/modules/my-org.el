@@ -212,14 +212,16 @@
     '((sequence "TODO(t)" "IN-PROCESS(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
        (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
   (org-todo-keyword-faces
-    '(("TODO"       . (:foreground "LimeGreen"   :weight bold))
+    '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
        ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
+       ("WORK"       . (:foreground "IndianRed1"  :weight bold))
        ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
        ("WAITING"    . (:foreground "coral"       :weight bold))
        ("DELEGATED"  . (:foreground "coral"       :weight bold))
        ("NOTE"       . (:foreground "white"       :weight bold))
        ("DONE"       . (:foreground "dark grey"   :weight normal))
        ("SKIP"       . (:foreground "dark grey"   :weight normal))
+       ("HUGE"       . (:foreground "dark grey"   :weight normal))
        ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
 
   (org-priority-cookie () (format "[#%c]" org-default-priority))
