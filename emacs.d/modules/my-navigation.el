@@ -736,7 +736,7 @@ point reaches the beginning or end of the buffer, stop there."
   (centaur-tabs-group-by-projectile-project)
   (add-to-list 'evil-emacs-state-modes 'lsp-ui-imenu-mode)
 
-  (defun centaur-tabs-hide-tab (x)
+  (defun my/centaur-tabs-hide-tab (x)
     "Do no to show buffer X in tabs."
     (let ((name (format "%s" x)))
       (or
@@ -757,12 +757,32 @@ point reaches the beginning or end of the buffer, stop there."
         (string-prefix-p "*straight" name)
         (string-prefix-p " *temp" name)
         (string-prefix-p "*Help" name)
-        (string-prefix-p "*mybuf" name)
+        (string-prefix-p "*Messages" name)
+        (string-prefix-p "*Async" name)
 
         ;; Is not magit buffer.
         (and (string-prefix-p "magit" name)
-          (not (file-name-extension name)))
-        ))))
+          (not (file-name-extension name))))))
+
+  (setq centaur-tabs-hide-tab-function #'my/centaur-tabs-hide-tab)
+
+  (defun my/centaur-tabs-buffer-tab-label (tab)
+    "Return a label for TAB.
+That is, a string used to represent it on the tab bar."
+    ;; Init tab style.
+    ;; Render tab.
+    (format " %s"
+	    (let* ((bufname (if centaur-tabs--buffer-show-groups
+			                  (centaur-tabs-tab-tabset tab)
+			                  (buffer-name (car tab))))
+              (bufname (if (and (fboundp 'org-roam-buffer-p) (org-roam-buffer-p))
+                         (with-current-buffer bufname (org-roam-db--file-title))
+                         bufname)))
+	            (if (> centaur-tabs-label-fixed-length 0)
+		            (centaur-tabs-truncate-string  centaur-tabs-label-fixed-length bufname)
+	              bufname))))
+
+  (setq centaur-tabs-tab-label-function #'my/centaur-tabs-buffer-tab-label))
 
 ;; (use-package demap)
 
