@@ -2,7 +2,7 @@
 
 (defvar my/org-base-path "~/Documents/emacs")
 (defvar my/org-roam-directory (expand-file-name "~/Documents/roam/database"))
-(defvar my/org-roam-journal-directory (expand-file-name "journal" my/org-roam-directory))
+(defvar my/org-journal-directory (expand-file-name "journal" my/org-roam-directory))
 (defvar my/tools-path (expand-file-name "tools" my/org-base-path))
 (setq org-directory (expand-file-name "orgs" my/org-base-path))
 

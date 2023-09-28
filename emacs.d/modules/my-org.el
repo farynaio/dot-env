@@ -1024,7 +1024,7 @@ it can be passed in POS."
   :after org
   :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
   :custom
-  (org-journal-dir my/org-roam-journal-directory)
+  (org-journal-dir my/org-journal-directory)
   (org-journal-file-type 'yearly)
   (org-journal-file-format "%Y.org")
   (org-journal-encrypt-journal t)
