@@ -91,10 +91,14 @@
           (rjsx-mode . add-node-modules-path)
           (typescript-mode . add-node-modules-path)))
 
-(use-package typescript-mode
-  :mode "\\.tsx?\\'"
-  :hook ((typescript-mode . mmm-mode)
-          (typescript-mode . lsp-deferred)))
+(use-package typescript-ts-mode
+  :straight nil
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :hook ((typescript-ts-mode . mmm-mode)
+          (typescript-ts-mode . lsp-deferred)
+          (tsx-ts-mode . mmm-mode)
+          (tsx-ts-mode . lsp-deferred)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
