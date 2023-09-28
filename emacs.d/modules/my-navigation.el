@@ -763,6 +763,7 @@ point reaches the beginning or end of the buffer, stop there."
         (string-prefix-p "*Help" name)
         (string-prefix-p "*Messages" name)
         (string-prefix-p "*Async" name)
+        (string-prefix-p "magit" name)
 
         ;; Is not magit buffer.
         (and (string-prefix-p "magit" name)
