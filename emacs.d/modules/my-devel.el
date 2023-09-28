@@ -83,7 +83,7 @@
     (kbd "C-c m") #'hydra-merge/body
     (kbd "/") #'counsel-grep)
 
-  (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode)
+  (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("." my/tempo-insert "insert snippet" :exit t)
