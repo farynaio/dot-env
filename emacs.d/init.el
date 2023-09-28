@@ -51,6 +51,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/modules")
 (add-to-list 'load-path "~/.emacs.d/modules/devel")
+(add-to-list 'load-path "~/.emacs.d/modules/snippets")
 
 (setq package-enable-at-startup nil)
 
