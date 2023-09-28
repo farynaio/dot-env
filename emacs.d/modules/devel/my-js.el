@@ -38,7 +38,7 @@
 
 (use-package json-mode
   :hook ((json-mode . origami-mode))
-  :mode ("\\.json\\'" "\\rc\\'"))
+  :mode ("\\.json\\'"))
 
   ;; (flycheck-add-mode 'javascript-eslint 'typescript-mode))
 
