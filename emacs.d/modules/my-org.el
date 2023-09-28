@@ -312,7 +312,7 @@
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
-      (("s" counsel-org-goto "goto heading")
+      (("s" counsel-org-goto-all "goto heading")
         ("fa" counsel-org-file "browse attachments"))))
 
   ;; Fixes problem with void function org-clocking-buffer

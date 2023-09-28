@@ -424,6 +424,7 @@
   (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
   (counsel-find-file-ignore-regexp "\\`\\.")
   (counsel-grep-base-command "grep -E -n -i -e %s %s")
+  (counsel-outline-path-separator " > ")
   (swiper-use-visual-line-p #'ignore)
   :config
   (unbind-key "C-x C-h" global-map)
