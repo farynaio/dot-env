@@ -392,6 +392,12 @@ Use when `json-mode' or similar get stuck."
   (lsp-enable-semantic-highlighting nil)
   (lsp-enable-symbol-highlighting nil)
   (lsp-enable-file-watchers t)
+  (lsp-enable-folding nil)
+  (lsp-diagnostics-provider :none)
+  (lsp-enable-completion-at-point nil)
+  (lsp-semantic-tokens-enable nil)
+  (lsp-enable-links nil)
+  ;; (lsp-client-packages '(lsp-clients)) ;; https://github.com/emacs-lsp/lsp-mode/pull/1498
   ;; (lsp-enable-indentation t)
   ;; (lsp-javascript-format-enable t)
   ;; (lsp-enable-on-type-formatting nil)
@@ -416,6 +422,19 @@ Use when `json-mode' or similar get stuck."
   :config
   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascript"))
+
+  ;; don't scan 3rd party javascript libraries
+  (push "[/\\\\][^/\\\\]*\\.\\(json\\|html\\|jade\\)$" lsp-file-watch-ignored-directories) ; json
+
+  ;; don't ping LSP lanaguage server too frequently
+  (defvar lsp-on-touch-time 0)
+  (defadvice lsp-on-change (around lsp-on-change-hack activate)
+    ;; don't run `lsp-on-change' too frequently
+    (when (> (- (float-time (current-time))
+               lsp-on-touch-time) 30) ;; 30 seconds
+      (setq lsp-on-touch-time (float-time (current-time)))
+      ad-do-it))
+
   ;; (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
   ;; (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
   ;; (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
