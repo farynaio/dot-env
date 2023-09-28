@@ -502,6 +502,11 @@ Use when `json-mode' or similar get stuck."
 ;; :requires company-mode)
 
 (use-package dockerfile-mode
+  :disabled t
+  :mode "^Dockerfile\\'")
+
+(use-package dockerfile-ts-mode
+  :straight nil
   :mode "^Dockerfile\\'")
 
 (use-package graphql-mode
