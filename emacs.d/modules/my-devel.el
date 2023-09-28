@@ -649,6 +649,14 @@ ets function symbol on point as initial suggestion."
   (xref-show-xrefs-function #'ivy-xref-show-xrefs)
   (xref-show-definitions-function #'ivy-xref-show-defs))
 
+;; TODO remove it when treesit for tsx mature
+(use-package tree-sitter
+  :diminish ts)
+
+;; TODO remove it when treesit for tsx mature
+(use-package tree-sitter-langs
+  :after tree-sitter)
+
 (require 'my-python)
 (require 'my-web)
 (require 'my-js)

@@ -88,14 +88,37 @@
           (rjsx-mode . add-node-modules-path)
           (typescript-mode . add-node-modules-path)))
 
+
+;; TODO replace it with treesit when it mature for tsx
+;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
+(use-package typescript-mode
+  :after (tree-sitter tree-sitter-langs)
+  :mode ("\\.tsx?\\'" . typescript-mode)
+  :hook ((typescript-mode . mmm-mode)
+          (typescript-mode . lsp-deferred)
+          (typescript-mode . emmet-mode)
+          (typescript-mode . subword-mode)
+          (typescript-mode . tree-sitter-hl-mode))
+
+  :custom
+  (typescript-indent-level 2)
+  :config
+  (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+
 (use-package typescript-ts-mode
+  :disabled t
   :straight nil
-  :mode (("\\.ts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
+  ;; :mode (("\\.ts\\'" . typescript-ts-mode)
+  ;;         ("\\.tsx\\'" . tsx-ts-mode))
+          ;; ("\\.jsx\\'" . tsx-ts-mode))
   :hook ((typescript-ts-mode . mmm-mode)
           (typescript-ts-mode . lsp-deferred)
           (tsx-ts-mode . mmm-mode)
-          (tsx-ts-mode . lsp-deferred)))
+          (tsx-ts-mode . lsp-deferred)
+          (tsx-ts-mode . emmet-mode)))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
