@@ -22,10 +22,7 @@
   :config
   ;; Use js2-mode for Node scripts
   ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
-
-  (evil-define-key '(normal motion visual) js2-mode-map
-    (kbd "M-.") #'xref-find-definitions
-    (kbd "M-,") #'xref-pop-marker-stack))
+  )
 
 ;; (use-package js2-refactor
 ;;   :bind (:map js2-mode-map

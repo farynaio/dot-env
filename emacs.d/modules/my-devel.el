@@ -446,9 +446,7 @@ Use when `json-mode' or similar get stuck."
        ;; (js-mode . (eslint))
        (rjsx-mode . (eslint))
        lsp-emmet-ls
-       emmet-ls
-       ))
-  )
+       emmet-ls)))
 
 (use-package lsp-origami
   :after (lsp-mode origami)
@@ -473,12 +471,10 @@ Use when `json-mode' or similar get stuck."
   (lsp-ui-imenu-refresh-delay 1)
   (lsp-ui-peek-enable t)
   (lsp-ui-peek-show-directory t)
-  :config
-
-  )
   ;; :config
   ;; (evil-define-key 'normal lsp-ui-mode-map
   ;;   (kbd ",l") #'lsp-ui-imenu))
+  )
 
 (use-package lsp-treemacs
   :after (lsp-mode treemacs)
