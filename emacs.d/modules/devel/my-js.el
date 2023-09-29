@@ -47,7 +47,12 @@
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode ( "\\.m?jsx?\\'" "\\.cjs\\'"))
+  :mode ("\\.m?jsx?\\'" "\\.cjs\\'")
+  :config
+  (major-mode-hydra-define+ rjsx-mode
+    (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
+    ("Action"
+      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
 
 (use-package vue-mode
   :mode "\\.vue\\'")
@@ -93,7 +98,8 @@
 ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
 (use-package typescript-mode
   :after (tree-sitter tree-sitter-langs)
-  :mode ("\\.tsx?\\'" . typescript-mode)
+  :mode (("\\.ts\\'" . typescript-mode)
+          ("\\.tsx\\'" . typescript-tsx-mode))
   :hook ((typescript-mode . mmm-mode)
           (typescript-mode . lsp-deferred)
           (typescript-mode . emmet-mode)
@@ -102,11 +108,17 @@
 
   :custom
   (typescript-indent-level 2)
-  :config
+  :init
   (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
+  :config
+  ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
   (tree-sitter-require 'tsx)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx)))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
+
+  (major-mode-hydra-define+ typescript-tsx-mode
+    (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "TSX" 1 -0.05))
+    ("Action"
+      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
 
 (use-package typescript-ts-mode
   :disabled t
