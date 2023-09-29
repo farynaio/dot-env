@@ -83,13 +83,14 @@
     (kbd "C-c m") #'hydra-merge/body
     (kbd "/") #'counsel-grep)
 
-  (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode)
+  (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode rjsx-mode typescript-mode typescript-tsx-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("." my/tempo-insert "insert snippet" :exit t)
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("p" counsel-colors-emacs "color picker" :exit t))
+        ("p" counsel-colors-emacs "color picker" :exit t)
+        ("w" my/web-mode-toggle "toggle web-mode" :exit t))
       "Navigate"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
@@ -114,6 +115,15 @@
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
+
+  (defun my/web-mode-toggle ()
+    "Toggle switch between `web-mode' and native major mode."
+    (interactive)
+    (when (not (boundp 'my/native-local-major-mode))
+      (defvar-local my/native-local-major-mode major-mode))
+    (if (eq major-mode 'web-mode)
+      (funcall my/native-local-major-mode)
+      (web-mode)))
 
   (defun my/treemacs-project-toggle ()
     "Toggle treemacs for current project."
