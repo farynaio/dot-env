@@ -34,6 +34,17 @@
           ")" > n>
           "}" > n
           )
+       "exportdf"
+       "Insert 'export default function'"
+       'my/tempo-js-tags)
+
+     (tempo-define-template "js-exportf"
+       '("export function " (p "name: " name) "() {" n>
+          "return (" n>
+          ~ n>
+          ")" > n>
+          "}" > n
+          )
        "exportf"
        "Insert 'export default function'"
        'my/tempo-js-tags)
