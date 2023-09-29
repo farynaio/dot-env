@@ -716,6 +716,14 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package centaur-tabs
   :demand t
+  :bind (:map evil-normal-state-map
+          ("g t" . centaur-tabs-forward)
+          ("g T" . centaur-tabs-backward))
+  :hook
+  (dashboard-mode . centaur-tabs-local-mode)
+  (term-mode . centaur-tabs-local-mode)
+  (calendar-mode . centaur-tabs-local-mode)
+  (org-agenda-mode . centaur-tabs-local-mode)
   :custom
   (centaur-tabs-style "alternate")
   (centaur-tabs-height 32)
@@ -734,6 +742,7 @@ point reaches the beginning or end of the buffer, stop there."
   (uniquify-separator "/")
   (uniquify-buffer-name-style 'forward)
   (centaur-tabs-adjust-buffer-order t)
+  (centaur-tabs-cycle-scope 'tabs)
   :config
   (centaur-tabs-mode t)
   (centaur-tabs-change-fonts (face-attribute 'default :font) 110)
