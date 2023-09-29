@@ -429,6 +429,8 @@
   :config
   (unbind-key "C-x C-h" global-map)
 
+  (add-to-list 'counsel-outline-settings '(my/org-roam-mode :outline-title counsel-outline-title-org :action counsel-org-goto-action :history counsel-org-goto-history :caller counsel-org-goto))
+
   (defun my/counsel-ibuffer-other-window (&optional name)
     "Use ibuffer to switch to another buffer.
 NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
