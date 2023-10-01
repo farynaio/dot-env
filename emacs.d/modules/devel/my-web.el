@@ -26,7 +26,6 @@
   (web-mode-code-indent-offset tab-width)
   (web-mode-attr-indent-offset tab-width)
   (web-mode-block-padding tab-width)
-  (web-mode-enable-current-element-highlight t)
   (web-mode-enable-html-entities-fontification nil)
   (web-mode-enable-block-face nil)
   (web-mode-enable-comment-annotation nil)
@@ -50,6 +49,9 @@
   (web-mode-enable-auto-opening nil)
   (web-mode-enable-auto-pairing nil)
   (web-mode-enable-auto-quoting nil)
+  (web-mode-content-types-alist
+    '(("jsx" . "\\.jsx\\'")
+       ("jsx" . "\\.tsx\\'")))
   :config
   (major-mode-hydra-define+ web-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "HTML" 1 -0.05))

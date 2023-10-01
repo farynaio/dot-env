@@ -94,43 +94,34 @@
           (typescript-mode . add-node-modules-path)))
 
 
-;; TODO replace it with treesit when it mature for tsx
 ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
 (use-package typescript-mode
-  :after (tree-sitter tree-sitter-langs)
-  :mode (("\\.ts\\'" . typescript-mode)
-          ("\\.tsx\\'" . typescript-tsx-mode))
+  :disabled t
+  :mode ("\\.tsx?\\'" . typescript-mode)
   :hook ((typescript-mode . mmm-mode)
           (typescript-mode . lsp-deferred)
           (typescript-mode . emmet-mode)
-          (typescript-mode . subword-mode)
-          (typescript-mode . tree-sitter-hl-mode))
-
+          (typescript-mode . subword-mode))
   :custom
   (typescript-indent-level 2)
-  :init
-  (define-derived-mode typescript-tsx-mode typescript-mode "tsx")
   :config
-  ;; (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-tsx-mode))
-  (tree-sitter-require 'tsx)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
-
-  (major-mode-hydra-define+ typescript-tsx-mode
+  (major-mode-hydra-define+ typescript-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "TSX" 1 -0.05))
     ("Action"
       (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
 
 (use-package typescript-ts-mode
-  :disabled t
   :straight nil
-  ;; :mode (("\\.ts\\'" . typescript-ts-mode)
-  ;;         ("\\.tsx\\'" . tsx-ts-mode))
-          ;; ("\\.jsx\\'" . tsx-ts-mode))
+  :mode ("\\.tsx?\\'" . typescript-ts-mode)
   :hook ((typescript-ts-mode . mmm-mode)
           (typescript-ts-mode . lsp-deferred)
-          (tsx-ts-mode . mmm-mode)
-          (tsx-ts-mode . lsp-deferred)
-          (tsx-ts-mode . emmet-mode)))
+          (typescript-ts-mode . emmet-mode))
+  :config
+  (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
+  (major-mode-hydra-define+ typescript-ts-mode
+    (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "Typescript" 1 -0.05))
+    ("Action"
+      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."

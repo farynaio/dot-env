@@ -432,6 +432,7 @@ Use when `json-mode' or similar get stuck."
   :config
   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascriptreact"))
   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascript"))
+  (add-to-list 'lsp-language-id-configuration '(web-mode . "typescriptreact"))
 
   ;; don't scan 3rd party javascript libraries
   (push "[/\\\\][^/\\\\]*\\.\\(json\\|html\\|jade\\)$" lsp-file-watch-ignored-directories) ; json
