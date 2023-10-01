@@ -56,6 +56,7 @@
 
 ;; After install run nerd-icons-install-fonts
 (use-package doom-modeline
+  :demand t
   :init
   (setq-default
     doom-modeline-support-imenu t
@@ -66,7 +67,6 @@
     (set-face-attribute 'mode-line-active nil :family "Noto Sans" :height 120) ; For 29+
     (set-face-attribute 'mode-line nil :family "Noto Sans" :height 120))
   (set-face-attribute 'mode-line-inactive nil :family "Noto Sans" :height 120)
-  :demand t
   :hook (after-init . doom-modeline-mode)
   ;; :config
   ;; (unless (find-font (font-spec :name "nerd-icons"))
