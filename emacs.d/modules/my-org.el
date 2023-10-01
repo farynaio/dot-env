@@ -1029,7 +1029,7 @@ it can be passed in POS."
   (org-journal-file-format "%Y.org")
   (org-journal-encrypt-journal t)
   (org-journal-created-property-timestamp-format "%Y-%m-%d")
-  (org-journal-find-file 'find-file-other-window)
+  (org-journal-find-file 'find-file)
   (org-journal-date-format "%Y-%m-%d")
   (org-journal-time-prefix "*** ")
   :config
