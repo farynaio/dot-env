@@ -413,7 +413,7 @@
           ("C-x b" . counsel-switch-buffer)
           ("C-x C-b" . counsel-switch-buffer)
           ("C-x B" . counsel-switch-buffer-other-window)
-          ("C-x C-r" . counsel-recentf)
+          ("C-x C-r" . my/recentf)
           ("C-h l" . counsel-find-library)
           :map read-expression-map
           ("C-r" . counsel-minibuffer-history)
@@ -430,6 +430,12 @@
   (unbind-key "C-x C-h" global-map)
 
   (add-to-list 'counsel-outline-settings '(my/org-roam-mode :outline-title counsel-outline-title-org :action counsel-org-goto-action :history counsel-org-goto-history :caller counsel-org-goto))
+
+  (defun my/recentf ()
+    (interactive)
+    (if (projectile-project-root)
+      (projectile-recentf)
+      (counsel-recent)))
 
   (defun my/counsel-ibuffer-other-window (&optional name)
     "Use ibuffer to switch to another buffer.
