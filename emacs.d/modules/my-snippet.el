@@ -72,6 +72,11 @@
     (lambda ()
       (tempo-use-tag-list 'my/tempo-general-tags)))
 
+  (add-hook 'web-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'my/tempo-general-tags)
+      (tempo-use-tag-list 'my/tempo-js-tags)))
+
   (add-hook 'rjsx-mode-hook
     (lambda ()
       (tempo-use-tag-list 'my/tempo-general-tags)
