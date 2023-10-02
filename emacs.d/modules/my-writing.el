@@ -161,6 +161,9 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("docker" "Docker" nil 0)
+                    ("sqlite" "SQLite" nil 0)
+                    ("postgresql" "PostgreSQL" nil 0)
                     ("graphql" "GraphQL" nil 0)
                     ("linkedin" "LinkedIn" nil 0)
                     ("skype" "Skype" nil 0)
@@ -235,6 +238,9 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                    ("docker" "Docker" nil 0)
+                    ("sqlite" "SQLite" nil 0)
+                    ("postgresql" "PostgreSQL" nil 0)
                     ("graphql" "GraphQL" nil 0)
                     ("linkedin" "LinkedIn" nil 0)
                     ("skype" "Skype" nil 0)
