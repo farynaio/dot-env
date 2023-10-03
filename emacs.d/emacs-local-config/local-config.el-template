@@ -246,4 +246,7 @@ SCHEDULED: <%<%Y-%m-%d %a>>
      (,my/org-tasks-maybe-someday-file-path :maxlevel . 1)
      (,my/org-tasks-file-path :maxlevel . 1)))
 
+(setq-default org-roam-capture-ref-templates '())
+(setq-default org-roam-capture-templates '())
+
 ;;; local-config.el ends here
