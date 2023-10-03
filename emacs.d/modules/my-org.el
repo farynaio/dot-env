@@ -166,10 +166,20 @@
 
   (org-export-babel-evaluate t)
   (org-export-preserve-breaks t)
-  (org-export-with-toc nil)
+  (org-export-with-toc t)
   (org-export-with-smart-quotes t) ; could cause problems on babel export
   (org-export-with-email nil)
-  (org-odt-styles-dir (expand-file-name "org/etc/styles" user-emacs-directory))
+
+  ;; org-export for ODT config
+  (org-odt-styles-file (expand-file-name "org/etc/styles/OrgOdtStyles.xml" user-emacs-directory))
+  (org-odt-content-template-file (expand-file-name "org/etc/styles/OrgOdtContentTemplate.xml" user-emacs-directory))
+
+  ;; org-export for LateX config
+  ;; (org-latex-subtitle-separate t)
+
+  (org-pretty-entities-include-sub-superscripts t)
+  ;; (org-use-sub-superscripts '{})
+
 
   (org-group-tag nil)
   ;; (setq org-enforce-todo-dependencies t)
