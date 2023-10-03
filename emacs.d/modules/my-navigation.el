@@ -741,7 +741,7 @@ point reaches the beginning or end of the buffer, stop there."
   (centaur-tabs-close-button "x")
   (centaur-tabs-set-modified-marker t)
   (centaur-tabs-modified-marker "*")
-  (centaur-tabs-label-fixed-length 0)
+  (centaur-tabs-label-fixed-length 15)
   (centaur-tabs-show-count nil)
   (centaur-tabs-left-edge-margin nil)
   (centaur-tabs-show-navigation-buttons nil)
