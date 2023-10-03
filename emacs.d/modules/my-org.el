@@ -165,9 +165,11 @@
   (org-refile-allow-creating-parent-nodes 'confirm)
 
   (org-export-babel-evaluate t)
-  (org-export-preserve-breaks nil)
+  (org-export-preserve-breaks t)
   (org-export-with-toc nil)
   (org-export-with-smart-quotes t) ; could cause problems on babel export
+  (org-export-with-email nil)
+  (org-odt-styles-dir (expand-file-name "org/etc/styles" user-emacs-directory))
 
   (org-group-tag nil)
   ;; (setq org-enforce-todo-dependencies t)
@@ -204,7 +206,6 @@
 
   (org-refile-use-outline-path t)
 
-  (org-odt-preferred-output-format "doc")
   (org-fast-tag-selection-single-key t)
   (org-tags-exclude-from-inheritance '("project" "taskjuggler_project" "taskjuggler_resource") org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
