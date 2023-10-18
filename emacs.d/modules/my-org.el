@@ -327,6 +327,7 @@
       (("s" counsel-org-goto "goto heading")
         ("fa" counsel-org-file "browse attachments"))))
 
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . "open %s"))
   ;; Fixes problem with void function org-clocking-buffer
   (defun org-clocking-buffer ())
 
