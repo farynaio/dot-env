@@ -317,7 +317,8 @@
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        ("R" org-reset "reset all org checkbox in subtree" :exit t))
+        ("R" org-reset "reset all org checkbox in subtree" :exit t)
+        ("e" org-export-dispatch "org-export-dispatch" :exit t))
       "Toggle"
       (("h" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
@@ -647,6 +648,11 @@ should be continued."
               :repo "emacs-jp/japanese-holidays"
               :branch "master"))
 
+(use-package bibtex
+  :straight nil
+  :custom
+  (bibtex-dialect 'biblatex))
+
 (use-package calendar
   :demand t
   :bind (:map calendar-mode-map
@@ -881,7 +887,7 @@ it can be passed in POS."
   ;; (when (fboundp 'org-roam-dailies-today)
   ;;   (org-roam-dailies-today))
 
-  (defalias 'roam 'org-roam))
+  (defalias 'roam #'org-roam))
 
 (use-package org-roam-ui
   :after org-roam
@@ -1039,6 +1045,84 @@ it can be passed in POS."
   (org-hide-emphasis-markers t))
 
 (add-to-list 'magic-mode-alist '(org-roam-file-p . my/org-roam-mode))
+
+
+;; TODO adapt that to change
+(defun my/rename-org-files-in-folder (folder)
+  ;; (interactive "DRename org files in folder: ")
+  (dolist (file (directory-files folder t ".*\\.org\\(.gpg\\)?$"))
+    (with-current-buffer (find-file-noselect file)
+      (let* ((title (ignore-error (org-roam-node-file-title (org-roam-node-at-point))))
+              (title (when title (expand-file-name title))))
+        (message "file: %s ; title: %s" file title)
+        (when title
+          (let* ((ext (file-name-extension file))
+                  (new-ext (if (string-equal ext "org.gpg") ".org.gpg" ".org"))
+                  (new-name (concat folder (downcase (string-replace " " "-" title)) new-ext)))
+            (when (and (not (file-exists-p new-name)) (not (string-equal file new-name)))
+            (rename-file file new-name))))))))
+;; (my/rename-org-files-in-folder "~/Documents/roam/database/topic/")
+
+(use-package ox-latex
+  :straight nil
+  :after org
+  :custom
+  (org-latex-subtitle-separate t)
+  (org-latex-classes
+    '(("article" "\\documentclass[11pt]{article}"
+        ("\\section{%s}" . "\\section*{%s}")
+        ("\\subsection{%s}" . "\\subsection*{%s}")
+        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+        ("\\paragraph{%s}" . "\\paragraph*{%s}")
+        ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+       ("report" "\\documentclass[11pt]{report}"
+         ("\\part{%s}" . "\\part*{%s}")
+         ("\\chapter{%s}" . "\\chapter*{%s}")
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+       ("book" "\\documentclass[11pt]{book}"
+         ("\\part{%s}" . "\\part*{%s}")
+         ("\\chapter{%s}" . "\\chapter*{%s}")
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+
+       ("myarticle"
+         "\\documentclass[a4paper,11pt]{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage{lmodern}
+\\usepackage{cabin}
+\\usepackage[T1]{fontenc}
+\\usepackage{fancyhdr}
+\\usepackage[a4paper, total={6in, 8in}]{geometry}
+\\usepackage{lastpage}
+\\usepackage{titling}
+\\usepackage[dvipsnames]{xcolor}
+\\usepackage[pdfpagelabels=false,hyperindex=false,hyperfootnotes=false]{hyperref}
+"
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+         ("\\paragraph{%s}" . "\\paragraph*{%s}")
+         ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+
+       ("mybeamer"
+         "\\documentclass[presentation]{beamer}"
+         org-beamer-sectioning)
+       ))
+  (org-latex-title-command
+    (concat
+      "\\begin{titlepage}\n"
+      "\\centering\n"
+      "{\\LARGE %t \\par }\n"
+      "\\vspace 2cm\n"
+      "{\\normalsize %a \\par}\n"
+      "\\vspace 3cm\n"
+      "{\\huge %D \\par}\n"
+      "\\end{titlepage}\n")))
+
+;; (use-package org-web-tools)
 
 (provide 'my-org)
 ;;; my-org.el ends here
