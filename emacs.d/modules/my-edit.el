@@ -155,6 +155,12 @@
   :config
   (evil-declare-change-repeat #'company-complete))
 
+;; Required for proportional text
+(use-package company-posframe
+  :after company
+  :config
+  (company-posframe-mode t))
+
 (use-package company-statistics
   :disabled t
   :after company
