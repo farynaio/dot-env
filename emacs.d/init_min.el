@@ -5,6 +5,8 @@
 (setq shell-file-name "/bin/sh")
 
 (require 'package)
+(require 'use-package)
+
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (package-initialize)
@@ -13,16 +15,9 @@
   (package-refresh-contents))
 
 (setq
- use-package-verbose nil
- use-package-always-ensure t)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-
-(setq load-prefer-newer t)
+  use-package-verbose nil
+  use-package-always-ensure t
+  load-prefer-newer t)
 
 (unless (package-installed-p 'org-plus-contrib)
   (package-install 'org-plus-contrib))
