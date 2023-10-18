@@ -148,6 +148,7 @@
   (company-show-quick-access t)
   (company-tooltip-align-annotations t)
   (company-minimum-prefix-length 1)
+  (company-selection-wrap-around t)
   ;; (company-backends '(company-capf))
   (company-files-exclusions '(".git/" ".DS_Store"))
   (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
