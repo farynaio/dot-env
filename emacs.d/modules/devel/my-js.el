@@ -31,7 +31,7 @@
   (major-mode-hydra-define+ js2-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
     ("Action"
-      (("f" apheleia-format-buffer "prettier buffer" :exit t))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t))))
   ;; Use js2-mode for Node scripts
   ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
   )
@@ -64,7 +64,7 @@
   (major-mode-hydra-define+ rjsx-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
     ("Action"
-      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
 
 (use-package vue-mode
   :mode "\\.vue\\'")
@@ -97,7 +97,13 @@
 ;; Prettier support
 (use-package apheleia
   :commands (my/prettier-mode)
-  :diminish apheleia-mode)
+  :diminish apheleia-mode
+  :config
+  (defun my/prettier-format-buffer ()
+    "Prettify buffer using apheleia if available"
+    (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
+      (apheleia-format-buffer)
+      (message "Project doesn't have prettier config!"))))
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
@@ -120,7 +126,7 @@
   (major-mode-hydra-define+ typescript-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "TSX" 1 -0.05))
     ("Action"
-      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
 
 (use-package typescript-ts-mode
   :straight nil
@@ -133,7 +139,7 @@
   (major-mode-hydra-define+ typescript-ts-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "Typescript" 1 -0.05))
     ("Action"
-      (("f" apheleia-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
