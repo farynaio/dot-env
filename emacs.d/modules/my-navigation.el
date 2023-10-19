@@ -293,6 +293,7 @@
 (use-package iscroll)
 
 (use-package smartscan
+  :disabled t
   :defer 0.3
   :config
   (global-smartscan-mode 1))

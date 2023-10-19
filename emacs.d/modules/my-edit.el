@@ -87,12 +87,13 @@
 ;; (use-package with-editor)  ; dependency for other package
 
 (use-package emojify
+  :disabled t
   :custom
   (emojify-emoji-set "twemoji-v2-22")
   ;; (emojify-emoji-set "openmoji-v13-0")
-  :commands global-emojify-mode)
-
-(add-hook 'after-init-hook #'global-emojify-mode)
+  :commands global-emojify-mode
+  :config
+  (add-hook 'after-init-hook #'global-emojify-mode))
 
 ;; Allow to move selected lines up and down
 (use-package drag-stuff
@@ -143,13 +144,12 @@
           ("C-n" . company-next-page)
           ("C-p" . company-previous-page))
   :custom
-  (company-idle-delay 0.5)
+  (company-idle-delay 1)
   (company-show-numbers t)
   (company-show-quick-access t)
   (company-tooltip-align-annotations t)
-  (company-minimum-prefix-length 1)
   (company-selection-wrap-around t)
-  ;; (company-backends '(company-capf))
+  (company-minimum-prefix-length 2)
   (company-files-exclusions '(".git/" ".DS_Store"))
   (company-backends '((company-capf company-files company-keywords company-dabbrev-code :separate)))
   :config
@@ -178,6 +178,7 @@
   (company-quickhelp-delay nil)) ;; Invoke popup via shortcut
 
 (use-package which-key
+  :disabled t
   :diminish which-key-mode
   :custom
   (which-key-idle-delay 0.3)
