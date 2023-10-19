@@ -579,6 +579,7 @@ $0`(yas-escape-text yas-selected-text)`")
   :commands emacs-lisp-mode
   :hook (emacs-lisp-mode . flycheck-mode)
   :diminish "Elisp"
+  :mode "\\.elc?$"
   :config
   (unbind-key "C-M-i" emacs-lisp-mode-map)
 
