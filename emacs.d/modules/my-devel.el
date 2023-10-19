@@ -528,13 +528,13 @@ Use when `json-mode' or similar get stuck."
 ;; (use-package company-quickhelp
 ;; :requires company-mode)
 
-(use-package dockerfile-mode
-  :disabled t
-  :mode "^Dockerfile\\'")
+;; (use-package dockerfile-mode
+;;   :disabled t
+;;   :mode "^Dockerfile\\'")
 
 (use-package dockerfile-ts-mode
   :straight nil
-  :mode "^Dockerfile\\'")
+  :mode ("Dockerfile\\'" . dockerfile-ts-mode))
 
 (use-package graphql-mode
   :commands graphql-mode
