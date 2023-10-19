@@ -315,7 +315,7 @@ Use when `json-mode' or similar get stuck."
 
 (use-package conf-mode
   :straight nil
-  :mode "\\.env")
+  :mode ("^\\.env$"))
 
 (use-package markdown-mode
   :mode (("\\.markdown\\'" . markdown-mode)
