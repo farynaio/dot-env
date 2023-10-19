@@ -13,7 +13,8 @@
   :straight nil
   :mode "\\.rb\\'"
   :hook ((ruby-mode . inf-ruby-minor-mode)
-          (ruby-mode . lsp-deferred))
+          ;; (ruby-mode . lsp-deferred)
+          (ruby-mode . eglot-ensure))
   :config
   (major-mode-hydra-define+ ruby-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-alltheicon "ruby" "Ruby" 1 -0.05))

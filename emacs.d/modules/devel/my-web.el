@@ -12,7 +12,8 @@
 (use-package web-mode
   :hook ((web-mode . rainbow-mode)
           (web-mode . emmet-mode)
-          (web-mode . lsp-deferred))
+          (web-mode . eglot-ensure))
+          ;; (web-mode . lsp-deferred))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
           ("C-c C-p" . web-mode-tag-beginning)

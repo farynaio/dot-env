@@ -316,6 +316,7 @@
   (kbd ",f") 'my/rgrep)
 
 (use-package treemacs
+  :disabled t
   :commands (treeemacs treemacs-current-visibility)
   :custom
   (treemacs-default-visit-action #'treemacs-visit-node-in-most-recently-used-window)
@@ -329,9 +330,11 @@
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
 (use-package treemacs-projectile
+  :disabled t
   :after (treemacs projectile))
 
 (use-package treemacs-evil
+  :disabled t
   :after (treemacs evil)
   :config
   (evil-define-key 'normal treemacs-mode-map
@@ -341,6 +344,7 @@
     [C-down-mouse-1] #'treemacs-visit-node-in-most-recently-used-window))
 
 (use-package treemacs-magit
+  :disabled t
   :after (treemacs magit))
 
 ;; (use-package treemacs-all-the-icons

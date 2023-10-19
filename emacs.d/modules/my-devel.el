@@ -96,7 +96,7 @@
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
-        ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
+        ;; ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
         ("i" lsp-ui-imenu "imenu" :exit t))
@@ -385,85 +385,89 @@ Use when `json-mode' or similar get stuck."
     nil t))
 
 (use-package eglot
-  :disabled t
-  :commands (eglot eglot-alternatives)
+  :commands (eglot eglot-ensure eglot-alternatives)
   :straight nil
   :custom
   (eglot-extend-to-xref t)
-  (eglot-events-buffer-size 100000))
+  (eglot-events-buffer-size 100000)
+  (read-process-output-max (* 1024 1024)) ;; 1mb
+  (gc-cons-threshold 100000000)
+  )
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  ;; :hook (lsp-mode . lsp-enable-which-key-integration)
-  :custom
-  (lsp-enable-snippet nil)
-  (lsp-enable-semantic-highlighting nil)
-  (lsp-enable-symbol-highlighting nil)
-  (lsp-enable-file-watchers t)
-  (lsp-enable-folding nil)
-  (lsp-diagnostics-provider :none)
-  (lsp-enable-completion-at-point nil)
-  (lsp-semantic-tokens-enable nil)
-  (lsp-enable-links nil)
-  ;; (lsp-client-packages '(lsp-clients)) ;; https://github.com/emacs-lsp/lsp-mode/pull/1498
-  ;; (lsp-enable-indentation t)
-  ;; (lsp-javascript-format-enable t)
-  ;; (lsp-enable-on-type-formatting nil)
-  ;; (lsp-javascript-suggest-enabled nil)
-  ;; (lsp-javascript-validate-enabled nil)
-  ;; (lsp-enable-relative-indentation nil)
-  ;; (lsp-completion-enable-additional-text-edit nil)
-  ;; (lsp-javascript-update-imports-on-file-move-enabled nil)
-  (lsp-headerline-breadcrumb-enable t)
-  (lsp-modeline-code-actions-enable nil)
-  (lsp-modeline-diagnostics-enable nil)
-  (lsp-signature-render-documentation t)
-  ;; (lsp-keymap-prefix "C-c l")
-  (lsp-eldoc-enable-hover t)
-  (lsp-restart 'auto-restart)
-  (lsp-lens-enable nil)
-  (lsp-eslint-enable nil)
-  ;; (lsp-log-io t)
-  (lsp-clients-svlangserver-disableLinting t)
-  (lsp-rf-language-server-trace-serve "off")
-  ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
-  :config
-  (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascriptreact"))
-  (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascript"))
-  (add-to-list 'lsp-language-id-configuration '(typescript-ts-mode . "typescriptreact"))
-  (add-to-list 'lsp-language-id-configuration '(web-mode . "html"))
+;; (use-package lsp-mode
+;;   :commands (lsp lsp-deferred)
+;;   ;; :hook (lsp-mode . lsp-enable-which-key-integration)
+;;   :custom
+;;   (lsp-enable-snippet nil)
+;;   (lsp-enable-semantic-highlighting nil)
+;;   (lsp-enable-symbol-highlighting nil)
+;;   (lsp-enable-file-watchers t)
+;;   (lsp-enable-folding nil)
+;;   (lsp-diagnostics-provider :none)
+;;   (lsp-enable-completion-at-point nil)
+;;   (lsp-semantic-tokens-enable nil)
+;;   (lsp-enable-links nil)
+;;   ;; (lsp-client-packages '(lsp-clients)) ;; https://github.com/emacs-lsp/lsp-mode/pull/1498
+;;   ;; (lsp-enable-indentation t)
+;;   ;; (lsp-javascript-format-enable t)
+;;   ;; (lsp-enable-on-type-formatting nil)
+;;   ;; (lsp-javascript-suggest-enabled nil)
+;;   ;; (lsp-javascript-validate-enabled nil)
+;;   ;; (lsp-enable-relative-indentation nil)
+;;   ;; (lsp-completion-enable-additional-text-edit nil)
+;;   ;; (lsp-javascript-update-imports-on-file-move-enabled nil)
+;;   (lsp-headerline-breadcrumb-enable t)
+;;   (lsp-modeline-code-actions-enable nil)
+;;   (lsp-modeline-diagnostics-enable nil)
+;;   (lsp-signature-render-documentation t)
+;;   ;; (lsp-keymap-prefix "C-c l")
+;;   (lsp-eldoc-enable-hover t)
+;;   (lsp-restart 'auto-restart)
+;;   (lsp-lens-enable nil)
+;;   (lsp-eslint-enable nil)
+;;   ;; (lsp-log-io t)
+;;   (lsp-clients-svlangserver-disableLinting t)
+;;   (lsp-rf-language-server-trace-serve "off")
+;;   ;; (lsp-eslint-server-command '("node" "~/.emacs.d/.extension/vscode/vscode-eslint/server/out/eslintServer.js" "--stdio"))
+;;   :config
+;;   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascriptreact"))
+;;   (add-to-list 'lsp-language-id-configuration '(rjsx-mode . "javascript"))
+;;   (add-to-list 'lsp-language-id-configuration '(typescript-ts-mode . "typescriptreact"))
+;;   (add-to-list 'lsp-language-id-configuration '(web-mode . "html"))
 
-  ;; don't scan 3rd party javascript libraries
-  (push "[/\\\\][^/\\\\]*\\.\\(json\\|html\\|jade\\)$" lsp-file-watch-ignored-directories) ; json
+;;   ;; don't scan 3rd party javascript libraries
+;;   (push "[/\\\\][^/\\\\]*\\.\\(json\\|html\\|jade\\)$" lsp-file-watch-ignored-directories) ; json
 
-  ;; don't ping LSP lanaguage server too frequently
-  (defvar lsp-on-touch-time 0)
-  (defadvice lsp-on-change (around lsp-on-change-hack activate)
-    ;; don't run `lsp-on-change' too frequently
-    (when (> (- (float-time (current-time))
-               lsp-on-touch-time) 30) ;; 30 seconds
-      (setq lsp-on-touch-time (float-time (current-time)))
-      ad-do-it))
+;;   ;; don't ping LSP lanaguage server too frequently
+;;   (defvar lsp-on-touch-time 0)
+;;   (defadvice lsp-on-change (around lsp-on-change-hack activate)
+;;     ;; don't run `lsp-on-change' too frequently
+;;     (when (> (- (float-time (current-time))
+;;                lsp-on-touch-time) 30) ;; 30 seconds
+;;       (setq lsp-on-touch-time (float-time (current-time)))
+;;       ad-do-it))
 
-  ;; (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
-  ;; (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
-  ;; (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
+;;   ;; (add-to-list 'lsp-language-id-configuration '(graphql-mode . "graphql"))
+;;   ;; (add-to-list 'lsp-language-id-configuration '(".*\\.htm" . "html"))
+;;   ;; (add-to-list 'lsp-language-id-configuration '(".*\\.njk" . "html"))
 
-  (setq lsp-disabled-clients
-    '(
-       ;; (typescript-mode . (eslint))
-       ;; (json-mode . (eslint json-ls))
-       ;; (js-mode . (eslint))
-       (rjsx-mode . (eslint))
-       lsp-emmet-ls
-       emmet-ls)))
+;;   (setq lsp-disabled-clients
+;;     '(
+;;        ;; (typescript-mode . (eslint))
+;;        ;; (json-mode . (eslint json-ls))
+;;        ;; (js-mode . (eslint))
+;;        (rjsx-mode . (eslint))
+;;        lsp-emmet-ls
+;;        emmet-ls)))
 
 (use-package lsp-origami
+  :disabled t
   :after (lsp-mode origami)
   :hook (lsp-after-open . lsp-origami-try-enable))
 
 (use-package lsp-ui
+  :disabled t
   :after lsp-mode
 	:commands lsp-ui-mode
   ;; :hook ((lsp-mode . lsp-ui-mode)
@@ -489,12 +493,14 @@ Use when `json-mode' or similar get stuck."
   )
 
 (use-package lsp-treemacs
+  :disabled t
   :after (lsp-mode treemacs)
   :commands (lsp-treemacs-errors-list lsp-treemacs-call-hierarch)
   :config
   (lsp-treemacs-sync-mode 1))
 
 (use-package lsp-ivy
+  :disabled t
   :after (lsp-mode ivy)
   :commands lsp-ivy-workspace-symbol)
 

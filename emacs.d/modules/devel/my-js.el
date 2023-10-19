@@ -21,7 +21,8 @@
 ;;   :hook (js-ts-mode . lsp-deferred))
 
 (use-package js2-mode
-  :hook (js2-mode . lsp-deferred)
+  ;; :hook (js2-mode . lsp-deferred)
+  :hook (js2-mode . eglot-ensure)
   :mode ("\\.m?js\\'" "\\.cjs\\'")
   :diminish "js2"
   :custom
@@ -54,7 +55,8 @@
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . mmm-mode)
-          (rjsx-mode . lsp-deferred))
+          ;; (rjsx-mode . lsp-deferred)
+          (rjsx-mode . eglot-ensure))
           ;; (rjsx-mode . my/prettier-mode))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
@@ -117,7 +119,8 @@
   :disabled t
   :mode ("\\.tsx?\\'" . typescript-mode)
   :hook ((typescript-mode . mmm-mode)
-          (typescript-mode . lsp-deferred)
+          ;; (typescript-mode . lsp-deferred)
+          (typescript-mode . eglot-ensure)
           (typescript-mode . emmet-mode)
           (typescript-mode . subword-mode))
   :custom
@@ -132,7 +135,8 @@
   :straight nil
   :mode ("\\.tsx?\\'" . typescript-ts-mode)
   :hook ((typescript-ts-mode . mmm-mode)
-          (typescript-ts-mode . lsp-deferred)
+          ;; (typescript-ts-mode . lsp-deferred)
+          (typescript-ts-mode . eglot-ensure)
           (typescript-ts-mode . emmet-mode))
   :config
   (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
