@@ -82,6 +82,11 @@
       (tempo-use-tag-list 'my/tempo-general-tags)
       (tempo-use-tag-list 'my/tempo-js-tags)))
 
+  (add-hook 'js2-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'my/tempo-general-tags)
+      (tempo-use-tag-list 'my/tempo-js-tags)))
+
   (add-hook 'typescript-mode-hook
     (lambda ()
       (tempo-use-tag-list 'my/tempo-general-tags)
