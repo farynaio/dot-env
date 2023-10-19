@@ -786,6 +786,7 @@ point reaches the beginning or end of the buffer, stop there."
         (string-prefix-p "*Help" name)
         (string-prefix-p "*Messages" name)
         (string-prefix-p "*Warnings" name)
+        (string-prefix-p "*grep" name)
         (string-prefix-p "*Async" name)
         (string-prefix-p "magit" name)
         (string-prefix-p "events.org.gpg" name)
