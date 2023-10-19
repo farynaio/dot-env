@@ -158,6 +158,7 @@
 ;; Required for proportional text
 (use-package company-posframe
   :after company
+  :diminish ""
   :config
   (company-posframe-mode t))
 

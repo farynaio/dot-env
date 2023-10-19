@@ -115,11 +115,10 @@ ARGS is not processed."
 (use-package mu4e
   :straight nil
   :preface
-  (defvar my/mu4e-local-path
+  (add-to-list 'load-path
     (if (eq system-type 'darwin)
       "/usr/local/opt/mu/share/emacs/site-lisp/mu/mu4e"
-      "/usr/share/emacs/site-lisp/mu4e")
-    (add-to-list 'load-path my/mu4e-local-path))
+      "/usr/share/emacs/site-lisp/mu4e"))
   :init
   (unless (executable-find "mu")
     (message "No executable 'mu' found"))
