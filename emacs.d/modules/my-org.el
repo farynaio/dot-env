@@ -318,7 +318,9 @@
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
         ("R" org-reset "reset all org checkbox in subtree" :exit t)
-        ("e" org-export-dispatch "org-export-dispatch" :exit t))
+        ("e" org-export-dispatch "org-export-dispatch" :exit t)
+        ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
+        ("w" widen "widen narrowed area" :exit t))
       "Toggle"
       (("h" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
