@@ -15,11 +15,23 @@
   ;;   (lambda () (unless (eq major-mode 'json-mode) (lsp))))
   )
 
+;; (use-package js-ts-mode
+;;   :straight nil
+;;   :mode ("\\.m?js\\'" "\\.cjs\\'")
+;;   :hook (js-ts-mode . lsp-deferred))
+
 (use-package js2-mode
+  :hook (js2-mode . lsp-deferred)
+  :mode ("\\.m?js\\'" "\\.cjs\\'")
+  :diminish "js2"
   :custom
   (js2-mode-show-parse-errors nil)
   (js2-mode-show-strict-warnings nil)
   :config
+  (major-mode-hydra-define+ js2-mode
+    (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
+    ("Action"
+      (("f" apheleia-format-buffer "prettier buffer" :exit t))))
   ;; Use js2-mode for Node scripts
   ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
   )
@@ -47,7 +59,7 @@
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode ("\\.m?jsx?\\'" "\\.cjs\\'")
+  :mode ("\\.m?jsx\\'")
   :config
   (major-mode-hydra-define+ rjsx-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))

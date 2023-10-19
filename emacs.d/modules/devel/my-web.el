@@ -2,8 +2,16 @@
   :hook (css-mode . rainbow-mode)
   :diminish rainbow-mode)
 
+(use-package emmet-mode
+  :defer 10
+  :diminish emmet-mode
+  :custom
+  (emmet-self-closing-tag-style " /")
+  (emmet-expand-jsx-className? t))
+
 (use-package web-mode
   :hook ((web-mode . rainbow-mode)
+          (web-mode . emmet-mode)
           (web-mode . lsp-deferred))
   :bind (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
@@ -95,14 +103,6 @@
 (use-package jade-mode
   :hook (jade-mode . highlight-thing-mode)
   :mode "\\.jade\\'")
-
-(use-package emmet-mode
-  :diminish emmet-mode
-  :hook (sgml-mode js-mode web-mode)
-  :config
-  (setq
-    emmet-self-closing-tag-style " /"
-    emmet-expand-jsx-className? t))
 
 (provide 'my-web)
 ;;; my-web.el ends here
