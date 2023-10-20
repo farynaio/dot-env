@@ -49,3 +49,5 @@ elpa
 /emacs-local-config/local-config.el
 /emacs-local-config/custom.el
 /rss
+
+/tabsession.el

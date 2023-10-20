@@ -178,6 +178,19 @@
   (recentf-mode 1)
   (run-at-time nil (* 60 5) #'recentf-save-list))
 
+(use-package tabspaces
+  :custom
+  (tabspaces-use-filtered-buffers-as-default nil)
+  (tabspaces-default-tab "Default")
+  (tabspaces-remove-to-default nil)
+  (tabspaces-include-buffers '())
+  (tabspaces-initialize-project-with-todo t)
+  ;; (tabspaces-todo-file-name "project-todo.org")
+  (tabspaces-session t)
+  (tabspaces-session-auto-restore t)
+  :config
+  (tabspaces-mode 1))
+
 (use-package tab-bar
   :straight nil
   :custom
@@ -185,6 +198,18 @@
   (tab-bar-tab-name-current #'tab-bar-tab-name-truncated)
   :config
   (tab-bar-mode 1))
+
+(use-package tab-line
+  :straight nil
+  :custom
+  ;; (tab-line-format)
+  (tab-line-separator "")
+  (tab-line-close-button-show nil)
+  (tab-line-new-button-show nil)
+  ;; (tab-line-exclude-modes)
+  ;; (tab-line-exclude)
+  :config
+  (global-tab-line-mode 1))
 
 (use-package beacon
   :custom
@@ -730,6 +755,7 @@ point reaches the beginning or end of the buffer, stop there."
   (completion-category-overrides '((file (styles . (partial-completion))))))
 
 (use-package centaur-tabs
+  :disabled t
   :demand t
   :bind (:map evil-normal-state-map
           ("g t" . centaur-tabs-forward)
