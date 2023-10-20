@@ -66,7 +66,14 @@
        "cn"
        "Insert className=\"\""
        'my/tempo-js-tags)
-     ))
 
+     (tempo-define-template "js-try-catch-tag"
+       '("try {" n> ~ n>
+          "} catch (e) {" n>
+          "}")
+       "try"
+       "Insert try & catch block"
+       'my/tempo-js-tags)
+     ))
 (provide 'my-snippets-js)
 ;;; my-snippets-js.el ends here
