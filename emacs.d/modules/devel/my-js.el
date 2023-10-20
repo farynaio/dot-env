@@ -1,6 +1,11 @@
 ;;; Code:
 
-(require 'js)
+(defun my/prettier-format-buffer ()
+  "Prettify buffer using apheleia if available"
+  (interactive)
+  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
+    (apheleia-format-buffer (apheleia--get-formatters))
+    (message "Project doesn't have prettier config!")))
 
 (use-package js
   :straight nil
@@ -98,14 +103,8 @@
 
 ;; Prettier support
 (use-package apheleia
-  :commands (my/prettier-mode)
-  :diminish apheleia-mode
-  :config
-  (defun my/prettier-format-buffer ()
-    "Prettify buffer using apheleia if available"
-    (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-      (apheleia-format-buffer)
-      (message "Project doesn't have prettier config!"))))
+  :commands (my/prettier-mode apheleia-format-buffer)
+  :diminish apheleia-mode)
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
