@@ -55,6 +55,12 @@
        "Insert 'export const'"
        'my/tempo-js-tags)
 
+     (tempo-define-template "js-require"
+       '("const " ~ " = require(\"" (p "module: " module) "\")" >)
+       "require"
+       "Insert 'require' statement"
+       'my/tempo-js-tags)
+
      (tempo-define-template "js-todo-tag"
        '("// TODO " ~)
        "todo"
