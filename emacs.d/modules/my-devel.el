@@ -17,8 +17,18 @@
   :diminish eldoc-mode
   :custom
   (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  ;; (eldoc-echo-area-use-multiline-p nil)
   :config
-  (add-to-list 'evil-emacs-state-modes 'eldoc-mode))
+  (add-to-list 'evil-emacs-state-modes 'eldoc-mode)
+
+  ;; Show all of the available eldoc information when we want it. This way Flymake errors
+  ;; don't just get clobbered by docstrings.
+  ;; (add-hook 'eglot-managed-mode-hook
+  ;;   (lambda ()
+  ;;     "Make sure Eldoc will show us all of the feedback at point."
+  ;;     (setq-local eldoc-documentation-strategy
+  ;;       #'eldoc-documentation-compose)))
+  )
 
 (use-package eldoc-box
   :after eldoc
@@ -89,7 +99,9 @@
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
         ("p" counsel-colors-emacs "color picker" :exit t)
-        ("w" my/web-mode-toggle "toggle web-mode" :exit t))
+        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+        ;; ("w" eglot-rename "rename" :exit t)
+        )
       "Navigate"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
@@ -99,7 +111,12 @@
         ;; ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
-        ("i" lsp-ui-imenu "imenu" :exit t))
+        ("i" lsp-ui-imenu "imenu" :exit t)
+        ;; ("w" eglot-find-typeDefinition "find type definition" :exit t)
+        ;; ("C-c e D" . eglot-find-declaration)
+        ;; ("C-c e f" . eglot-format)
+        ;; ("C-c e F" . eglot-format-buffer)
+        )
       "AI"
       (("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
         ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
@@ -389,11 +406,18 @@ Use when `json-mode' or similar get stuck."
   :straight nil
   :custom
   (eglot-extend-to-xref t)
-  (eglot-events-buffer-size 100000)
+  ;; (eglot-events-buffer-size 100000)
+  (eglot-events-buffer-size 0)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (gc-cons-threshold 100000000)
-  )
+  (eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
+  (eglot-autoshutdown t)
+  :config
+  (add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
+  (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+  )
 
 ;; (use-package lsp-mode
 ;;   :commands (lsp lsp-deferred)

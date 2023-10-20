@@ -135,6 +135,9 @@
                  corfu-auto nil)
       (corfu-mode))))
 
+;; This works well with corfu
+;; (use-package cape)
+
 ;; alternative https://github.com/minad/corfu
 (use-package company
   :after evil
