@@ -99,7 +99,7 @@
   (org-agenda-skip-additional-timestamps-same-entry t)
   (org-agenda-skip-deadline-prewarning-if-scheduled t)
   (org-agenda-start-with-log-mode t)
-  (org-agenda-inhibit-startup t)
+  (org-agenda-inhibit-startup nil)
   (org-agenda-use-tag-inheritance nil)
   (org-agenda-fontify-priorities 'cookies)
   (org-agenda-log-mode-items '(clock))
