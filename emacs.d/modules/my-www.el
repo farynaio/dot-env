@@ -50,13 +50,14 @@ instead of `browse-url-new-window-flag'."
 
 (use-package eww
   :straight nil
-  :commands (eww www)
+  :commands (eww www eww-open-file eww-browse-url)
   :hook (eww-mode . visual-fill-column-mode)
   :custom
   (eww-search-prefix "https://duckduckgo.com/html/?q=")
   :config
   (defun my/eww-init ()
     ;; (setq-local
+    (text-scale-adjust 2)
     (setq
       shr-use-colors nil
       shr-width 70

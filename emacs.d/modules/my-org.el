@@ -281,6 +281,9 @@
 
   (diminish 'org-indent-mode)
 
+  (add-to-list 'org-file-apps
+    '("\\.html\\'" . (lambda (file-path link-without-schema) (eww-open-file file-path))))
+
   (defun my/dnd-file-line-insert (uri action)
     "URI to the asset. ACTION is ignored."
     (insert (format "[[%s]]" uri))
