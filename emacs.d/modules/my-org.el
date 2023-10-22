@@ -91,6 +91,7 @@
   (defun my/org-priority-cookie-print () (format "[#%c]" org-default-priority))
   :custom
   (org-adapt-indentation nil)
+  (org-return-follows-link t)
 
   (org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
   (org-agenda-start-on-weekday nil)
