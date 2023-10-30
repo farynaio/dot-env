@@ -321,7 +321,7 @@
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        ("R" org-reset "reset all org checkbox in subtree" :exit t)
+        ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
         ("e" org-export-dispatch "org-export-dispatch" :exit t)
         ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
         ("w" widen "widen narrowed area" :exit t))
