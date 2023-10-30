@@ -9,6 +9,7 @@
           ("<s-mouse-1>" . shr-copy-url)
           ("<S-mouse-1>" . shr-copy-url)
           ("C-x C-l" . shr-copy-url)
+          ("l" . shr-copy-url)
           ("C-c C-l" . hydra-elfeed/body)
           :map shr-map
           ;; ("RET" . my/elfeed-shr-open-external)
@@ -298,7 +299,9 @@
   :custom
   (elfeed-goodies/entry-pane-position 'bottom)
   (elfeed-show-entry-switch 'elfeed-goodies/switch-pane)
-  (elfeed-show-entry-delete 'elfeed-goodies/delete-pane))
+  (elfeed-show-entry-delete 'elfeed-goodies/delete-pane)
+  :config
+  (bind-key "q" #'elfeed-goodies/delete-pane elfeed-show-mode-map))
 
 (use-package elfeed-org
   :after (org elfeed)
