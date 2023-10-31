@@ -204,9 +204,8 @@
 (use-package ediff
   :straight nil
   :commands (ediff ediff-buffers)
-  :config
-  (ediff-diff-options "-w")
   :custom
+  (ediff-diff-options "-w")
   (ediff-window-setup-function #'ediff-setup-windows-plain)
   (ediff-forward-word-function #'forward-char)
   ;; :config
