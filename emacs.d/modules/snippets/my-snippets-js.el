@@ -15,8 +15,7 @@
           ~ n>
           ")" > n>
           "}" > n n
-          "export default " (s name)
-          )
+          "export default " (s name))
        "sless"
        "Insert stateless component"
        'my/tempo-js-tags)
@@ -32,8 +31,7 @@
           "return (" n>
           ~ n>
           ")" > n>
-          "}" > n
-          )
+          "}" > n)
        "exportdf"
        "Insert 'export default function'"
        'my/tempo-js-tags)
@@ -43,8 +41,7 @@
           "return (" n>
           ~ n>
           ")" > n>
-          "}" > n
-          )
+          "}" > n)
        "exportf"
        "Insert 'export default function'"
        'my/tempo-js-tags)
@@ -61,24 +58,30 @@
        "Insert 'require' statement"
        'my/tempo-js-tags)
 
-     (tempo-define-template "js-todo-tag"
+     (tempo-define-template "js-todo"
        '("// TODO " ~)
        "todo"
        "Insert TODO block"
        'my/tempo-js-tags)
 
-     (tempo-define-template "js-cn-tag"
+     (tempo-define-template "js-jsx-classname"
        '("className=\"" ~ "\"")
        "cn"
        "Insert className=\"\""
        'my/tempo-js-tags)
 
-     (tempo-define-template "js-try-catch-tag"
+     (tempo-define-template "js-try-catch"
        '("try {" n> ~ n>
           "} catch (e) {" n>
           "}")
        "try"
        "Insert try & catch block"
+       'my/tempo-js-tags)
+
+     (tempo-define-template "js-not-implemented-error"
+       '("throw new Error(\"not implemented\")")
+       "throwni"
+       "throw 'not implemented' error "
        'my/tempo-js-tags)
      ))
 (provide 'my-snippets-js)
