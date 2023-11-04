@@ -161,6 +161,7 @@
                     ("totaly" "totally" nil 0)
                     ("readonly" "read-only" nil 0)
 
+                    ("ios" "iOS" nil 0)
                     ("android" "Android" nil 0)
                     ("google" "Google" nil 0)
                     ("docker" "Docker" nil 0)
@@ -240,6 +241,7 @@
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                    ("ios" "iOS" nil 0)
                     ("android" "Android" nil 0)
                     ("google" "Google" nil 0)
                     ("docker" "Docker" nil 0)
