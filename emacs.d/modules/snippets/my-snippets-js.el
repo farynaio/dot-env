@@ -83,6 +83,12 @@
        "throwni"
        "throw 'not implemented' error "
        'my/tempo-js-tags)
+
+     (tempo-define-template "es6-import"
+       '("import {" ~ "} from \"" (p "module: " module) "\"")
+       "import"
+       "import module"
+       'my/tempo-js-tags)
      ))
 (provide 'my-snippets-js)
 ;;; my-snippets-js.el ends here
