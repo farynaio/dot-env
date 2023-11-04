@@ -947,7 +947,8 @@ it can be passed in POS."
       (if (<= (length poslist) 0)
         (message (format "No heading with title '%s' found!" heading-title))
         (goto-char (nth 0 poslist))
-        (org-cycle))))
+        (org-cycle)))
+      (org-journal-mode))
 
   (defun my/org-journal-after-header-create-hook ()
     (goto-char (point-min))
