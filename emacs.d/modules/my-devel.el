@@ -379,6 +379,8 @@ Use when `json-mode' or similar get stuck."
       (("M" flycheck-manual "manual")
         ("v" flycheck-verify-setup "verify setup"))))
 
+  (add-to-list 'evil-emacs-state-modes 'flymake-diagnostics-buffer-mode)
+
   (evil-define-key 'normal global-map
     (kbd "C-c f") 'hydra-flycheck/body)
 
