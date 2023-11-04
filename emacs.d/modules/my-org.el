@@ -326,7 +326,7 @@
         ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
         ("w" widen "widen narrowed area" :exit t))
       "Toggle"
-      (("h" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+      (("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
