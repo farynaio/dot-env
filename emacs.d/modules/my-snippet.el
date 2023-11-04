@@ -92,6 +92,11 @@
       (tempo-use-tag-list 'my/tempo-general-tags)
       (tempo-use-tag-list 'my/tempo-js-tags)))
 
+  (add-hook 'typescript-ts-base-mode-hook
+    (lambda ()
+      (tempo-use-tag-list 'my/tempo-general-tags)
+      (tempo-use-tag-list 'my/tempo-js-tags)))
+
   (add-hook 'emacs-lisp-mode-hook
     (lambda ()
       (tempo-use-tag-list 'my/tempo-general-tags)
