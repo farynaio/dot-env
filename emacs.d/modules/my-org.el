@@ -221,11 +221,12 @@
   (org-tags-exclude-from-inheritance '("project" "taskjuggler_project" "taskjuggler_resource") org-stuck-projects '("+project/-DONE" ("TODO") ()))
 
   (org-todo-keywords
-    '((sequence "TODO(t)" "IN-PROCESS(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
+    '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
        (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
   (org-todo-keyword-faces
     '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
        ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
+       ("WIP"        . (:foreground "IndianRed1"  :weight bold))
        ("WORK"       . (:foreground "IndianRed1"  :weight bold))
        ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
        ("WAITING"    . (:foreground "coral"       :weight bold))
