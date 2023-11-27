@@ -204,7 +204,7 @@
   :custom
   ;; (tab-line-format)
   (tab-line-separator "")
-  (tab-line-close-button-show nil)
+  (tab-line-close-button-show t)
   (tab-line-new-button-show nil)
   ;; (tab-line-exclude-modes)
   ;; (tab-line-exclude)
