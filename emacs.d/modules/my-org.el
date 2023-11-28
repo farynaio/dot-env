@@ -769,6 +769,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (org-roam-tag-sources '(prop))
   (org-roam-update-db-idle-second 60)
   (org-roam-verbose nil)
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   :config
   (require 'org-roam-protocol)
 
