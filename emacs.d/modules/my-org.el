@@ -446,20 +446,23 @@
   ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
   ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
 
+;; TODO test after changes
   (define-minor-mode afa/org-breadcrums-mode
     "Minor mode to display org breadcrumbs.
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
     :init-value nil
     (defvar-local afa/org-breadcrums-mode-timer nil)
+    (defvar-local afa/this-buffer (window-buffer))
     ;; TODO check if line number changed
     (setq-local afa/org-breadcrums-mode-timer
       (run-with-idle-timer
-        2
+        5
         t
         (lambda ()
-          (setq-local header-line-format
-            (afa/org-breadcrumbs))))))
+          (when (eq afa/this-buffer (window-buffer (selected-window)))
+            (setq-local header-line-format
+              (afa/org-breadcrumbs)))))))
 
   (add-hook 'afa/org-breadcrums-mode-hook
     (lambda ()
