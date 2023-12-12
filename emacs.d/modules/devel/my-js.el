@@ -1,11 +1,13 @@
 ;;; Code:
 
 (defun my/prettier-format-buffer ()
-  "Prettify buffer using apheleia if available"
+  "Prettify buffer using Prettier if available"
   (interactive)
-  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-    (apheleia-format-buffer (apheleia--get-formatters))
-    (message "Project doesn't have prettier config!")))
+  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) val))) my/prettier-config-files)
+    (progn
+      (call-interactively 'prettier-prettify)
+      (message "Buffer prittified"))
+    (message "Project doesn't have Prettier config!")))
 
 (use-package js
   :straight nil
@@ -103,13 +105,22 @@
   "My Prettier mode implementation."
   :lighter " Prettier"
   (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-    (apheleia-mode 1)
-    (apheleia-mode -1)))
+    (prettier-mode 1)
+    (prettier-mode -1)
+    ;; (apheleia-mode 1)
+    ;; (apheleia-mode -1)
+    ))
+
+(use-package prettier
+  :commands prettier-prettify)
 
 ;; Prettier support
 (use-package apheleia
+  :disabled t
   :commands (my/prettier-mode apheleia-format-buffer)
-  :diminish apheleia-mode)
+  :diminish apheleia-mode
+  :config
+  (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier)))
 
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
