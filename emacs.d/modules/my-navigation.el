@@ -979,6 +979,10 @@ Close other windows."
    (("i" ibuffer "ibuffer")
     ("k" my/kill-all-buffers-except-toolkit))))
 
+(use-package ibuffer
+  :straight nil
+  :hook (ibuffer-mode . hl-line-mode))
+
 (evil-define-key 'normal global-map
   (kbd ",b") #'hydra-buffer/body)
 
