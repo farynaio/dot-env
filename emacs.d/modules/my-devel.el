@@ -412,12 +412,13 @@ Use when `json-mode' or similar get stuck."
   (eglot-events-buffer-size 0)
   (read-process-output-max (* 1024 1024)) ;; 1mb
   (gc-cons-threshold 100000000)
-  (eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
+  (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
   (eglot-autoshutdown t)
   :config
   (add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
   (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
   )
 
