@@ -215,6 +215,7 @@
   )
 
 (use-package savehist
+  :disabled t
   :straight nil
   :custom
   (savehist-file "~/.emacs.d/savehist")
