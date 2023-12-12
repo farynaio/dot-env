@@ -1074,6 +1074,31 @@ it can be passed in POS."
             (rename-file file new-name))))))))
 ;; (my/rename-org-files-in-folder "~/Documents/roam/database/topic/")
 
+;; TODO check this one
+;; https://org-roam.discourse.group/t/org-similarity-v2-1-0-released-lexical-similarity-search-for-emacs/3134
+;; https://github.com/brunoarine/org-similarity#usage
+(use-package org-similarity
+  :disabled t
+  :straight (:type git
+             :host github
+             :repo "brunoarine/org-similarity"
+              :branch "main")
+  :custom
+  (org-similarity-directory my/org-roam-directory)
+  (org-similarity-file-extension-pattern "*.\\(org\\|gpg\\)")
+  (org-similarity-algorithm "tfidf")
+  (org-similarity-number-of-documents 10)
+  (org-similarity-min-chars 0)
+  (org-similarity-show-scores nil)
+  (org-similarity-threshold 0.05)
+  (org-similarity-use-id-links t)
+  (org-similarity-recursive-search t)
+  ;; (org-similarity-remove-first t)
+  (org-similarity-heading "** Related notes")
+  (org-similarity-prefix "- ")
+  (org-similarity-ignore-frontmatter nil)
+  )
+
 (use-package ox-latex
   :straight nil
   :after org
