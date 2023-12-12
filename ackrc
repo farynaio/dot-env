@@ -448,5 +448,6 @@
 --ignore-file=match:project.vim
 --ignore-file=match:Session.vim
 --ignore-file=match:package-lock.json
+--ignore-file=match:tsconfig.tsbuildinfo
 --ignore-file=ext:log
 --ignore-file=ext:pot
