@@ -100,18 +100,19 @@
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
         ("p" counsel-colors-emacs "color picker" :exit t)
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ;; ("w" eglot-rename "rename" :exit t)
+        ("lo" my/eglot-organize-imports "organize imports" :exit t)
+        ;; ("lr" eglot-rename "rename" :exit t)
         )
       "Navigate"
       (("d" my/xref-find-definitions "find definitions" :exit t)
         ("r" my/xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
-        ("l" counsel-imenu "imenu" :exit t)
+        ("i" counsel-imenu "imenu" :exit t)
         ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
-        ("i" lsp-ui-imenu "imenu" :exit t)
+        ;; ("i" lsp-ui-imenu "imenu" :exit t)
         ;; ("w" eglot-find-typeDefinition "find type definition" :exit t)
         ;; ("C-c e D" . eglot-find-declaration)
         ;; ("C-c e f" . eglot-format)
@@ -419,8 +420,15 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
   (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(rjsx-mode . ("typescript-language-server" "--stdio")))
+
+  (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
   )
+
+  (defun my/eglot-organize-imports ()
+    (interactive)
+    (eglot-code-action-organize-imports-ts (goto-char (point-min))))
 
 ;; (use-package lsp-mode
 ;;   :commands (lsp lsp-deferred)
