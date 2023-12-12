@@ -129,6 +129,7 @@
           (typescript-mode . add-node-modules-path)))
 
 
+;; NOTE not maintaned
 ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
 (use-package typescript-mode
   :disabled t
