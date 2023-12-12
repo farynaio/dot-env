@@ -435,6 +435,7 @@
 --ignore-dir=.jekyll-cache
 --ignore-dir=.gem
 --ignore-dir=.bundle
+--ignore-dir=.next
 --ignore-dir=.coverage
 --ignore-dir=coverage
 --ignore-dir=__pycache__
