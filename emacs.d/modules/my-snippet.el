@@ -16,6 +16,16 @@
   (require 'my-snippets-js)
   (require 'my-snippets-lisp)
 
+  (evil-define-key 'insert prog-mode-map
+    (kbd "TAB") #'my/tab-universal)
+
+  (defun my/tab-universal ()
+    (interactive)
+    (if (word-at-point)
+      (when (not (tempo-expand-if-complete))
+        (tab-to-tab-stop))
+      (tab-to-tab-stop)))
+
   (defun my/tempo-insert ()
     (interactive)
     (let* ((evil-state-pre (when (boundp 'evil-state) evil-state))
