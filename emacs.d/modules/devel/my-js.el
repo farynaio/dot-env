@@ -61,12 +61,17 @@
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . mmm-mode)
           ;; (rjsx-mode . lsp-deferred)
-          (rjsx-mode . eglot-ensure))
+          (rjsx-mode . eglot-ensure)
+          (rjsx-mode .
+            (lambda ()
+
+              (setq-local apheleia-formatter "prettier")))
+          )
           ;; (rjsx-mode . my/prettier-mode))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
-  :mode ("\\.m?jsx\\'")
+  :mode ("\\.m?jsx\\'" "\\.tsx?\\'")
   :config
   (major-mode-hydra-define+ rjsx-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
@@ -131,12 +136,15 @@
       (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
 
 (use-package typescript-ts-mode
+  :disabled t
   :straight nil
   :mode ("\\.tsx?\\'" . typescript-ts-mode)
   :hook ((typescript-ts-mode . mmm-mode)
           ;; (typescript-ts-mode . lsp-deferred)
           (typescript-ts-mode . eglot-ensure)
-          (typescript-ts-mode . emmet-mode))
+          (typescript-ts-mode . emmet-mode)
+          ;; (typescript-ts-mode . (lambda () (flymake-eslint-enable)))
+          )
   :config
   (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
   (major-mode-hydra-define+ typescript-ts-mode
