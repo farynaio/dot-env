@@ -147,7 +147,7 @@
           ("C-n" . company-next-page)
           ("C-p" . company-previous-page))
   :custom
-  (company-idle-delay 1)
+  (company-idle-delay 0.8)
   (company-show-numbers t)
   (company-show-quick-access t)
   (company-tooltip-align-annotations t)
