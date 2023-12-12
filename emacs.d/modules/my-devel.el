@@ -108,7 +108,7 @@
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("l" counsel-imenu "imenu" :exit t)
-        ;; ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
+        ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("e" ediff "ediff files" :exit t)
         ("b" ediff-buffers "ediff buffers" :exit t)
         ("i" lsp-ui-imenu "imenu" :exit t)
