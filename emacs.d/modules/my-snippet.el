@@ -17,7 +17,7 @@
   (require 'my-snippets-lisp)
 
   (evil-define-key 'insert prog-mode-map
-    (kbd "TAB") #'my/tab-universal)
+    (kbd "<tab>") #'my/tab-universal)
 
   (defun my/tab-universal ()
     (interactive)
