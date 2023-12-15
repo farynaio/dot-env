@@ -62,6 +62,9 @@
     doom-modeline-support-imenu t
     doom-modeline-window-width-limit 85
     doom-modeline-minor-modes t
+    doom-modeline-buffer-file-name-style 'truncate-with-project
+    doom-modeline-buffer-file-name-style 'relative-to-project
+    doom-modeline-workspace-name nil
     doom-modeline-vcs-max-length 12)
   (if (facep 'mode-line-active)
     (set-face-attribute 'mode-line-active nil :family "Noto Sans" :height 120) ; For 29+
