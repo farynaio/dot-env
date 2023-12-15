@@ -40,7 +40,6 @@
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
           (org-mode . (lambda () (when (and (fboundp 'company-mode) company-mode) (company-mode 1))))
-          (org-mode . afa/org-breadcrums-mode)
           (org-mode . org-appear-mode)
           (org-mode . (lambda ()
                         (setq-local
@@ -328,7 +327,7 @@
         ("w" widen "widen narrowed area" :exit t))
       "Toggle"
       (("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        ;; ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
@@ -424,6 +423,12 @@
           (when fix-newline
             (delete-char -1))))))
 
+  ;; org mode conflicts resolution: windmove
+  ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
+  ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
+
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
   (defun afa/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
@@ -440,37 +445,24 @@
                   "")))
         (format "[%s] %s" filename breadcrumbs))))
 
-  ;; org mode conflicts resolution: windmove
-  ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
-  ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
-
-;; TODO test after changes
   (define-minor-mode afa/org-breadcrums-mode
     "Minor mode to display org breadcrumbs.
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
+    :global t
     :init-value nil
-    (defvar-local afa/org-breadcrums-mode-timer nil)
-    (defvar-local afa/this-buffer (window-buffer))
-    ;; TODO check if line number changed
-    (setq-local afa/org-breadcrums-mode-timer
-      (run-with-idle-timer
-        5
-        t
-        (lambda ()
-          (when (eq afa/this-buffer (window-buffer (selected-window)))
-            (setq-local header-line-format
-              (afa/org-breadcrumbs)))))))
+    (if afa/org-breadcrums-mode
+      (defvar afa/org-breadcrums-mode-timer
+        (run-with-idle-timer
+          5
+          t
+          (lambda ()
+            (when (derived-mode-p 'org-mode)
+              (setq-local header-line-format (afa/org-breadcrumbs))))))
+      (cancel-timer afa/org-breadcrums-mode-timer)
+      (setq afa/org-breadcrums-mode-timer nil)))
 
-  (add-hook 'afa/org-breadcrums-mode-hook
-    (lambda ()
-      (when (and (not afa/org-breadcrums-mode) afa/org-breadcrums-mode-timer)
-        (cancel-timer afa/org-breadcrums-mode-timer)
-        (setq-local
-          afa/org-breadcrums-mode-timer nil
-          header-line-format nil))))
+  (afa/org-breadcrums-mode 1)
 
   (defun my/org-link-copy (&optional arg)
     "Extract URL from org-mode link and add it to kill ring."
