@@ -781,7 +781,7 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         ("T" org-roam-alias-add "add org-roam alias to node at point"))
       "Navigation"
       (("u" org-roam-ui-open "open UI view")
-        ("z" org-roam-buffer-toggle "toggle references sidebar"))))
+        ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
   (add-to-list 'display-buffer-alist
     '("\\*org-roam\\*"
