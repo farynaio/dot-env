@@ -931,7 +931,7 @@ it can be passed in POS."
   (org-journal-encrypt-journal t)
   (org-journal-created-property-timestamp-format "%Y-%m-%d")
   (org-journal-find-file 'find-file)
-  (org-journal-date-format "%Y-%m-%d")
+  (org-journal-date-format "%Y-%m-%d %A")
   (org-journal-time-prefix "*** ")
   :config
   (unbind-key "C-c C-j")
