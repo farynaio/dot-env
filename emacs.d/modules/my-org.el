@@ -10,7 +10,8 @@
   :straight (:type built-in))
 
 (use-package calfw
-  :after calendar)
+  :after calendar
+  )
 
 (use-package calfw-org
   :after (calfw calendar)

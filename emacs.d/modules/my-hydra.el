@@ -50,6 +50,8 @@
         ("cp" chatgpt-shell-proofread-region "proofread" :exit t)
         ("cs" chatgpt-shell-send-and-review-region "send and review" :exit t)
         ("ct" chatgpt-shell-save-session-transcript "save session transcript" :exit t))
+      "org"
+      (("oc" cfw:open-org-calendar "org-agenda calendar" :exit t))
       ))
 
   (pretty-hydra-define hydra-image
