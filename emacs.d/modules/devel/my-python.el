@@ -25,6 +25,7 @@
 
 ;; On Debian it requires python3-venv apt package, than run elpy-rpc-reinstall-virtualenv
 (use-package elpy
+  :disabled t
   :hook (python-mode . elpy-enable)
   :bind (:map elpy-mode-map
           ("C-c C-l" . elpy-occur-definitions)
