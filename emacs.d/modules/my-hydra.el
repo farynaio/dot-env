@@ -77,14 +77,15 @@
         ("F" projectile-find-file-other-window "file other window")
         ("p" counsel-projectile-switch-project "project")
         ("o" projectile-find-other-file "other file")
-        ("t" projectile-find-tag "tag"))
+        ("t" projectile-find-tag "tag")
+        ("s" counsel-rg "search")
+        ("g" yant/occur-current-project "grep"))
       "Project"
       (("a" my/projectile-add-known-project "add")
         ("m" projectile-remove-known-project "remove"))
       "Actions"
       (("i" projectile-invalidate-cache "reset cache")
-        ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace")
-        ("s" counsel-rg "search"))))
+        ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
 
   (pretty-hydra-define hydra-magit
     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
