@@ -26,7 +26,7 @@
        "Insert arrow function"
        'my/tempo-js-tags)
 
-     (tempo-define-template "js-exportf"
+     (tempo-define-template "js-exportdf"
        '("export default function " (p "name: " name) "() {" n>
           "return (" n>
           ~ n>
