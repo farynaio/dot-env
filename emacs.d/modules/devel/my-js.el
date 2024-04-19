@@ -5,7 +5,9 @@
   (interactive)
   (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) val))) my/prettier-config-files)
     (progn
-      (call-interactively 'prettier-prettify)
+      (call-interactively 'apheleia-format-buffer (alist-get major-mode apheleia-mode-alist))
+      ;; (call-interactively 'apheleia-format-buffer "prettier")
+      ;; (call-interactively 'prettier-prettify)
       (message "Buffer prittified"))
     (message "Project doesn't have Prettier config!")))
 
@@ -64,10 +66,9 @@
           (rjsx-mode . mmm-mode)
           ;; (rjsx-mode . lsp-deferred)
           (rjsx-mode . eglot-ensure)
-          (rjsx-mode .
-            (lambda ()
-
-              (setq-local apheleia-formatter "prettier")))
+          ;; (rjsx-mode .
+            ;; (lambda ()
+              ;; (setq-local apheleia-formatter "prettier")))
           )
           ;; (rjsx-mode . my/prettier-mode))
   :commands rjsx-mode
@@ -105,18 +106,21 @@
   "My Prettier mode implementation."
   :lighter " Prettier"
   (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-    (prettier-mode 1)
-    (prettier-mode -1)
-    ;; (apheleia-mode 1)
-    ;; (apheleia-mode -1)
+    ;; (prettier-mode 1)
+    ;; (prettier-mode -1)
+    (apheleia-mode 1)
+    (apheleia-mode -1)
     ))
 
 (use-package prettier
-  :commands prettier-prettify)
+  :disabled t
+  :commands prettier-prettify
+  :hook ((rjsx-mode . (lambda ()
+   (when (string-match "\.tsx?$" buffer-file-name)
+     (setq-local prettier-parsers '(typescript)))))))
 
 ;; Prettier support
 (use-package apheleia
-  :disabled t
   :commands (my/prettier-mode apheleia-format-buffer)
   :diminish apheleia-mode
   :config
@@ -180,6 +184,8 @@
               :host github
               :repo "pimeys/emacs-prisma-mode"
               :branch "main"))
+
+(use-package json-reformat)
 
 (provide 'my-js)
 ;;; my-js.el ends here
