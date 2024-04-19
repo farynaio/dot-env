@@ -751,6 +751,37 @@ point reaches the beginning or end of the buffer, stop there."
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
 
+(use-package project
+  :bind (:map project-prefix-map
+          ("g" . yant/occur-current-project))
+  :init
+  (defun yant/occur-current-project (regexp &optional nlines directory-to-search)
+    "Perform `multi-occur' with REGEXP in the current project files.
+When called with a prefix argument NLINES, display NLINES lines before and after.
+If DIRECTORY-TO-SEARCH is specified, this directory will be searched recursively;
+otherwise, the user will be prompted to specify a directory to search.
+
+For performance reasons, files are filtered using 'find' or 'git
+ls-files' and 'grep'."
+    (interactive
+     (list
+      (project--read-regexp)
+      (and current-prefix-arg (prefix-numeric-value current-prefix-arg))))
+    (let* ((default-directory
+	    (or directory-to-search
+		(when-let ((pr (project-current t)))
+                  (project-root pr))
+		(read-directory-name "Search in directory: ")))
+           (files
+            (mapcar #'find-file-noselect
+		    (delete-dups
+		     (mapcar
+		      #'xref-file-location-file
+		      (mapcar
+		       #'xref-item-location
+		       (xref-matches-in-files regexp (project-files (project-current t)))))))))
+      (multi-occur files regexp nlines))))
+
 (use-package centaur-tabs
   :disabled t
   :demand t
