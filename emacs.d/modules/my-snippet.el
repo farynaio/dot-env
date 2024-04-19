@@ -21,9 +21,10 @@
 
   (defun my/tab-universal ()
     (interactive)
-    (if (word-at-point)
+    (if (symbol-at-point)
       (when (not (tempo-expand-if-complete))
-        (tab-to-tab-stop))
+        (when (and (boundp 'emmet-mode) emmet-mode)
+          (emmet-expand-line nil)))
       (tab-to-tab-stop)))
 
   (defun my/tempo-insert ()
