@@ -15,7 +15,11 @@
 
 (use-package calfw-org
   :after (calfw calendar)
-  :commands cfw:open-org-calendar)
+  :commands cfw:open-org-calendar
+  :custom
+  (cfw:org-overwrite-default-keybinding t)
+  :config
+  (evil-make-overriding-map cfw:calendar-mode-map 'motion))
 
 ;; (defalias 'cal #'cfw:open-org-calendar)
 
