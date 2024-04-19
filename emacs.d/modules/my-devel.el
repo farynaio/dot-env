@@ -17,7 +17,7 @@
   :diminish eldoc-mode
   :custom
   (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-  ;; (eldoc-echo-area-use-multiline-p nil)
+  (eldoc-echo-area-use-multiline-p t)
   :config
   (add-to-list 'evil-emacs-state-modes 'eldoc-mode)
 
@@ -333,13 +333,19 @@ Use when `json-mode' or similar get stuck."
 
 (use-package conf-mode
   :straight nil
-  :mode ("^\\.env$"))
+  :mode ("^\\.env\\(.local\\)?\\(.example\\)?\\'"))
 
 (use-package markdown-mode
   :mode (("\\.markdown\\'" . markdown-mode)
           ("\\.mdx?\\'" . markdown-mode)
           ("README\\.md\\'" . gfm-mode))
-  :hook (markdown-mode . abbrev-mode)
+  :hook ((markdown-mode . abbrev-mode)
+          (markdown-mode .
+            (lambda ()
+              (setq-local fill-column 80)
+
+              ))
+          )
   ;; :config
   ;; (evil-define-key '(visual normal) markdown-mode-map
   ;;   "{" #'backward-paragraph
