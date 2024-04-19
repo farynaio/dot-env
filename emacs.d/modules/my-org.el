@@ -152,7 +152,6 @@
   (org-lowest-priority 68)
   (org-highest-priority 65)
   (org-default-priority 66)
-  (org-default-notes-file my/org-inbox-file-path)
   ;; (org-default-notes-file (expand-file-name "notes.org" org-directory))
   (org-hide-leading-stars t)
   (org-refile-allow-creating-parent-nodes 'confirm)

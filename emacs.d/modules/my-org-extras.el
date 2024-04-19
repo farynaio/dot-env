@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(setq org-default-notes-file my/org-inbox-file-path)
+
 (use-package calfw
   :after calendar)
 
