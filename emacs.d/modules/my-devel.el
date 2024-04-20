@@ -427,6 +427,7 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(rjsx-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
 
   (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
