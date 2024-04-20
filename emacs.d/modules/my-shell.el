@@ -96,6 +96,9 @@
             (propertize " @ " 'face `(:foreground "white"))
             (propertize package-version 'face `(:foreground "#e8a206"))))
         (propertize " • " 'face `(:foreground "white"))
+        (when conda-env-current-name
+          (propertize conda-env-current-name 'face `(:foreground "#8b7d6b"))
+          (propertize " • " 'face `(:foreground "white")))
         (propertize (format-time-string "%I:%M:%S %p") 'face `(:foreground "#5a5b7f"))
         (if (= (user-uid) 0)
           (propertize "\n#" 'face `(:foreground "red2"))
