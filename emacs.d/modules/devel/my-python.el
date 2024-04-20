@@ -72,6 +72,20 @@
     (add-hook 'elpy-mode-hook
       (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))))
 
+(use-package conda
+  :custom
+  (conda-anaconda-home "/home/user/miniforge3/")
+  :config
+  ;; if you want interactive shell support, include:
+  (conda-env-initialize-interactive-shells)
+  ;; if you want eshell support, include:
+  (conda-env-initialize-eshell)
+  ;; if you want auto-activation (see below for details), include:
+  (conda-env-autoactivate-mode t)
+  ;; if you want to automatically activate a conda environment on the opening of a file:
+  (add-hook 'find-file-hook (lambda () (when (bound-and-true-p conda-project-env-path)
+                                            (conda-env-activate-for-buffer)))))
+
 ;; (use-package guess-style
 ;; :config
 ;; (progn
