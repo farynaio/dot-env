@@ -5,10 +5,14 @@
 ;;; TODO install Python formatter
 ;; https://github.com/pythonic-emacs/blacken
 
-(setq gud-pdb-command-name "python3 -m pdb ")
+;; (setq gud-pdb-command-name "python3 -m pdb ")
 
 (use-package python
   :straight nil
+  :hook (python-mode . eglot-ensure)
+  :custom
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "-i --simple-prompt")
   :config
   (evil-make-overriding-map inferior-python-mode-map 'motion)
   (evil-make-overriding-map inferior-python-mode-map 'normal)
@@ -35,10 +39,8 @@
   :custom
   (elpy-shell-echo-output nil)
   ;; (elpy-rpc-backend "jedi")
-  (elpy-rpc-python-command "python3")
+  (elpy-rpc-python-command "python")
   (elpy-rpc-timeout 2)
-  ;; (python-shell-interpreter "ipython")
-  ;; (python-shell-interpreter-args "-i --simple-prompt")
   :config
   (evil-define-key '(normal motion visual) elpy-mode-map
     (kbd "M-.") #'xref-find-definitions
