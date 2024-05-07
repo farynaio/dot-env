@@ -180,6 +180,7 @@
   (org-src-tab-acts-natively t)
   (org-priority-start-cycle-with-default nil)
   (org-columns-default-format "%25ITEM(Task) %TODO %3PRIORITY %7Effort %8CLOCKSUM %TAGS")
+  ;; (org-confirm-babel-evaluate nil)
   (org-confirm-babel-evaluate (lambda (lang body) (not (string= lang "ledger"))))
   (org-cycle-include-plain-lists t)
   (org-hide-block-startup t)
