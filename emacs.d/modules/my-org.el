@@ -259,6 +259,8 @@
     (kbd "C-c C-n") 'org-next-visible-heading
     (kbd "C-c C-p") 'org-previous-visible-heading)
 
+  (add-to-list 'org-modules 'org-habit t)
+
   ;; blogging
   ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
   ;; (require 'ox-publish)
@@ -914,8 +916,9 @@ it can be passed in POS."
   (org-roam-ui-update-on-save t)
   (org-roam-ui-open-on-start t))
 
-(use-package websocket
-  :after org-roam-ui)
+(use-package websocket)
+(use-package simple-httpd)
+(use-package zmq)
 
 ;; (use-package org-roam-server
 ;;   :after org-roam
