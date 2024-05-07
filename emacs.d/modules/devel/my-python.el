@@ -85,13 +85,15 @@
   ;; if you want auto-activation (see below for details), include:
   (conda-env-autoactivate-mode t)
   ;; if you want to automatically activate a conda environment on the opening of a file:
-  (add-hook 'find-file-hook (lambda () (when (bound-and-true-p conda-project-env-path)
-                                            (conda-env-activate-for-buffer)))))
+  (add-hook 'find-file-hook (lambda () (when (bound-and-true-p conda-project-env-path))))
+  (conda-env-activate-for-buffer))
 
 ;; (use-package guess-style
 ;; :config
 ;; (progn
 ;; (add-hook 'python-mode-hook 'guess-style-guess-tabs-mode)))
+
+(use-package code-cells)
 
 (provide 'my-python)
 ;;; my-python.el ends here
