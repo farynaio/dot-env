@@ -259,6 +259,13 @@
   (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql-mode)
 
   ;; (mmm-add-classes
+  ;;   '((mmm-jupyter-python-mode
+  ;;       :submode python-mode
+  ;;       :front "```python"
+  ;;       :back "```")))
+  ;; (mmm-add-mode-ext-class 'org-mode nil 'mmm-jupyter-python-mode)
+
+  ;; (mmm-add-classes
   ;;   '((mmm-jsx-mode
   ;;       :front "\\(return\s\\|n\s\\|(\n\s*\\)<"
   ;;       :front-offset -1
