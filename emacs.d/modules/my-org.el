@@ -261,6 +261,18 @@
 
   (add-to-list 'org-modules 'org-habit t)
 
+  ;; (use-package org-auto-tangle
+  ;; :hook (org-mode . org-auto-tangle-mode))
+
+  (use-package org-tanglesync
+    :disabled t
+    :hook ((org-mode . org-tanglesync-mode)
+            ;; enable watch-mode globally:
+            ((prog-mode text-mode) . org-tanglesync-watch-mode))
+    :bind
+    (( "C-c M-i" . org-tanglesync-process-buffer-interactive)
+      ( "C-c M-a" . org-tanglesync-process-buffer-automatic)))
+
   ;; blogging
   ;; http://www.i3s.unice.fr/~malapert/org/tips/emacs_orgmode.html
   ;; (require 'ox-publish)
