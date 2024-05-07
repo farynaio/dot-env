@@ -290,7 +290,7 @@
     '("\\.html\\'" . (lambda (file-path link-without-schema) (eww-open-file file-path))))
 
   (when (and (boundp 'my/org-inbox-file-path) my/org-inbox-file-path)
-    (org-default-notes-file my/org-inbox-file-path))
+    (setq org-default-notes-file my/org-inbox-file-path))
 
   (defun my/dnd-file-line-insert (uri action)
     "URI to the asset. ACTION is ignored."
