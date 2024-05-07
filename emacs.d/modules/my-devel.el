@@ -781,11 +781,5 @@ ets function symbol on point as initial suggestion."
 
 (setq font-lock-maximum-decoration t)
 
-(require 'my-python)
-(require 'my-web)
-(require 'my-js)
-(require 'my-php)
-(require 'my-ruby)
-
 (provide 'my-devel)
 ;;; my-devel.el ends here

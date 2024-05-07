@@ -85,6 +85,11 @@
 (defvar my-org-activate nil)
 (defvar my-navigation-activate nil)
 (defvar my-devel-activate nil)
+(defvar my-devel-js-activate nil)
+(defvar my-devel-php-activate nil)
+(defvar my-devel-python-activate nil)
+(defvar my-devel-ruby-activate nil)
+(defvar my-devel-web-activate nil)
 (defvar my-ledger-activate nil)
 (defvar my-email-activate nil)
 (defvar my-dired-activate nil)
@@ -113,6 +118,11 @@
   my-org-activate t
   my-navigation-activate t
   my-devel-activate t
+  my-devel-js-activate nil
+  my-devel-php-activate nil
+  my-devel-python-activate nil
+  my-devel-ruby-activate nil
+  my-devel-web-activate nil
   my-ledger-activate nil
   my-email-activate nil
   my-dired-activate t
@@ -149,6 +159,11 @@
 (when my-cleanup-activate (require 'my-cleanup))
 (when my-notifications-activate (require 'my-notifications))
 (when my-devel-activate (require 'my-devel))
+(when my-devel-js-activate (require 'my-devel-js))
+(when my-devel-php-activate (require 'my-devel-php))
+(when my-devel-python-activate (require 'my-devel-python))
+(when my-devel-ruby-activate (require 'my-devel-ruby))
+(when my-devel-web-activate (require 'my-devel-web))
 (when my-ledger-activate (require 'my-ledger))
 (when my-shell-activate (require 'my-shell))
 (when my-rss-activate (require 'my-rss))
