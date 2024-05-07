@@ -71,10 +71,11 @@
     (set-face-attribute 'mode-line nil :family "Noto Sans" :height 120))
   (set-face-attribute 'mode-line-inactive nil :family "Noto Sans" :height 120)
   :hook (after-init . doom-modeline-mode)
+  :custom
+  (mode-line-right-align-edge nil)
   :config
   ;; (setq mode-line-right-align-edge 'right-margin)
   ;; (setq mode-line-right-align-edge 'right-fringe)
-  (setq mode-line-right-align-edge nil)
   ;; (unless (find-font (font-spec :name "nerd-icons"))
   ;; (nerd-icons-install-fonts t))
 )
