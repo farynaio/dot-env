@@ -22,21 +22,6 @@
 
 ;; (defalias 'cal #'cfw:open-org-calendar)
 
-(use-package async
-  :straight (:type git
-             :host github
-             :repo "jwiegley/emacs-async"))
-
-;; This is for async evalaution of org-babel blocks.
-(use-package ob-async
-  :straight (ob-async
-              :type git
-              :host github
-              :repo "astahlm/ob-async"
-              :fork (:host github :repo "adamWithF/ob-async"))
-  :custom
-  (ob-async-no-async-languages-alist '("ipython")))
-
 (use-package org
   :demand t
   :init
@@ -304,6 +289,8 @@
        ("^file:.*\\(ods\\|odt\\)\\'" . my/dnd-file-line-insert)
        ("^file:.*\\(mp3\\|mp4\\|avi\\)\\'" . my/dnd-file-line-insert)))
 
+  (use-package jupyter)
+
   (require 'ob-python)
   (org-babel-do-load-languages
     'org-babel-load-languages
@@ -312,7 +299,24 @@
        (python . t)
        (gnuplot . t)
        (shell . t)
-       (latex . t)))
+       (latex . t)
+       (jupyter . t)))
+
+  (use-package async
+    :straight (:type git
+                :host github
+                :repo "jwiegley/emacs-async"))
+
+  ;; This is for async evalaution of org-babel blocks.
+  (use-package ob-async
+    :straight (ob-async
+                :type git
+                :host github
+                ;; :repo "farynaio/ob-async")
+                :repo "astahlman/ob-async"
+                :fork (:host github :repo "farynaio/ob-async"))
+    :config
+    (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
   (if (executable-find "unoconv")
     (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
