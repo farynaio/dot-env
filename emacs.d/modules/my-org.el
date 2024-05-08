@@ -348,11 +348,12 @@
         ("h" org-archive-subtree "archive heading subtree")
         ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
         ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
-        ("e" org-export-dispatch "org-export-dispatch" :exit t)
         ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
-        ("w" widen "widen narrowed area" :exit t))
+        ("w" widen "widen narrowed area" :exit t)
+        ("x" org-export-dispatch "org-export-dispatch" :exit t))
       "Toggle"
-      (("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+      (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
+        ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
         ;; ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
@@ -657,6 +658,14 @@ should be continued."
       (if (org-at-heading-or-item-p)
         'org-metadown
         'drag-stuff-down)))
+
+  (defun my/org-toggle-emphasis ()
+    "Toggle hiding/showing of org emphasize markers."
+    (interactive)
+    (if org-hide-emphasis-markers
+      (set-variable 'org-hide-emphasis-markers nil)
+      (set-variable 'org-hide-emphasis-markers t))
+    (message "org ephasis toggled %s" (if org-hide-emphasis-markers "on" "off")))
 
   (advice-add 'org-refile :after (lambda (&rest args) (org-save-all-org-buffers)))
   (advice-add 'org-archive-subtree-default :after (lambda () (org-save-all-org-buffers)))
