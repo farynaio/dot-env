@@ -1,5 +1,9 @@
 ;;; Code:
 
+;; mode for writing
+;; https://github.com/rnkn/olivetti
+;; https://github.com/pprevos/emacs-writing-studio/
+
 ;; (if (executable-find "hunspell")
 ;;     (progn
 ;;       (setenv "DICPATH" (concat (getenv "HOME") "/Documents/Dropbox/devel/spelling"))

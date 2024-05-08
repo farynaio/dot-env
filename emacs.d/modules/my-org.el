@@ -2,6 +2,9 @@
 
 ;;; Code:
 
+;; custom style for org
+;; https://github.com/minad/org-modern
+
 (use-package org-contrib
   :after org)
 
