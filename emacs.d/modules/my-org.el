@@ -34,6 +34,7 @@
           (org-mode . iscroll-mode)
           (org-mode . (lambda () (when (and (boundp 'company-mode) company-mode) (company-mode 1))))
           (org-mode . org-appear-mode)
+          (org-mode . afa/org-breadcrums-mode)
           (org-mode . (lambda ()
                         (setq-local
                           paragraph-start "[:graph:]+$"
@@ -358,7 +359,7 @@
       "Toggle"
       (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
         ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-        ;; ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
         ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
       "Navigation"
       (("s" counsel-org-goto "goto heading")
@@ -465,17 +466,20 @@
     "Get the chain of headings from the top level down to the current heading."
     (when (org-roam-file-p)
       (let* ((org-roam-node-title (ignore-errors (org-roam-node-file-title (org-roam-node-at-point))))
-              (filename (if org-roam-node-title org-roam-node-title (buffer-name)))
-              (path (ignore-errors (org-get-outline-path t)))
-              (breadcrumbs
-                (if path
-                  (org-format-outline-path
-                    path
-                    (1- (frame-width))
-                    nil " > ")
-                  "")))
-        (format "[%s] %s" filename breadcrumbs))))
+              (filename (if org-roam-node-title org-roam-node-title (buffer-name))))
+    ;;           (path (ignore-errors (org-get-outline-path t)))
+    ;;           (breadcrumbs
+    ;;             (if path
+    ;;               (org-format-outline-path
+    ;;                 path
+    ;;                 (1- (frame-width))
+    ;;                 nil " > ")
+    ;;               "")))
+        ;; (format "[%s] %s" filename breadcrumbs))))
+        (format "[ %s ]" filename))))
 
+  ;; TODO need to fix it
+  ;; maybe some inspiration from https://github.com/alphapapa/org-sticky-header
   (define-minor-mode afa/org-breadcrums-mode
     "Minor mode to display org breadcrumbs.
     Toggle `afa/org-breadcrums-mode'"
@@ -483,15 +487,16 @@
     :global t
     :init-value nil
     (if afa/org-breadcrums-mode
-      (defvar afa/org-breadcrums-mode-timer
-        (run-with-idle-timer
-          5
-          t
-          (lambda ()
-            (when (derived-mode-p 'org-mode)
-              (setq-local header-line-format (afa/org-breadcrumbs))))))
-      (cancel-timer afa/org-breadcrums-mode-timer)
-      (setq afa/org-breadcrums-mode-timer nil)))
+      (setq-local header-line-format (afa/org-breadcrumbs))))
+      ;; (defvar afa/org-breadcrums-mode-timer
+      ;;   (run-with-idle-timer
+      ;;     5
+      ;;     t
+      ;;     (lambda ()
+      ;;       (when (derived-mode-p 'org-mode)
+      ;;         (setq-local header-line-format (afa/org-breadcrumbs))))))
+      ;; (cancel-timer afa/org-breadcrums-mode-timer)
+      ;; (setq afa/org-breadcrums-mode-timer nil)))
 
   ;; (afa/org-breadcrums-mode 1)
 
