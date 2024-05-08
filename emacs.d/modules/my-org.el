@@ -304,7 +304,7 @@
        ("^file:.*\\(ods\\|odt\\)\\'" . my/dnd-file-line-insert)
        ("^file:.*\\(mp3\\|mp4\\|avi\\)\\'" . my/dnd-file-line-insert)))
 
-  (use-package jupyter)
+  ;; (use-package jupyter)
 
   (require 'ob-python)
   (org-babel-do-load-languages
@@ -315,7 +315,8 @@
        (gnuplot . t)
        (shell . t)
        (latex . t)
-       (jupyter . t)))
+       ;; (jupyter . t)
+       ))
 
   (use-package async
     :straight (:type git
