@@ -387,6 +387,13 @@ end-of-buffer signals; pass the rest to the default handler."
 (auto-save-mode -1)
 ;; (file-name-shadow-mode -1)
 
+(use-package desktop
+  :straight nil
+  :custom
+  (desktop-load-locked-desktop 'ask)
+  :config
+  (desktop-save-mode 1))
+
 ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
 (advice-add 'visual-line-mode :around
   (lambda (orig-fun &rest args)

@@ -60,3 +60,4 @@ emacs.d/projectile-bookmarks.eld
 emacs.d/projectile.cache
 
 vim/vim/init.vim
+.emacs.desktop
