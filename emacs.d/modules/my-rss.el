@@ -41,7 +41,7 @@
     "Wrapper to load the elfeed db from disk before opening"
     (interactive)
     (elfeed-db-load)
-    (message "Updating feeds...")
+    (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))
     (elfeed-update)
     (elfeed-search-update--force)
     (elfeed-db-save)
@@ -138,7 +138,7 @@
 
   (defun my/elfeed-update ()
     (interactive)
-    (message "Updating feeds...")
+    (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))
     (elfeed-update))
 
   ;; based on shr-browse-url
@@ -312,7 +312,11 @@
   :config
   (elfeed-org))
 
-(defalias 'rss #'my/elfeed-load-db-and-open)
+(defun my/rss-daily-fetch ()
+  (my/elfeed-update))
 
+(run-at-time 0 (* 3 60 60) 'my/rss-daily-fetch)
+
+(defalias 'rss #'my/elfeed-load-db-and-open)
 (provide 'my-rss)
 ;;; my-rss.el ends here
