@@ -484,9 +484,9 @@
     "Minor mode to display org breadcrumbs.
     Toggle `afa/org-breadcrums-mode'"
     :lighter "hlp"
-    :global t
+    :global nil
     :init-value nil
-    (if afa/org-breadcrums-mode
+    (when afa/org-breadcrums-mode
       (setq-local header-line-format (afa/org-breadcrumbs))))
       ;; (defvar afa/org-breadcrums-mode-timer
       ;;   (run-with-idle-timer
