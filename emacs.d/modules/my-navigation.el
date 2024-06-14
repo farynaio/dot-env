@@ -100,7 +100,8 @@
        (display-buffer-in-previous-window)
        (reusable-frames . nil))
      ("\\*eldoc"
-       (display-buffer-reuse-window display-buffer-in-previous-window)
+       (display-buffer-reuse-window display-buffer-at-bottom)
+       (window-height . 0.2)
        (reusable-frames . nil))
      ("\\*projectile-files-errors\\*"
        (display-buffer-reuse-window display-buffer-at-bottom)

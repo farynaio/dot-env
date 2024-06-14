@@ -390,6 +390,7 @@ of the block."
   (add-to-list 'evil-emacs-state-modes 'edebug-x-breakpoint-list-mode)
   (add-to-list 'evil-emacs-state-modes 'edebug-x-instrumented-function-list-mode)
   (add-to-list 'evil-emacs-state-modes 'treesit--explorer-tree-mode)
+  (add-to-list 'evil-emacs-state-modes 'eldoc-mode)
 
   ;; (evil-define-key '(motion normal) help-mode-map
   ;;   "l" 'help-go-back

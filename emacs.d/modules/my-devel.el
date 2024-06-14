@@ -18,6 +18,7 @@
   :custom
   (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
   (eldoc-echo-area-use-multiline-p t)
+  ;; (setq eldoc-echo-area-prefer-doc-buffer t) ;; disabled eldoc in echo area
   :config
   (add-to-list 'evil-emacs-state-modes 'eldoc-mode)
 
@@ -35,7 +36,9 @@
   :straight (:type git
               :host github
               :repo "casouri/eldoc-box"
-              :branch "master"))
+              :branch "master")
+  :custom
+  (eldoc-box-cleanup-interval 0))
 
 ;; (defun my/eldoc-buffer-toggle ()
 ;;   "Toggle the display of the Eldoc buffer."
@@ -75,6 +78,7 @@
         ("p" counsel-colors-emacs "color picker" :exit t)
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
         ("o" my/eglot-organize-imports "organize imports" :exit t)
+        ("v" eldoc-box-help-at-point "eldoc" :exit t)
         ;; ("lr" eglot-rename "rename" :exit t)
         )
       "Navigate"
@@ -440,7 +444,7 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
 
   (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
-  ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+  ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-help-at-point t))
   )
 
 ;; (use-package lsp-mode
