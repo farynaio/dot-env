@@ -38,7 +38,7 @@
   (eshell-prefer-lisp-functions nil)
   :config
   (defun my/eshell-init ()
-    (setq-local company-backends '(company-files company-capf))
+    (setq-local company-backends '((company-files company-capf)))
     ;; (setq-local company-backends '(esh-autosuggest company-files ))
     (setenv "PAGER" "cat"))
   (add-hook 'eshell-mode-hook #'my/eshell-init)
