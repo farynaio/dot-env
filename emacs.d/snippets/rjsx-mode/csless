@@ -1,8 +1,6 @@
-# name: connected stateless component
-# key: csless
-# condition: (looking-back "^cless" nil)
+# name: slessr - stateless redux component
+# key: slessr
 # --
-import React from "react"
 import { connect } from "react-redux"
 
 

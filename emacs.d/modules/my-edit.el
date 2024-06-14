@@ -154,7 +154,7 @@
   (company-selection-wrap-around t)
   (company-minimum-prefix-length 2)
   (company-files-exclusions '(".git/" ".DS_Store"))
-  (company-backends '((company-capf company-tempo company-files company-keywords company-dabbrev-code :separate)))
+  (company-backends '((:separate company-yasnippet company-capf company-files company-keywords company-dabbrev-code)))
   :config
   (evil-declare-change-repeat #'company-complete))
 

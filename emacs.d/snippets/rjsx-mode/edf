@@ -1,7 +1,0 @@
-# name: export default function
-# key: edf
-# condition: (looking-back "^edf" nil)
-# --
-export default function $1() {
-
-}

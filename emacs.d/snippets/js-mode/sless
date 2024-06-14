@@ -1,9 +1,6 @@
-# name: Stateless component
+# name: sless - stateless component
 # key: sless
-# condition: (looking-back "^sless" nil)
 # --
-import React from "react"
-import PropTypes from 'prop-types'
 
 const $1 = (\{$2\}) => {
   return (

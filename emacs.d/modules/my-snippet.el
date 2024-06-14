@@ -1,5 +1,35 @@
 ;;; Code:
 
+(use-package yasnippet
+  ;; :disabled t
+  :defer 0.3
+  :diminish yas-minor-mode
+  :custom
+  (yas-new-snippet-default
+    "# name: $2
+# key: $1
+# --
+$0`(yas-escape-text yas-selected-text)`")
+  :config
+  ;; (add-hook 'prog-mode-hook (lambda () (yas-minor-mode)))
+  (yas-reload-all)
+  (yas-global-mode t)
+
+  (pretty-hydra-define hydra-snippet
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "sticky-note" "Snippets" 1 -0.05))
+    ("Snippet"
+      (("s" yas-insert-snippet "insert")
+        ("n" yas-new-snippet "new")
+        ("e" yas-visit-snippet-file "edit")
+        ("r" yas-reload-all "reload"))))
+
+  (evil-define-key 'normal global-map
+    (kbd ",i") 'hydra-snippet/body))
+
+(use-package ivy-yasnippet
+  ;; :disabled t
+  :after (ivy yasnippet))
+
 ;; (require 'org-tempo)
 ;; (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 
@@ -8,6 +38,7 @@
 ;; https://www.lysator.liu.se/~davidk/elisp/
 ;; https://www.emacswiki.org/emacs/TempoMode
 (use-package tempo
+  :disabled t
   :straight nil
   :custom
   (tempo-interactive t)
@@ -17,15 +48,15 @@
   (require 'my-snippets-lisp)
 
   (evil-define-key 'insert prog-mode-map
-    (kbd "<tab>") #'my/tab-universal)
+    (kbd "M-z") (lambda ()
+                  (interactive)
+                  ;; (if (symbol-at-point)
+                    (when (not (tempo-expand-if-complete))
+                      (call-interactively #'company-tempo)
+                      (tempo-expand-if-complete))))
+  ;; )
 
-  (defun my/tab-universal ()
-    (interactive)
-    (if (symbol-at-point)
-      (when (not (tempo-expand-if-complete))
-        (when (and (boundp 'emmet-mode) emmet-mode)
-          (emmet-expand-line nil)))
-      (tab-to-tab-stop)))
+  ;; (advice-add 'company-tempo :after (lambda (&rest) (tempo-expand-if-complete)))
 
   (defun my/tempo-insert ()
     (interactive)

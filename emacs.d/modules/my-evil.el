@@ -13,6 +13,7 @@
     ("C-k" . kill-line)
     ("C-x ." . my/tempo-insert)
     ("C-x ." . my/tempo-insert)
+    ("M-z" . ivy-yasnippet)
     :map evil-normal-state-map
     ("DEL" . ignore) ;; Unbind 'evil-backward-char'
     ("C-e" . move-end-of-line)
@@ -58,6 +59,7 @@
     ("C-u" . evil-scroll-up)
     ("C-c C-S-o" . browse-url-generic)
     ("d" . evil-delete)
+    ("M-z" . ivy-yasnippet)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
     ("C-a" . my/smarter-move-beginning-of-line)

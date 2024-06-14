@@ -1,0 +1,6 @@
+# name: edf - export default function
+# key: edf
+# --
+export default function $1() {
+
+}

@@ -1,6 +1,6 @@
-# name: create new Promise JS
-# key: Promise
+# name: promise - create new promise JS2
+# key: promise
 # --
-new Promise(function(resolve, reject) {
+new Promise((resolve, reject) => {
   $0
 })

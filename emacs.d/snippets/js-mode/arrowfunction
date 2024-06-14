@@ -1,4 +1,4 @@
-# name: arrow function
-# key: =>
+# name: af - arrow function
+# key: af
 # --
 ($1) => $2

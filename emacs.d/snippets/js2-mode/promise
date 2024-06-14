@@ -1,6 +1,0 @@
-# name: create new Promise JS2
-# key: Promise
-# --
-new Promise((resolve, reject) => {
-  $0
-})

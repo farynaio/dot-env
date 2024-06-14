@@ -600,31 +600,6 @@ Use when `json-mode' or similar get stuck."
 (use-package go-mode
   :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'"))
 
-(use-package yasnippet
-  :disabled t
-  :defer 0.3
-  :diminish yas-minor-mode
-  :custom
-  (yas-new-snippet-default
-    "# name: $2
-# key: $1
-# --
-$0`(yas-escape-text yas-selected-text)`")
-  :config
-  (add-hook 'prog-mode-hook (lambda () (yas-reload-all) (yas-minor-mode)))
-  (yas-reload-all)
-
-  (pretty-hydra-define hydra-snippet
-    (:hint nil :color teal :quit-key "q" :title (with-faicon "sticky-note" "Snippets" 1 -0.05))
-    ("Snippet"
-      (("s" yas-insert-snippet "insert")
-        ("n" yas-new-snippet "new")
-        ("e" yas-visit-snippet-file "edit")
-        ("r" yas-reload-all "reload"))))
-
-  (evil-define-key 'normal global-map
-    (kbd ",i") 'hydra-snippet/body))
-
 ;; (use-package plantuml-mode
 ;;   :mode ("\\.plantuml\\'" "\\.puml\\'")
 ;;   :custom (plantuml-jar-path (expand-file-name (format "%s/plantuml.jar" xdg-lib))))
