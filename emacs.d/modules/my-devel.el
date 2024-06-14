@@ -82,8 +82,8 @@
         ;; ("lr" eglot-rename "rename" :exit t)
         )
       "Navigate"
-      (("d" my/xref-find-definitions "find definitions" :exit t)
-        ("r" my/xref-find-references "find references" :exit t)
+      (("d" xref-find-definitions "find definitions" :exit t)
+        ("r" xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("i" counsel-imenu "imenu" :exit t)
@@ -104,12 +104,14 @@
       "Assess"
       (("cc" flycheck-mode "flycheck" :toggle t)
         ("cm" flymake-mode "flymake" :toggle t)
-        ("si" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
-        ("se" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
+        ("ti" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
+        ("te" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
         ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
-        )))
+        ))
+  )
+
 (use-package prog-mode
   :straight nil
   :hook ((prog-mode . eldoc-mode)
@@ -442,6 +444,7 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(rjsx-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
 
   (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-help-at-point t))

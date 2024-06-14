@@ -13,6 +13,8 @@
     ("C-k" . kill-line)
     ("C-x ." . my/tempo-insert)
     ("C-x ." . my/tempo-insert)
+    ("C-n" . completion-at-point)
+    ("C-p" . completion-at-point)
     ("M-z" . ivy-yasnippet)
     :map evil-normal-state-map
     ("DEL" . ignore) ;; Unbind 'evil-backward-char'

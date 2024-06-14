@@ -247,14 +247,14 @@
     (kbd "<up>")   'evil-previous-visual-line
     (kbd "C-c C-s") 'org-schedule)
 
-  (evil-define-key 'insert org-mode-map
-    (kbd "C-n") 'completion-at-point
-    (kbd "C-p") 'completion-at-point)
+  ;; (evil-define-key 'insert org-mode-map
+  ;;   (kbd "C-n") 'completion-at-point
+  ;;   (kbd "C-p") 'completion-at-point)
 
   (evil-define-key 'normal org-mode-map
-    (kbd "C-n") 'completion-at-point
-    (kbd "C-p") 'completion-at-point
-    (kbd "<tab>") 'org-cycle
+    ;; (kbd "C-n") 'completion-at-point
+    ;; (kbd "C-p") 'completion-at-point
+    ;; (kbd "<tab>") 'org-cycle
     (kbd "TAB") 'org-cycle)
   ;; (kbd "C-c s") 'hydra-spelling/body)
   ;; (kbd ",t") 'my/google-translate-at-point)
