@@ -82,7 +82,8 @@
   (major-mode-hydra-define+ js2-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
     ("Action"
-      (("f" my/prettier-format-buffer "prettier buffer" :exit t))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t))))
   ;; Use js2-mode for Node scripts
   ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
   )
@@ -152,7 +153,8 @@
   (major-mode-hydra-define+ typescript-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "TSX" 1 -0.05))
     ("Action"
-      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
 
 (use-package typescript-ts-mode
   :disabled t
@@ -169,7 +171,8 @@
   (major-mode-hydra-define+ typescript-ts-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "Typescript" 1 -0.05))
     ("Action"
-      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."

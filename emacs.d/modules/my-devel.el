@@ -62,37 +62,11 @@
 (use-package hl-todo
   :commands hl-todo-mode)
 
-(use-package prog-mode
-  :straight nil
-  :hook ((prog-mode . eldoc-mode)
-          (prog-mode . rainbow-delimiters-mode)
-          (prog-mode . hl-todo-mode)
-          (prog-mode . highlight-thing-mode)
-          (prog-mode . company-mode)
-          (prog-mode . electric-pair-local-mode))
-  :config
-  (evil-define-key 'normal prog-mode-map
-    (kbd "<S-up>") #'evil-numbers/inc-at-pt
-    (kbd "<S-down>") #'evil-numbers/dec-at-pt
-    (kbd "C-=") #'er/expand-region
-    (kbd "C-+") #'er/contract-region)
+(defun my/eglot-organize-imports ()
+  (interactive)
+  (eglot-code-action-organize-imports (point-min)))
 
-  (cond ((and (fboundp 'company-mode) company-mode)
-    (evil-define-key 'normal prog-mode-map
-      (kbd "C-/") #'company-complete))
-    ((and (fboundp 'corfu-mode) corfu-mode)
-      (evil-define-key 'normal prog-mode-map
-        (kbd "C-/") #'corfu-insert)))
-
-  (evil-define-key 'insert prog-mode-map
-    (kbd "C-/") #'company-complete
-    (kbd "C-<return>") #'tempo-expand-if-complete)
-
-  (evil-define-key 'normal prog-mode-map
-    (kbd "C-c m") #'hydra-merge/body
-    (kbd "/") #'counsel-grep)
-
-  (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode)
+(major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("." my/tempo-insert "insert snippet" :exit t)
@@ -100,7 +74,7 @@
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
         ("p" counsel-colors-emacs "color picker" :exit t)
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ("lo" my/eglot-organize-imports "organize imports" :exit t)
+        ("o" my/eglot-organize-imports "organize imports" :exit t)
         ;; ("lr" eglot-rename "rename" :exit t)
         )
       "Navigate"
@@ -132,6 +106,35 @@
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
+(use-package prog-mode
+  :straight nil
+  :hook ((prog-mode . eldoc-mode)
+          (prog-mode . rainbow-delimiters-mode)
+          (prog-mode . hl-todo-mode)
+          (prog-mode . highlight-thing-mode)
+          (prog-mode . company-mode)
+          (prog-mode . electric-pair-local-mode))
+  :config
+  (evil-define-key 'normal prog-mode-map
+    (kbd "<S-up>") #'evil-numbers/inc-at-pt
+    (kbd "<S-down>") #'evil-numbers/dec-at-pt
+    (kbd "C-=") #'er/expand-region
+    (kbd "C-+") #'er/contract-region)
+
+  (cond ((and (fboundp 'company-mode) company-mode)
+    (evil-define-key 'normal prog-mode-map
+      (kbd "C-/") #'company-complete))
+    ((and (fboundp 'corfu-mode) corfu-mode)
+      (evil-define-key 'normal prog-mode-map
+        (kbd "C-/") #'corfu-insert)))
+
+  (evil-define-key 'insert prog-mode-map
+    (kbd "C-/") #'company-complete
+    (kbd "C-<return>") #'tempo-expand-if-complete)
+
+  (evil-define-key 'normal prog-mode-map
+    (kbd "C-c m") #'hydra-merge/body
+    (kbd "/") #'counsel-grep)
 
   (defun my/web-mode-toggle ()
     "Toggle switch between `web-mode' and native major mode."
@@ -439,10 +442,6 @@ Use when `json-mode' or similar get stuck."
   (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
   )
-
-  (defun my/eglot-organize-imports ()
-    (interactive)
-    (eglot-code-action-organize-imports-ts (goto-char (point-min))))
 
 ;; (use-package lsp-mode
 ;;   :commands (lsp lsp-deferred)
