@@ -1,15 +1,56 @@
 ;;; Code:
 
+(setq my/prettier-modes '(css-mode js-mode yaml-mode typescript-mode))
+
+;; TODO also "prettier" key in your package.json file.
+(setq my/prettier-config-files
+  '(".prettierrc"
+     ".prettierrc.json"
+     ".prettierrc.yml"
+     ".prettierrc.yaml"
+     ".prettierrc.json5"
+     ".prettierrc.js"
+     ".prettierrc.cjs"
+     "prettier.config.js"
+     "prettier.config.cjs"
+     ".prettierrc.toml"))
+
+(define-minor-mode my/prettier-mode
+  "My Prettier mode implementation."
+  :lighter " Prettier"
+  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
+    ;; (prettier-mode 1)
+    ;; (prettier-mode -1)
+    (apheleia-mode 1)
+    (apheleia-mode -1)))
+
+(use-package prettier
+  :disabled t
+  :commands prettier-prettify
+  :hook ((rjsx-mode . (lambda ()
+   (when (string-match "\.tsx?$" buffer-file-name)
+     (setq-local prettier-parsers '(typescript)))))))
+
+;; Prettier support
+(use-package apheleia
+  :commands (rjsx-mode js2-mode js-mode)
+  ;; :commands (my/prettier-mode apheleia-format-buffer)
+  :diminish apheleia-mode
+  :config
+  (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier)))
+
 (defun my/prettier-format-buffer ()
   "Prettify buffer using Prettier if available"
   (interactive)
-  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) val))) my/prettier-config-files)
+  (if (executable-find "prettier")
     (progn
-      (call-interactively 'apheleia-format-buffer (alist-get major-mode apheleia-mode-alist))
-      ;; (call-interactively 'apheleia-format-buffer "prettier")
-      ;; (call-interactively 'prettier-prettify)
-      (message "Buffer prittified"))
-    (message "Project doesn't have Prettier config!")))
+      (call-interactively 'apheleia-format-buffer "prettier")
+      (message "Buffer prettified"))
+    (message "prettier not installed")))
+
+  (defun my/eglot-organize-imports-ts ()
+    (interactive)
+    (eglot-code-action-organize-imports-ts (goto-char (point-min))))
 
 (use-package js
   :straight nil
@@ -67,8 +108,9 @@
           ;; (rjsx-mode . lsp-deferred)
           (rjsx-mode . eglot-ensure)
           ;; (rjsx-mode .
-            ;; (lambda ()
-              ;; (setq-local apheleia-formatter "prettier")))
+          ;;   (lambda ()
+          ;;     (setq-local company-backends '((:separate company-tempo company-capf company-files company-keywords company-dabbrev-code))))
+          ;;     ;; (setq-local apheleia-formatter "prettier")))
           )
           ;; (rjsx-mode . my/prettier-mode))
   :commands rjsx-mode
@@ -79,7 +121,8 @@
   (major-mode-hydra-define+ rjsx-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
     ("Action"
-      (("f" my/prettier-format-buffer "prettier buffer" :exit t)))))
+      (("f" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
 
 (use-package vue-mode
   :mode "\\.vue\\'")
@@ -87,51 +130,11 @@
 (add-hook 'mmm-mode-hook
   (lambda () (set-face-background 'mmm-default-submode-face nil)))
 
-(setq my/prettier-modes '(css-mode js-mode yaml-mode typescript-mode))
-
-;; TODO also "prettier" key in your package.json file.
-(setq my/prettier-config-files
-  '(".prettierrc"
-     ".prettierrc.json"
-     ".prettierrc.yml"
-     ".prettierrc.yaml"
-     ".prettierrc.json5"
-     ".prettierrc.js"
-     ".prettierrc.cjs"
-     "prettier.config.js"
-     "prettier.config.cjs"
-     ".prettierrc.toml"))
-
-(define-minor-mode my/prettier-mode
-  "My Prettier mode implementation."
-  :lighter " Prettier"
-  (if (map-some (lambda (key val) (file-exists-p (concat (projectile-project-root) key))) my/prettier-config-files)
-    ;; (prettier-mode 1)
-    ;; (prettier-mode -1)
-    (apheleia-mode 1)
-    (apheleia-mode -1)
-    ))
-
-(use-package prettier
-  :disabled t
-  :commands prettier-prettify
-  :hook ((rjsx-mode . (lambda ()
-   (when (string-match "\.tsx?$" buffer-file-name)
-     (setq-local prettier-parsers '(typescript)))))))
-
-;; Prettier support
-(use-package apheleia
-  :commands (my/prettier-mode apheleia-format-buffer)
-  :diminish apheleia-mode
-  :config
-  (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier)))
-
 ;; Use binaries in node_modules
 (use-package add-node-modules-path
   :hook ((js-mode . add-node-modules-path)
           (rjsx-mode . add-node-modules-path)
           (typescript-mode . add-node-modules-path)))
-
 
 ;; NOTE not maintaned
 ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
