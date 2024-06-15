@@ -1,4 +1,4 @@
-# name: console.warn(...)
-# key: consolew
+# name: cw console.warn(...)
+# key: cw
 # --
 console.warn($0)

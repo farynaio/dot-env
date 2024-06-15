@@ -1,7 +1,6 @@
 # name: class - class basic
 # key: class
 # --
-
 class $1 extends$2 {
   constructor() {
     $3

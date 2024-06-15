@@ -1,0 +1,21 @@
+# name: rnfc - react native function component
+# key: rnfc
+# --
+import { StyleSheet, Text, View } from 'react-native'
+
+const $1 = ($2) => {
+  return (
+    <View style={styles.view}>
+      <Text>$1</Text>
+    </View>
+  )
+};
+
+const styles = StyleSheet.create({
+view: {
+ flex: 1,
+ justifyContent: 'center',
+ alignItems: 'center',
+}})
+
+export default $1

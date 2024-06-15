@@ -1,0 +1,6 @@
+# name: ruc - useCallback
+# key: ruc
+# --
+useCallback(() => {
+  $1
+}, [$2])

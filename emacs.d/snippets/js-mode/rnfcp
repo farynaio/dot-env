@@ -1,0 +1,23 @@
+# name: rnfcp - react native function component with props
+# key: rnfcp
+# --
+import { StyleSheet, Text, View } from 'react-native'
+
+interface $1Props {}
+
+const $1 = ($2) => {
+  return (
+    <View style={styles.view}>
+      <Text>$1</Text>
+    </View>
+  )
+};
+
+const styles = StyleSheet.create({
+  view: {
+   flex: 1,
+   justifyContent: 'center',
+   alignItems: 'center',
+  }})
+
+export default $1

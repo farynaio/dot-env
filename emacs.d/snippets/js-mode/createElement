@@ -1,4 +1,4 @@
-# name: createe - document.createElement()
-# key: createe
+# name: ce - document.createElement()
+# key: ce
 # --
-var $1 = document.createElement("$2");
+const $1 = document.createElement("$2");

@@ -1,4 +1,0 @@
-# name: console.warn(...)
-# key: consolew
-# --
-console.warn($0)

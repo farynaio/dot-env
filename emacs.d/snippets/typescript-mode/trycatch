@@ -1,9 +1,0 @@
-# name: try catch block
-# key: try
-# --
-try {
-  $1
-
-} catch (err) {
-  $2
-}

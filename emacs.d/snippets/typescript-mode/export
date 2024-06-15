@@ -1,5 +1,0 @@
-# name: export default
-# key: export
-# condition: (looking-back "^export" nil)
-# --
-export default $0

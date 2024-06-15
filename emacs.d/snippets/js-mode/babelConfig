@@ -1,5 +1,5 @@
-# name: jsconfig.json content
-# key: jsconfig
+# name: babelConfig - babel config
+# key: babelConfig
 # --
 {
   "compilerOptions": {

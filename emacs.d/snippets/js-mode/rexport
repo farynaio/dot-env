@@ -1,5 +1,4 @@
-# name: re-export default
+# name: reexport default
 # key: rexport
-# condition: (looking-back "^rexport" nil)
 # --
 export { default as $1 } from "./$1"

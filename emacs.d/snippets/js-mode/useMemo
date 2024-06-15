@@ -1,0 +1,6 @@
+# name: rum - useMemo
+# key: rum
+# --
+useMemo(() => {
+  $1
+}, [$2])

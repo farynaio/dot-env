@@ -1,7 +1,6 @@
 # name: sless - stateless component
 # key: sless
 # --
-
 const $1 = (\{$2\}) => {
   return (
     $0

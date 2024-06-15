@@ -1,0 +1,6 @@
+# name: rue - useEffect
+# key: rue
+# --
+useEffect(() => {
+  $1
+}, [$2])

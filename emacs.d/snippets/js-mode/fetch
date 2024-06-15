@@ -1,0 +1,10 @@
+# name: fetch
+# key: fetch
+# --
+await fetch('$1', {
+  method: 'POST'
+  headers: {
+  'Content/Type': 'application/json'
+  }
+body: JSON.stringify({$2})
+}).then(r => r.json())
