@@ -88,8 +88,8 @@
         ("g" counsel-projectile-git-grep "git grep" :exit t)
         ("i" counsel-imenu "imenu" :exit t)
         ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
-        ("e" ediff "ediff files" :exit t)
-        ("b" ediff-buffers "ediff buffers" :exit t)
+        ("ed" ediff "ediff files" :exit t)
+        ("eb" ediff-buffers "ediff buffers" :exit t)
         ;; ("i" lsp-ui-imenu "imenu" :exit t)
         ;; ("w" eglot-find-typeDefinition "find type definition" :exit t)
         ;; ("C-c e D" . eglot-find-declaration)
@@ -104,13 +104,12 @@
       "Assess"
       (("cc" flycheck-mode "flycheck" :toggle t)
         ("cm" flymake-mode "flymake" :toggle t)
-        ("ti" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
-        ("te" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
+        ("si" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
+        ("se" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
         ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
-        ))
-  )
+        )))
 
 (use-package prog-mode
   :straight nil

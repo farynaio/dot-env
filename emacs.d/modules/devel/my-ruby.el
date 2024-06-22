@@ -39,7 +39,7 @@
 ;;   (rbenv-use-global))
 
 (use-package projectile-rails
-  :requires projectile
+  :after projectile
   :hook (ruby-mode . (lambda () (when (projectile-mode) (projectile-rails-on)))))
 
 ;; (use-package flymake-ruby)
