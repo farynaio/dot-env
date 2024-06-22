@@ -295,5 +295,5 @@
     (native--compile-async `(,custom-file) t nil)))
 
 (when (and (fboundp 'native-comp-available-p) (native-comp-available-p) my/emacs-should-compile)
-  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/" "~/.emacs.d/init.el") t nil))
+  (native--compile-async '("~/.emacs.d/lisp/" "~/.emacs.d/themes/" "~/.emacs.d/modules/") t nil))
 ;;; init.el ends here
