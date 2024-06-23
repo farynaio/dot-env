@@ -13,6 +13,9 @@
 
 (setq-default auth-sources '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
 
+(require 'tls)
+(require 'gnutls)
+
 (eval-when-compile
   (defvar oauth--token-data ())
   (defvar url-http-method ())
@@ -157,9 +160,6 @@
   (set-charset-priority 'unicode))
 
 (set-default-coding-systems 'utf-8)
-
-(require 'tls)
-(require 'gnutls)
 
 (defvar my/local-config-file-path (expand-file-name "~/.emacs.d/emacs-local-config/local-config.el"))
 (defvar my/emacs-should-compile nil)
