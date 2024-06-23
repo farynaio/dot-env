@@ -390,7 +390,7 @@ end-of-buffer signals; pass the rest to the default handler."
 (use-package desktop
   :straight nil
   :custom
-  (desktop-load-locked-desktop 'ask)
+  (desktop-load-locked-desktop t)
   :config
   (desktop-save-mode 1))
 
