@@ -147,6 +147,7 @@
 (run-with-idle-timer (* 60 5) t 'garbage-collect)
 
 (when (eq system-type 'darwin)
+  (require 'gnutls)
   (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
   (setq
     mac-command-modifier 'super
