@@ -332,7 +332,7 @@
   (if (executable-find "ack")
     (let* ((regexp (grep-read-regexp))
             (dir (read-directory-name "Base directory: " nil default-directory t))
-            (command (concat "ack '" regexp "' " dir)))
+            (command (concat "ack '" regexp "' '" dir "'")))
       (unless (file-accessible-directory-p dir)
         (error (concat "directory: '" dir "' is not accessible.")))
 	    (compilation-start (concat command " < " null-device) 'grep-mode))
