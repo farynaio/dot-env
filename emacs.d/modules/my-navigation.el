@@ -335,7 +335,7 @@
             (command (concat "ack '" regexp "' " dir)))
       (unless (file-accessible-directory-p dir)
         (error (concat "directory: '" dir "' is not accessible.")))
-	    (compilation-start command 'grep-mode))
+	    (compilation-start (concat command " < " null-device) 'grep-mode))
     (message "No executable 'ack' found!")))
 
 (evil-define-key 'normal global-map
