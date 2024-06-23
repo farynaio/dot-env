@@ -47,6 +47,7 @@
     (elfeed-db-save)
     (elfeed))
   :custom
+  (elfeed-db-directory (expand-file-name "rss" user-emacs-directory))
   (elfeed-search-filter "-ignore -ok -junk")
   (elfeed-search-title-max-width 115)
   (elfeed-search-remain-on-entry t)
@@ -308,7 +309,8 @@
   :custom
   (rmh-elfeed-org-files
     (list
-      (expand-file-name "rss/feeds.org" user-emacs-directory)))
+      ;; (expand-file-name "rss/feeds.org" user-emacs-directory)))
+      (expand-file-name "feeds.org" "/home/user/Sync/elfeed")))
   :config
   (elfeed-org))
 
