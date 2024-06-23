@@ -154,5 +154,8 @@ ARGS are omited")
 ;;       (evil-ex-nohighlight)
 ;;       )))
 
+(defun replace-in-string (what with in)
+  (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
+
 (provide 'my-utils)
 ;;; my-utils.el ends here
