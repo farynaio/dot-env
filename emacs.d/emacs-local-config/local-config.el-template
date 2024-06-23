@@ -83,6 +83,7 @@
 (defvar my-writing-activate nil)
 (defvar my-evil-activate nil)
 (defvar my-org-activate nil)
+(defvar my-org-extras-activate nil)
 (defvar my-navigation-activate nil)
 (defvar my-devel-activate nil)
 (defvar my-devel-js-activate nil)
@@ -113,16 +114,19 @@
 (setq
   my-utils-activate t
   my-edit-activate t
-  my-writing-activate nil
+  my-git-activate t
   my-evil-activate t
-  my-org-activate t
   my-navigation-activate t
+  my-org-extras-activate nil
+  my-org-activate t
+  my-org-extras-activate nil
+  my-writing-activate t
   my-devel-activate t
-  my-devel-js-activate nil
+  my-devel-js-activate t
   my-devel-php-activate nil
   my-devel-python-activate nil
   my-devel-ruby-activate nil
-  my-devel-web-activate nil
+  my-devel-web-activate t
   my-ledger-activate nil
   my-email-activate nil
   my-dired-activate t
@@ -133,15 +137,14 @@
   my-shell-activate t
   my-encrypt-activate t
   my-cleanup-activate t
+  my-snippet-activate t
   my-rss-activate nil
   my-org-caldav-activate nil
   my-taskjuggler-activate nil
-  my-git-activate t
   my-hydra-activate t
   my-presentation-activate nil
   my-debug-activate t
-  my-fun-activate nil
-  my-snippet-activate t)
+  my-fun-activate nil)
 
 (when my-utils-activate (require 'my-utils))
 (when my-evil-activate (require 'my-evil))
@@ -154,6 +157,7 @@
 (when my-navigation-activate (require 'my-navigation))
 (when my-git-activate (require 'my-git))
 (when my-org-activate (require 'my-org))
+(when my-org-extras-activate (require 'my-org-extras))
 (when my-writing-activate (require 'my-writing))
 (when my-snippet-activate (require 'my-snippet))
 (when my-cleanup-activate (require 'my-cleanup))
