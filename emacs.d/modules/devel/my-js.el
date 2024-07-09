@@ -140,12 +140,13 @@
 ;; NOTE not maintaned
 ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
 (use-package typescript-mode
-  :disabled t
-  :mode ("\\.tsx?\\'" . typescript-mode)
+  ;; :disabled t
+  ;; :mode ("\\.tsx?\\'" . typescript-mode)
   :hook ((typescript-mode . mmm-mode)
           ;; (typescript-mode . lsp-deferred)
           (typescript-mode . eglot-ensure)
           (typescript-mode . emmet-mode)
+          (typescript-mode . apheleia-mode)
           (typescript-mode . subword-mode))
   :custom
   (typescript-indent-level 2)
@@ -154,7 +155,8 @@
     (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "TSX" 1 -0.05))
     ("Action"
       (("f" my/prettier-format-buffer "prettier buffer" :exit t)
-        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t))))
+  (setq auto-mode-alist (delete '("\\.tsx?\\'" . typescript-mode) auto-mode-alist)))
 
 (use-package typescript-ts-mode
   :disabled t
