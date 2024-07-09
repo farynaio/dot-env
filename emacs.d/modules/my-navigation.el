@@ -195,8 +195,10 @@
 (use-package tab-bar
   :straight nil
   :custom
-  (tab-bar-tab-name-truncated-max 15)
-  (tab-bar-tab-name-current #'tab-bar-tab-name-truncated)
+  (tab-bar-auto-width t)
+  (tab-bar-auto-width-max '(150 15))
+  ;; (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
+  ;; (tab-bar-tab-name-truncated-max 30)
   :config
   (tab-bar-mode 1))
 
