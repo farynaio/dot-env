@@ -61,7 +61,6 @@
     ("C-u" . evil-scroll-up)
     ("C-c C-S-o" . browse-url-generic)
     ("d" . evil-delete)
-    ("M-z" . ivy-yasnippet)
     :map evil-visual-state-map
     ("C-e" . move-end-of-line)
     ("C-a" . my/smarter-move-beginning-of-line)
