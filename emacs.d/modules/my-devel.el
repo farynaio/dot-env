@@ -8,6 +8,8 @@
 ;; (add-hook 'conf-javaprop-mode-hook #'my/breadcrumb-set-local t)
 ;; (add-hook 'conf-toml-mode-hook #'my/breadcrumb-set-local t)
 
+(use-package topsy)
+
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode)
 
@@ -118,7 +120,8 @@
           (prog-mode . hl-todo-mode)
           (prog-mode . highlight-thing-mode)
           (prog-mode . company-mode)
-          (prog-mode . electric-pair-local-mode))
+          (prog-mode . electric-pair-local-mode)
+          (prog-mode . topsy-mode))
   :config
   (evil-define-key 'normal prog-mode-map
     (kbd "<S-up>") #'evil-numbers/inc-at-pt
