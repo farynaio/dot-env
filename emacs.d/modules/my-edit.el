@@ -7,6 +7,11 @@
   (tooltip-mode -1))
 
 (setq-default
+  compare-ignore-case t
+  compare-ignore-whitespace t
+  warning-minimum-level :error
+  warning-suppress-types '((comp) (bytecomp))
+  compilation-skip-threshold 2
   cursor-in-non-selected-windows t
   display-time-default-load-average nil
   scroll-conservatively most-positive-fixnum ; Always scroll by one line
@@ -34,8 +39,6 @@
   hscroll-step 1
   word-wrap t
   shift-select-mode nil
-  compare-ignore-case t
-  compare-ignore-whitespace t
   sentence-end-double-space nil
   revert-without-query '(".*")
   undo-limit 160000
