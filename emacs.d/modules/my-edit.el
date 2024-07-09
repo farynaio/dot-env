@@ -391,6 +391,7 @@ end-of-buffer signals; pass the rest to the default handler."
   :straight nil
   :custom
   (desktop-load-locked-desktop t)
+  (desktop-dirname "~/.emacs.d/")
   :config
   (desktop-save-mode 1))
 
