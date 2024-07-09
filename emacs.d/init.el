@@ -40,6 +40,8 @@
 ;; (setenv "PATH" (concat "~/.rbenv/shims:" "~/.rbenv/bin:" "/usr/local/bin:" (getenv "PATH")))
 
 (when (eq system-type 'darwin)
+  (select-frame-set-input-focus (selected-frame))
+  (modify-all-frames-parameters '((inhibit-double-buffering . t)))
   (setq browse-url-chrome-program "chrome")
   (when (file-accessible-directory-p "/Applications/Firefox.app")
     ;; (setenv "PATH" (concat "~/Applications/Firefox.app/Contents/MacOS:" (getenv "PATH")))
