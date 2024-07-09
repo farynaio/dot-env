@@ -33,7 +33,7 @@
 
 ;; Prettier support
 (use-package apheleia
-  :commands (rjsx-mode js2-mode js-mode)
+  :commands (rjsx-mode js2-mode js-mode apheleia-format-buffer)
   ;; :commands (my/prettier-mode apheleia-format-buffer)
   :diminish apheleia-mode
   :config
@@ -44,7 +44,7 @@
   (interactive)
   (if (executable-find "prettier")
     (progn
-      (call-interactively 'apheleia-format-buffer "prettier")
+      (call-interactively 'apheleia-format-buffer)
       (message "Buffer prettified"))
     (message "prettier not installed")))
 
@@ -108,6 +108,7 @@
           (rjsx-mode . mmm-mode)
           ;; (rjsx-mode . lsp-deferred)
           (rjsx-mode . eglot-ensure)
+          (rjsx-mode . apheleia-mode)
           ;; (rjsx-mode .
           ;;   (lambda ()
           ;;     (setq-local company-backends '((:separate company-tempo company-capf company-files company-keywords company-dabbrev-code))))
