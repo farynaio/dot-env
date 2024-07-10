@@ -584,16 +584,15 @@ Use when `json-mode' or similar get stuck."
 (use-package terraform-mode
   :mode "\\.tf\\'")
 
+(use-package dockerfile-mode
+  :mode "^Dockerfile\\'")
+
 ;; TODO what it does?
 ;; (use-package company-web
 ;; :requires company-mode)
 
 ;; (use-package company-quickhelp
 ;; :requires company-mode)
-
-;; (use-package dockerfile-mode
-;;   :disabled t
-;;   :mode "^Dockerfile\\'")
 
 (use-package dockerfile-ts-mode
   :straight nil
