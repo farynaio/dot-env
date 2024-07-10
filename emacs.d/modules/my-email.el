@@ -246,8 +246,8 @@ ARGS is not processed."
 
   (defun my/mu4e-compose-mode-hook ()
     (setq-local
-      fill-column 72
-      company-backends '((company-bbdb company-files company-dabbrev)))
+      fill-column 72)
+      ;; company-backends '((company-bbdb company-files company-dabbrev)))
     (save-excursion
       (goto-char (point-min))
       (insert (format "X-Mailer: mu4e %s; emacs %s\n" mu4e-mu-version emacs-version))))

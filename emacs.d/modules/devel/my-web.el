@@ -88,9 +88,10 @@
   :custom
   (css-indent-offset tab-width)
   :config
-  (add-hook 'css-mode-hook
-    (lambda ()
-      (setq-local company-backends '((company-css company-capf company-keywords company-files))))))
+  ;; (add-hook 'css-mode-hook
+    ;; (lambda ()
+  ;; (setq-local company-backends '((company-css company-capf company-keywords company-files)))))
+  )
 
 (use-package web-beautify
   :commands web-beautify-js web-beautify-css web-beautify-html)

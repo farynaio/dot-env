@@ -149,6 +149,13 @@
   :bind (:map evil-normal-state-map
           ("C-n" . company-next-page)
           ("C-p" . company-previous-page))
+
+  :init
+  (setq
+    company-require-match nil            ; Don't require match, so you can still move your cursor as expected.
+    company-tooltip-align-annotations t  ; Align annotation to the right side.
+    company-eclim-auto-save nil          ; Stop eclim auto save.
+    company-dabbrev-downcase nil)        ; No downcase when completion.
   :custom
   (company-idle-delay 0.8)
   (company-show-numbers t)
@@ -157,9 +164,28 @@
   (company-selection-wrap-around t)
   (company-minimum-prefix-length 2)
   (company-files-exclusions '(".git/" ".DS_Store"))
-  (company-backends '((:separate company-yasnippet company-capf company-files company-keywords company-dabbrev-code)))
+  (company-backends '((:separate company-yasnippet company-capf company-css company-files company-keywords company-dabbrev-code)))
   :config
-  (evil-declare-change-repeat #'company-complete))
+  (evil-declare-change-repeat #'company-complete)
+  ;; Enable downcase only when completing the completion.
+  (defun jcs--company-complete-selection--advice-around (fn)
+    "Advice execute around `company-complete-selection' command."
+    (let ((company-dabbrev-downcase t))
+      (call-interactively fn)))
+  (advice-add 'company-complete-selection :around #'jcs--company-complete-selection--advice-around)
+  )
+
+(use-package flx-ido)
+
+(use-package company-fuzzy
+  :after flx-ido
+  :hook (company-mode . company-fuzzy-mode)
+  :init
+  (setq
+    company-fuzzy-sorting-backend 'flx
+    company-fuzzy-reset-selection t
+    company-fuzzy-prefix-on-top nil
+    company-fuzzy-trigger-symbols '("." "->" "<" "\"" "'" "@")))
 
 ;; Required for proportional text
 (use-package company-posframe
