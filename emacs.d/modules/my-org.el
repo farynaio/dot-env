@@ -464,7 +464,7 @@
   ;; https://emacs.stackexchange.com/questions/61101/keep-displaying-current-org-heading-info-in-some-way/61107#61107
   (defun afa/org-breadcrumbs ()
     "Get the chain of headings from the top level down to the current heading."
-    (when (org-roam-file-p)
+    (when (and (fboundp 'org-roam-file-p) (org-roam-file-p))
       (let* ((org-roam-node-title (ignore-errors (org-roam-node-file-title (org-roam-node-at-point))))
               (filename (if org-roam-node-title org-roam-node-title (buffer-name))))
     ;;           (path (ignore-errors (org-get-outline-path t)))
