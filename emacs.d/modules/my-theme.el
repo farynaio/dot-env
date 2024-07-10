@@ -36,7 +36,10 @@
 ;;   (set-fontset-font t 'latin "Noto Sans")
   )
 
-(use-package nerd-icons)
+(use-package nerd-icons
+  :config
+  (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+    (nerd-icons-install-fonts t)))
 
 ;; https://github.com/doomemacs/themes
 (use-package doom-themes
