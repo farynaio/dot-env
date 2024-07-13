@@ -262,9 +262,9 @@
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
-  :custom
-  (exec-path-from-shell-variables '("MANPATH"))
   :config
+  (require 'exec-path-from-shell)
+
   (dolist
     (var
       '(
@@ -277,6 +277,7 @@
          "LC_NUMERIC"
          "LC_TIME"
          "GPG_AGENT_INFO"
+         "MANPATH"
          "NPM_TOKEN"
          "NVM_BIN"
          "SSH_AUTH_SOCK"
@@ -285,7 +286,8 @@
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize)
   (add-to-list 'exec-path (getenv "NVM_BIN"))
-  (setenv "PATH" (format "%s:%s" (getenv "NVM_BIN") (getenv "PATH"))))
+  ;; (setenv "PATH" (format "%s:%s" (getenv "NVM_BIN") (getenv "PATH"))))
+)
 
 (setq custom-file (expand-file-name "emacs-local-config/custom.el" user-emacs-directory))
 
