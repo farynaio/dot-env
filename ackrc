@@ -440,6 +440,7 @@
 --ignore-dir=coverage
 --ignore-dir=ios
 --ignore-dir=android
+--ignore-dir=.expo
 --ignore-dir=__pycache__
 --ignore-file=match:tags
 --ignore-file=match:readme.md
