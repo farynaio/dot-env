@@ -72,7 +72,8 @@
 
 (use-package js2-mode
   ;; :hook (js2-mode . lsp-deferred)
-  :hook (js2-mode . eglot-ensure)
+  :hook ((js2-mode . eglot-ensure)
+          (js2-mode . apheleia-mode))
   :mode ("\\.m?js\\'" "\\.cjs\\'")
   :diminish "js2"
   :custom
@@ -107,8 +108,8 @@
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . mmm-mode)
           ;; (rjsx-mode . lsp-deferred)
-          (rjsx-mode . eglot-ensure)
-          (rjsx-mode . apheleia-mode)
+          ;; (rjsx-mode . eglot-ensure)
+          ;; (rjsx-mode . apheleia-mode)
           ;; (rjsx-mode .
           ;;   (lambda ()
           ;;     (setq-local company-backends '((:separate company-tempo company-capf company-files company-keywords company-dabbrev-code))))
