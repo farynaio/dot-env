@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 interface $1Props {}
 
-const $1 = ($2) => {
+const $1 = ({$2}: $1Props) => {
   return (
     <View style={styles.view}>
       <Text>$1</Text>
