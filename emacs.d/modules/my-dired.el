@@ -106,7 +106,9 @@
         ("fm" dired-do-chmod "chmod" :exit t)
         ("fo" dired-do-chown "chown" :exit t)
         ("fl" dired-do-symlink "symlink" :exit t)
-        ("fc" dired-do-compress "compress" :exit t))))
+        ("fc" dired-do-compress "compress" :exit t))
+    "Navigate"
+    (("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
 
   (when (eq system-type 'darwin)
     (if (executable-find "gls")
