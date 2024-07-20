@@ -38,14 +38,13 @@
                         (c-set-offset 'arglist-close 'ywb-php-lineup-arglist-close))))
   :bind (:map php-mode-map
           ("<f5>" . my/toggle-php-flavor-mode))
-  :mode ("\\.php\\'" "\\.inc\\'")
+  :mode ("\\.php\\'" "\\.inc\\'" "\\.tpl\\.php\\'" "\\.phtml\\'")
   :config
   (evil-define-key 'normal php-mode-map
     (kbd ",d") 'hydra-php-debug/body
     (kbd ",t") 'my/toggle-php-flavor-mode)
 
   (defun my/php-setup ()
-    (web-mode)
     (make-local-variable 'web-mode-code-indent-offset)
     (make-local-variable 'web-mode-markup-indent-offset)
     (make-local-variable 'web-mode-css-indent-offset))

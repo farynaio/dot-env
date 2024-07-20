@@ -19,10 +19,7 @@
           ("C-c C-p" . web-mode-tag-beginning)
           ("<backtab>" . indent-relative)
           ("<f5>" . my/toggle-php-flavor-mode))
-  :mode ("\\.php\\'"
-          "\\.phtml\\'"
-          "\\.tpl\\.php\\'"
-          "\\.html\\.twig\\'"
+  :mode ("\\.html\\.twig\\'"
           "\\.hbs\\'"
           "\\.ejs\\'"
           "\\.html?\\'"
