@@ -440,7 +440,8 @@ Use when `json-mode' or similar get stuck."
   (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
   (eglot-autoshutdown t)
   :config
-  (add-to-list 'eglot-server-programs '(php-mode . ("intelephense" "--stdio")))
+  ;; https://phpactor.readthedocs.io/en/master/usage/standalone.html
+  (add-to-list 'eglot-server-programs '(php-mode . ("phpactor" "language-server")))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
   (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))

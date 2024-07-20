@@ -285,8 +285,11 @@
          ))
     (add-to-list 'exec-path-from-shell-variables var))
   (exec-path-from-shell-initialize)
-  (add-to-list 'exec-path (getenv "NVM_BIN"))
+  ;; (add-to-list 'exec-path (getenv "NVM_BIN"))
+  ;; (add-to-list 'exec-path "~/bin")
   ;; (setenv "PATH" (format "%s:%s" (getenv "NVM_BIN") (getenv "PATH"))))
+  ;; (setenv "PATH" (format "%s:%s" "~/.php/vendor/bin" (getenv "PATH")))
+  ;; (setenv "PATH" (format "%s:%s" "~/bin" (getenv "PATH")))
 )
 
 (setq custom-file (expand-file-name "emacs-local-config/custom.el" user-emacs-directory))
