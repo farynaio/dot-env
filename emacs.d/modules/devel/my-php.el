@@ -24,7 +24,7 @@
                           ;; (make-local-variable 'company-backends)
                           ;; (add-to-list 'company-backends 'company-ac-php-backend t))
                         (local-set-key (kbd "<f1>") 'my-php-symbol-lookup)
-                       (setq php-template-compatibility nil)))
+                       (setq php-template-compatibility nil))))
           (php-mode . (lambda ()
                       (defun ywb-php-lineup-arglist-intro (langelem)
                         (save-excursion
