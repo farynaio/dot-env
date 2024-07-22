@@ -960,6 +960,10 @@ Close other windows."
   ;; ("C-c p" . #'pop-to-mark-command)
   )
 
+(when (eq system-type 'darwin)
+  ;; fix for hash key not available on MacOS
+  (global-set-key (kbd "M-3") (lambda () (interactive) (insert "#"))))
+
 ;; https://github.com/minad/consult#live-previews
 ;; (use-package consult
 ;;   ;; :bind (("C-s" . consult-line)
