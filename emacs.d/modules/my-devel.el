@@ -67,10 +67,6 @@
 (use-package hl-todo
   :commands hl-todo-mode)
 
-(defun my/eglot-organize-imports ()
-  (interactive)
-  (eglot-code-action-organize-imports (point-min)))
-
 (major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode nxml-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
