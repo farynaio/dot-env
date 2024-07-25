@@ -71,7 +71,7 @@
   (interactive)
   (eglot-code-action-organize-imports (point-min)))
 
-(major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode)
+(major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode nxml-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
       (("." my/tempo-insert "insert snippet" :exit t)
@@ -112,6 +112,17 @@
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)
         )))
+
+(use-package nxml-mode
+  :straight nil
+  :hook (
+          (nxml-mode . eldoc-mode)
+          (nxml-mode . rainbow-delimiters-mode)
+          (nxml-mode . highlight-thing-mode)
+          (nxml-mode . company-mode)
+          (nxml-mode . electric-pair-local-mode)
+          (nxml-mode . topsy-mode)
+          (nxml-mode . emmet-mode)))
 
 (use-package prog-mode
   :straight nil
