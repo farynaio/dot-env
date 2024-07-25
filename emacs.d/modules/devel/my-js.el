@@ -108,14 +108,12 @@
   :hook ((rjsx-mode . emmet-mode)
           (rjsx-mode . mmm-mode)
           ;; (rjsx-mode . lsp-deferred)
-          ;; (rjsx-mode . eglot-ensure)
-          ;; (rjsx-mode . apheleia-mode)
-          ;; (rjsx-mode .
-          ;;   (lambda ()
+          (rjsx-mode .
+            (lambda ()
+              (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
+              (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
           ;;     (setq-local company-backends '((:separate company-tempo company-capf company-files company-keywords company-dabbrev-code))))
-          ;;     ;; (setq-local apheleia-formatter "prettier")))
-          )
-          ;; (rjsx-mode . my/prettier-mode))
+          )))
   :commands rjsx-mode
   :bind (:map rjsx-mode-map
           ("<" . rjsx-electric-lt))
