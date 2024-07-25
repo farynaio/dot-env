@@ -51,7 +51,12 @@
 (defun my/eglot-organize-imports-ts ()
   (interactive "*")
   (save-excursion
-    (eglot-code-action-organize-imports-ts (goto-char (point-min)))))
+    (let ((min (goto-char (point-min)))
+           ;; (max (goto-char (point-max)))
+           )
+      ;; (eglot-code-actions min max "source.addMissingImports.ts")
+      ;; (eglot-code-actions min max "source.removeUnused.ts")
+      (eglot-code-action-organize-imports-ts min))))
 
 (use-package js
   :straight nil
@@ -74,9 +79,9 @@
 (use-package js2-mode
   ;; :hook (js2-mode . lsp-deferred)
   :hook ((js2-mode . eglot-ensure)
-          (js2-mode . apheleia-mode)
-          (js2-mode . (lambda ()
-                        (add-hook 'after-save-hook #'my/eglot-organize-imports-ts nil t))))
+          (js2-mode . apheleia-mode))
+          ;; (js2-mode . (lambda ()
+          ;;               (add-hook 'after-save-hook #'my/eglot-organize-imports-ts nil t))))
   :mode ("\\.m?js\\'" "\\.cjs\\'")
   :diminish "js2"
   :custom
