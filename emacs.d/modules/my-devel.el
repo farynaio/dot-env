@@ -591,7 +591,14 @@ Use when `json-mode' or similar get stuck."
   :mode "\\.tf\\'")
 
 (use-package dockerfile-mode
-  :mode "^Dockerfile\\'")
+  :mode "^Dockerfile\\'"
+  :config
+  (add-to-list 'auto-mode-alist '("^Dockerfile\\'" . dockerfile-mode)))
+
+(use-package dockerfile-ts-mode
+  :disabled t
+  :straight nil
+  :mode ("Dockerfile\\'" . dockerfile-ts-mode))
 
 ;; TODO what it does?
 ;; (use-package company-web
@@ -599,10 +606,6 @@ Use when `json-mode' or similar get stuck."
 
 ;; (use-package company-quickhelp
 ;; :requires company-mode)
-
-(use-package dockerfile-ts-mode
-  :straight nil
-  :mode ("Dockerfile\\'" . dockerfile-ts-mode))
 
 (use-package graphql-mode
   :commands graphql-mode
