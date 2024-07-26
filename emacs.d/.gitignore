@@ -80,4 +80,7 @@ elpa
 
 /tabsession.el
 
+/tree-sitter
+/org-persist
+
 .DS_Store
