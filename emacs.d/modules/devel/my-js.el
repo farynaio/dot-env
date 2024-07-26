@@ -194,12 +194,36 @@
 ;;            (while (search-forward empty-spaces      (line-end-position) t)
 ;;             (replace-match (make-string (- (length empty-spaces) sgml-basic-offset)))))))))
 
+;; https://github.com/davidarenas/prisma-mode
+;; requires prisma-fmt for formatting
+;; https://github.com/davidarenas/prisma-mode?tab=readme-ov-file#installing-prisma-fmt
 (use-package prisma-mode
   :mode "\\.prisma\\'"
   :straight (:type git
               :host github
-              :repo "pimeys/emacs-prisma-mode"
-              :branch "main"))
+              :repo "davidarenas/prisma-mode"
+              :branch "master")
+  :custom
+  (prisma-format-on-save t))
+
+;; https://github.com/nverno/prisma-ts-mode
+;; (use-package prisma-ts-mode
+;;   :mode "\\.prisma\\'"
+;;   :straight (:type git
+;;               :host github
+;;               :repo "nverno/prisma-ts-mode"
+;;               :branch "master")
+;;   :custom
+;;   (add-to-list
+;;     'treesit-language-source-alist
+;;     '(prisma "https://github.com/victorhqc/tree-sitter-prisma")))
+
+;; (use-package prisma-mode
+;;   :mode "\\.prisma\\'"
+;;   :straight (:type git
+;;               :host github
+;;               :repo "pimeys/emacs-prisma-mode"
+;;               :branch "main"))
 
 (use-package json-reformat)
 
