@@ -440,6 +440,7 @@
 --ignore-dir=coverage
 --ignore-dir=ios
 --ignore-dir=android
+--ignore-dir=straight
 --ignore-dir=.expo
 --ignore-dir=__pycache__
 --ignore-file=match:tags
@@ -454,3 +455,4 @@
 --ignore-file=match:tsconfig.tsbuildinfo
 --ignore-file=ext:log
 --ignore-file=ext:pot
+--ignore-file=match:build-cache.el
