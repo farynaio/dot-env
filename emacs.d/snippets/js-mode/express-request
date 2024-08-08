@@ -1,0 +1,6 @@
+# name: express request
+# key: er
+# --
+export const $1 = (req: Request, res: Response) => {
+  $2
+}
