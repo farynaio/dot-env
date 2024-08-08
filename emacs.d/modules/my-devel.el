@@ -67,20 +67,19 @@
 (use-package hl-todo
   :commands hl-todo-mode)
 
-(major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode nxml-mode)
+(major-mode-hydra-define (prog-mode ruby-mode web-mode markdown-mode yaml-mode json-mode conf-mode conf-toml-mode js2-mode rjsx-mode typescript-mode typescript-ts-mode tsx-ts-mode nxml-mode prisma-mode vimrc-mode terraform-mode dockerfile-mode graphql-mode jenkinsfile-mode)
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "Programming" 1 -0.05))
     ("Action"
-      (("." my/tempo-insert "insert snippet" :exit t)
+      (
         ("x" xref-find-references-and-replace "replace references" :exit t)
         ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("p" counsel-colors-emacs "color picker" :exit t)
-        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+        ("ac" counsel-colors-emacs "color picker" :exit t)
         ("o" my/eglot-organize-imports "organize imports" :exit t)
-        ("v" eldoc-box-help-at-point "eldoc" :exit t)
         ;; ("lr" eglot-rename "rename" :exit t)
         )
       "Navigate"
-      (("d" xref-find-definitions "find definitions" :exit t)
+      (
+        ("d" xref-find-definitions "find definitions" :exit t)
         ("r" xref-find-references "find references" :exit t)
         ("t" projectile-find-tag "find tag" :exit t)
         ("g" counsel-projectile-git-grep "git grep" :exit t)
@@ -88,22 +87,29 @@
         ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t)
         ("ed" ediff "ediff files" :exit t)
         ("eb" ediff-buffers "ediff buffers" :exit t)
+        ;; ("ps" persp-switch :exit t)
+        ;; ("pb" persp-switch-to-buffer :exit t)
+        ;; ("pp" persp-prev :exit t)
+        ;; ("pn" persp-next :exit t)
         ;; ("i" lsp-ui-imenu "imenu" :exit t)
         ;; ("w" eglot-find-typeDefinition "find type definition" :exit t)
         ;; ("C-c e D" . eglot-find-declaration)
         ;; ("C-c e f" . eglot-format)
         ;; ("C-c e F" . eglot-format-buffer)
         )
-      "AI"
-      (("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
-        ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
-        (">" starhugger-show-next-suggestion "AI next suggestion")
-        ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
-      "Assess"
-      (("cc" flycheck-mode "flycheck" :toggle t)
+      ;; "AI"
+      ;; (
+      ;;   ("as" starhugger-trigger-suggestion "AI generate suggestion" :exit t)
+      ;;   ("aa" starhugger-accept-suggestion "AI accept suggestion" :exit t)
+      ;;   (">" starhugger-show-next-suggestion "AI next suggestion")
+      ;;   ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
+      "Check"
+      (
+        ("cc" flycheck-mode "flycheck" :toggle t)
         ("cm" flymake-mode "flymake" :toggle t)
         ("si" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
         ("se" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
+        ("v" eldoc-box-help-at-point "eldoc" :exit t)
         ;; ("p" my/prettier-mode "prettier" :toggle t)
         ;; ("o" electric-operator-mode "electric operator" :toggle t)
         ;; ("i" my/dtrt-indent-mode-toggle "dtrt-indent" :toggle t)

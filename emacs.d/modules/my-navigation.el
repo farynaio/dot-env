@@ -430,6 +430,80 @@
   :config
   (ivy-prescient-mode 1))
 
+(use-package projectile
+  :diminish projectile-mode
+  :custom
+  (projectile-completion-system 'ivy)
+  (projectile-indexing-method 'hybrid)
+  (projectile-enable-caching t)
+  (projectile-verbose nil)
+  (projectile-do-log nil)
+  (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (projectile-track-known-projects-automatically nil)
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  :config
+  (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
+  (unbind-key "C-c p" projectile-mode-map)
+
+  (if (executable-find "ctags")
+    (setq projectile-tags-command "ctags -R -e .")
+    (message "No executable 'ctags' found"))
+  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+
+  (defun my/projectile-show-relative-path ()
+    (interactive)
+    (when (projectile-project-root)
+      (message (substring buffer-file-name (length (projectile-project-root))))))
+
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
+
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
+
+With a prefix argument ARG prompts for the name of the project whose cache
+to invalidate."
+    (interactive "P")
+    (let ((project-root
+            (if arg
+              (completing-read "Remove cache for: " projectile-projects-cache)
+              (projectile-project-root))))
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
+        (message "Invalidated Projectile cache for %s."
+          (propertize project-root 'face 'font-lock-keyword-face)))))
+
+  (projectile-mode 1))
+
+(use-package counsel-projectile
+  :after (projectile ivy counsel)
+  :config
+  (counsel-projectile-mode 1))
+
+  ;; (add-hook 'after-init-hook
+  ;;           (lambda ()
+  ;;             (mapc (lambda (project-root)
+  ;;                     (remhash project-root projectile-project-type-cache)
+  ;;                     (remhash project-root projectile-projects-cache)
+  ;;                     (remhash project-root projectile-projects-cache-time)
+  ;;                     (when projectile-verbose
+  ;;                       (message "Invalidated Projectile cache for %s."
+  ;;                                (propertize project-root 'face 'font-lock-keyword-face))))
+  ;;                   projectile-known-projects)
+  ;;             (projectile-serialize-cache))))
+
+;; (use-package counsel-projectile
+;;   :config
+;;   (progn
+;;     (counsel-projectile-mode 1)))
+
 (use-package counsel
   :after ivy
   :demand t
@@ -444,7 +518,7 @@
           ("C-h v" . counsel-describe-variable)
           ("C-h a" . counsel-apropos)
           ("C-x r b" . counsel-bookmark)
-          ("C-x b" . counsel-switch-buffer)
+          ("C-x b" . counsel-projectile-switch-to-buffer)
           ("C-x C-b" . counsel-switch-buffer)
           ("C-x B" . counsel-switch-buffer-other-window)
           ("C-x C-r" . my/recentf)
@@ -510,34 +584,37 @@ NAME specifies the name of the buffer (defaults to \"*Ibuffer*\")."
 ;;     (evil-make-overriding-map undo-tree-visualizer-selection-mode-map 'motion)
 ;;     (evil-make-overriding-map undo-tree-map 'motion)))
 
-;; (use-package perspective
-;;   :demand t
-;;   :hook ((kill-emacs . persp-state-save))
-;;   :bind (("C-x C-b" . persp-counsel-switch-buffer)
-;;           ("C-x C-k" . persp-kill-buffer*))
-;;   :preface
-;;   (defun my/persp-counsel-switch-buffer-other (arg)
-;;     (interactive "P")
-;;     (apply #'ivy-read
-;;       (append
-;;         (list
-;;           (format "Switch to buffer other window (%s): " (persp-current-name))
-;;           (cl-remove-if #'null (mapcar #'buffer-name
-;;                                  ;; buffer-list is ordered by access time
-;;                                  ;; seq-intersection keeps the order
-;;                                  (seq-intersection (buffer-list)
-;;                                    (persp-current-buffers))))
-;;           :preselect (buffer-name (persp-other-buffer (current-buffer)))
-;;           :keymap ivy-switch-buffer-map
-;;           :caller #'ivy-switch-buffer
-;;           :action #'ivy--switch-buffer-other-window-action
-;;           :matcher #'ivy--switch-buffer-matcher)
-;;         )))
-;;   :custom
-;;   (persp-sort 'created)
-;;   (persp-state-default-file "~/.emacs.d/.persp-confs/persp-auto-save")
-;;   :config
-;;   (persp-mode))
+(use-package perspective
+  :disabled t
+  :hook ((kill-emacs . persp-state-save))
+  :bind (("C-x C-b" . persp-counsel-switch-buffer)
+          ("C-x b" . persp-counsel-switch-buffer)
+          ("C-x B" . persp-switch-to-buffer)
+          ;; ("C-x C-k" . persp-kill-buffer*)
+          ("C-x k" . persp-kill-buffer*))
+  ;; :preface
+  ;; (defun my/persp-counsel-switch-buffer-other (arg)
+  ;;   (interactive "P")
+  ;;   (apply #'ivy-read
+  ;;     (append
+  ;;       (list
+  ;;         (format "Switch to buffer other window (%s): " (persp-current-name))
+  ;;         (cl-remove-if #'null (mapcar #'buffer-name
+  ;;                                ;; buffer-list is ordered by access time
+  ;;                                ;; seq-intersection keeps the order
+  ;;                                (seq-intersection (buffer-list)
+  ;;                                  (persp-current-buffers))))
+  ;;         :preselect (buffer-name (persp-other-buffer (current-buffer)))
+  ;;         :keymap ivy-switch-buffer-map
+  ;;         :caller #'ivy-switch-buffer
+  ;;         :action #'ivy--switch-buffer-other-window-action
+  ;;         :matcher #'ivy--switch-buffer-matcher)
+  ;;       )))
+  :custom
+  (persp-sort 'created)
+  (persp-state-default-file "~/.emacs.d/.persp-confs/persp-auto-save")
+  :config
+  (persp-mode))
 
 (use-package ivy-rich
   :after (org counsel)
@@ -1014,8 +1091,10 @@ Close other windows."
 (pretty-hydra-define hydra-buffer
   (:hint nil :color teal :quit-key "q" :title (with-faicon "align-justify" "Buffer" 1 -0.05))
   ("Actions"
-   (("i" ibuffer "ibuffer")
-    ("k" my/kill-all-buffers-except-toolkit))))
+    (
+      ;; ("i" persp-ibuffer "ibuffer persp")
+      ("i" ibuffer "ibuffer")
+      ("k" my/kill-all-buffers-except-toolkit))))
 
 (use-package ibuffer
   :straight nil
