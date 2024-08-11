@@ -452,7 +452,9 @@ Use when `json-mode' or similar get stuck."
   (gc-cons-threshold 100000000)
   (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
   (eglot-autoshutdown t)
+  (eglot-connect-timeout 999999) ;; because kotlin-mode
   :config
+  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
   ;; https://phpactor.readthedocs.io/en/master/usage/standalone.html
   (add-to-list 'eglot-server-programs '(php-mode . ("phpactor" "language-server")))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
@@ -460,7 +462,18 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(rjsx-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
-  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+
+  (let ((lspPath (expand-file-name "~/Development/lsp/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")))
+    (if (file-exists-p lspPath)
+      (add-to-list 'eglot-server-programs `(kotlin-mode . (,lspPath :initializationOptions (:storagePath "/tmp"))))
+      (error "No kotlin-language-server found!")))
+
+  ;; java-mode
+  (when (eq system-type 'darwin)
+    (let ((jdtlsPath "/usr/local/Cellar/jdtls/1.38.0/bin/jdtls"))
+      (if (file-exists-p jdtlsPath)
+        (add-to-list 'eglot-server-programs `(java-mode .  (,jdtlsPath)))
+        (error "No jdtls found!"))))
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-help-at-point t))
   )
 
@@ -777,6 +790,26 @@ ets function symbol on point as initial suggestion."
 ;; (add-hook 'prog-mode-hook #'mp-remove-treesit-sexp-changes)
 
 (setq font-lock-maximum-decoration t)
+
+(use-package swift-mode
+  ;; :hook (swift-mode . eglot-ensure)
+  :mode "\\.swift\\'"
+  :interpreter "swift"
+  ;; :config
+  ;; (when (eq system-type 'darwin)
+  ;;   (let ((sourcekit-lsp-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
+  ;;     (if (executable-find sourcekit-lsp-path)
+  ;;       (add-to-list 'eglot-server-programs `(swift-mode . (,sourcekit-lsp-path)))
+  ;;       (error "No sourcekit-lsp-path found!"))
+  ;;     ))
+  )
+
+(use-package cc-mode
+  :straight nil
+  :hook ((java-mode . eglot-ensure)))
+
+(use-package kotlin-mode
+  :hook ((kotlin-mode . eglot-ensure)))
 
 (provide 'my-devel)
 ;;; my-devel.el ends here
