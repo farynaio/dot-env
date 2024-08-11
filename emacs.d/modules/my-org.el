@@ -355,7 +355,8 @@
         ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
         ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
         ("w" widen "widen narrowed area" :exit t)
-        ("x" org-export-dispatch "org-export-dispatch" :exit t))
+        ("x" org-export-dispatch "org-export-dispatch" :exit t)
+        ("p" my/org-align-tags "align tags" :exit t))
       "Toggle"
       (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
         ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
@@ -675,6 +676,10 @@ should be continued."
       (set-variable 'org-hide-emphasis-markers nil)
       (set-variable 'org-hide-emphasis-markers t))
     (message "org ephasis toggled %s" (if org-hide-emphasis-markers "on" "off")))
+
+  (defun my/org-align-tags ()
+    (interactive)
+    (let ((current-prefix-arg '(4))) (call-interactively 'org-set-tags-command)))
 
   (advice-add 'org-refile :after (lambda (&rest args) (org-save-all-org-buffers)))
   (advice-add 'org-archive-subtree-default :after (lambda () (org-save-all-org-buffers)))
