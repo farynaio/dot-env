@@ -33,6 +33,7 @@
           ("<tab>" . dired-subtree-cycle)
           ("<S-tab>" . dired-subtree-toggle)
           ("i" . dired-subtree-toggle)
+          ("C-<return>" . dired-find-file-other-window)
           ("C-c C-n" . dired-narrow)
           ("C-c C-f" . dired-narrow-fuzzy)
           ("C-c C-r" . dired-narrow-regexp))
