@@ -466,14 +466,14 @@ Use when `json-mode' or similar get stuck."
   (let ((lspPath (expand-file-name "~/Development/lsp/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")))
     (if (file-exists-p lspPath)
       (add-to-list 'eglot-server-programs `(kotlin-mode . (,lspPath :initializationOptions (:storagePath "/tmp"))))
-      (error "No kotlin-language-server found!")))
+      (warn "No kotlin-language-server found!")))
 
   ;; java-mode
   (when (eq system-type 'darwin)
     (let ((jdtlsPath "/usr/local/Cellar/jdtls/1.38.0/bin/jdtls"))
       (if (file-exists-p jdtlsPath)
         (add-to-list 'eglot-server-programs `(java-mode .  (,jdtlsPath)))
-        (error "No jdtls found!"))))
+        (warn "No jdtls found!"))))
   ;; (add-hook 'eglot-managed-mode-hook #'eldoc-box-help-at-point t))
   )
 
@@ -800,7 +800,7 @@ ets function symbol on point as initial suggestion."
   ;;   (let ((sourcekit-lsp-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
   ;;     (if (executable-find sourcekit-lsp-path)
   ;;       (add-to-list 'eglot-server-programs `(swift-mode . (,sourcekit-lsp-path)))
-  ;;       (error "No sourcekit-lsp-path found!"))
+  ;;       (warn "No sourcekit-lsp-path found!"))
   ;;     ))
   )
 

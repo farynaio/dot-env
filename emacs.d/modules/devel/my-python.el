@@ -75,6 +75,7 @@
       (lambda () (add-hook 'before-save-hook 'elpy-black-fix-code nil t)))))
 
 (use-package conda
+  :disabled t
   :custom
   (conda-anaconda-home "/home/user/miniforge3/")
   :config
