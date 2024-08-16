@@ -86,6 +86,9 @@
   (org-adapt-indentation nil)
   (org-return-follows-link t)
 
+  (org-tag-faces
+    '(("ui" . "snow3") ("backend" . "pink2") ("config" . "cyan2")))
+
   (org-agenda-skip-scheduled-if-deadline-is-shown 'not-today)
   (org-agenda-start-on-weekday nil)
   (org-agenda-sort-noeffort-is-high nil)
