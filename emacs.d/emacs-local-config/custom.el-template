@@ -14,3 +14,10 @@
  '(vertical-border ((t (:background "#1c1f24" :foreground "gray")))))
 ;; '(tab-bar-tab ((t (:background "#242730" :foreground "#bbc2cf" :box nil :height 1.0)))))
 ;;; custom.el ends here
+
+
+;; (custom-set-variables
+;;   '(ns-alternate-modifier 'control)
+;;   '(ns-command-modifier 'meta)
+;;   '(ns-right-alternate-modifier 'control)
+;;   '(ns-right-command-modifier 'meta))
