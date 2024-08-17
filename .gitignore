@@ -61,3 +61,5 @@ emacs.d/projectile.cache
 
 vim/vim/init.vim
 .emacs.desktop
+
+.log
