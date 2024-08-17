@@ -71,8 +71,8 @@
 	# Auto-accept file prompts when launching merge tools
 	prompt = false
 
-# [pull]
-  # rebase = merges
+[pull]
+  rebase = merges
 
 [push]
 	default = current
