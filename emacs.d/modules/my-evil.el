@@ -267,16 +267,18 @@ of the block."
 
   (defun my/next-error ()
     (interactive)
-    (cond ((get-buffer "*Flycheck errors*") (next-error))
+    (cond
+      ((get-buffer "*grep*") (next-error))
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-next-error))
-      ((bound-and-true-p flymake-mode) (flymake-goto-next-error))
+      ((and (bound-and-true-p flymake-mode) (flymake-goto-next-error)) t)
       (t (next-error))))
 
   (defun my/previous-error ()
     (interactive)
-    (cond ((get-buffer "*Flycheck errors*") (previous-error))
+    (cond
+      ((get-buffer "*grep*") (previous-error))
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-previous-error))
-      ((bound-and-true-p flymake-mode) (flymake-goto-prev-error))
+      ((and (bound-and-true-p flymake-mode) (flymake-goto-prev-error)) t)
       (t (previous-error))))
 
   (add-hook 'with-editor-mode-hook 'evil-insert-state)

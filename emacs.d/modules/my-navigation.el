@@ -328,7 +328,11 @@
   :config
   (global-smartscan-mode 1))
 
-(require 'grep)
+(use-package grep
+  :straight nil
+  :bind (:map grep-mode-map
+          ("q" . (lambda () (interactive) (quit-window t)))))
+
 (require 'files)
 
 (defun my/rgrep ()
