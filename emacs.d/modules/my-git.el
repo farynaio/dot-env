@@ -20,10 +20,10 @@
 
 (setq-default git-commit-style-convention-checks nil)
 
-;; (use-package git-commit
-;;   :after magit
-;;   :custom
-;; (git-commit-style-convention-checks nil))
+(use-package git-commit
+  :after magit
+  :custom
+(git-commit-style-convention-checks nil))
 
 (use-package diff-hl
   :config
