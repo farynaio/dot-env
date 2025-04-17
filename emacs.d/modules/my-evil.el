@@ -268,17 +268,17 @@ of the block."
   (defun my/next-error ()
     (interactive)
     (cond
-      ((get-buffer "*grep*") (next-error))
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-next-error))
-      ((and (bound-and-true-p flymake-mode) (flymake-goto-next-error)) t)
+      ((and (bound-and-true-p flymake-mode) (flymake-goto-next-error nil nil t)) t)
+      ;; ((get-buffer "*grep*") (next-error))
       (t (next-error))))
 
   (defun my/previous-error ()
     (interactive)
     (cond
-      ((get-buffer "*grep*") (previous-error))
       ((and (bound-and-true-p flycheck-mode) (flycheck-has-current-errors-p)) (flycheck-previous-error))
-      ((and (bound-and-true-p flymake-mode) (flymake-goto-prev-error)) t)
+      ((and (bound-and-true-p flymake-mode) (flymake-goto-prev-error nil nil t)) t)
+      ;; ((get-buffer "*grep*") (previous-error))
       (t (previous-error))))
 
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
@@ -395,7 +395,7 @@ of the block."
   (add-to-list 'evil-emacs-state-modes 'edebug-x-breakpoint-list-mode)
   (add-to-list 'evil-emacs-state-modes 'edebug-x-instrumented-function-list-mode)
   (add-to-list 'evil-emacs-state-modes 'treesit--explorer-tree-mode)
-  (add-to-list 'evil-emacs-state-modes 'eldoc-mode)
+  (add-to-list 'evil-emacs-state-modes 'special-mode)
 
   ;; (evil-define-key '(motion normal) help-mode-map
   ;;   "l" 'help-go-back
