@@ -1,6 +1,12 @@
 (use-package rainbow-mode
   :hook (css-mode . rainbow-mode)
-  :diminish rainbow-mode)
+  :diminish rainbow-mode
+  :config
+  (add-to-list 'rainbow-html-colors-major-mode-list 'rjsx-mode)
+  )
+
+(use-package edit-color-stamp
+  :commands edit-color-stamp)
 
 (use-package emmet-mode
   :defer 10
@@ -62,7 +68,8 @@
   (major-mode-hydra-define+ web-mode
     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "HTML" 1 -0.05))
     ("Action"
-      (("f" my/html-buffer-format "format buffer" :exit t))))
+     (("f" my/html-buffer-format "format buffer" :exit t))
+     (("c" edit-color-stamp "edit color" :exit t))))
 
   (defun my/html-buffer-format ()
     (interactive)

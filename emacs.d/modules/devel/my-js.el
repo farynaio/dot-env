@@ -1,5 +1,7 @@
 ;;; Code:
 
+(use-package flymake-eslint)
+
 (setq my/prettier-modes '(css-mode js-mode yaml-mode typescript-mode))
 
 ;; TODO also "prettier" key in your package.json file.
@@ -93,8 +95,9 @@
     ("Action"
       (
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ("f" my/prettier-format-buffer "prettier buffer" :exit t)
-        ("o" my/eglot-organize-imports-ts "organize imports" :exit t))))
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t))))
   ;; Use js2-mode for Node scripts
   ;; (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
   )
@@ -116,8 +119,10 @@
 
 (use-package rjsx-mode
   :hook ((rjsx-mode . emmet-mode)
-          (rjsx-mode . mmm-mode)
-          ;; (rjsx-mode . lsp-deferred)
+         (rjsx-mode . rainbow-mode)
+         (rjsx-mode . mmm-mode)
+         (rjsx-mode . (lambda () (flymake-eslint-enable)))
+         ;; (rjsx-mode . lsp-deferred)
           (rjsx-mode .
             (lambda ()
               (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
@@ -134,8 +139,9 @@
     ("Action"
       (
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ("f" my/prettier-format-buffer "prettier buffer" :exit t)
-        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t)))))
 
 (use-package vue-mode
   :mode "\\.vue\\'")
@@ -154,10 +160,12 @@
 (use-package typescript-mode
   ;; :disabled t
   ;; :mode ("\\.tsx?\\'" . typescript-mode)
+  :mode ("\\.cts\\'" . typescript-mode)
   :hook ((typescript-mode . mmm-mode)
           ;; (typescript-mode . lsp-deferred)
           (typescript-mode . eglot-ensure)
           (typescript-mode . emmet-mode)
+          (typescript-mode . rainbow-mode)
           (typescript-mode . apheleia-mode)
           (typescript-mode . subword-mode))
   :custom
@@ -168,8 +176,10 @@
     ("Action"
       (
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ("f" my/prettier-format-buffer "prettier buffer" :exit t)
-        ("o" my/eglot-organize-imports-ts "organize imports" :exit t))))
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t))))
+
   (setq auto-mode-alist (delete '("\\.tsx?\\'" . typescript-mode) auto-mode-alist)))
 
 (use-package typescript-ts-mode
@@ -189,8 +199,10 @@
     ("Action"
       (
         ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-        ("f" my/prettier-format-buffer "prettier buffer" :exit t)
-        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)))))
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t)))))
+
 
 ;; (defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
 ;;   "Workaround 'sgml-mode' and follow airbnb component style."
