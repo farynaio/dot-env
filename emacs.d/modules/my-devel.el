@@ -105,8 +105,8 @@
       ;;   ("<" starhugger-show-prev-suggestion "AI previous suggestion"))
       "Check"
       (
-        ("cc" flycheck-mode "flycheck" :toggle t)
-        ("cm" flymake-mode "flymake" :toggle t)
+        ("fc" flycheck-mode "flycheck" :toggle t)
+        ("fm" flymake-mode "flymake" :toggle t)
         ("si" treesit-inspect-mode "treesit-inspect-mode" :toggle t :exit t)
         ("se" treesit-explore-mode "treesit-explore-mode" :toggle t :exit t)
         ("v" eldoc-box-help-at-point "eldoc" :exit t)

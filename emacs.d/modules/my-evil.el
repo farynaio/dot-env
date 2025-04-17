@@ -437,6 +437,7 @@ of the block."
 (use-package evil-anzu
   :after evil)
 
+;; https://github.com/hlissner/evil-multiedit
 (use-package evil-multiedit
   :after evil
   :config
