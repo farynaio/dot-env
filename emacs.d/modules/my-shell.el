@@ -147,10 +147,10 @@
 (use-package eshell-toggle
   :after eshell
   :commands eshell-toggle
-  :bind (:map evil-normal-state-map
-          ("C-`" . eshell-toggle)
-         :map eshell-mode-map
-          ("C-`" . eshell-toggle))
+  ;; :bind (:map evil-normal-state-map
+  ;;         ("C-`" . eshell-toggle)
+  ;;        :map eshell-mode-map
+  ;;         ("C-`" . eshell-toggle))
   ;; :straight (:type: git
   ;;             :host github
   ;;             :repo "4DA/eshell-toggle"

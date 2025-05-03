@@ -811,11 +811,30 @@ point reaches the beginning or end of the buffer, stop there."
   (advice-add 'windmove-down :before #'my/evil-switch-to-normal-state-if-insert))
 
 ;; Folding blocks of code by indention
-(use-package origami
-  :commands origami-mode
-  :custom
-  (evil-define-key 'normal origami-mode-map
-    (kbd "<C-backspace>") #'origami-toggle-node))
+;; (use-package origami
+;;   :commands origami-mode
+;;   :config
+;;   (origami-show-fold-header t)
+;;   :custom
+;;   (evil-define-key 'normal origami-mode-map
+;;     (kbd "C-`") #'origami-toggle-node)
+;;   ;; (evil-define-key 'normal origami-mode-map
+;;   ;;   (kbd "<C-backspace>") #'origami-toggle-node)
+;;   )
+
+;; (use-package vimish-fold)
+
+;; (use-package outline-indent
+;;   :straight (:type git
+;;               :host github
+;;               :repo "jamescherti/outline-indent.el"
+;;               :branch "main")
+;;   :custom
+;;   (outline-indent-ellipsis " ▼ "))
+
+;; (use-package fold-this)
+
+(use-package yafolding)
 
 (use-package openwith
   :disabled t
@@ -1116,6 +1135,7 @@ Close other windows."
     (unless (one-window-p)
       (delete-window))
     (display-buffer-pop-up-frame buffer nil)))
+
 
 (provide 'my-navigation)
 ;;; my-navigation.el ends here
