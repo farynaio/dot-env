@@ -81,7 +81,9 @@
 (use-package js2-mode
   ;; :hook (js2-mode . lsp-deferred)
   :hook ((js2-mode . eglot-ensure)
-          (js2-mode . apheleia-mode))
+         (js2-mode . apheleia-mode)
+         (js2-mode . rainbow-mode)
+         )
           ;; (js2-mode . (lambda ()
           ;;               (add-hook 'after-save-hook #'my/eglot-organize-imports-ts nil t))))
   :mode ("\\.m?js\\'" "\\.cjs\\'")
