@@ -1,5 +1,7 @@
 
 ;;; Code:
+(when (file-exists-p "~/.local/share/gem/ruby/3.1.0/bin")
+  (add-to-list 'exec-path "~/.local/share/gem/ruby/3.1.0/bin"))
 
 (use-package inf-ruby
   :commands inf-ruby-minor-mode
@@ -66,6 +68,8 @@
 ;;                               (add-to-list 'company-backends 'company-robe t)))
 ;;   (add-hook 'ruby-mode-hook 'robe-mode)
 ;;   ))
+
+(use-package rubocop)
 
 (provide 'my-ruby)
 ;;; my-ruby.el ends here
