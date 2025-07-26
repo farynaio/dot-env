@@ -407,9 +407,10 @@
   (ivy-height 15)
   (ivy-use-selectable-prompt t)
   (ivy-count-format "(%d/%d) ")
-  (ivy-use-virtual-buffer t)
-  (ivy-re-builders-alist '((t . ivy--regex-plus)))
-  ;; (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  (ivy-use-virtual-buffers t)
+  ;; (ivy-re-builders-alist '((t . ivy--regex-plus)))
+  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  ;; (setq ivy-ignore-buffers '(\\` " "\\`\\*magit"))
   :config
   (ivy-mode 1)
   (advice-add #'ivy-switch-buffer :before #'my/evil-switch-to-normal-state-if-insert)
@@ -540,6 +541,7 @@ to invalidate."
   (counsel-grep-base-command "grep -E -n -i -e %s %s")
   (counsel-outline-path-separator " > ")
   (swiper-use-visual-line-p #'ignore)
+  (counsel-find-file-at-point t)
   :config
   (unbind-key "C-x C-h" global-map)
 
@@ -852,9 +854,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package orderless
   :custom
-  (completion-styles '(orderless))
+  (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles . (partial-completion))))))
+  '(completion-category-overrides '((file (styles basic orderless) (cycle . t))
+                                    (buffer (styles basic orderless) (cycle . t)))))
 
 (use-package project
   :bind (:map project-prefix-map
