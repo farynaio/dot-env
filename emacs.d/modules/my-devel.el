@@ -459,7 +459,15 @@ Use when `json-mode' or similar get stuck."
   (add-to-list 'eglot-server-programs '(php-mode . ("phpactor" "language-server")))
   (add-to-list 'eglot-server-programs '(svelte-mode . ("svelteserver" "--stdio")))
   (add-to-list 'eglot-server-programs '(shopify-mode . ("theme-check-language-server" "--stdio")))
+
+  (unless (executable-find "vscode-html-language-server")
+    (warn "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, HTML, JSON, markdown language servers not available!"))
   (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(json-mode . ("vscode-json-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("vscode-markdown-language-server" "--stdio")))
+
+  (unless (executable-find "typescript-language-server")
+    (warn "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, TypeScript language server not available!"))
   (add-to-list 'eglot-server-programs '(rjsx-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio")))
 
