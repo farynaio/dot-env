@@ -8,6 +8,8 @@
 ;; (use-package 'vc-git
 ;;   :straight nil)
 
+;; TODO check https://codeberg.org/pidu/git-timemachine
+
 (setq-default
   vc-follow-symlinks t
   vc-handled-backends '(Git))
