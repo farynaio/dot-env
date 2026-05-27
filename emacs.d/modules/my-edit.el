@@ -234,6 +234,7 @@
   :straight nil
   :commands (ediff ediff-buffers)
   :custom
+  (ediff-quit-widened nil)
   (ediff-diff-options "-w")
   (ediff-window-setup-function #'ediff-setup-windows-plain)
   (ediff-forward-word-function #'forward-char)
