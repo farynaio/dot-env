@@ -15,12 +15,14 @@
   ((eq system-type 'gnu/linux)
     (setq-default trash-directory "~/.local/share/Trash/files")))
 
-(use-package ls-lisp
-  :straight nil
-  :if (eq system-type 'darwin)
-  :custom
-  (ls-lisp-dirs-first t)
-  (ls-lisp-use-insert-directory-program nil))
+;; Not exists anymore?
+;; (straight-register-package 'ls-lisp)
+;; (when (eq system-type 'darwin)
+;; (use-package ls-lisp
+;;    :straight nil
+;;    :custom
+;;    (ls-lisp-dirs-first t)
+;;    (ls-lisp-use-insert-directory-program nil)))
 
 (use-package dired
   :straight nil

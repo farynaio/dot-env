@@ -25,13 +25,19 @@
 
 ;; (defalias 'cal #'cfw:open-org-calendar)
 
+
+(use-package org-sticky-header)
+
 (use-package org
   :demand t
   :init
+;; (setq shell-file-name "/bin/sh")
+;; (setenv "PATH" (c
   (when (and (boundp 'my/org-base-path) my/org-base-path)
     (make-directory my/org-base-path t))
   :hook ((org-mode . org-indent-mode)
           (org-mode . iscroll-mode)
+          (org-mode . org-sticky-header-mode)
           (org-mode . (lambda () (when (and (boundp 'company-mode) company-mode) (company-mode 1))))
           (org-mode . org-appear-mode)
           (org-mode . afa/org-breadcrums-mode)
@@ -693,12 +699,13 @@ should be continued."
 (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
   "Major mode for org-roam ready org buffers.")
 
-(use-package org-contacts
-  :if my/org-contacts-enabled
-  :after org
-  :custom
-  (org-contacts-files `(,my/org-contacts-file-path))
-  (org-contacts-birthday-format "%h (%Y)"))
+(straight-register-package 'org-contacts)
+(when my/org-contacts-enabled
+  (use-package org-contacts
+    :after org
+    :custom
+    (org-contacts-files `(,my/org-contacts-file-path))
+    (org-contacts-birthday-format "%h (%Y)")))
 
 (use-package japanese-holidays
   :straight (:type git
@@ -806,145 +813,146 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
   (defalias 'drill (lambda (&optional scope drill-match) (interactive) (org-drill scope drill-match t)))
   (defalias 'resume-drill 'org-drill-resume))
 
-(use-package org-roam
-  :if my/org-roam-enabled
-  :defer 10
-  :after (org emacsql)
-  :diminish org-roam-mode
-  :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/org-roam-mode)
-  :custom
-  (org-roam-directory my/org-roam-directory)
-  (org-roam-graph-viewer "/usr/bin/open")
-  (org-roam-db-gc-threshold most-positive-fixnum)
-  (org-roam-tag-sources '(prop))
-  (org-roam-update-db-idle-second 60)
-  (org-roam-verbose nil)
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  :config
-  (require 'org-roam-protocol)
+(straight-register-package 'org-roam)
+(when my/org-roam-enabled
+  (use-package org-roam
+    :defer 10
+    :after (org emacsql)
+    :diminish org-roam-mode
+    :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/org-roam-mode)
+    :custom
+    (org-roam-directory my/org-roam-directory)
+    (org-roam-graph-viewer "/usr/bin/open")
+    (org-roam-db-gc-threshold most-positive-fixnum)
+    (org-roam-tag-sources '(prop))
+    (org-roam-update-db-idle-second 60)
+    (org-roam-verbose nil)
+    (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+    :config
+    (require 'org-roam-protocol)
 
-  (org-roam-db-autosync-mode 1)
+    (org-roam-db-autosync-mode 1)
 
-  (major-mode-hydra-define+ my/org-roam-mode
-    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
-    ("Edit"
-      (("n" org-id-get-create "turn heading into node")
-        ("t" org-roam-tag-add "add org-roam tag to node at point")
-        ("T" org-roam-alias-add "add org-roam alias to node at point"))
-      "Navigation"
-      (("u" org-roam-ui-open "open UI view")
-        ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
+    (major-mode-hydra-define+ my/org-roam-mode
+      (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
+      ("Edit"
+        (("n" org-id-get-create "turn heading into node")
+          ("t" org-roam-tag-add "add org-roam tag to node at point")
+          ("T" org-roam-alias-add "add org-roam alias to node at point"))
+        "Navigation"
+        (("u" org-roam-ui-open "open UI view")
+          ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
-  (add-to-list 'display-buffer-alist
-    '("\\*org-roam\\*"
-       (display-buffer-in-direction)
-       (direction . right)
-       (window-width . 0.35)
-       (window-height . fit-window-to-buffer)))
+    (add-to-list 'display-buffer-alist
+      '("\\*org-roam\\*"
+         (display-buffer-in-direction)
+         (direction . right)
+         (window-width . 0.35)
+         (window-height . fit-window-to-buffer)))
 
-  (make-directory my/org-roam-directory t)
+    (make-directory my/org-roam-directory t)
 
-  (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
+    (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
 
-  ;; (add-hook 'org-roam-dailies-find-file-hook #'abbrev-mode)
+    ;; (add-hook 'org-roam-dailies-find-file-hook #'abbrev-mode)
 
-  ;; (defun my/org-roam-find-file-other-window (&rest args)
-  ;;   (interactive)
-  ;;   (let ((org-roam-find-file-function #'find-file-other-window))
-  ;;     (apply #'org-roam-find-file args)))
+    ;; (defun my/org-roam-find-file-other-window (&rest args)
+    ;;   (interactive)
+    ;;   (let ((org-roam-find-file-function #'find-file-other-window))
+    ;;     (apply #'org-roam-find-file args)))
 
-  (defun my/org-roam-node-find-other-window (&rest args)
-    (interactive)
-    (let ((org-roam-find-file-function #'find-file-other-window))
-      (apply 'org-roam-node-find args)))
+    (defun my/org-roam-node-find-other-window (&rest args)
+      (interactive)
+      (let ((org-roam-find-file-function #'find-file-other-window))
+        (apply 'org-roam-node-find args)))
 
-;;--------------------------
-  ;; Handling file properties for CREATED & LAST_MODIFIED
-  ;;--------------------------
-  (defun zp/org-find-time-file-property (property &optional anywhere)
-    "Return the position of the time file PROPERTY if it exists.
+    ;;--------------------------
+    ;; Handling file properties for CREATED & LAST_MODIFIED
+    ;;--------------------------
+    (defun zp/org-find-time-file-property (property &optional anywhere)
+      "Return the position of the time file PROPERTY if it exists.
 When ANYWHERE is non-nil, search beyond the preamble."
-    (save-excursion
-      (goto-char (point-min))
-      (let ((first-heading
-              (save-excursion
-                (re-search-forward org-outline-regexp-bol nil t))))
-        (when (re-search-forward (format "^#\\+%s:" property)
-                (if anywhere nil first-heading)
-                t)
-          (point)))))
+      (save-excursion
+        (goto-char (point-min))
+        (let ((first-heading
+                (save-excursion
+                  (re-search-forward org-outline-regexp-bol nil t))))
+          (when (re-search-forward (format "^#\\+%s:" property)
+                  (if anywhere nil first-heading)
+                  t)
+            (point)))))
 
-  (defun zp/org-has-time-file-property-p (property &optional anywhere)
-    "Return the position of time file PROPERTY if it is defined.
+    (defun zp/org-has-time-file-property-p (property &optional anywhere)
+      "Return the position of time file PROPERTY if it is defined.
 As a special case, return -1 if the time file PROPERTY exists but
 is not defined."
-    (when-let ((pos (zp/org-find-time-file-property property anywhere)))
-      (save-excursion
-        (goto-char pos)
-        (if (and (looking-at-p " ")
-              (progn (forward-char)
-                (org-at-timestamp-p 'lax)))
-          pos
-          -1))))
+      (when-let ((pos (zp/org-find-time-file-property property anywhere)))
+        (save-excursion
+          (goto-char pos)
+          (if (and (looking-at-p " ")
+                (progn (forward-char)
+                  (org-at-timestamp-p 'lax)))
+            pos
+            -1))))
 
-  (defun zp/org-set-time-file-property (property &optional anywhere pos)
-    "Set the time file PROPERTY in the preamble.
+    (defun zp/org-set-time-file-property (property &optional anywhere pos)
+      "Set the time file PROPERTY in the preamble.
 When ANYWHERE is non-nil, search beyond the preamble.
 If the position of the file PROPERTY has already been computed,
 it can be passed in POS."
-    (when-let ((pos (or pos
-                      (zp/org-find-time-file-property property))))
-      (save-excursion
-        (goto-char pos)
-        (if (looking-at-p " ")
-          (forward-char)
-          (insert " "))
-        (delete-region (point) (line-end-position))
-        (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
-          (insert now)))))
+      (when-let ((pos (or pos
+                        (zp/org-find-time-file-property property))))
+        (save-excursion
+          (goto-char pos)
+          (if (looking-at-p " ")
+            (forward-char)
+            (insert " "))
+          (delete-region (point) (line-end-position))
+          (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+            (insert now)))))
 
-  (defun zp/org-set-last-modified ()
-    "Update the LAST_MODIFIED file property in the preamble."
-    (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-directory buffer-file-name))
-      (zp/org-set-time-file-property "LAST_MODIFIED")))
+    (defun zp/org-set-last-modified ()
+      "Update the LAST_MODIFIED file property in the preamble."
+      (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-directory buffer-file-name))
+        (zp/org-set-time-file-property "LAST_MODIFIED")))
 
-  (add-hook 'before-save-hook 'zp/org-set-last-modified 50)
+    (add-hook 'before-save-hook 'zp/org-set-last-modified 50)
 
-  ;; faces
-  ;; org-roam-link
-  ;; org-roam-link-current
+    ;; faces
+    ;; org-roam-link
+    ;; org-roam-link-current
 
-  ;; (defvar my/org-roam-side-mode-map (make-sparse-keymap)
-  ;;   "Keymap for `my/org-roam-side-mode'.")
+    ;; (defvar my/org-roam-side-mode-map (make-sparse-keymap)
+    ;;   "Keymap for `my/org-roam-side-mode'.")
 
-  ;; (define-minor-mode my/org-roam-side-mode
-  ;;   "Minor mode for org-roam side org buffer."
-  ;;   :init-value nil
-  ;;   :keymap my/org-roam-side-mode-map)
+    ;; (define-minor-mode my/org-roam-side-mode
+    ;;   "Minor mode for org-roam side org buffer."
+    ;;   :init-value nil
+    ;;   :keymap my/org-roam-side-mode-map)
 
-  ;; (defvar my/org-roam-mode-map (make-sparse-keymap)
-  ;;   "Keymap for `my/org-roam-side-mode'.")
+    ;; (defvar my/org-roam-mode-map (make-sparse-keymap)
+    ;;   "Keymap for `my/org-roam-side-mode'.")
 
-  ;; (define-minor-mode my/org-roam-mode
-  ;;   "Minor mode for org-roam org buffers."
-  ;;   :init-value nil
-  ;;   :keymap my/org-roam-mode-map)
+    ;; (define-minor-mode my/org-roam-mode
+    ;;   "Minor mode for org-roam org buffers."
+    ;;   :init-value nil
+    ;;   :keymap my/org-roam-mode-map)
 
-  ;; (defun my/org-roam-mode-hook-org-ram ()
-  ;;   (when (string-prefix-p my/org-roam-directory buffer-file-name)
-  ;;     (my/org-roam-mode 1))
-  ;;   (when (string-equal (buffer-name) "*org-roam*")
-  ;;     (my/org-roam-side-mode 1)))
+    ;; (defun my/org-roam-mode-hook-org-ram ()
+    ;;   (when (string-prefix-p my/org-roam-directory buffer-file-name)
+    ;;     (my/org-roam-mode 1))
+    ;;   (when (string-equal (buffer-name) "*org-roam*")
+    ;;     (my/org-roam-side-mode 1)))
 
-  ;; (add-hook 'org-mode-hook 'my/org-roam-mode-hook-org-ram)
+    ;; (add-hook 'org-mode-hook 'my/org-roam-mode-hook-org-ram)
 
 
-  ;; (add-hook 'after-init-hook 'org-roam-mode)
+    ;; (add-hook 'after-init-hook 'org-roam-mode)
 
-  ;; (when (fboundp 'org-roam-dailies-today)
-  ;;   (org-roam-dailies-today))
+    ;; (when (fboundp 'org-roam-dailies-today)
+    ;;   (org-roam-dailies-today))
 
-  (defalias 'roam #'org-roam))
+    (defalias 'roam #'org-roam)))
 
 (use-package org-roam-ui
   :after org-roam
@@ -957,7 +965,7 @@ it can be passed in POS."
 
 (use-package websocket)
 (use-package simple-httpd)
-(use-package zmq)
+;;(use-package zmq)
 
 ;; (use-package org-roam-server
 ;;   :after org-roam
@@ -972,49 +980,50 @@ it can be passed in POS."
 ;;   (setq org-roam-server-network-label-truncate-length 60)
 ;;   (setq org-roam-server-network-label-wrap-length 20))
 
-(use-package org-journal
-  :if my/org-journal-enabled
-  :defer 10
-  :after org
-  :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
-  :custom
-  (org-journal-dir my/org-journal-directory)
-  (org-journal-file-type 'yearly)
-  (org-journal-file-format "%Y.org")
-  (org-journal-encrypt-journal t)
-  (org-journal-created-property-timestamp-format "%Y-%m-%d")
-  (org-journal-find-file 'find-file)
-  (org-journal-date-format "%Y-%m-%d %A")
-  (org-journal-time-prefix "*** ")
-  :config
-  (unbind-key "C-c C-j")
+(straight-register-package 'org-journal)
+(when my/org-journal-enabled
+  (use-package org-journal
+    :defer 10
+    :after org
+    :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
+    :custom
+    (org-journal-dir my/org-journal-directory)
+    (org-journal-file-type 'yearly)
+    (org-journal-file-format "%Y.org")
+    (org-journal-encrypt-journal t)
+    (org-journal-created-property-timestamp-format "%Y-%m-%d")
+    (org-journal-find-file 'find-file)
+    (org-journal-date-format "%Y-%m-%d %A")
+    (org-journal-time-prefix "*** ")
+    :config
+    (unbind-key "C-c C-j")
 
-  (defun my/org-journal-open-current-journal-file ()
-    "Do `org-journal-open-current-journal-file` and go to the most recent entry."
-    (interactive)
-    (org-journal-open-current-journal-file)
-    (let* ((heading-title "Timeline")
-            (poslist (org-map-entries 'point (format "ITEM=\"%s\"" heading-title) 'file)))
-      (if (<= (length poslist) 0)
-        (message (format "No heading with title '%s' found!" heading-title))
-        (goto-char (nth 0 poslist))
-        (org-cycle)))
+    (defun my/org-journal-open-current-journal-file ()
+      "Do `org-journal-open-current-journal-file` and go to the most recent entry."
+      (interactive)
+      (org-journal-open-current-journal-file)
+      (let* ((heading-title "Timeline")
+              (poslist (org-map-entries 'point (format "ITEM=\"%s\"" heading-title) 'file)))
+        (if (<= (length poslist) 0)
+          (message (format "No heading with title '%s' found!" heading-title))
+          (goto-char (nth 0 poslist))
+          (org-cycle)))
       (org-journal-mode))
 
-  (defun my/org-journal-after-header-create-hook ()
-    (goto-char (point-min))
-    (mark-whole-buffer)
-    (org-sort-entries nil ?A)
-    (org-back-to-heading)
-    (let ((anchor (point)))
-      (forward-line)
-      (kill-visual-line)
-      (insert my/org-journal-template)
-      (goto-char anchor)
-      (forward-line)
-      (yank)))
+    (defun my/org-journal-after-header-create-hook ()
+      (goto-char (point-min))
+      (mark-whole-buffer)
+      (org-sort-entries nil ?A)
+      (org-back-to-heading)
+      (let ((anchor (point)))
+        (forward-line)
+        (kill-visual-line)
+        (insert my/org-journal-template)
+        (goto-char anchor)
+        (forward-line)
+        (yank)))
 
-  (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
+    (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook)))
 
 (defun my/org-fold-other-headings ()
   "Fold all `org-mode` headings other than the current one."
@@ -1077,24 +1086,24 @@ it can be passed in POS."
 
 ;; This is an Emacs package that creates graphviz directed graphs from
 ;; the headings of an org file
-(use-package org-mind-map
-  :disabled t
-  :after org
-  :if (executable-find "graphviz")
-  :commands (org-mind-map-write org-mind-map-write-current-branch org-mind-map-write-current-tree)
-  :init
-  (unless (executable-find "graphviz")
-    (message "No executable 'graphviz' found"))
-  :custom
-  (org-mind-map-engine "dot")       ; Default. Directed Graph
-  ;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
-  ;; (setq org-mind-map-engine "twopi")  ; Radial Layout
-  ;; (setq org-mind-map-engine "fdp")    ; Undirected Spring Force-Directed
-  ;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
-  ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
-  ;; (setq org-mind-map-engine "circo")  ; Circular Layout
-  :config
-  (require 'ox-org))
+
+(straight-register-package 'org-mind-map)
+(if (executable-find "graphviz")
+  (use-package org-mind-map
+    :disabled t
+    :after org
+    :commands (org-mind-map-write org-mind-map-write-current-branch org-mind-map-write-current-tree)
+    :custom
+    (org-mind-map-engine "dot")       ; Default. Directed Graph
+    ;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
+    ;; (setq org-mind-map-engine "twopi")  ; Radial Layout
+    ;; (setq org-mind-map-engine "fdp")    ; Undirected Spring Force-Directed
+    ;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
+    ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
+    ;; (setq org-mind-map-engine "circo")  ; Circular Layout
+    :config
+    (require 'ox-org))
+  (message "No executable 'graphviz' found"))
 
 (use-package org-appear
   :after org

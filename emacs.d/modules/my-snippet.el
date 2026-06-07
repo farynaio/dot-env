@@ -28,7 +28,10 @@ $0`(yas-escape-text yas-selected-text)`")
 
 (use-package ivy-yasnippet
   ;; :disabled t
-  :after (ivy yasnippet))
+  :after (evil ivy yasnippet)
+  :config
+  (bind-key "M-z" 'ivy-yasnippet evil-insert-state-map)
+  )
 
 ;; (require 'org-tempo)
 ;; (add-to-list 'org-structure-template-alist '("sh" . "src sh"))

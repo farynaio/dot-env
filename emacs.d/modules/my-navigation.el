@@ -1,4 +1,3 @@
-;; -*-  lexical-binding; -*-
 (when (display-graphic-p)
   (setq-default scroll-up-aggressively 0.01)
   (setq
@@ -123,29 +122,31 @@
   ("C-<wheel-down>" . ignore)
   ("C-<wheel-up>" . ignore))
 
-(use-package dashboard
-  :if my/dashboard-enabled
-  :custom
-  (dashboard-icon-type 'all-the-icons)
-  (dashboard-display-icons-p t)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
-  (dashboard-heading-icons
-    '((recents . "history")
-       (bookmarks . "bookmark")
-       (agenda . "calendar")
-       (projects . "rocket")
-       (registers . "database")))
-  (dashboard-center-content t)
-  (dashboard-set-init-info t)
-  (dashboard-item-names
-    '(("Recent Files:" . "Recent files:")
-       ("Agenda for today:" . "Today's agenda:")
-       ("Agenda for the coming week:" . "Agenda for the week:")))
-  (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
-  (dashboard-projects-backend 'projectile)
-  :config
-  (dashboard-setup-startup-hook))
+
+(straight-register-package 'dashboard)
+(when my/dashboard-enabled
+  (use-package dashboard
+    :custom
+    (dashboard-icon-type 'all-the-icons)
+    (dashboard-display-icons-p t)
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-heading-icons
+      '((recents . "history")
+         (bookmarks . "bookmark")
+         (agenda . "calendar")
+         (projects . "rocket")
+         (registers . "database")))
+    (dashboard-center-content t)
+    (dashboard-set-init-info t)
+    (dashboard-item-names
+      '(("Recent Files:" . "Recent files:")
+         ("Agenda for today:" . "Today's agenda:")
+         ("Agenda for the coming week:" . "Agenda for the week:")))
+    (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
+    (dashboard-projects-backend 'projectile)
+    :config
+    (dashboard-setup-startup-hook)))
 
 (use-package woman
   :straight nil
@@ -186,7 +187,6 @@
   (tabspaces-remove-to-default nil)
   (tabspaces-include-buffers '())
   (tabspaces-initialize-project-with-todo t)
-  ;; (tabspaces-todo-file-name "project-todo.org")
   (tabspaces-session t)
   (tabspaces-session-auto-restore t)
   :config
@@ -807,19 +807,20 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package yafolding)
 
-(use-package openwith
-  :disabled t
-  :if (eq system-type 'darwin)
-  :custom
-  (large-file-warning-threshold nil)
-  (openwith-associations '(("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
-                            ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "/usr/bin/open" (file))
-                            ("\\.\\(?:ods\\|odt\\)\\'" "/usr/bin/open" (file))
-                            ("\\.\\(?:mp4\\|mkv\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
-                            ("\\.pdf\\'" "/usr/bin/open" (file))))
-  :config
-  (openwith-mode t)
-  (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist))
+(straight-register-package 'openwith)
+(when (eq system-type 'darwin)
+  (use-package openwith
+    :disabled t
+    :custom
+    (large-file-warning-threshold nil)
+    (openwith-associations '(("\\.\\(?:mp3\\|ogg\\)\\'" "/usr/bin/open" (file))
+                              ;; ("\\.\\(?:jpe?g\\|png\\|gif\\)\\'" "/usr/bin/open" (file))
+                              ("\\.\\(?:ods\\|odt\\)\\'" "/usr/bin/open" (file))
+                              ("\\.\\(?:mp4\\|mkv\\|mpe?g\\|avi\\|wmv\\)\\'" "/usr/bin/open" (file))
+                              ("\\.pdf\\'" "/usr/bin/open" (file))))
+    :config
+    (openwith-mode t)
+    (rassq-delete-all #'doc-view-mode-maybe auto-mode-alist)))
 
 (use-package orderless
   :custom
@@ -951,6 +952,11 @@ That is, a string used to represent it on the tab bar."
   (setq centaur-tabs-tab-label-function #'my/centaur-tabs-buffer-tab-label))
 
 ;; (use-package demap)
+
+;; Probably not needed as I use Toppsy and org-sticky-header instead
+;; (use-package breadcrumb
+;;   :config
+;;   (breadcrumb-mode 1))
 
 (defvar my/save-buffers-kill-terminal-was-called nil)
 

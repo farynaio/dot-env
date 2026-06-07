@@ -258,26 +258,27 @@
   (savehist-mode 1))
 
 ;; https://github.com/xenodium/chatgpt-shell
-(use-package chatgpt-shell
-  :if (and (boundp 'my/chatgpt-enabled) my/chatgpt-enabled)
-  :commands (chatgpt-shell my/chatgpt-shell-start-new ai)
-  :init
-  (defun my/chatgpt-shell-start-new ()
-    "If `chatgpt-shell` session exists kill it, and start new session."
-    (interactive)
-    (let ((chatgpt-buffer (seq-find (lambda (item) (string-prefix-p "*chatgpt" (buffer-name item))) (buffer-list))))
-      (when chatgpt-buffer
-        (kill-buffer chatgpt-buffer)))
-    (chatgpt-shell))
-  (defalias 'ai #'my/chatgpt-shell-start-new)
-  :custom
-  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon")))
-  ;; dall-e-shell-openai-key
-  :config
-  (bind-keys
-    :map chatgpt-shell-mode-map
-    ("C-w v" . split-window-right))
-  )
+(straight-register-package 'chatgpt-shell)
+(when (and (boundp 'my/chatgpt-enabled) my/chatgpt-enabled)
+  (use-package chatgpt-shell
+    :commands (chatgpt-shell my/chatgpt-shell-start-new ai)
+    :init
+    (defun my/chatgpt-shell-start-new ()
+      "If `chatgpt-shell` session exists kill it, and start new session."
+      (interactive)
+      (let ((chatgpt-buffer (seq-find (lambda (item) (string-prefix-p "*chatgpt" (buffer-name item))) (buffer-list))))
+        (when chatgpt-buffer
+          (kill-buffer chatgpt-buffer)))
+      (chatgpt-shell))
+    (defalias 'ai #'my/chatgpt-shell-start-new)
+    :custom
+    (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "openai-api-key-anon")))
+    ;; dall-e-shell-openai-key
+    :config
+    (bind-keys
+      :map chatgpt-shell-mode-map
+      ("C-w v" . split-window-right))
+    ))
 
 (use-package ob-chatgpt-shell
   :disabled t

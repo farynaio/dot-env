@@ -703,20 +703,20 @@ ets function symbol on point as initial suggestion."
 
   (defalias 'elisp-mode 'emacs-lisp-mode))
 
-(use-package solidity-mode
-  :straight (:type git
-              :host github
-              :repo "ethereum/emacs-solidity"
-              :branch "master")
-  :mode "\\.sol\\'"
-  :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4))))
-  :preface
-  (setq-default solidity-solium-path (format "%s/solium" (getenv "NVM_BIN")))
-  (unless (file-exists-p solidity-solium-path)
-    (message "'solium' not installed!"))
-  :if (file-exists-p solidity-solium-path)
-  :custom
-  (solidity-flycheck-solium-checker-active t))
+(straight-register-package 'solidity-mode)
+(setq-default solidity-solium-path (format "%s/solium" (getenv "NVM_BIN")))
+(if (file-exists-p solidity-solium-path)
+  (use-package solidity-mode
+    :straight (:type git
+                :host github
+                :repo "ethereum/emacs-solidity"
+                :branch "master")
+    :mode "\\.sol\\'"
+    :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4))))
+    :preface
+    :custom
+    (solidity-flycheck-solium-checker-active t))
+  (message "'solium' not installed!"))
 
 (use-package company-solidity
   :after company

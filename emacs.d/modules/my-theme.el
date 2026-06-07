@@ -1,32 +1,33 @@
 
 ;;; Code:
 
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :config
-  (unless (find-font (font-spec :name "all-the-icons"))
-            (all-the-icons-install-fonts t))
-  ;; (when (not (file-exists-p (expand-file-name "~/Library/Fonts/all-the-icons.ttf")))
-  ;;   (all-the-icons-install-fonts))
+(straight-register-package 'all-the-icons)
+(when (display-graphic-p)
+  (use-package all-the-icons
+    :config
+    (unless (find-font (font-spec :name "all-the-icons"))
+      (all-the-icons-install-fonts t))
+    ;; (when (not (file-exists-p (expand-file-name "~/Library/Fonts/all-the-icons.ttf")))
+    ;;   (all-the-icons-install-fonts))
 
-  ;; (defun my/vc-mode-line ()
-  ;;   (let* (
-  ;;           (branch nil)
-  ;;           (branch (if branch branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-"))))
-  ;;     (concat
-  ;;       (propertize (format " %s" (all-the-icons-octicon "git-branch"))
-  ;;         'face `(:height 1 :family ,(all-the-icons-octicon-family))
-  ;;         'display '(raise 0))
-  ;;       (propertize (format " %s" branch))
-  ;;       (propertize " "))))
+    ;; (defun my/vc-mode-line ()
+    ;;   (let* (
+    ;;           (branch nil)
+    ;;           (branch (if branch branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-"))))
+    ;;     (concat
+    ;;       (propertize (format " %s" (all-the-icons-octicon "git-branch"))
+    ;;         'face `(:height 1 :family ,(all-the-icons-octicon-family))
+    ;;         'display '(raise 0))
+    ;;       (propertize (format " %s" branch))
+    ;;       (propertize " "))))
 
-  ;; (defadvice vc-mode-line (after strip-backend () activate)
-  ;;   (when (stringp vc-mode)
-  ;;     (let ((noback (replace-regexp-in-string
-  ;;                     (format "^ %s" (vc-backend buffer-file-name))
-  ;;                     " " (my/vc-mode-line))))
-  ;;       (setq vc-mode noback))))
-  )
+    ;; (defadvice vc-mode-line (after strip-backend () activate)
+    ;;   (when (stringp vc-mode)
+    ;;     (let ((noback (replace-regexp-in-string
+    ;;                     (format "^ %s" (vc-backend buffer-file-name))
+    ;;                     " " (my/vc-mode-line))))
+    ;;       (setq vc-mode noback))))
+    ))
 
 (setq custom-theme-directory "~/.emacs.d/themes/")
 
@@ -60,7 +61,6 @@
 
 ;; After install run nerd-icons-install-fonts
 (use-package doom-modeline
-  :demand t
   :init
   (setq-default
     doom-modeline-support-imenu t

@@ -42,43 +42,47 @@
   (save-abbrevs nil)
   (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
 
-(use-package ispell
-  :defer 2
-  :custom
-  (ispell-local-dictionary "en_US")
-  (ispell-local-dictionary-alist
-    '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-       ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
-  (ispell-dictionary "en_US")
-  (ispell-dictionary-alist
-    '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-       ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
-  ;; (ispell-program-name (executable-find "hunspell"))
-  (ispell-program-name (executable-find "aspell"))
-  (ispell-really-hunspell t)
-  (ispell-silently-savep t)
-  ;; (ispell-extra-args '("--sug-mode=ultra") ;; for hunspell only
-  :preface
-  (setq my/lang-modes '((en . my/en-mode) (pl . my/pl-mode)))
-  (defun my/lang-modes-deactivate ()
-    "Deactivate all lang modes."
-    (interactive)
-    (my/en-mode -1)
-    (my/pl-mode -1))
+(straight-register-package 'ispell)
+(if (executable-find "aspell")
+  (use-package ispell
+    :defer 2
+    :custom
+    (ispell-local-dictionary "en_US")
+    (ispell-local-dictionary-alist
+      '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+         ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+    (ispell-dictionary "en_US")
+    (ispell-dictionary-alist
+      '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+         ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+    ;; (ispell-program-name (executable-find "hunspell"))
+    (ispell-program-name (executable-find "aspell"))
+    (ispell-really-aspell t)
+    ;; (ispell-really-hunspell t)
+    (ispell-silently-savep t)
+    ;; (ispell-extra-args '("--sug-mode=ultra") ;; for hunspell only
+    :preface
+    (setq my/lang-modes '((en . my/en-mode) (pl . my/pl-mode)))
+    (defun my/lang-modes-deactivate ()
+      "Deactivate all lang modes."
+      (interactive)
+      (my/en-mode -1)
+      (my/pl-mode -1))
 
-  (defun my/lang-toggle ()
-    "Toggle language modes."
-    (interactive)
-    (unless (derived-mode-p 'prog-mode)
-      (let ((new-mode (symbol-function
-                        (cond
-                          ((bound-and-true-p my/pl-mode) #'my/en-mode)
-                          ((bound-and-true-p my/en-mode) #'my/pl-mode)
-                          ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
-                          (t #'my/en-mode))
-                        )))
-        (my/lang-modes-deactivate)
-        (funcall new-mode 1)))))
+    (defun my/lang-toggle ()
+      "Toggle language modes."
+      (interactive)
+      (unless (derived-mode-p 'prog-mode)
+        (let ((new-mode (symbol-function
+                          (cond
+                            ((bound-and-true-p my/pl-mode) #'my/en-mode)
+                            ((bound-and-true-p my/en-mode) #'my/pl-mode)
+                            ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
+                            (t #'my/en-mode))
+                          )))
+          (my/lang-modes-deactivate)
+          (funcall new-mode 1)))))
+    (message "No executable 'aspell' found"))
 
 (use-package flyspell
   :commands flyspell-mode
@@ -349,21 +353,21 @@
 
   (advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer))
 
-(use-package langtool
-  :commands (langtool-check-buffer langtool-check-done)
-  :if (and (boundp 'my/tools-path) (executable-find (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path)))
-  :custom
-  (langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
-  (langtool-default-language "en")
-  (langtool-mother-tongue "en")
-  (langtool-disabled-rules
-    '("COMMA_PARENTHESIS_WHITESPACE"
-       "COPYRIGHT"
-       "DASH_RULE"
-       "EN_QUOTES"
-       "EN_UNPAIRED_BRACKETS"
-       "UPPERCASE_SENTENCE_START"
-       "WHITESPACE_RULE")))
+;; (use-package langtool
+;;   :commands (langtool-check-buffer langtool-check-done)
+;;   :if (and (boundp 'my/tools-path) (executable-find (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path)))
+;;   :custom
+;;   (langtool-language-tool-jar (expand-file-name "LanguageTool/languagetool-commandline.jar" my/tools-path))
+;;   (langtool-default-language "en")
+;;   (langtool-mother-tongue "en")
+;;   (langtool-disabled-rules
+;;     '("COMMA_PARENTHESIS_WHITESPACE"
+;;        "COPYRIGHT"
+;;        "DASH_RULE"
+;;        "EN_QUOTES"
+;;        "EN_UNPAIRED_BRACKETS"
+;;        "UPPERCASE_SENTENCE_START"
+;;        "WHITESPACE_RULE")))
 
 ;; (use-package google-translate
 ;;   :custom

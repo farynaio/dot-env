@@ -20,12 +20,11 @@
           ("[w" . 'smerge-prev)
           ("]w" . 'smerge-next)))
 
-(setq-default git-commit-style-convention-checks nil)
-
-(use-package git-commit
-  :after magit
-  :custom
-(git-commit-style-convention-checks nil))
+;; (setq-default git-commit-style-convention-checks nil)
+;; (use-package git-commit
+;;   :after magit
+;;   :custom
+;; (git-commit-style-convention-checks nil))
 
 (use-package diff-hl
   :config
@@ -46,6 +45,9 @@
 ;; magit dependency
 ;; (use-package transient
 ;;   :defer 0.3)
+
+;; TODO is that needed for magit?
+;; (use-package seq)
 
 (use-package magit
   ;; :after transient

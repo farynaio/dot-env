@@ -1,20 +1,20 @@
+(setq package-enable-at-startup nil)
+
 (setq
-  gc-cons-threshold (* 1024 1024 2)
+  gc-cons-threshold (* 100 1024 1024)
   ;; gc-cons-threshold (* 1024 800)
-  gc-cons-percentage 0.1
-  read-process-output-max (* 1024 1024 512))
+  ;; gc-cons-percentage 0.1
+  ;; read-process-output-max (* 1024 1024 512)
+  )
 ;; (setq gc-cons-threshold 402653184)
 ;; (setq gc-cons-percentage 0.6)
 
 ;; (toggle-debug-on-error)
 
 (setenv "SHELL" (executable-find "bash"))
-(setenv "LIBRARY_PATH" "/usr/local/opt/gcc/lib/gcc/10:/usr/local/opt/libgccjit/lib/gcc/10:/usr/local/opt/gcc/lib/gcc/10/gcc/x86_64-apple-darwin19/10.2.0")
+;; (setenv "LIBRARY_PATH" "/usr/local/opt/gcc/lib/gcc/10:/usr/local/opt/libgccjit/lib/gcc/10:/usr/local/opt/gcc/lib/gcc/10/gcc/x86_64-apple-darwin19/10.2.0")
 
 (setq-default auth-sources '("~/.authinfo.gpg" "~/.netrc.gpg" "~/.authinfo" "~/.netrc"))
-
-(require 'tls)
-(require 'gnutls)
 
 (eval-when-compile
   (defvar oauth--token-data ())
@@ -58,18 +58,18 @@
 (add-to-list 'load-path "~/.emacs.d/modules/devel")
 (add-to-list 'load-path "~/.emacs.d/modules/snippets")
 
-(setq package-enable-at-startup nil)
-
 (defvar bootstrap-version)
-(defvar native-comp-deferred-compilation-deny-list nil)
 (let ((bootstrap-file
-        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-       (bootstrap-version 5))
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-      (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -88,11 +88,13 @@
 
 (setq enable-local-eval t)
 
+(setq package-install-upgrade-built-in t)
+
 ;; https://www.reddit.com/r/emacs/comments/8sykl1/emacs_tls_defaults_are_downright_dangerous/
 ;;(setq
 ;; network-security-level 'medium
 ;; gnutls-verify-error t
-;; tls-checktrust t
+;; tls-checktrust
 ;; gnutls-trustfiles
 ;; '(
 ;;   "/etc/ssl/cert.pem"
@@ -110,7 +112,24 @@
   (auto-compile-on-load-mode))
 
 ;; TODO safe to remove?
+;; if straight is disabled it's ok to run it
 ;; (use-package use-package-ensure-system-package)
+
+
+;; (require 'tls)
+;; (require 'gnutls)
+
+;; Feature `gnutls' provides support for SSL/TLS connections, using
+;; the GnuTLS library.
+(with-eval-after-load 'gnutls
+
+  ;; `use-package' does this for us normally.
+  (eval-when-compile
+    (require 'gnutls))
+
+  ;; Do not allow insecure TLS connections.
+  (setq gnutls-verify-error t))
+
 
 (use-package diminish
   :config

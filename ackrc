@@ -443,6 +443,7 @@
 --ignore-dir=straight
 --ignore-dir=.expo
 --ignore-dir=__pycache__
+--ignore-dir=rss
 --ignore-file=match:tags
 --ignore-file=match:readme.md
 --ignore-file=match:yarn.lock
