@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (when (display-graphic-p)
   (setq-default scroll-up-aggressively 0.01)
   (setq

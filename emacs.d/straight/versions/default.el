@@ -97,7 +97,7 @@
  ("nerd-icons.el" . "d33d12f5dcb6bf2fb23c3f75df5de85beb4afd95")
  ("nongnu-elpa" . "75687fd1d60d7ad7f9dacb4379389a024d893138")
  ("nov.el" . "874daf5e4791a6d4f47741422c80e2736e907351")
- ("ob-async" . "9aac486073f5c356ada20e716571be33a350a982")
+ ("ob-async" . "f3cded9e3611aae2fc63f42def6b82940bc6d3f5")
  ("openwith" . "1dc89670822966fab6e656f6519fdd7f01e8301a")
  ("orderless" . "09c90d93efce4fdac52edfe8b22591b773f3e607")
  ("org" . "7a134e7b216311f54ddb55e779d929454dd6d639")

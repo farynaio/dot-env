@@ -1,9 +1,15 @@
-﻿;; -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
 ;;; Code:
 
 ;; custom style for org
 ;; https://github.com/minad/org-modern
+
+;; This is for async evalaution of org-babel blocks.
+(straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
+(use-package ob-async
+  :config
+  (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
 (use-package org-contrib
   :after org)
@@ -335,17 +341,6 @@
     :straight (:type git
                 :host github
                 :repo "jwiegley/emacs-async"))
-
-  ;; This is for async evalaution of org-babel blocks.
-  (use-package ob-async
-    :straight (ob-async
-                :type git
-                :host github
-                ;; :repo "farynaio/ob-async")
-                :repo "astahlman/ob-async"
-                :fork (:host github :repo "farynaio/ob-async"))
-    :config
-    (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
   (if (executable-find "unoconv")
     (setq org-odt-convert-processes '(("unoconv" "unoconv -f %f -o %d %i")))
