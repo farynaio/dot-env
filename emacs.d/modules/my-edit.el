@@ -113,7 +113,7 @@
   :disabled t
   :defer 0.2
   :custom
-  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-cycle t)
   (corfu-auto t)                  ; Enable auto completion
   (corfu-auto-prefix 2)
   (corfu-auto-delay 0.0)

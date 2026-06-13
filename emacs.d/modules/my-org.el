@@ -96,7 +96,7 @@
   (defun my/org-priority-cookie-print () (format "[#%c]" org-default-priority))
   :custom
   (org-adapt-indentation nil)
-  (org-return-follows-link t)
+  ;; (org-return-follows-link t)
 
   (org-tag-faces
     '(("ui" . "snow3") ("backend" . "pink2") ("config" . "cyan2")))
@@ -185,7 +185,7 @@
   ;; org-export for LateX config
   ;; (org-latex-subtitle-separate t)
 
-  (org-pretty-entities-include-sub-superscripts t)
+  ;; (org-pretty-entities-include-sub-superscripts t)
   ;; (org-use-sub-superscripts '{})
 
 
@@ -194,7 +194,7 @@
   ;; (setq org-track-ordered-property-with-tag t)
   (org-use-property-inheritance t)
   (org-use-speed-commands t)
-  (org-edit-src-content-indentation 0)
+  ;; (org-edit-src-content-indentation 2)
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively t)
   (org-priority-start-cycle-with-default nil)
@@ -202,7 +202,7 @@
   (org-confirm-babel-evaluate nil)
   ;; (org-confirm-babel-evaluate (lambda (lang body) (not (string= lang "ledger"))))
   (org-cycle-include-plain-lists t)
-  (org-hide-block-startup t)
+  ;; (org-hide-block-startup t)
   (org-list-description-max-indent 5)
   (org-fontify-done-headline t)
   (org-closed-keep-when-no-todo t)
@@ -684,6 +684,9 @@ should be continued."
   (defun my/org-align-tags ()
     (interactive)
     (let ((current-prefix-arg '(4))) (call-interactively 'org-set-tags-command)))
+
+  (add-to-list 'org-structure-template-alist
+    '("init.el" . "src emacs-lisp :tangle init.el :eval never-export"))
 
   (advice-add 'org-refile :after (lambda (&rest args) (org-save-all-org-buffers)))
   (advice-add 'org-archive-subtree-default :after (lambda () (org-save-all-org-buffers)))

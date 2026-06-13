@@ -1,5 +1,11 @@
 ;; -*- lexical-binding: t; -*-
 
+(setq
+  scroll-step 1
+  scroll-margin 0
+  scroll-conservatively 101
+  auto-window-vscroll nil)
+
 (when (display-graphic-p)
   (setq-default scroll-up-aggressively 0.01)
   (setq
@@ -8,12 +14,6 @@
     scroll-margin 1
     scroll-conservatively 10000
     scroll-preserve-screen-position nil))
-
-(setq
-  scroll-step 1
-  scroll-margin 0
-  scroll-conservatively 101
-  auto-window-vscroll nil)
 
 ;;; Scrolling.
 ;; Good speed and allow scrolling through large images (pixel-scroll).
@@ -128,6 +128,7 @@
 (straight-register-package 'dashboard)
 (when my/dashboard-enabled
   (use-package dashboard
+    :demand t
     :custom
     (dashboard-icon-type 'all-the-icons)
     (dashboard-display-icons-p t)
@@ -185,12 +186,12 @@
 (use-package tabspaces
   :custom
   (tabspaces-use-filtered-buffers-as-default nil)
-  (tabspaces-default-tab "Default")
+  ;; (tabspaces-default-tab "Default")
   (tabspaces-remove-to-default nil)
   (tabspaces-include-buffers '())
-  (tabspaces-initialize-project-with-todo t)
-  (tabspaces-session t)
-  (tabspaces-session-auto-restore t)
+  (tabspaces-initialize-project-with-todo nil)
+  (tabspaces-session nil)
+  (tabspaces-session-auto-restore nil)
   :config
   (tabspaces-mode 1))
 
@@ -523,13 +524,12 @@ to invalidate."
           ("<f1> l" . counsel-find-library)
           ("<f2> s" . counsel-info-lookup-symbol)
           ("<f2> u" . counsel-unicode-char)
-          ("C-h f" . counsel-describe-function)
+          ("C-h f" . counsel-desribe-function)
           ("C-h v" . counsel-describe-variable)
           ("C-h a" . counsel-apropos)
           ("C-x r b" . counsel-bookmark)
-          ("C-x b" . counsel-projectile-switch-to-buffer)
-          ("C-x C-b" . counsel-switch-buffer)
-          ("C-x B" . counsel-switch-buffer-other-window)
+          ("C-x b" . counsel-switch-buffer)
+          ("C-x C-b" . counsel-projectile-switch-to-buffer)
           ("C-x C-r" . my/recentf)
           ("C-h l" . counsel-find-library)
           :map read-expression-map
@@ -542,8 +542,8 @@ to invalidate."
   (counsel-find-file-ignore-regexp "\\`\\.")
   (counsel-grep-base-command "grep -E -n -i -e %s %s")
   (counsel-outline-path-separator " > ")
-  (swiper-use-visual-line-p #'ignore)
   (counsel-find-file-at-point t)
+  (swiper-use-visual-line-p #'ignore)
   :config
   (unbind-key "C-x C-h" global-map)
 
@@ -807,7 +807,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; (use-package fold-this)
 
-(use-package yafolding)
 
 (straight-register-package 'openwith)
 (when (eq system-type 'darwin)
@@ -831,36 +830,7 @@ point reaches the beginning or end of the buffer, stop there."
   '(completion-category-overrides '((file (styles basic orderless) (cycle . t))
                                     (buffer (styles basic orderless) (cycle . t)))))
 
-(use-package project
-  :bind (:map project-prefix-map
-          ("g" . yant/occur-current-project))
-  :init
-  (defun yant/occur-current-project (regexp &optional nlines directory-to-search)
-    "Perform `multi-occur' with REGEXP in the current project files.
-When called with a prefix argument NLINES, display NLINES lines before and after.
-If DIRECTORY-TO-SEARCH is specified, this directory will be searched recursively;
-otherwise, the user will be prompted to specify a directory to search.
 
-For performance reasons, files are filtered using 'find' or 'git
-ls-files' and 'grep'."
-    (interactive
-     (list
-      (project--read-regexp)
-      (and current-prefix-arg (prefix-numeric-value current-prefix-arg))))
-    (let* ((default-directory
-	    (or directory-to-search
-		(when-let ((pr (project-current t)))
-                  (project-root pr))
-		(read-directory-name "Search in directory: ")))
-           (files
-            (mapcar #'find-file-noselect
-		    (delete-dups
-		     (mapcar
-		      #'xref-file-location-file
-		      (mapcar
-		       #'xref-item-location
-		       (xref-matches-in-files regexp (project-files (project-current t)))))))))
-      (multi-occur files regexp nlines))))
 
 (use-package centaur-tabs
   :disabled t
