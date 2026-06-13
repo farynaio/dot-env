@@ -1,6 +1,6 @@
-(setq package-enable-at-startup nil)
-
-(setq package-install-upgrade-built-in t)
+(setq
+  package-enable-at-startup nil
+  package-install-upgrade-built-in t)
 
 ;; init.el — minimal bootstrap
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
@@ -24,13 +24,16 @@
 
 ;; Ensure use-package is available via straight
 (straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
+(setq
+  straight-use-package-by-default t
+  straight-vc-git-default-protocol 'https
+  straight-check-for-modifications '(check-on-save find-when-checking))
 (setq use-package-always-defer t)
 
 ;; Load Org and org-babel support
 (straight-use-package 'org)
 (require 'org)
-(require 'ob-tangle)		       
+(require 'ob-tangle)
 
 ;; Tangle & load init.org if it is newer than the tangled file
 (let ((org-file (expand-file-name "init.org" user-emacs-directory)))
