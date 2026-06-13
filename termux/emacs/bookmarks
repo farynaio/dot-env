@@ -1,0 +1,35 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("init.org"
+ (filename . "~/.emacs.d/init.org")
+ (front-context-string . "\n\n* General\n#+be")
+ (rear-context-string . "ODO\n;; org-roam\n")
+ (position . 56)
+ (last-modified 27181 12445 888422 600000))
+(".termux"
+ (filename . "~/.termux/")
+ (front-context-string . "termux.propertie")
+ (rear-context-string . "9K Jun 10 22:09 ")
+ (position . 203)
+ (last-modified 27180 62125 873166 79000))
+("others"
+ (filename . "/storage/emulated/0/Sync/org-agenda-repo/others/")
+ (front-context-string . "Inbox.org\n  -rw-")
+ (rear-context-string . "07 Jun 10 23:59 ")
+ (position . 105)
+ (last-modified 27178 20311 435433 852000))
+("storage"
+ (filename . "/storage/emulated/0/")
+ (front-context-string . "Android\n  drwxrw")
+ (rear-context-string . "52 Feb 19 02:04 ")
+ (position . 76)
+ (last-modified 27178 20290 948552 6000))
+("init.el"
+ (filename . "~/.emacs.d/init.el")
+ (front-context-string . "\n\n(require 'orde")
+ (rear-context-string . "ounsel-bookmark)")
+ (position . 1377)
+ (last-modified 27178 20197 401289 184000))
+)

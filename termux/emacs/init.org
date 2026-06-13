@@ -1,0 +1,350 @@
+#+PROPERTY: header-args :eval yes
+
+;; TODO
+;; org-roam
+
+
+* General
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq confirm-kill-emacs #'yes-or-no-p)
+
+  (setq save-some-buffers-default-predicate t
+        buffer-save-without-query t)
+
+  (defconst my/tmp-dir (expand-file-name "tmp/" user-emacs-directory))
+
+  (unless (file-exists-p my/tmp-dir)
+    (make-directory my/tmp-dir t))
+
+  ;; Backup files (~file~)
+  (setq backup-directory-alist `((".*" . ,my/tmp-dir))
+        backup-by-copying t    ; avoid symlink issues
+        delete-old-versions t
+        kept-new-versions 6
+        kept-old-versions 2
+        version-control t)     ; use numbered backups
+
+  ;; Auto-save files (#file#)
+  (setq auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "auto-save-") t))
+        auto-save-list-file-prefix (concat my/tmp-dir "auto-saves-"))
+
+  ;; Lockfiles
+  (setq create-lockfiles nil) ; optional: disable .#lockfiles
+
+  ;; Custom for tramp/local temp files
+  (setq tramp-auto-save-directory my/tmp-dir)
+
+  (use-package scroll-bar
+    :straight nil
+    :demand t
+    :config
+    (scroll-bar-mode -1))
+
+  ;; Set default input method and coding system:
+  (use-package mule
+    :straight nil
+    :demand t    
+    :init
+  					; (setq default-input-method 'MacOSX)
+    :config
+    (set-terminal-coding-system 'utf-8)
+    (set-keyboard-coding-system 'utf-8))
+
+  (use-package recentf
+    :straight nil
+    :demand t    
+    :config
+    (add-to-list 'recentf-exclude "\\(?:cache\\|eln-cache\\)")
+    (setq recentf-max-saved-items 200)
+    (add-hook 'dired-mode-hook
+      	    (lambda ()
+      	      (when (buffer-file-name) (recentf-add-file (buffer-file-name)))))
+    (recentf-mode 1))
+
+  ;; file to save histories
+  (defconst my/history-file (expand-file-name "var/history.el" user-emacs-directory))
+  (unless (file-exists-p (file-name-directory my/history-file))
+    (make-directory (file-name-directory my/history-file) t))
+
+  ;; variables to persist
+  (setq history-length 1000
+        savehist-additional-variables
+        '(search-ring regexp-search-ring extended-command-history)
+        savehist-autosave-interval 300)
+
+  ;; enable savehist-mode and set file
+  (require 'savehist)
+  (setq savehist-file my/history-file)
+  (savehist-mode 1)
+
+  (use-package emacs
+    :straight nil
+    :demand t    
+    :custom
+    ;; TAB cycle if there are only few candidates
+    ;; (completion-cycle-threshold 3)
+
+    ;; Enable indentation+completion using the TAB key.
+    ;; `completion-at-point' is often bound to M-TAB.
+    (tab-always-indent 'complete)
+
+    ;; Emacs 30 and newer: Disable Ispell completion function.
+    ;; Try `cape-dict' as an alternative.
+    (text-mode-ispell-word-completion nil)
+
+    ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+    ;; commands are hidden, since they are not used via M-x. This setting is
+    ;; useful beyond Corfu.
+    (read-extended-command-predicate #'command-completion-default-include-p))
+
+  (use-package simple
+    :straight nil
+    :demand t    
+    :config
+    (global-visual-line-mode 1))
+#+end_src
+
+* Git
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package magit
+    :custom
+    (magit-completing-read-function 'ivy-completing-read)
+    (magit-refresh-status-buffer nil)
+    (magit-item-highlight-face 'bold)
+    (magit-diff-paint-whitespace nil)
+    (magit-ediff-dwim-show-on-hunks t)
+    (magit-diff-hide-trailing-cr-characters t)
+    (magit-bury-buffer-function 'quit-window)
+    (magit-commit-ask-to-stage nil)
+    (magit-commit-squash-confirm nil)
+    (magit-no-confirm '(stage-all-changes unstage-all-changes set-and-push edit-published rebase-published amend-published))
+    (auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffer-p)
+    (magit-blame-styles '((margin
+                           (margin-format " %s%f" " %C %a" " %H")
+                           (margin-width . 42)
+                           (margin-face . magit-blame-margin)
+                           (margin-body-face magit-blame-dimmed))
+      			(headings
+                           (heading-format . "%-20a %C %s"))))
+    :config
+    (defalias 'magit-blame-echo #'magit-blame-addition)
+
+    (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
+    (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
+    (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
+#+end_src
+
+* Undo & redo
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (global-set-key (kbd "C-\\") #'undo)
+  (global-set-key (kbd "C-/") #'undo-redo)
+#+end_src
+
+#+RESULTS:
+: undo-redo
+
+* Edit
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package move-text
+    :bind (("M-<up>" . move-text-up)
+           ("M-<down>" . move-text-down)))
+#+end_src
+
+* Ivy
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package ivy
+    :demand t
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtuhal-buffers t)
+    (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
+    )
+
+  (use-package counsel
+    :demand t
+    :bind (("C-x C-f" . counsel-find-file)
+  	 ("C-x C-r" . counsel-recentf)
+  	 ("C-f" . counsel-find-file)
+  	 ("C-c b" . counsel-bookmark)))
+#+end_src
+
+* Dired
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+    (use-package dired
+      :straight nil
+       :custom
+      (dired-kill-when-opening-new-dired-buffer t)
+      (dired-dwim-target t)
+      :config
+      (setq dired-listing-switches "-ah1")
+      (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+      (define-key dired-mode-map (kbd "<backspace>") #'dired-up-directory)
+      (define-key dired-mode-map (kbd "DEL") #'dired-up-directory) ; optional
+      ;; allow dired-find-alternate-file (it's disabled by default)
+      (put 'dired-find-alternate-file 'disabled nil)
+      ;; RET: replace current dired buffer with target (no new window)
+      (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
+      ;; mouse-1: same behavior when clicking
+
+      ;; (define-key dired-mode-map [mouse-1] #'dired-find-alternate-file)
+
+      (define-key dired-mode-map [mouse-1] nil)
+
+  ;; When clicking a file in dired, just move point there instead of visiting it.
+  (defun my/dired-click-move-point (event)
+    "Move point to the clicked line in dired without opening the file."
+    (interactive "e")
+    (let* ((posn (event-start event))
+           (win  (posn-window posn))
+           (buf  (window-buffer win))
+           (pos  (posn-point posn)))
+      (with-selected-window win
+        (with-current-buffer buf
+          (goto-char pos)
+          (dired-move-to-filename)))))
+
+  ;; ;; Bind left mouse click in dired to the do-nothing mover
+  (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
+#+end_src
+
+* Completion
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package orderless
+    :demand t
+    :config
+    (setq completion-styles '(orderless basic)
+  	completion-category-defaults nil
+  	completion-pcm-leading-wildcard t
+  	completion-category-overrides '((file (styles . (partial-completion))))))
+
+  (use-package corfu
+    :demand t
+    :config
+    (global-corfu-mode 1))
+
+  ;(use-package nerd-icons-corfu
+    ;; :after nerd-icons
+    ;; :config
+    ;; (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+#+end_src
+
+* Org
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package org
+    :demand t
+    :bind (:map org-mode-map
+        	      ("M-<up>" . org-metaup)
+        	      ("M-<down>" . org-metadown))
+    :custom
+    (org-startup-folded 'fold)
+    :config
+    (add-to-list 'org-structure-template-alist
+  	       '("init.el" . "src emacs-lisp :tangle init.el :eval never-export")))
+
+  (use-package org-roam)
+
+#+end_src
+
+* Devel general
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  (use-package rainbow-delimiters)
+
+  (use-package prog-mode
+    :straight nil
+    :hook ((prog-mode . rainbow-delimiters-mode)))
+
+  (use-package smart-comment
+    :bind ("M-;" . smart-comment))
+#+end_src
+
+* Theme
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+     ;; (use-package nerd-icons
+       ;; :config
+        ;; (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin android))
+         ;; (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+           ;; (nerd-icons-install-fonts t)
+           ;; (message "install nerd")
+           ;; )))
+
+   (use-package doom-modeline
+     :demand t
+     :custom
+     (doom-modeline-icon nil)
+     :init
+     (setq doom-modeline-minor-modes t
+           doom-modeline-vcs-max-length 20)
+     :config
+     (doom-modeline-mode 1))
+
+   (use-package doom-themes
+     :demand t
+     :init
+     ;; Global settings (defaults)
+     (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+           doom-themes-enable-italic t) ; if nil, italics is universally disabled
+     :config
+     (load-theme 'doom-1337 t)
+     ;; (load-theme 'doom-one t)
+     ;; (load-theme 'doom-material t)
+     ;; (load-theme 'doom-oceanic-next t)
+     ;; (load-theme 'doom-opera t)
+  ;;   (load-theme 'doom-palenight t)
+     ;; (load-theme 'doom-peacock t)
+
+     ;; Enable flashing mode-line on errors
+     (doom-themes-visual-bell-config)
+
+   ;  (use-package doom-themes-ext-treemacs
+    ;   :init
+   ;    (setq doom-themes-treemacs-theme "doom-colors")) ; use the colorful treemacs theme
+   ;  (doom-themes-treemacs-config)
+
+     ;; Corrects (and improves) org-mode's native fontification.
+     (doom-themes-org-config)
+     )
+#+end_src
+
+#+RESULTS:
+
+* Shell
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+  ;; Kill shell buffer when shell exits
+  (use-package shell
+    :straight nil
+    :hook (shell-mode . my-shell-mode-hook-func)
+    :config
+    (defun my-shell-mode-hook-func ()
+      (set-process-sentinel (get-buffer-process (current-buffer))
+                            'my-shell-mode-kill-buffer-on-exit))
+    (defun my-shell-mode-kill-buffer-on-exit (process state)
+      (message "%s" state)
+      (if (or
+           (string-match "exited abnormally with code.*" state)
+           (string-match "finished" state))
+          (kill-buffer (current-buffer))))
+
+    ;; default shell buffer
+    (setq explicit-shell-file-name "/data/data/com.termux/files/usr/bin/fish")
+    ;; use shell-file-name for subprocesses
+    (setq shell-file-name explicit-shell-file-name)
+
+    )
+#+end_src
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+ 
