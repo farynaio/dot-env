@@ -159,7 +159,7 @@
   (org-hide-emphasis-markers t)
   (org-src-preserve-indentation t)
   (org-table-header-line-p nil)
-  (org-image-actual-width 1200)
+  ;; (setq org-image-actual-width t)
   ;; (setq org-list-end-re "^$")
   (org-list-demote-modify-bullet
     '(("+" . "-")
