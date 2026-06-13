@@ -1,0 +1,149 @@
+[apply]
+  ignoreWhitespace = change
+
+[color]
+  ui = auto
+
+[color "branch"]
+	# Blue on black is hard to read in git branch -vv: use cyan instead
+	upstream = cyan
+
+[commit]
+  cleanup = default
+  status = false
+
+[core]
+  attributesFile = ~/.gitattributes_global
+	excludesfile = ~/.gitignore_global
+  autocrlf = input
+  pager = less -r
+  editor = emacs
+
+	# Don't consider trailing space change as a cause for merge conflicts
+	whitespace = -trailing-space
+	filemode = false
+	precomposeUnicode = true
+
+[diff]
+  tool = ediff
+	# Use better, descriptive initials (c, i, w) instead of a/b.
+	mnemonicPrefix = true
+	# Show renames/moves as such
+	renames = true
+	# When using --word-diff, assume --word-diff-regex=.
+	wordRegex = .
+  # Display submodule-related information (commit listings)
+	submodule = log
+
+[diff "gpg"]
+	textconv = gpg --no-tty --decrypt
+
+[fetch]
+  recurseSubmodules = on-demand
+
+[grep]
+	# Consider most regexes to be ERE
+	extendedRegexp = true
+
+[log]
+	# Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+	abbrevCommit = true
+	# Automatically --follow when given a single path
+	follow = true
+
+[merge]
+  tool = ediff
+  # conflictStyle = diff3
+  conflictStyle = merge
+  prompt = false
+  keepBackup = false
+
+[rebase]
+  autoSquash = true
+
+[mergetool]
+	# Clean up backup files created by merge tools on tool exit
+	keepBackup = false
+	# Clean up temp files created by merge tools on tool exit
+  # keepTemporaries = false
+	# Put the temp files in a dedicated dir anyway
+  # writeToTemp = true
+	# Auto-accept file prompts when launching merge tools
+	prompt = false
+
+[pull]
+  rebase = merges
+
+[push]
+	default = current
+	# When pushing, also push tags whose commit-ishs are now reachable upstream
+  followTags = true
+  recurseSubmodules = on-demand
+
+[status]
+	# or 1
+  submodulesummary = true
+	# Recursively traverse untracked directories to display all contents
+  showUntrackedFiles = all
+
+[submodule]
+  recurse = true
+
+[tag]
+	# Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
+	sort = version:refname
+
+[versionsort]
+	prereleaseSuffix = -pre
+	prereleaseSuffix = .pre
+	prereleaseSuffix = -beta
+	prereleaseSuffix = .beta
+	prereleaseSuffix = -rc
+	prereleaseSuffix = .rc
+
+[alias]
+  la = "!git config -l | grep alias | cut -c 7-" # list all aliases
+  lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+  ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --branches
+  ll = log --pretty=format:'* %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat --all --branches
+  fl = log -p
+  find = log --all --pretty=\"format:%Cgreen%H %Cblue%s%Creset\" --name-status --grep
+  rl = reflog --pretty=format:\"%Cred%h%Creset %C(auto)%gd%Creset %C(auto)%gs%C(reset) %C(green)(%cr)%C(reset) %C(bold blue)<%an>%Creset\" --abbrev-commit
+  # lf = log -u
+  a = add --all
+  ap = add --all -p
+  gr = grep -Ii # search code base for string
+  cia = commit --amend --reuse-message=HEAD --edit -v -q
+  ci = commit -v -q
+  lasttag = describe --tags --abbrev=0
+  lt = describe --tags --abbrev=0
+# ours = "!f() { git co --ours $@ && git add $@; }; f" # ????
+# theirs = "!f() { git co --theirs $@ && git add $@; }; f" # ????
+  re = remote
+  rev = remote -v
+  pl = pull
+  ps = push
+  pst = push --tags
+  st = status -s
+  fe = fetch
+  fea = fetch -a
+  ci = commit
+  cie = commit --allow-empty
+  co = checkout
+  br = branch
+  di = diff
+  dc = diff --cached HEAD^
+  r = reset
+  r1 = reset HEAD^
+  ss = stash
+  sl = stash list --pretty=format:\"%C(red)%h%C(reset) - %C(dim yellow)(%C(bold magenta)%gd%C(dim yellow))%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)<%an>%C(reset)\"
+  sd = stash show -p
+  mt = mergetool
+  dt = difftool
+  sh = show
+
+[user]
+	name = farynaio
+	email = adam10@puremail.cyou
+[gpg]
+	program = gpg2
