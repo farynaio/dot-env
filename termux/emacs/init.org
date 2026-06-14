@@ -340,7 +340,7 @@
            ("C-h S" . counsel-info-lookup-symbol)
            ("C-h a" . counsel-apropos)
            ("C-x b" . counsel-switch-buffer)
-           ("C-s" . my/counsel-grep-at-point-plain)
+  	 ;;  ("C-s" . my/counsel-grep-at-point-plain)
            ("C-r" . my/counsel-grep-at-point-plain)
            :map read-expression-map
            ("C-r" . counsel-minibuffer-history)
