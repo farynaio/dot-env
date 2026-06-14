@@ -307,55 +307,61 @@
 #+end_src
 * Ivy
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
-(use-package ivy
-  :demand t
-  :custom
-  (ivy-height 15)
-  (ivy-use-selectable-prompt t)
-  (ivy-count-format "(%d/%d) ")
-  (ivy-use-virtual-buffers t)
-  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
-  :config
-  (ivy-mode 1)
-  ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
-  )
+  (use-package ivy
+    :demand t
+    :custom
+    (ivy-height 15)
+    (ivy-use-selectable-prompt t)
+    (ivy-count-format "(%d/%d) ")
+    (ivy-use-virtual-buffers t)
+    (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+    :config
+    (ivy-mode 1)
+    ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
+    )
 
-(use-package prescient
-  :demand t
-  :after ivy
-  :config
-  (prescient-persist-mode 1))
+  (use-package prescient
+    :demand t
+    :after ivy
+    :config
+    (prescient-persist-mode 1))
 
-(use-package ivy-prescient
-  :demand t
-  :after (ivy prescient)
-  :config
-  (ivy-prescient-mode 1))
+  (use-package ivy-prescient
+    :demand t
+    :after (ivy prescient)
+    :config
+    (ivy-prescient-mode 1))
 
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file)
-         ("C-c b" . counsel-bookmark)
-         ("C-x C-r" . counsel-recentf)
-         ("C-h v" . counsel-describe-variable)
-         ("C-h f" . counsel-describe-function)
-         ("C-h S" . counsel-info-lookup-symbol)
-         ("C-h a" . counsel-apropos)
-         ("C-x b" . counsel-switch-buffer)
-         ("C-s" . counsel-grep)
-         ("C-r" . counsel-grep)
-         :map read-expression-map
-         ("C-r" . counsel-minibuffer-history)
-         ("C-r" . counsel-expression-history))
-  :custom
-  (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
-  (counsel-find-file-ignore-regexp "\\`\\.")
-  (counsel-grep-base-command "grep -E -n -i -e %s %s")
-  (counsel-outline-path-separator " > ")
-  (counsel-find-file-at-point t)
-  (swiper-use-visual-line-p #'ignore)
-  :config
-  (ivy-set-display-transformer 'counsel-describe-function nil))
+  (use-package counsel
+    :bind (("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-c b" . counsel-bookmark)
+           ("C-x C-r" . counsel-recentf)
+           ("C-h v" . counsel-describe-variable)
+           ("C-h f" . counsel-describe-function)
+           ("C-h S" . counsel-info-lookup-symbol)
+           ("C-h a" . counsel-apropos)
+           ("C-x b" . counsel-switch-buffer)
+           ("C-s" . my/counsel-grep-at-point-plain)
+           ("C-r" . my/counsel-grep-at-point-plain)
+           :map read-expression-map
+           ("C-r" . counsel-minibuffer-history)
+           ("C-r" . counsel-expression-history))
+    :custom
+    ;; Pre-fill initial entry as symbol at point
+    (defun my/counsel-grep-at-point-plain ()
+      (interactive)
+      (let ((w (thing-at-point 'symbol t)))
+        (counsel-grep (or w nil))))
+
+    (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
+    (counsel-find-file-ignore-regexp "\\`\\.")
+    (counsel-grep-base-command "grep -E -n -i -e %s %s")
+    (counsel-outline-path-separator " > ")
+    (counsel-find-file-at-point t)
+    (swiper-use-visual-line-p #'ignore)
+    :config
+    (ivy-set-display-transformer 'counsel-describe-function nil))
 #+end_src
 * Git
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
@@ -577,64 +583,68 @@
 #+end_src
 * Encryption
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
-  (use-package epa
-  ;;  :demand t
-    :straight nil
-    :custom
-    (epg-pinentry-mode 'loopback)
-    (epa-file-select-keys nil)
-    ;; (epa-file-cache-passphrase-for-symmetric-encryption t)
-    :config
-    (require 'epa-file)
-    (require 'epg-config)
-    ;; (setenv "GPG_AGENT_INFO" nil)
-    ;; (setq epa-pinentry-mode 'loopback)
+  (setq-default mml-secure-openpgp-sign-with-sender t)
 
-    (add-hook 'find-file-hook
-              (lambda ()
-                (when (and (stringp buffer-file-name) (string-match "\\.gpg\\'" buffer-file-name))
-                  (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
-                    (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
-                          (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
-#+end_src
+  (if (boundp 'my/epa-file-encrypt-to-default)
+      (use-package epa
+        :demand t
+        :straight nil
+        :custom
+        (epg-pinentry-mode 'loopback)
+        (epa-file-select-keys nil)
+        ;; (epa-file-cache-passphrase-for-symmetric-encryption t)
+        :config
+        (require 'epa-file)
+        (require 'epg-config)
+        ;; (setenv "GPG_AGENT_INFO" nil)
+        ;; (setq epa-pinentry-mode 'loopback)
+
+        (add-hook 'find-file-hook
+                  (lambda ()
+                    (when (and (stringp buffer-file-name) (string-match "\\.gpg\\'" buffer-file-name))
+                      (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
+                        (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
+                              (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
+    (message (concat "Variable 'my/epa-file-encrypt-to-default' is not set, gpg not available!")))
+  #+end_src
 * Dired
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
-    (use-package dired
-      :demand t
-      :straight nil
-       :custom
-      (dired-kill-when-opening-new-dired-buffer t)
-      (dired-dwim-target t)
-      :config
-      (setq dired-listing-switches "-ah1")
-      (add-hook 'dired-mode-hook #'dired-hide-details-mode)
-      (define-key dired-mode-map (kbd "<backspace>") #'dired-up-directory)
-      (define-key dired-mode-map (kbd "DEL") #'dired-up-directory) ; optional
-      ;; allow dired-find-alternate-file (it's disabled by default)
-      (put 'dired-find-alternate-file 'disabled nil)
-      ;; RET: replace current dired buffer with target (no new window)
-      (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
-      ;; mouse-1: same behavior when clicking
+  (use-package dired
+    :demand t
+    :straight nil
+    :custom
+    (dired-kill-when-opening-new-dired-buffer t)
+    (dired-dwim-target t)
+    :config
+    (setq dired-listing-switches "-ah1")
+    (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+    (define-key dired-mode-map (kbd "<backspace>") #'dired-up-directory)
+    (define-key dired-mode-map (kbd "DEL") #'dired-up-directory) ; optional
+    ;; allow dired-find-alternate-file (it's disabled by default)
+    (put 'dired-find-alternate-file 'disabled nil)
+    ;; RET: replace current dired buffer with target (no new window)
+    (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
+    ;; mouse-1: same behavior when clicking
 
-      ;; (define-key dired-mode-map [mouse-1] #'dired-find-alternate-file)
+    ;; (define-key dired-mode-map [mouse-1] #'dired-find-alternate-file)
 
-      (define-key dired-mode-map [mouse-1] nil)
+    (define-key dired-mode-map [mouse-1] nil)
 
-  ;; When clicking a file in dired, just move point there instead of visiting it.
-  (defun my/dired-click-move-point (event)
-    "Move point to the clicked line in dired without opening the file."
-    (interactive "e")
-    (let* ((posn (event-start event))
-           (win  (posn-window posn))
-           (buf  (window-buffer win))
-           (pos  (posn-point posn)))
-      (with-selected-window win
-        (with-current-buffer buf
-          (goto-char pos)
-          (dired-move-to-filename)))))
+    ;; When clicking a file in dired, just move point there instead of visiting it.
+    (defun my/dired-click-move-point (event)
+      "Move point to the clicked line in dired without opening the file."
+      (interactive "e")
+      (let* ((posn (event-start event))
+             (win  (posn-window posn))
+             (buf  (window-buffer win))
+             (pos  (posn-point posn)))
+        (with-selected-window win
+          (with-current-buffer buf
+            (goto-char pos)
+            (dired-move-to-filename)))))
 
-  ;; ;; Bind left mouse click in dired to the do-nothing mover
-  (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
+    ;; ;; Bind left mouse click in dired to the do-nothing mover
+    (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
 #+end_src
 * Completion
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
