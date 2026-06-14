@@ -4,7 +4,7 @@
 
 * Early
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
-(fset 'yes-or-no-p 'y-or-n-p)
+  (fset 'yes-or-no-p 'y-or-n-p)
 #+end_src
 * Constants
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
