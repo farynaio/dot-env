@@ -2,10 +2,14 @@
 #+PROPERTY: header-args :eval yes
 
 
-browse-kill-ring
 
+
+* Early
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
+(fset 'yes-or-no-p 'y-or-n-p)
+#+end_src
 * Constants
-#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent :results silent
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (defconst my/local-config-file-path (expand-file-name "~/.emacs.d/emacs-local-config/local-config.el"))
 #+end_src
 * Load local environment
@@ -73,7 +77,6 @@ browse-kill-ring
  help-window-select t
  bookmark-save-flag nil)
 
-(fset 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 (unless (file-exists-p my/tmp-dir)
@@ -476,6 +479,7 @@ browse-kill-ring
     (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
 
   (use-package tab-bar
+    :disabled t
     :demand t
     :straight nil
     :custom
@@ -489,6 +493,7 @@ browse-kill-ring
     (tab-bar-mode 1))
 
   (use-package tab-line
+    :disabled t
     :demand t
     :straight nil
     :custom
@@ -566,6 +571,9 @@ browse-kill-ring
    :straight nil
    :commands ibuffer
    :hook (ibuffer-mode . hl-line-mode))
+
+(use-package browse-kill-ring
+  :commands browse-kill-ring)
 #+end_src
 * Encryption
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
@@ -810,10 +818,10 @@ browse-kill-ring
     :config
     (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
-  (use-package org-table-cell-move
-    :demand t
-    :after org
-    :straight (:type built-in))
+  ;; (use-package org-table-cell-move
+  ;;   :demand t
+  ;;   :after org
+  ;;   :straight nil)
 
   (use-package org
     :demand t
@@ -941,7 +949,7 @@ browse-kill-ring
 
   (use-package org-link-archive
     :after org
-    :bind (:org-mode
+    :bind (:map org-mode
            ("C-x C-z" . org-link-archive-at-point))
     :straight (:type git
                      :host github
