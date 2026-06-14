@@ -668,12 +668,11 @@
     (require 'corfu-popupinfo)
     (require 'corfu-echo)
     (require 'corfu-info)
-    (global-corfu-mode)
-    (corfu-history-mode)
-    (corfu-popupinfo-mode) ; Popup completion info
-    (corfu-echo-mode)
     :config
     (global-corfu-mode 1)
+    (corfu-history-mode 1)
+    (corfu-popupinfo-mode 1) ; Popup completion info
+    (corfu-echo-mode 1)
 
     (add-hook 'eshell-mode-hook
               (lambda () (setq-local corfu-quit-at-boundary t
@@ -682,7 +681,7 @@
                 (corfu-mode))))
 
   (use-package which-key
-    :disabled t
+    :demand t
     :diminish which-key-mode
     :custom
     (which-key-idle-delay 0.3)
@@ -1247,7 +1246,8 @@
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
-  (load-theme 'doom-1337 t)
+  ;; (load-theme 'doom-1337 t)
+  (load-theme 'modus-vivendi t)
   ;; (load-theme 'doom-one t)
   ;; (load-theme 'doom-material t)
   ;; (load-theme 'doom-oceanic-next t)
