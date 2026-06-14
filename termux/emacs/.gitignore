@@ -6,3 +6,6 @@
 /tmp
 /.persistent-scratch
 /emacs-local-config/local-config.el
+/org-roam.db
+/tramp-persistency.el
+/tramp

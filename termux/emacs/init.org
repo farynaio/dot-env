@@ -2,8 +2,6 @@
 #+PROPERTY: header-args :eval yes
 
 
-
-
 * Early
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -381,6 +379,7 @@
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
   (use-package magit
+    :demand 0.5
     :bind (:map magit-mode-map
                 ("C-w" . my/copy-diff-region)
                 :map magit-process-mode-map
@@ -612,6 +611,8 @@
   (use-package dired
     :demand t
     :straight nil
+    :bind (:map dired-mode-map
+                ("C-s" . isearch-forward))
     :custom
     (dired-kill-when-opening-new-dired-buffer t)
     (dired-dwim-target t)
@@ -911,7 +912,7 @@
                  '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent")))
 
   (use-package org-roam
-    :after (org emacsql)
+    :after (org emacsql magit)
     :diminish org-roam-mode
     :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body my/org-roam-mode)
     :custom
