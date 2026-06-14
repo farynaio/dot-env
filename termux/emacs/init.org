@@ -5,11 +5,11 @@
 browse-kill-ring
 
 * Constants
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent :results silent
   (defconst my/local-config-file-path (expand-file-name "~/.emacs.d/emacs-local-config/local-config.el"))
 #+end_src
 * Load local environment
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (if (not (file-exists-p my/local-config-file-path))
       (error (concat "'emacs-local-config/local-config.el' file not exists"))
     (message (concat "Loading " my/local-config-file-path "..."))
@@ -18,7 +18,7 @@ browse-kill-ring
     (native--compile-async `(,my/local-config-file-path) t nil))
 #+end_src
 * General
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
 (setq-default
  compilation-always-kill t
  compilation-scroll-output t
@@ -303,7 +303,7 @@ browse-kill-ring
  ("C-<wheel-up>" . ignore))
 #+end_src
 * Ivy
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
 (use-package ivy
   :demand t
   :custom
@@ -355,7 +355,7 @@ browse-kill-ring
   (ivy-set-display-transformer 'counsel-describe-function nil))
 #+end_src
 * Git
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (setq-default
    vc-follow-symlinks t
    vc-handled-backends '(Git))
@@ -414,18 +414,13 @@ browse-kill-ring
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
   (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
 #+end_src
-
 * Undo & redo
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (global-set-key (kbd "C-\\") #'undo)
   (global-set-key (kbd "C-/") #'undo-redo)
 #+end_src
-
-#+RESULTS:
-: undo-redo
-
 * Edit
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   ;; auto match open with close
   (use-package elec-pair
     :demand t
@@ -541,12 +536,8 @@ browse-kill-ring
 
   (defalias 'qcalc #'quick-calc)
 #+end_src
-
-#+RESULTS:
-: qcalc
-
 * Navigation
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (setq
    scroll-step 1
    scroll-margin 0
@@ -576,14 +567,10 @@ browse-kill-ring
    :commands ibuffer
    :hook (ibuffer-mode . hl-line-mode))
 #+end_src
-
-#+RESULTS:
-| hl-line-mode |
-
 * Encryption
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package epa
-    :demand t
+  ;;  :demand t
     :straight nil
     :custom
     (epg-pinentry-mode 'loopback)
@@ -602,12 +589,8 @@ browse-kill-ring
                     (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                           (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
 #+end_src
-
-#+RESULTS:
-: t
-
 * Dired
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
     (use-package dired
       :demand t
       :straight nil
@@ -645,12 +628,8 @@ browse-kill-ring
   ;; ;; Bind left mouse click in dired to the do-nothing mover
   (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
 #+end_src
-
-#+RESULTS:
-: t
-
 * Completion
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package orderless
     :demand t
     :custom
@@ -697,11 +676,8 @@ browse-kill-ring
   ;; (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 #+end_src
-
-#+RESULTS:
-
 * Hydra
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package major-mode-hydra
    :demand t
    :commands major-mode-hydra
@@ -826,12 +802,8 @@ browse-kill-ring
      (garbage-collect)
      (message "kill-ring cleared"))
 #+end_src
-
-#+RESULTS:
-: my/kill-clear
-
 * Org
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   ;; This is for async evalaution of org-babel blocks.
   (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
   (use-package ob-async
@@ -918,7 +890,7 @@ browse-kill-ring
       (add-hook 'org-mode-hook 'iscroll-mode))
 
     (add-to-list 'org-structure-template-alist
-                 '("init.el" . "src emacs-lisp :tangle init.el :eval never-export")))
+                 '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent")))
 
   (use-package org-roam
     :after (org emacsql)
@@ -976,11 +948,8 @@ browse-kill-ring
                      :repo "farynaio/org-link-archive"
                      :branch "main"))
 #+end_src
-
-#+RESULTS:
-
 * Calendar
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package calendar
     :commands (my/calendar-year)
     :bind (:map calendar-mode-map
@@ -1055,12 +1024,8 @@ browse-kill-ring
     (defalias 'my/calendar-full #'my/calendar-year)
     (defalias 'yearly-calendar #'my/calendar-year))
 #+end_src
-
-#+RESULTS:
-: my/scroll-year-calendar-forward
-
 * Projects
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package projectile
     :demand t
     :diminish projectile-mode
@@ -1129,11 +1094,8 @@ browse-kill-ring
           (projectile-recentf)
         (counsel-recent))))
 #+end_src
-
-#+RESULTS:
-
 * Devel general
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (setq-default tab-width 2)
   (defvaralias 'c-basic-offset 'tab-width)
   (defvaralias 'cperl-indent-level 'tab-width)
@@ -1199,11 +1161,8 @@ browse-kill-ring
   (use-package yafolding
     :hook (prog-mode . (lambda () (yafolding-mode 1))))
 #+end_src
-
-#+RESULTS:
-
 * Theme
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
 (straight-register-package 'all-the-icons)
 (when (display-graphic-p)
   (use-package all-the-icons
@@ -1261,12 +1220,8 @@ browse-kill-ring
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 #+end_src
-
-#+RESULTS:
-: t
-
 * Shell
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (defalias 'sh #'eshell)
 
   (use-package eshell
@@ -1427,16 +1382,10 @@ browse-kill-ring
       ;; default shell buffer
       (setq explicit-shell-file-name "/data/data/com.termux/files/usr/bin/fish")
       ;; use shell-file-name for subprocesses
-      (setq shell-file-name explicit-shell-file-name)
-
-      )
+      (setq shell-file-name explicit-shell-file-name))
 #+end_src
-
-#+RESULTS:
-| my-shell-mode-hook-func |
-
 * SSH
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package tramp
     :demand t
     :straight nil
@@ -1452,11 +1401,8 @@ browse-kill-ring
     :after (counsel tramp)
     :commands counsel-tramp)
 #+end_src
-
-#+RESULTS:
-
 * Abbreviations
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (defvar my/en-abbrevs nil)
   (define-abbrev-table
     'my/en-abbrevs '(
@@ -1692,11 +1638,8 @@ browse-kill-ring
                      ) nil :case-fixed nil)
 
 #+end_src
-
-#+RESULTS:
-
 * Write
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (define-minor-mode my/en-mode
     "Language mode for `en`."
     :init-value nil
@@ -1800,7 +1743,7 @@ browse-kill-ring
     )
 #+end_src
 * Ledger
-#+begin_src emacs-lisp :tangle init.el :eval never-export
+#+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
 (use-package ledger-mode
   :bind (:map ledger-mode-map
           ("C-c C-c" . ledger-post-align-dwim)
