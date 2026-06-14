@@ -905,9 +905,6 @@
        ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
     (org-priority-cookie () (format "[#%c]" org-default-priority))
     :config
-    (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
-      "Major mode for org-roam ready org buffers.")
-
     (add-to-list 'org-structure-template-alist
                  '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent"))
 
@@ -952,6 +949,9 @@
       (make-directory my/org-roam-dir t))
 
     (org-roam-db-autosync-mode 1)
+
+    (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
+      "Major mode for org-roam ready org buffers.")
 
     (major-mode-hydra-define+ my/org-roam-mode
       (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
