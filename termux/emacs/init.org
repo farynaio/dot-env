@@ -839,10 +839,10 @@
     :bind (:map org-mode-map
                 ("M-<up>" . org-metaup)
                 ("M-<down>" . org-metadown)
-           :map org-mode-map
-           ("M-}" . forward-paragraph)
-           ("M-{" . backward-paragraph ))
-       :hook ((org-mode . org-sticky-header-mode)
+                :map org-mode-map
+                ("M-}" . forward-paragraph)
+                ("M-{" . backward-paragraph ))
+    :hook ((org-mode . org-sticky-header-mode)
            (org-agenda-mode . (lambda () (hl-line-mode 1))))
     :custom
     (org-adapt-indentation nil)
@@ -905,11 +905,35 @@
        ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
     (org-priority-cookie () (format "[#%c]" org-default-priority))
     :config
-    (when (display-graphic-p)
-      (add-hook 'org-mode-hook 'iscroll-mode))
+    (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
+      "Major mode for org-roam ready org buffers.")
 
     (add-to-list 'org-structure-template-alist
-                 '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent")))
+                 '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent"))
+
+    (major-mode-hydra-define (org-mode my/org-roam-mode)
+      (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
+      ("Action"
+       (("t" org-toggle-timestamp-type "timestamp toggle")
+        ("a" org-link-archive-at-point "link archive")
+        ("i" org-toggle-inline-images "images toggle" :toggle t)
+        ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
+        ("h" org-archive-subtree "archive heading subtree")
+        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
+        ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
+        ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
+        ("w" widen "widen narrowed area" :exit t)
+        ("x" org-export-dispatch "org-export-dispatch" :exit t)
+        ("p" my/org-align-tags "align tags" :exit t))
+       "Toggle"
+       (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
+        ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+        ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
+       "Navigation"
+       (("s" counsel-org-goto "goto heading")
+        ("fa" counsel-org-file "browse attachments"))))
+    )
 
   (use-package org-roam
     :after (org emacsql magit)
@@ -961,7 +985,7 @@
   (use-package org-link-archive
     :after org
     :bind (:map org-mode
-           ("C-x C-z" . org-link-archive-at-point))
+                ("C-x C-z" . org-link-archive-at-point))
     :straight (:type git
                      :host github
                      :repo "farynaio/org-link-archive"
