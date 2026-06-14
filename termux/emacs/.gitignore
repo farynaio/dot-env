@@ -1,3 +1,7 @@
-init.el
-
-emacs-local-config/local-config.el
+/init.el
+/straight
+/recentf
+/transient
+/var
+/tmp
+/emacs-local-config/local-config.el

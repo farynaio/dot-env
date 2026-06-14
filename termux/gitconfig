@@ -147,3 +147,6 @@
 	email = adam10@puremail.cyou
 [gpg]
 	program = gpg2
+[safe]
+	directory = /storage/emulated/0/Sync/org-agenda-repo
+

@@ -1,4 +1,8 @@
+#+STARTUP: overview
 #+PROPERTY: header-args :eval yes
+
+
+browse-kill-ring
 
 * Constants
 #+begin_src emacs-lisp :tangle init.el :eval never-export
@@ -15,294 +19,340 @@
 #+end_src
 * General
 #+begin_src emacs-lisp :tangle init.el :eval never-export
-    (setq-default
-     compilation-always-kill t
-     compilation-scroll-output t
-     compilation-skip-threshold 2
-     warning-minimum-level :error
-     warning-suppress-types '((comp) (bytecomp)))
+(setq-default
+ compilation-always-kill t
+ compilation-scroll-output t
+ compilation-skip-threshold 2
+ warning-minimum-level :error
+ warning-suppress-types '((comp) (bytecomp)))
 
-    (setq calc-internal-prec 20)
+(setq calc-internal-prec 20)
 
-  (setq gnutls-verify-error t)
+(setq gnutls-verify-error t)
 
-  (setq enable-local-eval t)
+(setq enable-local-eval t)
 
-    (setq-default
-     compare-ignore-case t
-     compare-ignore-whitespace t
-     cursor-in-non-selected-windows t
-     display-time-default-load-average nil
-     view-read-only t
-     require-final-newline nil
-     indent-tabs-mode nil
-     mode-require-final-newline nil)
+(setq-default
+ compare-ignore-case t
+ compare-ignore-whitespace t
+ cursor-in-non-selected-windows t
+ display-time-default-load-average nil
+ view-read-only t
+ require-final-newline nil
+ indent-tabs-mode nil
+ mode-require-final-newline nil)
 
-    (setq auto-save-no-message t)
+(setq auto-save-no-message t)
 
-    (when (fboundp 'set-charset-priority)
-      (set-charset-priority 'unicode))
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
 
-    (set-default-coding-systems 'utf-8)
+(set-default-coding-systems 'utf-8)
 
-    ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-    ;; (setq backward-delete-char-untabify-method 'hungry)
+;; (setq backward-delete-char-untabify-method 'hungry)
 
-    (setq
-     confirm-nonexistent-file-or-buffer nil
-     initial-scratch-message nil
-     inhibit-startup-screen t
-     x-underline-at-descent-line t
-     initial-buffer-choice t
-     password-cache-expiry nil
-     word-wrap t
-     shift-select-mode nil
-     sentence-end-double-space nil
-     revert-without-query '(".*")
-     undo-limit 160000
-     enable-recursive-minibuffers nil
-     show-paren-delay 0
-     shell-dirtrackp nil
-     save-some-buffers-default-predicate t
-     buffer-save-without-query t
-     help-window-select t
-     bookmark-save-flag nil)
+(setq
+ confirm-nonexistent-file-or-buffer nil
+ initial-scratch-message nil
+ inhibit-startup-screen t
+ x-underline-at-descent-line t
+ initial-buffer-choice t
+ password-cache-expiry nil
+ word-wrap t
+ shift-select-mode nil
+ sentence-end-double-space nil
+ revert-without-query '(".*")
+ undo-limit 160000
+ enable-recursive-minibuffers nil
+ show-paren-delay 0
+ shell-dirtrackp nil
+ save-some-buffers-default-predicate t
+ buffer-save-without-query t
+ help-window-select t
+ bookmark-save-flag nil)
 
-    (fset 'yes-or-no-p 'y-or-n-p)
-    (setq confirm-kill-emacs #'yes-or-no-p)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq confirm-kill-emacs #'yes-or-no-p)
 
-    (unless (file-exists-p my/tmp-dir)
-      (make-directory my/tmp-dir t))
+(unless (file-exists-p my/tmp-dir)
+  (make-directory my/tmp-dir t))
 
-    ;; Backup files (~file~)
-    (setq backup-directory-alist `((".*" . ,my/tmp-dir))
-          backup-by-copying t    ; avoid symlink issues
-          delete-old-versions t
-          kept-new-versions 6
-          kept-old-versions 2
-          version-control t)     ; use numbered backups
+;; Backup files (~file~)
+(setq backup-directory-alist `((".*" . ,my/tmp-dir))
+      backup-by-copying t    ; avoid symlink issues
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)     ; use numbered backups
 
-    ;; Auto-save files (#file#)
-    (setq auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "auto-save-") t))
-          auto-save-list-file-prefix (concat my/tmp-dir "auto-saves-"))
+;; Auto-save files (#file#)
+(setq auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "auto-save-") t))
+      auto-save-list-file-prefix (concat my/tmp-dir "auto-saves-"))
 
-    ;; Lockfiles
-    (setq create-lockfiles nil) ; optional: disable .#lockfiles
+;; Lockfiles
+(setq create-lockfiles nil) ; optional: disable .#lockfiles
 
-  (when (display-graphic-p)
-    (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-  (set-language-environment "UTF-8")
+(set-language-environment "UTF-8")
 
-  (run-with-idle-timer (* 60 5) t 'garbage-collect)
+(run-with-idle-timer (* 60 5) t 'garbage-collect)
 
-    ;; Set default input method and coding system:
-    (use-package mule
-      :straight nil
-      :demand t
-      :init
-                                            ; (setq default-input-method 'MacOSX)
-      :config
-      (set-terminal-coding-system 'utf-8)
-      (set-keyboard-coding-system 'utf-8))
+;; Set default input method and coding system:
+(use-package mule
+  :straight nil
+  :demand t
+  :init
+  ;; (setq default-input-method 'MacOSX)
+  :config
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8))
 
-    (use-package recentf
-      :straight nil
-      :demand t
-      :custom
-      (recentf-max-menu-items 15)
-      (recentf-max-saved-items 200)
-      (recentf-exclude
-       '("COMMIT_EDITMSG"
-         "~$"
-         "/scp:"
-         "/ssh:"
-         "/sudo:"
-         "/tmp/"
-         "?:cache"
-         "eln-cache"
-         ))
-      :config
-      (add-hook 'dired-mode-hook
-                (lambda ()
-                  (when (buffer-file-name) (recentf-add-file (buffer-file-name)))))
-      (recentf-mode 1)
-      (run-at-time nil (* 60 5) #'recentf-save-list))
+(use-package recentf
+  :straight nil
+  :demand t
+  :custom
+  (recentf-max-menu-items 15)
+  (recentf-max-saved-items 200)
+  (recentf-exclude
+   '("COMMIT_EDITMSG"
+     "~$"
+     "/scp:"
+     "/ssh:"
+     "/sudo:"
+     "/tmp/"
+     "?:cache"
+     "eln-cache"
+     ))
+  :config
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (when (buffer-file-name) (recentf-add-file (buffer-file-name)))))
+  (recentf-mode 1)
+  (run-at-time nil (* 60 5) #'recentf-save-list))
 
-    ;; file to save histories
-    (defconst my/history-file (expand-file-name "var/history.el" user-emacs-directory))
-    (unless (file-exists-p (file-name-directory my/history-file))
-      (make-directory (file-name-directory my/history-file) t))
+;; file to save histories
+(defconst my/history-file (expand-file-name "var/history.el" user-emacs-directory))
+(unless (file-exists-p (file-name-directory my/history-file))
+  (make-directory (file-name-directory my/history-file) t))
 
-    ;; variables to persist
-    (setq history-length 1000
-          savehist-additional-variables
-          '(search-ring regexp-search-ring extended-command-history)
-          savehist-autosave-interval 300)
+;; variables to persist
+(setq history-length 1000
+      savehist-additional-variables
+      '(search-ring regexp-search-ring extended-command-history)
+      savehist-autosave-interval 300)
 
-    ;; enable savehist-mode and set file
-    (require 'savehist)
-    (setq savehist-file my/history-file)
-    (savehist-mode 1)
+;; enable savehist-mode and set file
+(require 'savehist)
+(setq savehist-file my/history-file)
+(savehist-mode 1)
 
-    (use-package emacs
-      :straight nil
-      :demand t
-      :custom
-      ;; TAB cycle if there are only few candidates
-      ;; (completion-cycle-threshold 3)
+(use-package emacs
+  :demand t
+  :straight nil
+  :custom
+  ;; TAB cycle if there are only few candidates
+  ;; (completion-cycle-threshold 3)
 
-      ;; Enable indentation+completion using the TAB key.
-      ;; `completion-at-point' is often bound to M-TAB.
-      (tab-always-indent 'complete)
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (tab-always-indent 'complete)
 
-      ;; Emacs 30 and newer: Disable Ispell completion function.
-      ;; Try `cape-dict' as an alternative.
-      (text-mode-ispell-word-completion nil)
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (text-mode-ispell-word-completion nil)
 
-      ;; Hide commands in M-x which do not apply to the current mode.  Corfu
-      ;; commands are hidden, since they are not used via M-x. This setting is
-      ;; useful beyond Corfu.
-      (read-extended-command-predicate #'command-completion-default-include-p))
+  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+  ;; commands are hidden, since they are not used via M-x. This setting is
+  ;; useful beyond Corfu.
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
-    (use-package simple
-      :straight nil
-      :demand t
-      :custom
-      (visual-line-fringe-indicators '(left-curly-arrow nil))
-      (set-mark-command-repeat-pop t)
-      :config
-      (global-visual-line-mode 1)
-      (column-number-mode 1)
+(use-package simple
+  :demand t
+  :straight nil
+  :custom
+  (visual-line-fringe-indicators '(left-curly-arrow nil))
+  (set-mark-command-repeat-pop t)
+  :config
+  (global-visual-line-mode 1)
+  (column-number-mode 1)
 
-      ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
-      (advice-add 'visual-line-mode :around
-                  (lambda (orig-fun &rest args)
-                    (unless (memq major-mode (list 'org-agenda-mode))
-                      (apply orig-fun args)))))
+  ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
+  (advice-add 'visual-line-mode :around
+              (lambda (orig-fun &rest args)
+                (unless (memq major-mode (list 'org-agenda-mode))
+                  (apply orig-fun args)))))
 
-    (setq
-     switch-to-buffer-in-dedicated-window 'pop
-     switch-to-buffer-obey-display-actions t)
-
-
-    (setq display-buffer-alist
-          '(("\\*[hH]elp.*"
-             (display-buffer-reuse-window display-buffer-below-selected)
-             (window-height . 0.4)
-             (reusable-frames . nil))
-            ("\\*grep\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*eshell\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*Backtrace\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*Warnings\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.2)
-             (reusable-frames . nil))
-            ("\\*Completions\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*Flycheck error messages\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*Async-native-compile-log\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*straight-byte-compilation\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*straight-process\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ("\\*chatgpt.*"
-             (display-buffer-in-previous-window)
-             (reusable-frames . nil))
-            ("\\*eww history\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.2)
-             (reusable-frames . nil))
-            ("\\*eww bookmarks\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.2)
-             (reusable-frames . nil))
-            ("\\*ruby\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.1)
-             (reusable-frames . nil))
-            ("\\magit:"
-             (display-buffer-in-previous-window)
-             (reusable-frames . nil))
-            ("\\*eldoc"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.2)
-             (reusable-frames . nil))
-            ("\\*projectile-files-errors\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.2)
-             (reusable-frames . nil))
-            ("\\*Org Entity Help\\*"
-             (display-buffer-reuse-window display-buffer-at-bottom)
-             (window-height . 0.3)
-             (reusable-frames . nil))
-            ;; ("\\*tree-sitter"
-            ;;    (display-buffer-reuse-window display-buffer-same-window)
-            ;;    (window-parameters . ((quit-restore . delete))))
-            ))
-
-    (use-package dashboard
-      :demand t
-      :custom
-      (dashboard-icon-type 'all-the-icons)
-      (dashboard-display-icons-p (display-graphic-p))
-      (dashboard-set-heading-icons nil)
-      (dashboard-set-file-icons (display-graphic-p))
-      (dashboard-heading-icons
-       '((recents . "history")
-         (bookmarks . "bookmark")
-         (projects . "rocket")
-         (registers . "database")))
-      (dashboard-center-content t)
-      (dashboard-set-init-info t)
-      (dashboard-item-names
-       '(("Recent Files:" . "Recent files:")
-         ("Agenda for today:" . "Today's agenda:")
-         ("Agenda for the coming week:" . "Agenda for the week:")))
-      (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
-      (dashboard-projects-backend 'projectile)
-      :config
-      (dashboard-setup-startup-hook))
-
-    (delete-selection-mode 1)
-    (auto-compression-mode 1)
-    (global-auto-revert-mode -1)
-    (global-hl-line-mode -1)
-    (blink-cursor-mode -1)
-
-    (bind-keys
-     ("C-<mouse-4>" . ignore)
-     ("C-<mouse-5>" . ignore)
-     ("C-<wheel-down>" . ignore)
-     ("C-<wheel-up>" . ignore))
-
-    (bind-keys
-     ("C-s" . counsel-grep)
-     ("C-r" . counsel-grep))
+(setq
+ switch-to-buffer-in-dedicated-window 'pop
+ switch-to-buffer-obey-display-actions t)
 
 
+(setq display-buffer-alist
+      '(("\\*[hH]elp.*"
+         (display-buffer-reuse-window display-buffer-below-selected)
+         (window-height . 0.4)
+         (reusable-frames . nil))
+        ("\\*grep\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*eshell\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Backtrace\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Warnings\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Completions\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Flycheck error messages\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Async-native-compile-log\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-byte-compilation\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-process\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*chatgpt.*"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*eww history\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*eww bookmarks\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*ruby\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.1)
+         (reusable-frames . nil))
+        ("\\magit:"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*eldoc"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*projectile-files-errors\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Org Entity Help\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ;; ("\\*tree-sitter"
+        ;;    (display-buffer-reuse-window display-buffer-same-window)
+        ;;    (window-parameters . ((quit-restore . delete))))
+        ))
+
+(use-package dashboard
+  :demand t
+  :custom
+  (dashboard-icon-type 'all-the-icons)
+  (dashboard-display-icons-p (display-graphic-p))
+  (dashboard-set-heading-icons nil)
+  (dashboard-set-file-icons (display-graphic-p))
+  (dashboard-heading-icons
+   '((recents . "history")
+     (bookmarks . "bookmark")
+     (projects . "rocket")
+     (registers . "database")))
+  (dashboard-center-content t)
+  (dashboard-set-init-info t)
+  (dashboard-item-names
+   '(("Recent Files:" . "Recent files:")
+     ("Agenda for today:" . "Today's agenda:")
+     ("Agenda for the coming week:" . "Agenda for the week:")))
+  (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
+  (dashboard-projects-backend 'projectile)
+  :config
+  (dashboard-setup-startup-hook))
+
+(delete-selection-mode 1)
+(auto-compression-mode 1)
+(global-auto-revert-mode -1)
+(global-hl-line-mode -1)
+(blink-cursor-mode -1)
+
+(bind-keys
+ ("C-<mouse-4>" . ignore)
+ ("C-<mouse-5>" . ignore)
+ ("C-<wheel-down>" . ignore)
+ ("C-<wheel-up>" . ignore))
+#+end_src
+* Ivy
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+(use-package ivy
+  :demand t
+  :custom
+  (ivy-height 15)
+  (ivy-use-selectable-prompt t)
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  :config
+  (ivy-mode 1)
+  ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
+  )
+
+(use-package prescient
+  :demand t
+  :after ivy
+  :config
+  (prescient-persist-mode 1))
+
+(use-package ivy-prescient
+  :demand t
+  :after (ivy prescient)
+  :config
+  (ivy-prescient-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-c b" . counsel-bookmark)
+         ("C-x C-r" . counsel-recentf)
+         ("C-h v" . counsel-describe-variable)
+         ("C-h f" . counsel-describe-function)
+         ("C-h S" . counsel-info-lookup-symbol)
+         ("C-h a" . counsel-apropos)
+         ("C-x b" . counsel-switch-buffer)
+         ("C-s" . counsel-grep)
+         ("C-r" . counsel-grep)
+         :map read-expression-map
+         ("C-r" . counsel-minibuffer-history)
+         ("C-r" . counsel-expression-history))
+  :custom
+  (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
+  (counsel-find-file-ignore-regexp "\\`\\.")
+  (counsel-grep-base-command "grep -E -n -i -e %s %s")
+  (counsel-outline-path-separator " > ")
+  (counsel-find-file-at-point t)
+  (swiper-use-visual-line-p #'ignore)
+  :config
+  (ivy-set-display-transformer 'counsel-describe-function nil))
 #+end_src
 * Git
 #+begin_src emacs-lisp :tangle init.el :eval never-export
@@ -311,6 +361,7 @@
    vc-handled-backends '(Git))
 
   (use-package diff-hl
+    :demand t
     :after magit
     :config
     (global-diff-hl-mode 1)
@@ -329,14 +380,6 @@
                 ("RET" . magit-diff-visit-file-other-window)
                 :map magit-hunk-section-map
                 ("RET" . magit-diff-visit-file-other-window))
-    :preface
-    (defun my/copy-diff-region ()
-      "Copy diff region without + or - markers."
-      (interactive)
-      (deactivate-mark)
-      (let ((text (buffer-substring-no-properties
-                   (region-beginning) (region-end))))
-        (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text)))))
   :custom
   (magit-completing-read-function 'ivy-completing-read)
   (magit-refresh-status-buffer nil)
@@ -354,16 +397,22 @@
                          (margin-width . 42)
                          (margin-face . magit-blame-margin)
                          (margin-body-face magit-blame-dimmed))
-         			          (headings
+          	      (headings
                          (heading-format . "%-20a %C %s"))))
   :config
+  (defun my/copy-diff-region ()
+    "Copy diff region without + or - markers."
+    (interactive)
+    (deactivate-mark)
+    (let ((text (buffer-substring-no-properties
+                 (region-beginning) (region-end))))
+      (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text))))
+
   (defalias 'magit-blame-echo #'magit-blame-addition)
 
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
-  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent)
-
-  )
+  (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
 #+end_src
 
 * Undo & redo
@@ -377,6 +426,7 @@
 
 * Edit
 #+begin_src emacs-lisp :tangle init.el :eval never-export
+  ;; auto match open with close
   (use-package elec-pair
     :demand t
     :straight nil
@@ -405,19 +455,21 @@
     :commands (er/expand-region er/contract-region))
 
   (use-package persistent-scratch
+    :demand t
     :config
     (persistent-scratch-setup-default))
 
   (use-package editorconfig
+    :demand t
     :diminish editorconfig-mode
     :config
     (editorconfig-mode 1))
 
   (use-package ediff
     :straight nil
-    :commands;;  (ediff ediff-buffers)
-    ;; :custom
-    ;; (ediff-quit-widened nil)
+    :commands  (ediff ediff-buffers)
+    :custom
+    (ediff-quit-widened nil)
     (ediff-diff-options "-w")
     (ediff-window-setup-function #'ediff-setup-windows-plain)
     (ediff-forward-word-function #'forward-char))
@@ -429,6 +481,7 @@
     (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
 
   (use-package tab-bar
+    :demand t
     :straight nil
     :custom
     (tab-bar-auto-width t)
@@ -441,6 +494,7 @@
     (tab-bar-mode 1))
 
   (use-package tab-line
+    :demand t
     :straight nil
     :custom
     ;; (tab-line-format)
@@ -453,6 +507,7 @@
     (global-tab-line-mode 1))
 
   (use-package beacon
+    :demand t
     :custom
     (beacon-mode 1))
 
@@ -465,32 +520,31 @@
                (command (concat "ack '" regexp "' '" dir "'")))
           (unless (file-accessible-directory-p dir)
             (error (concat "directory: '" dir "' is not accessible.")))
-  	      (compilation-start (conc;; at command " < " null-device) 'grep-mode))
-                              (message "No executable 'ack' found!")))
+  	(compilation-start (concat command " < " null-device) 'grep-mode))
+      (message "No executable 'ack' found!")))
 
+  ;;   (evil-define-key 'normal global-mapq
+  ;;     (kbd ",f") 'my/rgrep)
 
+  (use-package avy
+    :bind ("C-:" . avy-goto-char))
 
-          ;;   (evil-define-key 'normal global-map
-          ;;     (kbd ",f") 'my/rgrep)
+  (use-package windmove
+    :straight nil
+    :defer 10
+    :bind (("C-x <left>" . windmove-left)
+           ("C-x <right>" . windmove-right)
+           ("C-x <up>" . windmove-up)
+           ("C-x <down>" . windmove-down))
+    :custom
+    (windmove-wrap-around t))
 
-
-          (use-package avy)
-
-          (use-package windmove
-            :straight nil
-            :defer 10
-            :bind (("C-x <left>" . windmove-left)
-                   ("C-x <right>" . windmove-right)
-                   ("C-x <up>" . windmove-up)
-                   ("C-x <down>" . windmove-down))
-            :custom
-            (windmove-wrap-around t))
-
-
-
-
-            (defalias 'qcalc #'quick-calc)
+  (defalias 'qcalc #'quick-calc)
 #+end_src
+
+#+RESULTS:
+: qcalc
+
 * Navigation
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (setq
@@ -519,8 +573,13 @@
 
   (use-package ibuffer
    :straight nil
+   :commands ibuffer
    :hook (ibuffer-mode . hl-line-mode))
 #+end_src
+
+#+RESULTS:
+| hl-line-mode |
+
 * Encryption
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package epa
@@ -543,60 +602,14 @@
                     (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                           (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
 #+end_src
-* Ivy
-#+begin_src emacs-lisp :tangle init.el :eval never-export
-  (use-package ivy
-    :demand t
-    :custom
-    (ivy-height 15)
-    (ivy-use-selectable-prompt t)
-    (ivy-count-format "(%d/%d) ")
-    (ivy-use-virtual-buffers t)
-    (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
-    :config
-    (ivy-mode 1)
-    ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
-    )
 
-  (use-package prescient
-    :demand t
-    :after ivy
-    :config
-    (prescient-persist-mode 1))
+#+RESULTS:
+: t
 
-  (use-package ivy-prescient
-    :demand t
-    :after (ivy prescient)
-    :config
-    (ivy-prescient-mode 1))
-
-  (use-package counsel
-    :demand t
-    :bind (("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-c b" . counsel-bookmark)
-           ("C-x C-r" . counsel-recentf)
-           ("C-h v" . counsel-describe-variable)
-           ("C-h f" . counsel-describe-function)
-           ("C-h S" . counsel-info-lookup-symbol)
-           ("C-h a" . counsel-apropos)
-           ("C-x b" . counsel-switch-buffer)
-           :map read-expression-map
-           ("C-r" . counsel-minibuffer-history)
-           ("C-r" . counsel-expression-history))
-    :custom
-    (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
-    (counsel-find-file-ignore-regexp "\\`\\.")
-    (counsel-grep-base-command "grep -E -n -i -e %s %s")
-    (counsel-outline-path-separator " > ")
-    (counsel-find-file-at-point t)
-    (swiper-use-visual-line-p #'ignore)
-    :config
-    (ivy-set-display-transformer 'counsel-describe-function nil))
-       #+end_src
 * Dired
 #+begin_src emacs-lisp :tangle init.el :eval never-export
     (use-package dired
+      :demand t
       :straight nil
        :custom
       (dired-kill-when-opening-new-dired-buffer t)
@@ -632,6 +645,10 @@
   ;; ;; Bind left mouse click in dired to the do-nothing mover
   (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
 #+end_src
+
+#+RESULTS:
+: t
+
 * Completion
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package orderless
@@ -680,6 +697,9 @@
   ;; (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 #+end_src
+
+#+RESULTS:
+
 * Hydra
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package major-mode-hydra
@@ -764,7 +784,7 @@
          ("z" magit-stash "stash")
          ("r" magit-rebase "rebase")
          ("B" magit-blame "blame")
-         ("x" magit-reset "reset")
+         ("x" magit-reset "reset"))
        "Log"
        (("ll" magit-log-all "log")
          ("lf" magit-log-buffer-file "file log"))
@@ -796,10 +816,8 @@
          ("w" my/lang-toggle "language switch" :exit t))
        "Spelling errors"
        (("o" artbollocks-mode "artbollocks" :toggle t)
-         ("x" langtool-check-buffer "langtool check")
-         ("q" langtool-check-done "langtool done")
-         ("<" flyspell-correct-previous "previous")
-         (">" flyspell-correct-next "next"))))
+          ("<" flyspell-correct-previous "previous")
+         (">" flyspell-correct-next "next")))))
 
    (defun my/kill-clear ()
      "Clear kill-ring."
@@ -808,6 +826,10 @@
      (garbage-collect)
      (message "kill-ring cleared"))
 #+end_src
+
+#+RESULTS:
+: my/kill-clear
+
 * Org
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   ;; This is for async evalaution of org-babel blocks.
@@ -817,6 +839,7 @@
     (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
   (use-package org-table-cell-move
+    :demand t
     :after org
     :straight (:type built-in))
 
@@ -824,14 +847,12 @@
     :demand t
     :bind (:map org-mode-map
                 ("M-<up>" . org-metaup)
-                ("M-<down>" . org-metadown))
-    :hook ((org-mode . org-sticky-header-mode)
-           (org-agenda-mode . (lambda () (hl-line-mode 1)))
+                ("M-<down>" . org-metadown)
            :map org-mode-map
            ("M-}" . forward-paragraph)
-           ("M-{" . backward-paragraph)
-
-           )
+           ("M-{" . backward-paragraph ))
+       :hook ((org-mode . org-sticky-header-mode)
+           (org-agenda-mode . (lambda () (hl-line-mode 1))))
     :custom
     (org-adapt-indentation nil)
     (org-startup-folded 'fold)
@@ -897,7 +918,7 @@
       (add-hook 'org-mode-hook 'iscroll-mode))
 
     (add-to-list 'org-structure-template-alist
-           	     '("init.el" . "src emacs-lisp :tangle init.el :eval never-export")))
+                 '("init.el" . "src emacs-lisp :tangle init.el :eval never-export")))
 
   (use-package org-roam
     :after (org emacsql)
@@ -911,7 +932,6 @@
     (org-roam-update-db-idle-second 60)
     (org-roam-verbose nil)
     (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-
     :config
     (unless (file-directory-p my/org-roam-dir)
       (make-directory my/org-roam-dir t))
@@ -942,25 +962,27 @@
         (org-roam-file-p file)))
 
     (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
-    (defalias 'roam #'org-roam)
-    )
+    (defalias 'roam #'org-roam))
 
   (use-package org-sticky-header
     :after org)
 
   (use-package org-link-archive
     :after org
+    :bind (:org-mode
+           ("C-x C-z" . org-link-archive-at-point))
     :straight (:type git
                      :host github
                      :repo "farynaio/org-link-archive"
                      :branch "main"))
-
-
-
 #+end_src
+
+#+RESULTS:
+
 * Calendar
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package calendar
+    :commands (my/calendar-year)
     :bind (:map calendar-mode-map
             ("<" . my/scroll-year-calendar-backward)
             (">" . my/scroll-year-calendar-forward))
@@ -1033,9 +1055,14 @@
     (defalias 'my/calendar-full #'my/calendar-year)
     (defalias 'yearly-calendar #'my/calendar-year))
 #+end_src
+
+#+RESULTS:
+: my/scroll-year-calendar-forward
+
 * Projects
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package projectile
+    :demand t
     :diminish projectile-mode
     :custom
     (projectile-completion-system 'ivy)
@@ -1089,6 +1116,10 @@
 
   (use-package counsel-projectile
     :after (projectile ivy counsel)
+    :demand t
+    :bind (("C-x C-r" . my/recentf)
+           ("C-x C-b" .
+            counsel-projectile-switch-to-buffer))
     :config
     (counsel-projectile-mode 1)
 
@@ -1096,12 +1127,11 @@
       (interactive)
       (if (projectile-project-root)
           (projectile-recentf)
-        (counsel-recent)))
-
-    (bind-keys
-     (("C-x C-r" . my/recentf)
-      ("C-x C-b" . counsel-projectile-switch-to-buffer))))
+        (counsel-recent))))
 #+end_src
+
+#+RESULTS:
+
 * Devel general
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (setq-default tab-width 2)
@@ -1133,7 +1163,8 @@
             (insert (alist-get symbol my/flip-symbol-alist "" nil 'equal)))
         (message "Nothing to flip here"))))
 
-  (use-package rainbow-delimiters)
+  (use-package rainbow-delimiters
+    :commands rainbow-delimiters-mode)
 
   (use-package prog-mode
     :straight nil
@@ -1157,70 +1188,82 @@
     (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
   (use-package treemacs-projectile
+    :demand t
     :after (treemacs projectile))
 
   (use-package treemacs-magit
+    :demand t
     :after (treemacs magit))
 
   ;; Folding code blocks based on indentation.
-  (use-package yafolding)
-#+end_src
-* Theme
-#+begin_src emacs-lisp :tangle init.el :eval never-export
-  (straight-register-package 'all-the-icons)
-  (when (display-graphic-p)
-    (use-package all-the-icons
-      :config
-      (unless (find-font (font-spec :name "all-the-icons"))
-        (all-the-icons-install-fonts t))))
-
-      ;; (use-package nerd-icons
-      ;; :config
-      ;; (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin android))
-      ;; (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
-      ;; (nerd-icons-install-fonts t)
-      ;; (message "install nerd")
-      ;; )))
-
-      (use-package doom-modeline
-        :demand t
-        :custom
-        (doom-modeline-icon nil)
-        :init
-        (setq doom-modeline-minor-modes t
-              doom-modeline-vcs-max-length 20)
-        :config
-        (doom-modeline-mode 1))
-
-      (use-package doom-themes
-        :demand t
-        :init
-        ;; Global settings (defaults)
-        (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-              doom-themes-enable-italic t) ; if nil, italics is universally disabled
-        :config
-        (load-theme 'doom-1337 t)
-        ;; (load-theme 'doom-one t)
-        ;; (load-theme 'doom-material t)
-        ;; (load-theme 'doom-oceanic-next t)
-        ;; (load-theme 'doom-opera t)
-        ;;   (load-theme 'doom-palenight t)
-        ;; (load-theme 'doom-peacock t)
-
-        ;; Enable flashing mode-line on errors
-        (doom-themes-visual-bell-config)
-
-                                          ;  (use-package doom-themes-ext-treemacs
-                                          ;   :init
-                                          ;    (setq doom-themes-treemacs-theme "doom-colors")) ; use the colorful treemacs theme
-                                          ;  (doom-themes-treemacs-config)
-
-        ;; Corrects (and improves) org-mode's native fontification.
-        (doom-themes-org-config)
-        )
+  (use-package yafolding
+    :hook (prog-mode . (lambda () (yafolding-mode 1))))
 #+end_src
 
 #+RESULTS:
+
+* Theme
+#+begin_src emacs-lisp :tangle init.el :eval never-export
+(straight-register-package 'all-the-icons)
+(when (display-graphic-p)
+  (use-package all-the-icons
+    :demand t
+    :config
+    (unless (find-font (font-spec :name "all-the-icons"))
+      (all-the-icons-install-fonts t))))
+
+;; (use-package nerd-icons
+;; :config
+;; (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin android))
+;; (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+;; (nerd-icons-install-fonts t)
+;; (message "install nerd")
+;; )))
+
+(use-package doom-modeline
+  :demand t
+  :custom
+  (doom-modeline-icon nil)
+  :init
+  (setq doom-modeline-minor-modes t
+        doom-modeline-vcs-max-length 20)
+  :config
+  (doom-modeline-mode 1))
+
+(use-package doom-themes
+  :demand t
+  :init
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  :config
+  (load-theme 'doom-1337 t)
+  ;; (load-theme 'doom-one t)
+  ;; (load-theme 'doom-material t)
+  ;; (load-theme 'doom-oceanic-next t)
+  ;; (load-theme 'doom-opera t)
+  ;;   (load-theme 'doom-palenight t)
+  ;; (load-theme 'doom-peacock t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; use the colorful treemacs theme
+  ;; (use-package doom-themes-ext-treemacs
+  ;;      :after treemacs
+  ;; :commands treemacs-mode
+  ;; :custom
+  ;; (doom-themes-treemacs-theme "doom-colors")
+  ;; :config
+  ;; (doom-themes-treemacs-config))
+
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+#+end_src
+
+#+RESULTS:
+: t
 
 * Shell
 #+begin_src emacs-lisp :tangle init.el :eval never-export
@@ -1233,7 +1276,6 @@
             ("C-r" . counsel-shell-history)
             ("C-n" . company-next-page)
             ("C-p" . company-previous-page)
-
             ;; ("<tab>" . my/eshell-list-dir)
             ("<tab>" . company-next-page)
             ;; ("<backtab>" . company-previous-page)
@@ -1389,9 +1431,14 @@
 
       )
 #+end_src
+
+#+RESULTS:
+| my-shell-mode-hook-func |
+
 * SSH
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (use-package tramp
+    :demand t
     :straight nil
     :custom
     (tramp-default-method "ssh")
@@ -1405,6 +1452,9 @@
     :after (counsel tramp)
     :commands counsel-tramp)
 #+end_src
+
+#+RESULTS:
+
 * Abbreviations
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (defvar my/en-abbrevs nil)
@@ -1642,6 +1692,9 @@
                      ) nil :case-fixed nil)
 
 #+end_src
+
+#+RESULTS:
+
 * Write
 #+begin_src emacs-lisp :tangle init.el :eval never-export
   (define-minor-mode my/en-mode
@@ -1718,7 +1771,7 @@
 
   (use-package flyspell
     :commands flyspell-mode
-    :diminish "Fly"
+    :diminish "fly"
     :custom
     (flyspell-issue-message-flag nil)
     (flyspell-issue-welcome-flag nil)
@@ -1787,5 +1840,6 @@
         ("r" ledger-report "report")))))
 
 (use-package flycheck-ledger
+  :demand t
   :after ledger-mode)
 #+end_src
