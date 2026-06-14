@@ -698,128 +698,136 @@
 * Hydra
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
   (use-package major-mode-hydra
-   :demand t
-   :commands major-mode-hydra
-   :bind (("C-c I" . hydra-image/body)
+    :demand t
+    :commands major-mode-hydra
+    :bind (("C-c I" . hydra-image/body)
            ("C-c t" . hydra-general/body)
            ("C-c g" . hydra-git/body)
            ("C-c p" . hydra-projectile/body)
            ("C-c v" . my/hydra-common/body))
-   :preface
-   (defun with-alltheicon (icon str &optional height v-adjust)
-     "Displays an icon from all-the-icon."
-     (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    :preface
+    (defun with-alltheicon (icon str &optional height v-adjust)
+      "Displays an icon from all-the-icon."
+      (if (display-graphic-p)
+          (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+      str)
 
-   (defun with-faicon (icon str &optional height v-adjust)
-     "Displays an icon from Font Awesome icon."
-     (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    (defun with-faicon (icon str &optional height v-adjust)
+      "Displays an icon from Font Awesome icon."
+      (if (display-graphic-p)
+          (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+      str)
 
-   (defun with-fileicon (icon str &optional height v-adjust)
-     "Displays an icon from the Atom File Icons package."
-     (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    (defun with-fileicon (icon str &optional height v-adjust)
+      "Displays an icon from the Atom File Icons package."
+      (if (display-graphic-p)
+          (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+      str)
 
-   (defun with-octicon (icon str &optional height v-adjust)
-     "Displays an icon from the GitHub Octicons."
-     (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
-   :config
-   (pretty-hydra-define hydra-general
-     (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
-     ("Toggle"
+    (defun with-octicon (icon str &optional height v-adjust)
+      "Displays an icon from the GitHub Octicons."
+      (if (display-graphic-p)
+          (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+      str)
+    :config
+    (pretty-hydra-define hydra-general
+      (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
+      ("Toggle"
        (("ta" abbrev-mode "abbrev" :toggle t :exit t)
-         ("td" global-hungry-delete-mode "hungry delete" :toggle t :exit t)
-         ("tq" smart-quotes-mode "smart quotes" :toggle t :exit t)
-         ("te" electric-pair-mode "electric pair" :toggle t :exit t))))
+        ("td" global-hungry-delete-mode "hungry delete" :toggle t :exit t)
+        ("tq" smart-quotes-mode "smart quotes" :toggle t :exit t)
+        ("te" electric-pair-mode "electric pair" :toggle t :exit t))))
 
-   (pretty-hydra-define hydra-image
-     (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
-     ("Action"
+    (pretty-hydra-define hydra-image
+      (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
+      ("Action"
        (("r" image-rotate "rotate")
-         ("s" image-save "save" :color teal))
+        ("s" image-save "save" :color teal))
        "Zoom"
        (("-" image-decrease-size "out")
-         ("+" image-increase-size "in")
-         ("=" image-transform-reset "reset"))))
+        ("+" image-increase-size "in")
+        ("=" image-transform-reset "reset"))))
 
-   (pretty-hydra-define hydra-projectile
-     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
-     ("Buffers"
+    (pretty-hydra-define hydra-projectile
+      (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
+      ("Buffers"
        (("b" counsel-projectile-switch-to-buffer "list")
-         ("k" projectile-kill-buffers "kill all")
-         ("S" projectile-save-project-buffers "save all"))
+        ("k" projectile-kill-buffers "kill all")
+        ("S" projectile-save-project-buffers "save all"))
        "Find"
        (("d" counsel-projectile-find-dir "directory")
-         ("D" projectile-dired "go to home dir dired")
-         ("f" counsel-projectile-find-file "file")
-         ("F" projectile-find-file-other-window "file other window")
-         ("p" counsel-projectile-switch-project "project")
-         ("o" projectile-find-other-file "other file")
-         ("t" projectile-find-tag "tag")
-         ("s" counsel-rg "search")
-         ("g" yant/occur-current-project "grep"))
+        ("D" projectile-dired "go to home dir dired")
+        ("f" counsel-projectile-find-file "file")
+        ("F" projectile-find-file-other-window "file other window")
+        ("p" counsel-projectile-switch-project "project")
+        ("o" projectile-find-other-file "other file")
+        ("t" projectile-find-tag "tag")
+        ("s" counsel-rg "search")
+        ("g" yant/occur-current-project "grep"))
        "Project"
        (("a" my/projectile-add-known-project "add")
-         ("m" projectile-remove-known-project "remove"))
+        ("m" projectile-remove-known-project "remove"))
        "Actions"
        (("i" projectile-invalidate-cache "reset cache")
-         ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
+        ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
 
-   (pretty-hydra-define hydra-magit
-     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
-     ("Action"
+    (pretty-hydra-define hydra-magit
+      (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
+      ("Action"
        (("b" magit-blame "blame")
-         ("l" magit-log-buffer-file "commit log (current file)")
-         ("L" magit-log-current "commit log (project)")
-         ("s" magit-status "status"))))
+        ("l" magit-log-buffer-file "commit log (current file)")
+        ("L" magit-log-current "commit log (project)")
+        ("s" magit-status "status"))))
 
-   (pretty-hydra-define hydra-git
-     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-     ("Action"
+    (pretty-hydra-define hydra-git
+      (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
+      ("Action"
        (("s" magit-status "status")
-         ("b" magit-branch "branch")
-         ("z" magit-stash "stash")
-         ("r" magit-rebase "rebase")
-         ("B" magit-blame "blame")
-         ("x" magit-reset "reset"))
+        ("b" magit-branch "branch")
+        ("z" magit-stash "stash")
+        ("r" magit-rebase "rebase")
+        ("B" magit-blame "blame")
+        ("x" magit-reset "reset"))
        "Log"
        (("ll" magit-log-all "log")
-         ("lf" magit-log-buffer-file "file log"))
+        ("lf" magit-log-buffer-file "file log"))
        "Update"
        (("f" magit-fetch "fetch")
-         ("F" magit-pull "pull"))))
+        ("F" magit-pull "pull"))))
 
-   (pretty-hydra-define my/hydra-common
-     ;; (:hint nil :color teal :quit-key "q" :title (with-octicon "light-bulb" "Common" 1 -0.05))
-     (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
-     ;; (:hint nil :color teal :quit-key "q" :title (with-faicon "wand-magic-sparkles" "Common" 1 -0.05))
-     ("org-roam"
+    (pretty-hydra-define my/hydra-common
+      ;; (:hint nil :color teal :quit-key "q" :title (with-octicon "light-bulb" "Common" 1 -0.05))
+      (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
+      ;; (:hint nil :color teal :quit-key "q" :title (with-faicon "wand-magic-sparkles" "Common" 1 -0.05))
+      ("org-roam"
        (
         ;; ("j" my/org-journal-open-current-journal-file "journal")
-         ("f" org-roam-node-find "find node")
-         ;; ("F" my/org-roam-node-find-other-window "find node other window")
-         ;; ("b" org-roam-switch-to-buffer "switch buffer")
-         ;; ("d" org-roam-find-directory "find dir")
-         ;; ("l" org-roam-node-insert "insert node")
-         )
+        ("f" org-roam-node-find "find node")
+        ;; ("F" my/org-roam-node-find-other-window "find node other window")
+        ;; ("b" org-roam-switch-to-buffer "switch buffer")
+        ;; ("d" org-roam-find-directory "find dir")
+        ;; ("l" org-roam-node-insert "insert node")
+        )
        "Commands"
        (("m" woman "man" :exit t)
-         ("k" my/kill-clear "clear kill-ring")
-         ("t" tab-rename "rename tab" :exit t)
-         ("i" info-apropos "info-apropos" :exit t))
+        ("k" my/kill-clear "clear kill-ring")
+        ("t" tab-rename "rename tab" :exit t)
+        ("i" info-apropos "info-apropos" :exit t))
        "Language"
        (("d" ispell-change-dictionary "change dictionary")
-         ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-         ("w" my/lang-toggle "language switch" :exit t))
+        ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+        ("w" my/lang-toggle "language switch" :exit t))
        "Spelling errors"
        (("o" artbollocks-mode "artbollocks" :toggle t)
-          ("<" flyspell-correct-previous "previous")
-         (">" flyspell-correct-next "next")))))
+        ("<" flyspell-correct-previous "previous")
+        (">" flyspell-correct-next "next")))))
 
-   (defun my/kill-clear ()
-     "Clear kill-ring."
-     (interactive)
-     (setq kill-ring nil)
-     (garbage-collect)
-     (message "kill-ring cleared"))
+  (defun my/kill-clear ()
+    "Clear kill-ring."
+    (interactive)
+    (setq kill-ring nil)
+    (garbage-collect)
+    (message "kill-ring cleared"))
 #+end_src
 * Org
 #+begin_src emacs-lisp :tangle init.el :eval never-export :results silent
