@@ -908,7 +908,7 @@
     (add-to-list 'org-structure-template-alist
                  '("init.el" . "src emacs-lisp :tangle init.el :eval never-export :results silent"))
 
-    (major-mode-hydra-define (org-mode my/org-roam-mode)
+    (major-mode-hydra-define (org-mode)
       (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
       ("Action"
        (("t" org-toggle-timestamp-type "timestamp toggle")
@@ -950,18 +950,18 @@
 
     (org-roam-db-autosync-mode 1)
 
-    (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
-      "Major mode for org-roam ready org buffers.")
+    ;; (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
+    ;;   "Major mode for org-roam ready org buffers.")
 
-    (major-mode-hydra-define+ my/org-roam-mode
-      (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
-      ("Edit"
-       (("n" org-id-get-create "turn heading into node")
-        ("t" org-roam-tag-add "add org-roam tag to node at point")
-        ("T" org-roam-alias-add "add org-roam alias to node at point"))
-       "Navigation"
-       (("u" org-roam-ui-open "open UI view")
-        ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
+    ;; (major-mode-hydra-define+ my/org-roam-mode
+    ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
+    ;;   ("Edit"
+    ;;    (("n" org-id-get-create "turn heading into node")
+    ;;     ("t" org-roam-tag-add "add org-roam tag to node at point")
+    ;;     ("T" org-roam-alias-add "add org-roam alias to node at point"))
+    ;;    "Navigation"
+    ;;    (("u" org-roam-ui-open "open UI view")
+    ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
     (add-to-list 'display-buffer-alist
                  '("\\*org-roam\\*"
@@ -976,7 +976,7 @@
       (when (fboundp 'org-roam-file-p)
         (org-roam-file-p file)))
 
-    (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
+    ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
     (defalias 'roam #'org-roam))
 
   (use-package org-sticky-header
