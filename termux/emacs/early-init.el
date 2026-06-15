@@ -1,3 +1,5 @@
+;; (setq debug-on-error t)
+
 (setq
   package-enable-at-startup nil
   package-install-upgrade-built-in t)
@@ -46,7 +48,7 @@
             (when (string-equal (buffer-file-name) (expand-file-name "init.org" user-emacs-directory))
               (add-hook 'after-save-hook #'org-babel-tangle nil t))))
 
- 
+
 ;; Automatically tangle our Emacs.org config file when we save it
 ;; (defun efs/org-babel-tangle-config ()
 ;;   (when (string-equal (buffer-file-name)
@@ -54,6 +56,4 @@
 ;;     ;; Dynamic scoping to the rescue
 ;;     (let ((org-confirm-babel-evaluate nil))
 ;;       (org-babel-tangle))))
-
 ;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
- 
