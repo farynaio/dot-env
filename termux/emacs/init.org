@@ -37,7 +37,7 @@ TODO
 
   (set-fringe-mode 10)
 
-  (setq inhibit-startup-echo-area-message t)
+  (setq inhibit-startup-echo-area-message nil)
 
   ;; Default frame configuration: full screen, good-looking title bar on macOS
   (setq frame-resize-pixelwise t)
@@ -256,29 +256,28 @@ TODO
 
 * Help
 #+begin_src emacs-lisp :eval never-export :results silent
-  (use-package help
-    :demand t
-    :straight nil
-    :config
-    (help-quick-toggle))
+;; (use-package help
+;;   :demand t
+;;   :straight nil
+;; (help-quick-toggle))
 
-     (use-package which-key
-       :demand t
-       :diminish which-key-mode
-       :custom
-       (which-key-idle-delay 0.3)
-       :config
-       (which-key-mode 1))
+(use-package which-key
+  :demand t
+  :diminish which-key-mode
+  :custom
+  (which-key-idle-delay 0.3)
+  :config
+  (which-key-mode 1))
 
-    (use-package helpful
-     ;; :custom
-     ;; (counsel-describe-function-function #'helpful-callable) ; TODO replace with corfu
-     ;; (counsel-describe-variable-function #'helpful-variable)
-     :bind
-     ;; ([remap describe-function] . counsel-describe-function)
-     ([remap describe-command] . helpful-command)
-     ;; ([remap describe-variable] . counsel-describe-variable)
-     ([remap describe-key] . helpful-key))
+(use-package helpful
+  ;; :custom
+  ;; (counsel-describe-function-function #'helpful-callable) ; TODO replace with corfu
+  ;; (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ;; ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ;; ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
 #+end_src
 
 * Git
@@ -703,7 +702,6 @@ TODO
   (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
 
 (use-package tab-bar
-  :disabled t
   :demand t
   :straight nil
   :custom
@@ -844,7 +842,7 @@ TODO
                 ("C-s" . isearch-forward)
                 ("<backspace>" . dired-up-directory)
                 ("DEL" . dired-up-directory) ; optional
-                ("RET" .  dired-find-alternate-file))
+                ("RET" .  dired-find-file))
     :hook (dired-mode . dired-hide-details-mode)
     :custom
     (enable-command 'dired-find-alternate-file)
