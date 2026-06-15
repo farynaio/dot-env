@@ -5,7 +5,6 @@
 TODO
 - magit corfu
 - ack
-- move line / marked text up/down
 
 * Set environment
 #+begin_src emacs-lisp :eval never-export :results silent
@@ -38,7 +37,7 @@ TODO
 
 (set-fringe-mode 10)
 
-(setq inhibit-startup-echo-area-message nil)
+
 
 ;; Default frame configuration: full screen, good-looking title bar on macOS
 (setq frame-resize-pixelwise t)
@@ -75,8 +74,12 @@ TODO
  indent-tabs-mode nil
  mode-require-final-newline nil)
 
-(setq default-frame-alist '((fullscreen . maximized)
+;; start in fullscreen
+(when (display-graphic-p)
+  (set-frame-parameter nil 'fullscreen 'fullboth))
 
+;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(setq default-frame-alist '((fullscreen . maximized)
   			                    ;; You can turn off scroll bars by uncommenting these lines:
   			                    ;; (vertical-scroll-bars . nil)
   			                    ;; (horizontal-scroll-bars . nil)
@@ -88,8 +91,6 @@ TODO
   			                    (ns-appearance . dark)
   			                    (ns-transparent-titlebar . t)))
 
-;; (setq auto-save-no-message t)
-
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; (setq backward-delete-char-untabify-method 'hungry)
@@ -100,9 +101,10 @@ TODO
  ("C-<wheel-down>" . ignore)
  ("C-<wheel-up>" . ignore))
 
-;; Enable horizontal scrolling
-(setq mouse-wheel-tilt-scroll t)
-(setq mouse-wheel-flip-direction t)
+;; Disable horizontal scrolling
+(setq
+ mouse-wheel-tilt-scroll nil
+ mouse-wheel-flip-direction nil)
 
 (pixel-scroll-precision-mode)                         ; Smooth scrolling
 
@@ -112,9 +114,10 @@ TODO
 (xterm-mouse-mode 1)
 
 (setq
- confirm-nonexistent-file-or-buffer nil
  initial-scratch-message nil
- ;; inhibit-startup-screen t
+ inhibit-startup-screen nil
+ inhibit-startup-echo-area-message (user-login-name)
+ confirm-nonexistent-file-or-buffer nil
  x-underline-at-descent-line t
  initial-buffer-choice t
  password-cache-expiry nil
@@ -192,7 +195,7 @@ TODO
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
 ;; Do not allow the cursor in the minibuffer prompt
-(minibuffer-prompt-properties
+(setq minibuffer-prompt-properties
  '(read-only t cursor-intangible t face minibuffer-prompt))
 
 ;; Enable indentation+completion using the TAB key.
@@ -217,9 +220,11 @@ TODO
 (use-package simple
   :demand t
   :straight nil
+  :bind (("C-c j" . join-line))
   :custom
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
+  (mark-ring-max 4)
   :config
   (global-visual-line-mode 1)
   (column-number-mode 1)
@@ -276,13 +281,14 @@ TODO
 
 (use-package helpful
   :disabled t
-  ;; :custom
-  ;; (counsel-describe-function-function #'helpful-callable) ; TODO replace with vertico
-  ;; (counsel-describe-variable-function #'helpful-variable)
+  :after counsel
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
   :bind
-  ;; ([remap describe-function] . counsel-describe-function)
+  ([remap describe-function] . counsel-describe-function)
   ([remap describe-command] . helpful-command)
-  ;; ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 #+end_src
 
@@ -314,7 +320,7 @@ TODO
                 :map magit-hunk-section-map
                 ("RET" . magit-diff-visit-file-other-window))
   :custom
-  ;; (magit-completing-read-function 'ivy-completing-read) ; TODO replace with corfu
+  (magit-completing-read-function 'ivy-completing-read)
   (magit-refresh-status-buffer nil)
   (magit-item-highlight-face 'bold)
   (magit-diff-paint-whitespace nil)
@@ -506,8 +512,8 @@ TODO
   :after (embark consult))
 
 (use-package dashboard
-  :disabled t
 	:demand t
+  :after counsel
 	:custom
 	(dashboard-icon-type 'all-the-icons)
 	(dashboard-display-icons-p (display-graphic-p))
@@ -524,7 +530,7 @@ TODO
 	 '(("Recent Files:" . "Recent files:")
 	   ("Agenda for today:" . "Today's agenda:")
 	   ("Agenda for the coming week:" . "Agenda for the week:")))
-	;; (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name) ; replace with corfu
+	(dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
 	(dashboard-projects-backend 'projectile)
 	:config
 	(dashboard-setup-startup-hook))
@@ -532,88 +538,135 @@ TODO
 
 * Minibuffer & Completion
 #+begin_src emacs-lisp :eval never-export :results silent
-  ;; Vertico: better vertical completion for minibuffer commands
-  (use-package vertico
+(use-package ivy
+  :demand t
+  :custom
+  (ivy-height 15)
+  (ivy-use-selectable-prompt t)
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  (ivy-re-builders-alist '((t . ivy--regex-ignore-order)))
+  :config
+  (ivy-mode 1)
+  ;; (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done) ;; or ivy-next-line
+  )
+
+  (use-package counsel
     :demand t
+    :bind (("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-c b" . counsel-bookmark)
+           ("C-x C-r" . counsel-recentf)
+           ("C-h v" . counsel-describe-variable)
+           ("C-h f" . counsel-describe-function)
+           ("C-h S" . counsel-info-lookup-symbol)
+           ("C-h a" . counsel-apropos)
+           ;; ("C-x b" . counsel-switch-buffer)
+  	 ;;  ("C-s" . my/counsel-grep-at-point-plain)
+           ;; ("C-r" . my/counsel-grep-at-point-plain)
+           ;; :map read-expression-map
+           ;; ("C-r" . counsel-minibuffer-history)
+           ;; ("C-r" . counsel-expression-history)
+           )
+    :custom
+    (counsel-rg-base-command "rg -S -M 150 --no-heading --line-number --color never %s")
+    (counsel-find-file-ignore-regexp "\\`\\.")
+    (counsel-grep-base-command "grep -E -n -i -e %s %s")
+    (counsel-outline-path-separator " > ")
+    (counsel-find-file-at-point t)
+    (swiper-use-visual-line-p #'ignore)
+     :config
+    ;; Pre-fill initial entry as symbol at point
+    (defun my/counsel-grep-at-point-plain ()
+      (interactive)
+      (let ((w (thing-at-point 'symbol t)))
+        (counsel-grep (or w nil))))
+
+    (ivy-set-display-transformer 'counsel-describe-function nil))
+
+;; Vertico: better vertical completion for minibuffer commands
+(use-package vertico
+  :disabled t
+  :demand t
+  :config
+  ;; You'll want to make sure that e.g. fido-mode isn't enabled
+  (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
+  (vertico-mode)
+
+  (use-package vertico-directory
+    :straight nil
+    :after vertico
+    :bind (:map vertico-map
+		            ("M-DEL" . vertico-directory-delete-word))))
+
+(use-package orderless
+	:demand t
+	:custom
+	(completion-styles '(orderless basic))
+	(completion-category-defaults nil)
+	(completion-pcm-leading-wildcard t)
+	(completion-category-overrides '((file (styles partial-completion)))))
+
+;; Marginalia: annotations for minibuffer
+(use-package marginalia
+  :demand t
+  :config
+  (marginalia-mode))
+
+(use-package corfu
+  :demand t
+  :bind (:map corfu-map
+		          ("SPC" . corfu-insert-separator)
+		          ("C-n" . corfu-next)
+		          ("C-p" . corfu-previous))
+	:custom
+	(corfu-cycle t)
+	(corfu-on-exact-match nil)
+	:init
+	(add-to-list 'load-path (expand-file-name "straight/repos/corfu/extensions" user-emacs-directory))
+	(require 'corfu-history)
+	(require 'corfu-popupinfo)
+	(require 'corfu-echo)
+	(require 'corfu-info)
+	:config
+	(global-corfu-mode 1)
+	(corfu-history-mode 1)
+	(corfu-popupinfo-mode 1) ; Popup completion info
+	(corfu-echo-mode 1)
+	(add-hook 'eshell-mode-hook
+			      (lambda () (setq-local corfu-quit-at-boundary t
+								                   corfu-quit-no-match t
+								                   corfu-auto nil)
+			        (corfu-mode))))
+
+(use-package cape
+	:demand t
+	:after corfu
+	;; Bind prefix keymap providing all Cape commands under a mnemonic key.
+	;; Press C-c p ? to for help.
+	:bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+	;; Alternatively bind Cape commands individually.
+	;; :bind (("C-c p d" . cape-dabbrev)
+	;;        ("C-c p h" . cape-history)
+	;;        ("C-c p f" . cape-file)
+	;;        ...)
+	:config
+	;; Add to the global default value of `completion-at-point-functions' which is
+	;; used by `completion-at-point'.  The order of the functions matters, the
+	;; first function returning a result wins.  Note that the list of buffer-local
+	;; completion functions takes precedence over the global list.
+	(add-hook 'completion-at-point-functions #'cape-dabbrev)
+	(add-hook 'completion-at-point-functions #'cape-file)
+	(add-hook 'completion-at-point-functions #'cape-elisp-block)
+	;; (add-hook 'completion-at-point-functions #'cape-history)
+	)
+
+(when (display-graphic-p)
+  (use-package nerd-icons-corfu
+    :demand t
+    :after nerd-icons
     :config
-    ;; You'll want to make sure that e.g. fido-mode isn't enabled
-    (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
-    (vertico-mode)
-
-    (use-package vertico-directory
-      :straight nil
-      :after vertico
-      :bind (:map vertico-map
-		  ("M-DEL" . vertico-directory-delete-word))))
-
-  (use-package orderless
-	  :demand t
-	  :custom
-	  (completion-styles '(orderless basic))
-	  (completion-category-defaults nil)
-	  (completion-pcm-leading-wildcard t)
-	  (completion-category-overrides '((file (styles partial-completion)))))
-
-  ;; Marginalia: annotations for minibuffer
-  (use-package marginalia
-    :demand t
-    :config
-    (marginalia-mode))
-
-  (use-package corfu
-    :demand t
-    :bind (:map corfu-map
-		      ("SPC" . corfu-insert-separator)
-		      ("C-n" . corfu-next)
-		      ("C-p" . corfu-previous))
-	  :custom
-	  (corfu-cycle t)
-	  (corfu-on-exact-match nil)
-	  :init
-	  (add-to-list 'load-path (expand-file-name "straight/repos/corfu/extensions" user-emacs-directory))
-	  (require 'corfu-history)
-	  (require 'corfu-popupinfo)
-	  (require 'corfu-echo)
-	  (require 'corfu-info)
-	  :config
-	  (global-corfu-mode 1)
-	  (corfu-history-mode 1)
-	  (corfu-popupinfo-mode 1) ; Popup completion info
-	  (corfu-echo-mode 1)
-	  (add-hook 'eshell-mode-hook
-			  (lambda () (setq-local corfu-quit-at-boundary t
-								   corfu-quit-no-match t
-								   corfu-auto nil)
-			    (corfu-mode))))
-
-  (use-package cape
-	  :demand t
-	  :after corfu
-	  ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
-	  ;; Press C-c p ? to for help.
-	  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
-	  ;; Alternatively bind Cape commands individually.
-	  ;; :bind (("C-c p d" . cape-dabbrev)
-	  ;;        ("C-c p h" . cape-history)
-	  ;;        ("C-c p f" . cape-file)
-	  ;;        ...)
-	  :config
-	  ;; Add to the global default value of `completion-at-point-functions' which is
-	  ;; used by `completion-at-point'.  The order of the functions matters, the
-	  ;; first function returning a result wins.  Note that the list of buffer-local
-	  ;; completion functions takes precedence over the global list.
-	  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-	  (add-hook 'completion-at-point-functions #'cape-file)
-	  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-	  ;; (add-hook 'completion-at-point-functions #'cape-history)
-	  )
-
-  (when (display-graphic-p)
-    (use-package nerd-icons-corfu
-      :demand t
-      :after nerd-icons
-      :config
-      (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
+    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
 #+end_src
 
 * Evil
@@ -652,10 +705,9 @@ TODO
 
 * Edit
 #+begin_src emacs-lisp :eval never-export :results silent
-;; auto match open with close
 (use-package elec-pair
-  :demand t
   :straight nil
+  :hook (prog-mode . electric-pair-mode)
   :config
   (push '(?\{ . ?\}) electric-pair-pairs)
   (push '(?\( . ?\)) electric-pair-pairs)
@@ -861,6 +913,7 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
                 ("C-s" . isearch-forward)
                 ("<backspace>" . dired-up-directory)
                 ("DEL" . dired-up-directory) ; optional
+                ("W" . my/dired-copy-path-to-file-as-kill)
                 ("RET" .  dired-find-file))
     :hook (dired-mode . dired-hide-details-mode)
     :custom
@@ -873,251 +926,292 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
               (lambda ()
         	      (when (and recentf-mode (buffer-file-name)) (recentf-add-file (buffer-file-name)))))
     (define-key dired-mode-map [mouse-1] nil)
-    (define-key dired-mode-map [mouse-2] nil))
+    (define-key dired-mode-map [mouse-2] nil)
+
+(defun my/dired-copy-path-to-file-as-kill (&optional arg)
+    "Copy current file path into the kill ring."
+    (interactive "P")
+    (let ((string
+            (or (dired-get-subdir)
+              (mapconcat #'identity
+                (if arg
+                  (cond ((zerop (prefix-numeric-value arg))
+                          (dired-get-marked-files))
+                    ((consp arg)
+                      (dired-get-marked-files t))
+                    (t
+                      (dired-get-marked-files
+				                'no-dir (prefix-numeric-value arg))))
+                  (dired-get-marked-files 'no-dir))
+                " "))))
+      (unless (string= string "")
+        (let ((new-kill (concat (expand-file-name string default-directory))))
+          (kill-new new-kill)
+          (message "%s" new-kill)))))
+    )
 #+end_src
 
 * Hydra
 #+begin_src emacs-lisp :eval never-export :results silent
-  (use-package major-mode-hydra
-    :demand t
-    :commands major-mode-hydra
-    :bind (("C-c I" . hydra-image/body)
-  	   ("C-c t" . hydra-general/body)
-  	   ("C-c g" . hydra-git/body)
-  	   ("C-c p" . hydra-projectile/body)
-  	   ("C-c v" . my/hydra-common/body))
-    :config
-    (defun with-alltheicon (icon str &optional height v-adjust)
-      "Displays an icon from all-the-icon."
-      (if (display-graphic-p)
-  	  (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+(use-package major-mode-hydra
+  :demand t
+  :commands major-mode-hydra
+  :bind (("C-c I" . hydra-image/body)
+  	     ("C-c t" . hydra-general/body)
+  	     ("C-c g" . hydra-git/body)
+  	     ("C-c p" . hydra-projectile/body)
+  	     ("C-c v" . my/hydra-common/body))
+  :config
+  (defun with-alltheicon (icon str &optional height v-adjust)
+    "Displays an icon from all-the-icon."
+    (if (display-graphic-p)
+  	    (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
       str))
 
-    (defun with-faicon (icon str &optional height v-adjust)
-      "Displays an icon from Font Awesome icon."
-      (if (display-graphic-p)
-  	  (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+  (defun with-faicon (icon str &optional height v-adjust)
+    "Displays an icon from Font Awesome icon."
+    (if (display-graphic-p)
+  	    (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
       str))
 
-    (defun with-fileicon (icon str &optional height v-adjust)
-      "Displays an icon from the Atom File Icons package."
-      (if (display-graphic-p)
-  	  (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-  	str))
+  (defun with-fileicon (icon str &optional height v-adjust)
+    "Displays an icon from the Atom File Icons package."
+    (if (display-graphic-p)
+  	    (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+  	  str))
 
-    (defun with-octicon (icon str &optional height v-adjust)
-      "Displays an icon from the GitHub Octicons."
-      (if (display-graphic-p)
-  	  (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-  	str))
+  (defun with-octicon (icon str &optional height v-adjust)
+    "Displays an icon from the GitHub Octicons."
+    (if (display-graphic-p)
+  	    (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+  	  str))
 
-    (pretty-hydra-define hydra-general
-      (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
-      ("Toggle"
-       (("ta" abbrev-mode "abbrev" :toggle t :exit t)
-  	("td" global-hungry-delete-mode "hungry delete" :toggle t :exit t)
-  	("tq" smart-quotes-mode "smart quotes" :toggle t :exit t)
-  	("te" electric-pair-mode "electric pair" :toggle t :exit t))))
+  (pretty-hydra-define hydra-general
+    (:hint nil :color amaranth :quit-key "q" :title (with-faicon "toggle-on" "Toggle" 1 -0.05))
+    ("Toggle"
+     (("ta" abbrev-mode "abbrev" :toggle t :exit t)
+  	  ("td" global-hungry-delete-mode "hungry delete" :toggle t :exit t)
+  	  ("tq" smart-quotes-mode "smart quotes" :toggle t :exit t)
+  	  ("te" electric-pair-mode "electric pair" :toggle t :exit t))))
 
-    (pretty-hydra-define hydra-image
-      (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
-      ("Action"
-       (("r" image-rotate "rotate")
-  	("s" image-save "save" :color teal))
-       "Zoom"
-       (("-" image-decrease-size "out")
-  	("+" image-increase-size "in")
-  	("=" image-transform-reset "reset"))))
+  (pretty-hydra-define hydra-image
+    (:hint nil :color pink :quit-key "q" :title (with-faicon "file-image-o" "Images" 1 -0.05))
+    ("Action"
+     (("r" image-rotate "rotate")
+  	  ("s" image-save "save" :color teal))
+     "Zoom"
+     (("-" image-decrease-size "out")
+  	  ("+" image-increase-size "in")
+  	  ("=" image-transform-reset "reset"))))
 
-    (pretty-hydra-define hydra-projectile
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
-      ("Buffers"
-       (
-       ;; ("b" counsel-projectile-switch-to-buffer "list") ; TODO corfu
-  	("k" projectile-kill-buffers "kill all")
-  	("S" projectile-save-project-buffers "save all"))
-       "Find"
-       (
-       ;; ("d" counsel-projectile-find-dir "directory")
-  	("D" projectile-dired "go to home dir dired")
-  	;; ("f" counsel-projectile-find-file "file")
-  	("F" projectile-find-file-other-window "file other window")
-  	;; ("p" counsel-projectile-switch-project "project")
-  	("o" projectile-find-other-file "other file")
-  	("t" projectile-find-tag "tag")
-  	;; ("s" counsel-rg "search")
-  	("g" yant/occur-current-project "grep"))
-       "Project"
-       (("a" my/projectile-add-known-project "add")
-  	("m" projectile-remove-known-project "remove"))
-       "Actions"
-       (("i" projectile-invalidate-cache "reset cache")
-  	("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
+  (pretty-hydra-define hydra-projectile
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Projectile" 1 -0.05))
+    ("Buffers."
+     (("b" counsel-projectile-switch-to-buffer "list")
+  	  ("k" projectile-kill-buffers "kill all")
+  	  ("S" projectile-save-project-buffers "save all"))
+     "Find"
+     (("d" counsel-projectile-find-dir "directory")
+  	  ("D" projectile-dired "go to home dir dired")
+  	  ("f" counsel-projectile-find-file "file")
+  	  ("F" projectile-find-file-other-window "file other window")
+  	  ("p" counsel-projectile-switch-project "project")
+  	  ("o" projectile-find-other-file "other file")
+  	  ("t" projectile-find-tag "tag")
+  	  ("s" counsel-rg "search")
+  	  ("g" yant/occur-current-project "grep"))
+     "Project"
+     (("a" my/projectile-add-known-project "add")
+  	  ("m" projectile-remove-known-project "remove"))
+     "Actions"
+     (("i" projectile-invalidate-cache "reset cache")
+  	  ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
 
-    (pretty-hydra-define hydra-magit
-      (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
-      ("Action"
-       (("b" magit-blame "blame")
-  	("l" magit-log-buffer-file "commit log (current file)")
-  	("L" magit-log-current "commit log (project)")
-  	("s" magit-status "status"))))
+  (pretty-hydra-define hydra-magit
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
+    ("Action"
+     (("b" magit-blame "blame")
+  	  ("l" magit-log-buffer-file "commit log (current file)")
+  	  ("L" magit-log-current "commit log (project)")
+  	  ("s" magit-status "status"))))
 
-    (pretty-hydra-define hydra-git
-      (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-      ("Action"
-       (("s" magit-status "status")
-  	("b" magit-branch "branch")
-  	("z" magit-stash "stash")
-  	("r" magit-rebase "rebase")
-  	("B" magit-blame "blame")
-  	("x" magit-reset "reset"))
-       "Log"
-       (("ll" magit-log-all "log")
-  	("lf" magit-log-buffer-file "file log"))
-       "Update"
-       (("f" magit-fetch "fetch")
-  	("F" magit-pull "pull"))))
+  (pretty-hydra-define hydra-git
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
+    ("Action"
+     (("s" magit-status "status")
+  	  ("b" magit-branch "branch")
+  	  ("z" magit-stash "stash")
+  	  ("r" magit-rebase "rebase")
+  	  ("B" magit-blame "blame")
+  	  ("x" magit-reset "reset"))
+     "Log"
+     (("ll" magit-log-all "log")
+  	  ("lf" magit-log-buffer-file "file log"))
+     "Update"
+     (("f" magit-fetch "fetch")
+  	  ("F" magit-pull "pull"))))
 
-    (pretty-hydra-define my/hydra-common
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
-      ("org-roam"
-       (
-  	;; ("j" my/org-journal-open-current-journal-file "journal")
-  	("f" org-roam-node-find "find node")
-  	;; ("F" my/org-roam-node-find-other-window "find node other window")
-  	;; ("b" org-roam-switch-to-buffer "switch buffer")
-  	;; ("d" org-roam-find-directory "find dir")
-  	;; ("l" org-roam-node-insert "insert node")
-  	)
-       "Commands"
-       (("m" woman "man" :exit t)
-  	("k" my/kill-clear "clear kill-ring")
-  	("t" tab-rename "rename tab" :exit t)
-  	("i" info-apropos "info-apropos" :exit t))
-       "Language"
-       (("d" ispell-change-dictionary "change dictionary")
-  	("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-  	("w" my/lang-toggle "language switch" :exit t))
-       "Spelling errors"
-       (("o" artbollocks-mode "artbollocks" :toggle t)
-        ("<" flyspell-correct-previous "previous")
-  	(">" flyspell-correct-next "next")))))
+  (pretty-hydra-define my/hydra-common
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "magic" "Common" 1 -0.05))
+    ("org-roam"
+     (
+  	  ;; ("j" my/org-journal-open-current-journal-file "journal")
+  	  ("f" org-roam-node-find "find node")
+  	  ;; ("F" my/org-roam-node-find-other-window "find node other window")
+  	  ;; ("b" org-roam-switch-to-buffer "switch buffer")
+  	  ;; ("d" org-roam-find-directory "find dir")
+  	  ;; ("l" org-roam-node-insert "insert node")
+  	  )
+     "Commands"
+     (("m" woman "man" :exit t)
+  	  ("k" my/kill-clear "clear kill-ring")
+  	  ("t" tab-rename "rename tab" :exit t)
+  	  ("i" info-apropos "info-apropos" :exit t))
+     "Language"
+     (("d" ispell-change-dictionary "change dictionary")
+  	  ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+  	  ("w" my/lang-toggle "language switch" :exit t))
+     "Spelling errors"
+     (("o" artbollocks-mode "artbollocks" :toggle t)
+      ("<" flyspell-correct-previous "previous")
+  	  (">" flyspell-correct-next "next")))))
 #+end_src
 
 * Org
 #+begin_src emacs-lisp :eval never-export :results silent
-  ;; This is for async evalaution of org-babel blocks.
-  (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
-  (use-package ob-async
-    :config
-    (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
+;; This is for async evalaution of org-babel blocks.
+(straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
+(use-package ob-async
+  :config
+  (setq ob-async-no-async-languages-alist '("python" "ipython" "jupyter-python" "jupyter-julia")))
 
-  ;; (use-package org-table-cell-move
-  ;; :demand t
-  ;; :after org
-  ;; :straight nil)
+;; (use-package org-table-cell-move
+;; :demand t
+;; :after org
+;; :straight nil)
 
-  (use-package org
-    :demand t
-    :bind (:map org-mode-map
-  	      ("M-<up>" . org-metaup)
-  	      ("M-<down>" . org-metadown)
-  	      :map org-mode-map
-  	      ("M-}" . forward-paragraph)
-  	      ("M-{" . backward-paragraph ))
-    :hook ((org-mode . org-sticky-header-mode)
-  	 (org-agenda-mode . (lambda () (hl-line-mode 1))))
-    :custom
-    (org-adapt-indentation nil)
-    (org-startup-folded 'fold)
-    (org-startup-indented t)
-    (org-startup-with-inline-images t)
-    (org-return-follows-link t)
-    (org-blank-before-new-entry '((heading . auto) (plain-list-item . nil)))
-    (org-list-demote-modify-bullet
-     '(("+" . "-")
-       ("-" . "+")
-       ("1." . "-")))
-    (org-hide-leading-stars t)
-    (org-hide-emphasis-markers t)
+(use-package org
+  :demand t
+  :bind (:map org-mode-map
+              ("C-c j" . join-line)
+  	          ("M-<up>" . org-metaup)
+  	          ("M-<down>" . org-metadown)
+  	          :map org-mode-map
+  	          ("M-}" . forward-paragraph)
+  	          ("M-{" . backward-paragraph ))
+  :hook ((org-mode . org-sticky-header-mode)
+  	     (org-agenda-mode . (lambda () (hl-line-mode 1))))
+  :custom
+  (org-adapt-indentation nil)
+  (org-startup-folded 'fold)
+  (org-startup-indented t)
+  (org-startup-with-inline-images t)
+  (org-return-follows-link t)
+  (org-blank-before-new-entry '((heading . auto) (plain-list-item . nil)))
+  (org-list-demote-modify-bullet
+   '(("+" . "-")
+     ("-" . "+")
+     ("1." . "-")))
+  (org-hide-leading-stars t)
+  (org-hide-emphasis-markers t)
 
-    (org-refile-use-outline-path t)
-    (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-refile-use-outline-path t)
+  (org-refile-allow-creating-parent-nodes 'confirm)
 
-    (org-cycle-include-plain-lists t)
+  (org-cycle-include-plain-lists t)
 
-    (org-fast-tag-selection-single-key t)
+  (org-fast-tag-selection-single-key t)
 
-    (org-src-preserve-indentation t)
-    (org-src-fontify-natively t)
-    (org-src-tab-acts-natively t)
+  (org-src-preserve-indentation t)
+  (org-src-fontify-natively t)
+  (org-src-tab-acts-natively t)
 
-    (org-pretty-entities t)
-    (org-pretty-entities-include-sub-superscripts nil)
+  (org-pretty-entities t)
+  (org-pretty-entities-include-sub-superscripts nil)
 
-    (org-return-follows-link t)
+  (org-return-follows-link t)
 
-    (org-element-use-cache nil)
+  (org-element-use-cache nil)
 
-    (org-confirm-babel-evaluate
-     (lambda (lang body)
-       (not (member lang '("emacs-lisp")))))
+  (org-confirm-babel-evaluate
+   (lambda (lang body)
+     (not (member lang '("emacs-lisp")))))
 
-    (org-export-babel-evaluate t)
-    (org-export-preserve-breaks t)
-    (org-export-with-toc t)
-    (org-export-with-smart-quotes t) ; could cause problems on babel export
-    (org-export-with-email nil)
+  (org-export-babel-evaluate t)
+  (org-export-preserve-breaks t)
+  (org-export-with-toc t)
+  (org-export-with-smart-quotes t) ; could cause problems on babel export
+  (org-export-with-email nil)
 
-    (org-group-tag nil)
+  (org-group-tag nil)
 
-    (org-lowest-priority 68)
-    (org-highest-priority 65)
-    (org-default-priority 66)
-    (org-todo-keywords
-     '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
-       (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
-    (org-todo-keyword-faces
-     '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
-       ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
-       ("WIP"        . (:foreground "IndianRed1"  :weight bold))
-       ("WORK"       . (:foreground "IndianRed1"  :weight bold))
-       ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
-       ("WAITING"    . (:foreground "coral"       :weight bold))
-       ("DELEGATED"  . (:foreground "coral"       :weight bold))
-       ("NOTE"       . (:foreground "white"       :weight bold))
-       ("DONE"       . (:foreground "dark grey"   :weight normal))
-       ("SKIP"       . (:foreground "dark grey"   :weight normal))
-       ("HUGE"       . (:foreground "dark grey"   :weight normal))
-       ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
-    (org-priority-cookie () (format "[#%c]" org-default-priority))
-    :config
-    (add-to-list 'org-structure-template-alist
-  	       '("init.el" . "src emacs-lisp :eval never-export :results silent"))
+  (org-lowest-priority 68)
+  (org-highest-priority 65)
+  (org-default-priority 66)
+  (org-todo-keywords
+   '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
+     (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
+  (org-todo-keyword-faces
+   '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
+     ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
+     ("WIP"        . (:foreground "IndianRed1"  :weight bold))
+     ("WORK"       . (:foreground "IndianRed1"  :weight bold))
+     ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
+     ("WAITING"    . (:foreground "coral"       :weight bold))
+     ("DELEGATED"  . (:foreground "coral"       :weight bold))
+     ("NOTE"       . (:foreground "white"       :weight bold))
+     ("DONE"       . (:foreground "dark grey"   :weight normal))
+     ("SKIP"       . (:foreground "dark grey"   :weight normal))
+     ("HUGE"       . (:foreground "dark grey"   :weight normal))
+     ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
+  (org-priority-cookie () (format "[#%c]" org-default-priority))
+  :config
+  (add-to-list 'org-structure-template-alist
+  	           '("init.el" . "src emacs-lisp :eval never-export :results silent"))
 
-    (major-mode-hydra-define (org-mode)
-      (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
-      ("Action"
-       (("t" org-toggle-timestamp-type "timestamp toggle")
-        ("a" org-link-archive-at-point "link archive")
-        ("i" org-toggle-inline-images "images toggle" :toggle t)
-        ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
-        ("h" org-archive-subtree "archive heading subtree")
-        ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
-        ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
-        ("w" widen "widen narrowed area" :exit t)
-        ("x" org-export-dispatch "org-export-dispatch" :exit t)
-        ("p" my/org-align-tags "align tags" :exit t))
-       "Toggle"
-       (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
-        ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-        ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
-        ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
-       ;; "Navigation"
-       ;; ("s" counsel-org-goto "goto heading")
-       ;; ("fa" counsel-org-file "browse attachments")
-       ))
+  (major-mode-hydra-define (org-mode)
+    (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
+    ("Action"
+     (("t" org-toggle-timestamp-type "timestamp toggle")
+      ("a" org-link-archive-at-point "link archive")
+      ("i" org-toggle-inline-images "images toggle" :toggle t)
+      ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
+      ("h" org-archive-subtree "archive heading subtree")
+      ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
+      ("R" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
+      ("n" org-narrow-to-subtree "org narrow to subtree" :exit t)
+      ("w" widen "widen narrowed area" :exit t)
+      ("x" org-export-dispatch "org-export-dispatch" :exit t)
+      ("p" my/org-align-tags "align tags" :exit t))
+     "Toggle"
+     (("e" my/org-toggle-emphasis "org-ephasis toggle" :toggle t :exit t)
+      ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+      ;; ("ob" afa/org-breadcrums-mode "breadcrumbs" :toggle t)
+      ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
+     ;; "Navigation"
+     ;; ("s" counsel-org-goto "goto heading")
+     ;; ("fa" counsel-org-file "browse attachments")
+     ))
+
+  (defun my/org-metaup ()
+    (interactive)
+    (call-interactively
+     (if (org-at-heading-or-item-p)
+         'org-metaup
+       'drag-stuff-up)))
+
+  (defun my/org-metadown ()
+    (interactive)
+    (call-interactively
+     (if (org-at-heading-or-item-p)
+         'org-metadown
+       'drag-stuff-down)))
+
+  (defun my/org-toggle-emphasis ()
+    "Toggle hiding/showing of org emphasize markers."
+    (interactive)
+    (setq 'org-hide-emphasis-markers (not org-hide-emphasis-markers))
+    (message "org ephasis toggled %s" (if org-hide-emphasis-markers "on" "off")))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1125,64 +1219,71 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
-  (use-package org-roam
-    :after (org emacsql magit)
-    :diminish org-roam-mode
-    :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body)
-    :custom
-    (org-roam-directory my/org-roam-dir)
-    (org-roam-graph-viewer "/usr/bin/open")
-    (org-roam-db-gc-threshold most-positive-fixnum)
-    (org-roam-tag-sources '(prop))
-    (org-roam-update-db-idle-second 60)
-    (org-roam-verbose nil)
-    (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-    :config
-    (unless (file-directory-p my/org-roam-dir)
-      (make-directory my/org-roam-dir t))
+(use-package org-appear
+  :after org
+  :commands org-appear-mode
+  :custom
+  (org-appear-delay 0.6)
+  (org-hide-emphasis-markers t))
 
-    (org-roam-db-autosync-mode 1)
+(use-package org-roam
+  :after (org emacsql magit)
+  :diminish org-roam-mode
+  :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body)
+  :custom
+  (org-roam-directory my/org-roam-dir)
+  ;; (org-roam-graph-viewer "/usr/bin/open")
+  (org-roam-db-gc-threshold most-positive-fixnum)
+  (org-roam-tag-sources '(prop))
+  (org-roam-update-db-idle-second 60)
+  (org-roam-verbose nil)
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  :config
+  (unless (file-directory-p my/org-roam-dir)
+    (make-directory my/org-roam-dir t))
 
-    ;; (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
-    ;;   "Major mode for org-roam ready org buffers.")
+  (org-roam-db-autosync-mode 1)
 
-    ;; (major-mode-hydra-define+ my/org-roam-mode
-    ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
-    ;;   ("Edit"
-    ;;    (("n" org-id-get-create "turn heading into node")
-    ;;     ("t" org-roam-tag-add "add org-roam tag to node at point")
-    ;;     ("T" org-roam-alias-add "add org-roam alias to node at point"))
-    ;;    "Navigation"
-    ;;    (("u" org-roam-ui-open "open UI view")
-    ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
+  ;; (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
+  ;;   "Major mode for org-roam ready org buffers.")
 
-    (add-to-list 'display-buffer-alist
-  	       '("\\*org-roam\\*"
-  		 (display-buffer-in-direction)
-  		 (direction . right)
-  		 (window-width . 0.35)
-  		 (window-height . fit-window-to-buffer)))
+  ;; (major-mode-hydra-define+ my/org-roam-mode
+  ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
+  ;;   ("Edit"
+  ;;    (("n" org-id-get-create "turn heading into node")
+  ;;     ("t" org-roam-tag-add "add org-roam tag to node at point")
+  ;;     ("T" org-roam-alias-add "add org-roam alias to node at point"))
+  ;;    "Navigation"
+  ;;    (("u" org-roam-ui-open "open UI view")
+  ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
-    (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
+  (add-to-list 'display-buffer-alist
+  	           '("\\*org-roam\\*"
+  		           (display-buffer-in-direction)
+  		           (direction . right)
+  		           (window-width . 0.35)
+  		           (window-height . fit-window-to-buffer)))
 
-    (defun my/org-roam-file-p (&optional file)
-      (when (fboundp 'org-roam-file-p)
-        (org-roam-file-p file)))
+  (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
 
-    ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
-    (defalias 'roam #'org-roam))
+  (defun my/org-roam-file-p (&optional file)
+    (when (fboundp 'org-roam-file-p)
+      (org-roam-file-p file)))
 
-  (use-package org-sticky-header
-    :after org)
+  ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
+  (defalias 'roam #'org-roam))
 
-  (use-package org-link-archive
-    :after org
-    :bind (:map org-mode
-  	      ("C-x C-z" . org-link-archive-at-point))
-    :straight (:type git
-  		   :host github
-  		   :repo "farynaio/org-link-archive"
-  		   :branch "main"))
+(use-package org-sticky-header
+  :after org)
+
+(use-package org-link-archive
+  :after org
+  :bind (:map org-mode
+  	          ("C-x C-z" . org-link-archive-at-point))
+  :straight (:type git
+  		             :host github
+  		             :repo "farynaio/org-link-archive"
+  		             :branch "main"))
 #+end_src
 
 * Calendar
@@ -1264,65 +1365,74 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
 
 * Projects
 #+begin_src emacs-lisp :eval never-export :results silent
-  (use-package projectile
-    :demand t
-    :diminish projectile-mode
-    :custom
-    ;; (projectile-completion-system 'ivy) ; TODO replace with corfu
-    (projectile-indexing-method 'hybrid)
-    (projectile-enable-caching t)
-    (projectile-verbose nil)
-    (projectile-do-log nil)
-    (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-    (projectile-track-known-projects-automatically nil)
-    (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-    (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-    :config
-    (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
-    (unbind-key "C-c p" projectile-mode-map)
+(use-package projectile
+  :demand t
+  :diminish projectile-mode
+  :after ivy
+  :custom
+  (projectile-completion-system 'ivy)
+  (projectile-indexing-method 'hybrid)
+  (projectile-enable-caching t)
+  (projectile-verbose nil)
+  (projectile-do-log nil)
+  (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (projectile-track-known-projects-automatically nil)
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  :config
+  (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
+  (unbind-key "C-c p" projectile-mode-map)
 
-    (if (executable-find "ctags")
-	(setq projectile-tags-command "ctags -R -e .")
-      (warn "No executable 'ctags' found!"))
-    ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+  (if (executable-find "ctags")
+	    (setq projectile-tags-command "ctags -R -e .")
+    (warn "No executable 'ctags' found!"))
+  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
 
-    (defun my/projectile-show-relative-path ()
-      (interactive)
-      (when (projectile-project-root)
-	(message (substring buffer-file-name (length (projectile-project-root))))))
+  (defun my/projectile-show-relative-path ()
+    (interactive)
+    (when (projectile-project-root)
+	    (message (substring buffer-file-name (length (projectile-project-root))))))
 
-    (defun my/projectile-add-known-project (project-root)
-      (interactive (list (read-directory-name "Add to known projects: ")))
-      (projectile-add-known-project project-root)
-      (projectile-cleanup-known-projects))
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
 
-    (defun my/projectile-invalidate-cache (arg)
-      "Remove the current project's files from `projectile-projects-cache'.
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
 
        With a prefix argument ARG prompts for the name of the project whose cache
        to invalidate."
-      (interactive "P")
-      (let ((project-root
-	     (if arg
-		 (completing-read "Remove cache for: " projectile-projects-cache)
-	       (projectile-project-root))))
-	(setq projectile-project-root-cache (make-hash-table :test 'equal))
-	(remhash project-root projectile-project-type-cache)
-	(remhash project-root projectile-projects-cache)
-	(remhash project-root projectile-projects-cache-time)
-	(projectile-serialize-cache)
-	(when projectile-verbose
-	  (message "Invalidated Projectile cache for %s."
-		   (propertize project-root 'face 'font-lock-keyword-face)))))
+    (interactive "P")
+    (let ((project-root
+	         (if arg
+		           (completing-read "Remove cache for: " projectile-projects-cache)
+	           (projectile-project-root))))
+	    (setq projectile-project-root-cache (make-hash-table :test 'equal))
+	    (remhash project-root projectile-project-type-cache)
+	    (remhash project-root projectile-projects-cache)
+	    (remhash project-root projectile-projects-cache-time)
+	    (projectile-serialize-cache)
+	    (when projectile-verbose
+	      (message "Invalidated Projectile cache for %s."
+		             (propertize project-root 'face 'font-lock-keyword-face)))))
 
-    (projectile-mode 1))
+  (projectile-mode 1))
 
-(defun my/recentf ()
-  (interactive)
-  (if (projectile-project-root)
-      (projectile-recentf)
-    ;; (counsel-recent)
-    )) ; TODO replace with corfu
+(use-package counsel-projectile
+  :after (projectile ivy counsel)
+  :demand t
+  :bind (("C-x C-r" . my/recentf)
+	       ("C-x C-b" .
+	        counsel-projectile-switch-to-buffer))
+  :config
+  (counsel-projectile-mode 1))
+
+  (defun my/recentf ()
+    (interactive)
+    (if (projectile-project-root)
+        (projectile-recentf)
+      (counsel-recent)))
 #+end_src
 
 * Devel general
@@ -1471,11 +1581,11 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
     :straight nil
     :commands eshell
     :bind (:map eshell-mode-map
-  	      ;; ("C-r" . counsel-shell-history) ; TODO replace with corfu
+  	      ("C-r" . counsel-shell-history)
   	      ;; ("C-n" . company-next-page)
   	      ;; ("C-p" . company-previous-page)
-  	      ;; ("<tab>" . my/eshell-list-dir)
-  	      ;; ("<tab>" . company-next-page)
+  	      ("<tab>" . my/eshell-list-dir)
+  	      ("<tab>" . company-next-page)
   	      ;; ("<backtab>" . company-previous-page)
   	      )
     ;; :hook ((eshell-mode . company-mode))
@@ -1623,7 +1733,7 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
   	(kill-buffer (current-buffer))))
 
     ;; default shell buffer
-    (setq explicit-shell-file-name "/data/data/com.termux/files/usr/bin/fish")
+    (setq explicit-shell-file-name (getenv "SHELL"))
     ;; use shell-file-name for subprocesses
     (setq shell-file-name explicit-shell-file-name))
 
@@ -1650,9 +1760,9 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
     (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
     (tramp-encoding-shell "/bin/sh"))
 
-  ;; (use-package counsel-tramp
-  ;;   :after (counsel tramp)
-  ;;   :commands counsel-tramp)
+  (use-package counsel-tramp
+    :after (counsel tramp)
+    :commands counsel-tramp)
 #+end_src
 
 * Abbreviations

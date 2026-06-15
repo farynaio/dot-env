@@ -168,8 +168,8 @@
                   (dired-get-marked-files 'no-dir))
                 " "))))
       (unless (string= string "")
-        (let ((new-kill (concat default-directory string)))
-               (kill-new new-kill)
+        (let ((new-kill (concat (expand-file-name string default-directory))))
+          (kill-new new-kill)
           (message "%s" new-kill))))))
 
 (use-package all-the-icons-dired
