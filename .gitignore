@@ -63,3 +63,4 @@ vim/vim/init.vim
 .emacs.desktop
 
 .log
+/termux/emacs/eln-cache/

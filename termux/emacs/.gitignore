@@ -2,6 +2,7 @@
 /straight
 /recentf
 /transient
+/history
 /var
 /tmp
 /.persistent-scratch
@@ -9,3 +10,4 @@
 /org-roam.db
 /tramp-persistency.el
 /tramp
+*~*
