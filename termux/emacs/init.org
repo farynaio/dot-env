@@ -849,35 +849,13 @@ TODO
     :custom
     (dired-kill-when-opening-new-dired-buffer t)
     (dired-dwim-target t)
-    (dired-listing-switches "-ah1")
+    (dired-listing-switches "-al")
     :config
     (add-hook 'dired-mode-hook
-	      (lambda ()
-		(when (and recentf-mode (buffer-file-name)) (recentf-add-file (buffer-file-name)))))
-
-    ;; allow dired-find-alternate-file (it's disabled by default)
-    (put 'dired-find-alternate-file 'disabled nil)
-    ;; RET: replace current dired buffer with target (no new window)
-
-    ;; mouse-1: same behavior when clicking
+              (lambda ()
+        	      (when (and recentf-mode (buffer-file-name)) (recentf-add-file (buffer-file-name)))))
     (define-key dired-mode-map [mouse-1] nil)
-    ;; (define-key dired-mode-map [mouse-1] #'dired-find-alternate-file)
-
-    ;; When clicking a file in dired, just move point there instead of visiting it.
-    (defun my/dired-click-move-point (event)
-      "Move point to the clicked line in dired without opening the file."
-      (interactive "e")
-      (let* ((posn (event-start event))
-             (win  (posn-window posn))
-             (buf  (window-buffer win))
-             (pos  (posn-point posn)))
-        (with-selected-window win
-          (with-current-buffer buf
-            (goto-char pos)
-            (dired-move-to-filename)))))
-
-    ;; ;; Bind left mouse click in dired to the do-nothing mover
-    (define-key dired-mode-map [mouse-2] #'my/dired-click-move-point))
+    (define-key dired-mode-map [mouse-2] nil))
 #+end_src
 
 * Hydra
