@@ -847,6 +847,7 @@ TODO
                 ("RET" .  dired-find-alternate-file))
     :hook (dired-mode . dired-hide-details-mode)
     :custom
+    (enable-command 'dired-find-alternate-file)
     (dired-kill-when-opening-new-dired-buffer t)
     (dired-dwim-target t)
     (dired-listing-switches "-al")
