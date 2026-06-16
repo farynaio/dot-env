@@ -21,247 +21,246 @@ TODO
 
 * General
 #+begin_src emacs-lisp :eval never-export :results silent
-(fset 'yes-or-no-p 'y-or-n-p)
-(setq confirm-kill-emacs #'yes-or-no-p)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (setq confirm-kill-emacs #'yes-or-no-p)
 
-(setq
- byte-compile-warnings '(not obsolete)
- warning-suppress-log-types '((comp) (bytecomp))
- native-comp-async-report-warnings-errors 'silent)
-(setq-default
- compilation-always-kill t
- compilation-scroll-output t
- compilation-skip-threshold 2
- warning-minimum-level :error
- warning-suppress-types '((comp) (bytecomp)))
+  (setq
+   byte-compile-warnings '(not obsolete)
+   warning-suppress-log-types '((comp) (bytecomp))
+   native-comp-async-report-warnings-errors 'silent)
+  (setq-default
+   compilation-always-kill t
+   compilation-scroll-output t
+   compilation-skip-threshold 2
+   warning-minimum-level :error
+   warning-suppress-types '((comp) (bytecomp)))
 
-(set-fringe-mode 10)
+  (when (display-graphic-p)
+    (set-fringe-mode 10))
 
+  ;; Default frame configuration: full screen, good-looking title bar on macOS
+  (setq frame-resize-pixelwise t)
+  ;; (setq window-resize-pixelwise t)
 
+  ;; (tooltip-mode -1) ?
 
-;; Default frame configuration: full screen, good-looking title bar on macOS
-(setq frame-resize-pixelwise t)
-;; (setq window-resize-pixelwise t)
+  ;; Display line numbers in programming mode
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (setq display-line-numbers-width 3)           ; Set a minimum width
 
-;; (tooltip-mode -1) ?
+  ;; Nice line wrapping when working with text
+  (add-hook 'text-mode-hook 'visual-line-mode)
 
-;; Display line numbers in programming mode
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setq display-line-numbers-width 3)           ; Set a minimum width
+  ;; Modes to highlight the current line with
+  (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
+    (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
-;; Nice line wrapping when working with text
-(add-hook 'text-mode-hook 'visual-line-mode)
+  (setq calc-internal-prec 20)
 
-;; Modes to highlight the current line with
-(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
-  (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+  (setq gnutls-verify-error t)
 
-(setq calc-internal-prec 20)
+  (setq enable-local-eval t)
 
-(setq gnutls-verify-error t)
+  (defalias 'qcalc #'quick-calc)
 
-(setq enable-local-eval t)
+  (setq-default
+   compare-ignore-case t
+   compare-ignore-whitespace t
+   cursor-in-non-selected-windows t
+   display-time-default-load-average nil
+   view-read-only t
+   require-final-newline nil
+   indent-tabs-mode nil
+   mode-require-final-newline nil)
 
-(defalias 'qcalc #'quick-calc)
+  ;; start in fullscreen
+  (when (display-graphic-p)
+    (set-frame-parameter nil 'fullscreen 'fullboth))
 
-(setq-default
- compare-ignore-case t
- compare-ignore-whitespace t
- cursor-in-non-selected-windows t
- display-time-default-load-average nil
- view-read-only t
- require-final-newline nil
- indent-tabs-mode nil
- mode-require-final-newline nil)
+  ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+  (setq default-frame-alist '((fullscreen . maximized)
+    			                    ;; You can turn off scroll bars by uncommenting these lines:
+    			                    ;; (vertical-scroll-bars . nil)
+    			                    ;; (horizontal-scroll-bars . nil)
 
-;; start in fullscreen
-(when (display-graphic-p)
-  (set-frame-parameter nil 'fullscreen 'fullboth))
+    			                    ;; Setting the face in here prevents flashes of
+    			                    ;; color as the theme gets activated
+    			                    (background-color . "#000000")
+    			                    (foreground-color . "#ffffff")
+    			                    (ns-appearance . dark)
+    			                    (ns-transparent-titlebar . t)))
 
-;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(setq default-frame-alist '((fullscreen . maximized)
-  			                    ;; You can turn off scroll bars by uncommenting these lines:
-  			                    ;; (vertical-scroll-bars . nil)
-  			                    ;; (horizontal-scroll-bars . nil)
+  ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-  			                    ;; Setting the face in here prevents flashes of
-  			                    ;; color as the theme gets activated
-  			                    (background-color . "#000000")
-  			                    (foreground-color . "#ffffff")
-  			                    (ns-appearance . dark)
-  			                    (ns-transparent-titlebar . t)))
+  ;; (setq backward-delete-char-untabify-method 'hungry)
 
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (bind-keys
+   ("C-<mouse-4>" . ignore)
+   ("C-<mouse-5>" . ignore)
+   ("C-<wheel-down>" . ignore)
+   ("C-<wheel-up>" . ignore))
 
-;; (setq backward-delete-char-untabify-method 'hungry)
+  ;; Disable horizontal scrolling
+  (setq
+   mouse-wheel-tilt-scroll nil
+   mouse-wheel-flip-direction nil)
 
-(bind-keys
- ("C-<mouse-4>" . ignore)
- ("C-<mouse-5>" . ignore)
- ("C-<wheel-down>" . ignore)
- ("C-<wheel-up>" . ignore))
+  (pixel-scroll-precision-mode)                         ; Smooth scrolling
 
-;; Disable horizontal scrolling
-(setq
- mouse-wheel-tilt-scroll nil
- mouse-wheel-flip-direction nil)
+  ;; Use common keystrokes by default
+  ;; (cua-mode)
 
-(pixel-scroll-precision-mode)                         ; Smooth scrolling
+  (xterm-mouse-mode 1)
 
-;; Use common keystrokes by default
-;; (cua-mode)
+  (setq
+   initial-scratch-message nil
+   inhibit-startup-screen nil
+   inhibit-startup-echo-area-message (user-login-name)
+   confirm-nonexistent-file-or-buffer nil
+   x-underline-at-descent-line t
+   initial-buffer-choice t
+   password-cache-expiry nil
+   word-wrap t
+   shift-select-mode nil
+   sentence-end-double-space nil
+   revert-without-query '(".*")
+   enable-recursive-minibuffers t
+   show-paren-delay 0
+   save-some-buffers-default-predicate t
+   buffer-save-without-query t
+   help-window-select t
+   bookmark-save-flag 1)
 
-(xterm-mouse-mode 1)
+  (setq initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
+  (setq display-time-default-load-average nil) ; this information is useless for most
 
-(setq
- initial-scratch-message nil
- inhibit-startup-screen nil
- inhibit-startup-echo-area-message (user-login-name)
- confirm-nonexistent-file-or-buffer nil
- x-underline-at-descent-line t
- initial-buffer-choice t
- password-cache-expiry nil
- word-wrap t
- shift-select-mode nil
- sentence-end-double-space nil
- revert-without-query '(".*")
- enable-recursive-minibuffers t
- show-paren-delay 0
- save-some-buffers-default-predicate t
- buffer-save-without-query t
- help-window-select t
- bookmark-save-flag 1)
+  ;; Automatically reread from disk if the underlying file changes
+  (setq auto-revert-avoid-polling t)
+  ;; Some systems don't do file notifications well; see
+  ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
+  (setq auto-revert-interval 5)
+  (setq auto-revert-check-vc-info t)
+  (global-auto-revert-mode 1)
 
-(setq initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
-(setq display-time-default-load-average nil) ; this information is useless for most
+  ;; Save history of minibuffer
+  (setq history-length 1000
+    	  savehist-additional-variables
+    	  '(search-ring regexp-search-ring extended-command-history)
+    	  savehist-autosave-interval 300)
+  (savehist-mode 1)
 
-;; Automatically reread from disk if the underlying file changes
-(setq auto-revert-avoid-polling t)
-;; Some systems don't do file notifications well; see
-;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
-(setq auto-revert-interval 5)
-(setq auto-revert-check-vc-info t)
-(global-auto-revert-mode 1)
+  ;; Move through windows with Ctrl-<arrow keys>
+  (windmove-default-keybindings 'shift) ; You can use other modifiers here
 
-;; Save history of minibuffer
-(setq history-length 1000
-  	  savehist-additional-variables
-  	  '(search-ring regexp-search-ring extended-command-history)
-  	  savehist-autosave-interval 300)
-(savehist-mode 1)
-
-;; Move through windows with Ctrl-<arrow keys>
-(windmove-default-keybindings 'shift) ; You can use other modifiers here
-
-;; Make right-click do something sensible
-(when (display-graphic-p)
-  (context-menu-mode))
-
+  ;; Make right-click do something sensible
+  (when (display-graphic-p)
+    (context-menu-mode))
 
 
-(unless (file-exists-p my/tmp-dir)
-  (make-directory my/tmp-dir t))
 
-;; Backup files (~file~)
-(setq backup-directory-alist `((".*" . ,my/tmp-dir))
-  	  backup-by-copying t    ; avoid symlink issues
-  	  delete-old-versions t
-  	  kept-new-versions 2
-  	  kept-old-versions 2
-  	  version-control t)     ; use numbered backups
+  (unless (file-exists-p my/tmp-dir)
+    (make-directory my/tmp-dir t))
 
-;; Auto-save files (#file#)
-(setq
- auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "/auto-save-") t))
- auto-save-list-file-prefix (concat  my/tmp-dir "/auto-saves-"))
+  ;; Backup files (~file~)
+  (setq backup-directory-alist `((".*" . ,my/tmp-dir))
+    	  backup-by-copying t    ; avoid symlink issues
+    	  delete-old-versions t
+    	  kept-new-versions 2
+    	  kept-old-versions 2
+    	  version-control t)     ; use numbered backups
 
-;; Lockfiles
-(setq create-lockfiles nil) ; optional: disable .#lockfiles
+  ;; Auto-save files (#file#)
+  (setq
+   auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "/auto-save-") t))
+   auto-save-list-file-prefix (concat  my/tmp-dir "/auto-saves-"))
 
-(run-with-idle-timer (* 60 5) t 'garbage-collect)
+  ;; Lockfiles
+  (setq create-lockfiles nil) ; optional: disable .#lockfiles
 
-;; TAB cycle if there are only few candidates
-(setq completion-cycle-threshold 1)
-(setq completions-detailed t)                        ; Show annotations
-(setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-(setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
-(setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-(setq completions-max-height 20)                     ; This is arbitrary
-(setq completions-format 'one-column)
-(setq completions-group t)
-(setq completion-auto-select 'second-tab)            ; Much more eager
-                                        ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
+  (run-with-idle-timer (* 60 5) t 'garbage-collect)
 
-(keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 1)
+  (setq completions-detailed t)                        ; Show annotations
+  (setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
+  (setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
+  (setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
+  (setq completions-max-height 20)                     ; This is arbitrary
+  (setq completions-format 'one-column)
+  (setq completions-group t)
+  (setq completion-auto-select 'second-tab)            ; Much more eager
+                                          ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
-;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
- '(read-only t cursor-intangible t face minibuffer-prompt))
+  (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
-;; Enable indentation+completion using the TAB key.
-;; `completion-at-point' is often bound to M-TAB.
-(setq tab-always-indent 'complete)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt))
 
-;; Emacs 30 and newer: Disable Ispell completion function.
-;; Try `cape-dict' as an alternative.
-(setq text-mode-ispell-word-completion nil)
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete)
 
-;; Hide commands in M-x which do not apply to the current mode.  Corfu
-;; commands are hidden, since they are not used via M-x. This setting is
-;; useful beyond Corfu.
-(setq read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (setq text-mode-ispell-word-completion nil)
 
-(setq x-underline-at-descent-line nil)           ; Prettier underlines
-(setq switch-to-buffer-obey-display-actions t)   ; Make s witching buffers more consistent
+  ;; Hide commands in M-x which do not apply to the current mode.  Corfu
+  ;; commands are hidden, since they are not used via M-x. This setting is
+  ;; useful beyond Corfu.
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
 
-(setq show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-(setq indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
+  (setq x-underline-at-descent-line nil)           ; Prettier underlines
+  (setq switch-to-buffer-obey-display-actions t)   ; Make s witching buffers more consistent
 
-(use-package simple
-  :demand t
-  :straight nil
-  :bind (("C-c j" . join-line))
-  :custom
-  (visual-line-fringe-indicators '(left-curly-arrow nil))
-  (set-mark-command-repeat-pop t)
-  (mark-ring-max 4)
-  :config
-  (global-visual-line-mode 1)
-  (column-number-mode 1)
+  (setq show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
+  (setq indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
 
-  ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
-  (advice-add 'visual-line-mode :around
-  			      (lambda (orig-fun &rest args)
-  				      (unless (memq major-mode (list 'org-agenda-mode))
-  				        (apply orig-fun args)))))
+  (use-package simple
+    :demand t
+    :straight nil
+    :bind (("C-c j" . join-line))
+    :custom
+    (visual-line-fringe-indicators '(left-curly-arrow nil))
+    (set-mark-command-repeat-pop t)
+    (mark-ring-max 4)
+    :config
+    (global-visual-line-mode 1)
+    (column-number-mode 1)
 
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+    ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
+    (advice-add 'visual-line-mode :around
+    			      (lambda (orig-fun &rest args)
+    				      (unless (memq major-mode (list 'org-agenda-mode))
+    				        (apply orig-fun args)))))
 
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
+  (when (display-graphic-p)
+    (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
-;; Set default input method and coding system
-(use-package mule
-  :demand t
-  :straight nil
-  :init
-  ;; (setq default-input-method 'MacOSX)
-  :config
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8))
+  (when (fboundp 'set-charset-priority)
+    (set-charset-priority 'unicode))
 
-(setq
- switch-to-buffer-in-dedicated-window 'pop
- switch-to-buffer-obey-display-actions t)
+  ;; Set default input method and coding system
+  (use-package mule
+    :demand t
+    :straight nil
+    :init
+    ;; (setq default-input-method 'MacOSX)
+    :config
+    (set-terminal-coding-system 'utf-8)
+    (set-keyboard-coding-system 'utf-8)
+    (set-language-environment "UTF-8")
+    (set-default-coding-systems 'utf-8))
 
-(delete-selection-mode 1)
-(auto-compression-mode 1)
-;; (global-auto-revert-mode -1)
-(global-hl-line-mode -1)
-(blink-cursor-mode -1)
+  (setq
+   switch-to-buffer-in-dedicated-window 'pop
+   switch-to-buffer-obey-display-actions t)
+
+  (delete-selection-mode 1)
+  (auto-compression-mode 1)
+  ;; (global-auto-revert-mode -1)
+  (global-hl-line-mode -1)
+  (blink-cursor-mode -1)
 #+end_src
 
 * Help
@@ -824,57 +823,59 @@ TODO
 
 * Navigation
 #+begin_src emacs-lisp :eval never-export :results silent
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tooltip-mode -1)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (tooltip-mode -1)
 
-(setq
- scroll-step 1
- scroll-margin 3
- ;; scroll-conservatively 101
- hscroll-margin  1
- hscroll-step 1
- auto-window-vscroll nil)
+  (when (display-graphic-p)
+    (scroll-bar-mode -1))
 
-(when (display-graphic-p)
-  (setq-default scroll-up-aggressively 0.01)
   (setq
-   ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
-   redisplay-dont-pause t
-   ;; scroll-conservatively 10000
-   scroll-conservatively most-positive-fixnum ; Always scroll by one line
-   scroll-preserve-screen-position nil))
+   scroll-step 1
+   scroll-margin 3
+   ;; scroll-conservatively 101
+   hscroll-margin  1
+   hscroll-step 1
+   auto-window-vscroll nil)
 
-(use-package ibuffer
-  :straight nil
-  :commands ibuffer
-  :hook (ibuffer-mode . hl-line-mode))
+  (when (display-graphic-p)
+    (setq-default scroll-up-aggressively 0.01)
+    (setq
+     ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
+     redisplay-dont-pause t
+     ;; scroll-conservatively 10000
+     scroll-conservatively most-positive-fixnum ; Always scroll by one line
+     scroll-preserve-screen-position nil))
 
-(use-package browse-kill-ring
-  :commands browse-kill-ring)
+  (use-package ibuffer
+    :straight nil
+    :commands ibuffer
+    :hook (ibuffer-mode . hl-line-mode))
 
-(defun my/kill-clear ()
-  "Clear kill-ring."
-  (interactive)
-  (setq kill-ring nil)
-  (garbage-collect)
-  (message "kill-ring cleared"))
+  (use-package browse-kill-ring
+    :commands browse-kill-ring)
 
-(defun my/parens-jump ()
-  "Interactively show the character before and after point.
-Displays each as a readable string or \"<BOF/EOF>\" when out of range."
-  (interactive)
-  (let ((before (char-before (point)))
-        (after  (char-after  (point))))
-    (cond
-     ((= after ?\() (forward-sexp))
-     ((= before ?\)) (backward-sexp))
-     (t nil))))
+  (defun my/kill-clear ()
+    "Clear kill-ring."
+    (interactive)
+    (setq kill-ring nil)
+    (garbage-collect)
+    (message "kill-ring cleared"))
 
-(bind-keys
-  ("C-M-b" . my/parens-jump)
-  ("C-M-f" . my/parens-jump))
+  (defun my/parens-jump ()
+    "Interactively show the character before and after point.
+  Displays each as a readable string or \"<BOF/EOF>\" when out of range."
+    (interactive)
+    (let ((before (char-before (point)))
+          (after  (char-after  (point))))
+      (cond
+       ((= after ?\() (forward-sexp))
+       ((= before ?\)) (backward-sexp))
+       (t nil))))
+
+  (bind-keys
+    ("C-M-b" . my/parens-jump)
+    ("C-M-f" . my/parens-jump))
 #+end_src
 
 * Encryption
