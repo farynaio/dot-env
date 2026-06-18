@@ -1,6 +1,6 @@
 #+title: Emacs init.el generator
 #+STARTUP: overview
-#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent :cache nil
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
 * Set environment
 #+begin_src emacs-lisp
