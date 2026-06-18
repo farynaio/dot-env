@@ -626,11 +626,13 @@
   (run-at-time nil (* 60 5) #'recentf-save-list))
 
 (use-package consult
-  :disabled t
-  :bind (
+  :bind (("C-x C-y" . consult-yank-from-kill-ring)
          ;; Drop-in replacements
          ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
          ("M-y"   . consult-yank-pop)   ; orig. yank-pop
+         ("M-g g" . consult-goto-line)
+         ("M-g M-g" . consult-goto-line)
+         ("M-g i" . consult-imenu)
          ;; Searching
          ("M-s r" . consult-ripgrep)
          ("M-s l" . consult-line)       ; Alternative: rebind C-s to use
@@ -647,6 +649,11 @@
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
   (setq consult-narrow-key "<"))
+
+(use-package consult-flycheck
+  :demand t
+  :after (consult flycheck)
+  :bind ("M-g f" . consult-flycheck))
 
 ;; Embark: supercharged context-dependent menu; kinda like a
 ;; super-charged right-click.
@@ -880,6 +887,12 @@
 ;; (use-package move-text
   ;; :bind (("M-<up>" . move-text-up)
          ;; ("M-<down>" . move-text-down)))
+
+(use-package multiple-cursors
+  :demand t
+  :bind (("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
 
 (use-package drag-stuff
   :demand t
