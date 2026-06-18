@@ -48,7 +48,7 @@
     (progn
       (call-interactively 'apheleia-format-buffer)
       (message "Buffer prettified"))
-    (message "prettier not installed")))
+    (error "prettier not installed!")))
 
 (defun my/eglot-organize-imports-ts ()
   (interactive "*")

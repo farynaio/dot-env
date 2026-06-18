@@ -13,7 +13,10 @@
               "tell application \"Finder\" to delete POSIX file \"%s\""
               filename))))))
   ((eq system-type 'gnu/linux)
-    (setq-default trash-directory "~/.local/share/Trash/files")))
+    (setq-default trash-directory "~/.local/share/Trash/files"))
+  ((eq system-type 'android) ; including Termux
+    (setq-default trash-directory "~/.local/share/Trash/files"))
+  )
 
 ;; Not exists anymore?
 ;; (straight-register-package 'ls-lisp)
@@ -118,7 +121,7 @@
       (setq
         insert-directory-program "/usr/local/bin/gls"
         dired-listing-switches "-alh1v")
-      (message "Executable 'gls' not found")))
+      (error "Executable 'gls' not found")))
 
   (put 'dired-find-alternate-file 'disabled nil)
 

@@ -84,7 +84,7 @@
       (("a" my/projectile-add-known-project "add")
         ("m" projectile-remove-known-project "remove"))
       "Actions"
-      (("i" projectile-invalidate-cache "reset cache")
+      (("i" projectile-invalidate-cache "clear cache")
         ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
 
   (pretty-hydra-define hydra-magit

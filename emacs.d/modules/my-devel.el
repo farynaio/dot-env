@@ -319,7 +319,8 @@ Use when `json-mode' or similar get stuck."
           ("\\.bash_logout\\'" . sh-mode)
           ("\\.sh\\'" . sh-mode)
           ("\\.z?sh\\'" . sh-mode)
-          ("\\.profile\\'" . sh-mode)))
+          ("\\.profile\\'" . sh-mode)
+          ("\\config.fish\\'" . sh-mode)))
 
 ;; (use-package sql-indent
 ;;   :after (:any sql sql-interactive-mode)
@@ -373,10 +374,7 @@ Use when `json-mode' or similar get stuck."
   :hook ((markdown-mode . abbrev-mode)
           (markdown-mode .
             (lambda ()
-              (setq-local fill-column 80)
-
-              ))
-          )
+              (setq-local fill-column 80))))
   ;; :config
   ;; (evil-define-key '(visual normal) markdown-mode-map
   ;;   "{" #'backward-paragraph
@@ -651,7 +649,6 @@ Use when `json-mode' or similar get stuck."
   :straight nil
   :commands emacs-lisp-mode
   :hook (emacs-lisp-mode . flycheck-mode)
-  :diminish "Elisp"
   :mode "\\.elc?$"
   :config
   (unbind-key "C-M-i" emacs-lisp-mode-map)
@@ -704,7 +701,6 @@ ets function symbol on point as initial suggestion."
   (defalias 'elisp-mode 'emacs-lisp-mode))
 
 (straight-register-package 'solidity-mode)
-(setq-default solidity-solium-path (format "%s/solium" (getenv "NVM_BIN")))
 (if (file-exists-p solidity-solium-path)
   (use-package solidity-mode
     :straight (:type git
@@ -714,9 +710,10 @@ ets function symbol on point as initial suggestion."
     :mode "\\.sol\\'"
     :hook ((solidity-mode . (lambda () (setq-local c-basic-offset 4))))
     :preface
+    (setq-default solidity-solium-path (format "%s/solium" (getenv "NVM_BIN")))
     :custom
     (solidity-flycheck-solium-checker-active t))
-  (message "'solium' not installed!"))
+  (Error "'solium' not installed!"))
 
 (use-package company-solidity
   :after company
@@ -726,6 +723,7 @@ ets function symbol on point as initial suggestion."
   :mode "^Jenkinsfile\\'")
 
 (use-package ivy-xref
+  :demand t
   :after ivy
   :init
   (when (>= emacs-major-version 27)

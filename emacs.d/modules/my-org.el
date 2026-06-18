@@ -350,7 +350,8 @@
   (major-mode-hydra-define (org-mode my/org-roam-mode)
     (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
     ("Action"
-      (("t" org-toggle-timestamp-type "timestamp toggle")
+      (
+        ("t" org-toggle-timestamp-type "timestamp toggle")
         ("a" org-link-archive-at-point "link archive")
         ("i" org-toggle-inline-images "images toggle" :toggle t)
         ("r" my/org-paragraphs-reverse-order "reverse paragraph order")
