@@ -1,5 +1,16 @@
-(defconst my/tmp-dir (expand-file-name user-emacs-directory "tmp")
-(defconst my/org-roam-dir (expand-file-name "~/my-roam"))
+;; -*- mode: emacs-lisp -*-
 
+;; optional, required for GPG
 (defconst my/epa-file-encrypt-to-default '(""))
 (setq-default mml-secure-openpgp-signers '(""))
+
+;; optional
+(setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
+(setq my/org-roam-dir (expand-file-name "~/my-roam"))
+(setq my/evil-enable nil)
+(setq my/html-enable nil) ; advanced
+(setq my/js-enable nil) ; advanced
+(setq my/python-enable nil)
+(setq my/go-enable nil)
+(setq my/php-enable nil) ; requires html
+(setq my/kotlin-enabled nil)
