@@ -2120,7 +2120,6 @@
     ;; (use-package realgud)
     )
 
-  (straight-register-package 'flymake-eslint)
   (straight-register-package 'mmm-mode)
   (straight-register-package 'apheleia)
   (straight-register-package 'js2-mode)
@@ -2129,9 +2128,6 @@
   (straight-register-package 'prisma-ts-mode)
   (straight-register-package 'graphql-mode)
   (when my/js-enable
-    (use-package flymake-eslint
-      :demand t)
-
     (use-package mmm-mode
       :commands mmm-mode
       :after (rjsx-mode typescript-mode)
@@ -2231,7 +2227,6 @@
 
     (defun my/js-mode-init ()
       ""
-      (flymake-eslint-enable)
       (if (executable-find "typescript-language-server")
           (progn
             (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
