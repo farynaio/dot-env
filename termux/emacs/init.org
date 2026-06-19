@@ -1478,9 +1478,11 @@ Try:
   (if my/org-roam-dir
       (use-package org-roam
         :after (org emacsql magit)
-        :preface (unless (and my/org-roam-dir (file-exists-p my/org-roam-dir)) (warn (concat "org-roam: 'my/org-roam-dir' not set, default folder will be used " org-roam-directory)))
         :diminish org-roam-mode
         :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body)
+        :init
+        (unless (file-directory-p my/org-roam-dir)
+          (make-directory my/org-roam-dir t))
         :custom
         (org-roam-directory my/org-roam-dir)
         ;; (org-roam-graph-viewer "/usr/bin/open")
@@ -1490,9 +1492,6 @@ Try:
         (org-roam-verbose nil)
         (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
         :config
-        (unless (file-directory-p my/org-roam-dir)
-          (make-directory my/org-roam-dir t))
-
         (org-roam-db-autosync-mode 1)
 
         ;; (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
