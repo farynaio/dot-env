@@ -7,10 +7,10 @@
 ;; optional
 (setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (setq my/org-roam-dir (expand-file-name "~/my-roam"))
-(setq my/evil-enable nil)
-(setq my/html-enable nil) ; advanced
-(setq my/js-enable nil) ; advanced
-(setq my/python-enable nil)
-(setq my/go-enable nil)
-(setq my/php-enable nil) ; requires html
-(setq my/kotlin-enabled nil)
+(setq my/evil-enable t)
+(setq my/html-enable t) ; advanced
+(setq my/js-enable t) ; advanced
+(setq my/python-enable t)
+(setq my/go-enable t)
+(setq my/php-enable t) ; requires html
+(setq my/kotlin-enabled t)

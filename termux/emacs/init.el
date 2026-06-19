@@ -1672,57 +1672,61 @@
   ;; Install grammars one by one with: M-x treesit-install-language-grammar
   ;; or all at once: (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
   (use-package treesit
-    :disabled t
+    ;; :disabled t
     :straight nil
     :custom
     (treesit-language-source-alist
-     '((bash       "https://github.com/tree-sitter/tree-sitter-bash")
-       (c          "https://github.com/tree-sitter/tree-sitter-c/" "master" "src")
-       (clojure    "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")
-       (cpp        "https://github.com/tree-sitter/tree-sitter-cpp/" "master" "src")
-       (cmake      "https://github.com/uyha/tree-sitter-cmake")
-       (css        "https://github.com/tree-sitter/tree-sitter-css")
-       (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src")
-       (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
-       (elixir     "https://github.com/elixir-lang/tree-sitter-elixir" "main" "src")
-       (erlang     "https://github.com/WhatsApp/tree-sitter-erlang" "main" "src")
-       (go         "https://github.com/tree-sitter/tree-sitter-go")
-       (haskell    "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
-       (html       "https://github.com/tree-sitter/tree-sitter-html")
-       (java       "https://github.com/tree-sitter/tree-sitter-java" "master" "src")
-       (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-       (json       "https://github.com/tree-sitter/tree-sitter-json")
-       (julia      "https://github.com/tree-sitter/tree-sitter-julia" "master" "src")
-       (lua        "https://github.com/MunifTanjim/tree-sitter-lua" "main" "src")
-       (make       "https://github.com/alemuller/tree-sitter-make")
-       (markdown   "https://github.com/ikatyang/tree-sitter-markdown")
-       (meson      "https://github.com/Decodetalkers/tree-sitter-meson" "master" "src")
-       (python     "https://github.com/tree-sitter/tree-sitter-python")
-       (ruby       "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")
-       (rust       "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
-       (toml       "https://github.com/tree-sitter/tree-sitter-toml")
+     '(
+       ;; (bash       "https://github.com/tree-sitter/tree-sitter-bash")
+       ;; (c          "https://github.com/tree-sitter/tree-sitter-c/" "master" "src")
+       ;; (clojure    "https://github.com/sogaiu/tree-sitter-clojure" "master" "src")
+       ;; (cpp        "https://github.com/tree-sitter/tree-sitter-cpp/" "master" "src")
+       ;; (cmake      "https://github.com/uyha/tree-sitter-cmake")
+       ;; (css        "https://github.com/tree-sitter/tree-sitter-css")
+       ;; (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src")
+       ;; (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
+       ;; (elixir     "https://github.com/elixir-lang/tree-sitter-elixir" "main" "src")
+       ;; (erlang     "https://github.com/WhatsApp/tree-sitter-erlang" "main" "src")
+       ;; (go         "https://github.com/tree-sitter/tree-sitter-go")
+       ;; (haskell    "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
+       ;; (html       "https://github.com/tree-sitter/tree-sitter-html")
+       ;; (java       "https://github.com/tree-sitter/tree-sitter-java" "master" "src")
+       ;; (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+       ;; (json       "https://github.com/tree-sitter/tree-sitter-json")
+       ;; (julia      "https://github.com/tree-sitter/tree-sitter-julia" "master" "src")
+       ;; (lua        "https://github.com/MunifTanjim/tree-sitter-lua" "main" "src")
+       ;; (make       "https://github.com/alemuller/tree-sitter-make")
+       ;; (markdown   "https://github.com/ikatyang/tree-sitter-markdown")
+       ;; (meson      "https://github.com/Decodetalkers/tree-sitter-meson" "master" "src")
+       ;; (python     "https://github.com/tree-sitter/tree-sitter-python")
+       ;; (ruby       "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")
+       ;; (rust       "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
+       ;; (toml       "https://github.com/tree-sitter/tree-sitter-toml")
        (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-       (yaml       "https://github.com/ikatyang/tree-sitter-yaml")))
-    :config
+       ;; (yaml       "https://github.com/ikatyang/tree-sitter-yaml")
+       ))
+    ;; :config
     ;; (add-to-list 'treesit-major-mode-language-alist '(tsx-ts-mode . typescript))
-    (major-mode-remap-alist
-     '((yaml-mode . yaml-ts-mode)
-       (bash-mode . bash-ts-mode)
-       (js2-mode . js-ts-mode)
-       (json-mode . json-ts-mode)
-       (css-mode . css-ts-mode)
-       (python-mode . python-ts-mode))))
+    ;; (major-mode-remap-alist
+    ;;  '((yaml-mode . yaml-ts-mode)
+    ;;    (bash-mode . bash-ts-mode)
+    ;;    (js2-mode . js-ts-mode)
+    ;;    (json-mode . json-ts-mode)
+    ;;    (css-mode . css-ts-mode)
+    ;;    (python-mode . python-ts-mode)))
+)
 
   (use-package eglot
-    :commands (eglot eglot-ensure eglot-alternatives)
+    :defer 1
     :straight nil
+    :commands (eglot eglot-ensure eglot-alternatives)
     :custom
     (eglot-extend-to-xref t)
     ;; (eglot-events-buffer-size 100000)
     (eglot-events-buffer-size 0)
     (read-process-output-max (* 1024 1024)) ;; 1mb
-    (gc-cons-threshold 100000000)
+    ;; (gc-cons-threshold 100000000)
     (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
     (eglot-autoshutdown t)
     :config
@@ -1981,7 +1985,7 @@
 
   (use-package cc-mode
     :straight nil
-    :hook ((java-mode . eglot-ensure)))
+    :hook (java-mode . eglot-ensure))
 
   (use-package ruby-mode
     :straight nil
@@ -2017,6 +2021,15 @@
     :hook (css-mode . rainbow-mode)
     :custom
     (css-indent-offset tab-width))
+
+(defun my/web-mode-toggle ()
+    "Toggle switch between `web-mode' and native major mode."
+    (interactive)
+    (when (not (boundp 'my/native-local-major-mode))
+      (defvar-local my/native-local-major-mode major-mode))
+    (if (eq major-mode 'web-mode)
+      (funcall my/native-local-major-mode)
+      (web-mode)))
 
   (straight-register-package 'rainbow-mode)
   (straight-register-package 'emmet-mode)
@@ -2130,7 +2143,7 @@
   (when my/js-enable
     (use-package mmm-mode
       :commands mmm-mode
-      :after (rjsx-mode typescript-mode)
+      ;; :after (rjsx-mode typescript-mode)
       :custom
       (mmm-submode-decoration-level 0)
       :config
@@ -2229,8 +2242,8 @@
       ""
       (if (executable-find "typescript-language-server")
           (progn
-            (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
-            (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
+            ;; (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
+            ;; (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
             (add-to-list 'eglot-server-programs '(major-mode . ("typescript-language-server" "--stdio")))
             (eglot-ensure))
         (error "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, TypeScript language server not available!")))
@@ -2300,7 +2313,7 @@
     ;; NOTE not maintaned
     ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
     (use-package typescript-mode
-      ;; :disabled t
+      :disabled t
       ;; :mode ("\\.tsx?\\'" . typescript-mode)
       :commands typescript-mode
       :mode ("\\.cts\\'")
@@ -2325,16 +2338,20 @@
 
       (setq auto-mode-alist (delete '("\\.tsx?\\'" . typescript-mode) auto-mode-alist)))
 
-    ;; TODO need to init eglot lang server
     (use-package typescript-ts-mode
-      :disabled t
+      ;; :disabled t
       :straight nil
-      :mode ("\\.tsx?\\'" . typescript-ts-mode)
-      :hook ((typescript-ts-mode . mmm-mode)
-             (typescript-ts-mode . emmet-mode)
-             (typescript-ts-mode . my/js-mode-init))
-      :config
-      (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
+      :mode (("\\.ts\\'" . typescript-ts-mode)
+             ;; ("\\.tsx\\'" . tsx-ts-mode)
+             )
+      :hook ((typescript-ts-mode . my/js-mode-init)
+             ;; (tsx-ts-mode . mmm-mode)
+             ;; (tsx-ts-mode . emmet-mode)
+             ;; (tsx-ts-mode . my/js-mode-init)
+             )
+      ;; :config
+      ;; (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
+      ;; (setq auto-mode-alist (remove '("\\.tsx\\'" . tsx-ts-mode) auto-mode-alist))
       ;; (major-mode-hydra-define+ typescript-ts-mode
       ;;   (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "Typescript" 1 -0.05))
       ;;   ("Action"

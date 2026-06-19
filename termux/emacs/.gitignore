@@ -9,6 +9,7 @@
 /org-roam.db
 /tramp-persistency.el
 /tramp
+/tree-sitter
 *~*
 
 /.mc-lists.el
