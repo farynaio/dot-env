@@ -407,6 +407,17 @@ Try:
     (unless (server-running-p)
       (server-start)))
 
+;; https://github.com/jwiegley/emacs-async/
+(use-package async
+  :demand t
+  :config
+  (require 'async-bytecomp)
+  (require 'dired-async)
+  (dired-async-mode 1)
+  (async-bytecomp-package-mode 1)
+  (setq async-bytecomp-allowed-packages '(all))
+  (setq async-quiet-switch "-q")) ; maybe that for tramp only
+
   (delete-selection-mode 1)
   (auto-compression-mode 1)
 
