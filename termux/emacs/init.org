@@ -70,8 +70,6 @@ Try:
 (setq frame-resize-pixelwise t)
 ;; (setq window-resize-pixelwise t)
 
-;; (tooltip-mode -1) ?
-
 ;; Display line numbers in programming mode
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-width 3)           ; Set a minimum width
@@ -84,12 +82,11 @@ Try:
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
 (setq calc-internal-prec 20)
+(defalias 'qcalc #'quick-calc)
 
 (setq gnutls-verify-error t)
 
 (setq enable-local-eval t)
-
-(defalias 'qcalc #'quick-calc)
 
 (setq-default
  compare-ignore-case t
@@ -396,67 +393,16 @@ Try:
 ;; Try `cape-dict' as an alternative.
 (setq text-mode-ispell-word-completion nil)
 
-;; Hide commands in M-x which do not apply to the current mode.  Corfu
-;; commands are hidden, since they are not used via M-x. This setting is
-;; useful beyond Corfu.
-(setq read-extended-command-predicate #'command-completion-default-include-p)
-
-(setq x-underline-at-descent-line nil)           ; Prettier underlines
-(setq switch-to-buffer-obey-display-actions t)   ; Make s witching buffers more consistent
-
-(setq show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-(setq indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
-
-(use-package simple
-  :demand t
-  :straight nil
-  :bind (("C-c C-j" . join-line))
-  :custom
-  (visual-line-fringe-indicators '(left-curly-arrow nil))
-  (set-mark-command-repeat-pop t)
-  (mark-ring-max 4)
-  :config
-  (global-visual-line-mode 1)
-  (column-number-mode 1)
-
-  ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
-  (advice-add 'visual-line-mode :around
-  			      (lambda (orig-fun &rest args)
-  				      (unless (memq major-mode (list 'org-agenda-mode))
-  				        (apply orig-fun args)))))
-
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-
-;; Set default input method and coding system
-(use-package mule
-  :demand t
-  :straight nil
-  :init
-  ;; (setq default-input-method 'MacOSX)
-  :config
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8))
-
-(setq
- switch-to-buffer-in-dedicated-window 'pop
- switch-to-buffer-obey-display-actions t)
-
 ;; Start Emacs server for emacsclient
-;;(use-package server
-;;  :defer 2
-;;  :config
-;;  (unless (server-running-p)
-;;    (server-start)))
+(use-package server
+ :defer 2
+ :config
+ (unless (server-running-p)
+   (server-start)))
 
 (delete-selection-mode 1)
 (auto-compression-mode 1)
-;; (global-auto-revert-mode -1)
+
 (global-hl-line-mode -1)
 
 (defalias 'qcalc #'quick-calc)

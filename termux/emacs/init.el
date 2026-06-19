@@ -49,8 +49,6 @@
 (setq frame-resize-pixelwise t)
 ;; (setq window-resize-pixelwise t)
 
-;; (tooltip-mode -1) ?
-
 ;; Display line numbers in programming mode
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-width 3)           ; Set a minimum width
@@ -63,12 +61,11 @@
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
 (setq calc-internal-prec 20)
+(defalias 'qcalc #'quick-calc)
 
 (setq gnutls-verify-error t)
 
 (setq enable-local-eval t)
-
-(defalias 'qcalc #'quick-calc)
 
 (setq-default
  compare-ignore-case t
@@ -375,67 +372,16 @@
 ;; Try `cape-dict' as an alternative.
 (setq text-mode-ispell-word-completion nil)
 
-;; Hide commands in M-x which do not apply to the current mode.  Corfu
-;; commands are hidden, since they are not used via M-x. This setting is
-;; useful beyond Corfu.
-(setq read-extended-command-predicate #'command-completion-default-include-p)
-
-(setq x-underline-at-descent-line nil)           ; Prettier underlines
-(setq switch-to-buffer-obey-display-actions t)   ; Make s witching buffers more consistent
-
-(setq show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-(setq indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
-
-(use-package simple
-  :demand t
-  :straight nil
-  :bind (("C-c C-j" . join-line))
-  :custom
-  (visual-line-fringe-indicators '(left-curly-arrow nil))
-  (set-mark-command-repeat-pop t)
-  (mark-ring-max 4)
-  :config
-  (global-visual-line-mode 1)
-  (column-number-mode 1)
-
-  ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
-  (advice-add 'visual-line-mode :around
-  			      (lambda (orig-fun &rest args)
-  				      (unless (memq major-mode (list 'org-agenda-mode))
-  				        (apply orig-fun args)))))
-
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-
-;; Set default input method and coding system
-(use-package mule
-  :demand t
-  :straight nil
-  :init
-  ;; (setq default-input-method 'MacOSX)
-  :config
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8))
-
-(setq
- switch-to-buffer-in-dedicated-window 'pop
- switch-to-buffer-obey-display-actions t)
-
 ;; Start Emacs server for emacsclient
-;;(use-package server
-;;  :defer 2
-;;  :config
-;;  (unless (server-running-p)
-;;    (server-start)))
+(use-package server
+ :defer 2
+ :config
+ (unless (server-running-p)
+   (server-start)))
 
 (delete-selection-mode 1)
 (auto-compression-mode 1)
-;; (global-auto-revert-mode -1)
+
 (global-hl-line-mode -1)
 
 (defalias 'qcalc #'quick-calc)
@@ -537,108 +483,108 @@
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
   (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
 
-(unbind-key "C-x <right>")
-(unbind-key "C-x <left>")
+  (unbind-key "C-x <right>")
+  (unbind-key "C-x <left>")
 
-(setq display-buffer-alist
-	    '(("\\*[hH]elp.*"
-		     (display-buffer-reuse-window display-buffer-below-selected)
-		     (window-height . 0.4)
-		     (reusable-frames . nil))
-		    ("\\*grep\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*eshell\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*Backtrace\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*Warnings\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.2)
-		     (reusable-frames . nil))
-		    ("\\*Completions\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*Flycheck error messages\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*Async-native-compile-log\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*straight-byte-compilation\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*straight-process\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ("\\*chatgpt.*"
-		     (display-buffer-in-previous-window)
-		     (reusable-frames . nil))
-		    ("\\*eww history\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.2)
-		     (reusable-frames . nil))
-		    ("\\*eww bookmarks\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.2)
-		     (reusable-frames . nil))
-		    ("\\*ruby\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.1)
-		     (reusable-frames . nil))
-		    ("\\magit:"
-		     (display-buffer-in-previous-window)
-		     (reusable-frames . nil))
-		    ("\\*eldoc"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.2)
-		     (reusable-frames . nil))
-		    ("\\*projectile-files-errors\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.2)
-		     (reusable-frames . nil))
-		    ("\\*Org Entity Help\\*"
-		     (display-buffer-reuse-window display-buffer-at-bottom)
-		     (window-height . 0.3)
-		     (reusable-frames . nil))
-		    ;; ("\\*tree-sitter"
-		    ;;    (display-buffer-reuse-window display-buffer-same-window)
-		    ;;    (window-parameters . ((quit-restore . delete))))
-		    ))
+  (setq display-buffer-alist
+  	    '(("\\*[hH]elp.*"
+  		     (display-buffer-reuse-window display-buffer-below-selected)
+  		     (window-height . 0.4)
+  		     (reusable-frames . nil))
+  		    ("\\*grep\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*eshell\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*Backtrace\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*Warnings\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.2)
+  		     (reusable-frames . nil))
+  		    ("\\*Completions\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*Flycheck error messages\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*Async-native-compile-log\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*straight-byte-compilation\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*straight-process\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ("\\*chatgpt.*"
+  		     (display-buffer-in-previous-window)
+  		     (reusable-frames . nil))
+  		    ("\\*eww history\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.2)
+  		     (reusable-frames . nil))
+  		    ("\\*eww bookmarks\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.2)
+  		     (reusable-frames . nil))
+  		    ("\\*ruby\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.1)
+  		     (reusable-frames . nil))
+  		    ("\\magit:"
+  		     (display-buffer-in-previous-window)
+  		     (reusable-frames . nil))
+  		    ("\\*eldoc"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.2)
+  		     (reusable-frames . nil))
+  		    ("\\*projectile-files-errors\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.2)
+  		     (reusable-frames . nil))
+  		    ("\\*Org Entity Help\\*"
+  		     (display-buffer-reuse-window display-buffer-at-bottom)
+  		     (window-height . 0.3)
+  		     (reusable-frames . nil))
+  		    ;; ("\\*tree-sitter"
+  		    ;;    (display-buffer-reuse-window display-buffer-same-window)
+  		    ;;    (window-parameters . ((quit-restore . delete))))
+  		    ))
 
-(use-package diminish
-  :demand t
-  :config
-  (diminish 'eldoc-mode))
-
-(straight-register-package 'all-the-icons)
-(when (display-graphic-p)
-  (use-package all-the-icons
+  (use-package diminish
     :demand t
     :config
-    ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
-    (unless (find-font (font-spec :name "all-the-icons"))
-	    (all-the-icons-install-fonts t))))
+    (diminish 'eldoc-mode))
 
-(straight-register-package 'nerd-icons)
-(when (display-graphic-p)
-  (use-package nerd-icons
-    :demand t
-    :config
-    (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
-      (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
-        (nerd-icons-install-fonts t)
-        (message "install nerd")))))
+  (straight-register-package 'all-the-icons)
+  (when (display-graphic-p)
+    (use-package all-the-icons
+      :demand t
+      :config
+      ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
+      (unless (find-font (font-spec :name "all-the-icons"))
+  	    (all-the-icons-install-fonts t))))
+
+  (straight-register-package 'nerd-icons)
+  (when (display-graphic-p)
+    (use-package nerd-icons
+      :demand t
+      :config
+      (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
+        (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+          (nerd-icons-install-fonts t)
+          (message "install nerd")))))
 
 (setq  bookmark-save-flag 1)
 
@@ -942,9 +888,9 @@
     :config
     (evil-collection-init)))
 
-(setq undo-limit 160000)
-(global-set-key (kbd "C-\\") #'undo)
-(global-set-key (kbd "C-/") #'undo-redo)
+  (setq undo-limit 160000)
+  (global-set-key (kbd "C-\\") #'undo)
+  (global-set-key (kbd "C-/") #'undo-redo)
 
 
 ;; (use-package move-text
@@ -1066,76 +1012,76 @@
   :custom
   (windmove-wrap-around t))
 
-(setq
- scroll-step 1
- scroll-margin 3
- ;; scroll-conservatively 101
- hscroll-margin  1
- hscroll-step 1
- auto-window-vscroll nil)
-
-(when (display-graphic-p)
-  (setq-default scroll-up-aggressively 0.01)
   (setq
-   ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
-   redisplay-dont-pause t
-   ;; scroll-conservatively 10000
-   scroll-conservatively most-positive-fixnum ; Always scroll by one line
-   scroll-preserve-screen-position nil))
+   scroll-step 1
+   scroll-margin 3
+   ;; scroll-conservatively 101
+   hscroll-margin  1
+   hscroll-step 1
+   auto-window-vscroll nil)
 
-(use-package ibuffer
-  :straight nil
-  :commands ibuffer
-  :hook (ibuffer-mode . hl-line-mode))
+  (when (display-graphic-p)
+    (setq-default scroll-up-aggressively 0.01)
+    (setq
+     ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
+     redisplay-dont-pause t
+     ;; scroll-conservatively 10000
+     scroll-conservatively most-positive-fixnum ; Always scroll by one line
+     scroll-preserve-screen-position nil))
 
-(use-package browse-kill-ring
-  :commands browse-kill-ring)
+  (use-package ibuffer
+    :straight nil
+    :commands ibuffer
+    :hook (ibuffer-mode . hl-line-mode))
 
-(defun my/kill-clear ()
-  "Clear kill-ring."
-  (interactive)
-  (setq kill-ring nil)
-  (garbage-collect)
-  (message "kill-ring cleared"))
+  (use-package browse-kill-ring
+    :commands browse-kill-ring)
 
-(defun my/parens-jump ()
-  "Interactively show the character before and after point.
-Displays each as a readable string or \"<BOF/EOF>\" when out of range."
-  (interactive)
-  (let ((before (char-before (point)))
-        (after  (char-after  (point))))
-    (cond
-     ((= after ?\() (forward-sexp))
-     ((= before ?\)) (backward-sexp))
-     (t nil))))
+  (defun my/kill-clear ()
+    "Clear kill-ring."
+    (interactive)
+    (setq kill-ring nil)
+    (garbage-collect)
+    (message "kill-ring cleared"))
 
-(bind-keys
-  ("C-M-b" . my/parens-jump)
-  ("C-M-f" . my/parens-jump))
+  (defun my/parens-jump ()
+    "Interactively show the character before and after point.
+  Displays each as a readable string or \"<BOF/EOF>\" when out of range."
+    (interactive)
+    (let ((before (char-before (point)))
+          (after  (char-after  (point))))
+      (cond
+       ((= after ?\() (forward-sexp))
+       ((= before ?\)) (backward-sexp))
+       (t nil))))
 
-(setq-default mml-secure-openpgp-sign-with-sender t)
+  (bind-keys
+    ("C-M-b" . my/parens-jump)
+    ("C-M-f" . my/parens-jump))
 
-(if (boundp 'my/epa-file-encrypt-to-default)
-    (use-package epa
-      :demand t
-      :straight nil
-      :custom
-      (epg-pinentry-mode 'loopback)
-      (epa-file-select-keys nil)
-      ;; (epa-file-cache-passphrase-for-symmetric-encryption t)
-      :config
-      (require 'epa-file)
-      (require 'epg-config)
-      ;; (setenv "GPG_AGENT_INFO" nil)
-      ;; (setq epa-pinentry-mode 'loopback)
+  (setq-default mml-secure-openpgp-sign-with-sender t)
 
-      (add-hook 'find-file-hook
-                (lambda ()
-                  (when (and (stringp buffer-file-name) (string-match "\\.gpg\\'" buffer-file-name))
-                    (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
-                      (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
-                            (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
-  (warn (concat "Variable 'my/epa-file-encrypt-to-default' is not set, GPG not available!")))
+  (if (boundp 'my/epa-file-encrypt-to-default)
+      (use-package epa
+        :demand t
+        :straight nil
+        :custom
+        (epg-pinentry-mode 'loopback)
+        (epa-file-select-keys nil)
+        ;; (epa-file-cache-passphrase-for-symmetric-encryption t)
+        :config
+        (require 'epa-file)
+        (require 'epg-config)
+        ;; (setenv "GPG_AGENT_INFO" nil)
+        ;; (setq epa-pinentry-mode 'loopback)
+
+        (add-hook 'find-file-hook
+                  (lambda ()
+                    (when (and (stringp buffer-file-name) (string-match "\\.gpg\\'" buffer-file-name))
+                      (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
+                        (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
+                              (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
+    (warn (concat "Variable 'my/epa-file-encrypt-to-default' is not set, GPG not available!")))
 
 (use-package dired
   :demand t
@@ -1531,79 +1477,79 @@ Displays each as a readable string or \"<BOF/EOF>\" when out of range."
   :bind (:map org-mode-map
   	          ("C-x C-z" . org-link-archive-at-point)))
 
-(use-package calendar
-  :commands (my/calendar-year)
-  :bind (:map calendar-mode-map
-          ("<" . my/scroll-year-calendar-backward)
-          (">" . my/scroll-year-calendar-forward))
-  :custom
-  (diary-number-of-entries 31)
-  (holiday-local-holidays nil)
-  (diary-show-holidays-flag nil)
-  (calendar-christian-all-holidays-flag t)
-  ;; (calendar-mark-holidays-flag t)
-  (calendar-week-start-day 1)
-  (calendar-date-style 'european)
-  :config
-  ;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
-  (defun my/calendar-year (&optional year)
-    "Generate a one year calendar that can be scrolled by year in each direction.
-This is a modification of:  http://homepage3.nifty.com/oatu/emacs/calendar.html
-See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months"
-    (interactive)
-    ;; (require 'calendar)
-    (let* (
-            (current-year (number-to-string (nth 5 (decode-time (current-time)))))
-            (month 0)
-            (year (if year year (string-to-number (format-time-string "%Y" (current-time))))))
-      (switch-to-buffer (get-buffer-create calendar-buffer))
-      (when (not (eq major-mode 'calendar-mode))
-        (calendar-mode))
-      (setq displayed-month month)
-      (setq displayed-year year)
-      (setq buffer-read-only nil)
-      (erase-buffer)
-      ;; horizontal rows
-      (dotimes (j 4)
-        ;; vertical columns
-        (dotimes (i 3)
-          (calendar-generate-month
-            (setq month (+ month 1))
-            year
-            ;; indentation / spacing between months
-            (+ 5 (* 25 i))))
-        (goto-char (point-max))
-        (insert (make-string (- 10 (count-lines (point-min) (point-max))) ?\n))
+  (use-package calendar
+    :commands (my/calendar-year)
+    :bind (:map calendar-mode-map
+            ("<" . my/scroll-year-calendar-backward)
+            (">" . my/scroll-year-calendar-forward))
+    :custom
+    (diary-number-of-entries 31)
+    (holiday-local-holidays nil)
+    (diary-show-holidays-flag nil)
+    (calendar-christian-all-holidays-flag t)
+    ;; (calendar-mark-holidays-flag t)
+    (calendar-week-start-day 1)
+    (calendar-date-style 'european)
+    :config
+    ;; https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
+    (defun my/calendar-year (&optional year)
+      "Generate a one year calendar that can be scrolled by year in each direction.
+  This is a modification of:  http://homepage3.nifty.com/oatu/emacs/calendar.html
+  See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months"
+      (interactive)
+      ;; (require 'calendar)
+      (let* (
+              (current-year (number-to-string (nth 5 (decode-time (current-time)))))
+              (month 0)
+              (year (if year year (string-to-number (format-time-string "%Y" (current-time))))))
+        (switch-to-buffer (get-buffer-create calendar-buffer))
+        (when (not (eq major-mode 'calendar-mode))
+          (calendar-mode))
+        (setq displayed-month month)
+        (setq displayed-year year)
+        (setq buffer-read-only nil)
+        (erase-buffer)
+        ;; horizontal rows
+        (dotimes (j 4)
+          ;; vertical columns
+          (dotimes (i 3)
+            (calendar-generate-month
+              (setq month (+ month 1))
+              year
+              ;; indentation / spacing between months
+              (+ 5 (* 25 i))))
+          (goto-char (point-max))
+          (insert (make-string (- 10 (count-lines (point-min) (point-max))) ?\n))
+          (widen)
+          (goto-char (point-max))
+          (narrow-to-region (point-max) (point-max)))
         (widen)
-        (goto-char (point-max))
-        (narrow-to-region (point-max) (point-max)))
-      (widen)
-      (goto-char (point-min))
-      (setq buffer-read-only t)))
+        (goto-char (point-min))
+        (setq buffer-read-only t)))
 
-  (defun my/scroll-year-calendar-forward (&optional arg event)
-    "Scroll the yearly calendar by year in a forward direction."
-    (interactive (list (prefix-numeric-value current-prefix-arg)
-                   last-nonmenu-event))
-    (unless arg (setq arg 0))
-    (save-selected-window
-      (if (setq event (event-start event)) (select-window (posn-window event)))
-      (unless (zerop arg)
-        (let* (
-                (year (+ displayed-year arg)))
-          (my/calendar-year year)))
-      (goto-char (point-min))
-      (run-hooks 'calendar-move-hook)))
+    (defun my/scroll-year-calendar-forward (&optional arg event)
+      "Scroll the yearly calendar by year in a forward direction."
+      (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+      (unless arg (setq arg 0))
+      (save-selected-window
+        (if (setq event (event-start event)) (select-window (posn-window event)))
+        (unless (zerop arg)
+          (let* (
+                  (year (+ displayed-year arg)))
+            (my/calendar-year year)))
+        (goto-char (point-min))
+        (run-hooks 'calendar-move-hook)))
 
-  (defun my/scroll-year-calendar-backward (&optional arg event)
-    "Scroll the yearly calendar by year in a backward direction."
-    (interactive (list (prefix-numeric-value current-prefix-arg)
-                   last-nonmenu-event))
-    (my/scroll-year-calendar-forward (- (or arg 1)) event))
+    (defun my/scroll-year-calendar-backward (&optional arg event)
+      "Scroll the yearly calendar by year in a backward direction."
+      (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+      (my/scroll-year-calendar-forward (- (or arg 1)) event))
 
-  (defalias 'calendar-year #'my/calendar-year)
-  (defalias 'my/calendar-full #'my/calendar-year)
-  (defalias 'yearly-calendar #'my/calendar-year))
+    (defalias 'calendar-year #'my/calendar-year)
+    (defalias 'my/calendar-full #'my/calendar-year)
+    (defalias 'yearly-calendar #'my/calendar-year))
 
 (use-package projectile
   :demand t
@@ -2574,569 +2520,569 @@ to invalidate."
             (eglot-ensure))
           (error "kotlin-language-server not found!")))))
 
-(load-theme 'modus-vivendi t)
+  (load-theme 'modus-vivendi t)
 
-(use-package doom-modeline
-  :disabled t
-  :demand t
-  :custom
-  (doom-modeline-icon nil)
-  :init
-  (setq doom-modeline-minor-modes t
-	      doom-modeline-vcs-max-length 20)
-  :config
-  (doom-modeline-mode 1))
+  (use-package doom-modeline
+    :disabled t
+    :demand t
+    :custom
+    (doom-modeline-icon nil)
+    :init
+    (setq doom-modeline-minor-modes t
+  	      doom-modeline-vcs-max-length 20)
+    :config
+    (doom-modeline-mode 1))
 
-(use-package doom-themes
-  :disabled t
-  :demand t
-  :init
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  :config
-  ;; (load-theme 'doom-1337 t)
-  ;; (load-theme 'doom-one t)
-  ;; (load-theme 'doom-material t)
-  ;; (load-theme 'doom-oceanic-next t)
-  ;; (load-theme 'doom-opera t)
-  ;;   (load-theme 'doom-palenight t)
-  ;; (load-theme 'doom-peacock t)
+  (use-package doom-themes
+    :disabled t
+    :demand t
+    :init
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+  	      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+    :config
+    ;; (load-theme 'doom-1337 t)
+    ;; (load-theme 'doom-one t)
+    ;; (load-theme 'doom-material t)
+    ;; (load-theme 'doom-oceanic-next t)
+    ;; (load-theme 'doom-opera t)
+    ;;   (load-theme 'doom-palenight t)
+    ;; (load-theme 'doom-peacock t)
 
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
+    ;; Enable flashing mode-line on errors
+    (doom-themes-visual-bell-config)
 
-  ;; use the colorful treemacs theme
-  ;; (use-package doom-themes-ext-treemacs
-  ;;      :after treemacs
-  ;; :commands treemacs-mode
-  ;; :custom
-  ;; (doom-themes-treemacs-theme "doom-colors")
-  ;; :config
-  ;; (doom-themes-treemacs-config))
-
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-(setq shell-dirtrackp nil)
-
-(defalias 'sh #'eshell)
-
-(use-package eshell
-  :straight nil
-  :commands eshell
-  :bind (:map eshell-mode-map
-	      ("C-r" . counsel-shell-history)
-	      ;; ("C-n" . company-next-page)
-	      ;; ("C-p" . company-previous-page)
-	      ("<tab>" . my/eshell-list-dir)
-	      ("<tab>" . company-next-page)
-	      ;; ("<backtab>" . company-previous-page)
-	      )
-  ;; :hook ((eshell-mode . company-mode))
-  :init
-  (require 'esh-mode)
-  :custom
-  (eshell-destroy-buffer-when-process-dies t)
-  (eshell-prompt-function #'dw/eshell-prompt)
-  (eshell-prompt-regexp "^λ ")
-  (eshell-history-size 10000)
-  (eshell-buffer-maximum-lines 10000)
-  (eshell-hist-ignoredups t)
-  (eshell-highlight-prompt t)
-  (eshell-scroll-to-bottom-on-input t)
-  (eshell-prefer-lisp-functions nil)
-  :config
-  (defun my/eshell-init ()
-    ;; (setq-local company-backends '((company-files company-capf)))
-    ;; (setq-local company-backends '(esh-autosuggest company-files ))
-    (setenv "PAGER" "cat"))
-  (add-hook 'eshell-mode-hook #'my/eshell-init)
-
-  (defun read-file (file-path)
-    (with-temp-buffer
-      (insert-file-contents file-path)
-      (buffer-string)))
-
-  (defun my/eshell-list-dir ()
-    (interactive)
-    (let ((output (eshell-command "ls -a" t)))
-      (with-temp-message output)))
-
-  (defun dw/get-current-package-version ()
-    (interactive)
-    (let ((package-json-file (concat (eshell/pwd) "/package.json")))
-      (when (file-exists-p package-json-file)
-	(let* ((package-json-contents (read-file package-json-file))
-	       (package-json (ignore-errors (json-parse-string package-json-contents))))
-	  (when package-json
-	    (ignore-errors (gethash "version" package-json)))))))
-
-  (defun dw/map-line-to-status-char (line)
-    (cond ((string-match "^?\\? " line) "?")))
-
-  (defun dw/get-git-status-prompt ()
-    (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
-      (seq-uniq (seq-filter 'identity (mapcar 'dw/map-line-to-status-char status-lines)))))
-
-  (defun dw/get-prompt-path ()
-    (let* ((current-path (eshell/pwd))
-	   (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
-	   (has-path (not (string-match "^fatal" git-output))))
-      (if (not has-path)
-	  (abbreviate-file-name current-path)
-	(string-remove-prefix (file-name-directory git-output) current-path))))
-
-  ;; This prompt function mostly replicates my custom zsh prompt setup
-  ;; that is powered by github.com/denysdovhan/spaceship-prompt.
-  (defun dw/eshell-prompt ()
-    (let ((current-branch (magit-get-current-branch))
-	  (package-version (dw/get-current-package-version)))
-      (concat
-       "\n"
-       (propertize (system-name) 'face `(:foreground "#62aeed"))
-       (propertize " ॐ " 'face `(:foreground "white"))
-       (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
-       (when current-branch
-	 (concat
-	  (propertize " • " 'face `(:foreground "white"))
-	  (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
-       (propertize " " 'face `(:foreground "white")))))
-
-  (use-package xterm-color
-    :demand t)
-
-  (push 'eshell-tramp eshell-modules-list)
-  ;; (push 'xterm-color-filter eshell-preoutput-filter-functions)
-  ;; (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
-
-  ;; (defun flush-func (&optional args) t)
-
-  ;; Save command history when commands are entered
-  (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
-
-  (add-hook 'eshell-before-prompt-hook
-	    (lambda ()
-	      (setq-local xterm-color-preserve-properties t)))
-
-  ;; Truncate buffer for performance
-  ;; (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
-
-  ;; We want to use xterm-256color when running interactive commands
-  ;; in eshell but not during other times when we might be launching
-  ;; a shell command to gather its output.
-  (add-hook 'eshell-pre-command-hook
-	    (lambda () (setenv "TERM" "xterm-256color")))
-  (add-hook 'eshell-post-command-hook
-	    (lambda () (setenv "TERM" "dumb"))))
-
-(use-package eshell-syntax-highlighting
-  :demand t
-  :after eshell
-  :config
-  (eshell-syntax-highlighting-global-mode 1))
-
-;; (use-package esh-autosuggest
-;;   :commands esh-autosuggest-mode
-;;   :custom
-;;   (esh-autosuggest-delay 0.5)
-;;   :config
-;;   (set-face-foreground 'company-preview-common "#4b5668")
-;;   (set-face-background 'company-preview nil))
-
-(use-package eshell-toggle
-  :after eshell
-  :commands eshell-toggle
-  ;; :bind (:map evil-normal-state-map
-  ;;         ("C-`" . eshell-toggle)
-  ;;        :map eshell-mode-map
-  ;;         ("C-`" . eshell-toggle))
-  ;; :straight (:type: git
-  ;;             :host github
-  ;;             :repo "4DA/eshell-toggle"
-  ;;             :branch "master")
-  :custom
-  (eshell-toggle-size-fraction 3)
-  (eshell-toggle-use-projectile-root t)
-  (eshell-toggle-run-command nil)
-  (eshell-toggle-default-directory "~/"))
+    ;; use the colorful treemacs theme
+    ;; (use-package doom-themes-ext-treemacs
+    ;;      :after treemacs
+    ;; :commands treemacs-mode
+    ;; :custom
+    ;; (doom-themes-treemacs-theme "doom-colors")
+    ;; :config
+    ;; (doom-themes-treemacs-config))
 
 
-;; Kill shell buffer when shell exits
-(use-package shell
-  :straight nil
-  :hook (shell-mode . my-shell-mode-hook-func)
-  :config
-  (defun my-shell-mode-hook-func ()
-    (set-process-sentinel (get-buffer-process (current-buffer))
-			  'my-shell-mode-kill-buffer-on-exit))
-  (defun my-shell-mode-kill-buffer-on-exit (process state)
-    (message "%s" state)
-    (if (or
-	 (string-match "exited abnormally with code.*" state)
-	 (string-match "finished" state))
-	(kill-buffer (current-buffer))))
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config))
 
-  ;; default shell buffer
-  (setq explicit-shell-file-name (getenv "SHELL"))
-  ;; use shell-file-name for subprocesses
-  (setq shell-file-name explicit-shell-file-name))
+  (setq shell-dirtrackp nil)
 
-;; Eat: Emulate A Terminal
-(use-package eat
-  :demand t
-  :custom
-  (eat-term-name "xterm")
-  :config
-  (eat-eshell-mode)                     ; use Eat to handle term codes in program output
-  (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
+  (defalias 'sh #'eshell)
 
-(use-package tramp
-  :demand t
-  :straight nil
-  :custom
-  (tramp-default-method "ssh")
-  (tramp-inline-compress-start-size 40960)
-  (tramp-chunksize 500)
-  (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
-  (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-  (tramp-encoding-shell "/bin/sh"))
+  (use-package eshell
+    :straight nil
+    :commands eshell
+    :bind (:map eshell-mode-map
+  	      ("C-r" . counsel-shell-history)
+  	      ;; ("C-n" . company-next-page)
+  	      ;; ("C-p" . company-previous-page)
+  	      ("<tab>" . my/eshell-list-dir)
+  	      ("<tab>" . company-next-page)
+  	      ;; ("<backtab>" . company-previous-page)
+  	      )
+    ;; :hook ((eshell-mode . company-mode))
+    :init
+    (require 'esh-mode)
+    :custom
+    (eshell-destroy-buffer-when-process-dies t)
+    (eshell-prompt-function #'dw/eshell-prompt)
+    (eshell-prompt-regexp "^λ ")
+    (eshell-history-size 10000)
+    (eshell-buffer-maximum-lines 10000)
+    (eshell-hist-ignoredups t)
+    (eshell-highlight-prompt t)
+    (eshell-scroll-to-bottom-on-input t)
+    (eshell-prefer-lisp-functions nil)
+    :config
+    (defun my/eshell-init ()
+      ;; (setq-local company-backends '((company-files company-capf)))
+      ;; (setq-local company-backends '(esh-autosuggest company-files ))
+      (setenv "PAGER" "cat"))
+    (add-hook 'eshell-mode-hook #'my/eshell-init)
 
-(use-package counsel-tramp
-  :after (counsel tramp)
-  :commands counsel-tramp)
+    (defun read-file (file-path)
+      (with-temp-buffer
+        (insert-file-contents file-path)
+        (buffer-string)))
 
-(defvar my/en-abbrevs nil)
-(define-abbrev-table
-  'my/en-abbrevs '(
-                   ("aint" "ain't" nil 0)
-                   ("ami" "am I" nil 0)
-                   ("arent" "aren't" nil 0)
-                   ("cant" "can't" nil 0)
-                   ("chinese" "Chinese" nil 0)
-                   ("couldnt" "couldn't" nil 0)
-                   ("didnt" "didn't" nil 0)
-                   ("didt" "didn't" nil 0)
-                   ("doesnt" "doesn't" nil 0)
-                   ("dont" "don't" nil 0)
-                   ("elses" "else's" nil 0)
-                   ("exceause" "excuse" nil 0)
-                   ("exceauses" "excuses" nil 0)
-                   ("everobodys" "everybody's" nil 0)
-                   ("hasnt" "hasn't" nil 0)
-                   ("hast" "hasn't" nil 0)
-                   ("ive" "I've" nil 0)
-                   ("ihave" "I've" nil 0)
-                   ("im" "I'm" nil 0)
-                   ("inteligence" "intelligence" nil 0)
-                   ("isnt" "isn't" nil 0)
-                   ("Iwould" "I'd" nil 0)
-                   ("Iwoudl" "I'd" nil 0)
-                   ("ill" "I'll" nil 0)
-                   ("interuption" "interruption" nil 0)
-                   ("interuptions" "interruptions" nil 0)
-                   ("iwill" "I'll" nil 0)
-                   ("havent" "haven't" nil 0)
-                   ("hows" "how's" nil 0)
-                   ("youre" "you're" nil 0)
-                   ("youare" "you're" nil 0)
-                   ("youd" "you'd" nil 0)
-                   ("youve" "you've" nil 0)
-                   ("youll" "you'll" nil 0)
-                   ("youwll" "you'll" nil 0)
-                   ("mustnt" "mustn't" nil 0)
-                   ("ppl" "people" nil 0)
-                   ("Ppl" "People" nil 0)
-                   ("prefered" "preferred" nil 0)
-                   ("shouldnt" "shouldn't" nil 0)
-                   ("shouldt" "shouldn't" nil 0)
-                   ("shouldve" "should've" nil 0)
-                   ("shes" "she's" nil 0)
-                   ("shewill" "she'll" nil 0)
-                   ("sheill" "she'll" nil 0)
-                   ("wasnt" "wasn't" nil 0)
-                   ("weare" "we're" nil 0)
-                   ("wewill" "we'll" nil 0)
-                   ("weill" "we'll" nil 0)
-                   ("whatdo" "what'd" nil 0)
-                   ("whats" "what's" nil 0)
-                   ("whos" "who's" nil 0)
-                   ("wont" "won't" nil 0)
-                   ("wouldnt" "wouldn't" nil 0)
-                   ("wouldve" "would've" nil 0)
-                   ("wouldhave" "would've" nil 0)
-                   ("thats" "that's" nil 0)
-                   ("theres" "there's" nil 0)
-                   ("therell" "there'll" nil 0)
-                   ("therell" "there'll" nil 0)
-                   ("theyre" "they're" nil 0)
-                   ("totaly" "totally" nil 0)
-                   ("readonly" "read-only" nil 0)
+    (defun my/eshell-list-dir ()
+      (interactive)
+      (let ((output (eshell-command "ls -a" t)))
+        (with-temp-message output)))
 
-                   ("indexeddb" "IndexedDB" nil 0)
-                   ("fomo" "FOMO" nil 0)
-                   ("shopify" "Shopify" nil 0)
-                   ("sms" "SMS" nil 0)
-                   ("ios" "iOS" nil 0)
-                   ("IOS" "iOS" nil 0)
-                   ("android" "Android" nil 0)
-                   ("google" "Google" nil 0)
-                   ("docker" "Docker" nil 0)
-                   ("sqlite" "SQLite" nil 0)
-                   ("postgresql" "PostgreSQL" nil 0)
-                   ("graphql" "GraphQL" nil 0)
-                   ("linkedin" "LinkedIn" nil 0)
-                   ("skype" "Skype" nil 0)
-                   ("dns" "DNS" nil 0)
-                   ("cloudflare" "Cloudflare" nil 0)
-                   ("svg" "SVG" nil 0)
-                   ("tlds" "TLDs" nil 0)
-                   ("tld" "TLD" nil 0)
-                   ("hackernews" "HackerNews" nil 0)
-                   ("thunderbird" "Thunderbird" nil 0)
-                   ("firefox" "Firefox" nil 0)
-                   ("twitter" "Twitter" nil 0)
-                   ("nextjs" "Next.js" nil 0)
-                   ("mongodb" "MongoDB" nil 0)
-                   ("expressjs" "Express.js" nil 0)
-                   ("nodejs" "NodeJS" nil 0)
-                   ("css" "CSS" nil 0)
-                   ("wordpress" "Wordpress" nil 0)
-                   ("debian" "Debian" nil 0)
-                   ("github" "GitHub" nil 0)
-                   ("coo" "COO" nil 0)
-                   ("cfo" "CFO" nil 0)
-                   ("ceo" "CEO" nil 0)
-                   ("dao" "DAO" nil 0)
-                   ("nft" "NFT" nil 0)
-                   ("FF" "FireFox" nil 0)
-                   ("ff" "FireFox" nil 0)
-                   ("YT" "YouTube" nil 0)
-                   ("FB" "Facebook" nil 0)
-                   ("fb" "Facebook" nil 0)
-                   ("IG" "Instagram" nil 0)
-                   ("ig" "Instagram" nil 0)
-                   ("facebook" "Facebook" nil 0)
-                   ("telegram" "Telegram" nil 0)
-                   ("youtube" "YouTube" nil 0)
-                   ("BT" "Bluetooth" nil 0)
-                   ("macos" "MacOS" nil 0)
-                   ("seo" "SEO" nil 0)
-                   ("irc" "IRC" nil 0)
-                   ("rss" "RSS" nil 0)
-                   ("url" "URL" nil 0)
-                   ("crm" "CRM" nil 0)
-                   ("erp" "ERP" nil 0)
-                   ("b2b" "B2B" nil 0)
-                   ("b2c" "B2C" nil 0)
-                   ("btc" "BTC" nil 0)
-                   ("eth" "ETH" nil 0)
-                   ("arb" "ARB" nil 0)
-                   ("matic" "MATIC" nil 0)
-                   ("cms" "CMS" nil 0)
-                   ("sim" "SIM" nil 0)
-                   ("voip" "VoIP" nil 0)
-                   ("linux" "Linux" nil 0)
-                   ("ascii" "ASCII" nil 0)
-                   ("twitch" "Twitch" nil 0)
-                   ("airbnb" "AirBnB" nil 0)
-                   ("json" "JSON" nil 0)
-                   ("ai" "AI" nil 0)
-                   ("chatgpt" "ChatGPT" nil 0)
-                   ("asap" "ASAP" nil 0)
-                   ("emacs" "Emacs" nil 0)
-                   ("termux" "Termux" nil 0)
-                   ("whatsup" "WhatsApp" nil 0)
-                   ("whatsapp" "WhatsApp" nil 0)
-                   ("whatapp" "WhatsApp" nil 0)
-                   ("email" "e-mail" nil 0)
-                   ("emails" "e-mails" nil 0)
-                   ("ui" "UI" nil 0)
-                   ("gui" "GUI" nil 0)
-                   ("todo" "TODO" nil 0)
-                   ) nil :case-fixed nil)
+    (defun dw/get-current-package-version ()
+      (interactive)
+      (let ((package-json-file (concat (eshell/pwd) "/package.json")))
+        (when (file-exists-p package-json-file)
+  	(let* ((package-json-contents (read-file package-json-file))
+  	       (package-json (ignore-errors (json-parse-string package-json-contents))))
+  	  (when package-json
+  	    (ignore-errors (gethash "version" package-json)))))))
 
-(defvar my/pl-abbrevs nil)
-(define-abbrev-table
-  'my/pl-abbrevs '(
-                   ("indexeddb" "IndexedDB" nil 0)
-                   ("fomo" "FOMO" nil 0)
-                   ("shopify" "Shopify" nil 0)
-                   ("sms" "SMS" nil 0)
-                   ("IOS" "iOS" nil 0)
-                   ("ios" "iOS" nil 0)
-                   ("android" "Android" nil 0)
-                   ("google" "Google" nil 0)
-                   ("docker" "Docker" nil 0)
-                   ("sqlite" "SQLite" nil 0)
-                   ("postgresql" "PostgreSQL" nil 0)
-                   ("graphql" "GraphQL" nil 0)
-                   ("linkedin" "LinkedIn" nil 0)
-                   ("skype" "Skype" nil 0)
-                   ("dns" "DNS" nil 0)
-                   ("cloudflare" "Cloudflare" nil 0)
-                   ("svg" "SVG" nil 0)
-                   ("tlds" "TLDs" nil 0)
-                   ("tld" "TLD" nil 0)
-                   ("hackernews" "HackerNews" nil 0)
-                   ("thunderbird" "Thunderbird" nil 0)
-                   ("firefox" "Firefox" nil 0)
-                   ("twitter" "Twitter" nil 0)
-                   ("nextjs" "Next.js" nil 0)
-                   ("mongodb" "MongoDB" nil 0)
-                   ("expressjs" "Express.js" nil 0)
-                   ("nodejs" "NodeJS" nil 0)
-                   ("css" "CSS" nil 0)
-                   ("wordpress" "Wordpress" nil 0)
-                   ("debian" "Debian" nil 0)
-                   ("github" "GitHub" nil 0)
-                   ("coo" "COO" nil 0)
-                   ("cfo" "CFO" nil 0)
-                   ("ceo" "CEO" nil 0)
-                   ("dao" "DAO" nil 0)
-                   ("nft" "NFT" nil 0)
-                   ("FF" "FireFox" nil 0)
-                   ("ff" "FireFox" nil 0)
-                   ("YT" "YouTube" nil 0)
-                   ("FB" "Facebook" nil 0)
-                   ("fb" "Facebook" nil 0)
-                   ("IG" "Instagram" nil 0)
-                   ("ig" "Instagram" nil 0)
-                   ("facebook" "Facebook" nil 0)
-                   ("telegram" "Telegram" nil 0)
-                   ("youtube" "YouTube" nil 0)
-                   ("BT" "Bluetooth" nil 0)
-                   ("macos" "MacOS" nil 0)
-                   ("seo" "SEO" nil 0)
-                   ("irc" "IRC" nil 0)
-                   ("rss" "RSS" nil 0)
-                   ("url" "URL" nil 0)
-                   ("crm" "CRM" nil 0)
-                   ("erp" "ERP" nil 0)
-                   ("b2b" "B2B" nil 0)
-                   ("b2c" "B2C" nil 0)
-                   ("btc" "BTC" nil 0)
-                   ("eth" "ETH" nil 0)
-                   ("arb" "ARB" nil 0)
-                   ("matic" "MATIC" nil 0)
-                   ("cms" "CMS" nil 0)
-                   ("sim" "SIM" nil 0)
-                   ("voip" "VoIP" nil 0)
-                   ("linux" "Linux" nil 0)
-                   ("ascii" "ASCII" nil 0)
-                   ("twitch" "Twitch" nil 0)
-                   ("airbnb" "AirBnB" nil 0)
-                   ("json" "JSON" nil 0)
-                   ("ai" "AI" nil 0)
-                   ("chatgpt" "ChatGPT" nil 0)
-                   ("asap" "ASAP" nil 0)
-                   ("emacs" "Emacs" nil 0)
-                   ("termux" "Termux" nil 0)
-                   ("whatsup" "WhatsApp" nil 0)
-                   ("whatsapp" "WhatsApp" nil 0)
-                   ("whatapp" "WhatsApp" nil 0)
-                   ("email" "e-mail" nil 0)
-                   ("emails" "e-mails" nil 0)
-                   ("ui" "UI" nil 0)
-                   ("gui" "GUI" nil 0)
-                   ("todo" "TODO" nil 0)
-                   ) nil :case-fixed nil)
+    (defun dw/map-line-to-status-char (line)
+      (cond ((string-match "^?\\? " line) "?")))
 
-(define-minor-mode my/en-mode
-  "Language mode for `en`."
-  :init-value nil
-  :lighter " en"
-  (setq-local
-   ispell-local-dictionary "en"
-   local-abbrev-table my/en-abbrevs
-   langtool-default-language "en")
-  (message "English language activated."))
+    (defun dw/get-git-status-prompt ()
+      (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
+        (seq-uniq (seq-filter 'identity (mapcar 'dw/map-line-to-status-char status-lines)))))
 
-(define-minor-mode my/pl-mode
-  "Language mode for `pl`."
-  :init-value nil
-  :lighter " pl"
-  (setq-local
-   ispell-local-dictionary "pl"
-   local-abbrev-table my/pl-abbrevs
-   langtool-default-language "pl")
-  (message "Polish language activated."))
+    (defun dw/get-prompt-path ()
+      (let* ((current-path (eshell/pwd))
+  	   (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
+  	   (has-path (not (string-match "^fatal" git-output))))
+        (if (not has-path)
+  	  (abbreviate-file-name current-path)
+  	(string-remove-prefix (file-name-directory git-output) current-path))))
 
-(use-package abbrev
-  :straight nil
-  :diminish "Abb"
-  :demand t
-  :hook ((text-mode . abbrev-mode)
-         (text-mode . my/en-mode))
-  :custom
-  (save-abbrevs nil)
-  (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
+    ;; This prompt function mostly replicates my custom zsh prompt setup
+    ;; that is powered by github.com/denysdovhan/spaceship-prompt.
+    (defun dw/eshell-prompt ()
+      (let ((current-branch (magit-get-current-branch))
+  	  (package-version (dw/get-current-package-version)))
+        (concat
+         "\n"
+         (propertize (system-name) 'face `(:foreground "#62aeed"))
+         (propertize " ॐ " 'face `(:foreground "white"))
+         (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
+         (when current-branch
+  	 (concat
+  	  (propertize " • " 'face `(:foreground "white"))
+  	  (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
+         (propertize " " 'face `(:foreground "white")))))
 
-(straight-register-package 'ispell)
-(if (executable-find "aspell")
-    (use-package ispell
-      :defer 2
-      :custom
-      (ispell-local-dictionary "en_US")
-      (ispell-local-dictionary-alist
-       '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-         ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
-      (ispell-dictionary "en_US")
-      (ispell-dictionary-alist
-       '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-         ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
-      ;; (ispell-program-name (executable-find "hunspell"))
-      (ispell-program-name (executable-find "aspell"))
-      (ispell-really-aspell t)
-      ;; (ispell-really-hunspell t)
-      (ispell-silently-savep t)
-      ;; (ispell-extra-args '("--sug-mode=ultra") ;; for hunspell only
-      :preface
-      (setq my/lang-modes '((en . my/en-mode) (pl . my/pl-mode)))
-      (defun my/lang-modes-deactivate ()
-        "Deactivate all lang modes."
-        (interactive)
-        (my/en-mode -1)
-        (my/pl-mode -1))
+    (use-package xterm-color
+      :demand t)
 
-      (defun my/lang-toggle ()
-        "Toggle language modes."
-        (interactive)
-        (unless (derived-mode-p 'prog-mode)
-          (let ((new-mode (symbol-function
-                           (cond
-                            ((bound-and-true-p my/pl-mode) #'my/en-mode)
-                            ((bound-and-true-p my/en-mode) #'my/pl-mode)
-                            ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
-                            (t #'my/en-mode))
-                           )))
-            (my/lang-modes-deactivate)
-            (funcall new-mode 1)))))
-  (message "No executable 'aspell' found"))
+    (push 'eshell-tramp eshell-modules-list)
+    ;; (push 'xterm-color-filter eshell-preoutput-filter-functions)
+    ;; (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
 
-(use-package flyspell
-  :commands flyspell-mode
-  :diminish "fly"
-  :custom
-  (flyspell-issue-message-flag nil)
-  (flyspell-issue-welcome-flag nil)
-  :config
-  (flyspell-prog-mode)
-  (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
-  (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
-  (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE")))
+    ;; (defun flush-func (&optional args) t)
 
-(use-package artbollocks-mode
-  :commands artbollocks-mode
-  :custom
-  (artbollocks-weasel-words-regex
-   (concat "\\b" (regexp-opt
-                  '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
-                                        ; test
-                    "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
-		    ) t) "\\b")
-   artbollocks-jargon nil))
+    ;; Save command history when commands are entered
+    (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
+
+    (add-hook 'eshell-before-prompt-hook
+  	    (lambda ()
+  	      (setq-local xterm-color-preserve-properties t)))
+
+    ;; Truncate buffer for performance
+    ;; (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
+
+    ;; We want to use xterm-256color when running interactive commands
+    ;; in eshell but not during other times when we might be launching
+    ;; a shell command to gather its output.
+    (add-hook 'eshell-pre-command-hook
+  	    (lambda () (setenv "TERM" "xterm-256color")))
+    (add-hook 'eshell-post-command-hook
+  	    (lambda () (setenv "TERM" "dumb"))))
+
+  (use-package eshell-syntax-highlighting
+    :demand t
+    :after eshell
+    :config
+    (eshell-syntax-highlighting-global-mode 1))
+
+  ;; (use-package esh-autosuggest
+  ;;   :commands esh-autosuggest-mode
+  ;;   :custom
+  ;;   (esh-autosuggest-delay 0.5)
+  ;;   :config
+  ;;   (set-face-foreground 'company-preview-common "#4b5668")
+  ;;   (set-face-background 'company-preview nil))
+
+  (use-package eshell-toggle
+    :after eshell
+    :commands eshell-toggle
+    ;; :bind (:map evil-normal-state-map
+    ;;         ("C-`" . eshell-toggle)
+    ;;        :map eshell-mode-map
+    ;;         ("C-`" . eshell-toggle))
+    ;; :straight (:type: git
+    ;;             :host github
+    ;;             :repo "4DA/eshell-toggle"
+    ;;             :branch "master")
+    :custom
+    (eshell-toggle-size-fraction 3)
+    (eshell-toggle-use-projectile-root t)
+    (eshell-toggle-run-command nil)
+    (eshell-toggle-default-directory "~/"))
+
+
+  ;; Kill shell buffer when shell exits
+  (use-package shell
+    :straight nil
+    :hook (shell-mode . my-shell-mode-hook-func)
+    :config
+    (defun my-shell-mode-hook-func ()
+      (set-process-sentinel (get-buffer-process (current-buffer))
+  			  'my-shell-mode-kill-buffer-on-exit))
+    (defun my-shell-mode-kill-buffer-on-exit (process state)
+      (message "%s" state)
+      (if (or
+  	 (string-match "exited abnormally with code.*" state)
+  	 (string-match "finished" state))
+  	(kill-buffer (current-buffer))))
+
+    ;; default shell buffer
+    (setq explicit-shell-file-name (getenv "SHELL"))
+    ;; use shell-file-name for subprocesses
+    (setq shell-file-name explicit-shell-file-name))
+
+  ;; Eat: Emulate A Terminal
+  (use-package eat
+    :demand t
+    :custom
+    (eat-term-name "xterm")
+    :config
+    (eat-eshell-mode)                     ; use Eat to handle term codes in program output
+    (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
+
+  (use-package tramp
+    :demand t
+    :straight nil
+    :custom
+    (tramp-default-method "ssh")
+    (tramp-inline-compress-start-size 40960)
+    (tramp-chunksize 500)
+    (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
+    (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
+    (tramp-encoding-shell "/bin/sh"))
+
+  (use-package counsel-tramp
+    :after (counsel tramp)
+    :commands counsel-tramp)
+
+  (defvar my/en-abbrevs nil)
+  (define-abbrev-table
+    'my/en-abbrevs '(
+                     ("aint" "ain't" nil 0)
+                     ("ami" "am I" nil 0)
+                     ("arent" "aren't" nil 0)
+                     ("cant" "can't" nil 0)
+                     ("chinese" "Chinese" nil 0)
+                     ("couldnt" "couldn't" nil 0)
+                     ("didnt" "didn't" nil 0)
+                     ("didt" "didn't" nil 0)
+                     ("doesnt" "doesn't" nil 0)
+                     ("dont" "don't" nil 0)
+                     ("elses" "else's" nil 0)
+                     ("exceause" "excuse" nil 0)
+                     ("exceauses" "excuses" nil 0)
+                     ("everobodys" "everybody's" nil 0)
+                     ("hasnt" "hasn't" nil 0)
+                     ("hast" "hasn't" nil 0)
+                     ("ive" "I've" nil 0)
+                     ("ihave" "I've" nil 0)
+                     ("im" "I'm" nil 0)
+                     ("inteligence" "intelligence" nil 0)
+                     ("isnt" "isn't" nil 0)
+                     ("Iwould" "I'd" nil 0)
+                     ("Iwoudl" "I'd" nil 0)
+                     ("ill" "I'll" nil 0)
+                     ("interuption" "interruption" nil 0)
+                     ("interuptions" "interruptions" nil 0)
+                     ("iwill" "I'll" nil 0)
+                     ("havent" "haven't" nil 0)
+                     ("hows" "how's" nil 0)
+                     ("youre" "you're" nil 0)
+                     ("youare" "you're" nil 0)
+                     ("youd" "you'd" nil 0)
+                     ("youve" "you've" nil 0)
+                     ("youll" "you'll" nil 0)
+                     ("youwll" "you'll" nil 0)
+                     ("mustnt" "mustn't" nil 0)
+                     ("ppl" "people" nil 0)
+                     ("Ppl" "People" nil 0)
+                     ("prefered" "preferred" nil 0)
+                     ("shouldnt" "shouldn't" nil 0)
+                     ("shouldt" "shouldn't" nil 0)
+                     ("shouldve" "should've" nil 0)
+                     ("shes" "she's" nil 0)
+                     ("shewill" "she'll" nil 0)
+                     ("sheill" "she'll" nil 0)
+                     ("wasnt" "wasn't" nil 0)
+                     ("weare" "we're" nil 0)
+                     ("wewill" "we'll" nil 0)
+                     ("weill" "we'll" nil 0)
+                     ("whatdo" "what'd" nil 0)
+                     ("whats" "what's" nil 0)
+                     ("whos" "who's" nil 0)
+                     ("wont" "won't" nil 0)
+                     ("wouldnt" "wouldn't" nil 0)
+                     ("wouldve" "would've" nil 0)
+                     ("wouldhave" "would've" nil 0)
+                     ("thats" "that's" nil 0)
+                     ("theres" "there's" nil 0)
+                     ("therell" "there'll" nil 0)
+                     ("therell" "there'll" nil 0)
+                     ("theyre" "they're" nil 0)
+                     ("totaly" "totally" nil 0)
+                     ("readonly" "read-only" nil 0)
+
+                     ("indexeddb" "IndexedDB" nil 0)
+                     ("fomo" "FOMO" nil 0)
+                     ("shopify" "Shopify" nil 0)
+                     ("sms" "SMS" nil 0)
+                     ("ios" "iOS" nil 0)
+                     ("IOS" "iOS" nil 0)
+                     ("android" "Android" nil 0)
+                     ("google" "Google" nil 0)
+                     ("docker" "Docker" nil 0)
+                     ("sqlite" "SQLite" nil 0)
+                     ("postgresql" "PostgreSQL" nil 0)
+                     ("graphql" "GraphQL" nil 0)
+                     ("linkedin" "LinkedIn" nil 0)
+                     ("skype" "Skype" nil 0)
+                     ("dns" "DNS" nil 0)
+                     ("cloudflare" "Cloudflare" nil 0)
+                     ("svg" "SVG" nil 0)
+                     ("tlds" "TLDs" nil 0)
+                     ("tld" "TLD" nil 0)
+                     ("hackernews" "HackerNews" nil 0)
+                     ("thunderbird" "Thunderbird" nil 0)
+                     ("firefox" "Firefox" nil 0)
+                     ("twitter" "Twitter" nil 0)
+                     ("nextjs" "Next.js" nil 0)
+                     ("mongodb" "MongoDB" nil 0)
+                     ("expressjs" "Express.js" nil 0)
+                     ("nodejs" "NodeJS" nil 0)
+                     ("css" "CSS" nil 0)
+                     ("wordpress" "Wordpress" nil 0)
+                     ("debian" "Debian" nil 0)
+                     ("github" "GitHub" nil 0)
+                     ("coo" "COO" nil 0)
+                     ("cfo" "CFO" nil 0)
+                     ("ceo" "CEO" nil 0)
+                     ("dao" "DAO" nil 0)
+                     ("nft" "NFT" nil 0)
+                     ("FF" "FireFox" nil 0)
+                     ("ff" "FireFox" nil 0)
+                     ("YT" "YouTube" nil 0)
+                     ("FB" "Facebook" nil 0)
+                     ("fb" "Facebook" nil 0)
+                     ("IG" "Instagram" nil 0)
+                     ("ig" "Instagram" nil 0)
+                     ("facebook" "Facebook" nil 0)
+                     ("telegram" "Telegram" nil 0)
+                     ("youtube" "YouTube" nil 0)
+                     ("BT" "Bluetooth" nil 0)
+                     ("macos" "MacOS" nil 0)
+                     ("seo" "SEO" nil 0)
+                     ("irc" "IRC" nil 0)
+                     ("rss" "RSS" nil 0)
+                     ("url" "URL" nil 0)
+                     ("crm" "CRM" nil 0)
+                     ("erp" "ERP" nil 0)
+                     ("b2b" "B2B" nil 0)
+                     ("b2c" "B2C" nil 0)
+                     ("btc" "BTC" nil 0)
+                     ("eth" "ETH" nil 0)
+                     ("arb" "ARB" nil 0)
+                     ("matic" "MATIC" nil 0)
+                     ("cms" "CMS" nil 0)
+                     ("sim" "SIM" nil 0)
+                     ("voip" "VoIP" nil 0)
+                     ("linux" "Linux" nil 0)
+                     ("ascii" "ASCII" nil 0)
+                     ("twitch" "Twitch" nil 0)
+                     ("airbnb" "AirBnB" nil 0)
+                     ("json" "JSON" nil 0)
+                     ("ai" "AI" nil 0)
+                     ("chatgpt" "ChatGPT" nil 0)
+                     ("asap" "ASAP" nil 0)
+                     ("emacs" "Emacs" nil 0)
+                     ("termux" "Termux" nil 0)
+                     ("whatsup" "WhatsApp" nil 0)
+                     ("whatsapp" "WhatsApp" nil 0)
+                     ("whatapp" "WhatsApp" nil 0)
+                     ("email" "e-mail" nil 0)
+                     ("emails" "e-mails" nil 0)
+                     ("ui" "UI" nil 0)
+                     ("gui" "GUI" nil 0)
+                     ("todo" "TODO" nil 0)
+                     ) nil :case-fixed nil)
+
+  (defvar my/pl-abbrevs nil)
+  (define-abbrev-table
+    'my/pl-abbrevs '(
+                     ("indexeddb" "IndexedDB" nil 0)
+                     ("fomo" "FOMO" nil 0)
+                     ("shopify" "Shopify" nil 0)
+                     ("sms" "SMS" nil 0)
+                     ("IOS" "iOS" nil 0)
+                     ("ios" "iOS" nil 0)
+                     ("android" "Android" nil 0)
+                     ("google" "Google" nil 0)
+                     ("docker" "Docker" nil 0)
+                     ("sqlite" "SQLite" nil 0)
+                     ("postgresql" "PostgreSQL" nil 0)
+                     ("graphql" "GraphQL" nil 0)
+                     ("linkedin" "LinkedIn" nil 0)
+                     ("skype" "Skype" nil 0)
+                     ("dns" "DNS" nil 0)
+                     ("cloudflare" "Cloudflare" nil 0)
+                     ("svg" "SVG" nil 0)
+                     ("tlds" "TLDs" nil 0)
+                     ("tld" "TLD" nil 0)
+                     ("hackernews" "HackerNews" nil 0)
+                     ("thunderbird" "Thunderbird" nil 0)
+                     ("firefox" "Firefox" nil 0)
+                     ("twitter" "Twitter" nil 0)
+                     ("nextjs" "Next.js" nil 0)
+                     ("mongodb" "MongoDB" nil 0)
+                     ("expressjs" "Express.js" nil 0)
+                     ("nodejs" "NodeJS" nil 0)
+                     ("css" "CSS" nil 0)
+                     ("wordpress" "Wordpress" nil 0)
+                     ("debian" "Debian" nil 0)
+                     ("github" "GitHub" nil 0)
+                     ("coo" "COO" nil 0)
+                     ("cfo" "CFO" nil 0)
+                     ("ceo" "CEO" nil 0)
+                     ("dao" "DAO" nil 0)
+                     ("nft" "NFT" nil 0)
+                     ("FF" "FireFox" nil 0)
+                     ("ff" "FireFox" nil 0)
+                     ("YT" "YouTube" nil 0)
+                     ("FB" "Facebook" nil 0)
+                     ("fb" "Facebook" nil 0)
+                     ("IG" "Instagram" nil 0)
+                     ("ig" "Instagram" nil 0)
+                     ("facebook" "Facebook" nil 0)
+                     ("telegram" "Telegram" nil 0)
+                     ("youtube" "YouTube" nil 0)
+                     ("BT" "Bluetooth" nil 0)
+                     ("macos" "MacOS" nil 0)
+                     ("seo" "SEO" nil 0)
+                     ("irc" "IRC" nil 0)
+                     ("rss" "RSS" nil 0)
+                     ("url" "URL" nil 0)
+                     ("crm" "CRM" nil 0)
+                     ("erp" "ERP" nil 0)
+                     ("b2b" "B2B" nil 0)
+                     ("b2c" "B2C" nil 0)
+                     ("btc" "BTC" nil 0)
+                     ("eth" "ETH" nil 0)
+                     ("arb" "ARB" nil 0)
+                     ("matic" "MATIC" nil 0)
+                     ("cms" "CMS" nil 0)
+                     ("sim" "SIM" nil 0)
+                     ("voip" "VoIP" nil 0)
+                     ("linux" "Linux" nil 0)
+                     ("ascii" "ASCII" nil 0)
+                     ("twitch" "Twitch" nil 0)
+                     ("airbnb" "AirBnB" nil 0)
+                     ("json" "JSON" nil 0)
+                     ("ai" "AI" nil 0)
+                     ("chatgpt" "ChatGPT" nil 0)
+                     ("asap" "ASAP" nil 0)
+                     ("emacs" "Emacs" nil 0)
+                     ("termux" "Termux" nil 0)
+                     ("whatsup" "WhatsApp" nil 0)
+                     ("whatsapp" "WhatsApp" nil 0)
+                     ("whatapp" "WhatsApp" nil 0)
+                     ("email" "e-mail" nil 0)
+                     ("emails" "e-mails" nil 0)
+                     ("ui" "UI" nil 0)
+                     ("gui" "GUI" nil 0)
+                     ("todo" "TODO" nil 0)
+                     ) nil :case-fixed nil)
+
+  (define-minor-mode my/en-mode
+    "Language mode for `en`."
+    :init-value nil
+    :lighter " en"
+    (setq-local
+     ispell-local-dictionary "en"
+     local-abbrev-table my/en-abbrevs
+     langtool-default-language "en")
+    (message "English language activated."))
+
+  (define-minor-mode my/pl-mode
+    "Language mode for `pl`."
+    :init-value nil
+    :lighter " pl"
+    (setq-local
+     ispell-local-dictionary "pl"
+     local-abbrev-table my/pl-abbrevs
+     langtool-default-language "pl")
+    (message "Polish language activated."))
+
+  (use-package abbrev
+    :straight nil
+    :diminish "Abb"
+    :demand t
+    :hook ((text-mode . abbrev-mode)
+           (text-mode . my/en-mode))
+    :custom
+    (save-abbrevs nil)
+    (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
+
+  (straight-register-package 'ispell)
+  (if (executable-find "aspell")
+      (use-package ispell
+        :defer 2
+        :custom
+        (ispell-local-dictionary "en_US")
+        (ispell-local-dictionary-alist
+         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+           ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+        (ispell-dictionary "en_US")
+        (ispell-dictionary-alist
+         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+           ("fr_FR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "fr_FR") nil utf-8)))
+        ;; (ispell-program-name (executable-find "hunspell"))
+        (ispell-program-name (executable-find "aspell"))
+        (ispell-really-aspell t)
+        ;; (ispell-really-hunspell t)
+        (ispell-silently-savep t)
+        ;; (ispell-extra-args '("--sug-mode=ultra") ;; for hunspell only
+        :preface
+        (setq my/lang-modes '((en . my/en-mode) (pl . my/pl-mode)))
+        (defun my/lang-modes-deactivate ()
+          "Deactivate all lang modes."
+          (interactive)
+          (my/en-mode -1)
+          (my/pl-mode -1))
+
+        (defun my/lang-toggle ()
+          "Toggle language modes."
+          (interactive)
+          (unless (derived-mode-p 'prog-mode)
+            (let ((new-mode (symbol-function
+                             (cond
+                              ((bound-and-true-p my/pl-mode) #'my/en-mode)
+                              ((bound-and-true-p my/en-mode) #'my/pl-mode)
+                              ((bound-and-true-p my/language-local) (cdr (assoc my/language-local my/lang-modes)))
+                              (t #'my/en-mode))
+                             )))
+              (my/lang-modes-deactivate)
+              (funcall new-mode 1)))))
+    (message "No executable 'aspell' found"))
+
+  (use-package flyspell
+    :commands flyspell-mode
+    :diminish "fly"
+    :custom
+    (flyspell-issue-message-flag nil)
+    (flyspell-issue-welcome-flag nil)
+    :config
+    (flyspell-prog-mode)
+    (add-to-list 'ispell-skip-region-alist '(":PROPERTIES:" ":END:"))
+    (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+    (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE")))
+
+  (use-package artbollocks-mode
+    :commands artbollocks-mode
+    :custom
+    (artbollocks-weasel-words-regex
+     (concat "\\b" (regexp-opt
+                    '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
+                                          ; test
+                      "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
+  		    ) t) "\\b")
+     artbollocks-jargon nil))
 
 (use-package ledger-mode
   :bind (:map ledger-mode-map
