@@ -16,10 +16,11 @@
     (unless (file-directory-p my/org-roam-dir)
       (mkdir my/org-roam-dir)))
 
-  (if (not (file-exists-p my/local-config-file))
-      (error (concat "'" my/local-config-file "' file not exists!"))
-    (message (concat "Loading " my/local-config-file "..."))
-    (load my/local-config-file))
+  (if (file-exists-p my/local-config-file)
+      (progn
+        (message "Loading %s..." my/local-config-file)
+        (load my/local-config-file))
+      (error "File '%s' not exists!" my/local-config-file))
 
   (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
@@ -601,7 +602,7 @@
       (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
         (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
           (nerd-icons-install-fonts t)
-          (message "install nerd")))))
+          (message "nerd-icons installed")))))
 
   (setq  bookmark-save-flag 1)
 
@@ -967,7 +968,7 @@
   "Revert current buffer without asking for confirmation."
   (interactive)
   (revert-buffer :ignore-auto :noconfirm)
-  (message (format "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name))))
+  (message "Buffer '%s' reloaded." (file-name-nondirectory buffer-file-name)))
 
 (use-package tab-bar
   :demand t
@@ -1013,13 +1014,9 @@
              (dir (read-directory-name "Base directory: " nil default-directory t))
              (command (concat "ack '" regexp "' '" dir "'")))
         (unless (file-accessible-directory-p dir)
-          (error (concat "directory: '" dir "' is not accessible.")))
+          (error "directory: '%s' is not accessible." dir))
   	    (compilation-start (concat command " < " null-device) 'grep-mode))
     (error "No executable 'ack' found!")))
-
-;;   (evil-define-key 'normal global-mapq
-;;     (kbd ",f") 'my/rgrep)
-
 
 (use-package windmove
   :straight nil
@@ -1100,7 +1097,7 @@
                       (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
                         (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                               (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
-    (warn (concat "Variable 'my/epa-file-encrypt-to-default' is not set, GPG not available!")))
+    (warn "Variable '%s' is not set, GPG not available!" my/epa-file-encrypt-to-default)))
 
   (use-package dired
     :demand t
@@ -2751,7 +2748,7 @@
       (set-process-sentinel (get-buffer-process (current-buffer))
   			  'my-shell-mode-kill-buffer-on-exit))
     (defun my-shell-mode-kill-buffer-on-exit (process state)
-      (message "%s" state)
+      (message state)
       (if (or
   	 (string-match "exited abnormally with code.*" state)
   	 (string-match "finished" state))
