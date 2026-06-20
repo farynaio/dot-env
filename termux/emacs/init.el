@@ -1152,6 +1152,14 @@
             (kill-new new-kill)
             (message "%s" new-kill))))))
 
+(straight-register-package 'all-the-icons-dired)
+(when (display-graphic-p)
+  (use-package all-the-icons-dired
+    :demand t
+    :after dired
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
+
   (use-package major-mode-hydra
     :demand t
     :commands major-mode-hydra
