@@ -2706,7 +2706,7 @@
   	      (setq-local xterm-color-preserve-properties t)))
 
     ;; Truncate buffer for performance
-    ;; (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
+    (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
 
     ;; We want to use xterm-256color when running interactive commands
     ;; in eshell but not during other times when we might be launching
