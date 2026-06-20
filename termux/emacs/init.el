@@ -1367,8 +1367,8 @@
        ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
     (org-priority-cookie () (format "[#%c]" org-default-priority))
     :config
-    (add-to-list 'org-structure-template-alist
-    	       '("init.el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
     ;; (major-mode-hydra-define (org-mode)
     ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
