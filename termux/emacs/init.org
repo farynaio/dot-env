@@ -119,9 +119,9 @@ TODO:
       			    ;; Setting the face in here prevents flashes of
       			    ;; color as the theme gets activated
       			    (background-color . "#000000")
-      			    (foreground-color . "#ffffff")
-      			    (ns-appearance . dark)
-      			    (ns-transparent-titlebar . t)))
+      			    (foreground-color . "#ffffff")))
+      			    ;; (ns-appearance . dark)
+      			    ;; (ns-transparent-titlebar . t)))
 
   ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -3262,7 +3262,7 @@ Untested
         (native--compile-async `(,my/local-config-dir) t nil)
       (warn "Native compile not available!")))
 #+end_src
-* Restore gc
+* Post config
 #+begin_src emacs-lisp
   (setq gc-cons-threshold most-positive-fixnum)
 #+end_src
