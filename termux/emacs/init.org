@@ -2,7 +2,10 @@
 #+STARTUP: overview
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
-Try:
+TODO:
+- replace eglot with lsp + dap?
+  + https://github.com/daviwil/emacs-from-scratch/blob/210e517353abf4ed669bc40d4c7daf0fabc10a5c/init.el
+  + https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/
 - https://github.com/magnars/emacsd-reboot/blob/main/early-init.el needed for Termux?
 - https://www.gnu.org/software/emacs/manual/html_node/autotype/Hippie-Expand.html
   + https://www.emacswiki.org/emacs/download/hippie-exp-ext.el
@@ -1629,7 +1632,7 @@ Try:
     (defalias 'my/calendar-full #'my/calendar-year)
     (defalias 'yearly-calendar #'my/calendar-year))
 #+end_src
-* Projects
+* Project
 #+begin_src emacs-lisp
   (use-package projectile
     :demand t
