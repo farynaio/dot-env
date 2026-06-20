@@ -1192,39 +1192,40 @@
 
     (pretty-hydra-define hydra-project
   		       (:hint nil :color teal :quit-key "q" :title (with-faicon "archive" "Project" 1 -0.05))
-  		       ("Find"
+  		       ("Actions"
+  			(("a" my/projectile-add-known-project "add")
+    			 ("d" projectile-remove-known-project "remove")
+  			 ("i" projectile-invalidate-cache "reset cache")
+    			 ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))
+                      "Find"
   			(("p" counsel-projectile-switch-project "project")
     			 ("o" projectile-find-other-file "other file")
     			 ("t" projectile-find-tag "tag")
     			 ("s" counsel-rg "search")
-    			 ("g" yant/occur-current-project "grep"))
-  			"Actions"
-  			(("a" my/projectile-add-known-project "add")
-    			 ("d" projectile-remove-known-project "remove")
-  			 ("i" projectile-invalidate-cache "reset cache")
-    			 ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))))
+    			 ("g" yant/occur-current-project "grep"))))
 
     (pretty-hydra-define hydra-org
   		       (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
-  		       ("Action"
+  		       ("Actions"
   			(("c" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
   			 ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
   			 ("t" org-toggle-timestamp-type "timestamp toggle")
   			 ("l" org-link-archive-at-point "link archive")
-  			 ("h" org-archive-subtree "archive heading subtree"))
+  			 ("h" org-archive-subtree "archive heading subtree")
+  			 ("g" counsel-org-goto "goto heading")
+                       ("s" org-roam-node-find "find node"))
   			"Toggle"
   			(("a" org-appear-mode "org-appear toggle" :toggle t)
-  			 ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))
-  			"Navigation"
-  			(("g" counsel-org-goto "goto heading"))
-  			"Roam"
-  			(("s" org-roam-node-find "find node"))))
+  			 ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
 
     (pretty-hydra-define hydra-navigation
   		       (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
-  		       (""
-  			(("a" my/rgrep "ack" :exit t))
-  			"Registers"
+                     (""
+                      (("a" my/rgrep "ack" :exit t))))
+
+    (pretty-hydra-define hydra-registers
+  		       (:hint nil :color teal :quit-key "q" :title (with-faicon "bookmark" "Registers" 1 -0.05))
+  		       ("Registers"
   			(("rp" point-to-register "point to register" :exit t)
   			 ("rj" jump-to-register "jump to register" :exit t))
   			"Bookmarks"
@@ -1234,7 +1235,7 @@
 
     (pretty-hydra-define hydra-git
   		       (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-  		       ("Action"
+  		       ("Actions"
   			(("s" magit-status "status")
   			 ("b" magit-blame "blame")
     			 ("l" magit-log-buffer-file "commit log (current file)")
@@ -1257,23 +1258,23 @@
   			(("x" xref-find-references-and-replace "replace references" :exit t)
   			 ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
   			 ("ac" counsel-colors-emacs "color picker" :exit t)
-  			 ("o" my/eglot-organize-imports "organize imports" :exit t))
+  			 ("o" my/eglot-organize-imports "organize imports" :exit t)
+  			 ("fc" flycheck-mode "flycheck" :toggle t)
+  			 ("fm" flymake-mode "flymake" :toggle t))
   			"Navigate"
   			(("d" my/xref-find-definitions-at-point "find definitions" :exit t)
   			 ("r" my/xref-find-references-at-point "find references" :exit t)
   			 ("t" projectile-find-tag "find tag" :exit t)
   			 ("g" counsel-projectile-git-grep "git grep" :exit t)
   			 ("i" counsel-imenu "imenu" :exit t)
-  			 ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))
-  			"Toggle"
-  			(("fc" flycheck-mode "flycheck" :toggle t)
-  			 ("fm" flymake-mode "flymake" :toggle t))))
+  			 ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
 
     (pretty-hydra-define hydra-base
   		       (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
   		       (""
   			(("p" hydra-project/body "project")
   			 ("n" hydra-navigation/body "navigation")
+  			 ("r" hydra-registers/body "registers")
   			 ("g" hydra-git/body "git")
   			 ("o" hydra-org/body "org")
   			 ("d" hydra-dev/body "dev")
