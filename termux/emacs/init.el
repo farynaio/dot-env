@@ -1592,6 +1592,7 @@
     (projectile-track-known-projects-automatically nil)
     (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
     (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+    (projectile-switch-project-action #'projectile-dired)
     :config
     (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
     (unbind-key "C-c p" projectile-mode-map)
