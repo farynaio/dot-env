@@ -1098,7 +1098,7 @@
                       (unless (alist-get 'epa-file-encrypt-to file-local-variables-alist)
                         (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                               (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
-    (warn "Variable '%s' is not set, GPG not available!" my/epa-file-encrypt-to-default)))
+    (warn "Variable '%s' is not set, GPG not available!" 'my/epa-file-encrypt-to-default))
 
   (use-package dired
     :demand t
