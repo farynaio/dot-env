@@ -473,6 +473,7 @@
     (magit-commit-ask-to-stage nil)
     (magit-commit-squash-confirm nil)
     (magit-no-confirm '(stage-all-changes unstage-all-changes set-and-push edit-published rebase-published amend-published))
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
     (auto-revert-buffer-list-filter 'magit-auto-revert-repository-buffer-p)
     (magit-blame-styles '((margin
                            (margin-format " %s%f" " %C %a" " %H")
