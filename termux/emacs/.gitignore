@@ -11,5 +11,6 @@
 /tramp
 /tree-sitter
 *~*
+/projectile-bookmarks.eld
 
 /.mc-lists.el
