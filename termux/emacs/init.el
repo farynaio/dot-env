@@ -1744,6 +1744,7 @@
     (add-to-list 'eglot-ignored-server-capabilites :hoverProvider))
 
   (use-package dtrt-indent
+    :disabled t
     :commands (dtrt-indent-mode my/dtrt-indent-mode-toggle)
     :diminish "dtrt"
     :preface
