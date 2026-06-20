@@ -1679,6 +1679,7 @@
   (setq cperl-indent-level tab-width)
   (setq sgml-basic-offset tab-width)
 
+  ;; Colorize color names in buffers
   (use-package rainbow-mode
     :demand t
     :diminish rainbow-mode
@@ -1860,6 +1861,7 @@
     :hook ((prog-mode . topsy-mode)
            (magit-section-mode . topsy-mode)))
 
+  ;; Highlight brackets according to their depth
   (use-package rainbow-delimiters
     :commands rainbow-delimiters-mode)
 
