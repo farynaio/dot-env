@@ -3145,9 +3145,6 @@
         :bind (:map elfeed-show-mode-map
                     ("SPC" . elfeed-scroll-up-command)
                     ("S-SPC" . elfeed-scroll-down-command)
-                    ("<mouse-1>" . shr-copy-url)
-                    ("<s-mouse-1>" . shr-copy-url)
-                    ("<S-mouse-1>" . shr-copy-url)
                     ("C-x C-l" . shr-copy-url)
                     ("l" . shr-copy-url)
                     ("C-c C-l" . hydra-elfeed/body)
@@ -3155,12 +3152,6 @@
                     ;; ("RET" . my/elfeed-shr-open-external)
                     ;; ("v" . my/elfeed-shr-open-external)
                     ;; ("O" . my/elfeed-shr-open-external)
-                    ("<mouse-1>" . shr-copy-url)
-                    ("<mouse-2>" . shr-copy-url)
-                    ("<S-mouse-1>" . shr-copy-url)
-                    ;; ("<mouse-1>" . my/elfeed-shr-open-click)
-                    ;; ("<mouse-2>" . my/elfeed-shr-open-click)
-                    ;; ("<S-mouse-1>" . my/elfeed-shr-open-click)
                     :map elfeed-search-mode-map
                     ("h" . hydra-elfeed-search/body)
                     ("q" . my/elfeed-save-db-and-bury)
@@ -3195,6 +3186,19 @@
         (elfeed-web-limit 500)
         (url-queue-timeout 60)
         :config
+        (unless (eq system-type 'android)
+          (bind-keys :map shr-map
+                     ("<mouse-1>" . shr-copy-url)
+                     ("<mouse-2>" . shr-copy-url)
+                     ("<S-mouse-1>" . shr-copy-url)
+                     ;; ("<mouse-1>" . my/elfeed-shr-open-click)
+                     ;; ("<mouse-2>" . my/elfeed-shr-open-click)
+                     ;; ("<S-mouse-1>" . my/elfeed-shr-open-click)
+                     :map elfeed-show-mode-map
+                     ("<mouse-1>" . shr-copy-url)
+                     ("<s-mouse-1>" . shr-copy-url)
+                     ("<S-mouse-1>" . shr-copy-url)))
+
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
           ("Action"
