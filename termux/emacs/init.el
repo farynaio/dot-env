@@ -929,9 +929,11 @@
          ("C-c C-<" . mc/mark-all-like-this)))
 
 ;; Automatically prompt for sudo in write protected files
-(use-package auto-sudoedit
-  :defer 1
-  :config (auto-sudoedit-mode 1))
+(straight-register-package 'auto-sudoedit)
+(unless (eq system-type 'android)
+  (use-package auto-sudoedit
+    :defer 1
+    :config (auto-sudoedit-mode 1)))
 
 (use-package drag-stuff
   :demand t
