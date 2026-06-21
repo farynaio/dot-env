@@ -1318,6 +1318,7 @@
     	 (org-agenda-mode . hl-line-mode)
            (org-mode . org-indent-mode))
     :custom
+    (org-tags-column 0)
     (org-adapt-indentation nil)
     (org-startup-folded 'fold)
     (org-startup-indented t)
