@@ -3178,7 +3178,7 @@
           "Wrapper to load the elfeed db from disk before opening"
           (interactive)
           (elfeed-db-load)
-          (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))
+          (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M"))
           (elfeed-update)
           (elfeed-search-update--force)
           (elfeed-db-save)
@@ -3211,8 +3211,7 @@
            ("<RET>" . shr-copy-url)
            :map elfeed-show-mode-map
            ("<RET>" . shr-copy-url)
-           ("<end>" . elfeed-goodies/delete-pane)
-           ))
+           ("<end>" . elfeed-goodies/delete-pane)))
 
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
