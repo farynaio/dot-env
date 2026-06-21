@@ -3204,7 +3204,8 @@
            :map shr-map
            ("<RET>" . shr-copy-url)
            :map elfeed-show-mode-map
-           ("<RET>" . shr-copy-url)))
+           ("<RET>" . shr-copy-url)
+           ("<ESC>" . elfeed-goodies/delete-pane)))
 
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
