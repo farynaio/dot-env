@@ -3199,14 +3199,20 @@
                      ("<s-mouse-1>" . shr-copy-url)
                      ("<S-mouse-1>" . shr-copy-url)))
 
+        (when (eq system-type 'android)
+          (bind-keys
+           :map shr-map
+           ("<RET>" . shr-copy-url)
+           :map elfeed-show-mode-map
+           ("<RET>" . shr-copy-url)))
+
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
           ("Action"
            (
             ;; ("b" my/erc-browse-last-url "browse last url")
             ("c" my/erc-start-or-switch "connect")
-            ("r" my/erc-reset-track-mode "reset track mode")))
-          )
+            ("r" my/erc-reset-track-mode "reset track mode"))))
 
         (pretty-hydra-define hydra-elfeed-search
           (:hint nil :color teal :quit-key "q" :title (with-faicon "rss" "RSS search" 1 -0.05))
@@ -3394,8 +3400,7 @@
                         )
                       (insert "<#/multipart>")
                       )
-                  (insert (propertize "(empty)\n" 'face 'italic)))
-                )
+                  (insert (propertize "(empty)\n" 'face 'italic))))
 
               (message-send-and-exit)
               (elfeed-tag entry 'mail)
