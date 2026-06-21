@@ -4,8 +4,8 @@
 (defconst my/epa-file-encrypt-to-default '(""))
 (setq-default mml-secure-openpgp-signers '(""))
 
-(setq my/elfeed-org-feeds-files nil)
-(setq my/elfeed-db-folder nil) ; for index and data/
+(setq my/elfeed-org-feeds-files (list (expand-file-name "feeds.org" "~/Sync/elfeed")))
+(setq my/elfeed-db-folder "~/Sync/elfeed") ; for index and data/
 
 ;; optional
 (setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
