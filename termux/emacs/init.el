@@ -3211,7 +3211,7 @@
            ("<RET>" . shr-copy-url)
            :map elfeed-show-mode-map
            ("<RET>" . shr-copy-url)
-           ;; ("<ESC>" . elfeed-goodies/delete-pane)
+           ("<end>" . elfeed-goodies/delete-pane)
            ))
 
         (pretty-hydra-define hydra-elfeed
