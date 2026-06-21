@@ -3205,7 +3205,8 @@
            ("<RET>" . shr-copy-url)
            :map elfeed-show-mode-map
            ("<RET>" . shr-copy-url)
-           ("<ESC>" . elfeed-goodies/delete-pane)))
+           ;; ("<ESC>" . elfeed-goodies/delete-pane)
+           ))
 
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
@@ -3520,3 +3521,7 @@
 
 (setq gc-cons-threshold most-positive-fixnum)
 (bind-key "C-x g" #'magit-status)
+
+(when (eq system-type 'android)
+  (bind-keys
+   ("C-x ;" . comment-line)))
