@@ -26,10 +26,4 @@
  (rear-context-string . "52 Feb 19 02:04 ")
  (position . 76)
  (last-modified 27178 20290 948552 6000))
-("init.el"
- (filename . "~/.emacs.d/init.el")
- (front-context-string . "\n\n(require 'orde")
- (rear-context-string . "ounsel-bookmark)")
- (position . 1377)
- (last-modified 27178 20197 401289 184000))
 )
