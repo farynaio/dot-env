@@ -745,6 +745,12 @@
     :config
     (dashboard-setup-startup-hook))
 
+(defun my/messages-close-on-end ()
+  "Bind END in the *Messages* buffer to close its window."
+  (when (and (string= (buffer-name) "*Messages*") (eq system-type 'android))
+    (bind-key "<END>"  #'delete-window (current-local-map))))
+(add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
+
   (use-package ivy
     :demand t
     :custom
@@ -3520,7 +3526,8 @@
       (warn "Native compile not available!")))
 
 (setq gc-cons-threshold most-positive-fixnum)
-(bind-key "C-x g" #'magit-status)
+(bind-keys
+ ("C-x g" . magit-status))
 
 (when (eq system-type 'android)
   (bind-keys
