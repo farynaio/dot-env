@@ -3437,6 +3437,7 @@
           (unless (use-region-p) (next-line))))
 
       (use-package elfeed-goodies
+        :demand t
         :after elfeed
         :bind (:map elfeed-show-mode-map
                     ("n" . 'elfeed-goodies/split-show-next)
@@ -3511,4 +3512,5 @@
         (native--compile-async `(,my/local-config-dir) t nil)
       (warn "Native compile not available!")))
 
-  (setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold most-positive-fixnum)
+(bind-key "C-x g" #'magit-status)

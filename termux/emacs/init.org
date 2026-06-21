@@ -3523,6 +3523,7 @@ Untested
           (unless (use-region-p) (next-line))))
 
       (use-package elfeed-goodies
+        :demand t
         :after elfeed
         :bind (:map elfeed-show-mode-map
                     ("n" . 'elfeed-goodies/split-show-next)
@@ -3603,7 +3604,8 @@ Untested
 #+end_src
 * Post config
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold most-positive-fixnum)
+(bind-key "C-x g" #'magit-status)
 #+end_src
 * Local Variables
 # Local Variables:
