@@ -3,6 +3,7 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
 TODO:
+- Android make mouse2 click on elfeed-search not open entey, just move cursor only
 - replace eglot with lsp + dap?
   + https://github.com/daviwil/emacs-from-scratch/blob/210e517353abf4ed669bc40d4c7daf0fabc10a5c/init.el
   + https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/
@@ -17,6 +18,9 @@ TODO:
 - https://github.com/magnars/emacsd-reboot/blob/main/settings/editing.el
 - my/org-update-parent-cookie https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-org-mode.el
 - https://github.com/magnars/emacsd-reboot/blob/main/settings/navigation.el
+- add browse-kill-ring to hydra
+
+
 
 * Environment
 #+begin_src emacs-lisp
@@ -25,6 +29,7 @@ TODO:
   (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
 
   ;; overwrite these in local-config.el to avoid pushing them to git
+  (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
   (defvar my/elfeed-org-feeds-files nil)
   (defvar my/elfeed-db-folder nil)
 
@@ -3231,7 +3236,7 @@ Untested
 (straight-register-package 'elfeed)
 (straight-register-package 'elfeed-goodies)
 (straight-register-package 'elfeed-org)
-(if (and my/elfeed-org-feeds-files my/elfeed-db-folder)
+(if (and my/elfeed-org-feeds-files my/elfeed-db-folder my/downloads-dir)
     (progn
       (use-package elfeed
         :commands elfeed-db-load
@@ -3272,6 +3277,7 @@ Untested
           (elfeed))
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
+        (elfeed-enclosure-default-dir my/downloads-dir)
         (elfeed-search-filter "-ignore -ok -junk")
         (elfeed-search-title-max-width 115)
         (elfeed-search-remain-on-entry t)
@@ -3562,7 +3568,7 @@ Untested
       (run-at-time 0 (* 3 60 60) 'my/rss-daily-fetch)
 
       (defalias 'rss #'my/elfeed-load-db-and-open))
-  (warn "Variables 'my/elfeed-org-feeds-files' and 'my/elfeed-db-folder' are required, RSS disabled!"))
+  (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
 #+end_src
 * Ledger
 #+begin_src emacs-lisp

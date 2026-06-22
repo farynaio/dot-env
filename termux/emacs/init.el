@@ -3,6 +3,7 @@
   (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
 
   ;; overwrite these in local-config.el to avoid pushing them to git
+  (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
   (defvar my/elfeed-org-feeds-files nil)
   (defvar my/elfeed-db-folder nil)
 
@@ -3145,7 +3146,7 @@
 (straight-register-package 'elfeed)
 (straight-register-package 'elfeed-goodies)
 (straight-register-package 'elfeed-org)
-(if (and my/elfeed-org-feeds-files my/elfeed-db-folder)
+(if (and my/elfeed-org-feeds-files my/elfeed-db-folder my/downloads-dir)
     (progn
       (use-package elfeed
         :commands elfeed-db-load
@@ -3186,6 +3187,7 @@
           (elfeed))
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
+        (elfeed-enclosure-default-dir my/downloads-dir)
         (elfeed-search-filter "-ignore -ok -junk")
         (elfeed-search-title-max-width 115)
         (elfeed-search-remain-on-entry t)
@@ -3476,7 +3478,7 @@
       (run-at-time 0 (* 3 60 60) 'my/rss-daily-fetch)
 
       (defalias 'rss #'my/elfeed-load-db-and-open))
-  (warn "Variables 'my/elfeed-org-feeds-files' and 'my/elfeed-db-folder' are required, RSS disabled!"))
+  (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
 
   (use-package ledger-mode
     :bind (:map ledger-mode-map
