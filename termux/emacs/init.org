@@ -3,6 +3,7 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
 TODO:
+- check if there is internet connection before running some services?
 - Android make mouse2 click on elfeed-search not open entey, just move cursor only
 - replace eglot with lsp + dap?
   + https://github.com/daviwil/emacs-from-scratch/blob/210e517353abf4ed669bc40d4c7daf0fabc10a5c/init.el
