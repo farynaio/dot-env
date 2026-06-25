@@ -1,5 +1,8 @@
 ;; -*- mode: emacs-lisp -*-
 
+;; mandatory
+(setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
+
 ;; optional, required for GPG
 (defconst my/epa-file-encrypt-to-default '(""))
 (setq-default mml-secure-openpgp-signers '(""))
@@ -9,7 +12,6 @@
 (setq my/elfeed-db-folder "~/Sync/elfeed") ; for index and data/
 
 ;; optional
-(setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (setq my/org-roam-dir (expand-file-name "~/my-roam"))
 (setq my/evil-enable t)
 (setq my/html-enable t) ; advanced
