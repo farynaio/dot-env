@@ -733,23 +733,38 @@
 
   (use-package dashboard
     :demand t
-    :after counsel
+    :after (counsel projectile org)
     :custom
     (dashboard-icon-type 'all-the-icons)
     (dashboard-display-icons-p (display-graphic-p))
-    (dashboard-set-heading-icons nil)
+    (dashboard-set-heading-icons (display-graphic-p))
     (dashboard-set-file-icons (display-graphic-p))
     (dashboard-heading-icons
-     '((recents . "history")
-       (registers . "database")
+     '((agenda . "calendar")
+       (recents . "history")
        (bookmarks . "bookmark")
-       (projects . "rocket")))
+       (registers . "database")))
+    (dashboard-week-agenda t)
+    (dashboard-agenda-sort-strategy '(time-up priority-up))
     (dashboard-center-content t)
     (dashboard-set-init-info t)
-    (dashboard-item-names
-     '(("Recent Files:" . "Recent files:")
-       ("Agenda for today:" . "Today's agenda:")
-       ("Agenda for the coming week:" . "Agenda for the week:")))
+    (dashboard-navigation-cycle t)
+    (dashboard-items
+     '((agenda . 5)
+        (recents . 5)
+        (bookmarks . 5)
+        (registers . 5)))
+    (dashboard-modify-heading-icons '((recents   . "file-text")
+                                      (bookmarks . "book")))
+    ;; (dashboard-item-names
+    ;;  '(("Agenda for today:" . "Today's agenda:")
+    ;;    ("Recent Files:" . "Recent files:")
+    ;;    ("Bookmarks" . "Bookmarks:")
+    ;;    ("Registers" . "Registers:")))
+    (dashboard-item-shortcuts '((agenda    . "a")
+                                (recents   . "r")
+                                (bookmarks . "m")
+                                (registers . "e")))
     (dashboard-projects-switch-function #'counsel-projectile-switch-project-by-name)
     (dashboard-projects-backend 'projectile)
     :config
