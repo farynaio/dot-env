@@ -3214,6 +3214,7 @@
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
         (elfeed-enclosure-default-dir my/downloads-dir)
+        ;; (shr-inhibit-images t)
         (elfeed-search-filter "-ignore -ok -junk")
         (elfeed-search-title-max-width 115)
         (elfeed-search-remain-on-entry t)
