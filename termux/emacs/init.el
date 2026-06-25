@@ -1349,6 +1349,8 @@
 
     (org-fast-tag-selection-single-key t)
 
+    ;; (org-use-property-inheritance t)
+
     (org-src-preserve-indentation t)
     (org-src-fontify-natively t)
     (org-src-tab-acts-natively t)
@@ -1889,11 +1891,11 @@
 
   ;; Highlight brackets according to their depth
   (use-package rainbow-delimiters
-    :commands rainbow-delimiters-mode)
+    :commands rainbow-delimiters-mode
+    :hook (prog-mode . rainbow-delimiters-mode))
 
   (use-package prog-mode
     :straight nil
-    :hook (prog-mode . rainbow-delimiters-mode)
     :bind (("C-c (" . my/wrap-with-parens)
            ("C-c \"" . my/wrap-with-quotes))
     :config
