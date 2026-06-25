@@ -139,7 +139,8 @@
          (bookmarks . "bookmark")
          (agenda . "calendar")
          (projects . "rocket")
-         (registers . "database")))
+         ;; (registers . "database")
+))
     (dashboard-center-content t)
     (dashboard-set-init-info t)
     (dashboard-item-names
