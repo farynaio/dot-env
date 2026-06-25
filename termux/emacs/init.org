@@ -2006,9 +2006,24 @@ TODO:
   ;; (use-package smart-comment
   ;; :bind ("M-;" . smart-comment))
 
+(defun my/fly-prev-error ()
+  (interactive)
+  (if (flycheck-has-current-errors-p 'error)
+      (flycheck-previous-error)
+    (flymake-goto-prev-error 1 'error)))
+
+(defun my/fly-next-error ()
+  (interactive)
+  (if (flycheck-has-current-errors-p 'error)
+      (flycheck-next-error)
+    (flymake-goto-next-error 1 'error)))
+
   (use-package flycheck
     :defer 2
     :commands (flycheck-mode flycheck-buffer)
+    :bind (:map prog-mode-map
+                ("C-c C-{" . my/fly-prev-error)
+                ("C-c C-}" . my/fly-next-error))
     :custom
     (flymake-phpcs-show-rule t)
     (flycheck-display-errors-delay .3)
