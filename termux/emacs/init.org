@@ -5,6 +5,7 @@
 TODO:
 - check if there is internet connection before running some services?
 - Android make mouse2 click on elfeed-search not open entey, just move cursor only
+- add open agenda to hydra
 - replace eglot with lsp + dap?
   + https://github.com/daviwil/emacs-from-scratch/blob/210e517353abf4ed669bc40d4c7daf0fabc10a5c/init.el
   + https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/
