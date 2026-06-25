@@ -448,6 +448,15 @@
   (use-package diff-hl
     :defer 2
     :after magit
+    :bind (:map prog-mode-map
+                ("C-c C-]" . diff-hl-next-hunk)
+                ("C-c C-[" . diff-hl-previous-hunk)
+                :map text-mode-map
+                ("C-c C-]" . diff-hl-next-hunk)
+                ("C-c C-[" . diff-hl-previous-hunk)
+                :map org-mode-map
+                ("C-c C-]" . diff-hl-next-hunk)
+                ("C-c C-[" . diff-hl-previous-hunk))
     :config
     (global-diff-hl-mode 1)
     (diff-hl-margin-mode 1)
