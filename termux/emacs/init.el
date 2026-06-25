@@ -3568,6 +3568,8 @@
         (native--compile-async `(,my/local-config-dir) t nil)
       (warn "Native compile not available!")))
 
+(defun my/time () (format-time-string "%T"))
+
 (setq gc-cons-threshold most-positive-fixnum)
 (bind-keys
  ("C-x g" . magit-status))

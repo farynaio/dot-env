@@ -3664,6 +3664,11 @@ Untested
         (native--compile-async `(,my/local-config-dir) t nil)
       (warn "Native compile not available!")))
 #+end_src
+* Utils
+#+begin_src emacs-lisp
+(defun my/time () (format-time-string "%T"))
+#+end_src
+
 * Post config
 #+begin_src emacs-lisp
 (setq gc-cons-threshold most-positive-fixnum)
