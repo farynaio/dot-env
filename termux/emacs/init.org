@@ -1391,14 +1391,21 @@ TODO:
     :demand t
     :bind (:map org-mode-map
                 ("C-c C-j" . join-line)
-    	      ("M-<up>" . org-metaup)
-    	      ("M-<down>" . org-metadown)
-    	      :map org-mode-map
-    	      ("M-}" . forward-paragraph)
-    	      ("M-{" . backward-paragraph ))
+    	          ("M-<up>" . org-metaup)
+    	          ("M-<down>" . org-metadown)
+                ("C-S-<up>" . org-shiftup)
+                ("C-S-<down>" . org-shiftdown)
+    	          ("M-}" . forward-paragraph)
+    	          ("M-{" . backward-paragraph)
+                ("C-M-<up>" . org-table-move-single-cell-up)
+                ("C-M-<down>" . org-table-move-single-cell-down)
+                ("C-M-<left>" . org-table-move-single-cell-left)
+                ("C-M-<right>" . org-table-move-single-cell-right))
     :hook ((org-mode . org-sticky-header-mode)
-    	 (org-agenda-mode . hl-line-mode)
-           (org-mode . org-indent-mode))
+    	     (org-agenda-mode . hl-line-mode)
+           (org-mode . org-indent-mode)
+          ;; (org-agenda-mode . (lambda () (hl-line-mode 1)))
+          )
     :custom
     (org-tags-column 0)
     (org-adapt-indentation nil)
