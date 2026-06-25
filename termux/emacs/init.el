@@ -619,17 +619,25 @@
           (nerd-icons-install-fonts t)
           (message "nerd-icons installed")))))
 
-  (setq  bookmark-save-flag 1)
-
-  ;; Show more than 4 levels when evaling expressions
-  (setq eval-expression-print-level 100)
-
   ;; Add parts of each file's directory to the buffer name if not unique
   (use-package uniquify
     :straight nil
     :defer 2 ;; Loads after 2 seconds of idle time.
     :custom
     (uniquify-buffer-name-style 'forward))
+
+  (use-package elec-pair
+    :straight nil
+    ;; :hook (prog-mode . electric-pair-mode)
+    :config
+    (push '(?\{ . ?\}) electric-pair-pairs)
+    (push '(?\( . ?\)) electric-pair-pairs)
+    (push '(?\{ . ?\}) electric-pair-text-pairs))
+
+  (setq  bookmark-save-flag 1)
+
+  ;; Show more than 4 levels when evaling expressions
+  (setq eval-expression-print-level 100)
 
   (use-package avy
     :bind ("C-:" . avy-goto-char))
@@ -639,14 +647,6 @@
     :demand t
     :custom
     (wgrep-auto-save-buffer t))
-
-  (use-package elec-pair
-    :straight nil
-    ;; :hook (prog-mode . electric-pair-mode)
-    :config
-    (push '(?\{ . ?\}) electric-pair-pairs)
-    (push '(?\( . ?\)) electric-pair-pairs)
-    (push '(?\{ . ?\}) electric-pair-text-pairs))
 
   (use-package recentf
     :demand t
@@ -732,7 +732,7 @@
 
   (use-package dashboard
     :demand t
-    :after (counsel projectile org)
+    :after counsel
     :custom
     (dashboard-icon-type 'all-the-icons)
     (dashboard-display-icons-p (display-graphic-p))
@@ -1475,7 +1475,14 @@
      'org-babel-load-languages
      '((emacs-lisp . t)))
 
-    (push '("conf-unix" . conf-unix) org-src-lang-modes))
+    (push '("conf-unix" . conf-unix) org-src-lang-modes)
+
+  ;; org mode conflicts resolution: windmove
+  ;; (add-hook 'org-shiftup-final-hook #'windmove-up)
+  ;; (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  ;; (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  ;; (add-hook 'org-shiftright-final-hook #'windmove-right)
+)
 
   (use-package org-appear
     :after org
