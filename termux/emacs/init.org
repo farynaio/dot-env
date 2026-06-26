@@ -2103,13 +2103,12 @@ TODO:
 
   (use-package nxml-mode
     :straight nil
-    :hook (
-           (nxml-mode . eldoc-mode)
+    :hook ((nxml-mode . eldoc-mode)
            (nxml-mode . rainbow-delimiters-mode)
            (nxml-mode . highlight-thing-mode)
            (nxml-mode . electric-pair-local-mode)
            (nxml-mode . topsy-mode)
-           (nxml-mode . emmet-mode)))
+           (nxml-mode . (lambda () (when (featurep 'emmet-mode) (emmet-mode 1))))))
 
   (use-package markdown-mode
     :mode (("\\.markdown\\'" . markdown-mode)
