@@ -512,6 +512,16 @@
 
     (defalias 'magit-blame-echo #'magit-blame-addition)
 
+    ;; Expand org-mode heading when jumped from Magit https://reddit.com/r/emacs/comments/ayjgpu/magit_orgmode_unfold_containing_headlines_when/eimhxsy/?context=3#eimhxsy
+    (defun my/org-mode-expand-entry () "When opening an org-mode file, show the current entry and all headings that it is contained in."
+           (interactive)
+           (when (derived-mode-p 'org-mode)
+             ;; invoke org-reveal with a single prefix arg, as that expands
+             ;; the entry containing (point), all sibling entries and all
+             ;; parent entries and their siblings.
+             (org-reveal '(4))))
+    (add-hook 'magit-diff-visit-file-hook #'my/org-mode-expand-entry)
+
     (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
     (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
     (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
