@@ -572,6 +572,27 @@
 (unbind-key "C-x <right>")
 (unbind-key "C-x <left>")
 
+(defun my/delete-window ()
+  (interactive)
+  (delete-window)
+  (balance-windows))
+
+(defun my/split-window-down ()
+  (interactive)
+  (split-window-below)
+  (windmove-down)
+  (balance-windows))
+
+(defun my/split-window-right ()
+  (interactive)
+  (split-window-right)
+  (windmove-right)
+  (balance-windows))
+
+(global-set-key (kbd "C-x 0") 'my/delete-window)
+(global-set-key (kbd "C-x 2") 'my/split-window-down)
+(global-set-key (kbd "C-x 3") 'my/split-window-right)
+
 (setq display-buffer-alist
       '(("\\*[hH]elp.*"
   	     (display-buffer-reuse-window display-buffer-below-selected)
@@ -664,24 +685,24 @@
   (push '(?\( . ?\)) electric-pair-pairs)
   (push '(?\{ . ?\}) electric-pair-text-pairs))
 
-      (straight-register-package 'all-the-icons)
-      (when (display-graphic-p)
-        (use-package all-the-icons
-          :demand t
-          :config
-          ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
-          (unless (find-font (font-spec :name "all-the-icons"))
-            (all-the-icons-install-fonts t))))
+(straight-register-package 'all-the-icons)
+(when (display-graphic-p)
+  (use-package all-the-icons
+    :demand t
+    :config
+    ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
+    (unless (find-font (font-spec :name "all-the-icons"))
+      (all-the-icons-install-fonts t))))
 
-      (straight-register-package 'nerd-icons)
-      (when (display-graphic-p)
-        (use-package nerd-icons
-          :demand t
-          :config
-          (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
-            (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
-              (nerd-icons-install-fonts t)
-              (message "nerd-icons installed")))))
+(straight-register-package 'nerd-icons)
+(when (display-graphic-p)
+  (use-package nerd-icons
+    :demand t
+    :config
+    (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
+      (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+        (nerd-icons-install-fonts t)
+        (message "nerd-icons installed")))))
 
   (setq  bookmark-save-flag 1)
 
@@ -784,6 +805,7 @@
       (bind-key "<END>"  #'delete-window (current-local-map))))
   (add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
 
+
 (use-package consult
   :defer 1
   :bind (("C-x C-y" . consult-yank-from-kill-ring)
@@ -856,9 +878,12 @@
   (completion-ignore-case t)
   :config
   (vertico-mode 1)
+  (keymap-set vertico-map "M-?" #'minibuffer-completion-help)
+  (keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
+  (keymap-set vertico-map "M-TAB" #'minibuffer-complete)
 
-  ;; You'll want to make sure that e.g. fido-mode isn't enabled
-  ;; (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
+;; You'll want to make sure that e.g. fido-mode isn't enabled
+;; (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
 
   (use-package vertico-directory
     :straight nil
@@ -1275,7 +1300,7 @@
   (use-package major-mode-hydra
     :demand t
     :commands major-mode-hydra
-    :bind ("C-c h" . hydra-base/body)
+    :bind ("C-f" . hydra-base/body)
     :config
     (defun with-alltheicon (icon str &optional height v-adjust)
       "Displays an icon from all-the-icon."
@@ -1392,9 +1417,10 @@
         ("g" hydra-git/body "git")
         ("o" hydra-org/body "org")
         ("d" hydra-dev/body "dev")
-        ("w" hydra-write/body "write")
-        ("f" rss "RSS"))))
-    )
+        ("w" hydra-write/body "write"))
+       ""
+       (("f" rss "RSS")
+        ("k" browse-kill-ring "browse kill ring")))))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
@@ -1732,7 +1758,7 @@ should be continued."
 (straight-register-package 'org-roam)
 (if my/org-roam-dir
     (use-package org-roam
-      :after (org emacsql magit)
+      :after (org emacsql)
       :delight
       :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body)
       :init
@@ -1781,33 +1807,33 @@ should be continued."
 
   (use-package consult-org-roam
     :demand t
-    :after (org-roam consult))
-  :custom
-  (consult-org-roam-grep-func #'consult-ripgrep)
-  ;; Configure a custom narrow key for `consult-buffer'
-  (consult-org-roam-buffer-narrow-key ?r)
-  ;; Display org-roam buffers right after non-org-roam buffers
-  ;; in consult-buffer (and not down at the bottom)
-  (consult-org-roam-buffer-after-buffers t)
-  :config
-  (consult-org-roam-mode 1)
-   ;; Eventually suppress previewing for certain functions
-   (consult-customize
-    consult-org-roam-forward-links
-    :preview-key "M-.")
-)
+    :after (org-roam consult)
+    :custom
+    (consult-org-roam-grep-func #'consult-ripgrep)
+    ;; Configure a custom narrow key for `consult-buffer'
+    (consult-org-roam-buffer-narrow-key ?r)
+    ;; Display org-roam buffers right after non-org-roam buffers
+    ;; in consult-buffer (and not down at the bottom)
+    (consult-org-roam-buffer-after-buffers t)
+    :config
+    (consult-org-roam-mode 1)
+    ;; Eventually suppress previewing for certain functions
+    (consult-customize
+     consult-org-roam-forward-links
+     :preview-key "M-.")))
 
-(use-package org-sticky-header
-  :after org)
+  (use-package org-sticky-header
+    :after org
+    :hook (org-mode . org-sticky-header-mode))
 
-(use-package org-link-archive
-  :after org
-  :straight (:type git
-                   :host github
-                   :repo "farynaio/org-link-archive"
-                   :branch "main")
-  :bind (:map org-mode-map
-    	        ("C-x C-z" . org-link-archive-at-point)))
+  (use-package org-link-archive
+    :after org
+    :straight (:type git
+                     :host github
+                     :repo "farynaio/org-link-archive"
+                     :branch "main")
+    :bind (:map org-mode-map
+    	          ("C-x C-z" . org-link-archive-at-point)))
 
 (use-package calendar
   :commands (my/calendar-year)

@@ -33,6 +33,8 @@
   straight-check-for-modifications '(check-on-save find-when-checking))
 (setq use-package-always-defer t)
 
+(add-to-list 'straight-built-in-pseudo-packages 'project)
+
 ;; Load Org and org-babel support
 (straight-use-package 'org)
 (require 'org)
