@@ -12,5 +12,6 @@
 /tree-sitter
 *~*
 /projectile-bookmarks.eld
+/.org-id-locations
 
 /.mc-lists.el
