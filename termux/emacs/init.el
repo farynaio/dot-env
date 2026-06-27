@@ -27,6 +27,9 @@
       (load my/local-config-file))
   (warn "File '%s' not exists!" my/local-config-file))
 
+(unless (executable-find "rg")
+  (warn "'rg' not found! Install 'ripgrep'"))
+
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -867,7 +870,9 @@
                        (buffer-substring-no-properties (region-beginning) (region-end))
                      (let ((symbol (symbol-at-point)))
                        (when symbol (symbol-name symbol))))))
-      (consult-ripgrep dir prefill))))
+      (if (executable-find "rg")
+          (consult-ripgrep dir prefill)
+        (consult-grep dir prefill)))))
 
 (use-package consult-flycheck
   :demand 2
@@ -1892,7 +1897,7 @@ should be continued."
         :demand t
         :delight
         :custom
-        (consult-org-roam-grep-func #'consult-ripgrep)
+        (consult-org-roam-grep-func (if (executable-find "rg") #'consult-ripgrep #'consult-grep))
         ;; Configure a custom narrow key for `consult-buffer'
         (consult-org-roam-buffer-narrow-key ?r)
         ;; Display org-roam buffers right after non-org-roam buffers
