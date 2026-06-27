@@ -401,6 +401,9 @@
 ;; No electric indent
 (setq electric-indent-mode nil)
 
+;; Disable opening anything with web browser
+(setq-default browse-url-browser-function #'ignore)
+
 ;; Include entire file path in title
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
