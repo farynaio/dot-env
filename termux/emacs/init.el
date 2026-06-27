@@ -1435,7 +1435,7 @@
       (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
       ("Actions"
        (("a" org-agenda "org agenda" :exit t)
-        ("c" org-reset-checkbox-state-subtree "reset all org checkbox in subtree" :exit t)
+        ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
         ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
         ("t" org-toggle-timestamp-type "timestamp toggle")
         ("l" org-link-archive-at-point "link archive")
