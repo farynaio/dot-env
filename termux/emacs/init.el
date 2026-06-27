@@ -286,10 +286,14 @@
              (js-mode "JS" :major)
              (js2-mode "JS2" :major))))
 
+(defun my/join-line ()
+  (interactive)
+  (join-line -1))
+
 (use-package simple
   :demand t
   :straight nil
-  :bind (("C-c j" . join-line))
+  :bind (("C-c C-j" . my/join-line))
   :custom
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
@@ -1151,6 +1155,85 @@
   :custom
   (windmove-wrap-around t))
 
+;; Increase and decrease number at point
+(global-set-key (kbd "C-+") 'my/inc-number-at-point)
+(global-set-key (kbd "C-?") 'my/dec-number-at-point)
+
+(defun my/incs (s &optional num)
+  (let* ((inc (or num 1))
+         (new-number (number-to-string (+ inc (string-to-number s))))
+         (zero-padded? (s-starts-with? "0" s)))
+    (if zero-padded?
+        (s-pad-left (length s) "0" new-number)
+      new-number)))
+
+(defun my/goto-closest-number ()
+  (interactive)
+  (let ((closest-behind (save-excursion (search-backward-regexp "[0-9]" nil t)))
+        (closest-ahead (save-excursion (search-forward-regexp "[0-9]" nil t))))
+    (push-mark)
+    (goto-char
+     (cond
+      ((and (not closest-ahead) (not closest-behind)) (error "No numbers in buffer"))
+      ((and closest-ahead (not closest-behind)) closest-ahead)
+      ((and closest-behind (not closest-ahead)) closest-behind)
+      ((> (- closest-ahead (point)) (- (point) closest-behind)) closest-behind)
+      ((> (- (point) closest-behind) (- closest-ahead (point))) closest-ahead)
+      :else closest-ahead))))
+
+(defun my/inc-number-at-point (arg)
+  (interactive "p")
+  (unless (or (looking-at "[0-9]")
+              (looking-back "[0-9]"))
+    (my/goto-closest-number))
+  (save-excursion
+    (while (looking-back "[0-9]")
+      (forward-char -1))
+    (re-search-forward "[0-9]+" nil)
+    (replace-match (my/incs (match-string 0) arg) nil nil)))
+
+(defun my/dec-number-at-point (arg)
+  (interactive "p")
+  (my/inc-number-at-point (- arg)))
+
+;; Clever newlines
+(global-set-key (kbd "C-o") 'my/open-line-and-indent)
+(global-set-key (kbd "<C-return>") 'my/open-line-below)
+(global-set-key (kbd "<C-S-return>") 'my/open-line-above)
+(global-set-key (kbd "<M-return>") 'my/new-line-dwim)
+
+(defun my/open-line-and-indent ()
+  (interactive)
+  (newline-and-indent)
+  (end-of-line 0)
+  (indent-for-tab-command))
+
+(defun my/open-line-below ()
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-for-tab-command))
+
+(defun my/open-line-above ()
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-for-tab-command))
+
+(defun my/new-line-dwim ()
+  (interactive)
+  (let ((break-open-pair (or (and (looking-back "{" 1) (looking-at "}"))
+                             (and (looking-back ">" 1) (looking-at "<"))
+                             (and (looking-back "(" 1) (looking-at ")"))
+                             (and (looking-back "\\[" 1) (looking-at "\\]")))))
+    (newline)
+    (when break-open-pair
+      (save-excursion
+        (newline)
+        (indent-for-tab-command)))
+    (indent-for-tab-command)))
+
 (setq
  scroll-step 1
  scroll-margin 3
@@ -1352,7 +1435,7 @@
         ("s" consult-org-roam-file-find "find file")
         ("b" consult-org-roam-backlinks "backlinks")
         ("f" consult-org-roam-forward-links "forward links")
-        ("" consult-org-roam-search "org-roam search")
+        ("S" consult-org-roam-search "org-roam search")
         )
        "Toggle"
        (("p" org-appear-mode "org-appear toggle" :toggle t)
@@ -1436,7 +1519,7 @@
 (use-package org
   :demand t
   :bind (:map org-mode-map
-              ("C-c C-j" . join-line)
+              ("C-c C-j" . my/join-line)
     	        ("M-<up>" . org-metaup)
     	        ("M-<down>" . org-metadown)
               ("C-S-<up>" . org-shiftup)
@@ -1744,6 +1827,7 @@ should be continued."
         (ignore-errors
           (org-back-to-heading)
           (org-update-parent-todo-statistics)))))
+  (advice-add 'org-yank :after #'my/org-update-parent-cookie)
   (advice-add 'org-kill-line :after #'my/org-update-parent-cookie)
   (advice-add 'kill-whole-line :after #'/org-update-parent-cookie))
 
@@ -1801,39 +1885,39 @@ should be continued."
         (when (fboundp 'org-roam-file-p)
           (org-roam-file-p file)))
 
+      (use-package consult-org-roam
+        :demand t
+        :delight
+        :custom
+        (consult-org-roam-grep-func #'consult-ripgrep)
+        ;; Configure a custom narrow key for `consult-buffer'
+        (consult-org-roam-buffer-narrow-key ?r)
+        ;; Display org-roam buffers right after non-org-roam buffers
+        ;; in consult-buffer (and not down at the bottom)
+        (consult-org-roam-buffer-after-buffers t)
+        :config
+        (consult-org-roam-mode 1)
+        ;; Eventually suppress previewing for certain functions
+        (consult-customize
+         consult-org-roam-forward-links
+         :preview-key "M-."))
+
       ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
       (defalias 'roam #'org-roam))
-  (warn "Variable 'my/org-roam-dir' is not specified, org-roam will not be loaded!")
+  (warn "Variable 'my/org-roam-dir' is not specified, org-roam will not be loaded!"))
 
-  (use-package consult-org-roam
-    :demand t
-    :after (org-roam consult)
-    :custom
-    (consult-org-roam-grep-func #'consult-ripgrep)
-    ;; Configure a custom narrow key for `consult-buffer'
-    (consult-org-roam-buffer-narrow-key ?r)
-    ;; Display org-roam buffers right after non-org-roam buffers
-    ;; in consult-buffer (and not down at the bottom)
-    (consult-org-roam-buffer-after-buffers t)
-    :config
-    (consult-org-roam-mode 1)
-    ;; Eventually suppress previewing for certain functions
-    (consult-customize
-     consult-org-roam-forward-links
-     :preview-key "M-.")))
+(use-package org-sticky-header
+  :after org
+  :hook (org-mode . org-sticky-header-mode))
 
-  (use-package org-sticky-header
-    :after org
-    :hook (org-mode . org-sticky-header-mode))
-
-  (use-package org-link-archive
-    :after org
-    :straight (:type git
-                     :host github
-                     :repo "farynaio/org-link-archive"
-                     :branch "main")
-    :bind (:map org-mode-map
-    	          ("C-x C-z" . org-link-archive-at-point)))
+(use-package org-link-archive
+  :after org
+  :straight (:type git
+                   :host github
+                   :repo "farynaio/org-link-archive"
+                   :branch "main")
+  :bind (:map org-mode-map
+    	        ("C-x C-z" . org-link-archive-at-point)))
 
 (use-package calendar
   :commands (my/calendar-year)
@@ -2327,7 +2411,10 @@ should be continued."
 
 ;; Folding code blocks based on indentation.
 (use-package yafolding
-  :hook (prog-mode . (lambda () (yafolding-mode 1))))
+  :hook (prog-mode . (lambda () (yafolding-mode 1)))
+  :bind (:map yafolding-mode-map
+              ("C-<return>" . nil)
+              ("C-M-<return>" . yafolding-toggle-element)))
 
 (use-package nxml-mode
   :straight nil
@@ -2926,6 +3013,8 @@ should be continued."
         (warn "kotlin-language-server not found!")))))
 
 (load-theme 'modus-vivendi t)
+
+;; (use-package zerodark-theme)
 
 (use-package doom-modeline
   :disabled t
