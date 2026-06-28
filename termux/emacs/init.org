@@ -210,6 +210,8 @@ TODO:
 ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
 (setq auto-revert-interval 5)
 (setq auto-revert-check-vc-info t)
+(setq auto-revert-verbose nil)
+(setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode 1)
 
 ;; Save history of minibuffer
