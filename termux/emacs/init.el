@@ -107,14 +107,14 @@
 
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (setq default-frame-alist '((fullscreen . maximized)
-      			                ;; You can turn off scroll bars by uncommenting these lines:
-      			                ;; (vertical-scroll-bars . nil)
-      			                ;; (horizontal-scroll-bars . nil)
+                                        ;; You can turn off scroll bars by uncommenting these lines:
+                                        ;; (vertical-scroll-bars . nil)
+                                        ;; (horizontal-scroll-bars . nil)
 
-      			                ;; Setting the face in here prevents flashes of
-      			                ;; color as the theme gets activated
-      			                (background-color . "#000000")
-      			                (foreground-color . "#ffffff")))
+                                        ;; Setting the face in here prevents flashes of
+                                        ;; color as the theme gets activated
+                                        (background-color . "#000000")
+                                        (foreground-color . "#ffffff")))
 ;; (ns-appearance . dark)
 ;; (ns-transparent-titlebar . t)))
 
@@ -321,9 +321,9 @@
 
   ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
   (advice-add 'visual-line-mode :around
-      	      (lambda (orig-fun &rest args)
-      		      (unless (memq major-mode (list 'org-agenda-mode))
-      		        (apply orig-fun args)))))
+              (lambda (orig-fun &rest args)
+                      (unless (memq major-mode (list 'org-agenda-mode))
+                        (apply orig-fun args)))))
 
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
@@ -462,8 +462,8 @@
   :demand t
   :config
   (require 'async-bytecomp)
-  (require 'dired-async)
-  (dired-async-mode 1)
+  ;; (require 'dired-async)
+  ;; (dired-async-mode 1)
   (async-bytecomp-package-mode 1)
   (setq async-bytecomp-allowed-packages '(all))
   (setq async-quiet-switch "-q")) ; maybe that for tramp only
@@ -561,7 +561,7 @@
                          (margin-width . 42)
                          (margin-face . magit-blame-margin)
                          (margin-body-face magit-blame-dimmed))
-            		        (headings
+                                (headings
                          (heading-format . "%-20a %C %s"))))
   (magit-section-initial-visibility-alist '((untracked . show)
                                             (unstaged . show)
@@ -569,6 +569,8 @@
                                             (unpulled . show)
                                             (stashes . show)))
   :config
+  (setq magit-diff-refine-hunk 'all)
+
   (defun my/copy-diff-region ()
     "Copy diff region without + or - markers."
     (interactive)
@@ -684,79 +686,79 @@
 
 (setq display-buffer-alist
       '(("\\*[hH]elp.*"
-  	     (display-buffer-reuse-window display-buffer-below-selected)
-  	     (window-height . 0.4)
-  	     (reusable-frames . nil))
-  	    ("\\*grep\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*eshell\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*Backtrace\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*Warnings\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.2)
-  	     (reusable-frames . nil))
-  	    ("\\*Completions\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*Flycheck error messages\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*Async-native-compile-log\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*straight-byte-compilation\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*straight-process\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ("\\*chatgpt.*"
-  	     (display-buffer-in-previous-window)
-  	     (reusable-frames . nil))
-  	    ("\\*eww history\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.2)
-  	     (reusable-frames . nil))
-  	    ("\\*eww bookmarks\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.2)
-  	     (reusable-frames . nil))
-  	    ("\\*ruby\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.1)
-  	     (reusable-frames . nil))
-  	    ("\\magit:"
-  	     (display-buffer-in-previous-window)
-  	     (reusable-frames . nil))
-  	    ("\\*eldoc"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.2)
-  	     (reusable-frames . nil))
-  	    ("\\*projectile-files-errors\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.2)
-  	     (reusable-frames . nil))
-  	    ("\\*Org Entity Help\\*"
-  	     (display-buffer-reuse-window display-buffer-at-bottom)
-  	     (window-height . 0.3)
-  	     (reusable-frames . nil))
-  	    ;; ("\\*tree-sitter"
-  	    ;;    (display-buffer-reuse-window display-buffer-same-window)
-  	    ;;    (window-parameters . ((quit-restore . delete))))
-  	    ))
+         (display-buffer-reuse-window display-buffer-below-selected)
+         (window-height . 0.4)
+         (reusable-frames . nil))
+        ("\\*grep\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*eshell\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Backtrace\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Warnings\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Completions\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Flycheck error messages\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Async-native-compile-log\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-byte-compilation\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-process\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*chatgpt.*"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*eww history\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*eww bookmarks\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*ruby\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.1)
+         (reusable-frames . nil))
+        ("\\magit:"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*eldoc"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*projectile-files-errors\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Org Entity Help\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ;; ("\\*tree-sitter"
+        ;;    (display-buffer-reuse-window display-buffer-same-window)
+        ;;    (window-parameters . ((quit-restore . delete))))
+        ))
 
 
 ;; Add parts of each file's directory to the buffer name if not unique
@@ -936,9 +938,9 @@
     "Run `consult-line` preffiled with region or symbol-at-point."
     (interactive)
     (let ((prefill (if (use-region-p)
-                        (buffer-substring-no-properties (region-beginning) (region-end))
-                      (let ((symbol (symbol-at-point)))
-                        (when symbol (symbol-name symbol))))))
+                       (buffer-substring-no-properties (region-beginning) (region-end))
+                     (let ((symbol (symbol-at-point)))
+                       (when symbol (symbol-name symbol))))))
       (consult-line prefill)))
 
   (defun my/consult-ripgrep ()
@@ -973,8 +975,8 @@
   (keymap-set vertico-map "M-RET" #'minibuffer-force-complete-and-exit)
   (keymap-set vertico-map "M-TAB" #'minibuffer-complete)
 
-;; You'll want to make sure that e.g. fido-mode isn't enabled
-;; (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
+  ;; You'll want to make sure that e.g. fido-mode isn't enabled
+  ;; (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
 
   (use-package vertico-directory
     :straight nil
@@ -982,7 +984,7 @@
     :bind (:map vertico-map
                 ("RET" . vertico-directory-enter)
                 ("DEL" . vertico-directory-delete-char)
-  		          ("M-DEL" . vertico-directory-delete-word))
+                ("M-DEL" . vertico-directory-delete-word))
     ;; Tidy shadowed file names
     :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)))
 
@@ -1022,9 +1024,9 @@
 (use-package corfu
   :demand t
   :bind (:map corfu-map
-  	          ("SPC" . corfu-insert-separator)
-  	          ("C-n" . corfu-next)
-  	          ("C-p" . corfu-previous))
+              ("SPC" . corfu-insert-separator)
+              ("C-n" . corfu-next)
+              ("C-p" . corfu-previous))
   :custom
   (corfu-cycle t)
   (corfu-on-exact-match nil)
@@ -1039,10 +1041,10 @@
   (corfu-popupinfo-mode 1) ; Popup completion info
   (corfu-echo-mode 1)
   (add-hook 'eshell-mode-hook
-  	        (lambda () (setq-local corfu-quit-at-boundary t
-  				                         corfu-quit-no-match t
-  				                         corfu-auto nil)
-  	          (corfu-mode))))
+            (lambda () (setq-local corfu-quit-at-boundary t
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
+              (corfu-mode))))
 
 (use-package cape
   :demand t
@@ -1229,7 +1231,7 @@
              (command (concat "ack '" regexp "' '" dir "'")))
         (unless (file-accessible-directory-p dir)
           (error "directory: '%s' is not accessible." dir))
-  	    (compilation-start (concat command " < " null-device) 'grep-mode))
+            (compilation-start (concat command " < " null-device) 'grep-mode))
     (error "No executable 'ack' found!")))
 
 (use-package windmove
@@ -1472,7 +1474,7 @@ Including indent-buffer, which should not be called automatically on save."
                                      (dired-get-marked-files t))
                                     (t
                                      (dired-get-marked-files
-  				                            'no-dir (prefix-numeric-value arg))))
+                                                            'no-dir (prefix-numeric-value arg))))
                             (dired-get-marked-files 'no-dir))
                           " "))))
       (unless (string= string "")
@@ -1496,25 +1498,25 @@ Including indent-buffer, which should not be called automatically on save."
     (defun with-alltheicon (icon str &optional height v-adjust)
       "Displays an icon from all-the-icon."
       (if (display-graphic-p)
-      	(s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+        (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
         str))
 
     (defun with-faicon (icon str &optional height v-adjust)
       "Displays an icon from Font Awesome icon."
       (if (display-graphic-p)
-      	(s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+        (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
         str))
 
     (defun with-fileicon (icon str &optional height v-adjust)
       "Displays an icon from the Atom File Icons package."
       (if (display-graphic-p)
-      	(s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+        (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
         str))
 
     (defun with-octicon (icon str &optional height v-adjust)
       "Displays an icon from the GitHub Octicons."
       (if (display-graphic-p)
-      	(s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
+        (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
         str))
 
     (pretty-hydra-define hydra-project
@@ -1628,19 +1630,19 @@ Including indent-buffer, which should not be called automatically on save."
   :demand t
   :bind (:map org-mode-map
               ("C-c C-j" . my/join-line)
-    	        ("M-<up>" . org-metaup)
-    	        ("M-<down>" . org-metadown)
+                ("M-<up>" . org-metaup)
+                ("M-<down>" . org-metadown)
               ("C-S-<up>" . org-shiftup)
               ("C-S-<down>" . org-shiftdown)
-    	        ("M-}" . forward-paragraph)
-    	        ("M-{" . backward-paragraph)
+                ("M-}" . forward-paragraph)
+                ("M-{" . backward-paragraph)
               ("C-M-<up>" . org-table-move-single-cell-up)
               ("C-M-<down>" . org-table-move-single-cell-down)
               ("C-M-<left>" . org-table-move-single-cell-left)
               ("C-M-<right>" . org-table-move-single-cell-right)
               ("C-M-l" . my/org-link-copy))
   :hook ((org-mode . org-sticky-header-mode)
-    	   (org-agenda-mode . (lambda () (hl-line-mode 1)))
+           (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
          ;; (org-agenda-mode . (lambda () (hl-line-mode 1)))
          )
@@ -1882,11 +1884,11 @@ should be continued."
       (if (not list-element)
           (user-error "Not at plain-list")
         (let ((nlines
-  	           (delete-duplicate-lines
-  	            (org-element-property :post-affiliated list-element)
-  	            (save-excursion (goto-char (org-element-property :end list-element)) (skip-chars-backward "\r\n\t ") (point)))))
+                   (delete-duplicate-lines
+                    (org-element-property :post-affiliated list-element)
+                    (save-excursion (goto-char (org-element-property :end list-element)) (skip-chars-backward "\r\n\t ") (point)))))
           (if (= 0 nlines)
-  	          (message "List contains no duplicate lines")
+                  (message "List contains no duplicate lines")
             (message "Removed %d duplicate lines from list" nlines))))))
 
   (defun my/org-align-tags ()
@@ -1981,11 +1983,11 @@ should be continued."
       ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
       (add-to-list 'display-buffer-alist
-    	             '("\\*org-roam\\*"
-    		             (display-buffer-in-direction)
-    		             (direction . right)
-    		             (window-width . 0.35)
-    		             (window-height . fit-window-to-buffer)))
+                     '("\\*org-roam\\*"
+                             (display-buffer-in-direction)
+                             (direction . right)
+                             (window-width . 0.35)
+                             (window-height . fit-window-to-buffer)))
 
       (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
 
@@ -2025,7 +2027,7 @@ should be continued."
                    :repo "farynaio/org-link-archive"
                    :branch "main")
   :bind (:map org-mode-map
-    	        ("C-x C-z" . org-link-archive-at-point)))
+                ("C-x C-z" . org-link-archive-at-point)))
 
 (use-package calendar
   :commands (my/calendar-year)
@@ -2165,17 +2167,17 @@ should be continued."
            to invalidate."
       (interactive "P")
       (let ((project-root
-    	       (if arg
-    	           (completing-read "Remove cache for: " projectile-projects-cache)
-    	         (projectile-project-root))))
+               (if arg
+                   (completing-read "Remove cache for: " projectile-projects-cache)
+                 (projectile-project-root))))
         (setq projectile-project-root-cache (make-hash-table :test 'equal))
         (remhash project-root projectile-project-type-cache)
         (remhash project-root projectile-projects-cache)
         (remhash project-root projectile-projects-cache-time)
         (projectile-serialize-cache)
         (when projectile-verbose
-    	    (message "Invalidated Projectile cache for %s."
-    		           (propertize project-root 'face 'font-lock-keyword-face)))))
+            (message "Invalidated Projectile cache for %s."
+                           (propertize project-root 'face 'font-lock-keyword-face)))))
 
     (projectile-mode 1))
 
@@ -2299,13 +2301,13 @@ should be continued."
   "Flip symbol at point."
   (interactive)
   (-let* ((symbol (symbol-at-point))
-  	      (symbol (when symbol (symbol-name symbol)))
-  	      ((beg . end) (bounds-of-thing-at-point 'symbol)))
-  	(if (assoc symbol my/flip-symbol-alist)
-  	    (progn
-  	      (delete-region beg end)
-  	      (insert (alist-get symbol my/flip-symbol-alist "" nil 'equal)))
-  	  (message "Nothing to flip here"))))
+              (symbol (when symbol (symbol-name symbol)))
+              ((beg . end) (bounds-of-thing-at-point 'symbol)))
+        (if (assoc symbol my/flip-symbol-alist)
+            (progn
+              (delete-region beg end)
+              (insert (alist-get symbol my/flip-symbol-alist "" nil 'equal)))
+          (message "Nothing to flip here"))))
 
 (defun my/xref-find-references-at-point ()
   (interactive)
@@ -2863,13 +2865,13 @@ should be continued."
     (js2-mode-show-strict-warnings nil)
     :config
     (major-mode-hydra-define+ js2-mode
-  		(:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
-  		("Action"
-  		 (
-  			("w" my/web-mode-toggle "toggle web-mode" :exit t)
-  			("p" my/prettier-format-buffer "prettier buffer" :exit t)
-  			("o" my/eglot-organize-imports-ts "organize imports" :exit t)
-  			("c" edit-color-stamp "edit color" :exit t))))
+                (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
+                ("Action"
+                 (
+                        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+                        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+                        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+                        ("c" edit-color-stamp "edit color" :exit t))))
     ;; Use js2-mode for Node scripts
     (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode)))
 
@@ -2885,13 +2887,13 @@ should be continued."
                 ("<" . rjsx-electric-lt))
     :config
     (major-mode-hydra-define+ rjsx-mode
-  		(:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
-  		("Action"
-  		 (
-  			("w" my/web-mode-toggle "toggle web-mode" :exit t)
-  			("p" my/prettier-format-buffer "prettier buffer" :exit t)
-  			("o" my/eglot-organize-imports-ts "organize imports" :exit t)
-  			("c" edit-color-stamp "edit color" :exit t)))))
+                (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
+                ("Action"
+                 (
+                        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+                        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+                        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+                        ("c" edit-color-stamp "edit color" :exit t)))))
 
   ;; NOTE not maintaned
   ;; based on https://github.com/emacs-typescript/typescript.el/issues/4#issuecomment-873485004
@@ -3136,7 +3138,7 @@ should be continued."
   (doom-modeline-icon t)
   :init
   (setq doom-modeline-minor-modes t
-  	    doom-modeline-vcs-max-length 20)
+            doom-modeline-vcs-max-length 20)
   :config
   (doom-modeline-mode 1))
 
@@ -3146,7 +3148,7 @@ should be continued."
   :init
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-  	    doom-themes-enable-italic t) ; if nil, italics is universally disabled
+            doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
   ;; (load-theme 'doom-1337 t)
   ;; (load-theme 'doom-one t)
@@ -3179,13 +3181,13 @@ should be continued."
     :straight nil
     :commands eshell
     :bind (:map eshell-mode-map
-    	          ;; ("C-r" . counsel-shell-history)
-    	          ;; ("C-n" . company-next-page)
-    	          ;; ("C-p" . company-previous-page)
-    	          ("<tab>" . my/eshell-list-dir)
-    	          ("<tab>" . company-next-page)
-    	          ;; ("<backtab>" . company-previous-page)
-    	          )
+                  ;; ("C-r" . counsel-shell-history)
+                  ;; ("C-n" . company-next-page)
+                  ;; ("C-p" . company-previous-page)
+                  ("<tab>" . my/eshell-list-dir)
+                  ("<tab>" . company-next-page)
+                  ;; ("<backtab>" . company-previous-page)
+                  )
     ;; :hook ((eshell-mode . company-mode))
     :init
     (require 'esh-mode)
@@ -3220,10 +3222,10 @@ should be continued."
       (interactive)
       (let ((package-json-file (concat (eshell/pwd) "/package.json")))
         (when (file-exists-p package-json-file)
-    	    (let* ((package-json-contents (read-file package-json-file))
-    	           (package-json (ignore-errors (json-parse-string package-json-contents))))
-    	      (when package-json
-    	        (ignore-errors (gethash "version" package-json)))))))
+            (let* ((package-json-contents (read-file package-json-file))
+                   (package-json (ignore-errors (json-parse-string package-json-contents))))
+              (when package-json
+                (ignore-errors (gethash "version" package-json)))))))
 
     (defun dw/map-line-to-status-char (line)
       (cond ((string-match "^?\\? " line) "?")))
@@ -3234,26 +3236,26 @@ should be continued."
 
     (defun dw/get-prompt-path ()
       (let* ((current-path (eshell/pwd))
-    	       (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
-    	       (has-path (not (string-match "^fatal" git-output))))
+               (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
+               (has-path (not (string-match "^fatal" git-output))))
         (if (not has-path)
-    	      (abbreviate-file-name current-path)
-    	    (string-remove-prefix (file-name-directory git-output) current-path))))
+              (abbreviate-file-name current-path)
+            (string-remove-prefix (file-name-directory git-output) current-path))))
 
     ;; This prompt function mostly replicates my custom zsh prompt setup
     ;; that is powered by github.com/denysdovhan/spaceship-prompt.
     (defun dw/eshell-prompt ()
       (let ((current-branch (magit-get-current-branch))
-    	      (package-version (dw/get-current-package-version)))
+              (package-version (dw/get-current-package-version)))
         (concat
          "\n"
          (propertize (system-name) 'face `(:foreground "#62aeed"))
          (propertize " ॐ " 'face `(:foreground "white"))
          (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
          (when current-branch
-    	     (concat
-    	      (propertize " • " 'face `(:foreground "white"))
-    	      (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
+             (concat
+              (propertize " • " 'face `(:foreground "white"))
+              (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
          (propertize " " 'face `(:foreground "white")))))
 
     (use-package xterm-color
@@ -3269,8 +3271,8 @@ should be continued."
     (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
 
     (add-hook 'eshell-before-prompt-hook
-    	        (lambda ()
-    	          (setq-local xterm-color-preserve-properties t)))
+                (lambda ()
+                  (setq-local xterm-color-preserve-properties t)))
 
     ;; Truncate buffer for performance
     (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
@@ -3279,9 +3281,9 @@ should be continued."
     ;; in eshell but not during other times when we might be launching
     ;; a shell command to gather its output.
     (add-hook 'eshell-pre-command-hook
-    	        (lambda () (setenv "TERM" "xterm-256color")))
+                (lambda () (setenv "TERM" "xterm-256color")))
     (add-hook 'eshell-post-command-hook
-    	        (lambda () (setenv "TERM" "dumb"))))
+                (lambda () (setenv "TERM" "dumb"))))
 
   (use-package eshell-syntax-highlighting
     :demand t
@@ -3321,13 +3323,13 @@ should be continued."
     :config
     (defun my-shell-mode-hook-func ()
       (set-process-sentinel (get-buffer-process (current-buffer))
-    			                  'my-shell-mode-kill-buffer-on-exit))
+                                          'my-shell-mode-kill-buffer-on-exit))
     (defun my-shell-mode-kill-buffer-on-exit (process state)
       (message state)
       (if (or
-    	     (string-match "exited abnormally with code.*" state)
-    	     (string-match "finished" state))
-    	    (kill-buffer (current-buffer))))
+             (string-match "exited abnormally with code.*" state)
+             (string-match "finished" state))
+            (kill-buffer (current-buffer))))
 
     ;; default shell buffer
     (setq explicit-shell-file-name (getenv "SHELL"))
@@ -3686,7 +3688,7 @@ should be continued."
                   '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
                                         ; test
                     "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
-  		              ) t) "\\b")
+                              ) t) "\\b")
    artbollocks-jargon nil))
 
 (straight-register-package 'elfeed)
@@ -3859,7 +3861,7 @@ should be continued."
              ((string-match "^mailto:" url)
               (browse-url-mail url))
              (t
-	            (browse-url-generic url)
+              (browse-url-generic url)
               (shr--blink-link)))))
 
         ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
@@ -4057,13 +4059,13 @@ should be continued."
   (unbind-key "<tab>" ledger-mode-map)
 
   (pretty-hydra-define hydra-ledger
-  	(:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
-  	("Action"
-  	 (
-  		("b" ledger-display-balance-at-point "bal at point")
-  		("s" (lambda () (interactive) (ledger-sort-buffer) (save-buffer))  "sort")
-  		("t" ledger-display-ledger-stats "stats")
-  		("r" ledger-report "report")))))
+        (:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
+        ("Action"
+         (
+                ("b" ledger-display-balance-at-point "bal at point")
+                ("s" (lambda () (interactive) (ledger-sort-buffer) (save-buffer))  "sort")
+                ("t" ledger-display-ledger-stats "stats")
+                ("r" ledger-report "report")))))
 
 (use-package flycheck-ledger
   :demand t
