@@ -153,6 +153,7 @@
 
 (setq
  initial-scratch-message nil
+ inhibit-startup-message t
  inhibit-startup-screen nil
  inhibit-startup-echo-area-message (user-login-name)
  confirm-nonexistent-file-or-buffer nil
