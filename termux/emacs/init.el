@@ -2610,6 +2610,11 @@ should be continued."
       (funcall my/native-local-major-mode)
     (web-mode)))
 
+;; Elisp go-to-definition with M-. and back again with M-,
+;; (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
+;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
+;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+
 (straight-register-package 'rainbow-mode)
 (straight-register-package 'emmet-mode)
 (straight-register-package 'web-mode)

@@ -2676,6 +2676,13 @@ should be continued."
       (funcall my/native-local-major-mode)
     (web-mode)))
 #+end_src
+** Elisp
+#+begin_src emacs-lisp
+;; Elisp go-to-definition with M-. and back again with M-,
+;; (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
+;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
+;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+#+end_src
 ** HTML
 #+begin_src emacs-lisp
 (straight-register-package 'rainbow-mode)
