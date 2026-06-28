@@ -65,9 +65,20 @@ TODO:
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (eq system-type 'android)
+    (progn
+      (setq tool-bar-position 'bottom)
+      (when (fboundp 'tool-bar-mode) (tool-bar-mode 1))
+      (when (fboundp 'modifier-bar-mode) (modifier-bar-mode 1))
+      (setq touch-screen-word-select t)
+      (setq touch-screen-enable-hscroll nil)
+      (setq touch-screen-extend-selection t)
+      (setq touch-screen-preview-select t)
+      (bind-key "<down-mouse-1>" nil)
+      )
+  (when (fboundp 'tool-bar-mode) (tool-bar-mode -1)))
 
 ;; Be less obnoxious
 (blink-cursor-mode -1)
@@ -597,6 +608,20 @@ TODO:
       (kill-new (replace-regexp-in-string "^[\\+\\-]" "" text))))
 
   (defalias 'magit-blame-echo #'magit-blame-addition)
+
+  (advice-add 'magit-status :around
+              (lambda (orig-fun &rest args)
+                (window-configuration-to-register :my-magit-fullscreen)
+                (apply orig-fun args)
+                (delete-other-windows)))
+
+(defun my/magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :my-magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'my/magit-quit-session)
 
   ;; Expand org-mode heading when jumped from Magit https://reddit.com/r/emacs/comments/ayjgpu/magit_orgmode_unfold_containing_headlines_when/eimhxsy/?context=3#eimhxsy
   (defun my/org-mode-expand-entry () "When opening an org-mode file, show the current entry and all headings that it is contained in."
