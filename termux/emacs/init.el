@@ -935,8 +935,9 @@
          ("M-s o" . consult-outline)
          ("C-M-s" . my/consult-ripgrep)
          ("C-M-r" . my/consult-ripgrep)
-         ("C-s" . my/consult-line)       ; consult-line instead of isearch, bind
-         ("C-r" . my/consult-line)       ; consult-line instead of isearch, bind
+         ("C-s" . consult-line)
+         ("C-r" . consult-line)
+         ("M-s ." . my/consult-line)
          ;; Kill ring
          ("C-x C-y" . consult-yank-from-kill-ring)
          ;; Isearch integration
