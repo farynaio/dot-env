@@ -801,7 +801,9 @@
   (setq eval-expression-print-level 100)
 
   (use-package avy
-    :bind ("C-:" . avy-goto-char-timer))
+    :bind (("C-c ;" . avy-goto-char-timer)
+           :map org-mode-map
+           ("C-c ;" . avy-goto-char-timer)))
 
   ;; Modify search results en masse
   (use-package wgrep
