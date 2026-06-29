@@ -2,6 +2,20 @@
 (defconst my/local-config-dir (expand-file-name "emacs-local-config" user-emacs-directory))
 (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
 
+;; external physical keyboard mappings
+(when (eq system-type 'android)
+  (define-key key-translation-map (kbd "ESC [ 3 4 ~") (kbd "ESC"))
+  (define-key key-translation-map (kbd "ESC [ 1 ; 3 b") (kbd "ALT"))
+  (bind-keys
+   ("M-[ 1 ; 5 a" . backward-paragraph)
+   ("M-[ 1 ; 5 b" . forward-paragraph)
+   ("M-[ 1 ; 3 a" . backward-paragraph)
+   ("M-[ 1 ; 3 b" . forward-paragraph)
+   ("M-[ 1 ; 5 c" . forward-word)
+   ("M-[ 1 ; 5 d" . backward-word)
+   ("M-[ 1 ; 3 c" . forward-word)
+   ("M-[ 1 ; 3 d" . backward-word)))
+
 ;; overwrite these in local-config.el to avoid pushing them to git
 (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
 (defvar my/elfeed-org-feeds-files nil)
@@ -1633,12 +1647,21 @@ Including indent-buffer, which should not be called automatically on save."
   :demand t
   :bind (:map org-mode-map
               ("C-c C-j" . my/join-line)
-                ("M-<up>" . org-metaup)
-                ("M-<down>" . org-metadown)
+              ("M-<up>" . org-metaup)
+              ("M-<down>" . org-metadown)
               ("C-S-<up>" . org-shiftup)
               ("C-S-<down>" . org-shiftdown)
-                ("M-}" . forward-paragraph)
-                ("M-{" . backward-paragraph)
+              ("M-}" . org-forward-paragraph)
+              ("M-{" . org-backward-paragraph)
+              ("M-[ 1 ; 5 a" . org-backward-paragraph)
+              ("M-[ 1 ; 5 b" . org-forward-paragraph)
+              ;; ("M-[ 1 ; 5 c" . forward-paragraph)
+              ;; ("M-[ 1 ; 5 d" . org-backward-paragraph)
+              ("M-[ 1 ; 3 a" . org-backward-paragraph)
+              ("M-[ 1 ; 3 b" . org-forward-paragraph)
+              ;; ("M-[ 1 ; 3 c" . forward-word)
+              ;; ("M-[ 1 ; 3 d" . backward-word)
+
               ("C-M-<up>" . org-table-move-single-cell-up)
               ("C-M-<down>" . org-table-move-single-cell-down)
               ("C-M-<left>" . org-table-move-single-cell-left)
