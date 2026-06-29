@@ -2,7 +2,19 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("local-config.el"
+(("org-agenda-repo"
+ (filename . "/storage/emulated/0/Sync/org-agenda-repo/")
+ (front-context-string . "pocket\n  -rw-rw-")
+ (rear-context-string . "52 Jun 29 14:17 ")
+ (position . 272)
+ (last-modified 27202 7249 515087 700000))
+("documents"
+ (filename . "~/documents/")
+ (front-context-string . "org\n  drwx------")
+ (rear-context-string . "52 Jun 29 13:51 ")
+ (position . 199)
+ (last-modified 27202 7204 217872 94000))
+("local-config.el"
  (filename . "~/dot-env/termux/emacs/emacs-local-config/local-config.el")
  (front-context-string . "\n(setq my/docume")
  (rear-context-string)
@@ -14,18 +26,6 @@
  (rear-context-string . "ODO\n;; org-roam\n")
  (position . 56)
  (last-modified 27181 12445 888422 600000))
-(".termux"
- (filename . "~/.termux/")
- (front-context-string . "termux.propertie")
- (rear-context-string . "9K Jun 10 22:09 ")
- (position . 203)
- (last-modified 27180 62125 873166 79000))
-("others"
- (filename . "/storage/emulated/0/Sync/org-agenda-repo/others/")
- (front-context-string . "Inbox.org\n  -rw-")
- (rear-context-string . "07 Jun 10 23:59 ")
- (position . 105)
- (last-modified 27178 20311 435433 852000))
 ("storage"
  (filename . "/storage/emulated/0/")
  (front-context-string . "Android\n  drwxrw")
