@@ -1,0 +1,14 @@
+source /data/data/com.termux/files/usr/etc/bash.bashrc
+
+export PS1='\W \$ '
+
+#alias g="git "
+alias pkgu="pkg update"
+alias pkgup="pkg upgrade"
+alias pkgc="pkg autoclean"
+alias pkgls="pkg list-installed"
+alias pkgs="pkg search "
+alias pkgf="pkg files "
+alias pkgd="pkg show "
+alias pkgi="pkg install -y "
+alias pkgrm="pkg uninstall "
