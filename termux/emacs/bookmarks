@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init.org"
+(("local-config.el"
+ (filename . "~/dot-env/termux/emacs/emacs-local-config/local-config.el")
+ (front-context-string . "\n(setq my/docume")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 27201 62768 860614 13000))
+("init.org"
  (filename . "~/.emacs.d/init.org")
  (front-context-string . "\n\n* General\n#+be")
  (rear-context-string . "ODO\n;; org-roam\n")
