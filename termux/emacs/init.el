@@ -1626,6 +1626,13 @@ Including indent-buffer, which should not be called automatically on save."
         ("<down>" mc/mark-next-like-this "cursor down")
         ("a" mc/mark-all-like-this "mark all"))))
 
+    (pretty-hydra-define hydra-tab-bar
+      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
+      (""
+       (("n" tab-bar-new-tab "new")
+        ("r" tab-bar-rename-tab "rename")
+        ("c" tab-bar-close-tab "close"))))
+
     (pretty-hydra-define hydra-base
       (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
       (""
@@ -1639,6 +1646,7 @@ Including indent-buffer, which should not be called automatically on save."
        ""
        (("c" org-capture "org-capture")
         ("m" hydra-multiple-cursors/body "multiple cursors")
+        ("t" hydra-tab-bar/body "tab-bar")
         ("f" rss "RSS")
         ("k" browse-kill-ring "browse kill ring")))))
 
