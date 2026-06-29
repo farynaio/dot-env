@@ -1130,7 +1130,8 @@
 
 (use-package multiple-cursors
   :demand t
-  :bind (("C->" . mc/mark-next-like-this)
+  :commands (mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this)
+  :bind (("C->" . mc/mark-next-like-this) ;; these will not work on soft keyboard Android and external keyboards
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)
          :map mc/keymap
@@ -1618,6 +1619,13 @@ Including indent-buffer, which should not be called automatically on save."
         ("i" consult-imenu "imenu" :exit t)
         ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
 
+    (pretty-hydra-define hydra-multiple-cursors
+      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
+      (""
+       (("<up>" mc/mark-previous-like-this "cursor up")
+        ("<down>" mc/mark-next-like-this "cursor down")
+        ("a" mc/mark-all-like-this "mark all"))))
+
     (pretty-hydra-define hydra-base
       (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
       (""
@@ -1630,6 +1638,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("w" hydra-write/body "write"))
        ""
        (("c" org-capture "org-capture")
+        ("m" hydra-multiple-cursors/body "multiple cursors")
         ("f" rss "RSS")
         ("k" browse-kill-ring "browse kill ring")))))
 
