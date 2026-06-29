@@ -1612,7 +1612,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("d" hydra-dev/body "dev")
         ("w" hydra-write/body "write"))
        ""
-       (("f" rss "RSS")
+       (("c" org-capture "org-capture")
+        ("f" rss "RSS")
         ("k" browse-kill-ring "browse kill ring")))))
 
 ;; This is for async evalaution of org-babel blocks.
