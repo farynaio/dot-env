@@ -1560,7 +1560,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("t" org-toggle-timestamp-type "timestamp toggle")
         ("l" org-link-archive-at-point "link archive")
         ;; ("h" org-archive-subtree "archive heading subtree")
-        ("s" consult-org-roam-file-find "find file")
+        ("s" org-roam-node-find "find file")
         ("b" consult-org-roam-backlinks "backlinks")
         ("f" consult-org-roam-forward-links "forward links")
         ("S" consult-org-roam-search "org-roam search")
