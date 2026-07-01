@@ -774,6 +774,20 @@
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
 
+(defun my/termux-p ()
+  "Check if Emacs is running on Termux"
+  (interactive)
+  (and (getenv "TERMUX__HOME") t))
+
+(when (my/termux-p)
+  (defun my/termux-clipboard-region (beg end)
+    "Save region in Android clipboard."
+    (interactive "r")
+    (let ((txt (buffer-substring-no-properties beg end)))
+      (call-process "termux-clipboard-set" nil nil nil
+        (replace-regexp-in-string "\n" "\\n" txt))))
+  (bind-key "C-M-w" #'my/termux-clipboard-region))
+
 
 ;; Add parts of each file's directory to the buffer name if not unique
 (use-package uniquify
