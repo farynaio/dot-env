@@ -7,6 +7,8 @@
   (define-key key-translation-map (kbd "ESC [ 3 4 ~") (kbd "ESC"))
   (define-key key-translation-map (kbd "ESC [ 1 ; 3 b") (kbd "ALT"))
   (bind-keys
+   ("M-[ 1 ; 2 a" . windmove-up)
+   ("M-[ 1 ; 2 b" . windmove-down)
    ("M-[ 1 ; 5 a" . backward-paragraph)
    ("M-[ 1 ; 5 b" . forward-paragraph)
    ("M-[ 1 ; 3 a" . backward-paragraph)
@@ -400,9 +402,6 @@
       '(search-ring regexp-search-ring extended-command-history)
       savehist-autosave-interval 300)
 (savehist-mode 1)
-
-;; Move through windows with Ctrl-<arrow keys>
-(windmove-default-keybindings 'shift) ; You can use other modifiers here
 
 ;; Make right-click do something sensible
 (when (display-graphic-p)
