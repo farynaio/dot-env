@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <keyboard name="QWERTY (Polski) Emacs" script="latin" bottom_row="false">
   <row>
-    <key c="q" ne="1" se="loc esc"/>
+    <key c="q" nw="`" ne="1" se="loc esc"/>
     <key c="w" nw="~" ne="2" sw="\@"/>
     <key c="e" nw="!" ne="3" sw="\#" se="ę"/>
     <key c="r" ne="4" sw="$"/>
@@ -9,40 +9,40 @@
     <key c="y" ne="6" sw="^"/>
     <key c="u" ne="7" sw="&amp;" se="loc €"/>
     <key c="i" nw="loc accent_macron" ne="8" sw="*"/>
-    <key c="o" nw="ó" ne="9" sw="(" se=")"/>
+    <key c="o" se="ó" ne="9" />
     <key c="p" ne="0"/>
   </row>
   <row>
-    <key shift="0.5" c="a" nw="loc tab" ne="`" se="ą"/>
+    <key width="1.5" c="a" nw="loc tab" se="ą"/>
     <key c="s" nw="loc accent_ring" ne="loc §" sw="loc ß" se="ś"/>
     <key c="d" nw="loc accent_grave" ne="loc £" sw="loc accent_aigu"/>
-    <key c="f" nw="loc accent_dot_above" ne="+" se="loc accent_ogonek"/>
-    <key c="g" nw="loc accent_caron" ne="-" sw="_"/>
-    <key c="h" ne="="/>
+    <key c="f" nw="loc accent_dot_above" ne="-" se="loc accent_ogonek" sw="_"/>
+    <key c="g" nw="loc accent_caron" ne="+" sw="&lt;" se="&gt;"/>
+    <key c="h" ne="=" sw="(" se=")"/>
     <key c="j" nw="loc accent_trema" ne="loc accent_circonflexe" sw="{" se="}"/>
     <key c="k" nw="loc accent_double_aigu" sw="[" se="]"/>
-    <key c="l" ne="|" sw="\\" se="ł"/>
+    <key width="1.5" c="l" ne="|" sw="\\" se="ł"/>
   </row>
   <row>
     <key width="1.5" c="shift" ne="loc capslock"/>
-    <key c="z" se="ż"/>
-    <key c="x" ne="loc †" se="ź"/>
-    <key c="c" nw="loc accent_cedille" ne="&lt;" se="ć"/>
-    <key c="v" ne="&gt;" sw="." />
+    <key c="z" se="ż" sw="ź"/>
+    <key c="x" ne="loc †"/>
+    <key c="c" nw="loc accent_cedille" se="ć"/>
+    <key c="v" sw="." />
     <key c="b" ne="\?" sw="," />
     <key c="n" nw="loc accent_tilde" ne=":" sw=";" se="ń"/>
-    <key c="m" ne="&quot;" sw="'" se="/"/>
+    <key c="m" ne="&quot;" nw="'" se="/"/>
     <key width="1.5" c="backspace" ne="delete"/>
   </row>
 
-<row height="0.95">
+<row>
 <key width="1.7" c="ctrl" nw="loc switch_greekmath" ne="loc meta" sw="loc switch_clipboard" se="switch_numeric"/>
 <key width="1.1" c="alt" nw="loc fn" ne="loc change_method" sw="switch_emoji" se="config"/>
 
 <key width="1.1" c="esc"/>
 <key width="3.3" c="space" w="cursor_left" e="cursor_right" n="cursor_up" s="cursor_down"/>
 
-<key width="1.1" c="." nw="loc home" ne="loc page_up" sw="loc end" se="loc page_down" />
+<key width="1.1" c="." nw="loc home" ne="loc page_up" sw="loc end" se="loc page_down" n="loc up" s="loc down" w="loc left" e="loc right" />
 
  <key width="1.7" c="enter" nw="loc voice_typing" ne="action"/>
  </row>
