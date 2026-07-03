@@ -1,3 +1,5 @@
+# -*- mode: conf -*-
+
 source /data/data/com.termux/files/usr/etc/bash.bashrc
 
 export PS1='\W \$ '
@@ -12,3 +14,5 @@ alias pkgf="pkg files "
 alias pkgd="pkg show "
 alias pkgi="pkg install -y "
 alias pkgrm="pkg uninstall "
+alias pkglsu="apt list --upgradable"
+alias xfce="termux-x11 :1 -xstartup \"dbus-launch --exit-with-session xfce4-session\""
