@@ -17,10 +17,7 @@ TODO:
   + https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-hippie.el
 - [ ] https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-perspective.el
 - [ ] https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-undo-fu.el
-- [X] https://github.com/magnars/emacsd-reboot/blob/main/settings/buffers.el
-- [X] https://github.com/magnars/emacsd-reboot/blob/main/settings/editing.el
-- [X] https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-org-mode.el my/org-update-parent-cookie
-- [X] https://github.com/magnars/emacsd-reboot/blob/main/settings/navigation.el
+- [ ] https://github.com/magnars/emacsd-reboot/blob/main/packages/setup-org-mode.el my/org-update-parent-cookie
 
 * Environment
 #+begin_src emacs-lisp
