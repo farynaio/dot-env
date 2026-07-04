@@ -520,10 +520,14 @@
 (setq help-window-select t)
 
 (use-package help
-  :disabled t
   :demand t
   :straight nil
-  (help-quick-toggle))
+  :bind
+  (:map help-mode-map
+        ("q" . my/kill-current-buffer))
+  ;; :config
+  ;; (help-quick-toggle)
+)
 
 (use-package which-key
   :defer 2
@@ -536,11 +540,13 @@
 
 (use-package helpful
   :bind
-  ([remap describe-command] . helpful-command)
+  (([remap describe-command] . helpful-command)
   ([remap describe-function] . helpful-function)
   ([remap describe-symbol] . helpful-symbol)
   ([remap describe-variable] . helpful-variable)
-  ([remap describe-key] . helpful-key))
+  ([remap describe-key] . helpful-key)
+  :map helpful-mode-map
+  ("q" . my/kill-current-buffer)))
 
 (setq-default
  vc-follow-symlinks t
@@ -3936,7 +3942,7 @@ should be continued."
           "Wrapper to save the elfeed db to disk before burying buffer"
           (interactive)
           (elfeed-db-save)
-          (quit-window))
+          (my/kill-current-buffer))
 
         (defun my/elfeed-kill ()
           "Elfeed custom cleanup on exit."
@@ -4116,6 +4122,9 @@ should be continued."
 (use-package eww
   :straight nil
   :commands (eww www eww-open-file eww-browse-url)
+  :bind (:map eww-mode-map
+    ("C-x u" . eww-view-source)
+    ("q" . my/kill-current-buffer))
   ;; :hook (eww-mode . visual-fill-column-mode)
   :custom
   (eww-search-prefix "https://duckduckgo.com/html/?q=")
@@ -4128,7 +4137,7 @@ should be continued."
       ;; shr-use-fonts  nil
       ))
 
-  (add-hook 'eww-mode-hook #'my/eww-init)
+  (add-hook 'eww-mode-hook #'my/eww-init))
 
   ;; (defun my/eww-change-text-width (val)
   ;;   (setq
@@ -4136,10 +4145,6 @@ should be continued."
   ;;     shr-width  (+ fill-column val))
   ;;   (switch-to-buffer (current-buffer))
   ;;   (message "Text area resized to %s" fill-column))
-
-  (bind-keys
-    :map eww-mode-map
-    ("C-x u" . eww-view-source)))
 
 (defalias 'www #'eww)
 

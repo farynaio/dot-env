@@ -571,11 +571,13 @@ TODO:
 
 (use-package helpful
   :bind
-  ([remap describe-command] . helpful-command)
+  (([remap describe-command] . helpful-command)
   ([remap describe-function] . helpful-function)
   ([remap describe-symbol] . helpful-symbol)
   ([remap describe-variable] . helpful-variable)
-  ([remap describe-key] . helpful-key))
+  ([remap describe-key] . helpful-key)
+  :map helpful-mode-map
+  ("q" . my/kill-current-buffer)))
 #+end_src
 * Git
 #+begin_src emacs-lisp
@@ -4039,7 +4041,7 @@ Try:
           "Wrapper to save the elfeed db to disk before burying buffer"
           (interactive)
           (elfeed-db-save)
-          (quit-window))
+          (my/kill-current-buffer))
 
         (defun my/elfeed-kill ()
           "Elfeed custom cleanup on exit."
@@ -4219,9 +4221,11 @@ Try:
 (setq-default url-privacy-level 'paranoid)
 
 (use-package eww
-  ;; :disabled t
   :straight nil
   :commands (eww www eww-open-file eww-browse-url)
+  :bind (:map eww-mode-map
+    ("C-x u" . eww-view-source)
+    ("q" . my/kill-current-buffer))
   ;; :hook (eww-mode . visual-fill-column-mode)
   :custom
   (eww-search-prefix "https://duckduckgo.com/html/?q=")
@@ -4242,10 +4246,6 @@ Try:
   ;;     shr-width  (+ fill-column val))
   ;;   (switch-to-buffer (current-buffer))
   ;;   (message "Text area resized to %s" fill-column))
-
-  (bind-keys
-    :map eww-mode-map
-    ("C-x u" . eww-view-source)))
 
 (defalias 'www #'eww)
 
