@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-agenda-repo"
+(("feeds.org"
+ (filename . "/storage/emulated/0/Sync/elfeed/feeds.org")
+ (front-context-string . "#+TAGS: { ignore")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 27209 4992 989232 792000))
+("org-agenda-repo"
  (filename . "/storage/emulated/0/Sync/org-agenda-repo/")
  (front-context-string . "pocket\n  -rw-rw-")
  (rear-context-string . "52 Jun 29 14:17 ")
