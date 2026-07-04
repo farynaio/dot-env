@@ -50,8 +50,7 @@
       (setq touch-screen-enable-hscroll nil)
       (setq touch-screen-extend-selection t)
       (setq touch-screen-preview-select t)
-      (bind-key "<down-mouse-1>" nil)
-      )
+      (bind-key "<down-mouse-1>" nil))
   (when (fboundp 'tool-bar-mode) (tool-bar-mode -1)))
 
 ;; Be less obnoxious
@@ -498,6 +497,26 @@
 
 (defalias 'qcalc #'quick-calc)
 
+(defun my/time () (format-time-string "%T"))
+
+(defun my/kill-current-buffer ()
+  (interactive)
+  (quit-window t))
+
+(defun my/termux-p ()
+  "Check if Emacs is running on Termux"
+  (interactive)
+  (and (getenv "TERMUX__HOME") t))
+
+(when (my/termux-p)
+  (defun my/termux-clipboard-region (beg end)
+    "Save region in Android clipboard."
+    (interactive "r")
+    (let ((txt (buffer-substring-no-properties beg end)))
+      (call-process "termux-clipboard-set" nil nil nil
+        (replace-regexp-in-string "\n" "\\n" txt))))
+  (bind-key "C-M-w" #'my/termux-clipboard-region))
+
 (setq help-window-select t)
 
 (use-package help
@@ -776,20 +795,6 @@
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
-
-(defun my/termux-p ()
-  "Check if Emacs is running on Termux"
-  (interactive)
-  (and (getenv "TERMUX__HOME") t))
-
-(when (my/termux-p)
-  (defun my/termux-clipboard-region (beg end)
-    "Save region in Android clipboard."
-    (interactive "r")
-    (let ((txt (buffer-substring-no-properties beg end)))
-      (call-process "termux-clipboard-set" nil nil nil
-        (replace-regexp-in-string "\n" "\\n" txt))))
-  (bind-key "C-M-w" #'my/termux-clipboard-region))
 
 
 ;; Add parts of each file's directory to the buffer name if not unique
@@ -4441,8 +4446,6 @@ should be continued."
   (if (and (fboundp 'native-comp-available-p) (native-comp-available-p))
       (native--compile-async `(,my/local-config-dir) t nil)
     (warn "Native compile not available!")))
-
-(defun my/time () (format-time-string "%T"))
 
 ;; (setq gc-cons-threshold most-positive-fixnum)
 (setq gc-cons-threshold 100000000)

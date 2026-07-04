@@ -75,8 +75,7 @@ TODO:
       (setq touch-screen-enable-hscroll nil)
       (setq touch-screen-extend-selection t)
       (setq touch-screen-preview-select t)
-      (bind-key "<down-mouse-1>" nil)
-      )
+      (bind-key "<down-mouse-1>" nil))
   (when (fboundp 'tool-bar-mode) (tool-bar-mode -1)))
 
 ;; Be less obnoxious
@@ -523,15 +522,43 @@ TODO:
 
 (defalias 'qcalc #'quick-calc)
 #+end_src
+* Util functions
+#+begin_src emacs-lisp
+(defun my/time () (format-time-string "%T"))
+
+(defun my/kill-current-buffer ()
+  (interactive)
+  (quit-window t))
+#+end_src
+* Termux
+#+begin_src emacs-lisp
+(defun my/termux-p ()
+  "Check if Emacs is running on Termux"
+  (interactive)
+  (and (getenv "TERMUX__HOME") t))
+
+(when (my/termux-p)
+  (defun my/termux-clipboard-region (beg end)
+    "Save region in Android clipboard."
+    (interactive "r")
+    (let ((txt (buffer-substring-no-properties beg end)))
+      (call-process "termux-clipboard-set" nil nil nil
+        (replace-regexp-in-string "\n" "\\n" txt))))
+  (bind-key "C-M-w" #'my/termux-clipboard-region))
+#+end_src
 * Help
 #+begin_src emacs-lisp
 (setq help-window-select t)
 
 (use-package help
-  :disabled t
   :demand t
   :straight nil
-  (help-quick-toggle))
+  :bind
+  (:map help-mode-map
+        ("q" . my/kill-current-buffer))
+  ;; :config
+  ;; (help-quick-toggle)
+)
 
 (use-package which-key
   :defer 2
@@ -807,22 +834,6 @@ TODO:
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
-#+end_src
-* Termux
-#+begin_src emacs-lisp
-(defun my/termux-p ()
-  "Check if Emacs is running on Termux"
-  (interactive)
-  (and (getenv "TERMUX__HOME") t))
-
-(when (my/termux-p)
-  (defun my/termux-clipboard-region (beg end)
-    "Save region in Android clipboard."
-    (interactive "r")
-    (let ((txt (buffer-substring-no-properties beg end)))
-      (call-process "termux-clipboard-set" nil nil nil
-        (replace-regexp-in-string "\n" "\\n" txt))))
-  (bind-key "C-M-w" #'my/termux-clipboard-region))
 #+end_src
 * Appearance
 #+begin_src emacs-lisp
@@ -4223,7 +4234,7 @@ Try:
       ;; shr-use-fonts  nil
       ))
 
-  (add-hook 'eww-mode-hook #'my/eww-init)
+  (add-hook 'eww-mode-hook #'my/eww-init))
 
   ;; (defun my/eww-change-text-width (val)
   ;;   (setq
@@ -4545,10 +4556,6 @@ Try:
   (if (and (fboundp 'native-comp-available-p) (native-comp-available-p))
       (native--compile-async `(,my/local-config-dir) t nil)
     (warn "Native compile not available!")))
-#+end_src
-* Utils
-#+begin_src emacs-lisp
-(defun my/time () (format-time-string "%T"))
 #+end_src
 * Post config
 #+begin_src emacs-lisp
