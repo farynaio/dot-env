@@ -1789,6 +1789,8 @@ Including indent-buffer, which should not be called automatically on save."
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
+  (add-to-list 'org-link-frame-setup '(file . find-file))
+
   ;; (major-mode-hydra-define (org-mode)
   ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ;;   ("Action"
