@@ -1676,7 +1676,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("m" hydra-multiple-cursors/body "multiple cursors")
         ("t" hydra-tab-bar/body "tab-bar")
         ("f" rss "RSS")
-        ("k" browse-kill-ring "browse kill ring")))))
+        ("k" browse-kill-ring "browse kill ring")
+        ("b" ibuffer "ibuffer")))))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
