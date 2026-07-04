@@ -3919,8 +3919,9 @@ should be continued."
 
         (defun my/elfeed-update ()
           (interactive)
-          (message "Updating RSS feeds...")
-          (elfeed-update))
+          (ignore-errors
+            (elfeed-update)
+            (message "Updating RSS feeds...")))
 
         ;; based on shr-browse-url
         (defun my/elfeed-shr-open-external (&optional mouse-event)
