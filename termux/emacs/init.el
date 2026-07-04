@@ -3770,40 +3770,38 @@ should be continued."
     (progn
       (use-package elfeed
         :commands elfeed-db-load
-        :bind (:map elfeed-show-mode-map
-                    ("SPC" . elfeed-scroll-up-command)
-                    ("S-SPC" . elfeed-scroll-down-command)
-                    ("C-x C-l" . shr-copy-url)
-                    ("l" . shr-copy-url)
-                    ("C-c C-l" . hydra-elfeed/body)
-                    :map shr-map
-                    ;; ("RET" . my/elfeed-shr-open-external)
-                    ;; ("v" . my/elfeed-shr-open-external)
-                    ;; ("O" . my/elfeed-shr-open-external)
-                    :map elfeed-search-mode-map
-                    ("h" . hydra-elfeed-search/body)
-                    ("q" . my/elfeed-save-db-and-bury)
-                    ("d" . my/elfeed-youtube-download)
-                    ("o" . my/elfeed-tag-toggle-ok)
-                    ("f" . my/elfeed-tag-toggle-favorite)
-                    ("j" . my/elfeed-tag-toggle-junk)
-                    ("r" . my/elfeed-mark-read-move-next)
-                    ("u" . my/elfeed-mark-unread-move-next)
-                    ;; ("O" . my/elfeed-open-in-external-browser)
-                    ("g" . my/elfeed-update)
-                    ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
-                    ;; ("<s-mouse-1>" . elfeed-search-browse-url)
-                    ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
-                    ("C-x m" . hydra-elfeed-search/body))
+        :bind
+        (:map elfeed-show-mode-map
+              ("SPC" . elfeed-scroll-up-command)
+              ("S-SPC" . elfeed-scroll-down-command)
+              ("C-x C-l" . shr-copy-url)
+              ("l" . shr-copy-url)
+              ("C-c C-l" . hydra-elfeed/body)
+              :map shr-map
+              ;; ("RET" . my/elfeed-shr-open-external)
+              ;; ("v" . my/elfeed-shr-open-external)
+              ;; ("O" . my/elfeed-shr-open-external)
+              :map elfeed-search-mode-map
+              ("h" . hydra-elfeed-search/body)
+              ("q" . my/elfeed-save-db-and-bury)
+              ("d" . my/elfeed-youtube-download)
+              ("o" . my/elfeed-tag-toggle-ok)
+              ("f" . my/elfeed-tag-toggle-favorite)
+              ("j" . my/elfeed-tag-toggle-junk)
+              ("r" . my/elfeed-mark-read-move-next)
+              ("u" . my/elfeed-mark-unread-move-next)
+              ;; ("O" . my/elfeed-open-in-external-browser)
+              ("g" . my/elfeed-update)
+              ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
+              ;; ("<s-mouse-1>" . elfeed-search-browse-url)
+              ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
+              ("C-x m" . hydra-elfeed-search/body))
         :preface
         (defun my/elfeed-load-db-and-open ()
           "Wrapper to load the elfeed db from disk before opening"
           (interactive)
           (elfeed-db-load)
-          (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M"))
-          (elfeed-update)
-          (elfeed-search-update--force)
-          (elfeed-db-save)
+          (my/elfeed-update)
           (elfeed))
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
@@ -3825,17 +3823,18 @@ should be continued."
              ("<end>" . elfeed-goodies/delete-pane)
              ("<mouse-1>" . nil)
              ("<mouse-2>" . nil))
-          (bind-keys :map shr-map
-                     ("<mouse-1>" . shr-copy-url)
-                     ("<mouse-2>" . shr-copy-url)
-                     ("<S-mouse-1>" . shr-copy-url)
-                     ;; ("<mouse-1>" . my/elfeed-shr-open-click)
-                     ;; ("<mouse-2>" . my/elfeed-shr-open-click)
-                     ;; ("<S-mouse-1>" . my/elfeed-shr-open-click)
-                     :map elfeed-show-mode-map
-                     ("<mouse-1>" . shr-copy-url)
-                     ("<s-mouse-1>" . shr-copy-url)
-                     ("<S-mouse-1>" . shr-copy-url)))
+          (bind-keys
+           :map shr-map
+           ("<mouse-1>" . shr-copy-url)
+           ("<mouse-2>" . shr-copy-url)
+           ("<S-mouse-1>" . shr-copy-url)
+           ;; ("<mouse-1>" . my/elfeed-shr-open-click)
+           ;; ("<mouse-2>" . my/elfeed-shr-open-click)
+           ;; ("<S-mouse-1>" . my/elfeed-shr-open-click)
+           :map elfeed-show-mode-map
+           ("<mouse-1>" . shr-copy-url)
+           ("<s-mouse-1>" . shr-copy-url)
+           ("<S-mouse-1>" . shr-copy-url)))
 
         (pretty-hydra-define hydra-elfeed
           (:hint nil :color teal :quit-key "q" :title (with-faicon "comments-o" "RSS" 1 -0.05))
@@ -3920,7 +3919,7 @@ should be continued."
 
         (defun my/elfeed-update ()
           (interactive)
-          (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))
+          (message "Updating RSS feeds...")
           (elfeed-update))
 
         ;; based on shr-browse-url
@@ -3936,22 +3935,22 @@ should be continued."
               (browse-url-generic url)
               (shr--blink-link)))))
 
+        (defun my/elfeed-save-db ()
+          (elfeed-db-save)
+          (elfeed-db-compact))
+
+        (add-hook 'kill-emacs-hook #'my/elfeed-save-db)
         ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
         ;;write to disk when quiting
         (defun my/elfeed-save-db-and-bury ()
           "Wrapper to save the elfeed db to disk before burying buffer"
           (interactive)
-          (elfeed-db-save)
+          (my/elfeed-save-db)
           (my/kill-current-buffer))
-
-        (defun my/elfeed-kill ()
-          "Elfeed custom cleanup on exit."
-          (elfeed-db-save)
-          (elfeed-db-compact))
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
         (defun my/elfeed-youtube-download (&optional use-generic-p)
-          "Youtube-DL link"
+          "Download YouTube video."
           (interactive "P")
           (let ((entries (elfeed-search-selected)))
             (cl-loop for entry in entries
@@ -3977,7 +3976,9 @@ should be continued."
                 (scroll-down-command arg)
               (warn (elfeed-show-prev)))))
 
+        ;; TODO send article to pocket instead via org-capture
         (defun my/elfeed-send-emails (&optional all)
+          "Send entry to e-mail to read later offline."
           (interactive)
           (let ((entries (if all
                              (progn
@@ -4070,14 +4071,17 @@ should be continued."
         (defun my/elfeed-mark-unread-move-next ()
           (interactive)
           (elfeed-search-tag-all-unread)
-          (unless (use-region-p) (next-line))))
+          (unless (use-region-p) (next-line)))
+
+        (run-at-time t (* 4 60 60) #'my/elfeed-update))
 
       (use-package elfeed-goodies
         :demand t
         :after elfeed
-        :bind (:map elfeed-show-mode-map
-                    ("n" . 'elfeed-goodies/split-show-next)
-                    ("p" . 'elfeed-goodies/split-show-prev))
+        :bind
+        (:map elfeed-show-mode-map
+              ("n" . 'elfeed-goodies/split-show-next)
+              ("p" . 'elfeed-goodies/split-show-prev))
         :custom
         (elfeed-goodies/entry-pane-position 'bottom)
         (elfeed-show-entry-switch 'elfeed-goodies/switch-pane)
@@ -4092,11 +4096,6 @@ should be continued."
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
         (elfeed-org))
-
-      (defun my/rss-daily-fetch ()
-        (my/elfeed-update))
-
-      (run-at-time 0 (* 3 60 60) 'my/rss-daily-fetch)
 
       (defalias 'rss #'my/elfeed-load-db-and-open))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
