@@ -869,7 +869,8 @@
        "/sudo:"
        "/tmp/"
        "?:cache"
-       "eln-cache"))
+       "eln-cache"
+       "elfeed/index"))
     :config
     (recentf-mode 1)
     (run-at-time nil (* 60 5) #'recentf-save-list))
