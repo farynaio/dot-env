@@ -2681,6 +2681,9 @@ should be continued."
 (use-package groovy-mode
   :mode ("\\.gradle\\'" "\\.groovy\\'"))
 
+(use-package yaml-mode
+  :mode "\\.yml\\'")
+
 (defun my/web-mode-toggle ()
   "Toggle switch between `web-mode' and native major mode."
   (interactive)
