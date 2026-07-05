@@ -3950,7 +3950,8 @@ should be continued."
 
         (defun my/elfeed-save-db ()
           (elfeed-db-save)
-          (elfeed-db-compact))
+          ;; (elfeed-db-compact)
+)
 
         (add-hook 'kill-emacs-hook #'my/elfeed-save-db)
         ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
