@@ -2678,6 +2678,9 @@ should be continued."
   :custom
   (css-indent-offset tab-width))
 
+(use-package groovy-mode
+  :mode ("\\.gradle\\'" "\\.groovy\\'"))
+
 (defun my/web-mode-toggle ()
   "Toggle switch between `web-mode' and native major mode."
   (interactive)
