@@ -533,6 +533,13 @@ TODO:
 (defun my/kill-current-buffer ()
   (interactive)
   (quit-window t))
+
+(defun my/no-messages (fun &rest args)
+    ;; (advice-add 'message :around #'ignore)
+    (let ((inhibit-message t))
+      (apply fun args))
+    ;; (advice-remove 'message #'ignore)
+)
 #+end_src
 * Termux
 #+begin_src emacs-lisp
@@ -916,7 +923,8 @@ TODO:
        "elfeed/index"))
     :config
     (recentf-mode 1)
-    (run-at-time nil (* 60 5) #'recentf-save-list))
+    (run-at-time nil (* 60 5) #'recentf-save-list)
+    (advice-add 'recentf-save-list :around #'my/no-messages))
 
   ;; Embark: supercharged context-dependent menu; kinda like a
   ;; super-charged right-click.

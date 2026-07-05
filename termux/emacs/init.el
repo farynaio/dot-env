@@ -505,6 +505,13 @@
   (interactive)
   (quit-window t))
 
+(defun my/no-messages (fun &rest args)
+    ;; (advice-add 'message :around #'ignore)
+    (let ((inhibit-message t))
+      (apply fun args))
+    ;; (advice-remove 'message #'ignore)
+)
+
 (defun my/termux-p ()
   "Check if Emacs is running on Termux"
   (interactive)
@@ -873,7 +880,8 @@
        "elfeed/index"))
     :config
     (recentf-mode 1)
-    (run-at-time nil (* 60 5) #'recentf-save-list))
+    (run-at-time nil (* 60 5) #'recentf-save-list)
+    (advice-add 'recentf-save-list :around #'my/no-messages))
 
   ;; Embark: supercharged context-dependent menu; kinda like a
   ;; super-charged right-click.
