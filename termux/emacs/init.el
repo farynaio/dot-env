@@ -3790,7 +3790,7 @@ should be continued."
 (if (and my/elfeed-org-feeds-files my/elfeed-db-folder my/downloads-dir)
     (progn
       (use-package elfeed
-        :commands elfeed-db-load
+        :demand t
         :bind
         (:map elfeed-show-mode-map
               ("SPC" . elfeed-scroll-up-command)
@@ -3817,13 +3817,6 @@ should be continued."
               ;; ("<s-mouse-1>" . elfeed-search-browse-url)
               ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
               ("C-x m" . hydra-elfeed-search/body))
-        :preface
-        (defun my/elfeed-load-db-and-open ()
-          "Wrapper to load the elfeed db from disk before opening"
-          (interactive)
-          (elfeed-db-load)
-          (my/elfeed-update)
-          (elfeed))
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
         (elfeed-enclosure-default-dir my/downloads-dir)
@@ -3889,6 +3882,25 @@ should be continued."
            (("m" my/elfeed-send-emails "Send emails")
             ("g" my/elfeed-update "Update feeds"))))
 
+        (defun my/elfeed-load-db-and-update ()
+          (interactive)
+          (elfeed-db-load)
+          (my/elfeed-update))
+
+        (defun my/elfeed-load-db-and-open ()
+          "Wrapper to load the elfeed db from disk before opening"
+          (interactive)
+          (my/elfeed-load-db-and-update)
+          (elfeed))
+
+       (defun my/elfeed-update ()
+          (interactive)
+          (ignore-errors
+            (elfeed-update)
+            (message "Updating RSS feeds...")))
+
+       (my/elfeed-load-db-and-update)
+
         (defun my/elfeed-search-open-in-external-click (event)
           "Open link with external browser"
           (interactive "e")
@@ -3919,7 +3931,6 @@ should be continued."
                 (other-frame 1))
               (browse-url-generic url))))
           (shr--blink-link))
-
         ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
         ;;functions to support syncing .elfeed between machines
         ;;makes sure elfeed reads index from disk before launching
@@ -3938,12 +3949,6 @@ should be continued."
               (message url)
               (browse-url-generic url))))
 
-        (defun my/elfeed-update ()
-          (interactive)
-          (ignore-errors
-            (elfeed-update)
-            (message "Updating RSS feeds...")))
-
         ;; based on shr-browse-url
         (defun my/elfeed-shr-open-external (&optional mouse-event)
           (interactive (list last-nonmenu-event))
@@ -3960,7 +3965,7 @@ should be continued."
         (defun my/elfeed-save-db ()
           (elfeed-db-save)
           ;; (elfeed-db-compact)
-)
+          )
 
         (add-hook 'kill-emacs-hook #'my/elfeed-save-db)
         ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
@@ -4120,7 +4125,7 @@ should be continued."
         :config
         (elfeed-org))
 
-      (defalias 'rss #'my/elfeed-load-db-and-open))
+      (defalias 'rss #'elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
 
 (when (string= system-type "darwin")
