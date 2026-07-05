@@ -877,7 +877,8 @@
        "/tmp/"
        "?:cache"
        "eln-cache"
-       "elfeed/index"))
+       "elfeed/index"
+       "bookmarks"))
     :config
     (recentf-mode 1)
     (run-at-time nil (* 60 5) #'recentf-save-list)
