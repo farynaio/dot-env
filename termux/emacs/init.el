@@ -497,6 +497,8 @@
 
 (defalias 'qcalc #'quick-calc)
 
+;; (setq backtrace-on-redisplay-error t)
+
 (defun my/time () (format-time-string "%T"))
 
 (defun my/kill-current-buffer ()

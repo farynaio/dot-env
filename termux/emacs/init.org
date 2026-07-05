@@ -522,6 +522,10 @@ TODO:
 
 (defalias 'qcalc #'quick-calc)
 #+end_src
+* Debug
+#+begin_src emacs-lisp
+;; (setq backtrace-on-redisplay-error t)
+#+end_src
 * Util functions
 #+begin_src emacs-lisp
 (defun my/time () (format-time-string "%T"))
