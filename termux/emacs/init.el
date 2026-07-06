@@ -3897,7 +3897,7 @@ should be continued."
           (interactive)
           (ignore-errors
             (elfeed-update)
-            (message "Updating RSS feeds...")))
+            (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))))
 
        (my/elfeed-load-db-and-update)
 
@@ -4101,7 +4101,7 @@ should be continued."
           (elfeed-search-tag-all-unread)
           (unless (use-region-p) (next-line)))
 
-        (run-at-time t (* 4 60 60) #'my/elfeed-update))
+        (run-at-time t (* 2 60 60) #'my/elfeed-update))
 
       (use-package elfeed-goodies
         :demand t
