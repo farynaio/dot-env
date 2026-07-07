@@ -4099,9 +4099,7 @@ should be continued."
         (defun my/elfeed-mark-unread-move-next ()
           (interactive)
           (elfeed-search-tag-all-unread)
-          (unless (use-region-p) (next-line)))
-
-        (run-at-time t (* 2 60 60) #'my/elfeed-update))
+          (unless (use-region-p) (next-line))))
 
       (use-package elfeed-goodies
         :demand t
@@ -4123,7 +4121,8 @@ should be continued."
         :custom
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
-        (elfeed-org))
+        (elfeed-org)
+        (run-at-time t (* 2 60 60) #'my/elfeed-update))
 
       (defalias 'rss #'elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
