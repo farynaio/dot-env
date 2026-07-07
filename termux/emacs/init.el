@@ -1137,7 +1137,7 @@
 (straight-register-package 'evil-collection)
 (when my/evil-enable
   (use-package evil
-    :demand t
+    :commands (evil-mode)
     :bind (:map evil-normal-state-map
                 ("C-f" . hydra-base/body)
                 :map evil-insert-state-map
@@ -1149,8 +1149,6 @@
     (evil-undo-system 'undo-redo)
     (evil-want-C-u-scroll t)
     :config
-    ;; (evil-mode)
-
     ;; If you use Magit, start editing in insert state
     ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
 
