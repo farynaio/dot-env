@@ -1137,14 +1137,19 @@
 (straight-register-package 'evil-collection)
 (when my/evil-enable
   (use-package evil
-    :disabled t
     :demand t
+    :bind (:map evil-normal-state-map
+                ("C-f" . hydra-base/body)
+                :map evil-insert-state-map
+                ("C-f" . hydra-base/body)
+                :map evil-motion-state-map
+                ("C-f" . hydra-base/body))
     :custom
     (evil-respect-visual-line-mode t)
     (evil-undo-system 'undo-redo)
     (evil-want-C-u-scroll t)
     :config
-    (evil-mode)
+    ;; (evil-mode)
 
     ;; If you use Magit, start editing in insert state
     ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
@@ -1689,7 +1694,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("t" hydra-tab-bar/body "tab-bar")
         ("f" rss "RSS")
         ("k" browse-kill-ring "browse kill ring")
-        ("b" ibuffer "ibuffer")))))
+        ("b" ibuffer "ibuffer")
+        ("e" evil-mode "evil" :toggle t)))))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
