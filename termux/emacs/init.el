@@ -1133,52 +1133,35 @@
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
 
-(straight-register-package 'evil)
-(straight-register-package 'evil-collection)
-(when my/evil-enable
-  (use-package evil
-    :commands (evil-mode)
-    :bind (:map evil-normal-state-map
-                ("C-f" . hydra-base/body)
-                :map evil-insert-state-map
-                ("C-f" . hydra-base/body)
-                :map evil-motion-state-map
-                ("C-f" . hydra-base/body))
-    :custom
-    (evil-respect-visual-line-mode t)
-    (evil-undo-system 'undo-redo)
-    (evil-want-C-u-scroll t)
-    :config
-    ;; If you use Magit, start editing in insert state
-    ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
-
-    ;; Configuring initial major mode for some modes
-    (evil-set-initial-state 'eat-mode 'emacs)
-    (evil-set-initial-state 'vterm-mode 'emacs))
-
-  (use-package evil-collection
-    :disabled t
-    :demand t
-    :after evil
-    :config
-    (evil-collection-init)))
-
 (setq undo-limit 160000)
-(global-set-key (kbd "C-\\") #'undo)
-(global-set-key (kbd "C-/") #'undo-redo)
+
+(use-package undo-fu
+  :bind (("C-\\" . undo-fu-only-undo)
+         ("C-/" . undo-fu-only-redo))
+  ;; :config
+  ;; (evil-define-key 'normal 'global-map
+  ;;   (kbd "u") #'undo-fu-only-undo
+  ;;   (kbd "C-r") #'undo-fu-only-redo)
+)
 
 ;; (use-package move-text
 ;; :bind (("M-<up>" . move-text-up)
 ;; ("M-<down>" . move-text-down)))
 
 (use-package multiple-cursors
-  :demand t
   :commands (mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this)
   :bind (("C->" . mc/mark-next-like-this) ;; these will not work on soft keyboard Android and external keyboards
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)
          :map mc/keymap
-         ("<return>" . nil)))
+         ("<return>" . nil))
+  :config
+    (pretty-hydra-define hydra-multiple-cursors
+      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
+      (""
+       (("<up>" mc/mark-previous-like-this "cursor up")
+        ("<down>" mc/mark-next-like-this "cursor down")
+        ("a" mc/mark-all-like-this "mark all")))))
 
 (use-package expand-region
   :commands (er/expand-region er/contract-region)
@@ -1186,16 +1169,16 @@
 
 (use-package region-bindings-mode
   :demand t
-  :after (multiple-cursors)
+  ;; :after (multiple-cursors)
   :custom
   (region-bindings-mode-disable-predicates ((lambda () buffer-read-only)))
   :config
-  (define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
-  (define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
-  (define-key region-bindings-mode-map "P" 'mc/unmark-previous-like-this)
-  (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
-  (define-key region-bindings-mode-map "N" 'mc/unmark-next-like-this)
-  (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
+  ;; (define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
+  ;; (define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
+  ;; (define-key region-bindings-mode-map "P" 'mc/unmark-previous-like-this)
+  ;; (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
+  ;; (define-key region-bindings-mode-map "N" 'mc/unmark-next-like-this)
+  ;; (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
   (define-key region-bindings-mode-map "e" 'er/expand-region)
   (define-key region-bindings-mode-map "c" 'er/contract-region)
   (region-bindings-mode-enable))
@@ -1551,6 +1534,36 @@ Including indent-buffer, which should not be called automatically on save."
     :config
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
 
+(straight-register-package 'evil)
+(straight-register-package 'evil-collection)
+(when my/evil-enable
+  (use-package evil
+    :commands (evil-mode)
+    :bind (:map evil-normal-state-map
+                ("C-f" . hydra-base/body)
+                :map evil-insert-state-map
+                ("C-f" . hydra-base/body)
+                :map evil-motion-state-map
+                ("C-f" . hydra-base/body))
+    :custom
+    (evil-respect-visual-line-mode t)
+    (evil-undo-system 'undo-fu)
+    (evil-want-C-u-scroll t)
+    :config
+    ;; If you use Magit, start editing in insert state
+    ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
+
+    ;; Configuring initial major mode for some modes
+    (evil-set-initial-state 'eat-mode 'emacs)
+    (evil-set-initial-state 'vterm-mode 'emacs))
+
+  (use-package evil-collection
+    :disabled t
+    :demand t
+    :after evil
+    :config
+    (evil-collection-init)))
+
   (use-package major-mode-hydra
     :demand t
     :commands major-mode-hydra
@@ -1662,13 +1675,6 @@ Including indent-buffer, which should not be called automatically on save."
         ("i" consult-imenu "imenu" :exit t)
         ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
 
-    (pretty-hydra-define hydra-multiple-cursors
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
-      (""
-       (("<up>" mc/mark-previous-like-this "cursor up")
-        ("<down>" mc/mark-next-like-this "cursor down")
-        ("a" mc/mark-all-like-this "mark all"))))
-
     (pretty-hydra-define hydra-tab-bar
       (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
       (""
@@ -1688,7 +1694,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("w" hydra-write/body "write"))
        ""
        (("c" org-capture "org-capture")
-        ("m" hydra-multiple-cursors/body "multiple cursors")
+        ;; ("m" hydra-multiple-cursors/body "multiple cursors")
         ("t" hydra-tab-bar/body "tab-bar")
         ("f" rss "RSS")
         ("k" browse-kill-ring "browse kill ring")
