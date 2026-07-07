@@ -25,8 +25,8 @@
   </row>
   <row>
     <key width="1.5" c="shift" ne="loc capslock"/>
-    <key c="z" se="ż" sw="ź"/>
-    <key c="x" ne="loc †"/>
+    <key c="z" se="ż"/>
+    <key c="x" se="ź" ne="loc †"/>
     <key c="c" nw="loc accent_cedille" se="ć"/>
     <key c="v" sw="." />
     <key c="b" ne="\?" sw="," />
@@ -36,8 +36,8 @@
   </row>
 
 <row>
-<key width="1.7" c="ctrl" nw="loc switch_greekmath" ne="loc meta" sw="loc switch_clipboard" se="switch_numeric"/>
-<key width="1.1" c="alt" nw="loc fn" ne="loc change_method" sw="switch_emoji" se="config"/>
+<key width="1.7" c="ctrl" nw="loc switch_greekmath" ne="loc meta" sw="loc switch_clipboard" se="loc switch_numeric"/>
+<key width="1.1" c="alt" nw="loc fn" ne="loc change_method" sw="switch_emoji"/>
 
 <key width="1.1" c="esc"/>
 <key width="3.3" c="space" w="cursor_left" e="cursor_right" n="cursor_up" s="cursor_down"/>
