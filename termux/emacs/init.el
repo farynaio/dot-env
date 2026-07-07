@@ -523,7 +523,7 @@
     (interactive "r")
     (let ((txt (buffer-substring-no-properties beg end)))
       (call-process "termux-clipboard-set" nil nil nil
-        (replace-regexp-in-string "\n" "\\n" txt))))
+         txt)))
   (bind-key "C-M-w" #'my/termux-clipboard-region))
 
 (setq help-window-select t)
