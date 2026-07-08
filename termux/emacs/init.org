@@ -464,8 +464,8 @@ TODO:
 * Help
 #+begin_src emacs-lisp
 (use-package help
-  :demand t
   :straight nil
+  :defer 1
   :bind
   (:map help-mode-map
         ("q" . my/kill-current-buffer))

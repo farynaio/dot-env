@@ -431,8 +431,8 @@
   (bind-key "C-M-w" #'my/termux-clipboard-region))
 
 (use-package help
-  :demand t
   :straight nil
+  :defer 1
   :bind
   (:map help-mode-map
         ("q" . my/kill-current-buffer))
