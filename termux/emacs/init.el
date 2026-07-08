@@ -2526,6 +2526,8 @@ should be continued."
               ("C-<return>" . nil)
               ("C-M-<return>" . yafolding-toggle-element)))
 
+(use-package fish-mode)
+
 (use-package nxml-mode
   :straight nil
   :hook ((nxml-mode . eldoc-mode)
