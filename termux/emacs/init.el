@@ -97,10 +97,9 @@
  compare-ignore-case t
  compare-ignore-whitespace t
  cursor-in-non-selected-windows t
- display-time-default-load-average nil
  view-read-only t
- require-final-newline nil
  indent-tabs-mode nil
+ require-final-newline nil
  mode-require-final-newline nil)
 
 ;; start in fullscreen
@@ -168,8 +167,6 @@
 ;; Use common keystrokes by default
 ;; (cua-mode)
 
-(xterm-mouse-mode 1)
-
 (setq
  initial-scratch-message nil
  inhibit-startup-message t
@@ -177,13 +174,12 @@
  inhibit-startup-echo-area-message (user-login-name)
  confirm-nonexistent-file-or-buffer nil
  x-underline-at-descent-line t
- initial-buffer-choice t
+ initial-buffer-choice nil
  password-cache-expiry nil
  word-wrap t
  shift-select-mode nil
  sentence-end-double-space nil
  revert-without-query '(".*")
- enable-recursive-minibuffers t
  show-paren-delay 0
  save-some-buffers-default-predicate t
  buffer-save-without-query t
@@ -258,42 +254,31 @@
 
 (run-with-idle-timer (* 60 5) t 'garbage-collect)
 
-  ;; Prompt indicator for `completing-read-multiple'.
-  (when (< emacs-major-version 31)
-    (advice-add #'completing-read-multiple :filter-args
-                (lambda (args)
-                  (cons (format "[CRM%s] %s"
-                                (string-replace "[ \t]*" "" crm-separator)
-                                (car args))
-                        (cdr args)))))
+;; Prompt indicator for `completing-read-multiple'.
+(when (< emacs-major-version 31)
+  (advice-add #'completing-read-multiple :filter-args
+              (lambda (args)
+                (cons (format "[CRM%s] %s"
+                              (string-replace "[ \t]*" "" crm-separator)
+                              (car args))
+                      (cdr args)))))
 
 ;; TAB cycle if there are only few candidates
 (setq
  completion-cycle-threshold 1
  completions-detailed t                        ; Show annotations
- tab-always-indent 'complete                   ; When I hit TAB, try to complete, otherwise, indent
  completion-styles '(basic initials substring) ; Different styles to match input to candidates
  completion-auto-help 'always                  ; Open completion always; `lazy' another option
  completions-max-height 20                     ; This is arbitrary
  completions-format 'one-column
  completions-group t
- completion-cycle-threshold t
  completion-auto-select 'second-tab)            ; Much more eager
-                                        ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
       '(read-only t cursor-intangible t face minibuffer-prompt))
-
-;; Hide commands in M-x which do not apply to the current mode.  Corfu
-;; commands are hidden, since they are not used via M-x. This setting is
-;; useful beyond Corfu.
-(setq read-extended-command-predicate #'command-completion-default-include-p)
-
-(setq x-underline-at-descent-line nil)           ; Prettier underlines
-(setq switch-to-buffer-obey-display-actions t)   ; Make s witching buffers more consistent
 
 (setq show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
 (setq indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
@@ -372,24 +357,6 @@
 (unless (file-exists-p my/tmp-dir)
   (make-directory my/tmp-dir t))
 
-;; Backup files (~file~)
-(setq backup-directory-alist `((".*" . ,my/tmp-dir))
-      backup-by-copying t    ; avoid symlink issues
-      delete-old-versions t
-      kept-new-versions 2
-      kept-old-versions 2
-      version-control t)     ; use numbered backups
-
-;; Auto-save files (#file#)
-(setq
- auto-save-file-name-transforms `((".*" ,(concat my/tmp-dir "/auto-save-") t))
- auto-save-list-file-prefix (concat  my/tmp-dir "/auto-saves-"))
-
-;; Lockfiles
-(setq create-lockfiles nil) ; optional: disable .#lockfiles
-
-(run-with-idle-timer (* 60 5) t 'garbage-collect)
-
 ;; No electric indent
 (setq electric-indent-mode nil)
 
@@ -399,23 +366,7 @@
 ;; Include entire file path in title
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
-;; TAB cycle if there are only few candidates
-(setq completion-cycle-threshold 1)
-(setq completions-detailed t)                        ; Show annotations
-(setq tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-(setq completion-styles '(basic initials substring)) ; Different styles to match input to candidates
-(setq completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-(setq completions-max-height 20)                     ; This is arbitrary
-(setq completions-format 'one-column)
-(setq completions-group t)
-(setq completion-auto-select 'second-tab)            ; Much more eager
-                                        ;(setq completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
-
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
-
-;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
 
 ;; Enable indentation+completion using the TAB key.
 ;; `completion-at-point' is often bound to M-TAB.
@@ -484,8 +435,6 @@
       (call-process "termux-clipboard-set" nil nil nil
          txt)))
   (bind-key "C-M-w" #'my/termux-clipboard-region))
-
-(setq help-window-select t)
 
 (use-package help
   :demand t
@@ -804,8 +753,6 @@
       (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
         (nerd-icons-install-fonts t)
         (message "nerd-icons installed")))))
-
-  (setq  bookmark-save-flag 1)
 
   ;; Show more than 4 levels when evaling expressions
   (setq eval-expression-print-level 100)
