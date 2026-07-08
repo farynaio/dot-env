@@ -426,7 +426,8 @@
     (interactive "r")
     (let ((txt (buffer-substring-no-properties beg end)))
       (call-process "termux-clipboard-set" nil nil nil
-         txt)))
+         txt)
+      (kill-ring-save beg end)))
   (bind-key "C-M-w" #'my/termux-clipboard-region))
 
 (use-package help
