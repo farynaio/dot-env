@@ -436,6 +436,7 @@
   :custom
   (Man-notify-method 'pushy))
 
+;; Emacs native Man implementation
 (use-package woman
   :disabled t
   :straight nil
@@ -463,10 +464,7 @@
   :defer 1
   :bind
   (:map help-mode-map
-        ("q" . my/kill-current-buffer))
-  ;; :config
-  ;; (help-quick-toggle)
-)
+        ("q" . my/kill-current-buffer)))
 
 (use-package helpful
   :bind
@@ -767,145 +765,147 @@
         (nerd-icons-install-fonts t)
         (message "nerd-icons installed")))))
 
-  ;; Show more than 4 levels when evaling expressions
-  (setq eval-expression-print-level 100)
+;; Show more than 4 levels when evaling expressions
+(setq eval-expression-print-level 100)
 
-  (use-package avy
-    :bind (("C-c ;" . avy-goto-char-timer)
-           :map org-mode-map
-           ("C-c ;" . avy-goto-char-timer)))
+(use-package avy
+  :bind
+  (("C-c ;" . avy-goto-char-timer)
+   :map org-mode-map
+   ("C-c ;" . avy-goto-char-timer)))
 
-  ;; Modify search results en masse
-  (use-package wgrep
-    :demand t
-    :custom
-    (wgrep-auto-save-buffer t))
+;; Modify search results en masse
+(use-package wgrep
+  :demand t
+  :custom
+  (wgrep-auto-save-buffer t))
 
-  (use-package recentf
-    :demand t
-    :straight nil
-    :custom
-    (recentf-max-menu-items 15)
-    (recentf-max-saved-items 100)
-    (recentf-exclude
-     '("COMMIT_EDITMSG"
-       "~$"
-       "/scp:"
-       "/ssh:"
-       "/sudo:"
-       "/tmp/"
-       "?:cache"
-       "eln-cache"
-       "elfeed/index"
-       "bookmarks"))
-    :config
-    (recentf-mode 1)
-    (run-at-time nil (* 60 5) #'recentf-save-list)
-    (advice-add 'recentf-save-list :around #'my/no-messages))
+(use-package recentf
+  :demand t
+  :straight nil
+  :custom
+  (recentf-max-menu-items 15)
+  (recentf-max-saved-items 100)
+  (recentf-exclude
+   '("COMMIT_EDITMSG"
+     "~$"
+     "/scp:"
+     "/ssh:"
+     "/sudo:"
+     "/tmp/"
+     "?:cache"
+     "eln-cache"
+     "elfeed/index"
+     "bookmarks"))
+  :config
+  (recentf-mode 1)
+  (run-at-time nil (* 60 5) #'recentf-save-list)
+  (advice-add 'recentf-save-list :around #'my/no-messages))
 
-  ;; Embark: supercharged context-dependent menu; kinda like a
-  ;; super-charged right-click.
-  (use-package embark
-    :demand t
-    :after avy
-    :bind (("C-c a" . embark-act))        ; bind this to an easy key to hit
-    :init
-    ;; Add the option to run embark when using avy
-    (defun bedrock/avy-action-embark (pt)
-      (unwind-protect
-          (save-excursion
-            (goto-char pt)
-            (embark-act))
-        (select-window
-         (cdr (ring-ref avy-ring 0))))
-      t)
+;; Embark: supercharged context-dependent menu; kinda like a
+;; super-charged right-click.
+(use-package embark
+  :demand t
+  :after avy
+  :bind (("C-c a" . embark-act))        ; bind this to an easy key to hit
+  :init
+  ;; Add the option to run embark when using avy
+  (defun bedrock/avy-action-embark (pt)
+    (unwind-protect
+        (save-excursion
+          (goto-char pt)
+          (embark-act))
+      (select-window
+       (cdr (ring-ref avy-ring 0))))
+    t)
 
-    ;; After invoking avy-goto-char-timer, hit "." to run embark at the next
-    ;; candidate you select
-    (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
+  ;; After invoking avy-goto-char-timer, hit "." to run embark at the next
+  ;; candidate you select
+  (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
 
-  (use-package embark-consult
-    :demand t
-    :after (embark consult))
+(use-package embark-consult
+  :demand t
+  :after (embark consult))
 
-  (use-package dashboard
-    :demand t
-    :custom
-    (dashboard-icon-type 'all-the-icons)
-    (dashboard-display-icons-p (display-graphic-p))
-    (dashboard-set-heading-icons (display-graphic-p))
-    (dashboard-set-file-icons (display-graphic-p))
-    (dashboard-heading-icons
-     '((agenda . "calendar")
-       (recents . "history")
-       (bookmarks . "bookmark")
-       (registers . "database")))
-    (dashboard-week-agenda t)
-    (dashboard-agenda-sort-strategy '(time-up priority-up))
-    (dashboard-center-content t)
-    (dashboard-set-init-info t)
-    (dashboard-navigation-cycle t)
-    (dashboard-items
-     '((agenda . 5)
-       (recents . 5)
-       (bookmarks . 5)
-       (registers . 5)))
-    (dashboard-modify-heading-icons '((recents   . "file-text")
-                                      (bookmarks . "book")))
-    ;; (dashboard-item-names
-    ;;  '(("Agenda for today:" . "Today's agenda:")
-    ;;    ("Recent Files:" . "Recent files:")
-    ;;    ("Bookmarks" . "Bookmarks:")
-    ;;    ("Registers" . "Registers:")))
-    (dashboard-item-shortcuts '((agenda    . "a")
-                                (recents   . "r")
-                                (bookmarks . "m")
-                                (registers . "e")))
-    (dashboard-projects-backend 'projectile)
-    :config
-    (dashboard-setup-startup-hook))
+(use-package dashboard
+  :demand t
+  :custom
+  (dashboard-icon-type 'all-the-icons)
+  (dashboard-display-icons-p (display-graphic-p))
+  (dashboard-set-heading-icons (display-graphic-p))
+  (dashboard-set-file-icons (display-graphic-p))
+  (dashboard-heading-icons
+   '((agenda . "calendar")
+     (recents . "history")
+     (bookmarks . "bookmark")
+     (registers . "database")))
+  (dashboard-week-agenda t)
+  (dashboard-agenda-sort-strategy '(time-up priority-up))
+  (dashboard-center-content t)
+  (dashboard-set-init-info t)
+  (dashboard-navigation-cycle t)
+  (dashboard-items
+   '((agenda . 5)
+     (recents . 5)
+     (bookmarks . 5)
+     (registers . 5)))
+  (dashboard-modify-heading-icons '((recents   . "file-text")
+                                    (bookmarks . "book")))
+  ;; (dashboard-item-names
+  ;;  '(("Agenda for today:" . "Today's agenda:")
+  ;;    ("Recent Files:" . "Recent files:")
+  ;;    ("Bookmarks" . "Bookmarks:")
+  ;;    ("Registers" . "Registers:")))
+  (dashboard-item-shortcuts '((agenda    . "a")
+                              (recents   . "r")
+                              (bookmarks . "m")
+                              (registers . "e")))
+  (dashboard-projects-backend 'projectile)
+  :config
+  (dashboard-setup-startup-hook))
 
-  (defun my/messages-close-on-end ()
-    "Bind END in the *Messages* buffer to close its window."
-    (when (and (string= (buffer-name) "*Messages*") (eq system-type 'android))
-      (bind-key "<END>"  #'delete-window (current-local-map))))
-  (add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
+(defun my/messages-close-on-end ()
+  "Bind END in the *Messages* buffer to close its window."
+  (when (and (string= (buffer-name) "*Messages*") (eq system-type 'android))
+    (bind-key "<END>"  #'delete-window (current-local-map))))
+(add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
 
 
 (use-package consult
   :defer 1
-  :bind (("C-x C-y" . consult-yank-from-kill-ring)
-         ;; Drop-in replacements
-         ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
-         ("M-y"   . consult-yank-pop)   ; orig. yank-pop
-         ("M-g g" . consult-goto-line)
-         ("M-g M-g" . consult-goto-line)
-         ("C-x i" . consult-outline)
-         ("C-x C-i" . consult-imenu)
-         ("C-x M-i" . consult-imenu-multi)
-         ;; Searching
-         ("C-c b" . consult-bookmark)
-         ("C-x f" . consult-recent-file)
-         ("C-x C-r" . consult-recent-file)
-         ("M-s r" . my/consult-ripgrep)
-         ("M-s l" . my/consult-line)       ; Alternative: rebind C-s to use
-         ("M-s s" . my/consult-line)       ; consult-line instead of isearch, bind
-         ("M-s L" . consult-line-multi) ; isearch to M-s s
-         ("M-s o" . consult-outline)
-         ("C-M-s" . my/consult-ripgrep)
-         ("C-M-r" . my/consult-ripgrep)
-         ("C-s" . consult-line)
-         ("C-r" . consult-line)
-         ("M-s ." . my/consult-line)
-         ;; Kill ring
-         ("C-x C-y" . consult-yank-from-kill-ring)
-         ;; Isearch integration
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history) ; orig. isearch-edit-string
-         ("M-s l" . consult-line)            ; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)      ; needed by consult-line to detect isearch
-         )
+  :bind
+  (("C-x C-y" . consult-yank-from-kill-ring)
+   ;; Drop-in replacements
+   ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
+   ("M-y"   . consult-yank-pop)   ; orig. yank-pop
+   ("M-g g" . consult-goto-line)
+   ("M-g M-g" . consult-goto-line)
+   ("C-x i" . consult-outline)
+   ("C-x C-i" . consult-imenu)
+   ("C-x M-i" . consult-imenu-multi)
+   ;; Searching
+   ("C-c b" . consult-bookmark)
+   ("C-x f" . consult-recent-file)
+   ("C-x C-r" . consult-recent-file)
+   ("M-s r" . my/consult-ripgrep)
+   ("M-s l" . my/consult-line)       ; Alternative: rebind C-s to use
+   ("M-s s" . my/consult-line)       ; consult-line instead of isearch, bind
+   ("M-s L" . consult-line-multi) ; isearch to M-s s
+   ("M-s o" . consult-outline)
+   ("C-M-s" . my/consult-ripgrep)
+   ("C-M-r" . my/consult-ripgrep)
+   ("C-s" . consult-line)
+   ("C-r" . consult-line)
+   ("M-s ." . my/consult-line)
+   ;; Kill ring
+   ("C-x C-y" . consult-yank-from-kill-ring)
+   ;; Isearch integration
+   :map isearch-mode-map
+   ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
+   ("M-s e" . consult-isearch-history) ; orig. isearch-edit-string
+   ("M-s l" . consult-line)            ; needed by consult-line to detect isearch
+   ("M-s L" . consult-line-multi)      ; needed by consult-line to detect isearch
+   )
   :custom
   ;; Narrowing lets you restrict results to certain groups of candidates
   (consult-narrow-key "<")
@@ -957,10 +957,11 @@
   (use-package vertico-directory
     :straight nil
     :after vertico
-    :bind (:map vertico-map
-                ("RET" . vertico-directory-enter)
-                ("DEL" . vertico-directory-delete-char)
-                ("M-DEL" . vertico-directory-delete-word))
+    :bind
+    (:map vertico-map
+          ("RET" . vertico-directory-enter)
+          ("DEL" . vertico-directory-delete-char)
+          ("M-DEL" . vertico-directory-delete-word))
     ;; Tidy shadowed file names
     :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)))
 
@@ -1017,9 +1018,10 @@
   (corfu-popupinfo-mode 1) ; Popup completion info
   (corfu-echo-mode 1)
   (add-hook 'eshell-mode-hook
-            (lambda () (setq-local corfu-quit-at-boundary t
-                                   corfu-quit-no-match t
-                                   corfu-auto nil)
+            (lambda ()
+              (setq-local corfu-quit-at-boundary t
+                          corfu-quit-no-match t
+                          corfu-auto nil)
               (corfu-mode))))
 
 (use-package cape
@@ -1069,18 +1071,19 @@
 
 (use-package multiple-cursors
   :commands (mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this)
-  :bind (("C->" . mc/mark-next-like-this) ;; these will not work on soft keyboard Android and external keyboards
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)
-         :map mc/keymap
-         ("<return>" . nil))
+  :bind
+  (("C->" . mc/mark-next-like-this) ;; these will not work on soft keyboard Android and external keyboards
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-c C-<" . mc/mark-all-like-this)
+   :map mc/keymap
+   ("<return>" . nil))
   :config
-    (pretty-hydra-define hydra-multiple-cursors
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
-      (""
-       (("<up>" mc/mark-previous-like-this "cursor up")
-        ("<down>" mc/mark-next-like-this "cursor down")
-        ("a" mc/mark-all-like-this "mark all")))))
+  (pretty-hydra-define hydra-multiple-cursors
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
+    (""
+     (("<up>" mc/mark-previous-like-this "cursor up")
+      ("<down>" mc/mark-next-like-this "cursor down")
+      ("a" mc/mark-all-like-this "mark all")))))
 
 (use-package expand-region
   :commands (er/expand-region er/contract-region)
@@ -1194,7 +1197,7 @@
              (command (concat "ack '" regexp "' '" dir "'")))
         (unless (file-accessible-directory-p dir)
           (error "directory: '%s' is not accessible." dir))
-            (compilation-start (concat command " < " null-device) 'grep-mode))
+        (compilation-start (concat command " < " null-device) 'grep-mode))
     (error "No executable 'ack' found!")))
 
 (use-package windmove
@@ -1381,12 +1384,13 @@ Including indent-buffer, which should not be called automatically on save."
 (use-package dired
   :demand t
   :straight nil
-  :bind (:map dired-mode-map
-              ("C-s" . isearch-forward)
-              ("<backspace>" . dired-up-directory)
-              ("DEL" . dired-up-directory) ; optional
-              ("W" . my/dired-copy-path-to-file-as-kill)
-              ("RET" .  dired-find-file))
+  :bind
+  (:map dired-mode-map
+        ("C-s" . isearch-forward)
+        ("<backspace>" . dired-up-directory)
+        ("DEL" . dired-up-directory) ; optional
+        ("W" . my/dired-copy-path-to-file-as-kill)
+        ("RET" .  dired-find-file))
   :hook (dired-mode . dired-hide-details-mode)
   :custom
   (enable-command 'dired-find-alternate-file)
@@ -1437,7 +1441,7 @@ Including indent-buffer, which should not be called automatically on save."
                                      (dired-get-marked-files t))
                                     (t
                                      (dired-get-marked-files
-                                                            'no-dir (prefix-numeric-value arg))))
+                                      'no-dir (prefix-numeric-value arg))))
                             (dired-get-marked-files 'no-dir))
                           " "))))
       (unless (string= string "")
@@ -1458,12 +1462,13 @@ Including indent-buffer, which should not be called automatically on save."
 (when my/evil-enable
   (use-package evil
     :commands (evil-mode)
-    :bind (:map evil-normal-state-map
-                ("C-f" . hydra-base/body)
-                :map evil-insert-state-map
-                ("C-f" . hydra-base/body)
-                :map evil-motion-state-map
-                ("C-f" . hydra-base/body))
+    :bind
+    (:map evil-normal-state-map
+          ("C-f" . hydra-base/body)
+          :map evil-insert-state-map
+          ("C-f" . hydra-base/body)
+          :map evil-motion-state-map
+          ("C-f" . hydra-base/body))
     :custom
     (evil-respect-visual-line-mode t)
     (evil-undo-system 'undo-fu)
@@ -1483,142 +1488,142 @@ Including indent-buffer, which should not be called automatically on save."
     :config
     (evil-collection-init)))
 
-  (use-package major-mode-hydra
-    :demand t
-    :commands major-mode-hydra
-    :bind ("C-f" . hydra-base/body)
-    :config
-    (defun with-alltheicon (icon str &optional height v-adjust)
-      "Displays an icon from all-the-icon."
-      (if (display-graphic-p)
+(use-package major-mode-hydra
+  :demand t
+  :commands major-mode-hydra
+  :bind ("C-f" . hydra-base/body)
+  :config
+  (defun with-alltheicon (icon str &optional height v-adjust)
+    "Displays an icon from all-the-icon."
+    (if (display-graphic-p)
         (s-concat (all-the-icons-alltheicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-        str))
+      str))
 
-    (defun with-faicon (icon str &optional height v-adjust)
-      "Displays an icon from Font Awesome icon."
-      (if (display-graphic-p)
+  (defun with-faicon (icon str &optional height v-adjust)
+    "Displays an icon from Font Awesome icon."
+    (if (display-graphic-p)
         (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-        str))
+      str))
 
-    (defun with-fileicon (icon str &optional height v-adjust)
-      "Displays an icon from the Atom File Icons package."
-      (if (display-graphic-p)
+  (defun with-fileicon (icon str &optional height v-adjust)
+    "Displays an icon from the Atom File Icons package."
+    (if (display-graphic-p)
         (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-        str))
+      str))
 
-    (defun with-octicon (icon str &optional height v-adjust)
-      "Displays an icon from the GitHub Octicons."
-      (if (display-graphic-p)
+  (defun with-octicon (icon str &optional height v-adjust)
+    "Displays an icon from the GitHub Octicons."
+    (if (display-graphic-p)
         (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)
-        str))
+      str))
 
-    (pretty-hydra-define hydra-project
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "archive" "Project" 1 -0.05))
-      ("Actions"
-       (("a" my/projectile-add-known-project "add")
-        ("d" projectile-remove-known-project "remove")
-        ("i" projectile-invalidate-cache "reset cache")
-        ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))
-       "Find"
-       (("p" projectile-switch-project "project")
-        ("o" projectile-find-other-file "other file")
-        ("t" projectile-find-tag "tag")
-        ("s" projectile-grep "search")
-        ("g" yant/occur-current-project "grep"))))
+  (pretty-hydra-define hydra-project
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "archive" "Project" 1 -0.05))
+    ("Actions"
+     (("a" my/projectile-add-known-project "add")
+      ("d" projectile-remove-known-project "remove")
+      ("i" projectile-invalidate-cache "reset cache")
+      ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))
+     "Find"
+     (("p" projectile-switch-project "project")
+      ("o" projectile-find-other-file "other file")
+      ("t" projectile-find-tag "tag")
+      ("s" projectile-grep "search")
+      ("g" yant/occur-current-project "grep"))))
 
-    (pretty-hydra-define hydra-org
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
-      ("Actions"
-       (("a" org-agenda "org agenda" :exit t)
-        ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
-        ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
-        ("t" org-toggle-timestamp-type "timestamp toggle")
-        ("l" org-link-archive-at-point "link archive")
-        ;; ("h" org-archive-subtree "archive heading subtree")
-        ("s" org-roam-node-find "find file")
-        ("b" consult-org-roam-backlinks "backlinks")
-        ("f" consult-org-roam-forward-links "forward links")
-        ("S" consult-org-roam-search "org-roam search")
-        )
-       "Toggle"
-       (("p" org-appear-mode "org-appear toggle" :toggle t)
-        ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
+  (pretty-hydra-define hydra-org
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
+    ("Actions"
+     (("a" org-agenda "org agenda" :exit t)
+      ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
+      ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
+      ("t" org-toggle-timestamp-type "timestamp toggle")
+      ("l" org-link-archive-at-point "link archive")
+      ;; ("h" org-archive-subtree "archive heading subtree")
+      ("s" org-roam-node-find "find file")
+      ("b" consult-org-roam-backlinks "backlinks")
+      ("f" consult-org-roam-forward-links "forward links")
+      ("S" consult-org-roam-search "org-roam search")
+      )
+     "Toggle"
+     (("p" org-appear-mode "org-appear toggle" :toggle t)
+      ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
 
-    ;; (pretty-hydra-define hydra-navigation
-    ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
-    ;;   (""
-    ;;    (("a" my/consult-ripgrep "ack" :exit t))))
+  ;; (pretty-hydra-define hydra-navigation
+  ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
+  ;;   (""
+  ;;    (("a" my/consult-ripgrep "ack" :exit t))))
 
-    (pretty-hydra-define hydra-registers
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "bookmark" "Registers" 1 -0.05))
-      ("Registers"
-       (("rp" point-to-register "point to register" :exit t)
-        ("rj" jump-to-register "jump to register" :exit t))
-       "Bookmarks"
-       (("b" consult-bookmark "jump or set" :exit t)
-        ("s" bookmark-save "save bookmarks" :exit t) ; this probably happens automatically
-        ("l" list-bookmarks "list bookmarks" :exit t))))
+  (pretty-hydra-define hydra-registers
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "bookmark" "Registers" 1 -0.05))
+    ("Registers"
+     (("rp" point-to-register "point to register" :exit t)
+      ("rj" jump-to-register "jump to register" :exit t))
+     "Bookmarks"
+     (("b" consult-bookmark "jump or set" :exit t)
+      ("s" bookmark-save "save bookmarks" :exit t) ; this probably happens automatically
+      ("l" list-bookmarks "list bookmarks" :exit t))))
 
-    (pretty-hydra-define hydra-git
-      (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-      ("Actions"
-       (("s" magit-status "status")
-        ("b" magit-blame "blame")
-        ("l" magit-log-buffer-file "commit log (current file)")
-        ("L" magit-log-current "commit log (project)"))))
+  (pretty-hydra-define hydra-git
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
+    ("Actions"
+     (("s" magit-status "status")
+      ("b" magit-blame "blame")
+      ("l" magit-log-buffer-file "commit log (current file)")
+      ("L" magit-log-current "commit log (project)"))))
 
-    (pretty-hydra-define hydra-write
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "pencil" "Write" 1 -0.05))
-      ("Language"
-       (("d" ispell-change-dictionary "change dictionary")
-        ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
-        ("w" my/lang-toggle "language switch" :exit t))
-       "Fix grammar"
-       (("o" artbollocks-mode "artbollocks" :toggle t)
-        ("<" flyspell-correct-previous "previous")
-        (">" flyspell-correct-next "next"))))
+  (pretty-hydra-define hydra-write
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "pencil" "Write" 1 -0.05))
+    ("Language"
+     (("d" ispell-change-dictionary "change dictionary")
+      ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+      ("w" my/lang-toggle "language switch" :exit t))
+     "Fix grammar"
+     (("o" artbollocks-mode "artbollocks" :toggle t)
+      ("<" flyspell-correct-previous "previous")
+      (">" flyspell-correct-next "next"))))
 
-    (pretty-hydra-define hydra-dev
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "cogs" "Dev" 1 -0.05))
-      ("Action"
-       (("x" xref-find-references-and-replace "replace references" :exit t)
-        ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-        ("o" my/eglot-organize-imports "organize imports" :exit t)
-        ("fc" flycheck-mode "flycheck" :toggle t)
-        ("fm" flymake-mode "flymake" :toggle t))
-       "Navigate"
-       (("d" my/xref-find-definitions-at-point "find definitions" :exit t)
-        ("r" my/xref-find-references-at-point "find references" :exit t)
-        ("t" projectile-find-tag "find tag" :exit t)
-        ("g" projectile-grep "git grep" :exit t)
-        ("i" consult-imenu "imenu" :exit t)
-        ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
+  (pretty-hydra-define hydra-dev
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "cogs" "Dev" 1 -0.05))
+    ("Action"
+     (("x" xref-find-references-and-replace "replace references" :exit t)
+      ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
+      ("o" my/eglot-organize-imports "organize imports" :exit t)
+      ("fc" flycheck-mode "flycheck" :toggle t)
+      ("fm" flymake-mode "flymake" :toggle t))
+     "Navigate"
+     (("d" my/xref-find-definitions-at-point "find definitions" :exit t)
+      ("r" my/xref-find-references-at-point "find references" :exit t)
+      ("t" projectile-find-tag "find tag" :exit t)
+      ("g" projectile-grep "git grep" :exit t)
+      ("i" consult-imenu "imenu" :exit t)
+      ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
 
-    (pretty-hydra-define hydra-tab-bar
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
-      (""
-       (("n" tab-bar-new-tab "new")
-        ("r" tab-bar-rename-tab "rename")
-        ("c" tab-bar-close-tab "close"))))
+  (pretty-hydra-define hydra-tab-bar
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
+    (""
+     (("n" tab-bar-new-tab "new")
+      ("r" tab-bar-rename-tab "rename")
+      ("c" tab-bar-close-tab "close"))))
 
-    (pretty-hydra-define hydra-base
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
-      (""
-       (("p" hydra-project/body "project")
-        ;; ("n" hydra-navigation/body "navigation")
-        ("r" hydra-registers/body "registers")
-        ("g" hydra-git/body "git")
-        ("o" hydra-org/body "org")
-        ("d" hydra-dev/body "dev")
-        ("w" hydra-write/body "write"))
-       ""
-       (("c" org-capture "org-capture")
-        ;; ("m" hydra-multiple-cursors/body "multiple cursors")
-        ("t" hydra-tab-bar/body "tab-bar")
-        ("f" rss "RSS")
-        ("k" browse-kill-ring "browse kill ring")
-        ("b" ibuffer "ibuffer")
-        ("e" evil-mode "evil" :toggle t)))))
+  (pretty-hydra-define hydra-base
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
+    (""
+     (("p" hydra-project/body "project")
+      ;; ("n" hydra-navigation/body "navigation")
+      ("r" hydra-registers/body "registers")
+      ("g" hydra-git/body "git")
+      ("o" hydra-org/body "org")
+      ("d" hydra-dev/body "dev")
+      ("w" hydra-write/body "write"))
+     ""
+     (("c" org-capture "org-capture")
+      ;; ("m" hydra-multiple-cursors/body "multiple cursors")
+      ("t" hydra-tab-bar/body "tab-bar")
+      ("f" rss "RSS")
+      ("k" browse-kill-ring "browse kill ring")
+      ("b" ibuffer "ibuffer")
+      ("e" evil-mode "evil" :toggle t)))))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
@@ -1633,31 +1638,32 @@ Including indent-buffer, which should not be called automatically on save."
 
 (use-package org
   :demand t
-  :bind (:map org-mode-map
-              ("C-c C-j" . my/join-line)
-              ("M-<up>" . org-metaup)
-              ("M-<down>" . org-metadown)
-              ("C-S-<up>" . org-shiftup)
-              ("C-S-<down>" . org-shiftdown)
-              ("M-}" . org-forward-paragraph)
-              ("M-{" . org-backward-paragraph)
-              ("M-[ 1 ; 5 a" . org-backward-paragraph)
-              ("M-[ 1 ; 5 b" . org-forward-paragraph)
-              ;; ("M-[ 1 ; 5 c" . forward-paragraph)
-              ;; ("M-[ 1 ; 5 d" . org-backward-paragraph)
-              ("M-[ 1 ; 3 a" . org-backward-paragraph)
-              ("M-[ 1 ; 3 b" . org-forward-paragraph)
-              ;; ("M-[ 1 ; 3 c" . forward-word)
-              ;; ("M-[ 1 ; 3 d" . backward-word)
+  :bind
+  (:map org-mode-map
+        ("C-c C-j" . my/join-line)
+        ("M-<up>" . org-metaup)
+        ("M-<down>" . org-metadown)
+        ("C-S-<up>" . org-shiftup)
+        ("C-S-<down>" . org-shiftdown)
+        ("M-}" . org-forward-paragraph)
+        ("M-{" . org-backward-paragraph)
+        ("M-[ 1 ; 5 a" . org-backward-paragraph)
+        ("M-[ 1 ; 5 b" . org-forward-paragraph)
+        ;; ("M-[ 1 ; 5 c" . forward-paragraph)
+        ;; ("M-[ 1 ; 5 d" . org-backward-paragraph)
+        ("M-[ 1 ; 3 a" . org-backward-paragraph)
+        ("M-[ 1 ; 3 b" . org-forward-paragraph)
+        ;; ("M-[ 1 ; 3 c" . forward-word)
+        ;; ("M-[ 1 ; 3 d" . backward-word)
 
-              ("C-M-<up>" . org-table-move-single-cell-up)
-              ("C-M-<down>" . org-table-move-single-cell-down)
-              ("C-M-<left>" . org-table-move-single-cell-left)
-              ("C-M-<right>" . org-table-move-single-cell-right)
-              ("C-M-l" . my/org-link-copy)
-              ("C-k" . kill-line))
+        ("C-M-<up>" . org-table-move-single-cell-up)
+        ("C-M-<down>" . org-table-move-single-cell-down)
+        ("C-M-<left>" . org-table-move-single-cell-left)
+        ("C-M-<right>" . org-table-move-single-cell-right)
+        ("C-M-l" . my/org-link-copy)
+        ("C-k" . kill-line))
   :hook ((org-mode . org-sticky-header-mode)
-           (org-agenda-mode . (lambda () (hl-line-mode 1)))
+         (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
          ;; (org-agenda-mode . (lambda () (hl-line-mode 1)))
          )
@@ -1902,11 +1908,11 @@ should be continued."
       (if (not list-element)
           (user-error "Not at plain-list")
         (let ((nlines
-                   (delete-duplicate-lines
-                    (org-element-property :post-affiliated list-element)
-                    (save-excursion (goto-char (org-element-property :end list-element)) (skip-chars-backward "\r\n\t ") (point)))))
+               (delete-duplicate-lines
+                (org-element-property :post-affiliated list-element)
+                (save-excursion (goto-char (org-element-property :end list-element)) (skip-chars-backward "\r\n\t ") (point)))))
           (if (= 0 nlines)
-                  (message "List contains no duplicate lines")
+              (message "List contains no duplicate lines")
             (message "Removed %d duplicate lines from list" nlines))))))
 
   (defun my/org-align-tags ()
@@ -2002,11 +2008,11 @@ should be continued."
       ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
 
       (add-to-list 'display-buffer-alist
-                     '("\\*org-roam\\*"
-                             (display-buffer-in-direction)
-                             (direction . right)
-                             (window-width . 0.35)
-                             (window-height . fit-window-to-buffer)))
+                   '("\\*org-roam\\*"
+                     (display-buffer-in-direction)
+                     (direction . right)
+                     (window-width . 0.35)
+                     (window-height . fit-window-to-buffer)))
 
       (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
 
@@ -2041,18 +2047,20 @@ should be continued."
 
 (use-package org-link-archive
   :after org
-  :straight (:type git
-                   :host github
-                   :repo "farynaio/org-link-archive"
-                   :branch "main")
+  :straight
+  (:type git
+         :host github
+         :repo "farynaio/org-link-archive"
+         :branch "main")
   :bind (:map org-mode-map
-                ("C-x C-z" . org-link-archive-at-point)))
+              ("C-x C-z" . org-link-archive-at-point)))
 
 (use-package calendar
   :commands (my/calendar-year)
-  :bind (:map calendar-mode-map
-              ("<" . my/scroll-year-calendar-backward)
-              (">" . my/scroll-year-calendar-forward))
+  :bind
+  (:map calendar-mode-map
+        ("<" . my/scroll-year-calendar-backward)
+        (">" . my/scroll-year-calendar-forward))
   :custom
   (diary-number-of-entries 31)
   (holiday-local-holidays nil)
@@ -3200,178 +3208,179 @@ should be continued."
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
-  (setq shell-dirtrackp nil)
+(setq shell-dirtrackp nil)
 
-  (defalias 'sh #'eshell)
+(defalias 'sh #'eshell)
 
-  (use-package eshell
-    :straight nil
-    :commands eshell
-    :bind (:map eshell-mode-map
-                  ;; ("C-r" . counsel-shell-history)
-                  ;; ("C-n" . company-next-page)
-                  ;; ("C-p" . company-previous-page)
-                  ("<tab>" . my/eshell-list-dir)
-                  ("<tab>" . company-next-page)
-                  ;; ("<backtab>" . company-previous-page)
-                  )
-    ;; :hook ((eshell-mode . company-mode))
-    :init
-    (require 'esh-mode)
-    :custom
-    (eshell-destroy-buffer-when-process-dies t)
-    (eshell-prompt-function #'dw/eshell-prompt)
-    (eshell-prompt-regexp "^λ ")
-    (eshell-history-size 10000)
-    (eshell-buffer-maximum-lines 10000)
-    (eshell-hist-ignoredups t)
-    (eshell-highlight-prompt t)
-    (eshell-scroll-to-bottom-on-input t)
-    (eshell-prefer-lisp-functions nil)
-    :config
-    (defun my/eshell-init ()
-      ;; (setq-local company-backends '((company-files company-capf)))
-      ;; (setq-local company-backends '(esh-autosuggest company-files ))
-      (setenv "PAGER" "cat"))
-    (add-hook 'eshell-mode-hook #'my/eshell-init)
+(use-package eshell
+  :straight nil
+  :commands eshell
+  :bind
+  (:map eshell-mode-map
+        ;; ("C-r" . counsel-shell-history)
+        ;; ("C-n" . company-next-page)
+        ;; ("C-p" . company-previous-page)
+        ("<tab>" . my/eshell-list-dir)
+        ("<tab>" . company-next-page)
+        ;; ("<backtab>" . company-previous-page)
+        )
+  ;; :hook ((eshell-mode . company-mode))
+  :init
+  (require 'esh-mode)
+  :custom
+  (eshell-destroy-buffer-when-process-dies t)
+  (eshell-prompt-function #'dw/eshell-prompt)
+  (eshell-prompt-regexp "^λ ")
+  (eshell-history-size 10000)
+  (eshell-buffer-maximum-lines 10000)
+  (eshell-hist-ignoredups t)
+  (eshell-highlight-prompt t)
+  (eshell-scroll-to-bottom-on-input t)
+  (eshell-prefer-lisp-functions nil)
+  :config
+  (defun my/eshell-init ()
+    ;; (setq-local company-backends '((company-files company-capf)))
+    ;; (setq-local company-backends '(esh-autosuggest company-files ))
+    (setenv "PAGER" "cat"))
+  (add-hook 'eshell-mode-hook #'my/eshell-init)
 
-    (defun read-file (file-path)
-      (with-temp-buffer
-        (insert-file-contents file-path)
-        (buffer-string)))
+  (defun read-file (file-path)
+    (with-temp-buffer
+      (insert-file-contents file-path)
+      (buffer-string)))
 
-    (defun my/eshell-list-dir ()
-      (interactive)
-      (let ((output (eshell-command "ls -a" t)))
-        (with-temp-message output)))
+  (defun my/eshell-list-dir ()
+    (interactive)
+    (let ((output (eshell-command "ls -a" t)))
+      (with-temp-message output)))
 
-    (defun dw/get-current-package-version ()
-      (interactive)
-      (let ((package-json-file (concat (eshell/pwd) "/package.json")))
-        (when (file-exists-p package-json-file)
-            (let* ((package-json-contents (read-file package-json-file))
-                   (package-json (ignore-errors (json-parse-string package-json-contents))))
-              (when package-json
-                (ignore-errors (gethash "version" package-json)))))))
+  (defun dw/get-current-package-version ()
+    (interactive)
+    (let ((package-json-file (concat (eshell/pwd) "/package.json")))
+      (when (file-exists-p package-json-file)
+        (let* ((package-json-contents (read-file package-json-file))
+               (package-json (ignore-errors (json-parse-string package-json-contents))))
+          (when package-json
+            (ignore-errors (gethash "version" package-json)))))))
 
-    (defun dw/map-line-to-status-char (line)
-      (cond ((string-match "^?\\? " line) "?")))
+  (defun dw/map-line-to-status-char (line)
+    (cond ((string-match "^?\\? " line) "?")))
 
-    (defun dw/get-git-status-prompt ()
-      (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
-        (seq-uniq (seq-filter 'identity (mapcar 'dw/map-line-to-status-char status-lines)))))
+  (defun dw/get-git-status-prompt ()
+    (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
+      (seq-uniq (seq-filter 'identity (mapcar 'dw/map-line-to-status-char status-lines)))))
 
-    (defun dw/get-prompt-path ()
-      (let* ((current-path (eshell/pwd))
-               (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
-               (has-path (not (string-match "^fatal" git-output))))
-        (if (not has-path)
-              (abbreviate-file-name current-path)
-            (string-remove-prefix (file-name-directory git-output) current-path))))
+  (defun dw/get-prompt-path ()
+    (let* ((current-path (eshell/pwd))
+           (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
+           (has-path (not (string-match "^fatal" git-output))))
+      (if (not has-path)
+          (abbreviate-file-name current-path)
+        (string-remove-prefix (file-name-directory git-output) current-path))))
 
-    ;; This prompt function mostly replicates my custom zsh prompt setup
-    ;; that is powered by github.com/denysdovhan/spaceship-prompt.
-    (defun dw/eshell-prompt ()
-      (let ((current-branch (magit-get-current-branch))
-              (package-version (dw/get-current-package-version)))
-        (concat
-         "\n"
-         (propertize (system-name) 'face `(:foreground "#62aeed"))
-         (propertize " ॐ " 'face `(:foreground "white"))
-         (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
-         (when current-branch
-             (concat
-              (propertize " • " 'face `(:foreground "white"))
-              (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
-         (propertize " " 'face `(:foreground "white")))))
+  ;; This prompt function mostly replicates my custom zsh prompt setup
+  ;; that is powered by github.com/denysdovhan/spaceship-prompt.
+  (defun dw/eshell-prompt ()
+    (let ((current-branch (magit-get-current-branch))
+          (package-version (dw/get-current-package-version)))
+      (concat
+       "\n"
+       (propertize (system-name) 'face `(:foreground "#62aeed"))
+       (propertize " ॐ " 'face `(:foreground "white"))
+       (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
+       (when current-branch
+         (concat
+          (propertize " • " 'face `(:foreground "white"))
+          (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
+       (propertize " " 'face `(:foreground "white")))))
 
-    (use-package xterm-color
-      :demand t)
+  (use-package xterm-color
+    :demand t)
 
-    (push 'eshell-tramp eshell-modules-list)
-    ;; (push 'xterm-color-filter eshell-preoutput-filter-functions)
-    ;; (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
+  (push 'eshell-tramp eshell-modules-list)
+  ;; (push 'xterm-color-filter eshell-preoutput-filter-functions)
+  ;; (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
 
-    ;; (defun flush-func (&optional args) t)
+  ;; (defun flush-func (&optional args) t)
 
-    ;; Save command history when commands are entered
-    (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
 
-    (add-hook 'eshell-before-prompt-hook
-                (lambda ()
-                  (setq-local xterm-color-preserve-properties t)))
+  (add-hook 'eshell-before-prompt-hook
+            (lambda ()
+              (setq-local xterm-color-preserve-properties t)))
 
-    ;; Truncate buffer for performance
-    (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
 
-    ;; We want to use xterm-256color when running interactive commands
-    ;; in eshell but not during other times when we might be launching
-    ;; a shell command to gather its output.
-    (add-hook 'eshell-pre-command-hook
-                (lambda () (setenv "TERM" "xterm-256color")))
-    (add-hook 'eshell-post-command-hook
-                (lambda () (setenv "TERM" "dumb"))))
+  ;; We want to use xterm-256color when running interactive commands
+  ;; in eshell but not during other times when we might be launching
+  ;; a shell command to gather its output.
+  (add-hook 'eshell-pre-command-hook
+            (lambda () (setenv "TERM" "xterm-256color")))
+  (add-hook 'eshell-post-command-hook
+            (lambda () (setenv "TERM" "dumb"))))
 
-  (use-package eshell-syntax-highlighting
-    :demand t
-    :after eshell
-    :config
-    (eshell-syntax-highlighting-global-mode 1))
+(use-package eshell-syntax-highlighting
+  :demand t
+  :after eshell
+  :config
+  (eshell-syntax-highlighting-global-mode 1))
 
-  ;; (use-package esh-autosuggest
-  ;;   :commands esh-autosuggest-mode
-  ;;   :custom
-  ;;   (esh-autosuggest-delay 0.5)
-  ;;   :config
-  ;;   (set-face-foreground 'company-preview-common "#4b5668")
-  ;;   (set-face-background 'company-preview nil))
+;; (use-package esh-autosuggest
+;;   :commands esh-autosuggest-mode
+;;   :custom
+;;   (esh-autosuggest-delay 0.5)
+;;   :config
+;;   (set-face-foreground 'company-preview-common "#4b5668")
+;;   (set-face-background 'company-preview nil))
 
-  (use-package eshell-toggle
-    :after eshell
-    :commands eshell-toggle
-    ;; :bind (:map evil-normal-state-map
-    ;;         ("C-`" . eshell-toggle)
-    ;;        :map eshell-mode-map
-    ;;         ("C-`" . eshell-toggle))
-    ;; :straight (:type: git
-    ;;             :host github
-    ;;             :repo "4DA/eshell-toggle"
-    ;;             :branch "master")
-    :custom
-    (eshell-toggle-size-fraction 3)
-    (eshell-toggle-use-projectile-root t)
-    (eshell-toggle-run-command nil)
-    (eshell-toggle-default-directory "~/"))
+(use-package eshell-toggle
+  :after eshell
+  :commands eshell-toggle
+  ;; :bind (:map evil-normal-state-map
+  ;;         ("C-`" . eshell-toggle)
+  ;;        :map eshell-mode-map
+  ;;         ("C-`" . eshell-toggle))
+  ;; :straight (:type: git
+  ;;             :host github
+  ;;             :repo "4DA/eshell-toggle"
+  ;;             :branch "master")
+  :custom
+  (eshell-toggle-size-fraction 3)
+  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-run-command nil)
+  (eshell-toggle-default-directory "~/"))
 
-  ;; Kill shell buffer when shell exits
-  (use-package shell
-    :straight nil
-    :hook (shell-mode . my-shell-mode-hook-func)
-    :config
-    (defun my-shell-mode-hook-func ()
-      (set-process-sentinel (get-buffer-process (current-buffer))
-                                          'my-shell-mode-kill-buffer-on-exit))
-    (defun my-shell-mode-kill-buffer-on-exit (process state)
-      (message state)
-      (if (or
-             (string-match "exited abnormally with code.*" state)
-             (string-match "finished" state))
-            (kill-buffer (current-buffer))))
+;; Kill shell buffer when shell exits
+(use-package shell
+  :straight nil
+  :hook (shell-mode . my-shell-mode-hook-func)
+  :config
+  (defun my-shell-mode-hook-func ()
+    (set-process-sentinel (get-buffer-process (current-buffer))
+                          'my-shell-mode-kill-buffer-on-exit))
+  (defun my-shell-mode-kill-buffer-on-exit (process state)
+    (message state)
+    (if (or
+         (string-match "exited abnormally with code.*" state)
+         (string-match "finished" state))
+        (kill-buffer (current-buffer))))
 
-    ;; default shell buffer
-    (setq explicit-shell-file-name (getenv "SHELL"))
-    ;; use shell-file-name for subprocesses
-    (setq shell-file-name explicit-shell-file-name))
+  ;; default shell buffer
+  (setq explicit-shell-file-name (getenv "SHELL"))
+  ;; use shell-file-name for subprocesses
+  (setq shell-file-name explicit-shell-file-name))
 
-  ;; Eat: Emulate A Terminal
-  (use-package eat
-    :disabled t
-    :demand t
-    :custom
-    (eat-term-name "xterm")
-    :config
-    (eat-eshell-mode)                     ; use Eat to handle term codes in program output
-    (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
+;; Eat: Emulate A Terminal
+(use-package eat
+  :disabled t
+  :demand t
+  :custom
+  (eat-term-name "xterm")
+  :config
+  (eat-eshell-mode)                     ; use Eat to handle term codes in program output
+  (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
 
 (use-package tramp
   :demand t
@@ -4367,10 +4376,11 @@ should be continued."
   (engine-mode t))
 
 (use-package ledger-mode
-  :bind (:map ledger-mode-map
-              ("C-c C-c" . ledger-post-align-dwim)
-              ("C-x C-s" . my/ledger-save)
-              ("C-x m" . hydra-ledger/body))
+  :bind
+  (:map ledger-mode-map
+        ("C-c C-c" . ledger-post-align-dwim)
+        ("C-x C-s" . my/ledger-save)
+        ("C-x m" . hydra-ledger/body))
   :mode ("\\.ledger\\'" "\\.ledger.gpg\\'")
   :custom
   (ledger-clear-whole-transactions t)
@@ -4396,13 +4406,13 @@ should be continued."
   (unbind-key "<tab>" ledger-mode-map)
 
   (pretty-hydra-define hydra-ledger
-        (:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
-        ("Action"
-         (
-                ("b" ledger-display-balance-at-point "bal at point")
-                ("s" (lambda () (interactive) (ledger-sort-buffer) (save-buffer))  "sort")
-                ("t" ledger-display-ledger-stats "stats")
-                ("r" ledger-report "report")))))
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "sack-dollar" "Ledger" 1 -0.05))
+    ("Action"
+     (
+      ("b" ledger-display-balance-at-point "bal at point")
+      ("s" (lambda () (interactive) (ledger-sort-buffer) (save-buffer))  "sort")
+      ("t" ledger-display-ledger-stats "stats")
+      ("r" ledger-report "report")))))
 
 (use-package flycheck-ledger
   :demand t
