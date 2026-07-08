@@ -1,5 +1,10 @@
 source $PREFIX/etc/fish/config.fish
 
+export PATH="$HOME/bin:$PATH"
+
+export EDITOR="$HOME/bin/emacsclient-tty.sh"
+export VISUAL="$HOME/bin/emacsclient.sh"
+
 #alias g="git "
 alias pkgu="pkg update"
 alias pkgup="pkg upgrade"

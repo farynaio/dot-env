@@ -376,13 +376,6 @@
 ;; Try `cape-dict' as an alternative.
 (setq text-mode-ispell-word-completion nil)
 
-;; Start Emacs server for emacsclient
-(use-package server
-  :defer 2
-  :config
-  (unless (server-running-p)
-    (server-start)))
-
 ;; https://github.com/jwiegley/emacs-async/
 (use-package async
   :demand t
