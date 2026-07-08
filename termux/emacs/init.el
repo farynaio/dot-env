@@ -440,6 +440,7 @@
 )
 
 (use-package which-key
+  :straight nil
   :defer 2
   :delight which-key-mode
   :custom
