@@ -1705,6 +1705,7 @@ Including indent-buffer, which should not be called automatically on save."
          ;; (org-agenda-mode . (lambda () (hl-line-mode 1)))
          )
   :custom
+  (org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-info))
   (org-tags-column 0)
   (org-adapt-indentation nil)
   (org-startup-folded 'fold)
