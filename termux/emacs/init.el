@@ -4065,7 +4065,8 @@ should be continued."
   :commands (eww www eww-open-file eww-browse-url)
   :bind (:map eww-mode-map
     ("C-x u" . eww-view-source)
-    ("q" . my/kill-current-buffer))
+    ;; ("q" . my/kill-current-buffer)
+)
   ;; :hook (eww-mode . visual-fill-column-mode)
   :custom
   (eww-search-prefix "https://duckduckgo.com/html/?q=")
