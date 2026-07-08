@@ -3740,7 +3740,6 @@ should be continued."
         (elfeed-search-title-max-width 115)
         (elfeed-search-remain-on-entry t)
         (elfeed-curl-timeout 200)
-        (elfeed-web-limit 500)
         (url-queue-timeout 60)
         :config
         (if (eq system-type 'android)
