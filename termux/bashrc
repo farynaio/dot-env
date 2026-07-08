@@ -2,12 +2,18 @@
 source $PREFIX/etc/bash.bashrc
 
 export PS1='\W \$ '
-
 export PATH="$HOME/bin:$PATH"
 export EDITOR="$HOME/bin/emacsclient-tty.sh"
 export VISUAL="$HOME/bin/emacsclient.sh"
 
-#alias g="git "
+my_emacs_run() {
+  if [ -t 0 ]; then
+    eval $EDITOR
+  else
+    eval $VISUAL
+  fi
+}
+
 alias pkgu="pkg update"
 alias pkgup="pkg upgrade"
 alias pkgc="pkg autoclean"
@@ -18,3 +24,5 @@ alias pkgd="pkg show "
 alias pkgi="pkg install "
 alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
+alias g="git"
+alias e="my_emacs_run"

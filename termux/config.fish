@@ -1,11 +1,9 @@
 source $PREFIX/etc/fish/config.fish
 
 export PATH="$HOME/bin:$PATH"
-
 export EDITOR="$HOME/bin/emacsclient-tty.sh"
 export VISUAL="$HOME/bin/emacsclient.sh"
 
-#alias g="git "
 alias pkgu="pkg update"
 alias pkgup="pkg upgrade"
 alias pkgc="pkg autoclean"
@@ -16,6 +14,7 @@ alias pkgd="pkg show "
 alias pkgi="pkg install "
 alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
+alias g git
 alias e 'my_emacs_run'
 
 function my_emacs_run
