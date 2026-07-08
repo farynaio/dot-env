@@ -463,6 +463,34 @@ TODO:
 #+end_src
 * Help
 #+begin_src emacs-lisp
+(use-package man
+  :straight nil
+  :defer 1
+  :custom
+  (Man-notify-method 'pushy))
+
+(use-package woman
+  :disabled t
+  :straight nil
+  :defer 2
+  :config
+  (when (my/termux-p)
+    (let ((termux-root (getenv "TERMUX__ROOTFS_DIR")))
+      (setq woman-manpath
+            `(,(expand-file-name "usr/man" termux-root)
+              ,(expand-file-name "usr/share/man" termux-root)
+              ,(expand-file-name "usr/local/man" termux-root))))))
+
+(use-package which-key
+  :straight nil
+  :defer 1
+  :delight which-key-mode
+  :custom
+  (which-key-idle-delay 0.3)
+  (which-key-show-early-on-C-h t) ; Allow F1 to trigger which-key before it is done automatically
+  :config
+  (which-key-mode 1))
+
 (use-package help
   :straight nil
   :defer 1
@@ -472,16 +500,6 @@ TODO:
   ;; :config
   ;; (help-quick-toggle)
 )
-
-(use-package which-key
-  :straight nil
-  :defer 2
-  :delight which-key-mode
-  :custom
-  (which-key-idle-delay 0.3)
-  (which-key-show-early-on-C-h t) ; Allow F1 to trigger which-key before it is done automatically
-  :config
-  (which-key-mode 1))
 
 (use-package helpful
   :bind
