@@ -312,16 +312,6 @@ TODO:
 (setq minibuffer-prompt-properties
       '(read-only t cursor-intangible t face minibuffer-prompt))
 
-(setq-default
- compare-ignore-case t
- compare-ignore-whitespace t
- cursor-in-non-selected-windows t
- display-time-default-load-average nil
- view-read-only t
- require-final-newline nil
- indent-tabs-mode nil
- mode-require-final-newline nil)
-
 ;; Hide commands in M-x which do not apply to the current mode.  Corfu
 ;; commands are hidden, since they are not used via M-x. This setting is
 ;; useful beyond Corfu.
@@ -354,7 +344,11 @@ TODO:
 (use-package simple
   :demand t
   :straight nil
-  :bind (("C-c C-j" . my/join-line))
+  :bind (("C-c C-j" . my/join-line)
+         :map visual-line-mode-map
+         ;; kill entire line even when visual-line-mode enabled
+         ("C-k" . kill-line)
+)
   :custom
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
@@ -395,41 +389,6 @@ TODO:
  switch-to-buffer-obey-display-actions t)
 
 (xterm-mouse-mode 1)
-
-(setq
- initial-scratch-message nil
- inhibit-startup-screen nil
- inhibit-startup-echo-area-message (user-login-name)
- confirm-nonexistent-file-or-buffer nil
- x-underline-at-descent-line t
- initial-buffer-choice t
- password-cache-expiry nil
- word-wrap t
- shift-select-mode nil
- sentence-end-double-space nil
- revert-without-query '(".*")
- enable-recursive-minibuffers t
- show-paren-delay 0
- save-some-buffers-default-predicate t
- buffer-save-without-query t)
-
-(setq initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
-(setq display-time-default-load-average nil) ; this information is useless for most
-
-;; Automatically reread from disk if the underlying file changes
-(setq auto-revert-avoid-polling t)
-;; Some systems don't do file notifications well; see
-;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
-(setq auto-revert-interval 5)
-(setq auto-revert-check-vc-info t)
-(global-auto-revert-mode 1)
-
-;; Save history of minibuffer
-(setq history-length 1000
-      savehist-additional-variables
-      '(search-ring regexp-search-ring extended-command-history)
-      savehist-autosave-interval 300)
-(savehist-mode 1)
 
 ;; Make right-click do something sensible
 (when (display-graphic-p)
@@ -1796,7 +1755,8 @@ Including indent-buffer, which should not be called automatically on save."
               ("C-M-<down>" . org-table-move-single-cell-down)
               ("C-M-<left>" . org-table-move-single-cell-left)
               ("C-M-<right>" . org-table-move-single-cell-right)
-              ("C-M-l" . my/org-link-copy))
+              ("C-M-l" . my/org-link-copy)
+              ("C-k" . kill-line))
   :hook ((org-mode . org-sticky-header-mode)
            (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
@@ -2092,11 +2052,12 @@ should be continued."
   (defun my/org-update-parent-cookie ()
     (when (equal major-mode 'org-mode)
       (save-excursion
-        (ignore-errors
-          (org-back-to-heading)
-          (org-update-parent-todo-statistics)))))
+        (let ((inhibit-message t))
+          (ignore-errors
+            (org-back-to-heading)
+            (org-update-parent-todo-statistics))))))
   (advice-add 'org-yank :after #'my/org-update-parent-cookie)
-  (advice-add 'org-kill-line :after #'my/org-update-parent-cookie)
+  (advice-add 'kill-line :after #'my/org-update-parent-cookie)
   (advice-add 'kill-whole-line :after #'/org-update-parent-cookie))
 
 (use-package org-appear
