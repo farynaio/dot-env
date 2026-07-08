@@ -3365,6 +3365,7 @@ should be continued."
 
   ;; Eat: Emulate A Terminal
   (use-package eat
+    :disabled t
     :demand t
     :custom
     (eat-term-name "xterm")
