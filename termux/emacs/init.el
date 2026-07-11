@@ -3750,7 +3750,7 @@ should be continued."
               ;; ("O" . my/elfeed-shr-open-external)
               :map elfeed-search-mode-map
               ("h" . hydra-elfeed-search/body)
-              ("q" . my/elfeed-save-db-and-bury)
+              ("q" . quit-window)
               ("d" . my/elfeed-youtube-download)
               ("o" . my/elfeed-tag-toggle-ok)
               ("f" . my/elfeed-tag-toggle-favorite)
@@ -3913,13 +3913,6 @@ should be continued."
           )
 
         (add-hook 'kill-emacs-hook #'my/elfeed-save-db)
-        ;;http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
-        ;;write to disk when quiting
-        (defun my/elfeed-save-db-and-bury ()
-          "Wrapper to save the elfeed db to disk before burying buffer"
-          (interactive)
-          (my/elfeed-save-db)
-          (my/kill-current-buffer))
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
         (defun my/elfeed-youtube-download (&optional use-generic-p)
