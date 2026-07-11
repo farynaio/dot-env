@@ -4060,7 +4060,8 @@ should be continued."
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
         (elfeed-org)
-        (run-at-time t (* 2 60 60) #'my/elfeed-update))
+        (run-at-time t (* 2 60 60) #'my/elfeed-update)
+        (run-at-time t (* 4 60 60) #'my/elfeed-save-db))
 
       (defalias 'rss #'elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
