@@ -1604,7 +1604,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("b" consult-org-roam-backlinks "backlinks")
       ("f" consult-org-roam-forward-links "forward links")
       ("S" consult-org-roam-search "org-roam search")
-      )
+      ("n" org-toggle-narrow-to-subtree "org-toggle-narrow-to-subtree"))
      "Toggle"
      (("p" org-appear-mode "org-appear toggle" :toggle t)
       ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
