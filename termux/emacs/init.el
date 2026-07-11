@@ -1768,6 +1768,9 @@ Including indent-buffer, which should not be called automatically on save."
            (type (org-element-property :type link))
            (url (org-element-property :path link))
            (url (concat type ":" url)))
+      (when (my/termux-p)
+        (call-process "termux-clipboard-set" nil nil nil
+                      url))
       (kill-new url)
       (message (concat "Copied URL: " url))))
 
