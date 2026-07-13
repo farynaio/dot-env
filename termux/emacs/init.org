@@ -1662,9 +1662,11 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-tab-bar
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
     (""
-     (("n" tab-bar-new-tab "new")
+     (("c" tab-bar-new-tab "new")
       ("r" tab-bar-rename-tab "rename")
-      ("c" tab-bar-close-tab "close"))))
+      ("x" tab-bar-close-tab "close")
+      ("n" tab-bar-switch-to-next-tab "next tab")
+      ("p" tab-bar-switch-to-prev-tab "prev tab"))))
 
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
@@ -1680,7 +1682,7 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("c" org-capture "org-capture")
       ;; ("m" hydra-multiple-cursors/body "multiple cursors")
-      ("t" hydra-tab-bar/body "tab-bar")
+      ("t" hydra-tab-bar/body "tab bar")
       ("s" rss "RSS")
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
