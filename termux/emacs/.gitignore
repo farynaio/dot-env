@@ -13,6 +13,7 @@
 /tree-sitter
 *~*
 /projectile-bookmarks.eld
+/projectile-frecency.eld
 /.org-id-locations
 /eshell
 
