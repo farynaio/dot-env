@@ -1960,16 +1960,16 @@ should be continued."
   (advice-add 'org-archive-subtree-default :after (lambda () (org-save-all-org-buffers)))
   (advice-add 'org-agenda-archive-default :after (lambda () (org-save-all-org-buffers)))
 
-  (defun my/org-update-parent-cookie ()
-    (when (equal major-mode 'org-mode)
-      (save-excursion
-        (let ((inhibit-message t))
-          (ignore-errors
-            (org-back-to-heading)
-            (org-update-parent-todo-statistics))))))
-  (advice-add 'org-yank :after #'my/org-update-parent-cookie)
-  (advice-add 'kill-line :after #'my/org-update-parent-cookie)
-  (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie))
+  ;; (defun my/org-update-parent-cookie ()
+  ;;   (when (equal major-mode 'org-mode)
+  ;;     (save-excursion
+  ;;       (let ((inhibit-message t))
+  ;;         (ignore-errors
+  ;;           (org-back-to-heading)
+  ;;           (org-update-parent-todo-statistics))))))
+  ;; (advice-add 'org-yank :after #'my/org-update-parent-cookie)
+  ;; (advice-add 'kill-line :after #'my/org-update-parent-cookie)
+  ;; (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie))
 
 (use-package org-appear
   :after org
