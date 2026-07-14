@@ -2138,89 +2138,89 @@ should be continued."
   (defalias 'my/calendar-full #'my/calendar-year)
   (defalias 'yearly-calendar #'my/calendar-year))
 
-  (use-package projectile
-    :demand t
-    :delight
-    :custom
-    (projectile-indexing-method 'hybrid)
-    (projectile-enable-caching t)
-    (projectile-verbose nil)
-    (projectile-do-log nil)
-    (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-    (projectile-track-known-projects-automatically nil)
-    (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-    (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-    (projectile-switch-project-action #'projectile-dired)
-    :config
-    (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
-    (unbind-key "C-c p" projectile-mode-map)
+(use-package projectile
+  :demand t
+  :delight
+  :custom
+  (projectile-indexing-method 'hybrid)
+  (projectile-enable-caching t)
+  (projectile-verbose nil)
+  (projectile-do-log nil)
+  (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (projectile-track-known-projects-automatically nil)
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  (projectile-switch-project-action #'projectile-dired)
+  :config
+  (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
+  (unbind-key "C-c p" projectile-mode-map)
 
-    (if (executable-find "ctags")
-        (setq projectile-tags-command "ctags -R -e .")
-      (warn "No executable 'ctags' found!"))
-    ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+  (if (executable-find "ctags")
+      (setq projectile-tags-command "ctags -R -e .")
+    (warn "No executable 'ctags' found!"))
+  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
 
-    (defun my/projectile-invalidate-cache (arg)
-      "Remove the current project's files from `projectile-projects-cache'.
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
 
-    With a prefix argument ARG prompts for the name of the project whose cache
-    to invalidate."
-      (interactive "P")
-      (let ((project-root
+  With a prefix argument ARG prompts for the name of the project whose cache
+  to invalidate."
+    (interactive "P")
+    (let ((project-root
+           (if arg
+               (completing-read "Remove cache for: " projectile-projects-cache)
+             (projectile-project-root))))
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
+        (message "Invalidated Projectile cache for %s."
+                 (propertize project-root 'face 'font-lock-keyword-face)))))
+
+
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
+
+  (defun my/projectile-show-relative-path ()
+    (interactive)
+    (when (projectile-project-root)
+      (message (substring buffer-file-name (length (projectile-project-root))))))
+
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
+
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
+
+         With a prefix argument ARG prompts for the name of the project whose cache
+         to invalidate."
+    (interactive "P")
+    (let ((project-root
              (if arg
                  (completing-read "Remove cache for: " projectile-projects-cache)
                (projectile-project-root))))
-        (setq projectile-project-root-cache (make-hash-table :test 'equal))
-        (remhash project-root projectile-project-type-cache)
-        (remhash project-root projectile-projects-cache)
-        (remhash project-root projectile-projects-cache-time)
-        (projectile-serialize-cache)
-        (when projectile-verbose
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
           (message "Invalidated Projectile cache for %s."
-                   (propertize project-root 'face 'font-lock-keyword-face)))))
+                         (propertize project-root 'face 'font-lock-keyword-face)))))
 
+  (projectile-mode 1))
 
-    (defun my/projectile-add-known-project (project-root)
-      (interactive (list (read-directory-name "Add to known projects: ")))
-      (projectile-add-known-project project-root)
-      (projectile-cleanup-known-projects))
-
-    (defun my/projectile-show-relative-path ()
-      (interactive)
-      (when (projectile-project-root)
-        (message (substring buffer-file-name (length (projectile-project-root))))))
-
-    (defun my/projectile-add-known-project (project-root)
-      (interactive (list (read-directory-name "Add to known projects: ")))
-      (projectile-add-known-project project-root)
-      (projectile-cleanup-known-projects))
-
-    (defun my/projectile-invalidate-cache (arg)
-      "Remove the current project's files from `projectile-projects-cache'.
-
-           With a prefix argument ARG prompts for the name of the project whose cache
-           to invalidate."
-      (interactive "P")
-      (let ((project-root
-               (if arg
-                   (completing-read "Remove cache for: " projectile-projects-cache)
-                 (projectile-project-root))))
-        (setq projectile-project-root-cache (make-hash-table :test 'equal))
-        (remhash project-root projectile-project-type-cache)
-        (remhash project-root projectile-projects-cache)
-        (remhash project-root projectile-projects-cache-time)
-        (projectile-serialize-cache)
-        (when projectile-verbose
-            (message "Invalidated Projectile cache for %s."
-                           (propertize project-root 'face 'font-lock-keyword-face)))))
-
-    (projectile-mode 1))
-
-  (defun my/recentf ()
-    (interactive)
-    (if (projectile-project-root)
-        (projectile-recentf)
-      (consult-recent-file)))
+(defun my/recentf ()
+  (interactive)
+  (if (projectile-project-root)
+      (projectile-recentf)
+    (consult-recent-file)))
 
 (setq-default tab-width 2)
 (setq sh-basic-offset tab-width)
