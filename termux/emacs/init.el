@@ -1971,7 +1971,8 @@ should be continued."
   ;;           (org-update-parent-todo-statistics))))))
   ;; (advice-add 'org-yank :after #'my/org-update-parent-cookie)
   ;; (advice-add 'kill-line :after #'my/org-update-parent-cookie)
-  ;; (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie))
+  ;; (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie)
+)
 
 (use-package org-appear
   :after org
