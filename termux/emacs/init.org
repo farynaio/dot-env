@@ -2033,6 +2033,8 @@ should be continued."
   ;; (advice-add 'org-yank :after #'my/org-update-parent-cookie)
   ;; (advice-add 'kill-line :after #'my/org-update-parent-cookie)
   ;; (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie)
+
+  (defun my/org-priority-cookie-print () (format "[#%c]" org-default-priority))
 )
 
 (use-package org-appear
