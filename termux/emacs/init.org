@@ -1743,6 +1743,7 @@ Including indent-buffer, which should not be called automatically on save."
          )
   :custom
   (org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-info))
+  (org-bookmark-names-plist '())
   (org-tags-column 0)
   (org-adapt-indentation nil)
   (org-startup-folded 'fold)
