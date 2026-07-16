@@ -452,6 +452,14 @@ TODO:
   (and (getenv "TERMUX__HOME") t))
 
 (when (my/termux-p)
+  (bind-key "C-v" #'my/termux-clipboard-paste)
+
+  (defun my/termux-clipboard-paste ()
+    "Paste from clipboard."
+    (interactive)
+    (let ((txt (shell-command-to-string "termux-clipboard-get")))
+      (insert txt)))
+
   (defun my/termux-clipboard-region (beg end)
     "Save region in Android clipboard."
     (interactive "r")
