@@ -398,6 +398,21 @@
 
 (global-hl-line-mode -1)
 
+(use-package view
+  :demand t
+  :straight nil
+  :hook ((org-mode . view-mode))
+  :bind
+  (:map view-mode-map
+  ("SPC" . nil)
+  ("RET" . nil)
+  ("DEL" . nil)
+  ("q" . nil)
+  ("s" . nil)
+  ("r" . nil)
+  ("c" . nil)
+  ("h" . help-for-help)))
+
 (defalias 'qcalc #'quick-calc)
 
 ;; (setq backtrace-on-redisplay-error t)
@@ -482,7 +497,14 @@
   ([remap describe-variable] . helpful-variable)
   ([remap describe-key] . helpful-key)
   :map helpful-mode-map
-  ("q" . my/kill-current-buffer)))
+  ("q" . my/kill-current-buffer)
+  ("." . set-mark-command)
+  :map view-mode-map
+  (("C-h x" . helpful-command)
+  ("C-h f" . helpful-function)
+  ("C-h o" . helpful-symbol)
+  ("C-h v" . helpful-variable)
+  ("C-h k" . helpful-key))))
 
 (setq-default
  vc-follow-symlinks t
