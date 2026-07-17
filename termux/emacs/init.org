@@ -1727,13 +1727,13 @@ Including indent-buffer, which should not be called automatically on save."
       ("s" bookmark-save "save bookmarks" :exit t) ; this probably happens automatically
       ("l" list-bookmarks "list bookmarks" :exit t))))
 
-  (pretty-hydra-define hydra-git
-    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
-    ("Actions"
-     (("s" magit-status "status")
-      ("b" magit-blame "blame")
-      ("l" magit-log-buffer-file "commit log (current file)")
-      ("L" magit-log-current "commit log (project)"))))
+  ;; (pretty-hydra-define hydra-git
+  ;;   (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
+  ;;   ("Actions"
+  ;;    (("s" magit-status "status")
+  ;;     ("b" magit-blame "blame")
+  ;;     ("l" magit-log-buffer-file "commit log (current file)")
+  ;;     ("L" magit-log-current "commit log (project)"))))
 
   (pretty-hydra-define hydra-write
     (:hint nil :color teal :quit-key "q" :title (with-faicon "pencil" "Write" 1 -0.05))
