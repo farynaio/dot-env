@@ -267,7 +267,6 @@
 (setq
  completion-cycle-threshold 1
  completions-detailed t                        ; Show annotations
- completion-styles '(basic initials substring) ; Different styles to match input to candidates
  completion-auto-help 'always                  ; Open completion always; `lazy' another option
  completions-max-height 20                     ; This is arbitrary
  completions-format 'one-column
