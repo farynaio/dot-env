@@ -400,7 +400,6 @@
 (use-package view
   :demand t
   :straight nil
-  :hook ((org-mode . view-mode))
   :bind
   (:map view-mode-map
   ("SPC" . nil)
