@@ -541,7 +541,8 @@
               :map magit-file-section-map
               ("RET" . magit-diff-visit-file-other-window)
               :map magit-hunk-section-map
-              ("RET" . magit-diff-visit-file-other-window))
+              ("RET" . magit-diff-visit-file-other-window)
+              ("." . set-mark-command))
   :custom
   ;; (magit-diff-refine-hunk t) ; TODO ??
   (magit-refresh-status-buffer nil)
