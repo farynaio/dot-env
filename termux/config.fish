@@ -4,6 +4,16 @@ export PATH="$HOME/bin:$PATH"
 export EDITOR="$HOME/bin/emacsclient-tty.sh"
 export VISUAL="$HOME/bin/emacsclient.sh"
 
+set -gx GPG_TTY (tty)
+
+function my_emacs_run
+    if isatty stdin
+        eval $EDITOR
+    else
+        eval $VISUAL
+    end
+end
+
 alias pkgu="pkg update"
 alias pkgup="pkg upgrade"
 alias pkgc="pkg autoclean"
@@ -16,14 +26,6 @@ alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
 alias g git
 alias e 'my_emacs_run'
-
-function my_emacs_run
-    if isatty stdin
-        eval $EDITOR
-    else
-        eval $VISUAL
-    end
-end
 
 function fish_prompt
     printf '%s > ' (basename (pwd))

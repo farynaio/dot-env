@@ -1,2 +1,2 @@
-*.gpg diff=gpg
-*.org.gpg diff=gpg
+*.gpg filter=gpg diff=gpg
+*.org.gpg filter=gpg diff=gpg

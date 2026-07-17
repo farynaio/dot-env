@@ -5,6 +5,7 @@ export PS1='\W \$ '
 export PATH="$HOME/bin:$PATH"
 export EDITOR="$HOME/bin/emacsclient-tty.sh"
 export VISUAL="$HOME/bin/emacsclient.sh"
+export GPG_TTY=$(tty)
 
 my_emacs_run() {
   if [ -t 0 ]; then
