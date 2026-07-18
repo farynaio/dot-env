@@ -569,14 +569,14 @@ TODO:
 (use-package magit
   :demand 0.5
   :bind (:map magit-mode-map
+              ("." . set-mark-command)
               ("C-w" . my/copy-diff-region)
               :map magit-process-mode-map
               ("k" . magit-process-kill)
               :map magit-file-section-map
               ("RET" . magit-diff-visit-file-other-window)
               :map magit-hunk-section-map
-              ("RET" . magit-diff-visit-file-other-window)
-              ("." . set-mark-command))
+              ("RET" . magit-diff-visit-file-other-window))
   :custom
   ;; (magit-diff-refine-hunk t) ; TODO ??
   (magit-refresh-status-buffer nil)
