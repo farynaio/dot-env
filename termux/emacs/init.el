@@ -1765,13 +1765,11 @@ Including indent-buffer, which should not be called automatically on save."
         ("M-[ 1 ; 3 b" . org-forward-paragraph)
         ;; ("M-[ 1 ; 3 c" . forward-word)
         ;; ("M-[ 1 ; 3 d" . backward-word)
-
         ("C-M-<up>" . org-table-move-single-cell-up)
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
         ("C-M-<right>" . org-table-move-single-cell-right)
-        ("C-M-l" . my/org-link-copy)
-        ("C-k" . kill-line))
+        ("C-M-l" . my/org-link-copy))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
@@ -1852,6 +1850,10 @@ Including indent-buffer, which should not be called automatically on save."
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
   (add-to-list 'org-link-frame-setup '(file . find-file))
+
+  (define-key org-mode-map [remap kill-line] nil)
+  (define-key org-mode-map [remap org-kill-line] nil)
+  (define-key org-mode-map (kbd "C-k") 'kill-line)
 
   ;; (major-mode-hydra-define (org-mode)
   ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
