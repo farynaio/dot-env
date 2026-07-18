@@ -4123,12 +4123,13 @@ Try:
               (browse-url-generic url)
               (shr--blink-link)))))
 
-        (defun my/elfeed-save-db ()
+        (defun my/elfeed-db-save ()
           (elfeed-db-save)
           ;; (elfeed-db-compact)
           )
 
-        (add-hook 'kill-emacs-hook #'my/elfeed-save-db)
+        (add-hook 'kill-emacs-hook #'my/elfeed-db-save)
+        (add-hook 'elfeed-update-hooks #'elfeed-db-save)
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
         (defun my/elfeed-youtube-download (&optional use-generic-p)
@@ -4272,7 +4273,7 @@ Try:
       (use-package elfeed-org
         :demand t
         :after (org elfeed)
-        :hook ((elfeed-update-hook . my/elfeed-save-db))
+        :hook ((elfeed-update-hook . my/elfeed-db-save))
         :custom
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
