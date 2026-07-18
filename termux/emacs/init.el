@@ -9,6 +9,7 @@
 
 (defvar my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (defvar my/org-roam-dir nil)
+(defvar my/matrix-enable nil)
 (defvar my/evil-enable nil)
 (defvar my/html-enable nil) ; advanced
 (defvar my/js-enable nil) ; advanced
@@ -4181,6 +4182,11 @@ should be continued."
 
       (defalias 'rss #'elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
+
+(straight-register-package 'ement)
+(when my/matrix-enable
+  (use-package ement
+    :demand t))
 
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
