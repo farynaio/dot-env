@@ -1507,16 +1507,17 @@ Including indent-buffer, which should not be called automatically on save."
     (evil-want-fine-undo t)
     (evil-want-C-i-jump nil)
     (evil-search-module 'evil-search)
-    (evil-mode-line-format "before")
+    ;; (evil-mode-line-format "before")
     (evil-shift-width tab-width)
     (evil-cross-lines t)
-    (evil-mode-line-format '(before . mode-line-front-space))
-    (evil-normal-state-tag " [N] "
-      evil-insert-state-tag " [I] "
-      evil-visual-state-tag " [V] "
-      evil-emacs-state-tag " [E] "
-      evil-replace-state-tag " [R] "
-      evil-motion-state-tag " [M] ")
+    (evil-mode-line-format '(before . mode-line-modes))
+    ;; (evil-mode-line-format '(before . mode-line-front-space))
+    (evil-normal-state-tag " Evil[N] "
+      evil-insert-state-tag " Evil[I] "
+      evil-visual-state-tag " Evil[V] "
+      evil-emacs-state-tag " Evil[E] "
+      evil-replace-state-tag " Evil[R] "
+      evil-motion-state-tag " Evil[M] ")
     :config
     ;; If you use Magit, start editing in insert state
     ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
