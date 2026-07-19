@@ -1710,7 +1710,9 @@ Including indent-buffer, which should not be called automatically on save."
     (""
      (("c" tab-bar-new-tab "new")
       ("r" tab-bar-rename-tab "rename")
-      ("q" tab-bar-close-tab "close")
+      ("x" tab-bar-close-tab "close")
+      ("C-<left>" tab-bar-move-tab-backward "move left")
+      ("C-<right>" tab-bar-move-tab "move right")
       ("t" tab-bar-switch-to-next-tab "next tab")
       ("<right>" tab-bar-switch-to-next-tab "next tab")
       ("<left>" tab-bar-switch-to-prev-tab "prev tab")
