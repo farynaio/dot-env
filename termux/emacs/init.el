@@ -1417,6 +1417,7 @@ Including indent-buffer, which should not be called automatically on save."
   :bind
   (:map dired-mode-map
         ("C-s" . isearch-forward)
+        ("C-t" . hydra-tab-bar/body)
         ("<backspace>" . dired-up-directory)
         ("DEL" . dired-up-directory) ; optional
         ("W" . my/dired-copy-path-to-file-as-kill)
@@ -1709,10 +1710,12 @@ Including indent-buffer, which should not be called automatically on save."
     (""
      (("c" tab-bar-new-tab "new")
       ("r" tab-bar-rename-tab "rename")
-      ("x" tab-bar-close-tab "close")
+      ("q" tab-bar-close-tab "close")
       ("t" tab-bar-switch-to-next-tab "next tab")
       ("<right>" tab-bar-switch-to-next-tab "next tab")
-      ("<left>" tab-bar-switch-to-prev-tab "prev tab"))))
+      ("<left>" tab-bar-switch-to-prev-tab "prev tab")
+      ("n" tab-bar-switch-to-next-tab "next tab")
+      ("p" tab-bar-switch-to-prev-tab "prev tab"))))
 
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
