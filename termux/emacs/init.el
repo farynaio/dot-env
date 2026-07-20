@@ -2784,7 +2784,8 @@ should be continued."
   :mode ("\\.gradle\\'" "\\.groovy\\'"))
 
 (use-package yaml-mode
-  :mode "\\.yml\\'")
+  :mode "\\.yml\\'"
+  :hook (yaml-mode-hook . display-line-numbers-mode))
 
 (defun my/web-mode-toggle ()
   "Toggle switch between `web-mode' and native major mode."
