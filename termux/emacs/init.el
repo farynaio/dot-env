@@ -1429,6 +1429,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("<backspace>" . dired-up-directory)
         ("DEL" . dired-up-directory) ; optional
         ("W" . my/dired-copy-path-to-file-as-kill)
+        ("M-w" . my/dired-copy-filename-to-clipboard-and-kill)
         ("RET" .  dired-find-file))
   :hook (dired-mode . dired-hide-details-mode)
   :custom
@@ -1486,7 +1487,12 @@ Including indent-buffer, which should not be called automatically on save."
       (unless (string= string "")
         (let ((new-kill (concat (expand-file-name string default-directory))))
           (kill-new new-kill)
-          (message "%s" new-kill))))))
+          (message "%s" new-kill)))))
+
+(defun my/dired-copy-filename-to-clipboard-and-kill ()
+  (interactive)
+  (call-interactively 'dired-copy-filename-as-kill)
+  (call-process "termux-clipboard-set" nil nil nil (car kill-ring))))
 
 (straight-register-package 'all-the-icons-dired)
 (when (display-graphic-p)
