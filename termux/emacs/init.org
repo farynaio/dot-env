@@ -1783,17 +1783,19 @@ Including indent-buffer, which should not be called automatically on save."
 
   (pretty-hydra-define hydra-tab-bar
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
-    (""
+    ("Action"
      (("c" tab-bar-new-tab "new")
       ("r" tab-bar-rename-tab "rename")
-      ("x" tab-bar-close-tab "close")
+      ("," tab-bar-rename-tab "rename") ;; like tmux
+      ("x" tab-bar-close-tab "close"))
+     "Navigation"
+      (("t" tab-bar-switch-to-next-tab "next tab")
+      ("n" tab-bar-switch-to-next-tab "next tab")
+      ("p" tab-bar-switch-to-prev-tab "prev tab")
       ("C-<left>" tab-bar-move-tab-backward "move left")
       ("C-<right>" tab-bar-move-tab "move right")
-      ("t" tab-bar-switch-to-next-tab "next tab")
       ("<right>" tab-bar-switch-to-next-tab "next tab")
-      ("<left>" tab-bar-switch-to-prev-tab "prev tab")
-      ("n" tab-bar-switch-to-next-tab "next tab")
-      ("p" tab-bar-switch-to-prev-tab "prev tab"))))
+      ("<left>" tab-bar-switch-to-prev-tab "prev tab"))))
 
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
