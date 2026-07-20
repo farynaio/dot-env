@@ -571,6 +571,14 @@
   :config
   (setq magit-diff-refine-hunk 'all)
 
+  (pretty-hydra-define hydra-magit
+    (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
+    ("Action"
+      (("b" magit-blame "blame")
+        ("l" magit-log-buffer-file "commit log (current file)")
+        ("L" magit-log-current "commit log (project)")
+        ("s" magit-status "status"))))
+
   (defun my/copy-diff-region ()
     "Copy diff region without + or - markers."
     (interactive)
@@ -1733,7 +1741,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("w" hydra-write/body "write"))
      ""
      (("c" org-capture "org-capture")
-      ("m" hydra-multiple-cursors/body "multiple cursors")
+      ("m" hydra-magit/body "magit")
       ;; ("t" hydra-tab-bar/body "tab bar")
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
