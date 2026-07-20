@@ -1,8 +1,8 @@
 source $PREFIX/etc/fish/config.fish
 
 export PATH="$HOME/bin:$PATH"
-export EDITOR="$HOME/bin/emacsclient-tty.sh"
-export VISUAL="$HOME/bin/emacsclient.sh"
+export EDITOR="vim"
+export VISUAL="vim"
 
 set -gx GPG_TTY (tty)
 
