@@ -1755,7 +1755,9 @@ Including indent-buffer, which should not be called automatically on save."
       ;; ("t" hydra-tab-bar/body "tab bar")
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
-      ("e" evil-mode "evil" :toggle t)))))
+      ("e" evil-mode "evil" :toggle t)
+      ("z" shell "shell"))))
+)
 
 (bind-key "C-t" 'hydra-tab-bar/body)
 
