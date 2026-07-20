@@ -2778,6 +2778,8 @@ should be continued."
   :custom
   (css-indent-offset tab-width))
 
+(use-package dotenv-mode)
+
 (use-package groovy-mode
   :mode ("\\.gradle\\'" "\\.groovy\\'"))
 
