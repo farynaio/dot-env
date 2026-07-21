@@ -2190,6 +2190,15 @@ should be continued."
   :after org
   :hook (org-mode . org-sticky-header-mode))
 
+(use-package org-download
+  :demand t
+  :commands (org-download-yank)
+  :custom
+  (org-download-timestamp "%Y%m%d-%H%M%S_")
+  (org-image-actual-width nil)
+  (org-download-method 'directory)
+  (org-download-image-dir "attachments"))
+
 (use-package org-link-archive
   :after org
   :straight
