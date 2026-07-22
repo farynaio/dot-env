@@ -42,27 +42,21 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (eq system-type 'android)
-    (progn
-      (setq tool-bar-position 'bottom)
-      (when (fboundp 'tool-bar-mode) (tool-bar-mode 1))
-      (when (fboundp 'modifier-bar-mode) (modifier-bar-mode 1))
-      ;; (setq touch-screen-word-select t)
-      ;; (setq touch-screen-enable-hscroll nil)
-      ;; (setq touch-screen-extend-selection t)
-      ;; (setq touch-screen-preview-select t)
-      (bind-key "<down-mouse-1>" nil))
-  (when (fboundp 'tool-bar-mode) (tool-bar-mode -1)))
 
 ;; Be less obnoxious
 (blink-cursor-mode -1)
 (tooltip-mode -1)
 
+;; (when (fboundp 'modifier-bar-mode) (modifier-bar-mode -1))
+;; (setq touch-screen-word-select t)
+;; (setq touch-screen-enable-hscroll t)
+;; (setq touch-screen-extend-selection t)
+;; (setq touch-screen-preview-select t)
+
 (setq
  byte-compile-warnings '(not obsolete)
  warning-suppress-log-types '((comp) (bytecomp))
- native-comp-async-report-warnings-errors 'silent)
-(setq-default
+ native-comp-async-report-warnings-errors 'silent
  compilation-always-kill t
  compilation-scroll-output t
  compilation-skip-threshold 2
@@ -307,8 +301,7 @@
   :bind (("C-c C-j" . my/join-line)
          :map visual-line-mode-map
          ;; kill entire line even when visual-line-mode enabled
-         ("C-k" . kill-line)
-)
+         ("C-k" . kill-line))
   :custom
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
@@ -320,8 +313,8 @@
   ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
   (advice-add 'visual-line-mode :around
               (lambda (orig-fun &rest args)
-                      (unless (memq major-mode (list 'org-agenda-mode))
-                        (apply orig-fun args)))))
+                (unless (memq major-mode (list 'org-agenda-mode))
+                  (apply orig-fun args)))))
 
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
@@ -403,14 +396,14 @@
   :straight nil
   :bind
   (:map view-mode-map
-  ("SPC" . nil)
-  ("RET" . nil)
-  ("DEL" . nil)
-  ("q" . nil)
-  ("s" . nil)
-  ("r" . nil)
-  ("c" . nil)
-  ("h" . help-for-help)))
+        ("SPC" . nil)
+        ("RET" . nil)
+        ("DEL" . nil)
+        ("q" . nil)
+        ("s" . nil)
+        ("r" . nil)
+        ("c" . nil)
+        ("h" . help-for-help)))
 
 (defalias 'qcalc #'quick-calc)
 
@@ -1282,10 +1275,12 @@
   (my/inc-number-at-point (- arg)))
 
 ;; Clever newlines
-(global-set-key (kbd "C-o") 'my/open-line-and-indent)
-(global-set-key (kbd "<C-return>") 'my/open-line-below)
-(global-set-key (kbd "<C-S-return>") 'my/open-line-above)
-(global-set-key (kbd "<M-return>") 'my/new-line-dwim)
+(bind-keys
+ ("C-o" . my/open-line-and-indent)
+ ("<C-return>" . my/open-line-below)
+ ("<C-S-return>" . my/open-line-above)
+ :map prog-mode-map
+ ("<M-return>" . my/new-line-dwim))
 
 (defun my/open-line-and-indent ()
   (interactive)
