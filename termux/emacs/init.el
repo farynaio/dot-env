@@ -1777,6 +1777,7 @@ Including indent-buffer, which should not be called automatically on save."
   :bind
   (:map org-mode-map
         ("C-c C-j" . my/join-line)
+        ("M-<RET>" . my/org-meta-return)
         ("M-<up>" . org-metaup)
         ("M-<down>" . org-metadown)
         ("C-S-<up>" . org-shiftup)
@@ -2110,7 +2111,15 @@ should be continued."
   ;; (advice-add 'kill-whole-line :after #'my/org-update-parent-cookie)
 
   (defun my/org-priority-cookie-print () (format "[#%c]" org-default-priority))
-)
+
+  (defun my/org-meta-return ()
+    "Insert a new list item, copying the checkbox status if present."
+    (interactive)
+    (if (org-at-item-checkbox-p)
+        ;; If on a checkbox, insert a new todo heading (checkbox)
+        (org-insert-todo-heading nil)
+      ;; Otherwise, behave like standard M-RET
+      (org-meta-return))))
 
 (use-package org-appear
   :after org
