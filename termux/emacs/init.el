@@ -3318,6 +3318,9 @@ should be continued."
 
 ;; (use-package zerodark-theme)
 
+(custom-set-faces
+ '(org-headline-done ((t (:foreground "gray" :strike-through t)))))
+
 (use-package doom-modeline
   :disabled t
   :demand t
