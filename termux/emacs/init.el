@@ -446,6 +446,12 @@
       (kill-ring-save beg end)))
   (bind-key "C-M-w" #'my/termux-clipboard-region))
 
+(defun my/kill-to-clipboard ()
+  "Copy last kill ring string into clipboard."
+  (interactive)
+  (call-process "termux-clipboard-set" nil nil nil
+       (current-kill 0 t)))
+
 (use-package man
   :straight nil
   :defer 1
@@ -1747,6 +1753,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("w" hydra-write/body "write"))
      ""
      (("c" org-capture "org-capture")
+      ("y" my/kill-to-clipboard "kill to clipboard")
       ("m" hydra-magit/body "magit")
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
