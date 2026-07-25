@@ -1607,7 +1607,8 @@ Including indent-buffer, which should not be called automatically on save."
 (use-package major-mode-hydra
   :demand t
   :commands major-mode-hydra
-  :bind ("C-f" . hydra-base/body)
+  :bind (("C-f" . hydra-base/body)
+         ("C-t" . hydra-tab-bar/body))
   :config
   (defun with-alltheicon (icon str &optional height v-adjust)
     "Displays an icon from all-the-icon."
@@ -1759,8 +1760,6 @@ Including indent-buffer, which should not be called automatically on save."
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
       ("z" shell "shell")))))
-
-(bind-key "C-t" 'hydra-tab-bar/body)
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
