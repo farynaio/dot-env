@@ -300,8 +300,9 @@
   :straight nil
   :bind (("C-c C-j" . my/join-line)
          :map visual-line-mode-map
-         ;; kill entire line even when visual-line-mode enabled
-         ("C-k" . kill-line))
+         ("C-k" . kill-line) ;; kill entire line even when visual-line-mode enabled
+         ("M-u" . upcase-dwim)
+         ("M-l" . downcase-dwim))
   :custom
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
