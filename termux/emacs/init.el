@@ -82,7 +82,6 @@
   (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
 
 (setq calc-internal-prec 20)
-(defalias 'qcalc #'quick-calc)
 
 (setq gnutls-verify-error t)
 
