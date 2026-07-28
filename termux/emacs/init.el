@@ -3633,6 +3633,7 @@ should be continued."
                    ("totaly" "totally" nil 0)
                    ("readonly" "read-only" nil 0)
 
+                   ("wifi" "WI-FI" nil 0)
                    ("indexeddb" "IndexedDB" nil 0)
                    ("fomo" "FOMO" nil 0)
                    ("shopify" "Shopify" nil 0)
@@ -3719,6 +3720,7 @@ should be continued."
 (defvar my/pl-abbrevs nil)
 (define-abbrev-table
   'my/pl-abbrevs '(
+                   ("wifi" "WI-FI" nil 0)
                    ("indexeddb" "IndexedDB" nil 0)
                    ("fomo" "FOMO" nil 0)
                    ("shopify" "Shopify" nil 0)
