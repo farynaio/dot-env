@@ -3,6 +3,10 @@
 ;; mandatory
 (setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 
+;; required for EXWM
+(setq my/exwm-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/exwm"))
+(setq my/xelb-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/xelb"))
+
 ;; optional, required for GPG
 (defconst my/epa-file-encrypt-to-default '(""))
 (setq-default mml-secure-openpgp-signers '(""))

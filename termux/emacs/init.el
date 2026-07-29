@@ -18,6 +18,9 @@
 (defvar my/php-enable nil) ; requires html
 (defvar my/kotlin-enabled nil)
 
+(defvar my/exwm-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/exwm"))
+(defvar my/xelb-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/xelb"))
+
 (unless (file-directory-p my/downloads-dir)
   (mkdir my/downloads-dir))
 
