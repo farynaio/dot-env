@@ -42,10 +42,11 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(when (fboundp 'tooltip-mode) (tooltip-mode -1))
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;; Be less obnoxious
 (blink-cursor-mode -1)
-(tooltip-mode -1)
 
 ;; (when (fboundp 'modifier-bar-mode) (modifier-bar-mode -1))
 ;; (setq touch-screen-word-select t)
@@ -207,7 +208,6 @@
   :custom
   ;; Enable context menu. `vertico-multiform-mode' adds a menu in the minibuffer
   ;; to switch display modes.
-  (context-menu-mode (display-graphic-p))
   ;; Support opening new minibuffers from inside existing minibuffers.
   (enable-recursive-minibuffers t)
   ;; Hide commands in M-x which do not work in the current mode.  Vertico
@@ -222,8 +222,7 @@
 (windmove-default-keybindings 'shift) ; You can use other modifiers here
 
 ;; Make right-click do something sensible
-(when (display-graphic-p)
-  (context-menu-mode))
+(context-menu-mode (display-graphic-p))
 
 (setq font-lock-maximum-decoration t)
 
@@ -342,10 +341,6 @@
  switch-to-buffer-obey-display-actions t)
 
 (xterm-mouse-mode 1)
-
-;; Make right-click do something sensible
-(when (display-graphic-p)
-  (context-menu-mode))
 
 (unless (file-exists-p my/tmp-dir)
   (make-directory my/tmp-dir t))
