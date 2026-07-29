@@ -1422,6 +1422,18 @@ Including indent-buffer, which should not be called automatically on save."
   (garbage-collect)
   (message "kill-ring cleared"))
 
+(defun my/scroll-up-command ()
+  "Scroll up by 3/4 of the window."
+  (interactive)
+  (let ((next-screen-context-lines (/ (window-height nil 'floor) 2)))
+    (call-interactively 'scroll-down-command)))
+
+(defun my/scroll-down-command ()
+  "Scroll up by 3/4 of the window."
+  (interactive)
+  (let ((next-screen-context-lines (/ (window-height nil 'floor) 2)))
+    (call-interactively 'scroll-up-command)))
+
 (defun my/parens-jump ()
   "Interactively show the character before and after point.
   Displays each as a readable string or \"<BOF/EOF>\" when out of range."
@@ -1435,7 +1447,8 @@ Including indent-buffer, which should not be called automatically on save."
 
 (bind-keys
  ("C-M-b" . my/parens-jump)
- ("C-M-f" . my/parens-jump))
+ ("C-M-f" . my/parens-jump)
+ ("M-v" .  my/scroll-up-command))
 #+end_src
 * Encryption
 #+begin_src emacs-lisp
@@ -3461,199 +3474,6 @@ Untested
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 #+end_src
-* Shell
-#+begin_src emacs-lisp
-(setq shell-dirtrackp nil)
-
-(defalias 'sh #'eshell)
-
-(use-package eshell
-  :straight nil
-  :commands eshell
-  :bind
-  (:map eshell-mode-map
-        ;; ("C-r" . counsel-shell-history)
-        ;; ("C-n" . company-next-page)
-        ;; ("C-p" . company-previous-page)
-        ("<tab>" . my/eshell-list-dir)
-        ("<tab>" . company-next-page)
-        ;; ("<backtab>" . company-previous-page)
-        )
-  ;; :hook ((eshell-mode . company-mode))
-  :init
-  (require 'esh-mode)
-  :custom
-  (eshell-destroy-buffer-when-process-dies t)
-  (eshell-prompt-function #'dw/eshell-prompt)
-  (eshell-prompt-regexp "^λ ")
-  (eshell-history-size 10000)
-  (eshell-buffer-maximum-lines 10000)
-  (eshell-hist-ignoredups t)
-  (eshell-highlight-prompt t)
-  (eshell-scroll-to-bottom-on-input t)
-  (eshell-prefer-lisp-functions nil)
-  :config
-  (defun my/eshell-init ()
-    ;; (setq-local company-backends '((company-files company-capf)))
-    ;; (setq-local company-backends '(esh-autosuggest company-files ))
-    (setenv "PAGER" "cat"))
-  (add-hook 'eshell-mode-hook #'my/eshell-init)
-
-  (defun read-file (file-path)
-    (with-temp-buffer
-      (insert-file-contents file-path)
-      (buffer-string)))
-
-  (defun my/eshell-list-dir ()
-    (interactive)
-    (let ((output (eshell-command "ls -a" t)))
-      (with-temp-message output)))
-
-  (defun dw/get-current-package-version ()
-    (interactive)
-    (let ((package-json-file (concat (eshell/pwd) "/package.json")))
-      (when (file-exists-p package-json-file)
-        (let* ((package-json-contents (read-file package-json-file))
-               (package-json (ignore-errors (json-parse-string package-json-contents))))
-          (when package-json
-            (ignore-errors (gethash "version" package-json)))))))
-
-  (defun dw/map-line-to-status-char (line)
-    (cond ((string-match "^?\\? " line) "?")))
-
-  (defun dw/get-git-status-prompt ()
-    (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
-      (seq-uniq (seq-filter 'identity (mapcar 'dw/map-line-to-status-char status-lines)))))
-
-  (defun dw/get-prompt-path ()
-    (let* ((current-path (eshell/pwd))
-           (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
-           (has-path (not (string-match "^fatal" git-output))))
-      (if (not has-path)
-          (abbreviate-file-name current-path)
-        (string-remove-prefix (file-name-directory git-output) current-path))))
-
-  ;; This prompt function mostly replicates my custom zsh prompt setup
-  ;; that is powered by github.com/denysdovhan/spaceship-prompt.
-  (defun dw/eshell-prompt ()
-    (let ((current-branch (magit-get-current-branch))
-          (package-version (dw/get-current-package-version)))
-      (concat
-       "\n"
-       (propertize (system-name) 'face `(:foreground "#62aeed"))
-       (propertize " ॐ " 'face `(:foreground "white"))
-       (propertize (dw/get-prompt-path) 'face `(:foreground "#82cfd3"))
-       (when current-branch
-         (concat
-          (propertize " • " 'face `(:foreground "white"))
-          (propertize (concat " " current-branch) 'face `(:foreground "#c475f0"))))
-       (propertize " " 'face `(:foreground "white")))))
-
-  (use-package xterm-color
-    :demand t)
-
-  (push 'eshell-tramp eshell-modules-list)
-  ;; (push 'xterm-color-filter eshell-preoutput-filter-functions)
-  ;; (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
-
-  ;; (defun flush-func (&optional args) t)
-
-  ;; Save command history when commands are entered
-  (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
-
-  (add-hook 'eshell-before-prompt-hook
-            (lambda ()
-              (setq-local xterm-color-preserve-properties t)))
-
-  ;; Truncate buffer for performance
-  (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
-
-  ;; We want to use xterm-256color when running interactive commands
-  ;; in eshell but not during other times when we might be launching
-  ;; a shell command to gather its output.
-  (add-hook 'eshell-pre-command-hook
-            (lambda () (setenv "TERM" "xterm-256color")))
-  (add-hook 'eshell-post-command-hook
-            (lambda () (setenv "TERM" "dumb"))))
-
-(use-package eshell-syntax-highlighting
-  :demand t
-  :after eshell
-  :config
-  (eshell-syntax-highlighting-global-mode 1))
-
-;; (use-package esh-autosuggest
-;;   :commands esh-autosuggest-mode
-;;   :custom
-;;   (esh-autosuggest-delay 0.5)
-;;   :config
-;;   (set-face-foreground 'company-preview-common "#4b5668")
-;;   (set-face-background 'company-preview nil))
-
-(use-package eshell-toggle
-  :after eshell
-  :commands eshell-toggle
-  ;; :bind (:map evil-normal-state-map
-  ;;         ("C-`" . eshell-toggle)
-  ;;        :map eshell-mode-map
-  ;;         ("C-`" . eshell-toggle))
-  ;; :straight (:type: git
-  ;;             :host github
-  ;;             :repo "4DA/eshell-toggle"
-  ;;             :branch "master")
-  :custom
-  (eshell-toggle-size-fraction 3)
-  (eshell-toggle-use-projectile-root t)
-  (eshell-toggle-run-command nil)
-  (eshell-toggle-default-directory "~/"))
-
-;; Kill shell buffer when shell exits
-(use-package shell
-  :straight nil
-  :hook (shell-mode . my-shell-mode-hook-func)
-  :config
-  (defun my-shell-mode-hook-func ()
-    (set-process-sentinel (get-buffer-process (current-buffer))
-                          'my-shell-mode-kill-buffer-on-exit))
-  (defun my-shell-mode-kill-buffer-on-exit (process state)
-    (message state)
-    (if (or
-         (string-match "exited abnormally with code.*" state)
-         (string-match "finished" state))
-        (kill-buffer (current-buffer))))
-
-  ;; default shell buffer
-  (setq explicit-shell-file-name (getenv "SHELL"))
-  ;; use shell-file-name for subprocesses
-  (setq shell-file-name explicit-shell-file-name))
-
-;; Eat: Emulate A Terminal
-(use-package eat
-  :disabled t
-  :demand t
-  :custom
-  (eat-term-name "xterm")
-  :config
-  (eat-eshell-mode)                     ; use Eat to handle term codes in program output
-  (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
-#+end_src
-* SSH
-#+begin_src emacs-lisp
-(use-package tramp
-  :demand t
-  :straight nil
-  :custom
-  (tramp-default-method "ssh")
-  (tramp-inline-compress-start-size 40960)
-  (tramp-chunksize 500)
-  (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
-  (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-  (tramp-encoding-shell "/bin/sh"))
-
-;; (use-package counsel-tramp
-  ;; :after (counsel tramp)
-  ;; :commands counsel-tramp)
-#+end_src
 * Abbreviations
 #+begin_src emacs-lisp
 (defvar my/en-abbrevs nil)
@@ -4648,6 +4468,182 @@ Try:
 
   (engine-mode t))
 #+end_src
+* Shell
+#+begin_src emacs-lisp
+(setq shell-dirtrackp nil)
+
+(defalias 'sh #'eshell)
+
+(use-package eshell
+  :straight nil
+  :commands eshell
+  :init
+  (require 'esh-mode)
+  :custom
+  (eshell-destroy-buffer-when-process-dies t)
+  (eshell-prompt-function #'my/eshell-prompt)
+  (eshell-prompt-regexp "^[^#$\n]* [#$] ")
+  (eshell-history-size 10000)
+  (eshell-buffer-maximum-lines 10000)
+  (eshell-hist-ignoredups t)
+  (eshell-highlight-prompt t)
+  (eshell-scroll-to-bottom-on-input t)
+  (eshell-prefer-lisp-functions nil)
+  :config
+  (setenv "PAGER" "cat")
+
+  (defun my/eshell-prompt ()
+    (let* ((pwd (eshell/pwd))
+           (pwd (string-remove-prefix (getenv "TERMUX__HOME") pwd))
+           (git-branch (magit-get-current-branch))
+           (git-branch (if git-branch (propertize (concat " (" git-branch ") " ) 'face '(:foreground "#c475f0")) ""))
+           (pwd (concat pwd git-branch "$ ")))
+      pwd))
+
+  (use-package xterm-color
+    :demand t)
+
+  (push 'eshell-tramp eshell-modules-list)
+
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
+
+  (add-hook 'eshell-before-prompt-hook
+            (lambda ()
+              (setq-local xterm-color-preserve-properties t)))
+
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions #'eshell-truncate-buffer)
+
+  ;; We want to use xterm-256color when running interactive commands
+  ;; in eshell but not during other times when we might be launching
+  ;; a shell command to gather its output.
+  (add-hook 'eshell-pre-command-hook
+            (lambda () (setenv "TERM" "xterm-256color")))
+  (add-hook 'eshell-post-command-hook
+            (lambda () (setenv "TERM" "dumb"))))
+
+(use-package eshell-syntax-highlighting
+  :demand t
+  :after eshell
+  :config
+  (eshell-syntax-highlighting-global-mode 1))
+
+(use-package eshell-toggle
+  :commands eshell-toggle
+  :bind ("C-x `" . eshell-toggle)
+  :custom
+  (eshell-toggle-size-fraction 3)
+  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-run-command nil)
+  (eshell-toggle-default-directory "~/"))
+
+(use-package eshell-did-you-mean
+  :demand t
+  :after eshell
+  :custom
+  (eshell-did-you-mean-setup))
+
+(use-package shell
+  :straight nil
+  :hook (shell-mode . my-shell-mode-hook-func)
+  :config
+  ;; Kill shell buffer when shell exits
+  (defun my-shell-mode-hook-func ()
+    (set-process-sentinel (get-buffer-process (current-buffer))
+                          'my-shell-mode-kill-buffer-on-exit))
+  (defun my-shell-mode-kill-buffer-on-exit (process state)
+    (message state)
+    (if (or
+         (string-match "exited abnormally with code.*" state)
+         (string-match "finished" state))
+        (kill-buffer (current-buffer))))
+
+  ;; default shell buffer
+  (setq explicit-shell-file-name (getenv "SHELL"))
+  ;; use shell-file-name for subprocesses
+  (setq shell-file-name explicit-shell-file-name))
+
+;; untested
+;; https://codeberg.org/akib/Emacs-eat
+(use-package eat
+  :disabled t
+  :demand t
+  :straight (:host codeberg
+                   :repo "akib/Emacs-eat"
+                   :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti" ("terminfo/e" "terminfo/e/*") ("terminfo/65" "terminfo/65/*") ("integration" "integration/*") (:exclude ".dir-locals.el" "*-tests.el")))
+  :custom
+  (eat-term-name "xterm")
+  :config
+  (eat-eshell-mode)                     ; use Eat to handle term codes in program output
+  (eat-eshell-visual-command-mode))     ; commands like less will be handled by Eat
+#+end_src
+* SSH
+#+begin_src emacs-lisp
+(use-package tramp
+  :demand t
+  :straight nil
+  :custom
+  (tramp-default-method "ssh")
+  (tramp-inline-compress-start-size 40960)
+  (tramp-chunksize 500)
+  (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
+  (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
+  (tramp-encoding-shell "/bin/sh")) ;; the fastest?
+#+end_src
+* X / EXWM
+#+BEGIN_src emacs-lisp
+(when (eq window-system 'x)
+  (when (eq system-type 'android)
+    (set-face-attribute 'default nil :height 150)
+    (bind-keys
+     ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
+
+  (if (and (file-directory-p my/exwm-path) (file-directory-p my/xelb-path))
+      (use-package exwm
+        :straight nil ;; on Termux install emacs-exwm pkg
+        :commands (exwm-wm-mode)
+        :hook
+        ((exwm-mode-hook . scroll-bar-mode))
+        :custom
+        (exwm-workspace-number 1) ;; 4
+        (exwm-input-prefix-keys)
+        :preface
+        (defun my/load-exwm ()
+          (interactive)
+          (if window-system
+              (exwm-wm-mode 1)
+            (error "EXWM requires window system!")))
+        (defalias 'X #'my/load-exwm)
+        :init
+        (add-to-list 'load-path my/exwm-path)
+        (add-to-list 'load-path my/xelb-path)
+
+        ;; Load the system tray before exwm-init
+        (require 'exwm-systemtray)
+        (exwm-systemtray-mode 1)
+        :config
+
+        ;; These keys should always pass through to Emacs
+        (setq exwm-input-prefix-keys
+              '(?\C-x
+                ?\C-u ;; universal argument
+                ?\C-h
+                ?\C-t
+                ?\M-x
+                ?\M-` ;; bind to something cool, shell?
+                ?\M-& ;; async shell command
+                ;; ?\M-:
+                ;; ?\C-\M-j  ;; Buffer list
+                ?\C-\ ))  ;; Ctrl+Space
+
+        ;; (setq exwm-input-prefix-keys (append exwm-input-prefix-keys (list (kbd "S-<left>") (kbd "S-<right>"))))
+
+        (unless (server-running-p)
+          (server-start)))
+    (warn "'exwm' and/or 'xelb' lisp code not found, EXWM not available!")))
+#+end_src
+
 * Ledger
 #+begin_src emacs-lisp
 (use-package ledger-mode
