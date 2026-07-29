@@ -765,6 +765,14 @@
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
 
+(use-package time
+  :disabled t
+  :demand t
+  :straight nil
+  :custom
+  (display-time-format "%a %d %b %H:%M")
+  :config
+(display-time-mode 1))
 
 ;; Add parts of each file's directory to the buffer name if not unique
 (use-package uniquify
