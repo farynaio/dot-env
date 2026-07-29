@@ -1184,7 +1184,7 @@
   :custom
   (ediff-quit-widened nil)
   (ediff-diff-options "-w")
-  (ediff-window-setup-function #'ediff-setup-windows-plain)
+  (ediff-window-setup-function #'ediff-setup-windows-plain) ;; display *Ediff Control Panel* in new window instead of new frame
   (ediff-forward-word-function #'forward-char))
 
 (defun my/revert-buffer-noconfirm ()
@@ -1393,13 +1393,13 @@ Including indent-buffer, which should not be called automatically on save."
   "Scroll up by 3/4 of the window."
   (interactive)
   (let ((next-screen-context-lines (/ (window-height nil 'floor) 2)))
-    (call-interactively 'scroll-down-command)))
+    (scroll-down-command)))
 
 (defun my/scroll-down-command ()
   "Scroll up by 3/4 of the window."
   (interactive)
   (let ((next-screen-context-lines (/ (window-height nil 'floor) 2)))
-    (call-interactively 'scroll-up-command)))
+    (scroll-up-command)))
 
 (defun my/parens-jump ()
   "Interactively show the character before and after point.
