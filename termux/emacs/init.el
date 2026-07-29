@@ -417,6 +417,14 @@
     ;; (advice-remove 'message #'ignore)
 )
 
+(defun my/func-call (&rest func)
+  "Call `func' (function or functions) interactively."
+  (interactive)
+  (dolist (i func)
+    (if (listp i)
+      (apply (car i) (cdr i))
+      (funcall i))))
+
 (defun my/termux-p ()
   "Check if Emacs is running on Termux"
   (interactive)

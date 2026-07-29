@@ -445,6 +445,14 @@ TODO:
       (apply fun args))
     ;; (advice-remove 'message #'ignore)
 )
+
+(defun my/func-call (&rest func)
+  "Call `func' (function or functions) interactively."
+  (interactive)
+  (dolist (i func)
+    (if (listp i)
+      (apply (car i) (cdr i))
+      (funcall i))))
 #+end_src
 * Termux
 #+begin_src emacs-lisp
