@@ -4542,7 +4542,9 @@ Try:
 
 (use-package eshell-toggle
   :commands eshell-toggle
-  :bind ("C-x `" . eshell-toggle)
+  :bind
+  (("C-x `" . eshell-toggle)
+   ("M-`" . eshell-toggle))
   :custom
   (eshell-toggle-size-fraction 3)
   (eshell-toggle-use-projectile-root t)
@@ -4614,11 +4616,22 @@ Try:
       (use-package exwm
         :straight nil ;; on Termux install emacs-exwm pkg
         :commands (exwm-wm-mode)
-        :hook
-        ((exwm-mode-hook . scroll-bar-mode))
+        ;; :hook
+        ;; ((exwm-mode-hook . scroll-bar-mode))
         :custom
-        (exwm-workspace-number 1) ;; 4
-        (exwm-input-prefix-keys)
+        (exwm-workspace-number 1)
+        (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
+         '(?\C-x
+           ?\C-u ;; universal argument
+           ?\C-h
+           ?\C-t
+           ?\M-x
+           ?\M-`
+           ?\M-& ;; async shell command
+           ;; ?\M-:
+           ;; ?\C-\M-j  ;; Buffer list
+           ?\C-\  ;; Ctrl+Space
+           ))
         :preface
         (defun my/load-exwm ()
           (interactive)
@@ -4630,26 +4643,12 @@ Try:
         (add-to-list 'load-path my/exwm-path)
         (add-to-list 'load-path my/xelb-path)
 
-        ;; Load the system tray before exwm-init
-        (require 'exwm-systemtray)
-        (exwm-systemtray-mode 1)
+        (unless (eq system-type 'android)
+          (require 'exwm-systemtray)
+          (setq exwm-systemtray-height 32
+                exwm-systemtray-position 'top)
+          (exwm-systemtray-mode 1))
         :config
-
-        ;; These keys should always pass through to Emacs
-        (setq exwm-input-prefix-keys
-              '(?\C-x
-                ?\C-u ;; universal argument
-                ?\C-h
-                ?\C-t
-                ?\M-x
-                ?\M-` ;; bind to something cool, shell?
-                ?\M-& ;; async shell command
-                ;; ?\M-:
-                ;; ?\C-\M-j  ;; Buffer list
-                ?\C-\ ))  ;; Ctrl+Space
-
-        ;; (setq exwm-input-prefix-keys (append exwm-input-prefix-keys (list (kbd "S-<left>") (kbd "S-<right>"))))
-
         (unless (server-running-p)
           (server-start)))
     (warn "'exwm' and/or 'xelb' lisp code not found, EXWM not available!")))
