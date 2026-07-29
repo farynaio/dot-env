@@ -766,7 +766,6 @@
         ))
 
 (use-package time
-  :disabled t
   :demand t
   :straight nil
   :custom
@@ -4509,7 +4508,7 @@ should be continued."
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
-    (set-face-attribute 'default nil :height 150)
+    (set-face-attribute 'default nil :height 180)
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
@@ -4517,32 +4516,55 @@ should be continued."
       (use-package exwm
         :straight nil ;; on Termux install emacs-exwm pkg
         :commands (exwm-wm-mode)
-        ;; :hook
-        ;; ((exwm-mode-hook . scroll-bar-mode))
         :custom
         (exwm-workspace-number 1)
+        (exwm-manage-force-tiling nil)
         (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
          '(?\C-x
            ?\C-u ;; universal argument
            ?\C-h
            ?\C-t
+           ?\C-g
            ?\M-x
            ?\M-`
            ?\M-& ;; async shell command
+           S-right
+           S-left
            ;; ?\M-:
            ;; ?\C-\M-j  ;; Buffer list
            ?\C-\  ;; Ctrl+Space
            ))
         :preface
-        (defun my/load-exwm ()
+        (defun my/exwm-start ()
           (interactive)
           (if window-system
-              (exwm-wm-mode 1)
+              (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
+                  (message "EXWM is already running")
+                (exwm-wm-mode 1))
             (error "EXWM requires window system!")))
-        (defalias 'X #'my/load-exwm)
+        (defalias 'X #'my/exwm-start)
         :init
         (add-to-list 'load-path my/exwm-path)
         (add-to-list 'load-path my/xelb-path)
+
+        (setq exwm-input-simulation-keys
+              '(([?\C-e] . [end])
+                ([?\M-v] . [prior])
+                ([?\C-v] . [next])
+                ([?\C-d] . [delete])
+                ([?\C-k] . [S-end delete])
+                ;; cut/paste.
+                ([?\C-w] . [?\C-x])
+                ([?\M-w] . [?\C-c])
+                ([?\C-y] . [?\C-v])
+                ;; search
+                ([?\C-s] . [?\C-f])))
+
+        (setq exwm-input-global-keys
+              '(([s-left] . windmove-left)
+                ([s-right] . windmove-right)
+                ([s-up] . windmove-up)
+                ([s-down] . windmove-down)))
 
         (unless (eq system-type 'android)
           (require 'exwm-systemtray)
@@ -4550,6 +4572,16 @@ should be continued."
                 exwm-systemtray-position 'top)
           (exwm-systemtray-mode 1))
         :config
+        (delight 'exwm-wm-mode "EXWM" :major)
+
+        ;; Make buffer name more meaningful
+        (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+
+        ;; For not Termux-X11 it may sense to use LXDE session management
+        ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
+
+        (my/exwm-start)
+
         (unless (server-running-p)
           (server-start)))
     (warn "'exwm' and/or 'xelb' lisp code not found, EXWM not available!")))
