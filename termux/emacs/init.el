@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 (defconst my/local-config-dir (expand-file-name "emacs-local-config" user-emacs-directory))
 (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
+(defconst my/local-post-config-file (expand-file-name "local-post-config.el" my/local-config-dir)) ;; optional
 
 ;; overwrite these in local-config.el to avoid pushing them to git
 (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
@@ -4671,3 +4672,10 @@ should be continued."
 (when (eq system-type 'android)
   (bind-keys
    ("C-x ;" . comment-line)))
+
+
+(if (file-exists-p my/local-post-config-file)
+    (progn
+      (message "Loading %s..." my/local-post-config-file)
+      (load my/local-post-config-file))
+  (message "File '%s' not exists!" my/local-post-config-file))
