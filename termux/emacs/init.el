@@ -305,6 +305,7 @@
          ("M-u" . upcase-dwim)
          ("M-l" . downcase-dwim))
   :custom
+  (async-shell-command-buffer 'new-buffer)
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
   (mark-ring-max 4)
@@ -760,6 +761,8 @@
          (display-buffer-reuse-window display-buffer-at-bottom)
          (window-height . 0.3)
          (reusable-frames . nil))
+        ("\\*Async Shell Command\\*.*"
+         (display-buffer-no-window))
         ;; ("\\*tree-sitter"
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
@@ -1768,6 +1771,16 @@ Including indent-buffer, which should not be called automatically on save."
         ("L" magit-log-current "commit log (project)")
         ("s" magit-status "status"))))
 
+  (pretty-hydra-define hydra-exwm
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "EXWM" 1 -0.05))
+    ("Apps"
+     (("b" (start-process "epiphany" "epiphany" "epiphany")  "browser")
+      ("t" (start-process "xfce4-terminal" "xfce4-terminal" "xfce4-terminal") "terminal"))
+     "Workspaces"
+     (("s" exwm-workspace-switch-create "switch")
+      ("d" exwm-workspace-delete "delete")
+      ("w" exwm-workspace-move-window "move window"))))
+
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
     (""
@@ -1786,7 +1799,10 @@ Including indent-buffer, which should not be called automatically on save."
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
-      ("z" shell "shell")))))
+      ("z" shell "shell"))
+     ""
+     (("x" hydra-exwm/body "EXWM"))
+)))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
@@ -4515,15 +4531,17 @@ should be continued."
 
   (if (and (file-directory-p my/exwm-path) (file-directory-p my/xelb-path))
       (use-package exwm
+        :demand t
         :straight nil ;; on Termux install emacs-exwm pkg
-        :commands (exwm-wm-mode)
         :custom
-        (exwm-workspace-number 1)
+        (exwm-workspace-number 4)
+        (exwm-workspace-show-all-buffers nil) ;; Always create new buffer for apps
         (exwm-manage-force-tiling nil)
         (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
          '(?\C-x
            ?\C-u ;; universal argument
            ?\C-h
+           ?\C-f
            ?\C-t
            ?\C-g
            ?\M-x
@@ -4531,7 +4549,9 @@ should be continued."
            ?\M-& ;; async shell command
            S-right
            S-left
-           ;; ?\M-:
+           S-up
+           S-down
+           ?\M-:
            ;; ?\C-\M-j  ;; Buffer list
            ?\C-\  ;; Ctrl+Space
            ))
@@ -4541,12 +4561,21 @@ should be continued."
           (if window-system
               (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
                   (message "EXWM is already running")
-                (exwm-wm-mode 1))
+                (exwm-wm-mode 1)
+                (message "EXWM started"))
             (error "EXWM requires window system!")))
         (defalias 'X #'my/exwm-start)
         :init
         (add-to-list 'load-path my/exwm-path)
         (add-to-list 'load-path my/xelb-path)
+
+        (unless (eq system-type 'android)
+          (require 'exwm-systemtray)
+          (setq exwm-systemtray-height 32
+                exwm-systemtray-position 'top)
+          (exwm-systemtray-mode 1))
+        :config
+        (delight 'exwm-wm-mode "EXWM" :major)
 
         (setq exwm-input-simulation-keys
               '(([?\C-e] . [end])
@@ -4567,13 +4596,11 @@ should be continued."
                 ([s-up] . windmove-up)
                 ([s-down] . windmove-down)))
 
-        (unless (eq system-type 'android)
-          (require 'exwm-systemtray)
-          (setq exwm-systemtray-height 32
-                exwm-systemtray-position 'top)
-          (exwm-systemtray-mode 1))
-        :config
-        (delight 'exwm-wm-mode "EXWM" :major)
+        (add-hook 'exwm-manage-finish-hook (lambda ()
+                                             (when exwm-class-name
+                                               (cond
+                                                ((member exwm-class-name '("Xfce4-terminal"))
+                                                 (exwm-input-set-local-simulation-keys '()))))))
 
         ;; Make buffer name more meaningful
         (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
