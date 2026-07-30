@@ -405,6 +405,21 @@
         ("c" . nil)
         ("h" . help-for-help)))
 
+;; Caution! doesn't work well with EXWM
+(use-package desktop
+  :disabled t
+  :demand t
+  :straight nil
+  :custom
+  (desktop-save t)
+  (desktop-load-locked-desktop t)
+  (desktop-restore-frames t)
+  (desktop-auto-save-timeout 300)
+  (desktop-dirname user-emacs-directory)
+  (desktop-base-file-name "emacs.desktop")
+  :config
+  (desktop-save-mode 1))
+
 (defalias 'qcalc #'quick-calc)
 
 ;; (setq backtrace-on-redisplay-error t)
