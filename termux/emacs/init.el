@@ -840,7 +840,8 @@
      "/tmp/"
      "?:cache"
      "eln-cache"
-     "elfeed/index"
+     "~/Documents/elfeed-db/index"
+     "~/dot-env/termux/emacs/init.org"
      "bookmarks"))
   :config
   (recentf-mode 1)
