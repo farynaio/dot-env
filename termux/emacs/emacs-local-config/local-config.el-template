@@ -1,5 +1,14 @@
 ;; -*- mode: emacs-lisp -*-
 
+;; Extra config file to run before init.el.
+;; Copy it to local-post-config.el and edit as you wish
+
+;; Use it to:
+;; - initiate variables
+;; - enable features like evil-mode, development packages, LSP
+;; - configure GPG and other secrets
+;; - and everything else that is unique to your setup, that you don't want to share in version control repository
+
 ;; mandatory
 (setq my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 

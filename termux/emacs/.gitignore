@@ -8,6 +8,7 @@
 /url
 /.persistent-scratch
 /emacs-local-config/local-config.el
+/emacs-local-config/local-post-config.el
 /org-roam.db
 /tramp-persistency.el
 /tramp

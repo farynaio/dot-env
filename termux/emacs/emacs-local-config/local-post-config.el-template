@@ -1,0 +1,9 @@
+;; -*- mode: emacs-lisp -*-
+
+;; Extra config file to run after init.el.
+;; Use it to:
+;; - setup workspaces: tabs, windows, layout etc.
+;; - do some extra post init.el clean up
+;; - and everything else that you want to run after init.el, but not want to share in version control repo
+
+;; Copy it to local-post-config.el and edit as you wish

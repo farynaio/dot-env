@@ -4688,7 +4688,8 @@ should be continued."
   (bind-keys
    ("C-x ;" . comment-line)))
 
-
+;; Extra config file to run after everything else
+;; Use to setup workspaces, tabs, windows, layout etc.
 (if (file-exists-p my/local-post-config-file)
     (progn
       (message "Loading %s..." my/local-post-config-file)
