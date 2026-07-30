@@ -912,7 +912,6 @@
     (bind-key "<END>"  #'delete-window (current-local-map))))
 (add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
 
-
 (use-package consult
   :defer 1
   :bind
@@ -1415,7 +1414,9 @@ Including indent-buffer, which should not be called automatically on save."
 (bind-keys
  ("C-M-b" . my/parens-jump)
  ("C-M-f" . my/parens-jump)
- ("M-v" .  my/scroll-up-command))
+ ("M-v" .  my/scroll-up-command)
+ ("C-x <left>" . tab-bar-switch-to-prev-tab)
+ ("C-x <right>" . tab-bar-switch-to-next-tab))
 
 (setq-default mml-secure-openpgp-sign-with-sender t)
 
