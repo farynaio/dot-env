@@ -904,7 +904,7 @@
   ;;    ("Registers" . "Registers:")))
   (dashboard-item-shortcuts '((agenda    . "a")
                               (recents   . "r")
-                              (bookmarks . "m")
+                              (bookmarks . "b")
                               (registers . "e")))
   (dashboard-projects-backend 'projectile)
   :config
