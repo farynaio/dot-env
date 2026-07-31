@@ -4577,7 +4577,6 @@ should be continued."
         :straight nil ;; on Termux install emacs-exwm pkg
         :custom
         (exwm-workspace-number 4)
-        (exwm-workspace-show-all-buffers nil) ;; Always create new buffer for apps
         (exwm-manage-force-tiling nil)
         (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
          '(?\C-x
@@ -4638,11 +4637,27 @@ should be continued."
                 ([s-up] . windmove-up)
                 ([s-down] . windmove-down)))
 
-        (add-hook 'exwm-manage-finish-hook (lambda ()
-                                             (when exwm-class-name
-                                               (cond
-                                                ((member exwm-class-name '("Xfce4-terminal"))
-                                                 (exwm-input-set-local-simulation-keys '()))))))
+        (defun my/exwm-manage-finish ()
+          (when exwm-class-name
+            (cond
+             ((member exwm-class-name '("Xfce4-terminal"))
+              (exwm-input-set-local-simulation-keys '()))
+             ((member exwm-class-name '("epiphany"))
+              (exwm-input-set-local-simulation-keys
+               '(([?\C-e] . [end])
+                 ([?\M-v] . [prior])
+                 ([?\C-v] . [next])
+                 ([?\C-d] . [delete])
+                 ([?\C-k] . [S-end delete])
+                 ;; cut/paste.
+                 ([?\C-w] . [?\C-x])
+                 ([?\M-w] . [?\C-c])
+                 ([?\C-y] . [?\C-v])
+                 ;; search
+                 ([?\C-s] . [?\C-f]))
+               )))))
+
+        (add-hook 'exwm-manage-finish-hook #'my/exwm-manage-finish)
 
         ;; Make buffer name more meaningful
         (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
