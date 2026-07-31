@@ -1830,11 +1830,12 @@ Including indent-buffer, which should not be called automatically on save."
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
-      ("z" shell "shell"))
+      ("a" abbrev-mode "abbrev-mode" :toggle t))
      ""
      (("x" hydra-exwm/body "EXWM")
-      ("w" hydra-eww/body "eww"))
-)))
+      ("w" hydra-eww/body "eww")
+      ("z" shell "shell"))))
+)
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
@@ -3713,11 +3714,9 @@ should be continued."
   (message "Polish language activated."))
 
 (use-package abbrev
+  :demand t
   :straight nil
   :delight " Abb"
-  :demand t
-  :hook ((text-mode . abbrev-mode)
-         (text-mode . my/en-mode))
   :custom
   (save-abbrevs nil)
   (abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory)))
