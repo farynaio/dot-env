@@ -27,6 +27,10 @@ alias pkglsu="apt list --upgradable"
 alias g git
 alias e 'my_emacs_run'
 
+if set -q PREFIX
+  export DISPLAY=:1 MESA_LOADER_DRIVER_OVERRIDE=zink
+end
+
 function fish_prompt
     printf '%s > ' (basename (pwd))
 end
