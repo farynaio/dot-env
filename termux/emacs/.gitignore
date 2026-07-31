@@ -19,6 +19,7 @@
 /.org-id-locations
 /eshell
 /url-cache
+/bookmarks
 
 /.mc-lists.el
 /emacs.desktop
