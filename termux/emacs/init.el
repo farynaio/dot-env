@@ -183,6 +183,7 @@
  save-some-buffers-default-predicate t
  buffer-save-without-query t
  help-window-select t
+ bookmark-sort-flag t
  bookmark-save-flag 1)
 
 (setq delete-by-moving-to-trash t)
@@ -858,7 +859,8 @@
      "eln-cache"
      "~/Documents/elfeed-db/index"
      "~/dot-env/termux/emacs/init.org"
-     "bookmarks"))
+     "bookmarks"
+     ""))
   :config
   (recentf-mode 1)
   (run-at-time nil (* 60 5) #'recentf-save-list)
