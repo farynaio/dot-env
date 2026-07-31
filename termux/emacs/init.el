@@ -1710,6 +1710,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("l" org-link-archive-at-point "link archive")
       ;; ("h" org-archive-subtree "archive heading subtree")
       ("s" org-roam-node-find "find file")
+      ("i" org-roam-node-insert "insert org-roam link")
       ("b" consult-org-roam-backlinks "backlinks")
       ("f" consult-org-roam-forward-links "forward links")
       ("S" consult-org-roam-search "org-roam search")
