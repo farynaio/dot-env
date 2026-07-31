@@ -535,6 +535,10 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+;; probably alternative to diff-hl
+;; (use-package line-reminder
+;; :demand t)
+
 (use-package diff-hl
   :defer 2
   :after magit
