@@ -1862,6 +1862,15 @@ Including indent-buffer, which should not be called automatically on save."
       ("d" exwm-workspace-delete "delete")
       ("w" exwm-workspace-move-window "move window"))))
 
+  (pretty-hydra-define hydra-eww
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "bookmark" "EWW" 1 -0.05))
+    (""
+     (("i" eww-toggle-images "toggle images")
+      ("r" eww-readable "readable" :toggle t)
+      ("a" eww-add-bookmark "bookmark")
+      ("b" eww-bookmark-jump "goto bookmark")
+      ("l" eww-list-bookmarks "bookmarks"))))
+
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
     (""
@@ -1882,7 +1891,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("e" evil-mode "evil" :toggle t)
       ("z" shell "shell"))
      ""
-     (("x" hydra-exwm/body "EXWM"))
+     (("x" hydra-exwm/body "EXWM")
+      ("w" hydra-eww/body "eww"))
 )))
 #+end_src
 * Org
@@ -4247,7 +4257,17 @@ Try:
 )
   ;; :hook (eww-mode . visual-fill-column-mode)
   :custom
-  (eww-search-prefix "https://duckduckgo.com/html/?q=")
+  (eww-search-prefix "https://html.duckduckgo.com/html/?q=")
+  (eww-disable-colorization t)
+  (shr-discard-aria-hidden t)
+  (shr-use-colors nil)
+  (shr-inhibit-images t)  ;; Disable all images. Use eww-toggle-images to toggle
+  ;; (shr-blocked-images ".*")
+  (shr-max-image-proportion 0.6)
+  (eww-cache-removed-data nil)
+  (URL-cache-directory "~/.emacs.d/url-cache/")
+  (URL-cookie-trusted-urls '()) ;; reject all cookies
+  (URL-user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36")
   :config
   (defun my/eww-init ()
     (text-scale-adjust 2)
