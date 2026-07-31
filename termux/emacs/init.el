@@ -1216,7 +1216,9 @@
   :demand t
   :straight nil
   :bind (("C-x <right>" . tab-bar-switch-to-next-tab)
-         ("C-x <left>" . tab-bar-switch-to-prev-tab))
+         ("C-x <left>" . tab-bar-switch-to-prev-tab)
+         ("C-x C-<right>" . tab-bar-switch-to-next-tab)
+         ("C-x C-<left>" . tab-bar-switch-to-prev-tab))
   :custom
   (tab-bar-auto-width t)
   ;; (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
