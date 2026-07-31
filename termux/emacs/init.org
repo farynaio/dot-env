@@ -1254,6 +1254,7 @@ TODO:
   :custom
   (ediff-quit-widened nil)
   (ediff-diff-options "-w")
+  (ediff-ignore-similar-regions t)
   (ediff-window-setup-function #'ediff-setup-windows-plain) ;; display *Ediff Control Panel* in new window instead of new frame
   (ediff-forward-word-function #'forward-char))
 
