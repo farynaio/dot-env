@@ -3836,6 +3836,7 @@ should be continued."
              ("<RET>" . shr-copy-url)
              :map elfeed-show-mode-map
              ("<RET>" . shr-copy-url)
+             ("C-M-l" . shr-copy-url)
              ("<end>" . elfeed-goodies/delete-pane)
              ("<mouse-1>" . nil)
              ("<mouse-2>" . nil))
