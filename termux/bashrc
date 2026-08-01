@@ -30,5 +30,6 @@ alias g="git"
 alias e="my_emacs_run"
 
 if [[ -n $PREFIX ]]; then
-  export DISPLAY=:1 MESA_LOADER_DRIVER_OVERRIDE=zink
+  export DISPLAY=:1
+ # MESA_LOADER_DRIVER_OVERRIDE=zink
 fi
