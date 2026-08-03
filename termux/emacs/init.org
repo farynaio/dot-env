@@ -1876,6 +1876,14 @@ Including indent-buffer, which should not be called automatically on save."
       ("b" eww-bookmark-jump "goto bookmark")
       ("l" eww-list-bookmarks "bookmarks"))))
 
+  (pretty-hydra-define hydra-dired
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
+    (""
+     (("f" find-name-dired "find file by regexp")
+      ("d" epa-dired-do-decrypt "decrypt file")
+      ("e" epa-dired-do-encrypt "encrypt file")
+      ("v" epa-dired-do-verify "gpg verify"))))
+
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
     (""
@@ -1898,6 +1906,7 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("x" hydra-exwm/body "EXWM")
       ("w" hydra-eww/body "eww")
+      ("d" hydra-dired/body "dired")
       ("z" shell "shell"))))
 )
 #+end_src
