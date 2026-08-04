@@ -931,7 +931,7 @@
   (dashboard-items
    '((agenda . 5)
      (recents . 5)
-     (bookmarks . 5)
+     (bookmarks . 10)
      (registers . 5)))
   (dashboard-modify-heading-icons '((recents   . "file-text")
                                     (bookmarks . "book")))
