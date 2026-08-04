@@ -954,6 +954,9 @@
     (bind-key "<END>"  #'delete-window (current-local-map))))
 (add-hook 'message-buffer-mode-hook #'my/messages-close-on-end)
 
+(use-package visual-fill-column
+  :commands (visual-fill-column-mode visual-fill-column-center-text))
+
 (use-package consult
   :defer 1
   :bind
@@ -3815,6 +3818,22 @@ should be continued."
                     "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                               ) t) "\\b")
    artbollocks-jargon nil))
+
+(use-package nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :hook ((nov-mode . visual-line-mode)
+          (nov-mode . visual-fill-column-mode)
+          (nov-mode . my/nov-init))
+  :bind
+  (:map nov-mode-map
+        ("<return>" . nov-scroll-down))
+  :preface
+  (defun my/nov-init ()
+    (setq-local visual-fill-column-center-text t)
+    (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 1.5))
+  :custom
+  (nov-text-width 75)
+  (visual-fill-column-center-text t))
 
 (straight-register-package 'elfeed)
 (straight-register-package 'elfeed-goodies)
