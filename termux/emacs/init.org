@@ -2,7 +2,11 @@
 #+STARTUP: overview
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
+
 TODO:
+- [ ] https://codeberg.org/MonadicSheep/emacs-reader
+- [ ] https://mutagen.io/
+- [ ] check ghostel
 - https://github.com/magnars/.emacs.d
 - http://whattheemacsd.com/
 - https://github.com/radian-software/radian
@@ -4597,7 +4601,7 @@ Try:
 
   (engine-mode t))
 #+end_src
-* Shell
+* Shell / Terminal
 #+begin_src emacs-lisp
 (setq shell-dirtrackp nil)
 
