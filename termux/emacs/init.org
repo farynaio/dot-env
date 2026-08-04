@@ -1899,6 +1899,7 @@ Including indent-buffer, which should not be called automatically on save."
     (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
     (""
      (("f" find-name-dired "find file by regexp")
+      ("g" find-grep-dired "grep")
       ("d" epa-dired-do-decrypt "decrypt file")
       ("e" epa-dired-do-encrypt "encrypt file")
       ("v" epa-dired-do-verify "gpg verify"))))
