@@ -7,6 +7,7 @@
 (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
 (defvar my/elfeed-org-feeds-files nil)
 (defvar my/elfeed-db-folder nil)
+(defvar my/termux-saf-uri-books nil)
 
 (defvar my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (defvar my/org-roam-dir nil)
@@ -425,6 +426,11 @@
 
 ;; (setq backtrace-on-redisplay-error t)
 
+(defun my/termux-p ()
+  "Check if Emacs is running on Termux"
+  (interactive)
+  (and (getenv "TERMUX__HOME") t))
+
 (defun my/time () (format-time-string "%T"))
 
 (defun my/kill-current-buffer ()
@@ -445,35 +451,6 @@
     (if (listp i)
       (apply (car i) (cdr i))
       (funcall i))))
-
-(defun my/termux-p ()
-  "Check if Emacs is running on Termux"
-  (interactive)
-  (and (getenv "TERMUX__HOME") t))
-
-(when (my/termux-p)
-  (bind-key "C-v" #'my/termux-clipboard-paste)
-
-  (defun my/termux-clipboard-paste ()
-    "Paste from clipboard."
-    (interactive)
-    (let ((txt (shell-command-to-string "termux-clipboard-get")))
-      (insert txt)))
-
-  (defun my/termux-clipboard-region (beg end)
-    "Save region in Android clipboard."
-    (interactive "r")
-    (let ((txt (buffer-substring-no-properties beg end)))
-      (call-process "termux-clipboard-set" nil nil nil
-         txt)
-      (kill-ring-save beg end)))
-  (bind-key "C-M-w" #'my/termux-clipboard-region))
-
-(defun my/kill-to-clipboard ()
-  "Copy last kill ring string into clipboard."
-  (interactive)
-  (call-process "termux-clipboard-set" nil nil nil
-       (current-kill 0 t)))
 
 (use-package man
   :straight nil
@@ -956,6 +933,38 @@
 
 (use-package visual-fill-column
   :commands (visual-fill-column-mode visual-fill-column-center-text))
+
+(when (my/termux-p)
+  (bind-key "C-v" #'my/termux-clipboard-paste)
+
+  (defun my/termux-clipboard-paste ()
+    "Paste from clipboard."
+    (interactive)
+    (let ((txt (shell-command-to-string "termux-clipboard-get")))
+      (insert txt)))
+
+  (defun my/termux-clipboard-region (beg end)
+    "Save region in Android clipboard."
+    (interactive "r")
+    (let ((txt (buffer-substring-no-properties beg end)))
+      (call-process "termux-clipboard-set" nil nil nil
+         txt)
+      (kill-ring-save beg end)))
+  (bind-key "C-M-w" #'my/termux-clipboard-region)
+
+  (defun my/kill-to-clipboard ()
+    "Copy last kill ring string into clipboard."
+    (interactive)
+    (call-process "termux-clipboard-set" nil nil nil
+                  (current-kill 0 t)))
+;; (setq termux-saf-root-uri "content://com.android.externalstorage.documents/tree/0084-3000%3ABooks")
+  (use-package termux-saf
+    :commands (termux-saf-browse)
+    :straight
+    (:type git
+           :host github
+           :repo "farynaio/emacs-termux-saf"
+           :branch "master")))
 
 (use-package consult
   :defer 1
@@ -1845,6 +1854,11 @@ Including indent-buffer, which should not be called automatically on save."
       ("e" epa-dired-do-encrypt "encrypt file")
       ("v" epa-dired-do-verify "gpg verify"))))
 
+  (pretty-hydra-define hydra-saf
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "folder-open" "SAF" 1 -0.05))
+    ("Browse"
+     (("b" (my/func-call (termux-saf-browse my/termux-saf-uri-books)) "books"))))
+
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
     (""
@@ -1868,8 +1882,8 @@ Including indent-buffer, which should not be called automatically on save."
      (("x" hydra-exwm/body "EXWM")
       ("w" hydra-eww/body "eww")
       ("d" hydra-dired/body "dired")
-      ("z" shell "shell"))))
-)
+      ("z" shell "shell")
+      ("S" hydra-saf/body "SAF")))))
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
