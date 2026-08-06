@@ -3975,7 +3975,7 @@ Try:
               :map elfeed-search-mode-map
               ("h" . hydra-elfeed-search/body)
               ("q" . quit-window)
-              ("d" . my/elfeed-youtube-download)
+              ;; ("d" . my/elfeed-youtube-download)
               ("o" . my/elfeed-tag-toggle-ok)
               ("f" . my/elfeed-tag-toggle-favorite)
               ("j" . my/elfeed-tag-toggle-junk)
@@ -3985,7 +3985,7 @@ Try:
               ("g" . my/elfeed-update)
               ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
               ;; ("<s-mouse-1>" . elfeed-search-browse-url)
-              ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
+              ;; ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
               ("C-x m" . hydra-elfeed-search/body))
         :custom
         (elfeed-db-directory my/elfeed-db-folder)
@@ -4141,16 +4141,16 @@ Try:
         (add-hook 'elfeed-update-hooks #'elfeed-db-save)
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
-        (defun my/elfeed-youtube-download (&optional use-generic-p)
-          "Download YouTube video."
-          (interactive "P")
-          (let ((entries (elfeed-search-selected)))
-            (cl-loop for entry in entries
-                     do (elfeed-untag entry 'unread)
-                     when (elfeed-entry-link entry)
-                     do (my/youtube-download it))
-            (mapc 'elfeed-search-update-entry entries)
-            (unless (use-region-p) (forward-line))))
+        ;; (defun my/elfeed-youtube-download (&optional use-generic-p)
+        ;;   "Download YouTube video."
+        ;;   (interactive "P")
+        ;;   (let ((entries (elfeed-search-selected)))
+        ;;     (cl-loop for entry in entries
+        ;;              do (elfeed-untag entry 'unread)
+        ;;              when (elfeed-entry-link entry)
+        ;;              do (my/youtube-download it))
+        ;;     (mapc 'elfeed-search-update-entry entries)
+        ;;     (unless (use-region-p) (forward-line))))
 
         (defun elfeed-scroll-up-command (&optional arg)
           "Scroll up or go to next feed item in Elfeed"
@@ -4169,67 +4169,67 @@ Try:
               (warn (elfeed-show-prev)))))
 
         ;; TODO send article to pocket instead via org-capture
-        (defun my/elfeed-send-emails (&optional all)
-          "Send entry to e-mail to read later offline."
-          (interactive)
-          (let ((entries (if all
-                             (progn
-                               (elfeed-search-first-entry)
-                               (set-mark-command nil)
-                               (elfeed-search-last-entry)
-                               (elfeed-search-selected))
-                           (elfeed-search-selected))))
-            (when (use-region-p) (deactivate-mark))
+        ;; (defun my/elfeed-send-emails (&optional all)
+        ;;   "Send entry to e-mail to read later offline."
+        ;;   (interactive)
+        ;;   (let ((entries (if all
+        ;;                      (progn
+        ;;                        (elfeed-search-first-entry)
+        ;;                        (set-mark-command nil)
+        ;;                        (elfeed-search-last-entry)
+        ;;                        (elfeed-search-selected))
+        ;;                    (elfeed-search-selected))))
+        ;;     (when (use-region-p) (deactivate-mark))
 
-            (cl-loop for entry in entries
-                     when (elfeed-entry-title entry)
-                     ;; if (elfeed-tagged-p 'unread entry)
-                     if (elfeed-tagged-p 'mail entry)
-                     do (message "The email for entry was already send. No email send now.")
-                     else
-                     do (my/elfeed-send-emails-processing entry)
-                     ;; else
-                     ;; do (message "The entry is not tagged as 'ok'. No email send now.")
-                     ;; else
-                     ;; do (message "The entry is already read. No email send now.")
-                     )
+        ;;     (cl-loop for entry in entries
+        ;;              when (elfeed-entry-title entry)
+        ;;              ;; if (elfeed-tagged-p 'unread entry)
+        ;;              if (elfeed-tagged-p 'mail entry)
+        ;;              do (message "The email for entry was already send. No email send now.")
+        ;;              else
+        ;;              do (my/elfeed-send-emails-processing entry)
+        ;;              ;; else
+        ;;              ;; do (message "The entry is not tagged as 'ok'. No email send now.")
+        ;;              ;; else
+        ;;              ;; do (message "The entry is already read. No email send now.")
+        ;;              )
 
-            (mapc 'elfeed-search-update-entry entries))
-          (elfeed-search-update--force))
+        ;;     (mapc 'elfeed-search-update-entry entries))
+          ;; (elfeed-search-update--force))
 
-        (defun my/elfeed-send-emails-processing (entry)
-          (interactive)
-          (let ((link (elfeed-entry-link entry))
-                (title (elfeed-entry-title entry))
-                (name (elfeed-feed-title (elfeed-entry-feed entry))))
-            (compose-mail my/elfeed-email-destination (format "RSS: [%s] %s" name title) nil nil)
+        ;; (defun my/elfeed-send-emails-processing (entry)
+        ;;   (interactive)
+        ;;   (let ((link (elfeed-entry-link entry))
+        ;;         (title (elfeed-entry-title entry))
+        ;;         (name (elfeed-feed-title (elfeed-entry-feed entry))))
+        ;;     (compose-mail my/elfeed-email-destination (format "RSS: [%s] %s" name title) nil nil)
 
-            (when link
-              (mail-text)
-              (let* ((type (elfeed-entry-content-type entry))
-                     (content (elfeed-deref (elfeed-entry-content entry))))
-                (if content
-                    (progn
-                      (insert "<#multipart type=alternative>")
-                      (insert "<#part type=text/plain>")
-                      (insert content)
-                      (insert "\n----\n")
-                      (insert (concat "Link to article: " link "\n"))
+        ;;     (when link
+        ;;       (mail-text)
+        ;;       (let* ((type (elfeed-entry-content-type entry))
+        ;;              (content (elfeed-deref (elfeed-entry-content entry))))
+        ;;         (if content
+        ;;             (progn
+        ;;               (insert "<#multipart type=alternative>")
+        ;;               (insert "<#part type=text/plain>")
+        ;;               (insert content)
+        ;;               (insert "\n----\n")
+        ;;               (insert (concat "Link to article: " link "\n"))
 
-                      (when (eq type 'html)
-                        (insert "<#part type=text/html>")
-                        (insert content)
-                        (insert "<br>----<br>")
-                        (insert (concat "Link to article: " link "<br>"))
-                        )
-                      (insert "<#/multipart>")
-                      )
-                  (insert (propertize "(empty)\n" 'face 'italic))))
+        ;;               (when (eq type 'html)
+        ;;                 (insert "<#part type=text/html>")
+        ;;                 (insert content)
+        ;;                 (insert "<br>----<br>")
+        ;;                 (insert (concat "Link to article: " link "<br>"))
+        ;;                 )
+        ;;               (insert "<#/multipart>")
+        ;;               )
+        ;;           (insert (propertize "(empty)\n" 'face 'italic))))
 
-              (message-send-and-exit)
-              (elfeed-tag entry 'mail)
-              (elfeed-tag entry 'ok)
-              (elfeed-untag entry 'unread))))
+        ;;       (message-send-and-exit)
+        ;;       (elfeed-tag entry 'mail)
+        ;;       (elfeed-tag entry 'ok)
+        ;;       (elfeed-untag entry 'unread))))
 
         (defun my/elfeed-tag-toggle-ok ()
           "Mark as 'ok' on an entry or entries, and send email with the content."
