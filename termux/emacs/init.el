@@ -7,7 +7,10 @@
 (defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
 (defvar my/elfeed-org-feeds-files nil)
 (defvar my/elfeed-db-folder nil)
+
 (defvar my/termux-saf-uri-books nil)
+(defvar my/termux-saf-uri-pictures nil)
+(defvar my/termux-saf-uri-documents nil)
 
 (defvar my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (defvar my/org-roam-dir nil)
@@ -1858,7 +1861,9 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-saf
     (:hint nil :color teal :quit-key "q" :title (with-faicon "folder-open" "SAF" 1 -0.05))
     ("Browse"
-     (("b" (my/func-call (termux-saf-browse my/termux-saf-uri-books)) "books"))))
+     (("b" (my/func-call (termux-saf-browse my/termux-saf-uri-books)) "Books")
+      ("p" (my/func-call (termux-saf-browse my/termux-saf-uri-pictures)) "Pictures")
+      ("d" (my/func-call (termux-saf-browse my/termux-saf-uri-documents)) "Documents"))))
 
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
