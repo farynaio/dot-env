@@ -4524,10 +4524,13 @@ should be continued."
 (use-package eshell
   :straight nil
   :commands eshell
+  :bind
+  (("C-x `" . eshell))
   :init
   (require 'esh-mode)
   :custom
   (eshell-destroy-buffer-when-process-dies t)
+  (eshell-kill-processes-on-exit t)
   (eshell-prompt-function #'my/eshell-prompt)
   (eshell-prompt-regexp "^[^#$\n]* [#$] ")
   (eshell-history-size 10000)
@@ -4551,6 +4554,12 @@ should be continued."
     :demand t)
 
   (push 'eshell-tramp eshell-modules-list)
+
+  ;; Destroy eshell window when process dies
+  (add-hook 'eshell-exit-hook
+            (lambda ()
+              (unless (one-window-p)
+                (delete-window))))
 
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook #'eshell-save-some-history)
@@ -4577,16 +4586,19 @@ should be continued."
   (eshell-syntax-highlighting-global-mode 1))
 
 (use-package eshell-toggle
+  :disabled t
   :commands eshell-toggle
   :bind
   (("C-x `" . eshell-toggle)
    ("M-`" . eshell-toggle))
   :custom
   (eshell-toggle-size-fraction 3)
-  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-find-project-root-package nil)
   (eshell-toggle-run-command nil)
-  (eshell-toggle-default-directory "~/"))
+  (eshell-toggle-default-directory "~/")
+  (eshell-toggle-init-function 'eshell-toggle-init-eshell))
 
+;; Command not found ("did you mean…" feature) in Eshell
 (use-package eshell-did-you-mean
   :demand t
   :after eshell
