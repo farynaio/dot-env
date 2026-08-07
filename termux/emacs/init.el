@@ -764,6 +764,9 @@
          (reusable-frames . nil))
         ("\\*Async Shell Command\\*.*"
          (display-buffer-no-window))
+        ("^\\*SAF"
+         (display-buffer-same-window)
+         (inhibit-same-window . nil))
         ;; ("\\*tree-sitter"
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
