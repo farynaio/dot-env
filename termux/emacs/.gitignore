@@ -21,6 +21,8 @@
 /url-cache
 /bookmarks
 /nov-places
+/saf-cache
+/saf-tmp
 
 /.mc-lists.el
 /emacs.desktop
