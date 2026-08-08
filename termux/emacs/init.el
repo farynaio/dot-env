@@ -4189,7 +4189,16 @@ should be continued."
         (defun my/elfeed-mark-unread-move-next ()
           (interactive)
           (elfeed-search-tag-all-unread)
-          (unless (use-region-p) (next-line))))
+          (unless (use-region-p) (next-line)))
+
+        (defun my/elfeed-start ()
+          (interactive)
+          (if (tab-bar--tab-index-by-name "RSS")
+              (tab-bar-switch-to-tab "RSS")
+            (tab-bar-new-tab)
+            (elfeed)
+            (tab-bar-rename-tab "RSS"))
+          (switch-to-buffer "*elfeed-search*")))
 
       (use-package elfeed-goodies
         :demand t
@@ -4215,7 +4224,7 @@ should be continued."
         (elfeed-org)
         (run-at-time t (* 2 60 60) #'my/elfeed-update))
 
-      (defalias 'rss #'elfeed))
+      (defalias 'rss #'my/elfeed-start))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
 
 (straight-register-package 'ement)
