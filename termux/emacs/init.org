@@ -1225,13 +1225,25 @@ TODO:
 ;; ("M-<down>" . move-text-down)))
 
 (use-package multiple-cursors
-  :commands (hydra-multiple-cursors/body mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this)
+  :commands (hydra-multiple-cursors/body mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this mc/mark-previous-lines mc/mark-next-lines)
   :bind
-  (("C->" . mc/mark-next-like-this) ;; these will not work on soft keyboard Android and external keyboards
-   ("C-<" . mc/mark-previous-like-this)
+  (("C->" . my/mc/mark-next-line) ;; might not work on soft keyboard Android
+   ("C-<" . my/mc/mark-previous-line) ;; might not work on soft keyboard Android
    ("C-c C-<" . mc/mark-all-like-this)
    :map mc/keymap
    ("<return>" . nil))
+  :preface
+  (defun my/mc/mark-next-line ()
+    "Mark next line using multiple-cursors"
+    (interactive)
+    (mc/mark-next-lines 1))
+
+  (defun my/mc/mark-previous-line ()
+    "Mark previous line using multiple-cursors"
+    (interactive)
+    (mc/mark-previous-lines 1))
+  :custom
+  (mc/match-cursor-style nil)
   :config
   (pretty-hydra-define hydra-multiple-cursors
     (:hint nil :color red :quit-key "q" :title (with-faicon "coffee" "Multiple Cursors" 1 -0.05))
