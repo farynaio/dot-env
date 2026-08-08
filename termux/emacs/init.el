@@ -2279,7 +2279,12 @@ should be continued."
       (org-roam-tag-sources '(prop))
       (org-roam-update-db-idle-second 60)
       (org-roam-verbose nil)
+      (org-roam-extract-new-file-path "${slug}.org")
       (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+      (org-roam-capture-templates '(("d" "default" plain "%?" :target
+                                     (file+head
+                                      "%<%Y%m%d%H%M%S>-${slug}.org"
+                                      "#+TITLE: ${title}\n#+CREATED: [%<%Y-%m-%d %a>]\n#+LAST_MODIFIED: [%<%Y-%m-%d %a>]\n\n- tags :: \n\n\n") :kill-buffer nil)))
       :config
       (org-roam-db-autosync-mode 1)
 
