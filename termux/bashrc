@@ -8,6 +8,13 @@ export EDITOR="vim"
 export VISUAL="vim"
 export GPG_TTY=$(tty)
 
+# export DISPLAY=:0 MESA_LOADER_DRIVER_OVERRIDE=zink
+# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
+# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/freedreno_icd.aarch64.json
+# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/wrapper_icd.aarch64.json
+# export ZINK_DESCRIPTORS=lazy
+# export MESA_GL_VERSION_OVERRIDE=4.3COMPAT
+
 my_emacs_run() {
   if [ -t 0 ]; then
     eval $EDITOR
@@ -28,8 +35,3 @@ alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
 alias g="git"
 alias e="my_emacs_run"
-
-if [[ -n $PREFIX ]]; then
-  export DISPLAY=:1
- # MESA_LOADER_DRIVER_OVERRIDE=zink
-fi
