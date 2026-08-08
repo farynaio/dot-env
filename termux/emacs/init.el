@@ -395,6 +395,7 @@
 (auto-compression-mode 1)
 
 (global-hl-line-mode -1)
+(auto-save-mode -1)
 
 (use-package view
   :demand t
