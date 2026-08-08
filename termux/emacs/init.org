@@ -1805,20 +1805,21 @@ Including indent-buffer, which should not be called automatically on save."
     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
     ("Actions"
      (("a" org-agenda "org agenda" :exit t)
-      ("c" org-capture "capture" :exit t)
-      ("R" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
+      ("r" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
       ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
       ("t" org-toggle-timestamp-type "timestamp toggle")
       ("l" org-link-archive-at-point "link archive")
       ;; ("h" org-archive-subtree "archive heading subtree")
-      ("s" org-roam-node-find "find file")
-      ("i" org-roam-node-insert "insert org-roam link")
-      ("b" consult-org-roam-backlinks "backlinks")
-      ("f" consult-org-roam-forward-links "forward links")
-      ("S" consult-org-roam-search "org-roam search")
       ("n" org-toggle-narrow-to-subtree "org-toggle-narrow-to-subtree"))
+     "org-roam"
+     (("c" org-roam-capture "capture" :exit t)
+      ("s" org-roam-node-find "find node")
+      ("i" org-roam-node-insert "insert link")
+      ("b" consult-org-roam-backlinks "show backlinks")
+      ("f" consult-org-roam-forward-links "show forward links")
+      ("S" consult-org-roam-search "search"))
      "Toggle"
-     (("p" org-appear-mode "org-appear toggle" :toggle t)
+     (("p" org-appear-mode "org-appear" :toggle t)
       ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
 
   ;; (pretty-hydra-define hydra-navigation
