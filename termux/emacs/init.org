@@ -1810,7 +1810,9 @@ Including indent-buffer, which should not be called automatically on save."
       ("t" org-toggle-timestamp-type "timestamp toggle")
       ("l" org-link-archive-at-point "link archive")
       ;; ("h" org-archive-subtree "archive heading subtree")
-      ("n" org-toggle-narrow-to-subtree "org-toggle-narrow-to-subtree"))
+      ;; ("n" org-toggle-narrow-to-subtree "org-toggle-narrow-to-subtree")
+      ("I" org-download-image "download image via URL")
+      ("D" org-download-delete "delete image at point"))
      "org-roam"
      (("c" org-roam-capture "capture" :exit t)
       ("s" org-roam-node-find "find node")
