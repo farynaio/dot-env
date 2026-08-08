@@ -1979,6 +1979,9 @@ Including indent-buffer, which should not be called automatically on save."
 
   ;; (org-use-property-inheritance t)
 
+  (org-image-actual-width t)
+  (org-image-max-width 'fill-column)
+
   (org-src-preserve-indentation t)
   (org-src-fontify-natively t)
   (org-src-tab-acts-natively t)
@@ -2360,7 +2363,6 @@ should be continued."
   :commands (org-download-yank)
   :custom
   (org-download-timestamp "%Y%m%d-%H%M%S_")
-  (org-image-actual-width nil)
   (org-download-method 'directory)
   (org-download-image-dir "attachments"))
 
