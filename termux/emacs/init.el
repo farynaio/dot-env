@@ -811,6 +811,21 @@
 ;; Show more than 4 levels when evaling expressions
 (setq eval-expression-print-level 100)
 
+(use-package image-slicing
+  :demand t
+  :straight
+  (:type git
+         :host github
+         :repo "farynaio/image-slicing"
+         :branch "main")
+  :custom
+  (org-link-archive-at-point 5)
+  (image-slicing-max-width 700)
+  :config
+  (require 'shr)
+  ;; Integrate with elfeed and eww
+  (add-to-list 'shr-external-rendering-functions '(img . image-slicing-tag-img)))
+
 (use-package openwith
   :demand t
   :config
@@ -1780,14 +1795,15 @@ Including indent-buffer, which should not be called automatically on save."
       ("D" org-download-delete "delete image at point"))
      "org-roam"
      (("c" org-roam-capture "capture" :exit t)
-      ("s" org-roam-node-find "find node")
+      ("f" org-roam-node-find "find node")
       ("i" org-roam-node-insert "insert link")
-      ("b" consult-org-roam-backlinks "show backlinks")
-      ("f" consult-org-roam-forward-links "show forward links")
+      ("B" consult-org-roam-backlinks "show backlinks")
+      ("F" consult-org-roam-forward-links "show forward links")
       ("S" consult-org-roam-search "search"))
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
-      ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t))))
+      ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+      ("s" image-slicing-mode "image-slicing-mode" :toggle t))))
 
   ;; (pretty-hydra-define hydra-navigation
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
@@ -3947,6 +3963,8 @@ should be continued."
         (elfeed-curl-timeout 200)
         (url-queue-timeout 60)
         :config
+        (advice-add #'elfeed-show-entry :after #'image-slicing-mode)
+
         (if (eq system-type 'android)
             (bind-keys
              :map shr-map
@@ -4303,7 +4321,8 @@ should be continued."
       ;; shr-use-fonts  nil
       ))
 
-  (add-hook 'eww-mode-hook #'my/eww-init))
+  (add-hook 'eww-mode-hook #'my/eww-init)
+  (add-hook 'eww-after-render-hook #'image-slicing-mode))
 
   ;; (defun my/eww-change-text-width (val)
   ;;   (setq
