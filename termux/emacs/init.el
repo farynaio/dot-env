@@ -1916,7 +1916,9 @@ Including indent-buffer, which should not be called automatically on save."
     ("Browse"
      (("b" (my/func-call (termux-saf-browse my/termux-saf-uri-books)) "Books")
       ("p" (my/func-call (termux-saf-browse my/termux-saf-uri-pictures)) "Pictures")
-      ("d" (my/func-call (termux-saf-browse my/termux-saf-uri-documents)) "Documents"))))
+      ("d" (my/func-call (termux-saf-browse my/termux-saf-uri-documents)) "Documents"))
+     "Action"
+     (("c" termux-saf-cache-clear "clear cache"))))
 
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
