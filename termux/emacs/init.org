@@ -2476,6 +2476,7 @@ should be continued."
          :host github
          :repo "farynaio/org-link-archive"
          :branch "main")
+  :commands (org-link-archive-at-point)
   :bind (:map org-mode-map
               ("C-x C-z" . org-link-archive-at-point)))
 #+end_src
