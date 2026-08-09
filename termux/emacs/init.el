@@ -160,13 +160,6 @@
 (global-set-key (kbd "C-<wheel-up>") 'mwheel-scroll)
 (global-set-key (kbd "C-<wheel-down>") 'mwheel-scroll)
 
-;; Disable horizontal scrolling
-(setq
- mouse-wheel-tilt-scroll nil
- mouse-wheel-flip-direction nil)
-
-(pixel-scroll-precision-mode)                         ; Smooth scrolling
-
 ;; Use common keystrokes by default
 ;; (cua-mode)
 
@@ -1441,13 +1434,35 @@ Including indent-buffer, which should not be called automatically on save."
  auto-window-vscroll nil)
 
 (when (display-graphic-p)
-  (setq-default scroll-up-aggressively 0.01)
+  ;; smooth pixel scrolling - this is resource intensive!
+  (pixel-scroll-precision-mode -1)
+
+  ;; Configure mouse wheel to scroll by pixels
+  (setq pixel-scroll-precision-large-scroll-height 40.0) ; Height for "large" scrolls
+  (setq pixel-scroll-precision-use-momentum t) ; Optional: Adds momentum to trackpad scrolling
+
+  ;; Disable acceleration for consistency
+  (setq mouse-wheel-progressive-speed nil)
+
+  ;; Disable horizontal scrolling
   (setq
-   ;; mouse-wheel-scroll-amount '(1 ((shift) . 1))
-   redisplay-dont-pause t
+   mouse-wheel-tilt-scroll nil
+   mouse-wheel-flip-direction nil)
+
+  ;; Scroll distance per wheel event
+  (setq mouse-wheel-scroll-amount '(1))
+  ;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+
+  (setq redisplay-dont-pause t)
+  (setq
+   scroll-up-aggressively 0.01
    ;; scroll-conservatively 10000
    scroll-conservatively most-positive-fixnum ; Always scroll by one line
-   scroll-preserve-screen-position nil))
+   scroll-preserve-screen-position nil)
+
+  ;; Probably most effective for mouse and touchpads setups.
+  ;; (use-package ultra-scroll)
+)
 
 (use-package ibuffer
   :straight nil
