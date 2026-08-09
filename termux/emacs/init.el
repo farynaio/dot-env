@@ -3912,7 +3912,8 @@ should be continued."
           (nov-mode . my/nov-init))
   :bind
   (:map nov-mode-map
-        ("<return>" . nov-scroll-down))
+        ("<return>" . nov-scroll-down)
+        ("q" . kill-current-buffer))
   :preface
   (defun my/nov-init ()
     (setq-local visual-fill-column-center-text t)
