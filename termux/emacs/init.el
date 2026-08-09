@@ -2289,6 +2289,13 @@ should be continued."
       ;; Otherwise, behave like standard M-RET
       (org-meta-return))))
 
+(use-package org-sliced-images
+  :disabled t
+  :demand t
+  :after org
+  :config
+  (org-sliced-images-mode 1))
+
 (use-package org-appear
   :after org
   :commands org-appear-mode
