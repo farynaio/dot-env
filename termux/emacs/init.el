@@ -979,7 +979,10 @@
     (:type git
            :host github
            :repo "farynaio/emacs-termux-saf"
-           :branch "master")))
+           :branch "master")
+    :bind
+    (:map termux-saf-mode-map
+          ("q" . kill-current-buffer))))
 
 (use-package consult
   :defer 1
