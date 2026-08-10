@@ -1861,6 +1861,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("D" org-download-delete "delete image at point"))
      "org-roam"
      (("c" org-roam-capture "capture" :exit t)
+      ("A" org-roam-alias-add "add alias")
       ("f" org-roam-node-find "find node")
       ("i" org-roam-node-insert "insert link")
       ("B" consult-org-roam-backlinks "show backlinks")
