@@ -2046,7 +2046,7 @@ Including indent-buffer, which should not be called automatically on save."
   (org-default-priority 66)
   (org-todo-keywords
    '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
-     (sequence "|" "DONE(d!)" "SKIP(c@)" "UNDOABLE(u@)")))
+     (sequence "|" "DONE(d!)" "SKIP(c@)" "CANT(u@)")))
   (org-todo-keyword-faces
    '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
      ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
@@ -2056,10 +2056,10 @@ Including indent-buffer, which should not be called automatically on save."
      ("WAITING"    . (:foreground "coral"       :weight bold))
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
      ("NOTE"       . (:foreground "white"       :weight bold))
-     ("DONE"       . (:foreground "dark grey"   :weight normal))
-     ("SKIP"       . (:foreground "dark grey"   :weight normal))
-     ("HUGE"       . (:foreground "dark grey"   :weight normal))
-     ("UNDOABLE"   . (:foreground "dark grey"   :weight normal))))
+     ("DONE"       . (:foreground "dark grey"   :weight bold))
+     ("SKIP"       . (:foreground "dark grey"   :weight bold))
+     ("HUGE"       . (:foreground "dark grey"   :weight bold))
+     ("CANT"       . (:foreground "dark grey"   :weight bold))))
   (org-priority-cookie () (format "[#%c]" org-default-priority))
   :config
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
