@@ -831,11 +831,11 @@
   :config
   (setq openwith-associations
    (list
-    (list (openwith-make-extension-regexp '("pdf")) "xpdf" '(file))
+    (list (openwith-make-extension-regexp '("pdf")) "okular" '(file))
     (list (openwith-make-extension-regexp '("doc" "docx" "odt" "ods" "odp" "xls" "xlsx" "ppt" "pptx")) "libreoffice" '(file))))
 
-  (unless (executable-find "xpdf")
-    (warn "'xpdf' not found, pdf files can't be viewed!"))
+  (unless (executable-find "okular")
+    (warn "'okular' not found, pdf files can't be viewed!"))
 
   (unless (executable-find "libreoffice")
     (warn "'libreoffice' not found, office files can't be edited!"))
