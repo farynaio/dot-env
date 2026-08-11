@@ -1,2 +1,6 @@
 initialSidebarState no
 initialZoom 300
+reverseVideo yes
+paperColor #333333
+textColor #ffffff
+matteColor #333333
