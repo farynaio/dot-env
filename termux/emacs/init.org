@@ -864,8 +864,8 @@ TODO:
          :repo "farynaio/image-slicing"
          :branch "main")
   :custom
-  (org-link-archive-at-point 5)
-  (image-slicing-max-width 700)
+  (image-slicing-line-height-scale 2)
+  ;; (image-slicing-max-width 700)
   :config
   (require 'shr)
   ;; Integrate with elfeed and eww
@@ -1869,8 +1869,15 @@ Including indent-buffer, which should not be called automatically on save."
       ("S" consult-org-roam-search "search"))
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
-      ("l" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-      ("s" image-slicing-mode "image-slicing-mode" :toggle t))))
+      ("L" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
+      ("s" my/image-slicing-mode-toggle "image-slicing-mode" :toggle t))))
+
+  (defun my/image-slicing-mode-toggle ()
+    (interactive)
+    (if image-slicing-mode
+        (image-slicing-mode -1)
+      (setq-local image-slicing-max-width (window-width nil t) * 0.6)
+      (image-slicing-mode 1)))
 
   ;; (pretty-hydra-define hydra-navigation
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
@@ -2082,7 +2089,7 @@ Including indent-buffer, which should not be called automatically on save."
   ;; (org-use-property-inheritance t)
 
   (org-image-actual-width t)
-  (org-image-max-width 'fill-column)
+  (org-image-max-width 0.8)
 
   (org-src-preserve-indentation t)
   (org-src-fontify-natively t)
@@ -2473,7 +2480,10 @@ should be continued."
   :custom
   (org-download-timestamp "%Y%m%d-%H%M%S_")
   (org-download-method 'directory)
-  (org-download-image-dir "attachments"))
+  (org-download-image-dir "attachments")
+
+  ;; Drag-and-drop to `dired`
+  (add-hook 'dired-mode-hook 'org-download-enable))
 
 (use-package org-link-archive
   :after org
