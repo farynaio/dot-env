@@ -2053,15 +2053,14 @@ Including indent-buffer, which should not be called automatically on save."
   (org-highest-priority 65)
   (org-default-priority 66)
   (org-todo-keywords
-   '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAITING(w@/!)" "DELEGATED(e@/!)")
+   '((sequence "TODO(t)" "WIP(p!)" "BLOCKED(b!)" "WAIT(w@/!)" "DELEGATED(e@/!)")
      (sequence "|" "DONE(d!)" "SKIP(c@)" "CANT(u@)")))
   (org-todo-keyword-faces
    '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
-     ("IN-PROCESS" . (:foreground "IndianRed1"  :weight bold))
      ("WIP"        . (:foreground "IndianRed1"  :weight bold))
      ("WORK"       . (:foreground "IndianRed1"  :weight bold))
      ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
-     ("WAITING"    . (:foreground "coral"       :weight bold))
+     ("WAIT"    . (:foreground "coral"       :weight bold))
      ("DELEGATED"  . (:foreground "coral"       :weight bold))
      ("NOTE"       . (:foreground "white"       :weight bold))
      ("DONE"       . (:foreground "dark grey"   :weight bold))
