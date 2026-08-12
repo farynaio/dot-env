@@ -1870,15 +1870,16 @@ Including indent-buffer, which should not be called automatically on save."
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
       ("L" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-      ("I" org-toggle-inline-images "org-toggle-inline-images")
-      ("s" my/image-slicing-mode-toggle "image-slicing-mode" :toggle t))))
+      ("I" org-toggle-inline-images "org-toggle-inline-images" :toggle t)
+      ("s" my/image-slicing-mode-toggle "image-slicing-mode" :toggle image-slicing-mode))))
 
   (defun my/image-slicing-mode-toggle ()
     (interactive)
+    (setq-local image-slicing-max-width (window-width nil t) * 0.6)
+    (image-slicing-mode (if image-slicing-mode -1 1))
     (if image-slicing-mode
-        (image-slicing-mode -1)
-      (setq-local image-slicing-max-width (window-width nil t) * 0.6)
-      (image-slicing-mode 1)))
+        (message "image-slicing-mode enabled")
+      (message "image-slicing-mode disabled")))
 
   ;; (pretty-hydra-define hydra-navigation
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
@@ -2004,13 +2005,14 @@ Including indent-buffer, which should not be called automatically on save."
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write"))
      ""
-     (("c" org-capture "org-capture")
+     (("a" org-agenda "org-agenda")
+      ("c" org-capture "org-capture")
       ("y" my/kill-to-clipboard "kill to clipboard")
       ("m" hydra-magit/body "magit")
       ("k" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
-      ("a" abbrev-mode "abbrev-mode" :toggle t))
+      ("A" abbrev-mode "abbrev-mode" :toggle t))
      ""
      (("x" hydra-exwm/body "EXWM")
       ("w" hydra-eww/body "eww")
