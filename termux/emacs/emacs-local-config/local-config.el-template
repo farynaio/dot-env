@@ -30,6 +30,8 @@
 
 ;; optional
 (setq my/org-roam-dir (expand-file-name "~/my-roam"))
+(setq my/org-journal-directory nil)
+(setq my/org-journal-template nil)
 (setq my/matrix-enable nil) ; Matrix chat via ement
 (setq my/evil-enable nil)
 (setq my/html-enable nil) ; advanced

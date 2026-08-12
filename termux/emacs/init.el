@@ -14,6 +14,8 @@
 
 (defvar my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
 (defvar my/org-roam-dir nil)
+(defvar my/org-journal-directory nil)
+(defvar my/org-journal-template nil)
 (defvar my/matrix-enable nil)
 (defvar my/evil-enable nil)
 (defvar my/html-enable nil) ; advanced
@@ -1939,6 +1941,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("f" consult-find "consult-find")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
+      ("j" org-journal-new-entry "org-journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write"))
      ""
@@ -2320,6 +2323,54 @@ should be continued."
         (org-insert-todo-heading nil)
       ;; Otherwise, behave like standard M-RET
       (org-meta-return))))
+
+(straight-register-package 'org-journal)
+(if my/org-journal-directory
+    (use-package org-journal
+      :defer 2
+      :after org
+      :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
+      :custom
+      (org-journal-dir my/org-journal-directory)
+      (org-journal-file-type 'yearly)
+      (org-journal-file-format "%Y.org")
+      (org-journal-encrypt-journal t)
+      (org-journal-created-property-timestamp-format "%Y-%m-%d")
+      (org-journal-find-file 'find-file)
+      (org-journal-date-format "%Y-%m-%d %A")
+      (org-journal-time-prefix "*** ")
+      :config
+      ;; (unbind-key "C-c C-j")
+
+      (defun my/org-journal-open-current-journal-file ()
+        "Do `org-journal-open-current-journal-file` and go to the most recent entry."
+        (interactive)
+        (org-journal-open-current-journal-file)
+        (let* ((heading-title "Timeline")
+               (poslist (org-map-entries 'point (format "ITEM=\"%s\"" heading-title) 'file)))
+          (if (<= (length poslist) 0)
+              (message (format "No heading with title '%s' found!" heading-title))
+            (goto-char (nth 0 poslist))
+            (org-cycle)))
+        (org-journal-mode))
+
+      (defun my/org-journal-after-header-create-hook ()
+        (goto-char (point-min))
+        (mark-whole-buffer)
+        (org-sort-entries nil ?A)
+        (org-back-to-heading)
+        (let ((anchor (point)))
+          (forward-line)
+          (kill-visual-line)
+          (if my/org-journal-template
+            (insert my/org-journal-template)
+            (warn "'my/org-journal-template' not defined, no template will be used!"))
+          (goto-char anchor)
+          (forward-line)
+          (yank)))
+
+      (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
+  (warn "'my/org-journal-directory' is nil, org-journal disabled!"))
 
 (use-package org-sliced-images
   :disabled t
