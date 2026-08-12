@@ -2126,6 +2126,7 @@ Including indent-buffer, which should not be called automatically on save."
   (org-todo-keyword-faces
    '(("TODO"        . (:foreground "LimeGreen"   :weight bold))
      ("WIP"        . (:foreground "IndianRed1"  :weight bold))
+     ("READ"        . (:foreground "IndianRed1"  :weight bold))
      ("WORK"       . (:foreground "IndianRed1"  :weight bold))
      ("BLOCKED"    . (:foreground "tomato3"     :weight bold))
      ("WAIT"    . (:foreground "coral"       :weight bold))
