@@ -2364,7 +2364,7 @@ should be continued."
           (forward-line)
           (kill-visual-line)
           (if my/org-journal-template
-            (insert my/org-journal-template)
+              (insert my/org-journal-template)
             (warn "'my/org-journal-template' not defined, no template will be used!"))
           (goto-char anchor)
           (forward-line)
