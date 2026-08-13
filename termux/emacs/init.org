@@ -2004,7 +2004,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("f" consult-find "consult-find")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
-      ("j" org-journal-new-entry "org-journal")
+      ("j" (my/func-call (org-journal-new-entry t)) "org-journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write"))
      ""
