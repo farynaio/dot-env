@@ -1943,7 +1943,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("o" hydra-org/body "org")
       ("j" (my/func-call (org-journal-new-entry t)) "org-journal")
       ("d" hydra-dev/body "dev")
-      ("w" hydra-write/body "write"))
+      ("w" hydra-write/body "write")
+      ("R" revert-buffer "revert buffer"))
      ""
      (("a" org-agenda "org-agenda")
       ("c" org-capture "org-capture")
