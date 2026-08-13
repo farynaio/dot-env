@@ -2520,6 +2520,42 @@ should be continued."
          consult-org-roam-forward-links
          :preview-key "M-."))
 
+    (defun my/org-find-time-file-property (property &optional anywhere)
+      "Return the position of the time file PROPERTY if it exists.
+When ANYWHERE is non-nil, search beyond the preamble."
+      (save-excursion
+        (goto-char (point-min))
+        (let ((first-heading
+                (save-excursion
+                  (re-search-forward org-outline-regexp-bol nil t))))
+          (when (re-search-forward (format "^#\\+%s:" property)
+                  (if anywhere nil first-heading)
+                  t)
+            (point)))))
+
+      (defun my/org-set-time-file-property (property &optional anywhere pos)
+        "Set the time file PROPERTY in the preamble.
+When ANYWHERE is non-nil, search beyond the preamble.
+If the position of the file PROPERTY has already been computed,
+it can be passed in POS."
+        (when-let ((pos (or pos
+                            (my/org-find-time-file-property property))))
+          (save-excursion
+            (goto-char pos)
+            (if (looking-at-p " ")
+                (forward-char)
+              (insert " "))
+            (delete-region (point) (line-end-position))
+            (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+              (insert now)))))
+
+      (defun my/org-roam-set-last-modified ()
+        "Update the LAST_MODIFIED file property in the preamble of org-roam files."
+        (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-dir buffer-file-name))
+          (my/org-set-time-file-property "LAST_MODIFIED")))
+
+      (add-hook 'before-save-hook 'my/org-roam-set-last-modified 50)
+
       ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
       (defalias 'roam #'org-roam))
   (warn "Variable 'my/org-roam-dir' is not specified, org-roam will not be loaded!"))
