@@ -2408,6 +2408,17 @@ should be continued."
       :config
       ;; (unbind-key "C-c C-j")
 
+      (add-to-list 'display-buffer-alist
+                   '((major-mode . org-journal-mode)
+                     display-buffer-same-window
+                     (inhibit-same-window . nil)))
+
+      (defun my/org-journal-jump-tab-bar (&rest args)
+        "Jumps to 'Journal' tab."
+        (tab-bar-switch-to-tab "Journal"))
+
+      (advice-add 'org-journal-new-entry :before #'my/org-journal-jump-tab-bar)
+
       (defun my/org-journal-open-current-journal-file ()
         "Do `org-journal-open-current-journal-file` and go to the most recent entry."
         (interactive)
