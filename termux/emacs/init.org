@@ -3739,7 +3739,13 @@ Untested
 ;; (use-package zerodark-theme)
 
 (custom-set-faces
- '(org-headline-done ((t (:foreground "gray" :strike-through t)))))
+ '(org-headline-done ((t (:foreground "gray" :strike-through t))))
+ '(org-scheduled ((t (:foreground "#d2b580"))))
+ '(org-scheduled-today ((t (:foreground "#d2b580"))))
+ '(org-agenda-date ((t (:foreground "DarkSlateGray3" :bold nil))))
+ '(org-agenda-date-today ((t (:foreground "DarkSlateGray3" :bold t :underline nil))))
+ '(org-agenda-date-weekend ((t (:foreground "DarkSlateGray3" :bold nil))))
+)
 
 (use-package doom-modeline
   :disabled t
