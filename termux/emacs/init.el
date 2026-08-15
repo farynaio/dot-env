@@ -4368,8 +4368,8 @@ it can be passed in POS."
           (if (tab-bar--tab-index-by-name "RSS")
               (tab-bar-switch-to-tab "RSS")
             (tab-bar-new-tab)
-            (elfeed)
-            (tab-bar-rename-tab "RSS"))
+            (tab-bar-rename-tab "RSS")
+            (elfeed))
           (switch-to-buffer "*elfeed-search*")))
 
       (use-package elfeed-goodies
