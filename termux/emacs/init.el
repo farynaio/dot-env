@@ -25,8 +25,9 @@
 (defvar my/php-enable nil) ; requires html
 (defvar my/kotlin-enabled nil)
 
-(defvar my/exwm-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/exwm"))
-(defvar my/xelb-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/xelb"))
+;; Use if EXWM and xelb installed as deb package
+;; (defvar my/exwm-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/exwm"))
+;; (defvar my/xelb-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/xelb"))
 
 (unless (file-directory-p my/downloads-dir)
   (mkdir my/downloads-dir))
@@ -4859,105 +4860,99 @@ it can be passed in POS."
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
-  (if (and (file-directory-p my/exwm-path) (file-directory-p my/xelb-path))
-      (use-package exwm
-        :demand t
-        :straight nil ;; on Termux install emacs-exwm pkg
-        :custom
-        (exwm-workspace-number 4)
-        (exwm-manage-force-tiling nil)
-        (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
-         '(?\C-x
-           ?\C-u ;; universal argument
-           ?\C-h
-           ?\C-f
-           ?\C-t
-           ?\C-g
-           ?\M-x
-           ?\M-`
-           ?\M-& ;; async shell command
-           S-right
-           S-left
-           S-up
-           S-down
-           ?\M-:
-           ;; ?\C-\M-j  ;; Buffer list
-           ?\C-\  ;; Ctrl+Space
-           ))
-        :preface
-        (defun my/exwm-start ()
-          (interactive)
-          (if window-system
-              (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
-                  (message "EXWM is already running")
-                (exwm-wm-mode 1)
-                (message "EXWM started"))
-            (error "EXWM requires window system!")))
-        (defalias 'X #'my/exwm-start)
-        :init
-        (add-to-list 'load-path my/exwm-path)
-        (add-to-list 'load-path my/xelb-path)
+  (use-package exwm
+    :demand t
+    :custom
+    (exwm-workspace-number 4)
+    (exwm-manage-force-tiling nil)
+    (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
+     '(?\C-x
+       ?\C-u ;; universal argument
+       ?\C-h
+       ?\C-f
+       ?\C-t
+       ?\C-g
+       ?\M-x
+       ?\M-`
+       ?\M-& ;; async shell command
+       S-right
+       S-left
+       S-up
+       S-down
+       ?\M-:
+       ;; ?\C-\M-j  ;; Buffer list
+       ?\C-\  ;; Ctrl+Space
+       ))
+    :preface
+    (defun my/exwm-start ()
+      (interactive)
+      (if window-system
+          (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
+              (message "EXWM is already running")
+            (exwm-wm-mode 1)
+            (message "EXWM started"))
+        (error "EXWM requires window system!")))
+    (defalias 'X #'my/exwm-start)
+    :init
+    (add-to-list 'load-path my/exwm-path)
+    (add-to-list 'load-path my/xelb-path)
 
-        (unless (eq system-type 'android)
-          (require 'exwm-systemtray)
-          (setq exwm-systemtray-height 32
-                exwm-systemtray-position 'top)
-          (exwm-systemtray-mode 1))
-        :config
-        (delight 'exwm-wm-mode "EXWM" :major)
+    (unless (eq system-type 'android)
+      (require 'exwm-systemtray)
+      (setq exwm-systemtray-height 32
+            exwm-systemtray-position 'top)
+      (exwm-systemtray-mode 1))
+    :config
+    (delight 'exwm-wm-mode "EXWM" :major)
 
-        (setq exwm-input-simulation-keys
-              '(([?\C-e] . [end])
-                ([?\M-v] . [prior])
-                ([?\C-v] . [next])
-                ([?\C-d] . [delete])
-                ([?\C-k] . [S-end delete])
-                ;; cut/paste.
-                ([?\C-w] . [?\C-x])
-                ([?\M-w] . [?\C-c])
-                ([?\C-y] . [?\C-v])
-                ;; search
-                ([?\C-s] . [?\C-f])))
+    (setq exwm-input-simulation-keys
+          '(([?\C-e] . [end])
+            ([?\M-v] . [prior])
+            ([?\C-v] . [next])
+            ([?\C-d] . [delete])
+            ([?\C-k] . [S-end delete])
+            ;; cut/paste.
+            ([?\C-w] . [?\C-x])
+            ([?\M-w] . [?\C-c])
+            ([?\C-y] . [?\C-v])
+            ;; search
+            ([?\C-s] . [?\C-f])))
 
-        (setq exwm-input-global-keys
-              '(([s-left] . windmove-left)
-                ([s-right] . windmove-right)
-                ([s-up] . windmove-up)
-                ([s-down] . windmove-down)))
+    (setq exwm-input-global-keys
+          '(([s-left] . windmove-left)
+            ([s-right] . windmove-right)
+            ([s-up] . windmove-up)
+            ([s-down] . windmove-down)))
 
-        (defun my/exwm-manage-finish ()
-          (when exwm-class-name
-            (cond
-             ((member exwm-class-name '("Xfce4-terminal"))
-              (exwm-input-set-local-simulation-keys '()))
-             ((member exwm-class-name '("epiphany"))
-              (exwm-input-set-local-simulation-keys
-               '(([?\C-e] . [end])
-                 ([?\M-v] . [prior])
-                 ([?\C-v] . [next])
-                 ([?\C-d] . [delete])
-                 ([?\C-k] . [S-end delete])
-                 ;; cut/paste.
-                 ([?\C-w] . [?\C-x])
-                 ([?\M-w] . [?\C-c])
-                 ([?\C-y] . [?\C-v])
-                 ;; search
-                 ([?\C-s] . [?\C-f]))
-               )))))
+    (defun my/exwm-manage-finish ()
+      (when exwm-class-name
+        (cond
+         ((member exwm-class-name '("Xfce4-terminal"))
+          (exwm-input-set-local-simulation-keys '()))
+         ((member exwm-class-name '("epiphany"))
+          (exwm-input-set-local-simulation-keys
+           '(([?\C-e] . [end])
+             ([?\M-v] . [prior])
+             ([?\C-v] . [next])
+             ([?\C-d] . [delete])
+             ([?\C-k] . [S-end delete])
+             ;; cut/paste.
+             ([?\C-w] . [?\C-x])
+             ([?\M-w] . [?\C-c])
+             ([?\C-y] . [?\C-v])
+             ;; search
+             ([?\C-s] . [?\C-f]))
+           )))))
 
-        (add-hook 'exwm-manage-finish-hook #'my/exwm-manage-finish)
+    (add-hook 'exwm-manage-finish-hook #'my/exwm-manage-finish)
 
-        ;; Make buffer name more meaningful
-        (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+    ;; Make buffer name more meaningful
+    (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
 
-        ;; For not Termux-X11 it may sense to use LXDE session management
-        ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
+    ;; For not Termux-X11 it may sense to use LXDE session management
+    ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
 
-        (my/exwm-start)
-
-        (unless (server-running-p)
-          (server-start)))
-    (warn "'exwm' and/or 'xelb' lisp code not found, EXWM not available!")))
+    (my/exwm-start)))
 
 (use-package ledger-mode
   :bind
@@ -5008,13 +5003,15 @@ it can be passed in POS."
     (warn "Native compile not available!")))
 
 ;; (setq gc-cons-threshold most-positive-fixnum)
-(setq gc-cons-threshold 100000000)
 (bind-keys
  ("C-x g" . magit-status))
 
 (when (eq system-type 'android)
   (bind-keys
    ("C-x ;" . comment-line)))
+
+(unless (server-running-p)
+  (server-start))
 
 ;; Extra config file to run after everything else
 ;; Use to setup workspaces, tabs, windows, layout etc.
@@ -5023,3 +5020,5 @@ it can be passed in POS."
       (message "Loading %s..." my/local-post-config-file)
       (load my/local-post-config-file))
   (message "File '%s' not exists!" my/local-post-config-file))
+
+(setq gc-cons-threshold 100000000)
