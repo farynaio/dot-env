@@ -13,7 +13,7 @@ readonly BACKUP_SAF_DIR="${EXTERNAL_DRIVE_DIR}/Backup/SAF-tmp"
 readonly DEST_DIR="${BACKUP_WORK_DIR}/${BACKUP_DIR}"
 
 # Files and directories in home dir, to be included in the backup
-DIRS_TO_BACKUP_HOME=("Documents" ".ssh")
+DIRS_TO_BACKUP_HOME_ENCRYPTED=("Documents" ".ssh" "storage/shared/Documents")
 
 # Verify jq is installed
 if ! command -v jq &> /dev/null; then
@@ -88,13 +88,18 @@ saf_folder_copy() {
     fi
   done
 
+  local cwd=`pwd`
+  cd "$BACKUP_SAF_DIR"
+
   if [[ -n "$extract_filename" ]]; then
-    local cwd=`pwd`
-    cd "$BACKUP_SAF_DIR"
     tar czf - "$dest_subdir" | encrypt "${extract_filename}.tar.gz.gpg"
     mv "${extract_filename}.tar.gz.gpg" "$DEST_DIR"
-    cd "$cwd"
+    rm -rf "$dest_subdir"
+  else
+    mv "$dest_subdir" "$DEST_DIR"
   fi
+
+  cd "$cwd"
 }
 
 # excludes symbolic links
@@ -102,7 +107,7 @@ create_encrypted_archive() {
   local src="$1"
   local dest="$2"
   local output_file="${dest}/${BACKUP_NAME}.tar.gz.gpg"
-  local dirs_to_backup=("${DIRS_TO_BACKUP_HOME[@]}")
+  local dirs_to_backup=("${DIRS_TO_BACKUP_HOME_ENCRYPTED[@]}")
 
   mkdir -p "$dest"
 
@@ -122,9 +127,10 @@ create_encrypted_archive() {
 # Add more saf_folder_copy calls here
 # SAF_* variables are declared in .bashrc
 # TODO probably better to organize these as a loop through array
-saf_folder_copy "$BACKUP_SAF_BOOKS_URI" "Books" "$BACKUP_BOOKS_FILENAME"
-saf_folder_copy "$BACKUP_SAF_PICTURES_URI" "Pictures" "$BACKUP_PICTURES_FILENAME"
+# saf_folder_copy "$BACKUP_SAF_BOOKS_URI" "Books" "$BACKUP_BOOKS_FILENAME"
 saf_folder_copy "$BACKUP_SAF_PASS_URI" "Pass" "$BACKUP_PASS_FILENAME"
+saf_folder_copy "$BACKUP_SAF_VPN_URI" "VPN"
+saf_folder_copy "$BACKUP_SAF_EXPORTS_URI" "Exports"
 
 create_encrypted_archive "$HOME" "$DEST_DIR"
 
