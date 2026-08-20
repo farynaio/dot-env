@@ -4951,7 +4951,8 @@ it can be passed in POS."
     ;; For not Termux-X11 it may sense to use LXDE session management
     ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
 
-    (my/exwm-start)))
+    (when (y-or-n-p "Do you want to start EXWM? ")
+        (my/exwm-start))))
 
 (use-package ledger-mode
   :bind
