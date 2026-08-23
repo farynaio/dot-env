@@ -4,7 +4,7 @@
 (defconst my/local-post-config-file (expand-file-name "local-post-config.el" my/local-config-dir)) ;; optional
 
 ;; overwrite these in local-config.el to avoid pushing them to git
-(defvar my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
+(defvar my/downloads-dir (expand-file-name "Downloads" "~"))
 (defvar my/elfeed-org-feeds-files nil)
 (defvar my/elfeed-db-folder nil)
 
