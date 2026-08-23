@@ -303,7 +303,8 @@
   :straight nil
   :bind (("C-c C-j" . my/join-line)
          :map visual-line-mode-map
-         ("C-k" . kill-line) ;; kill entire line even when visual-line-mode enabled
+         ;; Prevent visual-line-mode from remapping kill-line to kill-visual-line
+         ([remap kill-line] . nil)
          ("M-u" . upcase-dwim)
          ("M-l" . downcase-dwim))
   :custom
