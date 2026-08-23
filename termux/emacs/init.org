@@ -1014,14 +1014,18 @@ TODO:
     (let ((txt (buffer-substring-no-properties beg end)))
       (call-process "termux-clipboard-set" nil nil nil
          txt)
-      (kill-ring-save beg end)))
+      (kill-ring-save beg end))
+    (message "Text copied to clipboard"))
   (bind-key "C-M-w" #'my/termux-clipboard-region)
+  (bind-key "M-w" #'my/termux-clipboard-region)
 
   (defun my/kill-to-clipboard ()
     "Copy last kill ring string into clipboard."
     (interactive)
     (call-process "termux-clipboard-set" nil nil nil
-                  (current-kill 0 t)))
+                  (current-kill 0 t))
+    (message "Copied kill ring to clipboard"))
+
 ;; (setq termux-saf-root-uri "content://com.android.externalstorage.documents/tree/0084-3000%3ABooks")
   (use-package termux-saf
     :commands (termux-saf-browse)
