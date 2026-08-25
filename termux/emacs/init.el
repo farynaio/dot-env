@@ -1964,6 +1964,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("w" hydra-eww/body "eww")
       ("d" hydra-dired/body "dired")
       ("z" shell "shell")
+      ("M" notmuch "notmuch")
       ("S" hydra-saf/body "SAF")))))
 
 ;; This is for async evalaution of org-babel blocks.
@@ -4958,6 +4959,62 @@ it can be passed in POS."
 
     (when (y-or-n-p "Do you want to start EXWM? ")
         (my/exwm-start))))
+
+(use-package message
+  :straight nil
+  :commands (compose-mail)
+  :custom
+  (message-kill-buffer-on-exit t)
+  (message-sendmail-extra-arguments '("--read-envelope-from")) ;; Make msmtp select the account based on the 'From' header
+  (message-send-mail-function 'message-send-mail-with-sendmail)
+  (sendmail-program (concat (getenv "PREFIX") "/bin/msmtp"))
+  (sendmail-program-args '("-t")) ;; Read additional recipients from headers
+  :config
+  (unless (executable-find "msmtp")
+    (warn "'msmtp' not found, e-mails sending not available!"))
+  ;; To change identity when composing email use `message-change-sender`
+)
+
+(use-package notmuch
+  :commands (notmuch)
+  :bind
+  (:map notmuch-search-mode-map
+        ("d" . my/notmuch-mark-tread-deleted)
+        ("r" . my/notmuch-mark-tread-read)
+        ("R" . notmuch-search-reply-to-thread-sender))
+  :custom
+  ;; (notmuch-multipart/alternative-discouraged '("text/plain" "text/html"))
+  (notmuch-hello-logo nil)
+  (mail-user-agent 'notmuch-user-agent)
+  (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
+  :config
+  (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
+
+  ;; Never forget subject
+  (defun my/notmuch-mua-empty-subject-check ()
+    "Request confirmation before sending a message with empty subject"
+    (when (and (null (message-field-value "Subject"))
+               (not (y-or-n-p "Subject is empty, send anyway? ")))
+      (error "Sending message cancelled: empty subject.")))
+  (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
+
+  (defun my/notmuch-mark-tread-deleted ()
+    "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
+    (interactive)
+    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged"))
+    (notmuch-search-next-thread))
+
+  (defun my/notmuch-mark-tread-read ()
+    "Mark the current thread as read by removing 'inbox' and 'unread'."
+    (interactive)
+    (notmuch-search-tag '("-inbox" "-unread"))
+    (notmuch-search-next-thread))
+
+  (defun my/notmuch-mark-tread-unread ()
+    "Mark the current thread as read by adding 'inbox' and 'unread'."
+    (interactive)
+    (notmuch-search-tag '("+inbox" "+unread"))
+    (notmuch-search-next-thread)))
 
 (use-package ledger-mode
   :bind
