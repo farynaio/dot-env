@@ -31,8 +31,9 @@ alias pkgd="pkg show "
 alias pkgi="pkg install "
 alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
-alias g git
-alias e 'my_emacs_run'
+alias g="git"
+alias e="my_emacs_run"
+alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm"
 
 if set -q PREFIX
   export DISPLAY=:1
