@@ -453,6 +453,14 @@
       (apply (car i) (cdr i))
       (funcall i))))
 
+(defun my/gen-process-sentinel (on-success &optional on-failure)
+  "Generates process sentinel that executes 'on-success' or 'on-failure' functions, depending on main process status."
+  (lambda (process signal)
+    (when (memq (process-status process) '(exit signal))
+      (if (zerop (process-exit-status process))
+          (when on-success (funcall on-success))
+        (when on-failure (funcall on-failure))))))
+
 (use-package man
   :straight nil
   :defer 1
@@ -4979,6 +4987,7 @@ it can be passed in POS."
   :commands (notmuch)
   :bind
   (:map notmuch-search-mode-map
+        ("G" . my/notmuch-fetch-async)
         ("d" . my/notmuch-mark-tread-deleted)
         ("r" . my/notmuch-mark-tread-read)
         ("R" . notmuch-search-reply-to-thread-sender))
@@ -5014,7 +5023,21 @@ it can be passed in POS."
     "Mark the current thread as read by adding 'inbox' and 'unread'."
     (interactive)
     (notmuch-search-tag '("+inbox" "+unread"))
-    (notmuch-search-next-thread)))
+    (notmuch-search-next-thread))
+
+  (defun my/notmuch-fetch-async ()
+    "Asynchronously fetch new mails for notmuch."
+    (interactive)
+    ;; (async-shell-command "notmuch new" "*Messages*")
+    (let ((proc (start-process-shell-command "notmuch new" nil "notmuch new")))
+      (set-process-sentinel
+       proc
+       (my/gen-process-sentinel
+        (lambda ()
+          (message "New mails fetched successfully!")
+          (save-excursion
+            (with-current-buffer "*notmuch-hello*"
+              (call-interactively 'notmuch-refresh-this-buffer)))))))))
 
 (use-package ledger-mode
   :bind
