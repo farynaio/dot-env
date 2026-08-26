@@ -574,7 +574,7 @@
                          (margin-width . 42)
                          (margin-face . magit-blame-margin)
                          (margin-body-face magit-blame-dimmed))
-                                (headings
+                        (headings
                          (heading-format . "%-20a %C %s"))))
   (magit-section-initial-visibility-alist '((untracked . show)
                                             (unstaged . show)
@@ -600,22 +600,23 @@
                 (apply orig-fun args)
                 (delete-other-windows)))
 
-(defun my/magit-quit-session ()
-  "Restores the previous window configuration and kills the magit buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :my-magit-fullscreen))
+  (defun my/magit-quit-session ()
+    "Restores the previous window configuration and kills the magit buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :my-magit-fullscreen))
 
-(define-key magit-status-mode-map (kbd "q") 'my/magit-quit-session)
+  (define-key magit-status-mode-map (kbd "q") 'my/magit-quit-session)
 
   ;; Expand org-mode heading when jumped from Magit https://reddit.com/r/emacs/comments/ayjgpu/magit_orgmode_unfold_containing_headlines_when/eimhxsy/?context=3#eimhxsy
-  (defun my/org-mode-expand-entry () "When opening an org-mode file, show the current entry and all headings that it is contained in."
-         (interactive)
-         (when (derived-mode-p 'org-mode)
-           ;; invoke org-reveal with a single prefix arg, as that expands
-           ;; the entry containing (point), all sibling entries and all
-           ;; parent entries and their siblings.
-           (org-reveal '(4))))
+  (defun my/org-mode-expand-entry ()
+    "When opening an org-mode file, show the current entry and all headings that it is contained in."
+    (interactive)
+    (when (derived-mode-p 'org-mode)
+      ;; invoke org-reveal with a single prefix arg, as that expands
+      ;; the entry containing (point), all sibling entries and all
+      ;; parent entries and their siblings.
+      (org-reveal '(4))))
   (add-hook 'magit-diff-visit-file-hook #'my/org-mode-expand-entry)
 
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
@@ -975,8 +976,9 @@
     (let ((txt (buffer-substring-no-properties beg end)))
       (call-process "termux-clipboard-set" nil nil nil
          txt)
-      (kill-ring-save beg end))
-    (message "Text copied to clipboard"))
+      (kill-ring-save beg end)
+      (message "Text copied to clipboard %s" txt)))
+
   (bind-key "C-M-w" #'my/termux-clipboard-region)
   (bind-key "M-w" #'my/termux-clipboard-region)
 
@@ -2010,7 +2012,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
         ("C-M-<right>" . org-table-move-single-cell-right)
-        ("C-M-l" . my/org-link-copy))
+        ("C-M-l" . my/org-link-copy) ;; not working on Termux, use 'M-w' instead
+        )
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
@@ -4909,15 +4912,7 @@ it can be passed in POS."
     :init
     (add-to-list 'load-path my/exwm-path)
     (add-to-list 'load-path my/xelb-path)
-
-    (unless (eq system-type 'android)
-      (require 'exwm-systemtray)
-      (setq exwm-systemtray-height 32
-            exwm-systemtray-position 'top)
-      (exwm-systemtray-mode 1))
     :config
-    (delight 'exwm-wm-mode "EXWM" :major)
-
     (setq exwm-input-simulation-keys
           '(([?\C-e] . [end])
             ([?\M-v] . [prior])
@@ -4938,6 +4933,12 @@ it can be passed in POS."
             ([s-down] . windmove-down)))
 
     (defun my/exwm-manage-finish ()
+      (unless (eq system-type 'android)
+        (require 'exwm-systemtray)
+        (setq exwm-systemtray-height 32
+              exwm-systemtray-position 'top)
+        (exwm-systemtray-mode 1))
+
       (when exwm-class-name
         (cond
          ((member exwm-class-name '("Xfce4-terminal"))
@@ -4966,7 +4967,7 @@ it can be passed in POS."
     ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
 
     (when (y-or-n-p "Do you want to start EXWM? ")
-        (my/exwm-start))))
+      (my/exwm-start))))
 
 (use-package message
   :straight nil
