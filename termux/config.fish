@@ -3,6 +3,7 @@ source $PREFIX/etc/fish/config.fish
 export PATH="$HOME/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
+export NEXT_TELEMETRY_DISABLED=1
 
 set -gx GPG_TTY (tty)
 

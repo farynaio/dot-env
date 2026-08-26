@@ -7,6 +7,7 @@ export PATH="$HOME/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
 export GPG_TTY=$(tty)
+export NEXT_TELEMETRY_DISABLED=1
 
 # export DISPLAY=:0 MESA_LOADER_DRIVER_OVERRIDE=zink
 # export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
