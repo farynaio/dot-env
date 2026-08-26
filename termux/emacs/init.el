@@ -4996,6 +4996,14 @@ it can be passed in POS."
   (notmuch-hello-logo nil)
   (mail-user-agent 'notmuch-user-agent)
   (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
+  (notmuch-saved-searches
+   '((:name "inbox" :query "tag:inbox" :key "i")
+     (:name "unread" :query "tag:unread" :key "u")
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d")
+     (:name "spam" :query "tag:spam" :key "S")
+     (:name "all mail" :query "*" :key "a")))
   :config
   (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
 
