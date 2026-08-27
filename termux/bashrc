@@ -7,6 +7,8 @@ export PATH="$HOME/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
 export GPG_TTY=$(tty)
+
+# Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
 
 # export DISPLAY=:0 MESA_LOADER_DRIVER_OVERRIDE=zink
@@ -37,5 +39,9 @@ alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
 alias g="git"
 alias e="my_emacs_run"
+
+# Delete all emails market by notmuch with deleted tag
 alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm; notmuch new"
+
+# Strip isync IDs from all files in current folder
 alias isync-strip="find . -name '*U=*:*' -exec bash -c 'mv \"\$1\" \"\${1%,U=*}\"' _ {} \;"

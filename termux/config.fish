@@ -3,6 +3,8 @@ source $PREFIX/etc/fish/config.fish
 export PATH="$HOME/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
+
+# Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
 
 set -gx GPG_TTY (tty)
@@ -35,6 +37,8 @@ alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
 alias g="git"
 alias e="my_emacs_run"
+
+# Delete all emails market by notmuch with deleted tag
 alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm;notmuch new"
 
 # Strip isync IDs from all files in current folder
