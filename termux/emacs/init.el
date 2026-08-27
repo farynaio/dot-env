@@ -4982,19 +4982,26 @@ it can be passed in POS."
   (unless (executable-find "msmtp")
     (warn "'msmtp' not found, e-mails sending not available!"))
   ;; To change identity when composing email use `message-change-sender`
-)
+  )
 
 (use-package notmuch
   :commands (notmuch)
   :bind
   (:map notmuch-search-mode-map
-        ("G" . my/notmuch-fetch-async)
         ("d" . my/notmuch-mark-tread-deleted)
         ("r" . my/notmuch-mark-tread-read)
-        ("R" . notmuch-search-reply-to-thread-sender))
+        ("R" . notmuch-search-reply-to-thread-sender)
+        :map notmuch-hello-mode-map
+        ("G" . my/notmuch-fetch-async))
+  ;; :init
+  ;; (setq-default notmuch-hello-logo nil)
   :custom
   ;; (notmuch-multipart/alternative-discouraged '("text/plain" "text/html"))
-  (notmuch-hello-logo nil)
+  (notmuch-show-logo nil)
+  (notmuch-draft-folder "Drafts")
+  (notmuch-hello-indent 2)
+  (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
+  (notmuch-search-oldest-first nil)
   (mail-user-agent 'notmuch-user-agent)
   (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
   (notmuch-saved-searches
@@ -5019,7 +5026,7 @@ it can be passed in POS."
   (defun my/notmuch-mark-tread-deleted ()
     "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
     (interactive)
-    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged"))
+    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk"))
     (notmuch-search-next-thread))
 
   (defun my/notmuch-mark-tread-read ()
@@ -5038,12 +5045,13 @@ it can be passed in POS."
     "Asynchronously fetch new mails for notmuch."
     (interactive)
     ;; (async-shell-command "notmuch new" "*Messages*")
+    (message "Fetching new e-mails...")
     (let ((proc (start-process-shell-command "notmuch new" nil "notmuch new")))
       (set-process-sentinel
        proc
        (my/gen-process-sentinel
         (lambda ()
-          (message "New mails fetched successfully!")
+          (message "New e-mails fetched successfully!")
           (save-excursion
             (with-current-buffer "*notmuch-hello*"
               (call-interactively 'notmuch-refresh-this-buffer)))))))))
