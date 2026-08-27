@@ -1356,6 +1356,7 @@ TODO:
          ("C-x C-<left>" . tab-bar-switch-to-prev-tab))
   :custom
   (tab-bar-auto-width t)
+  (tab-bar-tab-hints t)
   ;; (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
   ;; (tab-bar-tab-name-truncated-max 30)
   :config
@@ -1962,7 +1963,17 @@ Including indent-buffer, which should not be called automatically on save."
       ("C-<left>" tab-bar-move-tab-backward "move left")
       ("C-<right>" tab-bar-move-tab "move right")
       ("<right>" tab-bar-switch-to-next-tab "next tab")
-      ("<left>" tab-bar-switch-to-prev-tab "prev tab"))))
+      ("<left>" tab-bar-switch-to-prev-tab "prev tab"))
+      "Jump to"
+      (("1" (tab-bar-select-tab 1) "Tab 1")
+       ("2" (tab-bar-select-tab 2) "Tab 2")
+       ("3" (tab-bar-select-tab 3) "Tab 3")
+       ("4" (tab-bar-select-tab 4) "Tab 4")
+       ("5" (tab-bar-select-tab 5) "Tab 5")
+       ("6" (tab-bar-select-tab 6) "Tab 6")
+       ("7" (tab-bar-select-tab 7) "Tab 7")
+       ("8" (tab-bar-select-tab 8) "Tab 8")
+       ("9" (tab-bar-select-tab 9) "Tab 9"))))
 
   (pretty-hydra-define hydra-magit
     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
