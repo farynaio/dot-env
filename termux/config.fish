@@ -37,6 +37,9 @@ alias g="git"
 alias e="my_emacs_run"
 alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm;notmuch new"
 
+# Strip isync IDs from all files in current folder
+alias isync-strip="find . -name '*U=*:*' -exec bash -c 'mv \"\$1\" \"\${1%,U=*}\"' _ {} \;"
+
 if set -q PREFIX
   export DISPLAY=:1
  # MESA_LOADER_DRIVER_OVERRIDE=zink

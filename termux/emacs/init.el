@@ -5026,7 +5026,7 @@ it can be passed in POS."
   (defun my/notmuch-mark-tread-deleted ()
     "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
     (interactive)
-    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk"))
+    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk" "-passed"))
     (notmuch-search-next-thread))
 
   (defun my/notmuch-mark-tread-read ()
