@@ -1580,7 +1580,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("DEL" . dired-up-directory) ; optional
         ("W" . my/dired-copy-path-to-file-as-kill)
         ("M-w" . my/dired-copy-filename-to-clipboard-and-kill)
-        ("RET" .  dired-find-file))
+        ("RET" .  dired-find-file)
+        ("/" . isearch-forward))
   :hook (dired-mode . dired-hide-details-mode)
   :custom
   (enable-command 'dired-find-alternate-file)
