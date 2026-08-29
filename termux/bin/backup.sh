@@ -13,7 +13,7 @@ readonly BACKUP_SAF_DIR="${EXTERNAL_DRIVE_DIR}/Backup/SAF-tmp"
 readonly DEST_DIR="${BACKUP_WORK_DIR}/${BACKUP_DIR}"
 
 # Files and directories in home dir, to be included in the backup
-DIRS_TO_BACKUP_HOME_ENCRYPTED=("Documents" ".ssh" "storage/shared/Documents")
+DIRS_TO_BACKUP_HOME_ENCRYPTED=(".ssh" ".gnupg" ".bittytax" ".notmuch-config" ".mbsyncrc" ".msmtprc" ".bashrc" ".config/fish/config.fish" "Documents" "storage/shared/Documents")
 
 # Verify jq is installed
 if ! command -v jq &> /dev/null; then
