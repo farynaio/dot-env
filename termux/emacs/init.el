@@ -1658,8 +1658,9 @@ Including indent-buffer, which should not be called automatically on save."
   (use-package all-the-icons-dired
     :demand t
     :after dired
+    :delight all-the-icons-dired-mode
     :config
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
+    (add-hook 'dired-mode-hook #'all-the-icons-dired-mode)))
 
 (straight-register-package 'evil)
 (straight-register-package 'evil-collection)
