@@ -1652,6 +1652,14 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
   :config
+  (defun my/dired-marked-count ()
+    (when (and (derived-mode-p 'dired-mode)
+               (memq last-command
+                     '(dired-mark dired-unmark dired-mark-subtree
+                                  dired-mark-files-regexp dired-mark-if dired-mark-sexp)))
+      (message "%d marked" (length (dired-get-marked-files nil)))))
+  (add-hook 'post-command-hook #'my/dired-marked-count)
+
   (defun my/sudo-dired ()
     "Run Dired in sudo mode."
     (interactive)
