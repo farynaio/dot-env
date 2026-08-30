@@ -25,10 +25,6 @@
 (defvar my/php-enable nil) ; requires html
 (defvar my/kotlin-enabled nil)
 
-;; Use if EXWM and xelb installed as deb package
-;; (defvar my/exwm-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/exwm"))
-;; (defvar my/xelb-path (concat (getenv "PREFIX") "/share/emacs/site-lisp/xelb"))
-
 (unless (file-directory-p my/downloads-dir)
   (mkdir my/downloads-dir))
 
@@ -4894,7 +4890,7 @@ it can be passed in POS."
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
-    (set-face-attribute 'default nil :height 120)
+    (set-face-attribute 'default nil :height 130)
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
@@ -4931,9 +4927,6 @@ it can be passed in POS."
             (message "EXWM started"))
         (error "EXWM requires window system!")))
     (defalias 'X #'my/exwm-start)
-    :init
-    (add-to-list 'load-path my/exwm-path)
-    (add-to-list 'load-path my/xelb-path)
     :config
     (setq exwm-input-simulation-keys
           '(([?\C-e] . [end])
