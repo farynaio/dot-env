@@ -1574,14 +1574,14 @@ Including indent-buffer, which should not be called automatically on save."
   :straight nil
   :bind
   (:map dired-mode-map
-        ("C-s" . isearch-forward)
+        ("C-s" . consult-line)
         ("C-t" . hydra-tab-bar/body)
         ("<backspace>" . dired-up-directory)
         ("DEL" . dired-up-directory) ; optional
         ("W" . my/dired-copy-path-to-file-as-kill)
         ("M-w" . my/dired-copy-filename-to-clipboard-and-kill)
         ("RET" .  dired-find-file)
-        ("/" . isearch-forward))
+        ("/" . consult-line))
   :hook (dired-mode . dired-hide-details-mode)
   :custom
   (enable-command 'dired-find-alternate-file)
