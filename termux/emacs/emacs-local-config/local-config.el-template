@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
 ;; Extra config file to run before init.el.
 ;; Copy it to local-post-config.el and edit as you wish

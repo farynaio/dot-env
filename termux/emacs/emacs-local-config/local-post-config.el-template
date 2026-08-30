@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
 ;; Extra config file to run after init.el.
 ;; Use it to:
@@ -29,6 +29,7 @@
 ;;   ;; select first tab as start
 ;;   (tab-bar-select-tab 1))
 
-;; (my/init)
-
 ;; (add-hook 'server-after-make-frame-hook #'my/init)
+
+;; (unless my/emacs-initiated
+;;   (my/init))

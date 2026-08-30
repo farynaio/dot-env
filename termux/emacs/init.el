@@ -3,6 +3,8 @@
 (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
 (defconst my/local-post-config-file (expand-file-name "local-post-config.el" my/local-config-dir)) ;; optional
 
+(defvar my/emacs-initiated nil)
+
 ;; overwrite these in local-config.el to avoid pushing them to git
 (defvar my/downloads-dir (expand-file-name "Downloads" "~"))
 (defvar my/elfeed-org-feeds-files nil)
@@ -5143,3 +5145,5 @@ it can be passed in POS."
   (message "File '%s' not exists!" my/local-post-config-file))
 
 (setq gc-cons-threshold 100000000)
+
+(setq my/emacs-initiated t)
