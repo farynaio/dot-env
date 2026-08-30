@@ -916,6 +916,7 @@
 (use-package dashboard
   :demand t
   :custom
+  (dashboard-agenda-action 'dashboard-agenda--visit-file)
   (dashboard-icon-type 'all-the-icons)
   (dashboard-display-icons-p (display-graphic-p))
   (dashboard-set-heading-icons (display-graphic-p))
@@ -2361,6 +2362,13 @@ should be continued."
         (org-insert-todo-heading nil)
       ;; Otherwise, behave like standard M-RET
       (org-meta-return))))
+
+(use-package org-agenda
+  :demand t
+  :straight nil
+  :after org
+  :custom
+  (org-agenda-window-setup 'current-window))
 
 (straight-register-package 'org-journal)
 (if my/org-journal-directory
