@@ -2116,8 +2116,8 @@ Including indent-buffer, which should not be called automatically on save."
      ("CANT"       . (:foreground "dark grey"   :weight bold))))
   (org-priority-cookie () (format "[#%c]" org-default-priority))
   :config
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("ss" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("sl" . "src emacs-lisp"))
 
   (add-to-list 'org-link-frame-setup '(file . find-file))
 
