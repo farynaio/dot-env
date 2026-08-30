@@ -7,3 +7,28 @@
 ;; - and everything else that you want to run after init.el, but not want to share in version control repo
 
 ;; Copy it to local-post-config.el and edit as you wish
+
+;; Example
+;; (defun my/init ()
+;;   ;; tasks file
+;;   (tab-bar-new-tab)
+;;   (find-file my/org-tasks-file-path)
+
+;;   ;; elfeed
+;;   (my/elfeed-start)
+
+;;   ;; journal
+;;   (tab-bar-new-tab)
+;;   (tab-bar-rename-tab "Journal")
+;;   (my/org-journal-open-current-journal-file)
+
+;;   ;; org-roam - placeholder
+;;   (tab-bar-new-tab)
+;;   (switch-to-buffer "*scratch*")
+
+;;   ;; select first tab as start
+;;   (tab-bar-select-tab 1))
+
+;; (my/init)
+
+;; (add-hook 'server-after-make-frame-hook #'my/init)
