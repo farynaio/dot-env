@@ -5007,6 +5007,10 @@ Try:
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
+  (if (x-list-fonts "Cascadia Code PL")
+      (set-frame-font "Cascadia Code PL")
+    (warn "Font 'Cascadia Code PL' not available!"))
+
   (use-package exwm
     :demand t
     :custom
