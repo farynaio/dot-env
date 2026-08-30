@@ -5003,11 +5003,11 @@ Try:
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell "/bin/sh")) ;; the fastest?
 #+end_src
-* X / EXWM
+* X11 / EXWM
 #+BEGIN_src emacs-lisp
 (when (eq window-system 'x)
   (when (eq system-type 'android)
-    (set-face-attribute 'default nil :height 180)
+    (set-face-attribute 'default nil :height 120)
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
