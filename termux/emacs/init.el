@@ -5005,77 +5005,80 @@ it can be passed in POS."
   ;; To change identity when composing email use `message-change-sender`
   )
 
-(use-package notmuch
-  :commands (notmuch)
-  :bind
-  (:map notmuch-search-mode-map
-        ("d" . my/notmuch-mark-tread-deleted)
-        ("r" . my/notmuch-mark-tread-read)
-        ("R" . notmuch-search-reply-to-thread-sender)
-        :map notmuch-hello-mode-map
-        ("G" . my/notmuch-fetch-async))
-  ;; :init
-  ;; (setq-default notmuch-hello-logo nil)
-  :custom
-  ;; (notmuch-multipart/alternative-discouraged '("text/plain" "text/html"))
-  (notmuch-show-logo nil)
-  (notmuch-draft-folder "Drafts")
-  (notmuch-hello-indent 2)
-  (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
-  (notmuch-search-oldest-first nil)
-  (mail-user-agent 'notmuch-user-agent)
-  (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
-  (notmuch-saved-searches
-   '((:name "inbox" :query "tag:inbox" :key "i")
-     (:name "unread" :query "tag:unread" :key "u")
-     (:name "flagged" :query "tag:flagged" :key "f")
-     (:name "sent" :query "tag:sent" :key "t")
-     (:name "drafts" :query "tag:draft" :key "d")
-     (:name "spam" :query "tag:spam" :key "S")
-     (:name "all mail" :query "*" :key "a")))
-  :config
-  (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
+(straight-register-package 'notmuch)
+(if (executable-find "notmuch")
+    (use-package notmuch
+      :commands (notmuch)
+      :bind
+      (:map notmuch-search-mode-map
+            ("d" . my/notmuch-mark-tread-deleted)
+            ("r" . my/notmuch-mark-tread-read)
+            ("R" . notmuch-search-reply-to-thread-sender)
+            :map notmuch-hello-mode-map
+            ("G" . my/notmuch-fetch-async))
+      ;; :init
+      ;; (setq-default notmuch-hello-logo nil)
+      :custom
+      ;; (notmuch-multipart/alternative-discouraged '("text/plain" "text/html"))
+      (notmuch-show-logo nil)
+      (notmuch-draft-folder "Drafts")
+      (notmuch-hello-indent 2)
+      (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
+      (notmuch-search-oldest-first nil)
+      (mail-user-agent 'notmuch-user-agent)
+      (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
+      (notmuch-saved-searches
+       '((:name "inbox" :query "tag:inbox" :key "i")
+         (:name "unread" :query "tag:unread" :key "u")
+         (:name "flagged" :query "tag:flagged" :key "f")
+         (:name "sent" :query "tag:sent" :key "t")
+         (:name "drafts" :query "tag:draft" :key "d")
+         (:name "spam" :query "tag:spam" :key "S")
+         (:name "all mail" :query "*" :key "a")))
+      :config
+      (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
 
-  ;; Never forget subject
-  (defun my/notmuch-mua-empty-subject-check ()
-    "Request confirmation before sending a message with empty subject"
-    (when (and (null (message-field-value "Subject"))
-               (not (y-or-n-p "Subject is empty, send anyway? ")))
-      (error "Sending message cancelled: empty subject.")))
-  (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
+      ;; Never forget subject
+      (defun my/notmuch-mua-empty-subject-check ()
+        "Request confirmation before sending a message with empty subject"
+        (when (and (null (message-field-value "Subject"))
+                   (not (y-or-n-p "Subject is empty, send anyway? ")))
+          (error "Sending message cancelled: empty subject.")))
+      (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
 
-  (defun my/notmuch-mark-tread-deleted ()
-    "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
-    (interactive)
-    (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk" "-passed"))
-    (notmuch-search-next-thread))
+      (defun my/notmuch-mark-tread-deleted ()
+        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk" "-passed"))
+        (notmuch-search-next-thread))
 
-  (defun my/notmuch-mark-tread-read ()
-    "Mark the current thread as read by removing 'inbox' and 'unread'."
-    (interactive)
-    (notmuch-search-tag '("-inbox" "-unread"))
-    (notmuch-search-next-thread))
+      (defun my/notmuch-mark-tread-read ()
+        "Mark the current thread as read by removing 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-search-tag '("-inbox" "-unread"))
+        (notmuch-search-next-thread))
 
-  (defun my/notmuch-mark-tread-unread ()
-    "Mark the current thread as read by adding 'inbox' and 'unread'."
-    (interactive)
-    (notmuch-search-tag '("+inbox" "+unread"))
-    (notmuch-search-next-thread))
+      (defun my/notmuch-mark-tread-unread ()
+        "Mark the current thread as read by adding 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-search-tag '("+inbox" "+unread"))
+        (notmuch-search-next-thread))
 
-  (defun my/notmuch-fetch-async ()
-    "Asynchronously fetch new mails for notmuch."
-    (interactive)
-    ;; (async-shell-command "notmuch new" "*Messages*")
-    (message "Fetching new e-mails...")
-    (let ((proc (start-process-shell-command "notmuch new" nil "notmuch new")))
-      (set-process-sentinel
-       proc
-       (my/gen-process-sentinel
-        (lambda ()
-          (message "New e-mails fetched successfully!")
-          (save-excursion
-            (with-current-buffer "*notmuch-hello*"
-              (call-interactively 'notmuch-refresh-this-buffer)))))))))
+      (defun my/notmuch-fetch-async ()
+        "Asynchronously fetch new mails for notmuch."
+        (interactive)
+        ;; (async-shell-command "notmuch new" "*Messages*")
+        (message "Fetching new e-mails...")
+        (let ((proc (start-process-shell-command "notmuch new" nil "notmuch new")))
+          (set-process-sentinel
+           proc
+           (my/gen-process-sentinel
+            (lambda ()
+              (message "New e-mails fetched successfully!")
+              (save-excursion
+                (with-current-buffer "*notmuch-hello*"
+                  (call-interactively 'notmuch-refresh-this-buffer)))))))))
+  (warn "'notmuch' not found!"))
 
 (use-package ledger-mode
   :bind
