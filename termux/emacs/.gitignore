@@ -6,7 +6,9 @@
 /var
 /tmp
 /url
+/auto-save-list
 /.persistent-scratch
+/projectile-frecency.eld
 /emacs-local-config/local-config.el
 /emacs-local-config/local-post-config.el
 /org-roam.db
