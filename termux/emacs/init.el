@@ -5013,6 +5013,11 @@ it can be passed in POS."
   ;; To change identity when composing email use `message-change-sender`
   )
 
+(use-package mm-decode
+  :straight nil
+  :custom
+  (mm-default-directory my/downloads-dir))
+
 (straight-register-package 'notmuch)
 (if (executable-find "notmuch")
     (use-package notmuch
