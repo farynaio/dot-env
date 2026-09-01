@@ -5000,13 +5000,16 @@ it can be passed in POS."
 
 (use-package message
   :straight nil
-  :commands (compose-mail)
+  :commands (compose-mail notmuch-show-reply notmuch-show-reply-sender notmuch-show-forward-message notmuch-show-forward-open-messages)
   :custom
   (message-kill-buffer-on-exit t)
   (message-sendmail-extra-arguments '("--read-envelope-from")) ;; Make msmtp select the account based on the 'From' header
   (message-send-mail-function 'message-send-mail-with-sendmail)
+  (message-sendmail-envelope-from 'header)
+  (message-sendmail-f-is-evil t)
+  (mail-specify-envelope-from t)
+  (send-mail-function 'sendmail-send-it)
   (sendmail-program (concat (getenv "PREFIX") "/bin/msmtp"))
-  (sendmail-program-args '("-t")) ;; Read additional recipients from headers
   :config
   (unless (executable-find "msmtp")
     (warn "'msmtp' not found, e-mails sending not available!"))
@@ -5016,25 +5019,27 @@ it can be passed in POS."
 (use-package mm-decode
   :straight nil
   :custom
+  ;; Set default directory for downloaded email attachments.
   (mm-default-directory my/downloads-dir))
 
+;; Setup is customized for support of multiple email accounts. Requires 'notmuch-fcc-dirs' and 'message-directory' to be set, for sent messages destination folders, based on 'From' header.
 (straight-register-package 'notmuch)
 (if (executable-find "notmuch")
     (use-package notmuch
       :commands (notmuch)
       :bind
       (:map notmuch-search-mode-map
-            ("d" . my/notmuch-mark-tread-deleted)
-            ("r" . my/notmuch-mark-tread-read)
-            ("R" . notmuch-search-reply-to-thread-sender)
+            ("d" . my/notmuch-search-mark-message-deleted)
+            ("r" . my/notmuch-search-mark-message-read)
+            :map notmuch-tree-mode-map
+            ("d" . my/notmuch-tree-mark-message-deleted)
+            ("r" . my/notmuch-tree-mark-message-read)
             :map notmuch-hello-mode-map
             ("G" . my/notmuch-fetch-async))
-      ;; :init
-      ;; (setq-default notmuch-hello-logo nil)
       :custom
-      ;; (notmuch-multipart/alternative-discouraged '("text/plain" "text/html"))
+      (notmuch-show-depth-limit 1)
       (notmuch-show-logo nil)
-      (notmuch-draft-folder "Drafts")
+      (notmuch-always-prompt-for-sender t)
       (notmuch-hello-indent 2)
       (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
       (notmuch-hello-sections '(notmuch-hello-insert-header
@@ -5044,7 +5049,6 @@ it can be passed in POS."
                                 (notmuch-hello-insert-tags-section "All tags" :initially-hidden nil)))
       (notmuch-search-oldest-first nil)
       (mail-user-agent 'notmuch-user-agent)
-      (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
       (notmuch-saved-searches
        '((:name "inbox" :query "tag:inbox" :key "i")
          (:name "unread" :query "tag:unread" :key "u")
@@ -5064,23 +5068,41 @@ it can be passed in POS."
           (error "Sending message cancelled: empty subject.")))
       (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
 
-      (defun my/notmuch-mark-tread-deleted ()
+      (defun my/notmuch-search-mark-message-deleted ()
         "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
         (interactive)
-        (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged" "-junk" "-passed"))
+        (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged"))
         (notmuch-search-next-thread))
 
-      (defun my/notmuch-mark-tread-read ()
+      (defun my/notmuch-search-mark-message-read ()
         "Mark the current thread as read by removing 'inbox' and 'unread'."
         (interactive)
         (notmuch-search-tag '("-inbox" "-unread"))
         (notmuch-search-next-thread))
 
-      (defun my/notmuch-mark-tread-unread ()
+      (defun my/notmuch-tree-mark-message-deleted ()
+        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-tree-tag '("+deleted" "-inbox" "-unread" "-flagged"))
+        (notmuch-tree-next-thread))
+
+      (defun my/notmuch-tree-mark-message-read ()
+        "Mark the current thread as read by removing 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-tree-tag '("-inbox" "-unread"))
+        (notmuch-tree-next-thread))
+
+      (defun my/notmuch-search-mark-message-unread ()
         "Mark the current thread as read by adding 'inbox' and 'unread'."
         (interactive)
         (notmuch-search-tag '("+inbox" "+unread"))
         (notmuch-search-next-thread))
+
+      (defun my/notmuch-tree-mark-message-unread ()
+        "Mark the current thread as read by adding 'inbox' and 'unread'."
+        (interactive)
+        (notmuch-tree-tag '("+inbox" "+unread"))
+        (notmuch-tree-next-thread))
 
       (defun my/notmuch-fetch-async ()
         "Asynchronously fetch new mails for notmuch."
