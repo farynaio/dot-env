@@ -5147,6 +5147,11 @@ Try:
       (notmuch-draft-folder "Drafts")
       (notmuch-hello-indent 2)
       (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
+      (notmuch-hello-sections '(notmuch-hello-insert-header
+                                notmuch-hello-insert-saved-searches
+                                notmuch-hello-insert-search
+                                notmuch-hello-insert-recent-searches
+                                (notmuch-hello-insert-tags-section "All tags" :initially-hidden nil)))
       (notmuch-search-oldest-first nil)
       (mail-user-agent 'notmuch-user-agent)
       (notmuch-fcc-dirs '((".*" . "Sent"))) ;; Save sent mail to 'Sent' folder of the current account
