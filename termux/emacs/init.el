@@ -2117,6 +2117,7 @@ Including indent-buffer, which should not be called automatically on save."
   :config
   (add-to-list 'org-structure-template-alist '("ss" . "src shell"))
   (add-to-list 'org-structure-template-alist '("sl" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("so" . "src org"))
 
   (add-to-list 'org-link-frame-setup '(file . find-file))
 
