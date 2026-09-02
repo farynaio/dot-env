@@ -5033,9 +5033,7 @@ it can be passed in POS."
             ("r" . my/notmuch-search-mark-message-read)
             :map notmuch-tree-mode-map
             ("d" . my/notmuch-tree-mark-message-deleted)
-            ("r" . my/notmuch-tree-mark-message-read)
-            :map notmuch-hello-mode-map
-            ("G" . my/notmuch-fetch-async))
+            ("r" . my/notmuch-tree-mark-message-read))
       :custom
       (notmuch-show-depth-limit 1)
       (notmuch-show-logo nil)
@@ -5058,6 +5056,7 @@ it can be passed in POS."
          (:name "spam" :query "tag:spam" :key "S")
          (:name "all mail" :query "*" :key "a")))
       :config
+      (advice-add 'notmuch-poll-and-refresh-this-buffer :override #'my/notmuch-fetch-async)
       (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
 
       ;; Never forget subject
@@ -5115,9 +5114,10 @@ it can be passed in POS."
            (my/gen-process-sentinel
             (lambda ()
               (message "New e-mails fetched successfully!")
-              (save-excursion
-                (with-current-buffer "*notmuch-hello*"
-                  (call-interactively 'notmuch-refresh-this-buffer)))))))))
+              ;; (save-excursion
+              ;;   (with-current-buffer "*notmuch-hello*"
+              ;;     (call-interactively 'notmuch-refresh-this-buffer)))
+              ))))))
   (warn "'notmuch' not found!"))
 
 (use-package ledger-mode
