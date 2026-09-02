@@ -8,7 +8,7 @@
 ;; overwrite these in local-config.el to avoid pushing them to git
 (defvar my/downloads-dir (expand-file-name "Downloads" "~"))
 (defvar my/elfeed-org-feeds-files nil)
-(defvar my/elfeed-db-folder nil)
+(defvar my/elfeed-db-dir nil)
 
 (defvar my/termux-saf-uri-books nil)
 (defvar my/termux-saf-uri-pictures nil)
@@ -4098,7 +4098,7 @@ it can be passed in POS."
 (straight-register-package 'elfeed)
 (straight-register-package 'elfeed-goodies)
 (straight-register-package 'elfeed-org)
-(if (and my/elfeed-org-feeds-files my/elfeed-db-folder my/downloads-dir)
+(if (and my/elfeed-org-feeds-files my/elfeed-db-dir my/downloads-dir)
     (progn
       (use-package elfeed
         :demand t
@@ -4129,7 +4129,7 @@ it can be passed in POS."
               ;; ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
               ("C-x m" . hydra-elfeed-search/body))
         :custom
-        (elfeed-db-directory my/elfeed-db-folder)
+        (elfeed-db-directory my/elfeed-db-dir)
         (elfeed-enclosure-default-dir my/downloads-dir)
         ;; (shr-inhibit-images t)
         (elfeed-search-filter "-ignore -ok -junk")
@@ -4438,11 +4438,10 @@ it can be passed in POS."
         :custom
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
-        (elfeed-org)
-        (run-at-time t (* 2 60 60) #'my/elfeed-update))
+        (elfeed-org))
 
       (defalias 'rss #'my/elfeed-start))
-  (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-folder' and 'my/downloads-dir' are required, RSS disabled!"))
+  (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-dir' and 'my/downloads-dir' are required, RSS disabled!"))
 
 (straight-register-package 'ement)
 (when my/matrix-enable

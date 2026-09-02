@@ -26,7 +26,7 @@
 
 (setq my/downloads-dir (if (eq system-type 'android) (expand-file-name "downloads" "~") (expand-file-name "Downloads" "~")))
 (setq my/elfeed-org-feeds-files (list (expand-file-name "feeds.org" "~/Sync/elfeed")))
-(setq my/elfeed-db-folder "~/Sync/elfeed") ; for index and data/
+(setq my/elfeed-db-dir "~/Sync/elfeed") ; for index and data/
 
 ;; optional
 (setq my/org-roam-dir (expand-file-name "~/my-roam"))
