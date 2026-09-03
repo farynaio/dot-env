@@ -17,6 +17,10 @@
 ;;   ;; elfeed
 ;;   (my/elfeed-start)
 
+;;   ;; notmuch
+;;   (tab-bar-new-tab)
+;;   (notmuch)
+
 ;;   ;; journal
 ;;   (tab-bar-new-tab)
 ;;   (tab-bar-rename-tab "Journal")
