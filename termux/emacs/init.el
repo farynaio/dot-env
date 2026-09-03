@@ -2874,8 +2874,13 @@ it can be passed in POS."
              symbol)))
       (funcall-interactively 'xref-find-definitions function-name))))
 
+(use-package hi-lock
+  :straight nil
+  :delight)
+
 (use-package highlight-thing
   :hook ((prog-mode . highlight-thing-mode))
+  :delight
   :custom
   (highlight-thing-delay-seconds 0.1)
   (highlight-thing-case-sensitive-p t)
