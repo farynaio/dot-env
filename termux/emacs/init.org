@@ -1037,6 +1037,20 @@ TODO:
                   (current-kill 0 t))
     (message "Copied kill ring to clipboard"))
 
+  ;; TODO: this can be adapted for use outside Termux with xclip, and moved to 'org' section
+  (defun my/org-copy-link ()
+    "Copy the org link at point to the kill ring and clipboard."
+    (interactive)
+    (let* ((context (org-element-context))
+           (type (org-element-type context))
+           (beg (org-element-property :begin context))
+           (end (org-element-property :end context)))
+      (if (eq type 'link)
+          (progn
+            (my/termux-clipboard-region beg end)
+            (message "Link copied: %s" (buffer-substring beg end)))
+        (org-return))))
+
 ;; (setq termux-saf-root-uri "content://com.android.externalstorage.documents/tree/0084-3000%3ABooks")
   (use-package termux-saf
     :commands (termux-saf-browse)
@@ -2191,6 +2205,9 @@ Including indent-buffer, which should not be called automatically on save."
   (define-key org-mode-map [remap kill-line] nil)
   (define-key org-mode-map [remap org-kill-line] nil)
   (define-key org-mode-map (kbd "C-k") 'kill-line)
+
+  (when (my/termux-p)
+    (define-key org-mode-map (kbd "RET") 'my/org-copy-link))
 
   ;; (major-mode-hydra-define (org-mode)
   ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
