@@ -867,8 +867,16 @@ TODO:
 ;; Show more than 4 levels when evaling expressions
 (setq eval-expression-print-level 100)
 
+;; On Termux, make sure 'xclip' is not installed!
+(use-package xclip
+  :defer 2
+  :commands (yank kill-ring-save kill-region kill-line)
+  :config
+  (xclip-mode 1)
+  (bind-key "C-M-w" #'kill-ring-save))
+
 (use-package image-slicing
-  :demand t
+  :defer 2
   :straight
   (:type git
          :host github
@@ -1010,48 +1018,7 @@ TODO:
 (when (my/termux-p)
   ;; Fixed tramp too long socket paths, and probably other issues
   (setq small-temporary-file-directory (getenv "TMPDIR"))
-  ;; (bind-key "C-v" #'my/termux-clipboard-paste)
 
-  (defun my/termux-clipboard-paste ()
-    "Paste from clipboard."
-    (interactive)
-    (let ((txt (shell-command-to-string "termux-clipboard-get")))
-      (insert txt)))
-
-  (defun my/termux-clipboard-region (beg end)
-    "Save region in Android clipboard."
-    (interactive "r")
-    (let ((txt (buffer-substring-no-properties beg end)))
-      (call-process "termux-clipboard-set" nil nil nil
-         txt)
-      (kill-ring-save beg end)
-      (message "Text copied to clipboard %s" txt)))
-
-  (bind-key "C-M-w" #'my/termux-clipboard-region)
-  (bind-key "M-w" #'my/termux-clipboard-region)
-
-  (defun my/kill-to-clipboard ()
-    "Copy last kill ring string into clipboard."
-    (interactive)
-    (call-process "termux-clipboard-set" nil nil nil
-                  (current-kill 0 t))
-    (message "Copied kill ring to clipboard"))
-
-  ;; TODO: this can be adapted for use outside Termux with xclip, and moved to 'org' section
-  (defun my/org-copy-link ()
-    "Copy the org link at point to the kill ring and clipboard."
-    (interactive)
-    (let* ((context (org-element-context))
-           (type (org-element-type context))
-           (beg (org-element-property :begin context))
-           (end (org-element-property :end context)))
-      (if (eq type 'link)
-          (progn
-            (my/termux-clipboard-region beg end)
-            (message "Link copied: %s" (buffer-substring beg end)))
-        (org-return))))
-
-;; (setq termux-saf-root-uri "content://com.android.externalstorage.documents/tree/0084-3000%3ABooks")
   (use-package termux-saf
     :commands (termux-saf-browse)
     :straight
@@ -1653,7 +1620,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("<backspace>" . dired-up-directory)
         ("DEL" . dired-up-directory) ; optional
         ("W" . my/dired-copy-path-to-file-as-kill)
-        ("M-w" . my/dired-copy-filename-to-clipboard-and-kill)
+        ("M-w" . dired-copy-filename-as-kill)
         ("RET" .  dired-find-file)
         ("/" . consult-line))
   :hook (dired-mode . dired-hide-details-mode)
@@ -1721,11 +1688,6 @@ Including indent-buffer, which should not be called automatically on save."
         (let ((new-kill (concat (expand-file-name string default-directory))))
           (kill-new new-kill)
           (message "%s" new-kill)))))
-
-(defun my/dired-copy-filename-to-clipboard-and-kill ()
-  (interactive)
-  (call-interactively 'dired-copy-filename-as-kill)
-  (call-process "termux-clipboard-set" nil nil nil (car kill-ring))))
 
 (straight-register-package 'all-the-icons-dired)
 (when (display-graphic-p)
@@ -2062,8 +2024,6 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("a" org-agenda "org-agenda")
       ("c" org-capture "org-capture")
-      ("C" my/kill-to-clipboard "kill to clipboard")
-      ("y" my/termux-clipboard-paste "paste clipboard")
       ("m" hydra-magit/body "magit")
       ("K" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
@@ -2113,9 +2073,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<up>" . org-table-move-single-cell-up)
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
-        ("C-M-<right>" . org-table-move-single-cell-right)
-        ("C-M-l" . my/org-link-copy) ;; not working on Termux, use 'M-w' instead
-        )
+        ("C-M-<right>" . org-table-move-single-cell-right))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode)
@@ -2206,9 +2164,6 @@ Including indent-buffer, which should not be called automatically on save."
   (define-key org-mode-map [remap org-kill-line] nil)
   (define-key org-mode-map (kbd "C-k") 'kill-line)
 
-  (when (my/termux-p)
-    (define-key org-mode-map (kbd "RET") 'my/org-copy-link))
-
   ;; (major-mode-hydra-define (org-mode)
   ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "Org" 1 -0.05))
   ;;   ("Action"
@@ -2227,18 +2182,18 @@ Including indent-buffer, which should not be called automatically on save."
   ;;     ("oa" org-appear-mode "org-appear toggle" :toggle t :exit t))
   ;;    ))
 
-  (defun my/org-link-copy (&optional arg)
-    "Extract URL from org-mode link and add it to kill ring."
-    (interactive "P")
-    (let* ((link (org-element-lineage (org-element-context) '(link) t))
-           (type (org-element-property :type link))
-           (url (org-element-property :path link))
-           (url (concat type ":" url)))
-      (when (my/termux-p)
-        (call-process "termux-clipboard-set" nil nil nil
-                      url))
-      (kill-new url)
-      (message (concat "Copied URL: " url))))
+  (defun my/org-copy-link ()
+    "Copy the org link at point to the kill ring and clipboard."
+    (interactive)
+    (let* ((context (org-element-context))
+           (type (org-element-type context))
+           (beg (org-element-property :begin context))
+           (end (org-element-property :end context)))
+      (if (eq type 'link)
+          (progn
+            (kill-ring-save beg end)
+            (message "Link copied: %s" (buffer-substring beg end)))
+        (org-return))))
 
   (defun my/org-agenda-cmp-user-defined-birthday (a b)
     "Org Agenda user function to sort categories against other categories. The birthday category is considered to be behind other category by default."
