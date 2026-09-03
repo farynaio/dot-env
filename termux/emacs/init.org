@@ -987,8 +987,7 @@ TODO:
   (dashboard-items
    '((agenda . 5)
      (recents . 5)
-     (bookmarks . 10)
-     (registers . 5)))
+     (bookmarks . 10)))
   (dashboard-modify-heading-icons '((recents   . "file-text")
                                     (bookmarks . "book")))
   ;; (dashboard-item-names
