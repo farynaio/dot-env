@@ -1,3 +1,5 @@
+# -*- mode: conf -*-
+
 /straight
 /recentf
 /recentf.eld
@@ -15,7 +17,7 @@
 /org-roam.db
 /tramp-persistency.el
 /tramp
-/tree-sitter
+# /tree-sitter
 *~*
 /projectile-bookmarks.eld
 /projectile-frecency.eld
