@@ -871,9 +871,9 @@ TODO:
 (use-package xclip
   :defer 2
   :commands (yank kill-ring-save kill-region kill-line)
+  :bind (("C-M-w" . kill-ring-save))
   :config
-  (xclip-mode 1)
-  (bind-key "C-M-w" #'kill-ring-save))
+  (xclip-mode 1))
 
 (use-package image-slicing
   :defer 2
@@ -894,9 +894,9 @@ TODO:
   :demand t
   :config
   (setq openwith-associations
-   (list
-    (list (openwith-make-extension-regexp '("pdf")) "okular" '(file))
-    (list (openwith-make-extension-regexp '("doc" "docx" "odt" "ods" "odp" "xls" "xlsx" "ppt" "pptx")) "libreoffice" '(file))))
+        (list
+         (list (openwith-make-extension-regexp '("pdf")) "okular" '(file))
+         (list (openwith-make-extension-regexp '("doc" "docx" "odt" "ods" "odp" "xls" "xlsx" "ppt" "pptx")) "libreoffice" '(file))))
 
   (unless (executable-find "okular")
     (warn "'okular' not found, pdf files can't be viewed!"))
@@ -1687,7 +1687,7 @@ Including indent-buffer, which should not be called automatically on save."
       (unless (string= string "")
         (let ((new-kill (concat (expand-file-name string default-directory))))
           (kill-new new-kill)
-          (message "%s" new-kill)))))
+          (message "%s" new-kill))))))
 
 (straight-register-package 'all-the-icons-dired)
 (when (display-graphic-p)
@@ -2076,9 +2076,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<right>" . org-table-move-single-cell-right))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
-         (org-mode . org-indent-mode)
-         ;; (org-agenda-mode . (lambda () (hl-line-mode 1)))
-         )
+         (org-mode . org-indent-mode))
   :custom
   (org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-info))
   (org-bookmark-names-plist '())
@@ -2556,18 +2554,18 @@ should be continued."
          consult-org-roam-forward-links
          :preview-key "M-."))
 
-    (defun my/org-find-time-file-property (property &optional anywhere)
-      "Return the position of the time file PROPERTY if it exists.
+      (defun my/org-find-time-file-property (property &optional anywhere)
+        "Return the position of the time file PROPERTY if it exists.
 When ANYWHERE is non-nil, search beyond the preamble."
-      (save-excursion
-        (goto-char (point-min))
-        (let ((first-heading
-                (save-excursion
-                  (re-search-forward org-outline-regexp-bol nil t))))
-          (when (re-search-forward (format "^#\\+%s:" property)
-                  (if anywhere nil first-heading)
-                  t)
-            (point)))))
+        (save-excursion
+          (goto-char (point-min))
+          (let ((first-heading
+                 (save-excursion
+                   (re-search-forward org-outline-regexp-bol nil t))))
+            (when (re-search-forward (format "^#\\+%s:" property)
+                                     (if anywhere nil first-heading)
+                                     t)
+              (point)))))
 
       (defun my/org-set-time-file-property (property &optional anywhere pos)
         "Set the time file PROPERTY in the preamble.
