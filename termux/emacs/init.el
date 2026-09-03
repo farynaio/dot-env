@@ -4942,6 +4942,7 @@ it can be passed in POS."
       (if window-system
           (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
               (message "EXWM is already running")
+            (set-face-attribute 'default nil :height 190)
             (exwm-wm-mode 1)
             (message "EXWM started"))
         (error "EXWM requires window system!")))
