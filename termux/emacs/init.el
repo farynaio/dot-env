@@ -961,7 +961,9 @@
   :commands (visual-fill-column-mode visual-fill-column-center-text))
 
 (when (my/termux-p)
-  (bind-key "C-v" #'my/termux-clipboard-paste)
+  ;; Fixed tramp too long socket paths, and probably other issues
+  (setq small-temporary-file-directory (getenv "TMPDIR"))
+  ;; (bind-key "C-v" #'my/termux-clipboard-paste)
 
   (defun my/termux-clipboard-paste ()
     "Paste from clipboard."
@@ -4891,12 +4893,15 @@ it can be passed in POS."
   :demand t
   :straight nil
   :custom
+  ;; (tramp-verbose 10)
   (tramp-default-method "ssh")
   (tramp-inline-compress-start-size 40960)
   (tramp-chunksize 500)
+  (tramp-ssh-controlmaster-options "-o ControlPath=%%C -o ControlMaster=auto -o ControlPersist=no")
+  (tramp-remote-path '("/bin" "/usr/bin"))
   (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-  (tramp-encoding-shell "/bin/sh")) ;; the fastest?
+  (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh")))
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
