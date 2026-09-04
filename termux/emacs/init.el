@@ -924,6 +924,7 @@
 (use-package dashboard
   :demand t
   :custom
+  (dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-newline dashboard-insert-init-info dashboard-insert-items))
   (dashboard-agenda-action 'dashboard-agenda--visit-file)
   (dashboard-icon-type 'all-the-icons)
   (dashboard-display-icons-p (display-graphic-p))
@@ -942,7 +943,7 @@
   (dashboard-items
    '((agenda . 5)
      (recents . 5)
-     (bookmarks . 10)))
+     (bookmarks . 15)))
   (dashboard-modify-heading-icons '((recents   . "file-text")
                                     (bookmarks . "book")))
   ;; (dashboard-item-names
