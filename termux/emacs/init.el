@@ -1328,7 +1328,7 @@
 (use-package beacon
   :demand t
   :delight
-  :custom
+  :config
   (beacon-mode 1))
 
 (require 'files)
