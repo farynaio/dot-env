@@ -221,9 +221,6 @@
   (minibuffer-prompt-properties
    '(read-only t cursor-intangible t face minibuffer-prompt)))
 
-;; Move through windows with Ctrl-<arrow keys>
-(windmove-default-keybindings 'shift) ; You can use other modifiers here
-
 ;; Make right-click do something sensible
 (context-menu-mode (display-graphic-p))
 
@@ -822,6 +819,14 @@
 ;; Show more than 4 levels when evaling expressions
 (setq eval-expression-print-level 100)
 
+(use-package windmove
+  :demand t
+  :straight nil
+  :custom
+  (windmove-wrap-around t)
+  :config
+  (windmove-default-keybindings 'shift))
+
 ;; On Termux, make sure 'xclip' is not installed!
 (use-package xclip
   :defer 2
@@ -1279,10 +1284,10 @@
 (use-package tab-bar
   :demand t
   :straight nil
-  :bind (("C-x <right>" . tab-bar-switch-to-next-tab)
-         ("C-x <left>" . tab-bar-switch-to-prev-tab)
-         ("C-x C-<right>" . tab-bar-switch-to-next-tab)
-         ("C-x C-<left>" . tab-bar-switch-to-prev-tab))
+  :bind (("C-x <left>" . tab-bar-switch-to-prev-tab)
+         ("C-x C-<left>" . tab-bar-switch-to-prev-tab)
+         ("C-x <right>" . tab-bar-switch-to-next-tab)
+         ("C-x C-<right>" . tab-bar-switch-to-next-tab))
   :custom
   (tab-bar-auto-width t)
   (tab-bar-tab-hints t)
@@ -1291,6 +1296,14 @@
   :config
   (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
   (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+
+  (defun my/tab-bar-tab-name ()
+    "Use TITLE org file property as tab name when in an org buffer, else call 'tab-bar-tab-name-current'."
+    (if (and (eq major-mode 'org-mode)
+             (fboundp #'org-get-title)
+             (org-get-title))
+        (org-get-title)
+      (tab-bar-tab-name-current)))
 
   (if (eq system-type 'darwin)
       (setq tab-bar-auto-width-max '(150 15))
@@ -1328,16 +1341,6 @@
           (error "directory: '%s' is not accessible." dir))
         (compilation-start (concat command " < " null-device) 'grep-mode))
     (error "No executable 'ack' found!")))
-
-(use-package windmove
-  :straight nil
-  :defer 10
-  :bind (("C-x <left>" . windmove-left)
-         ("C-x <right>" . windmove-right)
-         ("C-x <up>" . windmove-up)
-         ("C-x <down>" . windmove-down))
-  :custom
-  (windmove-wrap-around t))
 
 ;; Increase and decrease number at point
 (global-set-key (kbd "C-+") 'my/inc-number-at-point)
@@ -1523,9 +1526,7 @@ Including indent-buffer, which should not be called automatically on save."
 (bind-keys
  ("C-M-b" . my/parens-jump)
  ("C-M-f" . my/parens-jump)
- ("M-v" .  my/scroll-up-command)
- ("C-x <left>" . tab-bar-switch-to-prev-tab)
- ("C-x <right>" . tab-bar-switch-to-next-tab))
+ ("M-v" .  my/scroll-up-command))
 
 (setq-default mml-secure-openpgp-sign-with-sender t)
 
