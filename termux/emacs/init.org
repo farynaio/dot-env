@@ -1344,11 +1344,20 @@ TODO:
   :custom
   (tab-bar-auto-width t)
   (tab-bar-tab-hints t)
+  (tab-bar-tab-name-function #'my/tab-bar-tab-name)
   ;; (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
   ;; (tab-bar-tab-name-truncated-max 30)
   :config
   (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
   (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+
+  (defun my/tab-bar-tab-name ()
+    "Use TITLE org file property as tab name when in an org buffer, else call 'tab-bar-tab-name-current'."
+    (if (and (eq major-mode 'org-mode)
+             (fboundp #'org-get-title)
+             (org-get-title))
+        (org-get-title)
+      (tab-bar-tab-name-current)))
 
   (if (eq system-type 'darwin)
       (setq tab-bar-auto-width-max '(150 15))

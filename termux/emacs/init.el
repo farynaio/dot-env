@@ -1291,6 +1291,7 @@
   :custom
   (tab-bar-auto-width t)
   (tab-bar-tab-hints t)
+  (tab-bar-tab-name-function #'my/tab-bar-tab-name)
   ;; (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
   ;; (tab-bar-tab-name-truncated-max 30)
   :config
