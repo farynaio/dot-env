@@ -1,4 +1,4 @@
-#+title: Emacs init.el generator
+#+TITLE: Init
 #+STARTUP: overview
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :eval t :mkdirp yes :results silent
 
@@ -2784,7 +2784,7 @@ it can be passed in POS."
         (projectile-recentf)
       (consult-recent-file)))
 #+end_src
-* Dev
+* Development
 ** General
 #+begin_src emacs-lisp
 (setq-default tab-width 2)
