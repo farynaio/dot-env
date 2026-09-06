@@ -4245,6 +4245,7 @@ it can be passed in POS."
        (defun my/elfeed-update ()
           (interactive)
           (ignore-errors
+            (elfeed-org)
             (elfeed-update)
             (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))))
 
