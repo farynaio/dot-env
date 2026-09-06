@@ -3246,7 +3246,8 @@ it can be passed in POS."
 
 (defun my/html-format ()
   (interactive)
-  (sgml-pretty-print (point-min) (point-max)))
+  (sgml-pretty-print (point-min) (point-max))
+  (message "Buffer formated"))
 
 (defalias 'html-format #'my/html-format)
 
