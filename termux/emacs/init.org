@@ -1350,7 +1350,7 @@ TODO:
   (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
 
   (defun my/tab-bar-tab-name ()
-    "Use TITLE org file property as tab name when in an org buffer, else call 'tab-bar-tab-name-current'."
+    "Use TITLE org file property as tab name when in an org buffer, or use other rules if given, else fallback to 'tab-bar-tab-name-current'."
     (cond ((and (eq major-mode 'org-mode)
              (fboundp #'org-get-title)
              (org-get-title)) (org-get-title))
