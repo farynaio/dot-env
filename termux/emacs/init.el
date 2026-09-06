@@ -4167,6 +4167,7 @@ it can be passed in POS."
         :custom
         (elfeed-db-directory my/elfeed-db-dir)
         (elfeed-enclosure-default-dir my/downloads-dir)
+        (elfeed-use-curl nil)
         ;; (shr-inhibit-images t)
         (elfeed-search-filter "-ignore -ok -junk")
         (elfeed-search-title-max-width 115)
