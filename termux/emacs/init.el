@@ -4159,6 +4159,7 @@ it can be passed in POS."
               ("u" . my/elfeed-mark-unread-move-next)
               ;; ("O" . my/elfeed-open-in-external-browser)
               ("g" . my/elfeed-update)
+              ("G" . my/elfeed-update)
               ;; ("<S-mouse-1>" . my/elfeed-search-open-in-external-click)
               ;; ("<s-mouse-1>" . elfeed-search-browse-url)
               ;; ("M" . (lambda () (interactive) (my/elfeed-send-emails t)))
