@@ -3242,6 +3242,12 @@ it can be passed in POS."
 ;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
 ;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 
+(defun my/html-format ()
+  (interactive)
+  (sgml-pretty-print (point-min) (point-max)))
+
+(defalias 'html-format #'my/html-format)
+
 (straight-register-package 'rainbow-mode)
 (straight-register-package 'emmet-mode)
 (straight-register-package 'web-mode)
