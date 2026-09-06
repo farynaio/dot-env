@@ -2119,13 +2119,13 @@ Including indent-buffer, which should not be called automatically on save."
   ;;    ))
 
   (defun my/org-copy-link ()
-    "Copy the org link at point to the kill ring and clipboard."
+    "Copy the org link at point to the kill ring and clipboard, unless cursor is at the end of the buffer or line."
     (interactive)
     (let* ((context (org-element-context))
            (type (org-element-type context))
            (beg (org-element-property :begin context))
            (end (org-element-property :end context)))
-      (if (eq type 'link)
+      (if (and (eq type 'link) (not (eobp)) (not (eq (char-to-string (following-char)) ?\n)))
           (progn
             (kill-ring-save beg end)
             (message "Link copied: %s" (buffer-substring beg end)))
