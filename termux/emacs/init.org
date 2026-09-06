@@ -2074,10 +2074,12 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<up>" . org-table-move-single-cell-up)
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
-        ("C-M-<right>" . org-table-move-single-cell-right))
+        ("C-M-<right>" . org-table-move-single-cell-right)
+        ("<RET>" . my/org-copy-link))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode))
+  :diminish org-indent-mode
   :custom
   (org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-eww ol-info))
   (org-bookmark-names-plist '())
