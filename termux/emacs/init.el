@@ -1298,11 +1298,11 @@
 
   (defun my/tab-bar-tab-name ()
     "Use TITLE org file property as tab name when in an org buffer, else call 'tab-bar-tab-name-current'."
-    (if (and (eq major-mode 'org-mode)
+    (cond ((and (eq major-mode 'org-mode)
              (fboundp #'org-get-title)
-             (org-get-title))
-        (org-get-title)
-      (tab-bar-tab-name-current)))
+             (org-get-title)) (org-get-title))
+          ((or (string-prefix-p "*notmuch-" (buffer-name) t) (memq major-mode '(notmuch-show-mode notmuch-search-mode notmuch-tree-mode notmuch-hello-mode notmuch-message-mode))) "E-mail")
+          (t (tab-bar-tab-name-current))))
 
   (if (eq system-type 'darwin)
       (setq tab-bar-auto-width-max '(150 15))
