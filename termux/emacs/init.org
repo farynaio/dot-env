@@ -519,7 +519,7 @@ TODO:
   :defer 1
   :delight which-key-mode
   :custom
-  (which-key-idle-delay 0.3)
+  (which-key-idle-delay 0.5)
   (which-key-show-early-on-C-h t) ; Allow F1 to trigger which-key before it is done automatically
   :config
   (which-key-mode 1))
