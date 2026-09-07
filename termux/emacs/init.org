@@ -4551,7 +4551,7 @@ Try:
           (unless (use-region-p) (next-line)))
 
         (defun my/elfeed ()
-          "Jump to 'elfeed' tab if it exists, or start 'elfeed' in current tab, and fetch"
+          "Jump to 'elfeed' tab if it exists, or start 'elfeed' in current tab."
           (interactive)
           (when (tab-bar--tab-index-by-name my/elfeed-tab-name)
               (tab-bar-switch-to-tab my/elfeed-tab-name))
@@ -5216,14 +5216,13 @@ Try:
       (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
 
       (defun my/notmuch ()
-        "Jump to 'notmuch' tab if it exists, or start 'notmuch' in current tab, and fetch new mails."
+        "Jump to 'notmuch' tab if it exists, or start 'notmuch' in current tab."
         (interactive)
         (when (tab-bar--tab-index-by-name my/notmuch-tab-name)
             (tab-bar-switch-to-tab my/notmuch-tab-name))
         (delete-other-windows)
         (unless (string-prefix-p "*notmuch-" (buffer-name) t)
-          (notmuch))
-        (my/notmuch-fetch-async))
+          (notmuch)))
 
       ;; Never forget subject
       (defun my/notmuch-mua-empty-subject-check ()
