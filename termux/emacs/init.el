@@ -3,6 +3,10 @@
 (defconst my/local-config-file (expand-file-name "local-config.el" my/local-config-dir))
 (defconst my/local-post-config-file (expand-file-name "local-post-config.el" my/local-config-dir)) ;; optional
 
+;; Preconfigured names for common tabs
+(defconst my/notmuch-tab-name "E-mail")
+(defconst my/elfeed-tab-name "RSS")
+
 (defvar my/emacs-initiated nil)
 
 ;; overwrite these in local-config.el to avoid pushing them to git
@@ -1301,7 +1305,8 @@
     (cond ((and (eq major-mode 'org-mode)
              (fboundp #'org-get-title)
              (org-get-title)) (org-get-title))
-          ((or (string-prefix-p "*notmuch-" (buffer-name) t) (memq major-mode '(notmuch-show-mode notmuch-search-mode notmuch-tree-mode notmuch-hello-mode notmuch-message-mode))) "E-mail")
+          ((or (string-prefix-p "*elfeed-" (buffer-name) t) (memq major-mode '(elfeed-search-mode elfeed-show-mode elfeed-tree-mode))) my/elfeed-tab-name)
+          ((or (string-prefix-p "*notmuch-" (buffer-name) t) (memq major-mode '(notmuch-show-mode notmuch-search-mode notmuch-tree-mode notmuch-hello-mode notmuch-message-mode))) my/notmuch-tab-name)
           (t (tab-bar-tab-name-current))))
 
   (if (eq system-type 'darwin)
@@ -1951,14 +1956,13 @@ Including indent-buffer, which should not be called automatically on save."
     (""
      (("p" hydra-project/body "project")
       ;; ("n" hydra-navigation/body "navigation")
-      ("r" hydra-registers/body "registers")
       ("f" consult-find "consult-find")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
       ("j" (org-journal-new-entry t) "org-journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write")
-      ("R" revert-buffer "revert buffer"))
+      ("r" revert-buffer "revert buffer"))
      ""
      (("a" org-agenda "org-agenda")
       ("c" org-capture "org-capture")
@@ -1972,7 +1976,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("w" hydra-eww/body "eww")
       ("d" hydra-dired/body "dired")
       ("z" shell "shell")
-      ("M" notmuch "notmuch")
+      ("M" my/notmuch "notmuch")
+      ("R" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
 
 ;; This is for async evalaution of org-babel blocks.
@@ -4136,7 +4141,7 @@ it can be passed in POS."
 (if (and my/elfeed-org-feeds-files my/elfeed-db-dir my/downloads-dir)
     (progn
       (use-package elfeed
-        :demand t
+        :commands (elfeed my/elfeed)
         :bind
         (:map elfeed-show-mode-map
               ("SPC" . elfeed-scroll-up-command)
@@ -4244,6 +4249,7 @@ it can be passed in POS."
           (elfeed))
 
        (defun my/elfeed-update ()
+         "Update 'elfeed' feeds and fetch."
           (interactive)
           (ignore-errors
             (elfeed-org)
@@ -4313,13 +4319,8 @@ it can be passed in POS."
               (browse-url-generic url)
               (shr--blink-link)))))
 
-        (defun my/elfeed-db-save ()
-          (elfeed-db-save)
-          ;; (elfeed-db-compact)
-          )
-
-        (add-hook 'kill-emacs-hook #'my/elfeed-db-save)
-        (add-hook 'elfeed-update-hooks #'elfeed-db-save)
+        (add-hook 'kill-emacs-hook #'elfeed-db-save)
+        (add-hook 'elfeed-update-hook #'elfeed-db-save)
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
         ;; (defun my/elfeed-youtube-download (&optional use-generic-p)
@@ -4446,14 +4447,14 @@ it can be passed in POS."
           (elfeed-search-tag-all-unread)
           (unless (use-region-p) (next-line)))
 
-        (defun my/elfeed-start ()
+        (defun my/elfeed ()
+          "Jump to 'elfeed' tab if it exists, or start 'elfeed' in current tab, and fetch"
           (interactive)
-          (if (tab-bar--tab-index-by-name "RSS")
-              (tab-bar-switch-to-tab "RSS")
-            (tab-bar-new-tab)
-            (tab-bar-rename-tab "RSS")
-            (elfeed))
-          (switch-to-buffer "*elfeed-search*")))
+          (when (tab-bar--tab-index-by-name my/elfeed-tab-name)
+              (tab-bar-switch-to-tab my/elfeed-tab-name))
+          (delete-other-windows)
+          (unless (string-prefix-p "*elfeed-" (buffer-name) t)
+            (elfeed))))
 
       (use-package elfeed-goodies
         :demand t
@@ -4472,13 +4473,12 @@ it can be passed in POS."
       (use-package elfeed-org
         :demand t
         :after (org elfeed)
-        :hook ((elfeed-update-hook . my/elfeed-db-save))
         :custom
         (rmh-elfeed-org-files my/elfeed-org-feeds-files)
         :config
         (elfeed-org))
 
-      (defalias 'rss #'my/elfeed-start))
+      (defalias 'rss #'my/elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-dir' and 'my/downloads-dir' are required, RSS disabled!"))
 
 (straight-register-package 'ement)
@@ -5067,7 +5067,7 @@ it can be passed in POS."
 (straight-register-package 'notmuch)
 (if (executable-find "notmuch")
     (use-package notmuch
-      :commands (notmuch)
+      :commands (notmuch my/notmuch)
       :bind
       (:map notmuch-search-mode-map
             ("d" . my/notmuch-search-mark-message-deleted)
@@ -5099,6 +5099,16 @@ it can be passed in POS."
       :config
       (advice-add 'notmuch-poll-and-refresh-this-buffer :override #'my/notmuch-fetch-async)
       (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
+
+      (defun my/notmuch ()
+        "Jump to 'notmuch' tab if it exists, or start 'notmuch' in current tab, and fetch new mails."
+        (interactive)
+        (when (tab-bar--tab-index-by-name my/notmuch-tab-name)
+            (tab-bar-switch-to-tab my/notmuch-tab-name))
+        (delete-other-windows)
+        (unless (string-prefix-p "*notmuch-" (buffer-name) t)
+          (notmuch))
+        (my/notmuch-fetch-async))
 
       ;; Never forget subject
       (defun my/notmuch-mua-empty-subject-check ()
