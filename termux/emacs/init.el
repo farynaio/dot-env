@@ -1962,6 +1962,7 @@ Including indent-buffer, which should not be called automatically on save."
      (("p" hydra-project/body "project")
       ;; ("n" hydra-navigation/body "navigation")
       ("f" consult-find "find file")
+      ("s" my/consult-ripgrep "grep")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
       ("j" (org-journal-new-entry t) "org-journal")
