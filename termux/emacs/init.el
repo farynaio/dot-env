@@ -3555,13 +3555,13 @@ it can be passed in POS."
                 ("<" . rjsx-electric-lt))
     :config
     (major-mode-hydra-define rjsx-mode
-                (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
-                ("Action"
-                 (
-                        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-                        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
-                        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
-                        ("c" edit-color-stamp "edit color" :exit t)))))
+      (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JSX" 1 -0.05))
+      ("Action"
+       (
+        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t)))))
 
   (use-package typescript-ts-mode
     :straight nil
