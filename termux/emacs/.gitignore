@@ -27,6 +27,7 @@
 /nov-places
 /saf-cache
 /saf-tmp
+/multisession
 
 /.mc-lists.el
 /emacs.desktop
