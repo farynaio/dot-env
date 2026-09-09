@@ -506,6 +506,7 @@
   ([remap describe-symbol] . helpful-symbol)
   ([remap describe-variable] . helpful-variable)
   ([remap describe-key] . helpful-key)
+  ("C-h M" . helpful-macro)
   :map helpful-mode-map
   ("q" . my/kill-current-buffer)
   ("." . set-mark-command)
