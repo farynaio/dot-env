@@ -1175,6 +1175,7 @@ TODO:
   :custom
   (corfu-cycle t)
   (corfu-on-exact-match nil)
+  (corfu-quit-no-much t)
   :config
   (add-to-list 'load-path (expand-file-name "straight/repos/corfu/extensions" user-emacs-directory))
   (require 'corfu-history)
@@ -1208,11 +1209,11 @@ TODO:
   ;; used by `completion-at-point'.  The order of the functions matters, the
   ;; first function returning a result wins.  Note that the list of buffer-local
   ;; completion functions takes precedence over the global list.
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-  ;; (add-hook 'completion-at-point-functions #'cape-history)
-  )
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
 (straight-register-package 'nerd-icons-corfu)
 (when (display-graphic-p)
@@ -2800,12 +2801,15 @@ it can be passed in POS."
 (setq cperl-indent-level tab-width)
 (setq sgml-basic-offset tab-width)
 
+;; Solve chicken and egg problem, when 'eglot-server-programs' is needed to configure LSPs but it's not available until lazily loaded eglot is initialized.
+(setq-default eglot-server-programs '())
+
 (use-package eglot
   :straight nil
   :commands (eglot eglot-ensure eglot-alternatives)
   :preface
   (setq eglot-events-buffer-size 0
-        read-process-output-max (* 1024 1024)) ;; 1mb)
+        read-process-output-max (* 1024 1024)) ;; 1mb
   ;; (gc-cons-threshold 100000000)
   :custom
   (eglot-extend-to-xref t)
@@ -2813,9 +2817,20 @@ it can be passed in POS."
   (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
   (eglot-autoshutdown t)
   :config
-  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider))
+  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
 
-;; TODO needed?
+  (defun my/eglot-init-local ()
+    (setq-local
+     completion-at-point-functions
+     (list
+         (cape-capf-super
+          #'eglot-completion-at-point
+          #'cape-keyword
+          #'cape-file
+          #'cape-dabbrev))))
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local))
+
+;; TODO needed that?
 (use-package flycheck-eglot
   :demand t
   :after (eglot flycheck)
@@ -2863,7 +2878,7 @@ it can be passed in POS."
               ;; (meson      "https://github.com/Decodetalkers/tree-sitter-meson" "master" "src")
               (python     "https://github.com/tree-sitter/tree-sitter-python")
               (php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")
-              ;; (ruby       "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")
+              (ruby       "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")
               ;; (rust       "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
               (toml       "https://github.com/tree-sitter/tree-sitter-toml")
               (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
@@ -2877,9 +2892,12 @@ it can be passed in POS."
       (dolist (mapping '((sh-mode . bash-ts-mode)
                          (css-mode . css-ts-mode)
                          (html-mode . html-ts-mode)
+                         (mhtml-mode . html-ts-mode)
                          (js-mode . js-ts-mode)
                          (json-mode . json-ts-mode)
-                         (python-mode . python-ts-mode)))
+                         (python-mode . python-ts-mode)
+                             (ruby-mode . ruby-ts-mode)
+                             ))
         (add-to-list 'major-mode-remap-alist mapping)))
   (warn "tree-sitter not available!"))
 
@@ -3161,8 +3179,8 @@ it can be passed in POS."
          (markdown-mode . abbrev-mode))
   :preface
   (defun my/markdown-lsp-init ()
-    ;;https://github.com/hrsh7th/vscode-langservers-extracted
-    (if (executable-find "vscode-html-language-server")
+    ;; https://github.com/hrsh7th/vscode-langservers-extracted
+    (if (executable-find "vscode-markdown-language-server")
         (progn
           (add-to-list 'eglot-server-programs '(major-mode . ("vscode-markdown-language-server")))
           (eglot-ensure))
@@ -3173,8 +3191,8 @@ it can be passed in POS."
   (advice-add 'markdown-forward-paragraph :override #'forward-paragraph)
   (advice-add 'markdown-forward-bblock :override #'forward-paragraph))
 
-;;https://github.com/bash-lsp/bash-language-server
 (defun my/sh-lsp-init ()
+  ;; https://github.com/bash-lsp/bash-language-server
   (if (executable-find "bash-language-server")
       (progn
         (add-to-list 'eglot-server-programs '(major-mode . ("bash-language-server" "start")))
@@ -3192,7 +3210,7 @@ it can be passed in POS."
              ("\\.sh\\'" . bash-ts-mode)
              ("\\.z?sh\\'" . bash-ts-mode)
              ("\\.profile\\'" . bash-ts-mode)))
-  (message "tree-sitter for bash not available, fallback to sh-mode")
+  (message "tree-sitter for bash not available, fallback to 'sh-mode'")
   (use-package sh-script
     :straight nil
     :hook ((bash-ts-mode . my/sh-lsp-init))
@@ -3205,12 +3223,6 @@ it can be passed in POS."
 (use-package cc-mode
   :straight nil
   ;; :hook (java-mode . eglot-ensure)
-  )
-
-(use-package ruby-mode
-  :straight nil
-  :mode "\\.rb\\'"
-  ;; :hook (ruby-mode . eglot-ensure)
   )
 
 (use-package vimrc-mode
@@ -3266,20 +3278,28 @@ it can be passed in POS."
         (eglot-ensure))
     (warn "vscode-langservers-extracted is not installed. HTML, JSON, CSS, Markdown language servers not available!")))
 
-(if (and (treesit-available-p) (treesit-ready-p 'css))
-    (use-package css-ts-mode
-      :straight nil
-      :hook ((css-ts-mode . my/css-lsp-init)
-             (css-ts-mode . rainbow-mode))
-      :mode "\\.s?css\\'")
-  (message "tree-sitter for CSS not available, fallback to css-mode")
-  (use-package css-mode
-    :straight nil
-    :hook ((css-mode . my/css-lsp-init)
-           (css-mode . rainbow-mode))
-    :mode "\\.s?css\\'"
-    :custom
-    (css-indent-offset tab-width)))
+(use-package css-mode
+  :straight nil
+  :hook ((css-ts-mode . my/css-lsp-init)
+         (css-ts-mode . rainbow-mode))
+  :mode ("\\.s?css\\'" . css-ts-mode)
+  :custom
+  (css-indent-offset tab-width))
+
+;; (if (and (treesit-available-p) (treesit-ready-p 'css))
+;;     (use-package css-mode
+;;       :straight nil
+;;       :hook ((css-ts-mode . my/css-lsp-init)
+;;              (css-ts-mode . rainbow-mode))
+;;       :mode "\\.s?css\\'")
+;;   (message "tree-sitter for CSS not available, fallback to css-mode")
+;;   (use-package css-mode
+;;     :straight nil
+;;     :hook ((css-mode . my/css-lsp-init)
+;;            (css-mode . rainbow-mode))
+;;     :mode "\\.s?css\\'"
+;;     :custom
+;;     (css-indent-offset tab-width)))
 
 (use-package dotenv-mode)
 
@@ -3316,6 +3336,20 @@ it can be passed in POS."
       (funcall my/native-local-major-mode)
     (web-mode)))
 #+end_src
+** Ruby
+#+begin_src emacs-lisp
+(use-package ruby-ts-mode
+  :straight nil
+  :mode "\\.rb\\'"
+  :preface
+  (defun my/ruby-lsp-init ()
+    ;; gem install ruby-lsp
+    (if (executable-find "ruby-lsp")
+        (progn
+          (add-to-list 'eglot-server-programs '(ruby-ts-mode . ("ruby-lsp" "--stdio")))
+          (eglot-ensure))
+      (warn "'ruby-lsp' is not installed. LSP not available!"))))
+#+end_src
 ** Elisp
 #+begin_src emacs-lisp
 ;; Elisp go-to-definition with M-. and back again with M-,
@@ -3332,6 +3366,28 @@ it can be passed in POS."
 
 (defalias 'html-format #'my/html-format)
 
+(use-package html-ts-mode
+  :straight nil
+  :commands html-ts-mode
+  :hook ((html-ts-mode . emmet-mode)
+         (html-ts-mode . rainbow-mode)
+         (html-ts-mode . my/html-lsp-init))
+  :bind (:map html-ts-mode-map
+              (("C-c C-j" . my/join-line)))
+  :preface
+  (defun my/html-lsp-init ()
+    (if (executable-find "rass")
+        (if (assoc 'html-ts-mode eglot-server-programs)
+            (eglot-ensure)
+          (let* ((html-lsp (when (executable-find "vscode-html-language-server") '("--" "vscode-html-language-server" "--stdio")))
+                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
+                 (lsps (append html-lsp tailwind-lsp)))
+            (if (length> lsps 1)
+                (progn
+                  (add-to-list 'eglot-server-programs `(html-ts-mode . ,(append '("rass") lsps)))
+                  (warn "LSP server 'vscode-html-language-server' or 'tailwindcss-language-server' not installed!")))))
+      (warn "'rassumfrassum' not found, LSP servers not available!"))))
+
 (straight-register-package 'rainbow-mode)
 (straight-register-package 'emmet-mode)
 (straight-register-package 'web-mode)
@@ -3345,6 +3401,7 @@ it can be passed in POS."
   (use-package emmet-mode
     :commands emmet-mode
     :delight
+    :hook (html-ts-mode . emmet-mode)
     :custom
     (emmet-self-closing-tag-style " /")
     (emmet-expand-jsx-className? t))
@@ -3352,23 +3409,24 @@ it can be passed in POS."
   (use-package web-mode
     :hook ((web-mode . rainbow-mode)
            (web-mode . emmet-mode)
-           (web-mode . my/web-lsp-init)
-           (web-mode . eglot-ensure))
+           (web-mode . my/web-lsp-init))
     :bind (:map web-mode-map
                 ("C-c C-n" . web-mode-tag-end)
                 ("C-c C-p" . web-mode-tag-beginning)
                 ("<backtab>" . indent-relative)
                 ("<f5>" . my/toggle-php-flavor-mode))
-    :mode ("\\.html\\.twig\\'"
-           "\\.hbs\\'"
-           "\\.ejs\\'"
-           "\\.html?\\'"
-           "\\.njk\\'"
-           "\\.svg\\'")
+    ;; :mode ("\\.html\\.twig\\'"
+    ;;        "\\.hbs\\'"
+    ;;        "\\.ejs\\'"
+    ;;        "\\.html?\\'"
+    ;;        "\\.njk\\'"
+    ;;        "\\.svg\\'")
     :preface
     (defun my/web-lsp-init ()
       (if (executable-find "vscode-html-language-server")
-          (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
+          (progn
+            (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
+            (eglot-ensure))
         (warn "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, HTML, JSON, markdown language servers not available!")))
     :custom
     (web-mode-engines-alist '(("php" . "\\.php\\'")))
@@ -3502,17 +3560,20 @@ Requires HTML
         (eglot-code-action-organize-imports-ts min))))
 
   (defun my/js-lsp-init ()
-    ;; https://github.com/typescript-language-server/typescript-language-server
-    (if (executable-find "typescript-language-server")
-        (progn
-          ;; (eglot--code-action eglot-code-action-organize-imports "source.organizeImports.ts")
-          ;; (eglot--code-action eglot-code-action-organize-imports-ts "source.organizeImports.ts")
-          (add-to-list 'eglot-server-programs '(major-mode . ("typescript-language-server" "--stdio")))
-          (eglot-ensure))
-      (warn "typescript-language-server is not installed! TypeScript language server not available!")))
+    (if (executable-find "rass")
+        (if (assoc major-mode eglot-server-programs)
+            (eglot-ensure)
+          (let* ((ts-lsp (when (executable-find "typescript-language-server") '("--" "typescript-language-server" "--stdio")))
+                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
+                 (lsps (append ts-lsp tailwind-lsp)))
+            (if (length> lsps 1)
+                (progn
+                  (add-to-list 'eglot-server-programs `(,major-mode . ,(append '("rass") lsps)))
+                  (warn "LSP server 'typescript-language-server' or 'tailwindcss-language-server' not installed!")))))
+      (warn "'rassumfrassum' not found, LSP servers not available!")))
 
   (if (and (treesit-available-p) (treesit-ready-p 'javascript))
-      (use-package js-ts-mode
+      (use-package js
         :hook ((js-ts-mode . my/js-lsp-init))
         ;; (js-mode . add-node-modules-path)
         :mode ("\\.m?js\\'" "\\.cjs\\'")
@@ -3526,8 +3587,8 @@ Requires HTML
             ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
             ("c" edit-color-stamp "edit color" :exit t))))
 
-      ;; Use js2-mode for Node scripts
-      (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode)))
+        ;; Use js2-mode for Node scripts
+        (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode)))
     (message "tree-sitter for Javascript not available, fallback to js-mode and js2-mode")
     (use-package js
       :straight nil
