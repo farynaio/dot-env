@@ -300,8 +300,7 @@
 (use-package simple
   :demand t
   :straight nil
-  :bind (("C-c C-j" . my/join-line)
-         :map visual-line-mode-map
+  :bind (:map visual-line-mode-map
          ;; Prevent visual-line-mode from remapping kill-line to kill-visual-line
          ([remap kill-line] . nil)
          ("M-u" . upcase-dwim)
@@ -421,6 +420,10 @@
   (desktop-base-file-name "emacs.desktop")
   :config
   (desktop-save-mode 1))
+
+(bind-keys
+ ("C-c j" . my/join-line)
+ ("C-c C-j" . my/join-line))
 
 (defalias 'qcalc #'quick-calc)
 
@@ -2358,10 +2361,6 @@ should be continued."
       :defer 2
       :after org
       :commands (org-journal-new-entry my/org-journal-open-current-journal-file)
-      :bind
-      (:map org-journal-mode-map
-            ("C-c j" . my/join-line)
-            ("C-c C-j" . my/join-line))
       :custom
       (org-journal-dir my/org-journal-directory)
       (org-journal-file-type 'yearly)
