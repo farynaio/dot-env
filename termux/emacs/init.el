@@ -1961,7 +1961,7 @@ Including indent-buffer, which should not be called automatically on save."
     (""
      (("p" hydra-project/body "project")
       ;; ("n" hydra-navigation/body "navigation")
-      ("f" consult-find "consult-find")
+      ("f" consult-find "find file")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
       ("j" (org-journal-new-entry t) "org-journal")
