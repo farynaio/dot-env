@@ -3183,7 +3183,7 @@ it can be passed in POS."
     ;; https://github.com/hrsh7th/vscode-langservers-extracted
     (if (executable-find "vscode-markdown-language-server")
         (progn
-          (add-to-list 'eglot-server-programs '(major-mode . ("vscode-markdown-language-server")))
+          (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-markdown-language-server")))
           (eglot-ensure))
       (warn "vscode-langservers-extracted is not installed, HTML, JSON, Markdown language servers not available!")))
   :config
@@ -3196,7 +3196,7 @@ it can be passed in POS."
   ;; https://github.com/bash-lsp/bash-language-server
   (if (executable-find "bash-language-server")
       (progn
-        (add-to-list 'eglot-server-programs '(major-mode . ("bash-language-server" "start")))
+        (add-to-list 'eglot-server-programs `(,major-mode . ("bash-language-server" "start")))
         (eglot-ensure))
     (warn "bash-language-server is not installed. Bash language server not available!")))
 
@@ -3233,7 +3233,7 @@ it can be passed in POS."
 (defun my/dockerfile-lsp-init ()
   (if (executable-find "docker-langserver")
       (progn
-        (add-to-list 'eglot-server-programs '(major-mode . ("docker-langserver" "--stdio")))
+        (add-to-list 'eglot-server-programs `(,major-mode . ("docker-langserver" "--stdio")))
         (eglot-ensure))
     (warn "docker-langserver not found. Dockerfile language server are not available!")))
 
@@ -3255,7 +3255,7 @@ it can be passed in POS."
 (defun my/json-lsp-init ()
   (if (executable-find "vscode-json-language-server")
       (progn
-        (add-to-list 'eglot-server-programs '(major-mode . ("vscode-json-language-server" "--stdio")))
+        (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-json-language-server" "--stdio")))
         (eglot-ensure))
     (warn "vscode-langservers-extracted is not installed. HTML, JSON, Markdown language servers are not available!")))
 
@@ -3275,7 +3275,7 @@ it can be passed in POS."
 (defun my/css-lsp-init ()
   (if (executable-find "vscode-css-language-server")
       (progn
-        (add-to-list 'eglot-server-programs '(major-mode . ("vscode-css-language-server" "--stdio")))
+        (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-css-language-server" "--stdio")))
         (eglot-ensure))
     (warn "vscode-langservers-extracted is not installed. HTML, JSON, CSS, Markdown language servers not available!")))
 
@@ -3309,12 +3309,12 @@ it can be passed in POS."
 
 ;; https://github.com/redhat-developer/yaml-language-server
 (defun my/yaml-lsp-init ()
-  (if (executable-find "yaml-language-server"))
-  (progn
-    (add-to-list 'eglot-server-programs
-                 '(major-mode . ("yaml-language-server" "--stdio")))
-    (eglot-ensure))
-  (warn "yaml-language-server is not installed. YAML language server not available!"))
+  (if (executable-find "yaml-language-server")
+      (progn
+        (add-to-list 'eglot-server-programs
+                     `(,major-mode . ("yaml-language-server" "--stdio")))
+        (eglot-ensure))
+    (warn "yaml-language-server is not installed. YAML language server not available!")))
 
 (straight-register-package 'yaml-mode)
 (if (and (treesit-available-p) (treesit-ready-p 'yaml))
@@ -3692,7 +3692,7 @@ Requires HTML
   (defun my/python-lsp-init ()
     (if (executable-find "pyright-langserver")
         (progn
-          (add-to-list 'eglot-server-programs '(major-mode . ("pyright-langserver" "--stdio")))
+          (add-to-list 'eglot-server-programs `(,major-mode . ("pyright-langserver" "--stdio")))
           (eglot-ensure))
       (warn "pyright-langserver not found! Python language server are not available!")))
 
@@ -3821,7 +3821,7 @@ Requires HTML
       (warn "PHP not installed!"))
     (if (file-exists-p "vendor/felixfbecker/language-server/bin/php-language-server.php")
         (progn
-          (add-to-list 'eglot-server-programs '(major-mode . ("php" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
+          (add-to-list 'eglot-server-programs `(,major-mode . ("php" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
           (eglot-ensure))
       (warn "php-language-server.php is not installed. PHP language server are not available!")))
 
