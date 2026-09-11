@@ -5141,7 +5141,9 @@ it can be passed in POS."
             ("r" . my/notmuch-search-mark-message-read)
             :map notmuch-tree-mode-map
             ("d" . my/notmuch-tree-mark-message-deleted)
-            ("r" . my/notmuch-tree-mark-message-read))
+            ("r" . my/notmuch-tree-mark-message-read)
+            :map notmuch-show-mode-map
+            ("d" . my/notmuch-show-mark-message-deleted))
       :custom
       (notmuch-show-depth-limit 1)
       (notmuch-show-logo nil)
@@ -5185,7 +5187,7 @@ it can be passed in POS."
       (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
 
       (defun my/notmuch-search-mark-message-deleted ()
-        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
+        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
         (interactive)
         (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged"))
         (notmuch-search-next-thread))
@@ -5197,7 +5199,7 @@ it can be passed in POS."
         (notmuch-search-next-thread))
 
       (defun my/notmuch-tree-mark-message-deleted ()
-        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox' and 'unread'."
+        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
         (interactive)
         (notmuch-tree-tag '("+deleted" "-inbox" "-unread" "-flagged"))
         (notmuch-tree-next-thread))
@@ -5219,6 +5221,11 @@ it can be passed in POS."
         (interactive)
         (notmuch-tree-tag '("+inbox" "+unread"))
         (notmuch-tree-next-thread))
+
+      (defun my/notmuch-show-mark-message-deleted ()
+        "Mark the current message as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
+        (interactive)
+        (notmuch-show-add-tag '("+deleted" "-inbox" "-unread" "-flagged")))
 
       (defun my/notmuch-fetch-async ()
         "Asynchronously fetch new mails for notmuch."
