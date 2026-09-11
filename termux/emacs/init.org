@@ -3374,7 +3374,8 @@ it can be passed in POS."
          (html-ts-mode . rainbow-mode)
          (html-ts-mode . my/html-lsp-init))
   :bind (:map html-ts-mode-map
-              (("C-c C-j" . my/join-line)))
+              (("C-c C-j" . my/join-line))
+              ("C-n" . completion-at-point))
   :preface
   (defun my/html-lsp-init ()
     (if (executable-find "rass")
