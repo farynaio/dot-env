@@ -5125,6 +5125,7 @@ it can be passed in POS."
   )
 
 (use-package mm-decode
+  :demand t
   :straight nil
   :custom
   ;; Set default directory for downloaded email attachments.

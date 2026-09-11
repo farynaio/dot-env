@@ -5242,6 +5242,7 @@ Try:
   )
 
 (use-package mm-decode
+  :demand t
   :straight nil
   :custom
   ;; Set default directory for downloaded email attachments.
