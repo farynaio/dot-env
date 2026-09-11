@@ -4550,6 +4550,13 @@ it can be passed in POS."
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
 
+(use-package browse-url
+  :demand t
+  :straight nil
+  :config
+  ;; Copy link instead follow
+  (advice-add 'browse-url :override #'shr-copy-url))
+
 ; https://noonker.github.io/posts/2020-04-22-elfeed/
 (defun my/youtube-download (url)
   "Downloads the URL in an async shell"
