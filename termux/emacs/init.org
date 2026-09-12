@@ -5085,9 +5085,11 @@ Try:
         (kill-buffer (current-buffer))))
 
   ;; default shell buffer
-  (setq explicit-shell-file-name (getenv "SHELL"))
+  (setq explicit-shell-file-name (or (executable-find "fish") (executable-find "bash")))
   ;; use shell-file-name for subprocesses
-  (setq shell-file-name explicit-shell-file-name))
+  (setq shell-file-name (executable-find "bash"))
+
+  (setq sh-shell-file shell-file-name))
 
 ;; untested
 ;; https://codeberg.org/akib/Emacs-eat
