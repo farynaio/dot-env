@@ -2737,10 +2737,11 @@ it can be passed in POS."
   :custom
   (eglot-extend-to-xref t)
   ;; (eglot-events-buffer-size 100000)
-  (eglot-ignored-server-capabilities '(:documentHighlightProvider :workspace/didChangeWorkspaceFolders))
   (eglot-autoshutdown t)
   :config
-  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider)
+  (add-to-list 'eglot-ignored-server-capabilities :workspace/didChangeWorkspaceFolders)
 
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
