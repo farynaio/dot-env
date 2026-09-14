@@ -1789,7 +1789,7 @@ Including indent-buffer, which should not be called automatically on save."
      (("a" my/projectile-add-known-project "add")
       ("d" projectile-remove-known-project "remove")
       ("i" projectile-invalidate-cache "reset cache")
-      ("r" (my/func-call '(projectile-invalidate-cache nil) 'projectile-replace-regexp '(save-some-buffers t)) "regexp replace"))
+      ("r" (lambda () (projectile-invalidate-cache nil) (projectile-replace-regexp) (save-some-buffers t)) "regexp replace"))
      "Find"
      (("p" projectile-switch-project "project")
       ("o" projectile-find-other-file "other file")
@@ -1858,7 +1858,7 @@ Including indent-buffer, which should not be called automatically on save."
     (:hint nil :color teal :quit-key "q" :title (with-faicon "pencil" "Write" 1 -0.05))
     ("Language"
      (("d" ispell-change-dictionary "change dictionary")
-      ("s" (lambda () (interactive) (flyspell-mode 'toggle)) "flyspell toggle")
+      ("s" (flyspell-mode 'toggle) "flyspell toggle")
       ("w" my/lang-toggle "language switch" :exit t))
      "Fix grammar"
      (("o" artbollocks-mode "artbollocks" :toggle t)
@@ -1947,9 +1947,9 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-saf
     (:hint nil :color teal :quit-key "q" :title (with-faicon "folder-open" "SAF" 1 -0.05))
     ("Browse"
-     (("b" (my/func-call (termux-saf-browse my/termux-saf-uri-books)) "Books")
-      ("p" (my/func-call (termux-saf-browse my/termux-saf-uri-pictures)) "Pictures")
-      ("d" (my/func-call (termux-saf-browse my/termux-saf-uri-documents)) "Documents"))
+     (("b" (termux-saf-browse my/termux-saf-uri-books) "Books")
+      ("p" (termux-saf-browse my/termux-saf-uri-pictures) "Pictures")
+      ("d" (termux-saf-browse my/termux-saf-uri-documents) "Documents"))
      "Action"
      (("c" termux-saf-cache-clear "clear cache"))))
 
@@ -1967,7 +1967,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("w" hydra-write/body "write")
       ("r" revert-buffer "revert buffer"))
      ""
-     (("a" org-agenda "org-agenda")
+     (("a" (org-agenda nil "d") "TODO")
       ("c" org-capture "org-capture")
       ("m" hydra-magit/body "magit")
       ("K" browse-kill-ring "browse kill ring")
@@ -2017,8 +2017,7 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<up>" . org-table-move-single-cell-up)
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
-        ("C-M-<right>" . org-table-move-single-cell-right)
-        ("<RET>" . my/org-copy-link))
+        ("C-M-<right>" . org-table-move-single-cell-right))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode))
