@@ -1572,6 +1572,7 @@ Including indent-buffer, which should not be called automatically on save."
   (enable-command 'dired-find-alternate-file)
   (dired-kill-when-opening-new-dired-buffer t)
   (dired-dwim-target t)
+  (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
   (dired-recursive-deletes 'always)
   (dired-recursive-copies 'always)
