@@ -4898,18 +4898,43 @@ it can be passed in POS."
   (eat-term-name "xterm"))
 
 (use-package tramp
-  :demand t
+  :defer 1
   :straight nil
   :custom
-  ;; (tramp-verbose 10)
+  (tramp-verbose 0)
+  (tramp-use-ssh-controlmaster-options nil)
+  (tramp-use-scp-direct-remote-copying t)
+  (tramp-copy-size-limit (* 1024 1024))
+  (remote-file-name-inhibit-cache nil)
+  (tramp-completion-reread-directory-timeout nil)
   (tramp-default-method "ssh")
   (tramp-inline-compress-start-size 40960)
-  (tramp-chunksize 500)
-  (tramp-ssh-controlmaster-options "-o ControlPath=%%C -o ControlMaster=auto -o ControlPersist=no")
+  (tramp-chunksize nil)
+  ;; (tramp-ssh-controlmaster-options "-o ControlPath=%%C -o ControlMaster=auto -o ControlPersist=no")
   (tramp-remote-path '("/bin" "/usr/bin"))
   (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
-  (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh")))
+  (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
+  :config
+  (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t)))
+
+(use-package files-x
+  :straight nil
+  :after tramp
+  :config
+  (connection-local-set-profile-variables
+   'remote-direct-async-process
+   '((tramp-direct-async-process . t)))
+
+  (connection-local-set-profiles
+   '(:application tramp :protocol "ssh")
+   'remote-direct-async-process))
+
+(use-package rlogin
+  :straight nil
+  :after tramp
+  :config
+  (rlogin-directory-tracking-mode -1))
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
