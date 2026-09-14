@@ -1038,17 +1038,20 @@
                        (when symbol (symbol-name symbol))))))
       (consult-line prefill)))
 
+  (defun my/find-file ()
+    "Use 'projectile-find-file' if in git project, else 'consult-find'."
+    (interactive)
+    (if (and (fboundp 'projectile-project-p) (projectile-project-p))
+        (projectile-consult-find-file)
+      (consult-find)))
+
   (defun my/consult-ripgrep ()
     "Run `consult-line` preffiled with region or symbol-at-point."
     (interactive)
-    (let ((dir (read-directory-name "Dir: " nil))
-          (prefill (if (use-region-p)
-                       (buffer-substring-no-properties (region-beginning) (region-end))
-                     (let ((symbol (symbol-at-point)))
-                       (when symbol (symbol-name symbol))))))
+    (let ((dir (read-directory-name "Dir: " nil)))
       (if (executable-find "rg")
-          (consult-ripgrep dir prefill)
-        (consult-grep dir prefill)))))
+          (consult-ripgrep dir)
+        (consult-grep dir))))
 
 (use-package consult-flycheck
   :demand 2
