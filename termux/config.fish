@@ -38,6 +38,9 @@ alias pkglsu="apt list --upgradable"
 alias g="git"
 alias e="my_emacs_run"
 
+# list ssh tunnels
+alias ssh-ls="ps -ef | grep '[s]sh'"
+
 # Delete all emails market by notmuch with deleted tag
 alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xargs -0 --no-run-if-empty rm;notmuch new"
 
