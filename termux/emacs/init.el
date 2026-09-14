@@ -931,6 +931,7 @@
 
 (use-package dashboard
   :demand t
+  :after projectile
   :custom
   (dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-newline dashboard-insert-init-info dashboard-insert-items))
   (dashboard-agenda-action 'dashboard-agenda--visit-file)
@@ -950,6 +951,7 @@
   (dashboard-navigation-cycle t)
   (dashboard-items
    '((agenda . 5)
+     (projects . 5)
      (recents . 5)
      (bookmarks . 15)))
   (dashboard-modify-heading-icons '((recents   . "file-text")
