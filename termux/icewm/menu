@@ -1,0 +1,15 @@
+# -*- mode: conf -*-
+# This is an example for icewm 4.1.0 menu definition file.
+# It will be installed as /data/data/com.termux/files/usr/share/icewm/menu.
+# Place your variants in /data/data/com.termux/files/usr/etc/icewm or in $HOME/.icewm since
+# modifications to this file will be overwritten when you reinstall icewm.
+
+prog Epiphany /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.gnome.Epiphany.svg epiphany
+prog "Terminal" xterm xfce4-terminal
+prog "Thunar" /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg thunar
+prog "Emacs" emacs emacs
+prog Gimp gimp gimp
+
+menu "System" folder {
+    prog "Control Panel" redhat control-panel
+}

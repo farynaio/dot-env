@@ -1,0 +1,7 @@
+# -*- mode: conf -*-
+
+MenuFontNameXft="sans-serif:size=14:bold"
+# TitleFontNameXft="sans-serif:size=14"
+# NormalButtonFontNameXft="sans-serif:size=14"
+# ActiveButtonFontNameXft="sans-serif:size=14:bold"
+IconThemes="Adwaita:-HighContrast"

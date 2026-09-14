@@ -1,0 +1,10 @@
+# -*- mode: conf -*-
+# This is an example for icewm 4.1.0 toolbar definition file.
+# It will be installed as /data/data/com.termux/files/usr/share/icewm/toolbar.
+# Place your variants in /data/data/com.termux/files/usr/etc/icewm or in $HOME/.icewm since
+# modifications to this file will be overwritten when you reinstall icewm.
+
+prog "Emacs" emacs emacs
+prog "Terminal" xterm xfce4-terminal
+prog "Thunar" /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg thunar
+prog "Web browser" /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.gnome.Epiphany.svg xdg-utils-xdg-open about:blank
