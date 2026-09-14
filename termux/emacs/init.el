@@ -1028,6 +1028,9 @@
   :custom
   ;; Narrowing lets you restrict results to certain groups of candidates
   (consult-narrow-key "<")
+  (consult-find-args
+   "find . -not ( -wholename */.* -prune ) -not -path '*/node_modules/*'")
+  (completion-in-region-function #'consult-completion-in-region)
   :config
   (defun my/consult-line ()
     "Run `consult-line` preffiled with region or symbol-at-point."
@@ -1955,7 +1958,7 @@ Including indent-buffer, which should not be called automatically on save."
     (""
      (("p" hydra-project/body "project")
       ;; ("n" hydra-navigation/body "navigation")
-      ("f" consult-find "find file")
+      ("f" my/find-file "find file")
       ("s" my/consult-ripgrep "grep")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
@@ -2642,12 +2645,15 @@ it can be passed in POS."
     (projectile-enable-caching t)
     (projectile-verbose nil)
     (projectile-do-log nil)
+    (projectile-require-project-root t)
     (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
     (projectile-track-known-projects-automatically nil)
     (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
     (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
     (projectile-switch-project-action #'projectile-dired)
     :config
+    (require 'projectile-consult)
+
     (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
     (unbind-key "C-c p" projectile-mode-map)
 
@@ -2674,7 +2680,6 @@ it can be passed in POS."
         (when projectile-verbose
           (message "Invalidated Projectile cache for %s."
                    (propertize project-root 'face 'font-lock-keyword-face)))))
-
 
     (defun my/projectile-add-known-project (project-root)
       (interactive (list (read-directory-name "Add to known projects: ")))
