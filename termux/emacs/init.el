@@ -2725,7 +2725,7 @@ it can be passed in POS."
 
 (use-package eglot
   :straight nil
-  :commands (eglot eglot-ensure eglot-alternatives)
+  :commands (eglot eglot-ensure my/eglot-ensure eglot-alternatives)
   :preface
   (setq eglot-events-buffer-size 0
         read-process-output-max (* 1024 1024)) ;; 1mb
@@ -2737,6 +2737,11 @@ it can be passed in POS."
   (eglot-autoshutdown t)
   :config
   (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+
+  (defun my/eglot-ensure ()
+    "Run eglot only for local files."
+    (unless (file-remote-p (buffer-file-name))
+      (eglot-ensure)))
 
   (defun my/eglot-init-local ()
     (setq-local
@@ -3102,7 +3107,7 @@ it can be passed in POS."
     (if (executable-find "vscode-markdown-language-server")
         (progn
           (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-markdown-language-server")))
-          (eglot-ensure))
+          (my/eglot-ensure))
       (warn "vscode-langservers-extracted is not installed, HTML, JSON, Markdown language servers not available!")))
   :config
   (advice-add 'markdown-backward-paragraph :override #'backward-paragraph)
@@ -3115,7 +3120,7 @@ it can be passed in POS."
   (if (executable-find "bash-language-server")
       (progn
         (add-to-list 'eglot-server-programs `(,major-mode . ("bash-language-server" "start")))
-        (eglot-ensure))
+        (my/eglot-ensure))
     (warn "bash-language-server is not installed. Bash language server not available!")))
 
 (add-hook 'after-save #'executable-make-buffer-file-executable-if-script-p)
@@ -3141,7 +3146,7 @@ it can be passed in POS."
 
 (use-package cc-mode
   :straight nil
-  ;; :hook (java-mode . eglot-ensure)
+  ;; :hook (java-mode . my/eglot-ensure)
   )
 
 (use-package vimrc-mode
@@ -3152,7 +3157,7 @@ it can be passed in POS."
   (if (executable-find "docker-langserver")
       (progn
         (add-to-list 'eglot-server-programs `(,major-mode . ("docker-langserver" "--stdio")))
-        (eglot-ensure))
+        (my/eglot-ensure))
     (warn "docker-langserver not found. Dockerfile language server are not available!")))
 
 (straight-register-package 'dockerfile-mode)
@@ -3174,7 +3179,7 @@ it can be passed in POS."
   (if (executable-find "vscode-json-language-server")
       (progn
         (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-json-language-server" "--stdio")))
-        (eglot-ensure))
+        (my/eglot-ensure))
     (warn "vscode-langservers-extracted is not installed. HTML, JSON, Markdown language servers are not available!")))
 
 (straight-register-package 'json-mode)
@@ -3194,7 +3199,7 @@ it can be passed in POS."
   (if (executable-find "vscode-css-language-server")
       (progn
         (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-css-language-server" "--stdio")))
-        (eglot-ensure))
+        (my/eglot-ensure))
     (warn "vscode-langservers-extracted is not installed. HTML, JSON, CSS, Markdown language servers not available!")))
 
 (use-package css-mode
@@ -3231,7 +3236,7 @@ it can be passed in POS."
       (progn
         (add-to-list 'eglot-server-programs
                      `(,major-mode . ("yaml-language-server" "--stdio")))
-        (eglot-ensure))
+        (my/eglot-ensure))
     (warn "yaml-language-server is not installed. YAML language server not available!")))
 
 (straight-register-package 'yaml-mode)
@@ -3264,7 +3269,7 @@ it can be passed in POS."
     (if (executable-find "ruby-lsp")
         (progn
           (add-to-list 'eglot-server-programs '(ruby-ts-mode . ("ruby-lsp" "--stdio")))
-          (eglot-ensure))
+          (my/eglot-ensure))
       (warn "'ruby-lsp' is not installed. LSP not available!"))))
 
 ;; Elisp go-to-definition with M-. and back again with M-,
@@ -3292,7 +3297,7 @@ it can be passed in POS."
   (defun my/html-lsp-init ()
     (if (executable-find "rass")
         (if (assoc 'html-ts-mode eglot-server-programs)
-            (eglot-ensure)
+            (my/eglot-ensure)
           (let* ((html-lsp (when (executable-find "vscode-html-language-server") '("--" "vscode-html-language-server" "--stdio")))
                  (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
                  (lsps (append html-lsp tailwind-lsp)))
@@ -3340,7 +3345,7 @@ it can be passed in POS."
       (if (executable-find "vscode-html-language-server")
           (progn
             (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
-            (eglot-ensure))
+            (my/eglot-ensure))
         (warn "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, HTML, JSON, markdown language servers not available!")))
     :custom
     (web-mode-engines-alist '(("php" . "\\.php\\'")))
@@ -3473,7 +3478,7 @@ it can be passed in POS."
   (defun my/js-lsp-init ()
     (if (executable-find "rass")
         (if (assoc major-mode eglot-server-programs)
-            (eglot-ensure)
+            (my/eglot-ensure)
           (let* ((ts-lsp (when (executable-find "typescript-language-server") '("--" "typescript-language-server" "--stdio")))
                  (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
                  (lsps (append ts-lsp tailwind-lsp)))
@@ -3601,7 +3606,7 @@ it can be passed in POS."
     (if (executable-find "pyright-langserver")
         (progn
           (add-to-list 'eglot-server-programs `(,major-mode . ("pyright-langserver" "--stdio")))
-          (eglot-ensure))
+          (my/eglot-ensure))
       (warn "pyright-langserver not found! Python language server are not available!")))
 
 (if (and (treesit-available-p) (treesit-ready-p 'python))
@@ -3725,7 +3730,7 @@ it can be passed in POS."
     (if (file-exists-p "vendor/felixfbecker/language-server/bin/php-language-server.php")
         (progn
           (add-to-list 'eglot-server-programs `(,major-mode . ("php" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
-          (eglot-ensure))
+          (my/eglot-ensure))
       (warn "php-language-server.php is not installed. PHP language server are not available!")))
 
   (straight-register-package 'php-mode)
@@ -3780,7 +3785,7 @@ it can be passed in POS."
           (progn
             (setq-local eglot-connect-timeout 999999) ;; because kotlin-mode
             (add-to-list 'eglot-server-programs `(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
-            (eglot-ensure))
+            (my/eglot-ensure))
         (warn "kotlin-language-server not found!")))))
 
 (load-theme 'modus-vivendi t)
