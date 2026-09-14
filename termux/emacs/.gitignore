@@ -16,6 +16,7 @@
 /emacs-local-config/local-post-config.el
 /org-roam.db
 /tramp-persistency.el
+/tramp-autosaves/*
 /tramp
 *~*
 /projectile-bookmarks.eld
