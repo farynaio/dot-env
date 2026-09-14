@@ -268,7 +268,10 @@
  completions-max-height 20                     ; This is arbitrary
  completions-format 'one-column
  completions-group t
- completion-auto-select 'second-tab)            ; Much more eager
+ completion-auto-select 'second-tab
+ read-file-name-completion-ignore-case t
+ read-buffer-completion-ignore-case t
+ completion-ignore-case t)
 
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
@@ -1065,13 +1068,8 @@
 
 ;; Vertico: better vertical completion for minibuffer commands
 (use-package vertico
-  :demand t
+  :defer 1.5
   :after consult
-  :custom
-  (completion-in-region-function #'consult-completion-in-region)
-  (read-file-name-completion-ignore-case t)
-  (read-buffer-completion-ignore-case t)
-  (completion-ignore-case t)
   :config
   (vertico-mode 1)
   (keymap-set vertico-map "M-?" #'minibuffer-completion-help)
