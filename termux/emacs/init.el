@@ -4831,8 +4831,10 @@ it can be passed in POS."
     ;; For not Termux-X11 it may sense to use LXDE session management
     ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
 
-    (when (or (getenv "EXWM_START") (y-or-n-p "Do you want to start EXWM? "))
-      (my/exwm-start))))
+    ;; Auto start if EXWM_START is set
+    (when (getenv "EXWM_START")
+      (my/exwm-start))
+))
 (message "X setup finished")
 
 (use-package message
