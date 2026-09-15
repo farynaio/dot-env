@@ -1075,7 +1075,7 @@
     (let ((dir (read-directory-name "Dir: " nil)))
       (if (executable-find "rg")
           (consult-ripgrep dir)
-        (consult-grep dir))))
+        (consult-grep dir)))))
 
 (use-package consult-flycheck
   :demand 2
@@ -1209,7 +1209,9 @@
 ;; :bind (("M-<up>" . move-text-up)
 ;; ("M-<down>" . move-text-down)))
 
+;; DEPRECATED very buggy, unusable
 (use-package multiple-cursors
+  :disabled t
   :commands (hydra-multiple-cursors/body mc/mark-previous-like-this mc/mark-next-like-this mc/mark-all-like-this mc/mark-previous-lines mc/mark-next-lines)
   :bind
   (("C->" . my/mc/mark-next-line) ;; might not work on soft keyboard Android
@@ -2785,19 +2787,25 @@ it can be passed in POS."
 
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
-    (unless (file-remote-p (buffer-file-name))
-      (eglot-ensure)))
+    (unless (tramp-file-name-p (buffer-file-name)))
+      (eglot-ensure))
 
   (defun my/eglot-init-local ()
     (setq-local
      completion-at-point-functions
      (list
-         (cape-capf-super
-          #'eglot-completion-at-point
-          #'cape-keyword
-          #'cape-file
-          #'cape-dabbrev))))
-  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local))
+      (cape-capf-super
+       #'eglot-completion-at-point
+       #'cape-keyword
+       #'cape-file
+       #'cape-dabbrev))))
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
+
+  (defun my/eglot--error-filter (orig-fn &rest args)
+    "Suppress annoying 'unsupported capability' warnings in echo area."
+    (unless (string-match "unsupported capability" (car args))
+      (apply orig-fn args)))
+  (advice-add 'eglot--error :around #'my/eglot--error-filter))
 
 ;; TODO needed that?
 (use-package flycheck-eglot
@@ -2836,9 +2844,9 @@ it can be passed in POS."
               ;; (erlang     "https://github.com/WhatsApp/tree-sitter-erlang" "main" "src")
               (go         "https://github.com/tree-sitter/tree-sitter-go")
               ;; (haskell    "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
-              (html       "https://github.com/tree-sitter/tree-sitter-html")
+              ;; (html       "https://github.com/tree-sitter/tree-sitter-html")
               ;; (java       "https://github.com/tree-sitter/tree-sitter-java" "master" "src")
-              (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+              ;; (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
               (json       "https://github.com/tree-sitter/tree-sitter-json")
               ;; (julia      "https://github.com/tree-sitter/tree-sitter-julia" "master" "src")
               ;; (lua        "https://github.com/MunifTanjim/tree-sitter-lua" "main" "src")
@@ -2860,13 +2868,13 @@ it can be passed in POS."
 
       (dolist (mapping '((sh-mode . bash-ts-mode)
                          (css-mode . css-ts-mode)
-                         (html-mode . html-ts-mode)
+                         ;; (html-mode . html-ts-mode)
                          (mhtml-mode . html-ts-mode)
-                         (js-mode . js-ts-mode)
+                         ;; (js-mode . js-ts-mode)
                          (json-mode . json-ts-mode)
                          (python-mode . python-ts-mode)
-                             (ruby-mode . ruby-ts-mode)
-                             ))
+                         (ruby-mode . ruby-ts-mode)
+                         ))
         (add-to-list 'major-mode-remap-alist mapping)))
   (warn "tree-sitter not available!"))
 
@@ -2990,26 +2998,7 @@ it can be passed in POS."
   :commands rainbow-delimiters-mode
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package sgml-mode
-  :straight nil
-  :config
-  (defun skip-to-next-blank-line ()
-    (interactive)
-    (let ((inhibit-changing-match-data t))
-      (skip-syntax-forward " >")
-      (unless (search-forward-regexp "^\\s *$" nil t)
-        (goto-char (point-max)))))
 
-  (defun skip-to-previous-blank-line ()
-    (interactive)
-    (let ((inhibit-changing-match-data t))
-      (skip-syntax-backward " >")
-      (unless (search-backward-regexp "^\\s *$" nil t)
-        (goto-char (point-min)))))
-
-  ;; speed up navigation
-  (define-key html-mode-map [remap forward-paragraph] 'skip-to-next-blank-line)
-  (define-key html-mode-map [remap backward-paragraph] 'skip-to-previous-blank-line))
 
 (use-package prog-mode
   :straight nil
@@ -3128,7 +3117,7 @@ it can be passed in POS."
               ("C-<return>" . nil)
               ("C-M-<return>" . yafolding-toggle-element)))
 
-(use-package fish-mode)
+;; (use-package fish-mode)
 
 (use-package nxml-mode
   :straight nil
@@ -3305,6 +3294,52 @@ it can be passed in POS."
       (funcall my/native-local-major-mode)
     (web-mode)))
 
+(use-package mmm-mode
+  :demand t
+  :commands mmm-mode
+  :custom
+  (mmm-submode-decoration-level 0)
+  (mmm-global-mode nil)
+  :config
+  ;; Styled Components blocks
+  (mmm-add-classes
+   '((mmm-styled-my
+      :submode css-mode
+      :front "\\(styled\\|css\\)[.()<>[:alnum:]]?+`"
+      :back "`;")))
+  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-styled-my)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-styled-my)
+
+  ;; Graphql in JS
+  (mmm-add-classes
+   '((mmm-graphql-my
+      :submode graphql-mode
+      :front "gr?a?p?h?ql`"
+      :back "`;")))
+  (mmm-add-mode-ext-class 'typescript-ts-mode nil 'mmm-graphql-my)
+  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-graphql-my)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql-my)
+
+  ;; Javascript in HTML
+  (mmm-add-classes
+   '((mmm-html-js-my
+      :submode js2-mode
+      :front "<script>"
+      :back "</script>")))
+  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-js-my)
+  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-js-my)
+
+  ;; Javascript in HTML mmm mode
+  (mmm-add-classes
+   '((mmm-html-css-ts-my
+      :submode css-ts-mode
+      :front "<style>"
+      :back "</style>")))
+  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts-my)
+  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts-my))
+
+(message "Development > General setup finished")
+
 (use-package ruby-ts-mode
   :straight nil
   :mode "\\.rb\\'"
@@ -3324,42 +3359,77 @@ it can be passed in POS."
 ;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 (message "Development > Elisp setup finished")
 
-(defun my/html-format ()
-  (interactive)
-  (sgml-pretty-print (point-min) (point-max))
-  (message "Buffer formated"))
-
-(defalias 'html-format #'my/html-format)
-
-(use-package html-ts-mode
-  :straight nil
-  :commands html-ts-mode
-  :hook ((html-ts-mode . emmet-mode)
-         (html-ts-mode . rainbow-mode)
-         (html-ts-mode . my/html-lsp-init))
-  :bind (:map html-ts-mode-map
-              (("C-c C-j" . my/join-line))
-              ("C-n" . completion-at-point))
-  :preface
-  (defun my/html-lsp-init ()
-    (if (executable-find "rass")
-        (if (assoc 'html-ts-mode eglot-server-programs)
-            (my/eglot-ensure)
-          (let* ((html-lsp (when (executable-find "vscode-html-language-server") '("--" "vscode-html-language-server" "--stdio")))
-                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
-                 (lsps (append html-lsp tailwind-lsp)))
-            (if (length> lsps 1)
-                (progn
-                  (add-to-list 'eglot-server-programs `(html-ts-mode . ,(append '("rass") lsps)))
-                  (warn "LSP server 'vscode-html-language-server' or 'tailwindcss-language-server' not installed!")))))
-      (warn "'rassumfrassum' not found, LSP servers not available!"))))
-
 (straight-register-package 'rainbow-mode)
 (straight-register-package 'emmet-mode)
 (straight-register-package 'web-mode)
 (straight-register-package 'web-beautify)
 (straight-register-package 'jade-mode)
 (when my/html-enable
+  (defun my/html-format ()
+    (interactive)
+    (sgml-pretty-print (point-min) (point-max))
+    (message "Buffer formated"))
+
+  (defalias 'html-format #'my/html-format)
+
+  (defun my/html-lsp-init ()
+    (if (executable-find "rass")
+        (if (assoc major-mode eglot-server-programs)
+            (my/eglot-ensure)
+          (let* ((html-lsp (when (executable-find "vscode-html-language-server") '("--" "vscode-html-language-server" "--stdio")))
+                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
+                 (lsps (append html-lsp tailwind-lsp)))
+            (if (length> lsps 0)
+                (progn
+                  (add-to-list 'eglot-server-programs `(,major-mode . ,(append '("rass") lsps)))
+                  (my/eglot-ensure))
+              (warn "LSP server 'vscode-html-language-server' or 'tailwindcss-language-server' not installed!"))))
+      (warn "'rassumfrassum' not found, LSP servers not available!")))
+
+  ;; DEPRECATED poor syntax support
+  (use-package html-ts-mode
+    :disabled t
+    :straight nil
+    :commands html-ts-mode
+    :hook ((html-ts-mode . mmm-mode)
+           (html-ts-mode . emmet-mode)
+           (html-ts-mode . rainbow-mode)
+           (html-ts-mode . my/html-lsp-init))
+    :bind (:map html-ts-mode-map
+                (("C-c C-j" . my/join-line))
+                ("C-n" . completion-at-point)))
+
+  ;; DEPRECATED just use web-mode for now
+  (use-package sgml-mode
+    :disabled t
+    :straight nil
+    :hook (
+           (html-mode . mmm-mode)
+           (html-mode . emmet-mode)
+           (html-mode . rainbow-mode)
+           (html-mode . my/html-lsp-init))
+    :mode ("\\.html\\'" . html-mode)
+    :bind (:map html-mode-map
+                (("C-c C-j" . my/join-line))
+                ("C-n" . completion-at-point))
+    :config
+    (defun skip-to-next-blank-line ()
+      (interactive)
+      (let ((inhibit-changing-match-data t))
+        (skip-syntax-forward " >")
+        (unless (search-forward-regexp "^\\s *$" nil t)
+          (goto-char (point-max)))))
+
+    (defun skip-to-previous-blank-line ()
+      (interactive)
+      (let ((inhibit-changing-match-data t))
+        (skip-syntax-backward " >")
+        (unless (search-backward-regexp "^\\s *$" nil t)
+          (goto-char (point-min)))))
+
+    ;; speed up navigation
+    (define-key html-mode-map [remap forward-paragraph] 'skip-to-next-blank-line)
+    (define-key html-mode-map [remap backward-paragraph] 'skip-to-previous-blank-line))
 
   ;; (use-package edit-color-stamp
   ;; :commands edit-color-stamp)
@@ -3367,7 +3437,6 @@ it can be passed in POS."
   (use-package emmet-mode
     :commands emmet-mode
     :delight
-    :hook (html-ts-mode . emmet-mode)
     :custom
     (emmet-self-closing-tag-style " /")
     (emmet-expand-jsx-className? t))
@@ -3375,27 +3444,24 @@ it can be passed in POS."
   (use-package web-mode
     :hook ((web-mode . rainbow-mode)
            (web-mode . emmet-mode)
-           (web-mode . my/web-lsp-init))
-    :bind (:map web-mode-map
-                ("C-c C-n" . web-mode-tag-end)
-                ("C-c C-p" . web-mode-tag-beginning)
-                ("<backtab>" . indent-relative)
-                ("<f5>" . my/toggle-php-flavor-mode))
-    ;; :mode ("\\.html\\.twig\\'"
-    ;;        "\\.hbs\\'"
-    ;;        "\\.ejs\\'"
-    ;;        "\\.html?\\'"
-    ;;        "\\.njk\\'"
-    ;;        "\\.svg\\'")
-    :preface
-    (defun my/web-lsp-init ()
-      (if (executable-find "vscode-html-language-server")
-          (progn
-            (add-to-list 'eglot-server-programs '(web-mode . ("vscode-html-language-server" "--stdio")))
-            (my/eglot-ensure))
-        (warn "https://github.com/hrsh7th/vscode-langservers-extracted is not installed, HTML, JSON, markdown language servers not available!")))
+           (web-mode . my/html-lsp-init))
+    :bind
+    (:map web-mode-map
+          ("C-c C-n" . web-mode-tag-end)
+          ("C-c C-p" . web-mode-tag-beginning)
+          ("<backtab>" . indent-relative)
+          ("<f5>" . my/toggle-php-flavor-mode))
+    :mode ("\\.html\\.twig\\'"
+           "\\.hbs\\'"
+           "\\.ejs\\'"
+           "\\.html?\\'"
+           "\\.njk\\'"
+           "\\.svg\\'")
     :custom
     (web-mode-engines-alist '(("php" . "\\.php\\'")))
+    (web-mode-content-types-alist
+     '(("jsx" . "\\.jsx\\'")
+       ("jsx" . "\\.tsx\\'")))
     (web-mode-markup-indent-offset tab-width)
     (web-mode-css-indent-offset tab-width)
     (web-mode-code-indent-offset tab-width)
@@ -3424,17 +3490,7 @@ it can be passed in POS."
     (web-mode-enable-auto-opening nil)
     (web-mode-enable-auto-pairing nil)
     (web-mode-enable-auto-quoting nil)
-    (web-mode-content-types-alist
-     '(("jsx" . "\\.jsx\\'")
-       ("jsx" . "\\.tsx\\'")))
     :config
-
-    ;; (major-mode-hydra-define+ web-mode
-    ;;   (:hint nil :color amaranth :quit-key "q" :title (with-faicon "code" "HTML" 1 -0.05))
-    ;;   ("Action"
-    ;;    (("f" my/html-buffer-format "format buffer" :exit t))
-    ;;    (("c" edit-color-stamp "edit color" :exit t))))
-
     (defun my/html-buffer-format ()
       (interactive)
       (sgml-pretty-print (point-min) (point-max))
@@ -3458,7 +3514,6 @@ it can be passed in POS."
   )
 (message "Development > HTML setup finished")
 
-(straight-register-package 'mmm-mode)
 (straight-register-package 'apheleia)
 (straight-register-package 'js2-mode)
 (straight-register-package 'rjsx-mode)
@@ -3469,32 +3524,6 @@ it can be passed in POS."
   ;; Use binaries in node_modules
   (use-package add-node-modules-path
     :demand t)
-
-  (use-package mmm-mode
-    :commands mmm-mode
-    :custom
-    (mmm-submode-decoration-level 0)
-    :config
-    (add-hook 'mmm-mode-hook
-              (lambda () (set-face-background 'mmm-default-submode-face nil)))
-
-    ;; Styled Components mmm mode
-    (mmm-add-classes
-     '((mmm-styled-mode
-        :submode css-mode
-        :front "\\(styled\\|css\\)[.()<>[:alnum:]]?+`"
-        :back "`;")))
-    (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-styled-mode)
-    (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-styled-mode)
-    ;; Graphql mmm mode
-    (mmm-add-classes
-     '((mmm-graphql-mode
-        :submode graphql-mode
-        :front "gr?a?p?h?ql`"
-        :back "`;")))
-    (mmm-add-mode-ext-class 'typescript-ts-mode nil 'mmm-graphql-mode)
-    (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-graphql-mode)
-    (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql-mode))
 
   (use-package apheleia
     :commands (rjsx-mode tsx-ts-mode typescript-ts-mode apheleia-format-buffer)
@@ -3530,63 +3559,52 @@ it can be passed in POS."
           (let* ((ts-lsp (when (executable-find "typescript-language-server") '("--" "typescript-language-server" "--stdio")))
                  (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
                  (lsps (append ts-lsp tailwind-lsp)))
-            (if (length> lsps 1)
+            (if (length> lsps 0)
                 (progn
                   (add-to-list 'eglot-server-programs `(,major-mode . ,(append '("rass") lsps)))
-                  (warn "LSP server 'typescript-language-server' or 'tailwindcss-language-server' not installed!")))))
+                  (my/eglot-ensure))
+              (warn "LSP server 'typescript-language-server' or 'tailwindcss-language-server' not installed!"))))
       (warn "'rassumfrassum' not found, LSP servers not available!")))
 
-  (if (and (treesit-available-p) (treesit-ready-p 'javascript))
-      (use-package js
-        :hook ((js-ts-mode . my/js-lsp-init))
-        ;; (js-mode . add-node-modules-path)
-        :mode ("\\.m?js\\'" "\\.cjs\\'")
-        :config
-        (major-mode-hydra-define js-ts-mode
-          (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
-          ("Action"
-           (
-            ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-            ("p" my/prettier-format-buffer "prettier buffer" :exit t)
-            ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
-            ("c" edit-color-stamp "edit color" :exit t))))
+  ;; Disabled: poor syntax support
+  ;; TODO maybe check it later
+  (use-package js
+    :disabled t
+    :straight nil
+    :hook ((js-mode . my/js-lsp-init)
+           (js-mode . add-node-modules-path))
+    :mode ("\\.m?js\\'" "\\.cjs\\'")
+    :custom
+    (js-indent-level tab-width)
+    (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+    (js-chain-indent t)
+    (js-indent-align-list-continuation nil)
+    ;; :config
+    ;; (flycheck-add-mode 'javascript-eslint 'js-mode)
+    ;; (add-hook 'js-mode-hook
+    ;;   (lambda () (unless (eq major-mode 'json-mode) (lsp))))
+    )
 
-        ;; Use js2-mode for Node scripts
-        (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode)))
-    (message "tree-sitter for Javascript not available, fallback to js-mode and js2-mode")
-    (use-package js
-      :straight nil
-      :hook ((js-mode . my/js-lsp-init)
-             (js-mode . add-node-modules-path))
-      :custom
-      (js-indent-level tab-width)
-      (flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-      (js-chain-indent t)
-      (js-indent-align-list-continuation nil)
-      ;; :config
-      ;; (flycheck-add-mode 'javascript-eslint 'js-mode)
-      ;; (add-hook 'js-mode-hook
-      ;;   (lambda () (unless (eq major-mode 'json-mode) (lsp))))
-      )
-    (use-package js2-mode
-      :hook ((js2-mode . apheleia-mode)
-             (js2-mode . rainbow-mode)
-             (js2-mode . my/js-lsp-init))
-      :mode ("\\.m?js\\'" "\\.cjs\\'")
-      :custom
-      (js2-mode-show-parse-errors nil)
-      (js2-mode-show-strict-warnings nil)
-      :config
-      (major-mode-hydra-define js2-mode
-        (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
-        ("Action"
-         (
-          ("w" my/web-mode-toggle "toggle web-mode" :exit t)
-          ("p" my/prettier-format-buffer "prettier buffer" :exit t)
-          ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
-          ("c" edit-color-stamp "edit color" :exit t))))
-      ;; Use js2-mode for Node scripts
-      (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))))
+  (use-package js2-mode
+    :hook ((js2-mode . apheleia-mode)
+           (js2-mode . rainbow-mode)
+           (js2-mode . my/js-lsp-init))
+    :mode ("\\.m?js\\'" "\\.cjs\\'")
+    :custom
+    (js2-mode-show-parse-errors nil)
+    (js2-mode-show-strict-warnings nil)
+    :config
+    (major-mode-hydra-define js2-mode
+      (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "jsx-2" "JS" 1 -0.05))
+      ("Action"
+       (
+        ("w" my/web-mode-toggle "toggle web-mode" :exit t)
+        ("p" my/prettier-format-buffer "prettier buffer" :exit t)
+        ("o" my/eglot-organize-imports-ts "organize imports" :exit t)
+        ("c" edit-color-stamp "edit color" :exit t))))
+
+    ;; Use js2-mode for Node scripts
+    (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode)))
 
   (use-package rjsx-mode
     :commands rjsx-mode
@@ -3594,7 +3612,7 @@ it can be passed in POS."
     :hook ((rjsx-mode . add-node-modules-path)
            (rjsx-mode . emmet-mode)
            (rjsx-mode . rainbow-mode)
-           (rjsx-mode . mmm-mode)
+           ;; (rjsx-mode . mmm-mode)
            (rjsx-mode . my/js-lsp-init))
     :bind (:map rjsx-mode-map
                 ("<" . rjsx-electric-lt))
@@ -5016,6 +5034,7 @@ it can be passed in POS."
     (warn "Font 'Cascadia Code PL' not available!"))
 
   (use-package exwm
+    :disabled t
     :demand t
     :custom
     (exwm-workspace-number 4)
