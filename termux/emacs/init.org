@@ -73,6 +73,8 @@ TODO:
 
 (unless (executable-find "rg")
   (warn "'rg' not found! Install 'ripgrep'"))
+
+(message "Environment setup finished")
 #+end_src
 * General
 #+begin_src emacs-lisp
@@ -458,10 +460,13 @@ TODO:
  ("C-c C-j" . my/join-line))
 
 (defalias 'qcalc #'quick-calc)
+
+(message "General setup finished")
 #+end_src
 * Debug
 #+begin_src emacs-lisp
 ;; (setq backtrace-on-redisplay-error t)
+(message "Debug setup finished")
 #+end_src
 * Util functions
 #+begin_src emacs-lisp
@@ -498,6 +503,7 @@ TODO:
       (if (zerop (process-exit-status process))
           (when on-success (funcall on-success))
         (when on-failure (funcall on-failure))))))
+(message "Util functions setup finished")
 #+end_src
 * Help
 #+begin_src emacs-lisp
@@ -554,6 +560,7 @@ TODO:
   ("C-h o" . helpful-symbol)
   ("C-h v" . helpful-variable)
   ("C-h k" . helpful-key))))
+(message "Help setup finished")
 #+end_src
 * Git
 #+begin_src emacs-lisp
@@ -665,6 +672,7 @@ TODO:
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
   (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
+(message "Git setup finished")
 #+end_src
 * Windows / Buffers / Frames
 #+begin_src emacs-lisp
@@ -819,6 +827,7 @@ TODO:
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
+(message "Windows / Buffers / Frames setup finished")
 #+end_src
 * Appearance
 #+begin_src emacs-lisp
@@ -844,6 +853,8 @@ TODO:
   (push '(?\{ . ?\}) electric-pair-pairs)
   (push '(?\( . ?\)) electric-pair-pairs)
   (push '(?\{ . ?\}) electric-pair-text-pairs))
+
+(message "Apperance setup finished")
 #+end_src
 * Icons
 #+begin_src emacs-lisp
@@ -865,6 +876,7 @@ TODO:
       (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
         (nerd-icons-install-fonts t)
         (message "nerd-icons installed")))))
+(message "Icons setup finished")
 #+end_src
 * Commands & Navigation
 #+begin_src emacs-lisp
@@ -1025,6 +1037,8 @@ TODO:
 
 (use-package visual-fill-column
   :commands (visual-fill-column-mode visual-fill-column-center-text))
+
+(message "Commands & Navigation setup finished")
 #+end_src
 * Termux
 #+begin_src emacs-lisp
@@ -1042,6 +1056,8 @@ TODO:
     :bind
     (:map termux-saf-mode-map
           ("q" . kill-current-buffer))))
+
+(message "Termux setup finished")
 #+end_src
 * Minibuffer & Completion
 #+begin_src emacs-lisp
@@ -1222,6 +1238,8 @@ TODO:
     :after nerd-icons
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
+
+(message "Minibuffer Completion setup finished")
 #+end_src
 * Undo & redo
 #+begin_src emacs-lisp
@@ -1235,6 +1253,8 @@ TODO:
   ;;   (kbd "u") #'undo-fu-only-undo
   ;;   (kbd "C-r") #'undo-fu-only-redo)
 )
+
+(message "Undo & Redo setup finished")
 #+end_src
 * Edit
 #+begin_src emacs-lisp
@@ -1503,6 +1523,7 @@ Including indent-buffer, which should not be called automatically on save."
   (indent-region (point-min) (point-max)))
 ;; (global-set-key (kbd "C-c n") #'my/cleanup-buffer)
 
+(message "Edit setup finished")
 #+end_src
 * Navigation
 #+begin_src emacs-lisp
@@ -1587,6 +1608,8 @@ Including indent-buffer, which should not be called automatically on save."
  ("C-M-b" . my/parens-jump)
  ("C-M-f" . my/parens-jump)
  ("M-v" .  my/scroll-up-command))
+
+(message "Navigation setup finished")
 #+end_src
 * Encryption
 #+begin_src emacs-lisp
@@ -1613,6 +1636,8 @@ Including indent-buffer, which should not be called automatically on save."
                       (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                             (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
   (warn "Variable '%s' is not set, GPG not available!" 'my/epa-file-encrypt-to-default))
+
+(message "Encryption setup finished")
 #+end_src
 * Dired
 #+begin_src emacs-lisp
@@ -1704,6 +1729,8 @@ Including indent-buffer, which should not be called automatically on save."
     :delight all-the-icons-dired-mode
     :config
     (add-hook 'dired-mode-hook #'all-the-icons-dired-mode)))
+
+(message "Dired setup finished")
 #+end_src
 * Evil
 #+begin_src emacs-lisp
@@ -1812,6 +1839,8 @@ Including indent-buffer, which should not be called automatically on save."
     :after evil
     :config
     (evil-collection-init)))
+
+(message "Evil setup finished")
 #+end_src
 * Hydra
 #+begin_src emacs-lisp
@@ -2045,6 +2074,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("M" my/notmuch "notmuch")
       ("R" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
+
+(message "Hydra setup finished")
 #+end_src
 * Org
 #+begin_src emacs-lisp
@@ -2625,6 +2656,7 @@ it can be passed in POS."
   :commands (org-link-archive-at-point)
   :bind (:map org-mode-map
               ("C-x C-z" . org-link-archive-at-point)))
+(message "Org setup finished")
 #+end_src
 * Calendar
 #+begin_src emacs-lisp
@@ -2702,6 +2734,8 @@ it can be passed in POS."
   (defalias 'calendar-year #'my/calendar-year)
   (defalias 'my/calendar-full #'my/calendar-year)
   (defalias 'yearly-calendar #'my/calendar-year))
+
+(message "Calendar setup finished")
 #+end_src
 * Project
 #+begin_src emacs-lisp
@@ -2790,6 +2824,8 @@ it can be passed in POS."
     (if (projectile-project-root)
         (projectile-recentf)
       (consult-recent-file)))
+
+(message "Project setup finished")
 #+end_src
 * Development
 ** General
@@ -3354,6 +3390,7 @@ it can be passed in POS."
           (add-to-list 'eglot-server-programs '(ruby-ts-mode . ("ruby-lsp" "--stdio")))
           (my/eglot-ensure))
       (warn "'ruby-lsp' is not installed. LSP not available!"))))
+(message "Development > Ruby setup finished")
 #+end_src
 ** Elisp
 #+begin_src emacs-lisp
@@ -3361,6 +3398,7 @@ it can be passed in POS."
 ;; (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
 ;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
 ;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+(message "Development > Elisp setup finished")
 #+end_src
 ** HTML
 #+begin_src emacs-lisp
@@ -3496,6 +3534,7 @@ it can be passed in POS."
   ;; debugger
   ;; (use-package realgud)
   )
+(message "Development > HTML setup finished")
 #+end_src
 ** Javascript
 Requires HTML
@@ -3683,6 +3722,8 @@ Requires HTML
 
   ;; (use-package json-reformat)
   )
+
+(message "Development > Javascript setup finished")
 #+end_src
 ** Python
 #+begin_src emacs-lisp
@@ -3796,13 +3837,16 @@ Requires HTML
 
   ;; (use-package code-cells)
   )
+
+(message "Development > Python setup finished")
 #+end_src
-** Go
+** Golang
 #+begin_src emacs-lisp
 (when my/go-enable
   (use-package go-mode
     :disabled t
     :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'")))
+(message "Development > Goland setup finished")
 #+end_src
 ** PHP
 Requires HTML
@@ -3871,6 +3915,7 @@ Requires HTML
           (if (not symbol)
               (message "No symbol at point.")
             (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol)))))))))
+(message "Development > PHP setup finished")
 #+end_src
 ** Kotlin
 Untested
@@ -3887,6 +3932,7 @@ Untested
             (add-to-list 'eglot-server-programs `(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
             (my/eglot-ensure))
         (warn "kotlin-language-server not found!")))))
+(message "Development > Kotlin setup finished")
 #+end_src
 * Theme
 #+begin_src emacs-lisp
@@ -3944,6 +3990,7 @@ Untested
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+(message "Theme setup finished")
 #+end_src
 * Abbreviations
 #+begin_src emacs-lisp
@@ -4184,6 +4231,7 @@ Untested
                    ("gui" "GUI" nil 0)
                    ("todo" "TODO" nil 0)
                    ) nil :case-fixed nil)
+(message "Abbreviations setup finished")
 #+end_src
 * Writing
 Try:
@@ -4283,6 +4331,7 @@ Try:
                     "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                               ) t) "\\b")
    artbollocks-jargon nil))
+(message "Writing setup finished")
 #+end_src
 * Reading
 #+begin_src emacs-lisp
@@ -4302,6 +4351,7 @@ Try:
   :custom
   (nov-text-width 75)
   (visual-fill-column-center-text t))
+(message "Reading setup finished")
 #+end_src
 * Elfeed / RSS
 #+begin_src emacs-lisp
@@ -4650,6 +4700,7 @@ Try:
 
       (defalias 'rss #'my/elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-dir' and 'my/downloads-dir' are required, RSS disabled!"))
+(message "Elfeed setup finished")
 #+end_src
 * Matrix
 #+begin_src emacs-lisp
@@ -4657,6 +4708,7 @@ Try:
 (when my/matrix-enable
   (use-package ement
     :demand t))
+(message "Matrix setup finished")
 #+end_src
 * WWW
 #+begin_src emacs-lisp
@@ -4982,6 +5034,7 @@ Try:
     :docstring "Searchin' the wikis.")
 
   (engine-mode t))
+(message "WWW setup finished")
 #+end_src
 * Shell / Terminal
 #+begin_src emacs-lisp
@@ -5021,6 +5074,7 @@ Try:
                    :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti" ("terminfo/e" "terminfo/e/*") ("terminfo/65" "terminfo/65/*") ("integration" "integration/*") (:exclude ".dir-locals.el" "*-tests.el")))
   :custom
   (eat-term-name "xterm"))
+(message "Shell / Terminal setup finished")
 #+end_src
 * SSH / Tramp
 #+begin_src emacs-lisp
@@ -5062,6 +5116,7 @@ Try:
   :after tramp
   :config
   (rlogin-directory-tracking-mode -1))
+(message "SSH / Tramp setup finished")
 #+end_src
 * X11 / EXWM
 #+BEGIN_src emacs-lisp
@@ -5164,6 +5219,7 @@ Try:
 
     (when (or (getenv "EXWM_START") (y-or-n-p "Do you want to start EXWM? "))
       (my/exwm-start))))
+(message "X setup finished")
 #+end_src
 * Email
 #+begin_src emacs-lisp
@@ -5305,6 +5361,7 @@ Try:
               ;;     (call-interactively 'notmuch-refresh-this-buffer)))
               ))))))
   (warn "'notmuch' not found!"))
+(message "Email setup finished")
 #+end_src
 * Ledger
 #+begin_src emacs-lisp
@@ -5350,15 +5407,17 @@ Try:
 (use-package flycheck-ledger
   :demand t
   :after ledger-mode)
+(message "Ledger setup finished")
 #+end_src
-* Native compile
+* Native Compile
 #+begin_src emacs-lisp
 (when nil
   (if (and (fboundp 'native-comp-available-p) (native-comp-available-p))
       (native--compile-async `(,my/local-config-dir) t nil)
     (warn "Native compile not available!")))
+(message "Native Compile setup finished")
 #+end_src
-* Post config
+* Post Config
 #+begin_src emacs-lisp
 ;; (setq gc-cons-threshold most-positive-fixnum)
 (bind-keys
@@ -5382,6 +5441,7 @@ Try:
 (setq gc-cons-threshold 100000000)
 
 (setq my/emacs-initiated t)
+(message "Post Config setup finished")
 #+end_src
 * Local Variables
 # Local Variables:

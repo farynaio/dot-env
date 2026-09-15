@@ -47,6 +47,8 @@
 (unless (executable-find "rg")
   (warn "'rg' not found! Install 'ripgrep'"))
 
+(message "Environment setup finished")
+
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -430,7 +432,10 @@
 
 (defalias 'qcalc #'quick-calc)
 
+(message "General setup finished")
+
 ;; (setq backtrace-on-redisplay-error t)
+(message "Debug setup finished")
 
 (defun my/termux-p ()
   "Check if Emacs is running on Termux"
@@ -465,6 +470,7 @@
       (if (zerop (process-exit-status process))
           (when on-success (funcall on-success))
         (when on-failure (funcall on-failure))))))
+(message "Util functions setup finished")
 
 (use-package man
   :straight nil
@@ -519,6 +525,7 @@
   ("C-h o" . helpful-symbol)
   ("C-h v" . helpful-variable)
   ("C-h k" . helpful-key))))
+(message "Help setup finished")
 
 (setq-default
  vc-follow-symlinks t
@@ -628,6 +635,7 @@
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream #'magit-insert-unpushed-to-upstream-or-recent)
   (magit-add-section-hook 'magit-status-sections-hook #'magit-insert-recent-commits #'magit-insert-unpushed-to-upstream-or-recent)
   (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
+(message "Git setup finished")
 
 (unbind-key "C-x <right>")
 (unbind-key "C-x <left>")
@@ -780,6 +788,7 @@
         ;;    (display-buffer-reuse-window display-buffer-same-window)
         ;;    (window-parameters . ((quit-restore . delete))))
         ))
+(message "Windows / Buffers / Frames setup finished")
 
 (use-package time
   :demand t
@@ -804,6 +813,8 @@
   (push '(?\( . ?\)) electric-pair-pairs)
   (push '(?\{ . ?\}) electric-pair-text-pairs))
 
+(message "Apperance setup finished")
+
 (straight-register-package 'all-the-icons)
 (when (display-graphic-p)
   (use-package all-the-icons
@@ -822,6 +833,7 @@
       (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
         (nerd-icons-install-fonts t)
         (message "nerd-icons installed")))))
+(message "Icons setup finished")
 
 ;; Show more than 4 levels when evaling expressions
 (setq eval-expression-print-level 100)
@@ -981,6 +993,8 @@
 (use-package visual-fill-column
   :commands (visual-fill-column-mode visual-fill-column-center-text))
 
+(message "Commands & Navigation setup finished")
+
 (when (my/termux-p)
   ;; Fixed tramp too long socket paths, and probably other issues
   (setq small-temporary-file-directory (getenv "TMPDIR"))
@@ -995,6 +1009,8 @@
     :bind
     (:map termux-saf-mode-map
           ("q" . kill-current-buffer))))
+
+(message "Termux setup finished")
 
 (use-package consult
   :defer 1
@@ -1174,6 +1190,8 @@
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
 
+(message "Minibuffer Completion setup finished")
+
 (setq undo-limit 160000)
 
 (use-package undo-fu
@@ -1184,6 +1202,8 @@
   ;;   (kbd "u") #'undo-fu-only-undo
   ;;   (kbd "C-r") #'undo-fu-only-redo)
 )
+
+(message "Undo & Redo setup finished")
 
 ;; (use-package move-text
 ;; :bind (("M-<up>" . move-text-up)
@@ -1450,6 +1470,7 @@ Including indent-buffer, which should not be called automatically on save."
   (indent-region (point-min) (point-max)))
 ;; (global-set-key (kbd "C-c n") #'my/cleanup-buffer)
 
+(message "Edit setup finished")
 
 (setq
  scroll-step 1
@@ -1533,6 +1554,8 @@ Including indent-buffer, which should not be called automatically on save."
  ("C-M-f" . my/parens-jump)
  ("M-v" .  my/scroll-up-command))
 
+(message "Navigation setup finished")
+
 (setq-default mml-secure-openpgp-sign-with-sender t)
 
 (if (boundp 'my/epa-file-encrypt-to-default)
@@ -1556,6 +1579,8 @@ Including indent-buffer, which should not be called automatically on save."
                       (when (boundp 'my/epa-file-encrypt-to-default) my/epa-file-encrypt-to-default
                             (setq-local epa-file-encrypt-to my/epa-file-encrypt-to-default)))))))
   (warn "Variable '%s' is not set, GPG not available!" 'my/epa-file-encrypt-to-default))
+
+(message "Encryption setup finished")
 
 (use-package dired
   :demand t
@@ -1645,6 +1670,8 @@ Including indent-buffer, which should not be called automatically on save."
     :delight all-the-icons-dired-mode
     :config
     (add-hook 'dired-mode-hook #'all-the-icons-dired-mode)))
+
+(message "Dired setup finished")
 
 (straight-register-package 'evil)
 (straight-register-package 'evil-collection)
@@ -1751,6 +1778,8 @@ Including indent-buffer, which should not be called automatically on save."
     :after evil
     :config
     (evil-collection-init)))
+
+(message "Evil setup finished")
 
 (use-package major-mode-hydra
   :defer 1
@@ -1982,6 +2011,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("M" my/notmuch "notmuch")
       ("R" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
+
+(message "Hydra setup finished")
 
 ;; This is for async evalaution of org-babel blocks.
 (straight-register-package '(ob-async :repo "farynaio/ob-async" :host github :branch "master"))
@@ -2560,6 +2591,7 @@ it can be passed in POS."
   :commands (org-link-archive-at-point)
   :bind (:map org-mode-map
               ("C-x C-z" . org-link-archive-at-point)))
+(message "Org setup finished")
 
 (use-package calendar
   :commands (my/calendar-year)
@@ -2635,6 +2667,8 @@ it can be passed in POS."
   (defalias 'calendar-year #'my/calendar-year)
   (defalias 'my/calendar-full #'my/calendar-year)
   (defalias 'yearly-calendar #'my/calendar-year))
+
+(message "Calendar setup finished")
 
   (use-package projectile
     :demand t
@@ -2721,6 +2755,8 @@ it can be passed in POS."
     (if (projectile-project-root)
         (projectile-recentf)
       (consult-recent-file)))
+
+(message "Project setup finished")
 
 (setq-default tab-width 2)
 (setq sh-basic-offset tab-width)
@@ -3280,11 +3316,13 @@ it can be passed in POS."
           (add-to-list 'eglot-server-programs '(ruby-ts-mode . ("ruby-lsp" "--stdio")))
           (my/eglot-ensure))
       (warn "'ruby-lsp' is not installed. LSP not available!"))))
+(message "Development > Ruby setup finished")
 
 ;; Elisp go-to-definition with M-. and back again with M-,
 ;; (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
 ;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
 ;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
+(message "Development > Elisp setup finished")
 
 (defun my/html-format ()
   (interactive)
@@ -3418,6 +3456,7 @@ it can be passed in POS."
   ;; debugger
   ;; (use-package realgud)
   )
+(message "Development > HTML setup finished")
 
 (straight-register-package 'mmm-mode)
 (straight-register-package 'apheleia)
@@ -3603,6 +3642,8 @@ it can be passed in POS."
   ;; (use-package json-reformat)
   )
 
+(message "Development > Javascript setup finished")
+
 (straight-register-package 'elpy)
 (straight-register-package 'conda)
 (when my/python-enable
@@ -3714,10 +3755,13 @@ it can be passed in POS."
   ;; (use-package code-cells)
   )
 
+(message "Development > Python setup finished")
+
 (when my/go-enable
   (use-package go-mode
     :disabled t
     :mode ("\\.thtml\\'" "\\.gohtml\\'" "\\.tm?pl\\'")))
+(message "Development > Goland setup finished")
 
 (straight-register-package 'php-mode)
 (when my/php-enable
@@ -3783,6 +3827,7 @@ it can be passed in POS."
           (if (not symbol)
               (message "No symbol at point.")
             (browse-url (concat "http://php.net/manual-lookup.php?pattern=" (symbol-name symbol)))))))))
+(message "Development > PHP setup finished")
 
 (straight-register-package 'kotlin-mode)
 (when my/kotlin-enabled
@@ -3796,6 +3841,7 @@ it can be passed in POS."
             (add-to-list 'eglot-server-programs `(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
             (my/eglot-ensure))
         (warn "kotlin-language-server not found!")))))
+(message "Development > Kotlin setup finished")
 
 (load-theme 'modus-vivendi t)
 
@@ -3851,6 +3897,7 @@ it can be passed in POS."
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+(message "Theme setup finished")
 
 (defvar my/en-abbrevs nil)
 (define-abbrev-table
@@ -4089,6 +4136,7 @@ it can be passed in POS."
                    ("gui" "GUI" nil 0)
                    ("todo" "TODO" nil 0)
                    ) nil :case-fixed nil)
+(message "Abbreviations setup finished")
 
 (define-minor-mode my/en-mode
   "Language mode for `en`."
@@ -4182,6 +4230,7 @@ it can be passed in POS."
                     "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
                               ) t) "\\b")
    artbollocks-jargon nil))
+(message "Writing setup finished")
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode)
@@ -4199,6 +4248,7 @@ it can be passed in POS."
   :custom
   (nov-text-width 75)
   (visual-fill-column-center-text t))
+(message "Reading setup finished")
 
 (straight-register-package 'elfeed)
 (straight-register-package 'elfeed-goodies)
@@ -4545,11 +4595,13 @@ it can be passed in POS."
 
       (defalias 'rss #'my/elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-dir' and 'my/downloads-dir' are required, RSS disabled!"))
+(message "Elfeed setup finished")
 
 (straight-register-package 'ement)
 (when my/matrix-enable
   (use-package ement
     :demand t))
+(message "Matrix setup finished")
 
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
@@ -4873,6 +4925,7 @@ it can be passed in POS."
     :docstring "Searchin' the wikis.")
 
   (engine-mode t))
+(message "WWW setup finished")
 
 (setq shell-dirtrackp nil)
 
@@ -4910,6 +4963,7 @@ it can be passed in POS."
                    :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti" ("terminfo/e" "terminfo/e/*") ("terminfo/65" "terminfo/65/*") ("integration" "integration/*") (:exclude ".dir-locals.el" "*-tests.el")))
   :custom
   (eat-term-name "xterm"))
+(message "Shell / Terminal setup finished")
 
 (use-package tramp
   :defer 1
@@ -4949,6 +5003,7 @@ it can be passed in POS."
   :after tramp
   :config
   (rlogin-directory-tracking-mode -1))
+(message "SSH / Tramp setup finished")
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
@@ -5049,6 +5104,7 @@ it can be passed in POS."
 
     (when (or (getenv "EXWM_START") (y-or-n-p "Do you want to start EXWM? "))
       (my/exwm-start))))
+(message "X setup finished")
 
 (use-package message
   :straight nil
@@ -5188,6 +5244,7 @@ it can be passed in POS."
               ;;     (call-interactively 'notmuch-refresh-this-buffer)))
               ))))))
   (warn "'notmuch' not found!"))
+(message "Email setup finished")
 
 (use-package ledger-mode
   :bind
@@ -5231,11 +5288,13 @@ it can be passed in POS."
 (use-package flycheck-ledger
   :demand t
   :after ledger-mode)
+(message "Ledger setup finished")
 
 (when nil
   (if (and (fboundp 'native-comp-available-p) (native-comp-available-p))
       (native--compile-async `(,my/local-config-dir) t nil)
     (warn "Native compile not available!")))
+(message "Native Compile setup finished")
 
 ;; (setq gc-cons-threshold most-positive-fixnum)
 (bind-keys
@@ -5259,3 +5318,4 @@ it can be passed in POS."
 (setq gc-cons-threshold 100000000)
 
 (setq my/emacs-initiated t)
+(message "Post Config setup finished")
