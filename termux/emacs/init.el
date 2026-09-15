@@ -4883,20 +4883,11 @@ it can be passed in POS."
       (notmuch-hello-indent 2)
       (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
       (notmuch-hello-sections '(notmuch-hello-insert-header
-                                notmuch-hello-insert-saved-searches
-                                notmuch-hello-insert-search
-                                notmuch-hello-insert-recent-searches
-                                (notmuch-hello-insert-tags-section "All tags" :initially-hidden nil)))
+                                ;; notmuch-hello-insert-saved-searches
+                                (notmuch-hello-insert-tags-section "All tags" :initially-hidden nil)
+                                notmuch-hello-insert-recent-searches))
       (notmuch-search-oldest-first nil)
       (mail-user-agent 'notmuch-user-agent)
-      (notmuch-saved-searches
-       '((:name "inbox" :query "tag:inbox" :key "i")
-         (:name "unread" :query "tag:unread" :key "u")
-         (:name "flagged" :query "tag:flagged" :key "f")
-         (:name "sent" :query "tag:sent" :key "t")
-         (:name "drafts" :query "tag:draft" :key "d")
-         (:name "spam" :query "tag:spam" :key "S")
-         (:name "all mail" :query "*" :key "a")))
       :config
       (advice-add 'notmuch-poll-and-refresh-this-buffer :override #'my/notmuch-fetch-async)
       (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
