@@ -1313,8 +1313,8 @@ TODO:
   (defun my/tab-bar-tab-name ()
     "Use TITLE org file property as tab name when in an org buffer, or use other rules if given, else fallback to 'tab-bar-tab-name-current'."
     (cond ((and (eq major-mode 'org-mode)
-             (fboundp #'org-get-title)
-             (org-get-title)) (org-get-title))
+                (fboundp #'org-get-title)
+                (org-get-title)) (org-get-title))
           ((or (string-prefix-p "*elfeed-" (buffer-name) t) (memq major-mode '(elfeed-search-mode elfeed-show-mode elfeed-tree-mode))) my/elfeed-tab-name)
           ((or (string-prefix-p "*notmuch-" (buffer-name) t) (memq major-mode '(notmuch-show-mode notmuch-search-mode notmuch-tree-mode notmuch-hello-mode notmuch-message-mode))) my/notmuch-tab-name)
           (t (tab-bar-tab-name-current))))
@@ -5029,7 +5029,7 @@ Try:
         "Jump to 'notmuch' tab if it exists, or start 'notmuch' in current tab."
         (interactive)
         (when (tab-bar--tab-index-by-name my/notmuch-tab-name)
-            (tab-bar-switch-to-tab my/notmuch-tab-name))
+          (tab-bar-switch-to-tab my/notmuch-tab-name))
         (delete-other-windows)
         (unless (string-prefix-p "*notmuch-" (buffer-name) t)
           (notmuch)))
