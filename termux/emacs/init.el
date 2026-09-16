@@ -2699,12 +2699,11 @@ it can be passed in POS."
   :straight nil
   :commands (eglot eglot-ensure my/eglot-ensure eglot-alternatives)
   :preface
-  (setq eglot-events-buffer-size 0
-        read-process-output-max (* 1024 1024)) ;; 1mb
-  ;; (gc-cons-threshold 100000000)
+  (setq eglot-events-buffer-size 0)
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  ;; (setq gc-cons-threshold 100000000)
   :custom
   (eglot-extend-to-xref t)
-  ;; (eglot-events-buffer-size 100000)
   (eglot-autoshutdown t)
   :config
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
@@ -3161,7 +3160,7 @@ it can be passed in POS."
   :commands mmm-mode
   :custom
   (mmm-submode-decoration-level 0)
-  (mmm-global-mode nil)
+  (mmm-global-mode '(html-ts-mode rjsx-mode tsx-ts-mode))
   :config
   ;; Styled Components blocks
   (mmm-add-classes
@@ -3183,15 +3182,8 @@ it can be passed in POS."
   (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql)
 
   ;; Javascript in HTML
-  ;; (mmm-add-classes
-  ;;  '((mmm-html-js-ts
-  ;;     :submode js-ts-mode
-  ;;     :front "<script>"
-      ;; :back "</script>")))
-;;  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-js-ts)
-;;  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-js-ts)
-;;  (mmm-add-mode-ext-class 'html-mode nil 'html-js)
-;;  (mmm-add-mode-ext-class 'html-ts-mode nil 'html-js)
+  (mmm-add-mode-ext-class 'html-mode nil 'html-js)
+  (mmm-add-mode-ext-class 'html-ts-mode nil 'html-js)
 
   ;; CSS in HTML
   (mmm-add-classes
@@ -3199,8 +3191,8 @@ it can be passed in POS."
       :submode css-ts-mode
       :front "<style>"
       :back "</style>")))
-;;   (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts)
-;;   (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts)
+   (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts)
+   (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts)
 )
 (message "Development > General setup finished")
 
@@ -3234,7 +3226,6 @@ it can be passed in POS."
     :straight nil
     :hook ((html-ts-mode . rainbow-mode)
            (html-ts-mode . emmet-mode)
-           (html-ts-mode . mmm-mode)
            (html-ts-mode . my/eglot-ensure)))
 
   ;; DEPRECATED no LSP support?
@@ -3386,7 +3377,6 @@ it can be passed in POS."
     :hook ((rjsx-mode . add-node-modules-path)
            (rjsx-mode . emmet-mode)
            (rjsx-mode . rainbow-mode)
-           ;; (rjsx-mode . mmm-mode)
            (rjsx-mode . my/eglot-ensure))
     :bind (:map rjsx-mode-map
                 ("<" . rjsx-electric-lt))
@@ -3408,7 +3398,6 @@ it can be passed in POS."
            ((tsx-ts-mode typescript-ts-mode) . apheleia-mode)
            ((tsx-ts-mode typescript-ts-mode) . subword-mode)
            ((tsx-ts-mode typescript-ts-mode) . my/eglot-ensure)
-           ;; (tsx-ts-mode . mmm-mode)
            (tsx-ts-mode . emmet-mode))
     :config
     (major-mode-hydra-define (typescript-ts-mode tsx-ts-mode)
