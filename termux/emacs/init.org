@@ -1210,13 +1210,10 @@ TODO:
 (setq undo-limit 160000)
 
 (use-package undo-fu
+  :commands (undo-fu-only-undo undo-fu-only-redo)
   :bind (("C-\\" . undo-fu-only-undo)
-         ("C-/" . undo-fu-only-redo))
-  ;; :config
-  ;; (evil-define-key 'normal 'global-map
-  ;;   (kbd "u") #'undo-fu-only-undo
-  ;;   (kbd "C-r") #'undo-fu-only-redo)
-)
+         ("C-/" . undo-fu-only-redo)
+         ("M-\\" . undo-fu-only-redo)))
 
 (message "Undo & Redo setup finished")
 #+end_src
@@ -1662,7 +1659,7 @@ Including indent-buffer, which should not be called automatically on save."
 (straight-register-package 'evil)
 (when my/evil-enable
   (use-package evil
-    :commands (evil-mode)
+    :commands evil-mode
     :bind
     (:map evil-normal-state-map
           ("C-f" . hydra-base/body)
@@ -1752,7 +1749,12 @@ Including indent-buffer, which should not be called automatically on save."
     (add-to-list 'evil-emacs-state-modes 'edebug-x-breakpoint-list-mode)
     (add-to-list 'evil-emacs-state-modes 'edebug-x-instrumented-function-list-mode)
     (add-to-list 'evil-emacs-state-modes 'treesit--explorer-tree-mode)
-    (add-to-list 'evil-emacs-state-modes 'special-mode)))
+    (add-to-list 'evil-emacs-state-modes 'special-mode)
+
+    (evil-define-key 'normal 'global-map
+                     (kbd "u") #'undo-fu-only-undo
+                     (kbd "C-r") #'undo-fu-only-redo)
+))
 
 (message "Evil setup finished")
 #+end_src
