@@ -47,11 +47,6 @@ alias notmuch-rm="notmuch search --format=text0 --output=files tag:deleted | xar
 # Strip isync IDs from all files in current folder
 alias isync-strip="find . -name '*U=*:*' -exec bash -c 'mv \"\$1\" \"\${1%,U=*}\"' _ {} \;"
 
-if set -q PREFIX
-  export DISPLAY=:1
- # MESA_LOADER_DRIVER_OVERRIDE=zink
-end
-
 function fish_prompt
     printf '%s > ' (basename (pwd))
 end
