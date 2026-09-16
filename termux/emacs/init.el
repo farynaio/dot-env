@@ -1050,9 +1050,8 @@
   :after (consult flycheck)
   :bind ("M-g f" . consult-flycheck))
 
-;; Vertico: better vertical completion for minibuffer commands
 (use-package vertico
-  :defer 1.5
+  :demand t
   :after consult
   :config
   (vertico-mode 1)
@@ -1064,6 +1063,7 @@
   ;; (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
 
   (use-package vertico-directory
+    :demand t
     :straight nil
     :after vertico
     :bind
@@ -1114,6 +1114,7 @@
               ("C-n" . corfu-next)
               ("C-p" . corfu-previous))
   :custom
+  (corfu-auto t)
   (corfu-cycle t)
   (corfu-on-exact-match nil)
   (corfu-quit-no-much t)
@@ -2709,28 +2710,46 @@ it can be passed in POS."
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
   (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider)
   (add-to-list 'eglot-ignored-server-capabilities :workspace/didChangeWorkspaceFolders)
+  (add-to-list 'eglot-server-programs '((html-mode html-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
+;;  (add-to-list 'eglot-server-programs '((web-mode html-mode html-ts-mode) . ("tailwindcss-language-server" "--stdio")))
+;;  (add-to-list 'eglot-server-programs '((web-mode html-mode html-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((js-mode js2-mode typescript-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((tsx-ts-mode rjsx-mode) . ("rass" "--" "typescript-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((python-mode python-ts-mode) . ("rass" "--" "pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '((php-mode php-ts-mode) . ("rass" "--" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
+  (add-to-list 'eglot-server-programs '(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
+  (add-to-list 'eglot-server-programs '((markdown-mode gfm-mode) . ("vscode-markdown-language-server")))
+  (add-to-list 'eglot-server-programs '((sh-mode fish-mode bash-ts-mode) . ("bash-language-server" "start")))
+  (add-to-list 'eglot-server-programs '((dockerfile-mode dockerfile-ts-mode) . ("docker-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '((json-mode json-ts-mode) . ("vscode-json-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((css-mode css-ts-mode scss-mode) . ("vscode-css-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((yaml-mode yaml-ts-mode) . ("yaml-language-server" "--stdio")))
 
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
-    (unless (tramp-file-name-p (buffer-file-name)))
-      (eglot-ensure))
+    (unless (tramp-file-name-p (buffer-file-name))
+;;      (my/eglot-init-local)
+      (eglot-ensure)))
 
   (defun my/eglot-init-local ()
-    (setq-local
-     completion-at-point-functions
-     (list
-      (cape-capf-super
-       #'eglot-completion-at-point
-       #'cape-keyword
-       #'cape-file
-       #'cape-dabbrev))))
-  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
+    (setq-local completion-at-point-functions '(eglot-completion-at-point)))
+     ;; (list
+      ;; (cape-capf-super
+;;       #'eglot-completion-at-point
+;;      #'cape-keyword
+;;       #'cape-file
+;;       #'cape-dabbrev))))
+ (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
 
-  (defun my/eglot--error-filter (orig-fn &rest args)
-    "Suppress annoying 'unsupported capability' warnings in echo area."
-    (unless (string-match "unsupported capability" (car args))
-      (apply orig-fn args)))
-  (advice-add 'eglot--error :around #'my/eglot--error-filter))
+  ;; (defun my/eglot--error-filter (orig-fn &rest args)
+  ;;   "Suppress annoying 'unsupported capability' warnings in echo area."
+  ;;   (unless (string-match "unsupported capability" (car args))
+  ;;     (apply orig-fn args)))
+  ;; (advice-add 'eglot--error :around #'my/eglot--error-filter)
+)
+
+;;(use-package eldoc-box
+;;  :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode))
 
 ;; TODO needed that?
 (use-package flycheck-eglot
@@ -2738,14 +2757,6 @@ it can be passed in POS."
   :after (eglot flycheck)
   :config
   (global-flycheck-eglot-mode 1))
-
-;; Colorize color names in buffers
-(use-package rainbow-mode
-  :demand t
-  :delight
-  :config
-  (add-to-list 'rainbow-html-colors-major-mode-list 'rjsx-mode)
-  (add-to-list 'rainbow-html-colors-major-mode-list 'css-mode))
 
 ;; https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 (if (treesit-available-p)
@@ -2769,7 +2780,7 @@ it can be passed in POS."
               ;; (erlang     "https://github.com/WhatsApp/tree-sitter-erlang" "main" "src")
               (go         "https://github.com/tree-sitter/tree-sitter-go")
               ;; (haskell    "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
-              ;; (html       "https://github.com/tree-sitter/tree-sitter-html")
+              (html       "https://github.com/tree-sitter/tree-sitter-html")
               ;; (java       "https://github.com/tree-sitter/tree-sitter-java" "master" "src")
               ;; (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
               (json       "https://github.com/tree-sitter/tree-sitter-json")
@@ -2793,7 +2804,7 @@ it can be passed in POS."
 
       (dolist (mapping '((sh-mode . bash-ts-mode)
                          (css-mode . css-ts-mode)
-                         ;; (html-mode . html-ts-mode)
+                         (html-mode . html-ts-mode)
                          (mhtml-mode . html-ts-mode)
                          ;; (js-mode . js-ts-mode)
                          (json-mode . json-ts-mode)
@@ -2802,6 +2813,14 @@ it can be passed in POS."
                          ))
         (add-to-list 'major-mode-remap-alist mapping)))
   (warn "tree-sitter not available!"))
+
+;; Colorize color names in buffers
+(use-package rainbow-mode
+  :demand t
+  :delight
+  :config
+  (add-to-list 'rainbow-html-colors-major-mode-list 'rjsx-mode)
+  (add-to-list 'rainbow-html-colors-major-mode-list 'css-mode))
 
 ;; https://stackoverflow.com/a/750933
 (defun my/remove-dos-eol ()
@@ -3042,34 +3061,15 @@ it can be passed in POS."
          (nxml-mode . (lambda () (when (featurep 'emmet-mode) (emmet-mode 1))))))
 
 (use-package markdown-mode
-  :mode (("\\.markdown\\'" . markdown-mode)
-         ("\\.mdx?\\'" . markdown-mode)
+  :mode ((("\\.markdown\\'" "\\.mdx?\\'") . markdown-mode)
          ("README\\.md\\'" . gfm-mode))
-  :hook ((markdown-mode . my/markdown-lsp-init)
-         (gfm-mode . my/markdown-lsp-init)
+  :hook (((markdown-mode gfm-mode) . my/eglot-ensure)
          (markdown-mode . abbrev-mode))
-  :preface
-  (defun my/markdown-lsp-init ()
-    ;; https://github.com/hrsh7th/vscode-langservers-extracted
-    (if (executable-find "vscode-markdown-language-server")
-        (progn
-          (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-markdown-language-server")))
-          (my/eglot-ensure))
-      (warn "vscode-langservers-extracted is not installed, HTML, JSON, Markdown language servers not available!")))
   :config
   (advice-add 'markdown-backward-paragraph :override #'backward-paragraph)
   (advice-add 'markdown-backward-block :override #'backward-paragraph)
   (advice-add 'markdown-forward-paragraph :override #'forward-paragraph)
   (advice-add 'markdown-forward-bblock :override #'forward-paragraph))
-
-;; Probably only make sense in bash git projects
-(defun my/sh-lsp-init ()
-  ;; https://github.com/bash-lsp/bash-language-server
-  (if (executable-find "bash-language-server")
-      (progn
-        (add-to-list 'eglot-server-programs `(,major-mode . ("bash-language-server" "start")))
-        (my/eglot-ensure))
-    (warn "bash-language-server is not installed. Bash language server not available!")))
 
 (add-hook 'after-save #'executable-make-buffer-file-executable-if-script-p)
 
@@ -3077,20 +3077,12 @@ it can be passed in POS."
     (use-package bash-ts-mode
       :straight nil
       ;; :hook ((bash-ts-mode . my/sh-lsp-init))
-      :mode (("\\.bashrc\\'" . bash-ts-mode)
-             ("\\.bash_logout\\'" . bash-ts-mode)
-             ("\\.sh\\'" . bash-ts-mode)
-             ("\\.z?sh\\'" . bash-ts-mode)
-             ("\\.profile\\'" . bash-ts-mode)))
+      :mode ("\\.bashrc\\'" "\\.bash_logout\\'" "\\.sh\\'" "\\.z?sh\\'" "\\.profile\\'"))
   (message "tree-sitter for bash not available, fallback to 'sh-mode'")
   (use-package sh-script
     :straight nil
     ;; :hook ((bash-ts-mode . my/sh-lsp-init))
-    :mode (("\\.bashrc\\'" . sh-mode)
-           ("\\.bash_logout\\'" . sh-mode)
-           ("\\.sh\\'" . sh-mode)
-           ("\\.z?sh\\'" . sh-mode)
-           ("\\.profile\\'" . sh-mode))))
+    :mode ("\\.bashrc\\'" "\\.bash_logout\\'" "\\.sh\\'" "\\.z?sh\\'" "\\.profile\\'")))
 
 (use-package cc-mode
   :straight nil
@@ -3099,14 +3091,6 @@ it can be passed in POS."
 
 (use-package vimrc-mode
   :mode "\\vimrc\\'")
-
-;; https://github.com/rcjsuen/dockerfile-language-server
-(defun my/dockerfile-lsp-init ()
-  (if (executable-find "docker-langserver")
-      (progn
-        (add-to-list 'eglot-server-programs `(,major-mode . ("docker-langserver" "--stdio")))
-        (my/eglot-ensure))
-    (warn "docker-langserver not found. Dockerfile language server are not available!")))
 
 (straight-register-package 'dockerfile-mode)
 (if (and (treesit-available-p) (treesit-ready-p 'dockerfile))
@@ -3125,81 +3109,43 @@ it can be passed in POS."
   :straight nil
   :mode ("\\.zone?\\'" . zone-mode))
 
-(defun my/json-lsp-init ()
-  (if (executable-find "vscode-json-language-server")
-      (progn
-        (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-json-language-server" "--stdio")))
-        (my/eglot-ensure))
-    (warn "vscode-langservers-extracted is not installed. HTML, JSON, Markdown language servers are not available!")))
-
 (straight-register-package 'json-mode)
 (if (and (treesit-available-p) (treesit-ready-p 'json))
     (use-package json-ts-mode
       :straight nil
-      :hook ((json-ts-mode . my/json-lsp-init)
+      :hook ((json-ts-mode . my/eglot-ensure)
              (json-ts-mode . yafolding-mode))
       :mode ("\\.json\\'"))
   (message "tree-sitter for JSON not available, fallback to json-mode")
   (use-package json-mode
-    :hook ((json-mode . my/json-lsp-init)
+    :hook ((json-mode . my/eglot-ensure)
            (json-mode . yafolding-mode))
     :mode ("\\.json\\'")))
 
-(defun my/css-lsp-init ()
-  (if (executable-find "vscode-css-language-server")
-      (progn
-        (add-to-list 'eglot-server-programs `(,major-mode . ("vscode-css-language-server" "--stdio")))
-        (my/eglot-ensure))
-    (warn "vscode-langservers-extracted is not installed. HTML, JSON, CSS, Markdown language servers not available!")))
-
 (use-package css-mode
   :straight nil
-  :hook ((css-ts-mode . my/css-lsp-init)
+  :hook ((css-ts-mode . my/eglot-ensure)
          (css-ts-mode . rainbow-mode))
   :mode ("\\.s?css\\'" . css-ts-mode)
   :custom
   (css-indent-offset tab-width))
-
-;; (if (and (treesit-available-p) (treesit-ready-p 'css))
-;;     (use-package css-mode
-;;       :straight nil
-;;       :hook ((css-ts-mode . my/css-lsp-init)
-;;              (css-ts-mode . rainbow-mode))
-;;       :mode "\\.s?css\\'")
-;;   (message "tree-sitter for CSS not available, fallback to css-mode")
-;;   (use-package css-mode
-;;     :straight nil
-;;     :hook ((css-mode . my/css-lsp-init)
-;;            (css-mode . rainbow-mode))
-;;     :mode "\\.s?css\\'"
-;;     :custom
-;;     (css-indent-offset tab-width)))
 
 (use-package dotenv-mode)
 
 (use-package groovy-mode
   :mode ("\\.gradle\\'" "\\.groovy\\'"))
 
-;; https://github.com/redhat-developer/yaml-language-server
-(defun my/yaml-lsp-init ()
-  (if (executable-find "yaml-language-server")
-      (progn
-        (add-to-list 'eglot-server-programs
-                     `(,major-mode . ("yaml-language-server" "--stdio")))
-        (my/eglot-ensure))
-    (warn "yaml-language-server is not installed. YAML language server not available!")))
-
 (straight-register-package 'yaml-mode)
 (if (and (treesit-available-p) (treesit-ready-p 'yaml))
     (use-package yaml-ts-mode
       :mode "\\.yml\\'"
       :hook ((yaml-ts-mode-hook . display-line-numbers-mode)
-             (yaml-ts-mode-hook . my/yaml-lsp-init)))
+             (yaml-ts-mode-hook . my/eglot-ensure)))
   (message "tree-sitter for YAML not available, fallback to yaml-mode")
   (use-package yaml-mode
     :mode "\\.yml\\'"
     :hook ((yaml-mode-hook . display-line-numbers-mode)
-           (yaml-mode-hook . my/yaml-lsp-init))))
+           (yaml-mode-hook . my/eglot-ensure))))
 
 (defun my/web-mode-toggle ()
   "Toggle switch between `web-mode' and native major mode."
@@ -3219,54 +3165,48 @@ it can be passed in POS."
   :config
   ;; Styled Components blocks
   (mmm-add-classes
-   '((mmm-styled-my
+   '((mmm-styled
       :submode css-mode
       :front "\\(styled\\|css\\)[.()<>[:alnum:]]?+`"
       :back "`;")))
-  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-styled-my)
-  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-styled-my)
+  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-styled)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-styled)
 
   ;; Graphql in JS
   (mmm-add-classes
-   '((mmm-graphql-my
+   '((mmm-graphql
       :submode graphql-mode
       :front "gr?a?p?h?ql`"
       :back "`;")))
-  (mmm-add-mode-ext-class 'typescript-ts-mode nil 'mmm-graphql-my)
-  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-graphql-my)
-  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql-my)
+  (mmm-add-mode-ext-class 'typescript-ts-mode nil 'mmm-graphql)
+  (mmm-add-mode-ext-class 'tsx-ts-mode nil 'mmm-graphql)
+  (mmm-add-mode-ext-class 'rjsx-mode nil 'mmm-graphql)
 
   ;; Javascript in HTML
-  (mmm-add-classes
-   '((mmm-html-js-my
-      :submode js2-mode
-      :front "<script>"
-      :back "</script>")))
-  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-js-my)
-  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-js-my)
+  ;; (mmm-add-classes
+  ;;  '((mmm-html-js-ts
+  ;;     :submode js-ts-mode
+  ;;     :front "<script>"
+      ;; :back "</script>")))
+;;  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-js-ts)
+;;  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-js-ts)
+;;  (mmm-add-mode-ext-class 'html-mode nil 'html-js)
+;;  (mmm-add-mode-ext-class 'html-ts-mode nil 'html-js)
 
-  ;; Javascript in HTML mmm mode
+  ;; CSS in HTML
   (mmm-add-classes
-   '((mmm-html-css-ts-my
+   '((mmm-html-css-ts
       :submode css-ts-mode
       :front "<style>"
       :back "</style>")))
-  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts-my)
-  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts-my))
-
+;;   (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts)
+;;   (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts)
+)
 (message "Development > General setup finished")
 
 (use-package ruby-ts-mode
   :straight nil
-  :mode "\\.rb\\'"
-  :preface
-  (defun my/ruby-lsp-init ()
-    ;; gem install ruby-lsp
-    (if (executable-find "ruby-lsp")
-        (progn
-          (add-to-list 'eglot-server-programs '(ruby-ts-mode . ("ruby-lsp" "--stdio")))
-          (my/eglot-ensure))
-      (warn "'ruby-lsp' is not installed. LSP not available!"))))
+  :mode "\\.rb\\'")
 (message "Development > Ruby setup finished")
 
 ;; Elisp go-to-definition with M-. and back again with M-,
@@ -3275,7 +3215,6 @@ it can be passed in POS."
 ;; (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 (message "Development > Elisp setup finished")
 
-(straight-register-package 'rainbow-mode)
 (straight-register-package 'emmet-mode)
 (straight-register-package 'web-mode)
 (straight-register-package 'web-beautify)
@@ -3288,22 +3227,23 @@ it can be passed in POS."
 
   (defalias 'html-format #'my/html-format)
 
-  (defun my/html-lsp-init ()
-    (if (executable-find "rass")
-        (if (assoc major-mode eglot-server-programs)
-            (my/eglot-ensure)
-          (let* ((html-lsp (when (executable-find "vscode-html-language-server") '("--" "vscode-html-language-server" "--stdio")))
-                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
-                 (lsps (append html-lsp tailwind-lsp)))
-            (if (length> lsps 0)
-                (progn
-                  (add-to-list 'eglot-server-programs `(,major-mode . ,(append '("rass") lsps)))
-                  (my/eglot-ensure))
-              (warn "LSP server 'vscode-html-language-server' or 'tailwindcss-language-server' not installed!"))))
-      (warn "'rassumfrassum' not found, LSP servers not available!")))
-
   ;; (use-package edit-color-stamp
   ;; :commands edit-color-stamp)
+
+  (use-package html-ts-mode
+    :straight nil
+    :hook ((html-ts-mode . rainbow-mode)
+           (html-ts-mode . emmet-mode)
+           (html-ts-mode . mmm-mode)
+           (html-ts-mode . my/eglot-ensure)))
+
+  ;; DEPRECATED no LSP support?
+  (use-package mhtml-ts-mode
+    :disabled t
+    :straight nil
+    :hook ((mhtml-ts-mode . rainbow-mode)
+           (mhtml-ts-mode . emmet-mode)
+           (mhtml-ts-mode . my/eglot-ensure)))
 
   (use-package emmet-mode
     :commands emmet-mode
@@ -3312,10 +3252,12 @@ it can be passed in POS."
     (emmet-self-closing-tag-style " /")
     (emmet-expand-jsx-className? t))
 
+  ;; DEPRECATED no LSP support?
   (use-package web-mode
+    :disabled t
     :hook ((web-mode . rainbow-mode)
            (web-mode . emmet-mode)
-           (web-mode . my/html-lsp-init))
+           (web-mode . my/eglot-ensure))
     :bind
     (:map web-mode-map
           ("C-c C-n" . web-mode-tag-end)
@@ -3412,24 +3354,15 @@ it can be passed in POS."
         ;; (eglot-code-actions min max "source.removeUnused.ts")
         (eglot-code-action-organize-imports-ts min))))
 
-  (defun my/js-lsp-init ()
-    (if (executable-find "rass")
-        (if (assoc major-mode eglot-server-programs)
-            (my/eglot-ensure)
-          (let* ((ts-lsp (when (executable-find "typescript-language-server") '("--" "typescript-language-server" "--stdio")))
-                 (tailwind-lsp (when (executable-find "tailwindcss-language-server") '("--" "tailwindcss-language-server" "--stdio")))
-                 (lsps (append ts-lsp tailwind-lsp)))
-            (if (length> lsps 0)
-                (progn
-                  (add-to-list 'eglot-server-programs `(,major-mode . ,(append '("rass") lsps)))
-                  (my/eglot-ensure))
-              (warn "LSP server 'typescript-language-server' or 'tailwindcss-language-server' not installed!"))))
-      (warn "'rassumfrassum' not found, LSP servers not available!")))
+  (use-package js-mode
+    :straight nil
+    :hook (((js-mode js-ts-mode) . rainbow-mode)
+           ((js-mode js-ts-mode) . my/eglot-ensure)))
 
   (use-package js2-mode
     :hook ((js2-mode . apheleia-mode)
            (js2-mode . rainbow-mode)
-           (js2-mode . my/js-lsp-init))
+           (js2-mode . my/eglot-ensure))
     :mode ("\\.m?js\\'" "\\.cjs\\'")
     :custom
     (js2-mode-show-parse-errors nil)
@@ -3454,7 +3387,7 @@ it can be passed in POS."
            (rjsx-mode . emmet-mode)
            (rjsx-mode . rainbow-mode)
            ;; (rjsx-mode . mmm-mode)
-           (rjsx-mode . my/js-lsp-init))
+           (rjsx-mode . my/eglot-ensure))
     :bind (:map rjsx-mode-map
                 ("<" . rjsx-electric-lt))
     :config
@@ -3471,12 +3404,12 @@ it can be passed in POS."
     :straight nil
     :mode (("\\.ts\\'" . typescript-ts-mode)
            ("\\.tsx\\'" . tsx-ts-mode))
-    :hook ((typescript-ts-mode . my/js-lsp-init)
+    :hook (((tsx-ts-mode typescript-ts-mode) . rainbow-mode)
+           ((tsx-ts-mode typescript-ts-mode) . apheleia-mode)
+           ((tsx-ts-mode typescript-ts-mode) . subword-mode)
+           ((tsx-ts-mode typescript-ts-mode) . my/eglot-ensure)
            ;; (tsx-ts-mode . mmm-mode)
-           ;; (tsx-ts-mode . emmet-mode)
-           (typescript-ts-mode . rainbow-mode)
-           (typescript-ts-mode . apheleia-mode)
-           (typescript-ts-mode . subword-mode))
+           (tsx-ts-mode . emmet-mode))
     :config
     (major-mode-hydra-define (typescript-ts-mode tsx-ts-mode)
       (:hint nil :color amaranth :quit-key "q" :title (with-fileicon "typescript" "Typescript" 1 -0.05))
@@ -3511,23 +3444,16 @@ it can be passed in POS."
 
   ;; (setq gud-pdb-command-name "python3 -m pdb ")
 
-  (defun my/python-lsp-init ()
-    (if (executable-find "pyright-langserver")
-        (progn
-          (add-to-list 'eglot-server-programs `(,major-mode . ("pyright-langserver" "--stdio")))
-          (my/eglot-ensure))
-      (warn "pyright-langserver not found! Python language server are not available!")))
-
 (if (and (treesit-available-p) (treesit-ready-p 'python))
   (use-package python-ts-mode
     :straight nil
-    :hook ((python-ts-mode . my/python-lsp-init))
+    :hook ((python-ts-mode . my/eglot-ensure))
     :mode ("\\.py\\'"))
   (message "tree-sitter for python not available, fallback to python-mode")
   (use-package python
     :straight nil
     :hook ((python-mode . my/python-init)
-           (python-mode . my/python-lsp-init))
+           (python-mode . my/eglot-ensure))
     :preface
     (defun my/python-init ()
       (setq-local tab-width 4)
@@ -3631,31 +3557,18 @@ it can be passed in POS."
           ((string= major-mode "web-mode")
            (php-mode))))
 
-  (defun my/php-lsp-init ()
-    ;; https://github.com/felixfbecker/php-language-server
-    ;; Install:
-    ;; composer require felixfbecker/language-server
-    ;; composer run-script --working-dir=vendor/felixfbecker/language-server parse-stubs
-    (unless (executable-find "php")
-      (warn "PHP not installed!"))
-    (if (file-exists-p "vendor/felixfbecker/language-server/bin/php-language-server.php")
-        (progn
-          (add-to-list 'eglot-server-programs `(,major-mode . ("php" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
-          (my/eglot-ensure))
-      (warn "php-language-server.php is not installed. PHP language server are not available!")))
-
   (straight-register-package 'php-mode)
   (if (and (treesit-available-p) (treesit-ready-p 'php))
       (use-package php-ts-mode
         :straight nil
         :hook ((php-ts-mode . my/php-mode-init)
-               ;; (php-ts-mode . my/php-lsp-init)
+               (php-ts-mode . my/eglot-ensure)
                (php-ts-mode . emmet-mode))
         :mode ("\\.php\\'" "\\.inc\\'" "\\.tpl\\.php\\'" "\\.phtml\\'"))
     (message "tree-sitter for PHP not available, fallback to php-mode")
     (use-package php-mode
       :hook ((php-mode . my/php-mode-init)
-             (php-mode . my/php-lsp-init)
+             (php-mode . my/eglot-ensure)
              (php-mode . emmet-mode))
       :bind (:map php-mode-map
                   ("<f5>" . my/toggle-php-flavor-mode))
@@ -3690,15 +3603,7 @@ it can be passed in POS."
 (straight-register-package 'kotlin-mode)
 (when my/kotlin-enabled
   (use-package kotlin-mode
-    :hook (kotlin-mode . my/kotlin-lsp-init)
-    :preface
-    (defun my/kotlin-lsp-init ()
-      (if (executable-find "kotlin-language-server")
-          (progn
-            (setq-local eglot-connect-timeout 999999) ;; because kotlin-mode
-            (add-to-list 'eglot-server-programs `(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
-            (my/eglot-ensure))
-        (warn "kotlin-language-server not found!")))))
+    :hook (kotlin-mode . my/eglot-ensure)))
 (message "Development > Kotlin setup finished")
 
 (load-theme 'modus-vivendi t)
