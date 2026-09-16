@@ -2348,7 +2348,23 @@ should be continued."
         ;; If on a checkbox, insert a new todo heading (checkbox)
         (org-insert-todo-heading nil)
       ;; Otherwise, behave like standard M-RET
-      (org-meta-return))))
+      (org-meta-return)))
+
+  (defface org-checkbox-done
+    '((t (:foreground "gray55")))
+    "Face for checked checkbox list items.")
+
+  (font-lock-add-keywords
+   'org-mode
+   `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\[X\\][^\n]*"
+      0 'org-checkbox-done append))
+   'append)
+  (font-lock-add-keywords
+   'org-journal-mode
+   `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\[X\\][^\n]*"
+      0 'org-checkbox-done append))
+   'append)
+  (set-face-attribute 'org-checkbox-done nil :foreground "gray50" :strike-through t))
 
 (use-package org-agenda
   :demand t
