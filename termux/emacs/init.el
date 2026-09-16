@@ -4852,18 +4852,24 @@ it can be passed in POS."
   :commands (compose-mail notmuch-show-reply notmuch-show-reply-sender notmuch-show-forward-message notmuch-show-forward-open-messages)
   :custom
   (message-kill-buffer-on-exit t)
-  (message-sendmail-extra-arguments '("--read-envelope-from")) ;; Make msmtp select the account based on the 'From' header
-  (message-send-mail-function 'message-send-mail-with-sendmail)
   (message-sendmail-envelope-from 'header)
-  (message-sendmail-f-is-evil t)
   (mail-specify-envelope-from t)
-  (send-mail-function 'sendmail-send-it)
-  (sendmail-program (concat (getenv "PREFIX") "/bin/msmtp"))
+  ;; Define 'my/msmtp-account-for-address' in local-config.el
+  (send-mail-function #'my/msmtp-async-send)
+  (message-send-mail-function #'my/msmtp-async-send)
   :config
-  (unless (executable-find "msmtp")
-    (warn "'msmtp' not found, e-mails sending not available!"))
-  ;; To change identity when composing email use `message-change-sender`
-  )
+  (defun my/msmtp-async-send ()
+    "Send the current message buffer via msmtp asynchronously."
+    (let* ((from (message-fetch-field "From"))
+           (account (my/msmtp-account-for-address from))
+           (tmp (make-temp-file "emacsend")))
+      (write-region (point-min) (point-max) tmp)
+      (start-process "msmtp-send" "*msmtp-send*"
+                     "sh" "-c"
+                     (format "msmtp --account=%s -t < %s" account tmp))
+      (run-at-time "10 sec" nil
+                   (lambda () (when (file-exists-p tmp)
+                                (delete-file tmp)))))))
 
 (use-package mm-decode
   :demand t
@@ -4872,7 +4878,7 @@ it can be passed in POS."
   ;; Set default directory for downloaded email attachments.
   (mm-default-directory my/downloads-dir))
 
-;; Setup is customized for support of multiple email accounts. Requires 'notmuch-fcc-dirs' and 'message-directory' to be set, for sent messages destination folders, based on 'From' header.
+;; Setup is customized for support of multiple email accounts. Requires 'notmuch-fcc-dirs' and 'message-directory' to be set in local-config.el, for sent messages destination folders, based on 'From' header.
 (straight-register-package 'notmuch)
 (if (executable-find "notmuch")
     (use-package notmuch
