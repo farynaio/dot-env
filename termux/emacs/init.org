@@ -3114,6 +3114,7 @@ it can be passed in POS."
   (advice-add 'markdown-forward-paragraph :override #'forward-paragraph)
   (advice-add 'markdown-forward-bblock :override #'forward-paragraph))
 
+;; Probably only make sense in bash git projects
 (defun my/sh-lsp-init ()
   ;; https://github.com/bash-lsp/bash-language-server
   (if (executable-find "bash-language-server")
@@ -3127,7 +3128,7 @@ it can be passed in POS."
 (if (and (treesit-available-p) (treesit-ready-p 'bash))
     (use-package bash-ts-mode
       :straight nil
-      :hook ((bash-ts-mode . my/sh-lsp-init))
+      ;; :hook ((bash-ts-mode . my/sh-lsp-init))
       :mode (("\\.bashrc\\'" . bash-ts-mode)
              ("\\.bash_logout\\'" . bash-ts-mode)
              ("\\.sh\\'" . bash-ts-mode)
@@ -3136,7 +3137,7 @@ it can be passed in POS."
   (message "tree-sitter for bash not available, fallback to 'sh-mode'")
   (use-package sh-script
     :straight nil
-    :hook ((bash-ts-mode . my/sh-lsp-init))
+    ;; :hook ((bash-ts-mode . my/sh-lsp-init))
     :mode (("\\.bashrc\\'" . sh-mode)
            ("\\.bash_logout\\'" . sh-mode)
            ("\\.sh\\'" . sh-mode)
@@ -3164,11 +3165,13 @@ it can be passed in POS."
     (use-package dockerfile-ts-mode
       :straight nil
       :mode "^Dockerfile\\'"
-      :hook ((dockerfile-ts-mode . my/dockerfile-lsp-init)))
+      ;; :hook ((dockerfile-ts-mode . my/dockerfile-lsp-init))
+)
   (message "tree-sitter for Dockerfile not available, fallback to dockerfile-mode")
   (use-package dockerfile-mode
     :mode "^Dockerfile\\'"
-    :hook ((dockerfile-mode . my/dockerfile-lsp-init))))
+    ;; :hook ((dockerfile-mode . my/dockerfile-lsp-init))
+))
 
 (use-package dns-mode
   :straight nil
@@ -3714,7 +3717,7 @@ Requires HTML
       (use-package php-ts-mode
         :straight nil
         :hook ((php-ts-mode . my/php-mode-init)
-               (php-ts-mode . my/php-lsp-init)
+               ;; (php-ts-mode . my/php-lsp-init)
                (php-ts-mode . emmet-mode))
         :mode ("\\.php\\'" "\\.inc\\'" "\\.tpl\\.php\\'" "\\.phtml\\'"))
     (message "tree-sitter for PHP not available, fallback to php-mode")
