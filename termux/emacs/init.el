@@ -3010,7 +3010,7 @@ it can be passed in POS."
               ("C-<return>" . nil)
               ("C-M-<return>" . yafolding-toggle-element)))
 
-;; (use-package fish-mode)
+(use-package fish-mode)
 
 (use-package nxml-mode
   :straight nil
