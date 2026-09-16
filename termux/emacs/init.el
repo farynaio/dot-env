@@ -1601,6 +1601,8 @@ Including indent-buffer, which should not be called automatically on save."
 (message "Dired setup finished")
 
 (straight-register-package 'evil)
+(straight-register-package 'evil-visualstar)
+(straight-register-package 'evil-multiedit)
 (when my/evil-enable
   (use-package evil
     :commands evil-mode
@@ -1695,10 +1697,27 @@ Including indent-buffer, which should not be called automatically on save."
     (add-to-list 'evil-emacs-state-modes 'treesit--explorer-tree-mode)
     (add-to-list 'evil-emacs-state-modes 'special-mode)
 
+    (defalias 'forward-evil-word #'forward-evil-symbol)
+
     (evil-define-key 'normal 'global-map
                      (kbd "u") #'undo-fu-only-undo
-                     (kbd "C-r") #'undo-fu-only-redo)
-))
+                     (kbd "C-r") #'undo-fu-only-redo))
+
+  (use-package evil-visualstar
+    :demand t
+    :after evil
+    :config
+    (global-evil-visualstar-mode))
+
+  (use-package evil-multiedit
+    :demand t
+    :after evil
+    :config
+    (evil-multiedit-default-keybinds)
+    (defun make-evil-multiedit-case-sensitive (fn &rest args)
+      (let ((case-fold-search (not iedit-case-sensitive)))
+        (apply fn args)))
+    (advice-add 'evil-multiedit-match-and-next :around #'make-evil-multiedit-case-sensitive)))
 
 (message "Evil setup finished")
 
