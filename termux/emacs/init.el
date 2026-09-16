@@ -4929,6 +4929,8 @@ it can be passed in POS."
       (advice-add 'notmuch-poll-and-refresh-this-buffer :override #'my/notmuch-fetch-async)
       (add-hook 'message-send-hook #'notmuch-mua-attachment-check) ;; Never miss sending attachments
 
+      (run-at-time t (* 24 60 60) #'my/notmuch)
+
       (defun my/notmuch ()
         "Jump to 'notmuch' tab if it exists, or start 'notmuch' in current tab."
         (interactive)
