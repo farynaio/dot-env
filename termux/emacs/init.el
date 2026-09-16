@@ -2320,18 +2320,15 @@ should be continued."
         (tab-bar-switch-to-tab "Journal"))
 
       (advice-add 'org-journal-new-entry :before #'my/org-journal-jump-tab-bar)
+      (advice-add 'org-journal-new-entry :after (lambda (&rest args) (org-overview)))
 
       (defun my/org-journal-open-current-journal-file ()
         "Do `org-journal-open-current-journal-file` and go to the most recent entry."
         (interactive)
         (org-journal-open-current-journal-file)
-        (let* ((heading-title "Timeline")
-               (poslist (org-map-entries 'point (format "ITEM=\"%s\"" heading-title) 'file)))
-          (if (<= (length poslist) 0)
-              (message (format "No heading with title '%s' found!" heading-title))
-            (goto-char (nth 0 poslist))
-            (org-cycle)))
-        (org-journal-mode))
+        (goto-char (point-min))
+        ;; (org-journal-mode)
+        (org-overview))
 
       (defun my/org-journal-after-header-create-hook ()
         (goto-char (point-min))
