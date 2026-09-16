@@ -2343,7 +2343,9 @@ should be continued."
             (warn "'my/org-journal-template' not defined, no template will be used!"))
           (goto-char anchor)
           (forward-line)
-          (yank)))
+          (yank)
+          (pop kill-ring)
+          (setq kill-ring-yank-pointer kill-ring)))
 
       (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
   (warn "'my/org-journal-directory' is nil, org-journal disabled!"))
