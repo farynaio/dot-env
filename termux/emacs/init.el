@@ -769,14 +769,6 @@
   :custom
   (uniquify-buffer-name-style 'forward))
 
-(use-package elec-pair
-  :straight nil
-  ;; :hook (prog-mode . electric-pair-mode)
-  :config
-  (push '(?\{ . ?\}) electric-pair-pairs)
-  (push '(?\( . ?\)) electric-pair-pairs)
-  (push '(?\{ . ?\}) electric-pair-text-pairs))
-
 (message "Apperance setup finished")
 
 (straight-register-package 'all-the-icons)
@@ -1187,6 +1179,27 @@
 ;; (use-package move-text
 ;; :bind (("M-<up>" . move-text-up)
 ;; ("M-<down>" . move-text-down)))
+
+(use-package elec-pair
+  :demand t
+  :straight nil
+  :config
+  (add-to-list 'electric-pair-pairs '(?\" . ?\"))
+  (add-to-list 'electric-pair-pairs '(?\' . ?\'))
+  (add-to-list 'electric-pair-pairs '(?\{ . ?\}))
+  (add-to-list 'electric-pair-pairs '(?\( . ?\)))
+  (add-to-list 'electric-pair-pairs '(?\< . ?\>))
+
+  ;; for comments / strings
+  (add-to-list 'electric-pair-text-pairs '(?\' . ?\'))
+  (add-to-list 'electric-pair-text-pairs '(?\{ . ?\}))
+
+  (defun my/run-only-in-region (func &rest args)
+    (if (use-region-p)
+        (apply func args)))
+
+  (advice-add 'electric-pair-post-self-insert-function :around #'my/run-only-in-region)
+  (electric-pair-mode 1))
 
 (use-package expand-region
   :commands (er/expand-region er/contract-region)
