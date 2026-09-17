@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Removes bloatware from Lenovo Android device.
+# Works up to Android 16, in 17 Google disabled uninstallation of preinstalled apps, only disable is possible.
+
 #set -e
 
 # Commons
@@ -114,6 +117,8 @@ commons=(
   "com.google.android.calculator"
   "com.zui.pp"
   "com.tblenovo.tabpushout"
+  "com.android.dynsystem"
+  "com.lenovo.ota" # OS auto updates
 )
 
 #"com.google.android.wifi.dialog"
@@ -376,4 +381,3 @@ exit
 	"com.android.musicfx"
 	"com.google.android.deskclock"
   "com.android.euicc"
-
