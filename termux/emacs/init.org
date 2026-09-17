@@ -1547,20 +1547,45 @@ Including indent-buffer, which should not be called automatically on save."
   (let ((next-screen-context-lines (/ (window-height nil 'floor) 2)))
     (scroll-up-command)))
 
-(defun my/parens-jump ()
-  "Interactively show the character before and after point.
-  Displays each as a readable string or \"<BOF/EOF>\" when out of range."
-  (interactive)
-  (let ((before (char-before (point)))
-        (after  (char-after  (point))))
-    (cond
-     ((= after ?\() (forward-sexp))
-     ((= before ?\)) (backward-sexp))
-     (t nil))))
+(defun my/html-inside-tag-p ()
+  "Return t if point is inside an HTML/XML tag."
+  (save-excursion
+    (let ((end (point)))
+      (and (search-backward "<" nil t)
+           (not (search-forward ">" end t))))))
+
+(defun my/jump-matching (&optional arg)
+  "Jumps between matching parens, brackets and HTML tag open / entry based on cursor position."
+  (interactive "P")
+  (cond
+   ((looking-at "\\s(") (forward-list 1))
+   ((looking-at "\\s)") (backward-list 1))
+   ((looking-back "\\s)") (backward-list 1))
+   ((looking-at "\\s[") (forward-list 1))
+   ((looking-at "\\s]") (backward-list 1))
+   ((looking-back "\\s]") (backward-list 1))
+   ((and (derived-mode-p 'html-mode 'nxml-mode)
+         (or (looking-at "<")
+             (my/html-inside-tag-p)
+             (and (= (char-before) ?>)
+                  (save-excursion
+                    (backward-char 1)
+                    (skip-syntax-backward " >")
+                    (looking-at "<")))))
+    (unless (looking-at "<")
+      (if (my/html-inside-tag-p)
+          (sgml-skip-tag-backward 1)
+        (backward-char 1)
+        (skip-syntax-backward " >")))
+    (if (looking-at "</")
+        (sgml-skip-tag-backward arg)
+      (sgml-skip-tag-forward arg)))
+   (t (message "No match here"))))
 
 (bind-keys
- ("C-M-b" . my/parens-jump)
- ("C-M-f" . my/parens-jump)
+ ("C-M-b" . my/jump-matching)
+ ("C-M-f" . my/jump-matching)
+ ("M-%" . my/jump-matching)
  ("M-v" .  my/scroll-up-command))
 
 (message "Navigation setup finished")
