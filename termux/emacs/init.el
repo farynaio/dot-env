@@ -4426,7 +4426,7 @@ it can be passed in POS."
   :straight nil
   :config
   ;; Copy link instead follow
-  (advice-add 'browse-url :override #'shr-copy-url))
+  (advice-add 'browse-url :override (lambda (link &rest args) (shr-copy-url link))))
 
 ; https://noonker.github.io/posts/2020-04-22-elfeed/
 (defun my/youtube-download (url)
