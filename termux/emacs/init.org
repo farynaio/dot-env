@@ -1158,25 +1158,38 @@ TODO:
 
 (use-package corfu
   :demand t
+  :after (rainbow-mode)
   :bind (:map corfu-map
               ("SPC" . corfu-insert-separator)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous))
+              ("C-n" . corfu-popupinfo-scroll-down)
+              ("C-p" . corfu-previous-scroll-up))
   :custom
   (corfu-auto t)
   (corfu-cycle t)
   (corfu-on-exact-match nil)
-  (corfu-quit-no-much t)
+  (corfu-quit-no-match t)
+  (corfu-auto-delay 0.2)
+  (corfu-popupinfo-delay '(0.0 . 0.0))
+  (corfu-popupinfo-max-height 15)
   :config
   (add-to-list 'load-path (expand-file-name "straight/repos/corfu/extensions" user-emacs-directory))
   (require 'corfu-history)
   (require 'corfu-popupinfo)
-  (require 'corfu-echo)
+  ;; (require 'corfu-echo)
   (require 'corfu-info)
   (global-corfu-mode 1)
   (corfu-history-mode 1)
-  (corfu-popupinfo-mode 1) ; Popup completion info
-  (corfu-echo-mode 1))
+  (corfu-popupinfo-mode 1)
+  ;; (corfu-echo-mode nil)
+
+  (defun my/popupinfo-colorize (&rest args)
+    "Colourize popupinfo with 'rainbow-mode'."
+    (with-current-buffer " *corfu-popupinfo*"
+      (unless rainbow-mode
+        (rainbow-mode 1))
+      (font-lock-fontify-buffer)))
+
+  (advice-add #'corfu-popupinfo--show :after #'my/popupinfo-colorize))
 
 (use-package cape
   :demand t
@@ -1291,6 +1304,7 @@ TODO:
 
 (use-package tab-bar
   :demand t
+  :after dashboard
   :straight nil
   :bind (("C-x <left>" . tab-bar-switch-to-prev-tab)
          ("C-x C-<left>" . tab-bar-switch-to-prev-tab)
@@ -2837,9 +2851,6 @@ it can be passed in POS."
   ;;     (apply orig-fn args)))
   ;; (advice-add 'eglot--error :around #'my/eglot--error-filter)
 )
-
-;;(use-package eldoc-box
-;;  :hook (eglot-managed-mode . eldoc-box-hover-at-point-mode))
 
 ;; TODO needed that?
 (use-package flycheck-eglot
