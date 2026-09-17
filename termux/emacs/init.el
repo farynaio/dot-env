@@ -22,7 +22,6 @@
 (defvar my/org-roam-dir nil)
 (defvar my/org-journal-directory nil)
 (defvar my/org-journal-template nil)
-(defvar my/matrix-enable nil)
 (defvar my/evil-enable nil)
 (defvar my/html-enable nil) ; advanced
 (defvar my/js-enable nil) ; advanced
@@ -4393,12 +4392,6 @@ it can be passed in POS."
       (defalias 'rss #'my/elfeed))
   (warn "Variables 'my/elfeed-org-feeds-files', 'my/elfeed-db-dir' and 'my/downloads-dir' are required, RSS disabled!"))
 (message "Elfeed setup finished")
-
-(straight-register-package 'ement)
-(when my/matrix-enable
-  (use-package ement
-    :demand t))
-(message "Matrix setup finished")
 
 (when (string= system-type "darwin")
   (setq process-connection-type nil))
