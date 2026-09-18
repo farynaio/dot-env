@@ -6,3 +6,7 @@ set shiftwidth=2
 set expandtab
 set paste
 set number
+set noswapfile
+
+" Auto remove trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
