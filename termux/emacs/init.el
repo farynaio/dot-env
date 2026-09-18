@@ -1179,6 +1179,13 @@
 ;; :bind (("M-<up>" . move-text-up)
 ;; ("M-<down>" . move-text-down)))
 
+(use-package delsel
+  :demand t
+  :straight nil
+  :config
+  (delete-selection-mode 1))
+
+
 (use-package elec-pair
   :demand t
   :straight nil
