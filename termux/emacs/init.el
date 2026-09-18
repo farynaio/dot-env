@@ -314,6 +314,7 @@
   (visual-line-fringe-indicators '(left-curly-arrow nil))
   (set-mark-command-repeat-pop t)
   (mark-ring-max 4)
+  (save-interprogram-paste-before-kill t) ;; preserve clipboard in kill-ring before replacing with new kill
   :config
   (global-visual-line-mode 1)
   (column-number-mode 1)
