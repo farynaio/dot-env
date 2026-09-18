@@ -50,7 +50,7 @@
 
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
-(defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
@@ -1256,6 +1256,7 @@
   :straight nil
   :commands  (ediff ediff-buffers)
   :custom
+  ;; (ediff-keep-variants nil) ;; TODO test
   (ediff-quit-widened nil)
   (ediff-diff-options "-w")
   (ediff-ignore-similar-regions t)
@@ -1588,6 +1589,7 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-dwim-target t)
   (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
+;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
   (dired-recursive-deletes 'always)
   (dired-recursive-copies 'always)
   (dired-deletion-confirmer 'y-or-n-p)
@@ -1828,7 +1830,7 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
     ("Actions"
-     (("a" org-agenda "org agenda" :exit t)
+     (("a" org-agenda "agenda" :exit t)
       ("r" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
       ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
       ("t" org-toggle-timestamp-type "timestamp toggle")
@@ -2432,6 +2434,7 @@ should be continued."
 
       (advice-add 'org-journal-new-entry :before #'my/org-journal-jump-tab-bar)
       (advice-add 'org-journal-new-entry :after (lambda (&rest args) (org-overview)))
+      ;; (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook)
 
       (defun my/org-journal-open-current-journal-file ()
         "Do `org-journal-open-current-journal-file` and go to the most recent entry."
@@ -2441,6 +2444,7 @@ should be continued."
         ;; (org-journal-mode)
         (org-overview))
 
+      ;; TODO is that needed?
       (defun my/org-journal-after-header-create-hook ()
         (goto-char (point-min))
         (mark-whole-buffer)
@@ -2456,9 +2460,7 @@ should be continued."
           (forward-line)
           (yank)
           (pop kill-ring)
-          (setq kill-ring-yank-pointer kill-ring)))
-
-      (add-hook 'org-journal-after-header-create-hook #'my/org-journal-after-header-create-hook))
+          (setq kill-ring-yank-pointer kill-ring))))
   (warn "'my/org-journal-directory' is nil, org-journal disabled!"))
 
 (use-package org-sliced-images
@@ -3031,8 +3033,6 @@ it can be passed in POS."
 (use-package rainbow-delimiters
   :commands rainbow-delimiters-mode
   :hook (prog-mode . rainbow-delimiters-mode))
-
-
 
 (use-package prog-mode
   :straight nil
@@ -3699,6 +3699,14 @@ it can be passed in POS."
 (message "Development > Kotlin setup finished")
 
 (load-theme 'modus-vivendi t)
+
+;; (use-package modus-themes
+;;   :custom
+;;   (modus-themes-italic-constructs t)
+;;   (modus-themes-bold-constructs t)
+;;   (modus-themes-mixed-fonts t)
+;;   (modus-themes-to-toggle '(modus-operandi-tinted
+;; 			    modus-vivendi-tinted))
 
 ;; (use-package zerodark-theme)
 
