@@ -1972,6 +1972,16 @@ Including indent-buffer, which should not be called automatically on save."
      "Action"
      (("c" termux-saf-cache-clear "clear cache"))))
 
+  (pretty-hydra-define hydra-denote
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "folder-open" "Denote" 1  -0.05))
+    ("Action"
+     (("n" denote "denote")
+      ("r" denote-rename-file "rename file")
+      ("l" denote-link "link")
+      ("b" denote-backlinks "backlinks")
+      ("d" denote-dired "dired")
+      ("g" denote-grep "grep"))))
+
   (pretty-hydra-define hydra-base
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
     (""
@@ -1981,7 +1991,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("s" my/consult-ripgrep "grep")
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
-      ("j" (org-journal-new-entry t) "org-journal")
+      ("n" hydra-denote/body "denote")
+      ("j" (org-journal-new-entry t) "Journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write")
       ("r" revert-buffer "revert buffer"))
@@ -2599,6 +2610,22 @@ it can be passed in POS."
   :bind (:map org-mode-map
               ("C-x C-z" . org-link-archive-at-point)))
 (message "Org setup finished")
+
+(use-package denote
+  :demand t
+  :commands (denote denote-rename-file denote-link denote-backlinks denote-dired denote-grep)
+  :hook (dired-mode . denote-dired-mode)
+  :custom
+  (denote-directory (expand-file-name "notes" "~/Documents"))
+  :config
+  (defun my/denote-rename-on-save-based-on-front-matter ()
+    "Rename the current Denote file, if needed, based on front matter, upon saving the file."
+    (let ((denote-rename-confirmations nil)
+          (denote-save-buffers t))
+      (when (and buffer-file-name (denote-file-has-denoted-filename-p buffer-file-name))
+        (ignore-errors (denote-rename-file-using-front-matter buffer-file-name))
+        (message "Buffer saved; Denote file renamed"))))
+  (add-hook 'after-save-hook #'my/denote-rename-on-save-based-on-front-matter))
 
 (use-package calendar
   :commands (my/calendar-year)
