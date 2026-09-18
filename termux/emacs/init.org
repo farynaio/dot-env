@@ -1310,6 +1310,7 @@ TODO:
   :straight nil
   :commands  (ediff ediff-buffers)
   :custom
+  ;; (ediff-keep-variants nil) ;; TODO test
   (ediff-quit-widened nil)
   (ediff-diff-options "-w")
   (ediff-ignore-similar-regions t)
@@ -1648,6 +1649,7 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-dwim-target t)
   (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
+;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
   (dired-recursive-deletes 'always)
   (dired-recursive-copies 'always)
   (dired-deletion-confirmer 'y-or-n-p)
