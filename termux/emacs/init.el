@@ -858,12 +858,12 @@
   :straight nil
   :custom
   (recentf-max-menu-items 15)
-  (recentf-max-saved-items 100)
+  (recentf-max-saved-items 30)
+  (recentf-keep '(file-remote-p file-readable-p))
   (recentf-exclude
    '("COMMIT_EDITMSG"
      "~$"
      "/scp:"
-     "/ssh:"
      "/sudo:"
      "/tmp/"
      "?:cache"
@@ -988,7 +988,7 @@
    ;; Searching
    ("C-c b" . consult-bookmark)
    ("C-x f" . consult-recent-file)
-   ("C-x C-r" . consult-recent-file)
+   ("C-x C-r" . my/recentf)
    ("M-s r" . my/consult-ripgrep)
    ("M-s l" . my/consult-line)       ; Alternative: rebind C-s to use
    ("M-s s" . my/consult-line)       ; consult-line instead of isearch, bind
@@ -2812,8 +2812,8 @@ it can be passed in POS."
 (defun my/recentf ()
   (interactive)
   (if (projectile-project-root)
-      (projectile-recentf)
-    (consult-recent-file)))
+      (call-interactively 'projectile-recentf)
+    (call-interactively 'recentf)))
 
 (message "Project setup finished")
 
@@ -4769,6 +4769,7 @@ it can be passed in POS."
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
   :config
+  (remove-hook 'tramp-cleanup-connection-hook #'tramp-recentf-cleanup)
   (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
   (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t)))
 
