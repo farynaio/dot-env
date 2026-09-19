@@ -1547,7 +1547,6 @@ Including indent-buffer, which should not be called automatically on save."
 (bind-keys
  ("C-M-b" . my/jump-matching)
  ("C-M-f" . my/jump-matching)
- ("M-%" . my/jump-matching)
  ("M-v" .  my/scroll-up-command))
 
 (message "Navigation setup finished")
