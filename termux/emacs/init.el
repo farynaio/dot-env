@@ -1618,9 +1618,9 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-clean-confirm-killing-deleted-buffers nil)
   :config
   (add-hook 'dired-mode-hook
-          #'(lambda ()
-              (when (file-remote-p default-directory)
-                (setq-local delete-by-moving-to-trash nil))))
+            #'(lambda ()
+                (when (file-remote-p default-directory)
+                  (setq-local delete-by-moving-to-trash nil))))
 
   (defun my/dired-marked-count ()
     (when (and (derived-mode-p 'dired-mode)
@@ -1942,31 +1942,31 @@ Including indent-buffer, which should not be called automatically on save."
       ("," tab-bar-rename-tab "rename") ;; like tmux
       ("x" tab-bar-close-tab "close"))
      "Navigation"
-      (("t" tab-bar-switch-to-next-tab "next tab")
+     (("t" tab-bar-switch-to-next-tab "next tab")
       ("n" tab-bar-switch-to-next-tab "next tab")
       ("p" tab-bar-switch-to-prev-tab "prev tab")
       ("C-<left>" tab-bar-move-tab-backward "move left")
       ("C-<right>" tab-bar-move-tab "move right")
       ("<right>" tab-bar-switch-to-next-tab "next tab")
       ("<left>" tab-bar-switch-to-prev-tab "prev tab"))
-      "Jump to"
-      (("1" (tab-bar-select-tab 1) "Tab 1")
-       ("2" (tab-bar-select-tab 2) "Tab 2")
-       ("3" (tab-bar-select-tab 3) "Tab 3")
-       ("4" (tab-bar-select-tab 4) "Tab 4")
-       ("5" (tab-bar-select-tab 5) "Tab 5")
-       ("6" (tab-bar-select-tab 6) "Tab 6")
-       ("7" (tab-bar-select-tab 7) "Tab 7")
-       ("8" (tab-bar-select-tab 8) "Tab 8")
-       ("9" (tab-bar-select-tab 9) "Tab 9"))))
+     "Jump to"
+     (("1" (tab-bar-select-tab 1) "Tab 1")
+      ("2" (tab-bar-select-tab 2) "Tab 2")
+      ("3" (tab-bar-select-tab 3) "Tab 3")
+      ("4" (tab-bar-select-tab 4) "Tab 4")
+      ("5" (tab-bar-select-tab 5) "Tab 5")
+      ("6" (tab-bar-select-tab 6) "Tab 6")
+      ("7" (tab-bar-select-tab 7) "Tab 7")
+      ("8" (tab-bar-select-tab 8) "Tab 8")
+      ("9" (tab-bar-select-tab 9) "Tab 9"))))
 
   (pretty-hydra-define hydra-magit
     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
     ("Action"
-      (("b" magit-blame "blame")
-        ("l" magit-log-buffer-file "commit log (current file)")
-        ("L" magit-log-current "commit log (project)")
-        ("s" magit-status "status"))))
+     (("b" magit-blame "blame")
+      ("l" magit-log-buffer-file "commit log (current file)")
+      ("L" magit-log-current "commit log (project)")
+      ("s" magit-status "status"))))
 
   (pretty-hydra-define hydra-exwm
     (:hint nil :color teal :quit-key "q" :title (with-faicon "rocket" "EXWM" 1 -0.05))
@@ -2795,8 +2795,8 @@ it can be passed in POS."
   (defun my/projectile-invalidate-cache (arg)
     "Remove the current project's files from `projectile-projects-cache'.
 
-           With a prefix argument ARG prompts for the name of the project whose cache
-           to invalidate."
+             With a prefix argument ARG prompts for the name of the project whose cache
+             to invalidate."
     (interactive "P")
     (let ((project-root
            (if arg
@@ -2860,25 +2860,25 @@ it can be passed in POS."
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
     (unless (tramp-file-name-p (buffer-file-name))
-;;      (my/eglot-init-local)
+      ;;      (my/eglot-init-local)
       (eglot-ensure)))
 
   (defun my/eglot-init-local ()
     (setq-local completion-at-point-functions '(eglot-completion-at-point)))
-     ;; (list
-      ;; (cape-capf-super
-;;       #'eglot-completion-at-point
-;;      #'cape-keyword
-;;       #'cape-file
-;;       #'cape-dabbrev))))
- (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
+  ;; (list
+  ;; (cape-capf-super
+  ;;       #'eglot-completion-at-point
+  ;;      #'cape-keyword
+  ;;       #'cape-file
+  ;;       #'cape-dabbrev))))
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
 
   ;; (defun my/eglot--error-filter (orig-fn &rest args)
   ;;   "Suppress annoying 'unsupported capability' warnings in echo area."
   ;;   (unless (string-match "unsupported capability" (car args))
   ;;     (apply orig-fn args)))
   ;; (advice-add 'eglot--error :around #'my/eglot--error-filter)
-)
+  )
 
 ;; TODO needed that?
 (use-package flycheck-eglot
@@ -3228,12 +3228,12 @@ it can be passed in POS."
       :straight nil
       :mode "^Dockerfile\\'"
       ;; :hook ((dockerfile-ts-mode . my/dockerfile-lsp-init))
-)
+      )
   (message "tree-sitter for Dockerfile not available, fallback to dockerfile-mode")
   (use-package dockerfile-mode
     :mode "^Dockerfile\\'"
     ;; :hook ((dockerfile-mode . my/dockerfile-lsp-init))
-))
+    ))
 
 (use-package dns-mode
   :straight nil
@@ -3322,9 +3322,9 @@ it can be passed in POS."
       :submode css-ts-mode
       :front "<style>"
       :back "</style>")))
-   (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts)
-   (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts)
-)
+  (mmm-add-mode-ext-class 'html-mode nil 'mmm-html-css-ts)
+  (mmm-add-mode-ext-class 'html-ts-mode nil 'mmm-html-css-ts)
+  )
 (message "Development > General setup finished")
 
 (use-package ruby-ts-mode
@@ -3577,30 +3577,30 @@ it can be passed in POS."
 
   ;; (setq gud-pdb-command-name "python3 -m pdb ")
 
-(if (and (treesit-available-p) (treesit-ready-p 'python))
-  (use-package python-ts-mode
-    :straight nil
-    :hook ((python-ts-mode . my/eglot-ensure))
-    :mode ("\\.py\\'"))
-  (message "tree-sitter for python not available, fallback to python-mode")
-  (use-package python
-    :straight nil
-    :hook ((python-mode . my/python-init)
-           (python-mode . my/eglot-ensure))
-    :preface
-    (defun my/python-init ()
-      (setq-local tab-width 4)
-      (setq-local python-indent-offset 4)
+  (if (and (treesit-available-p) (treesit-ready-p 'python))
+      (use-package python-ts-mode
+        :straight nil
+        :hook ((python-ts-mode . my/eglot-ensure))
+        :mode ("\\.py\\'"))
+    (message "tree-sitter for python not available, fallback to python-mode")
+    (use-package python
+      :straight nil
+      :hook ((python-mode . my/python-init)
+             (python-mode . my/eglot-ensure))
+      :preface
+      (defun my/python-init ()
+        (setq-local tab-width 4)
+        (setq-local python-indent-offset 4)
 
-      (if (executable-find "ipython")
-          (progn
-            (python-shell-interpreter "ipython")
-            (python-shell-interpreter-args "-i --simple-prompt"))
-        (warn "ipython not found!")))
-    :config
-    (require 'comint)
-    (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
-    (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)))
+        (if (executable-find "ipython")
+            (progn
+              (python-shell-interpreter "ipython")
+              (python-shell-interpreter-args "-i --simple-prompt"))
+          (warn "ipython not found!")))
+      :config
+      (require 'comint)
+      (add-to-list 'comint-output-filter-functions 'python-pdbtrack-comint-output-filter-function)
+      (add-to-list 'comint-preoutput-filter-functions  'python-pdbtrack-comint-output-filter-function)))
 
   ;; On Debian it requires python3-venv apt package, than run elpy-rpc-reinstall-virtualenv
   (use-package elpy
@@ -3758,7 +3758,7 @@ it can be passed in POS."
  '(org-agenda-date ((t (:foreground "DarkSlateGray3" :bold nil))))
  '(org-agenda-date-today ((t (:foreground "DarkSlateGray3" :bold t :underline nil))))
  '(org-agenda-date-weekend ((t (:foreground "DarkSlateGray3" :bold nil))))
-)
+ )
 
 (use-package doom-modeline
   :disabled t
@@ -3767,7 +3767,7 @@ it can be passed in POS."
   (doom-modeline-icon t)
   :init
   (setq doom-modeline-minor-modes t
-            doom-modeline-vcs-max-length 20)
+        doom-modeline-vcs-max-length 20)
   :config
   (doom-modeline-mode 1))
 
@@ -3777,7 +3777,7 @@ it can be passed in POS."
   :init
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-            doom-themes-enable-italic t) ; if nil, italics is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
   ;; (load-theme 'doom-1337 t)
   ;; (load-theme 'doom-one t)
@@ -4128,15 +4128,15 @@ it can be passed in POS."
                   '("one of the" "should" "just" "sort of" "a lot" "probably" "maybe" "perhaps" "I think" "really" "pretty" "nice" "action" "utilize" "leverage"
                                         ; test
                     "clavicles" "collarbones" "tiny birds" "antlers" "thrumming" "pulsing" "wombs" "ribcage" "alabaster" "grandmother" "redacting fairytales" "retelling fairytales" "my sorrow" "the window speaking" "avocados" "the blank page" "marrow" "starlings" "giving birth" "giving birth to weird shit" "apples" "peeling back skin" "god" "the mountain trembling" "poetry is my remedy" "sharp fragments" "shards" "grandpa" "i can remember" "this is how it happened" "the pain" "greek myths" "poems about poems" "scars" "cold, stinging" "oranges" "the body" "struggles" "shadows" "the moon reflecting off the" "waves" "echoes in the night" "painted skies" "a hundred" "again and again" "peace, love" "whimsy" "brooklyn" "the summer solstice" "the lunar eclipse" "veins" "soul"
-                              ) t) "\\b")
+                    ) t) "\\b")
    artbollocks-jargon nil))
 (message "Writing setup finished")
 
 (use-package nov
   :mode ("\\.epub\\'" . nov-mode)
   :hook ((nov-mode . visual-line-mode)
-          (nov-mode . visual-fill-column-mode)
-          (nov-mode . my/nov-init))
+         (nov-mode . visual-fill-column-mode)
+         (nov-mode . my/nov-init))
   :bind
   (:map nov-mode-map
         ("<return>" . nov-scroll-down)
@@ -4263,15 +4263,15 @@ it can be passed in POS."
           (my/elfeed-load-db-and-update)
           (elfeed))
 
-       (defun my/elfeed-update ()
-         "Update 'elfeed' feeds and fetch."
+        (defun my/elfeed-update ()
+          "Update 'elfeed' feeds and fetch."
           (interactive)
           (ignore-errors
             (elfeed-org)
             (elfeed-update)
             (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))))
 
-       (my/elfeed-load-db-and-update)
+        (my/elfeed-load-db-and-update)
 
         (defun my/elfeed-search-open-in-external-click (event)
           "Open link with external browser"
@@ -4392,7 +4392,7 @@ it can be passed in POS."
         ;;              )
 
         ;;     (mapc 'elfeed-search-update-entry entries))
-          ;; (elfeed-search-update--force))
+        ;; (elfeed-search-update--force))
 
         ;; (defun my/elfeed-send-emails-processing (entry)
         ;;   (interactive)
@@ -4466,7 +4466,7 @@ it can be passed in POS."
           "Jump to 'elfeed' tab if it exists, or start 'elfeed' in current tab."
           (interactive)
           (when (tab-bar--tab-index-by-name my/elfeed-tab-name)
-              (tab-bar-switch-to-tab my/elfeed-tab-name))
+            (tab-bar-switch-to-tab my/elfeed-tab-name))
           (delete-other-windows)
           (unless (string-prefix-p "*elfeed-" (buffer-name) t)
             (elfeed))))
@@ -4524,204 +4524,204 @@ it can be passed in POS."
 
 (straight-register-package 'w3m)
 (if (executable-find "w3m")
-  (use-package w3m
-    :hook (w3m-mode . iscroll-mode)
-    :commands (w3m w3m-goto-url w3m-search)
-    :bind (:map w3m-mode-map
-            ("M-h" . my/w3m-history-full)
-            ("<" . beginning-of-buffer)
-            (">" . end-of-buffer)
-            ("I" . my/w3m-view-image-generic-browser)
-            ("O" . my/w3m-open-in-external)
-            ("C-w v" . evil-window-vsplit)
-            ("C-w C-v" . evil-window-vsplit)
-            ("C-w =" . balance-windows)
-            ("C-w |" . evil-window-set-width)
-            ("s-}" . w3m-next-buffer)
-            ("s-{" . w3m-previous-buffer)
-            ("<right>" . w3m-view-next-page)
-            ("S" . my/w3m-search-new-session)
-            ("C-c C-t" . my/w3m-create-empty-session)
-            ("C-t t" . my/w3m-create-empty-session)
-            ("<S-mouse-1>" . my/w3m-open-in-external-click)
-            ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
-            ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
-            ("C-c C-e" . my/w3m-goto-new-session-url))
-    :preface
-    (defun my/w3m-goto-frame (url &rest args)
-      (interactive (list (read-string "URL: ")))
-      (let ((w3m-alive (w3m-alive-p))
-             (w3m-new-session-in-background nil))
-        (switch-to-buffer-other-frame w3m-alive)
-        (unless w3m-alive
-          (w3m))
-        (w3m-goto-url-new-session url)))
+    (use-package w3m
+      :hook (w3m-mode . iscroll-mode)
+      :commands (w3m w3m-goto-url w3m-search)
+      :bind (:map w3m-mode-map
+                  ("M-h" . my/w3m-history-full)
+                  ("<" . beginning-of-buffer)
+                  (">" . end-of-buffer)
+                  ("I" . my/w3m-view-image-generic-browser)
+                  ("O" . my/w3m-open-in-external)
+                  ("C-w v" . evil-window-vsplit)
+                  ("C-w C-v" . evil-window-vsplit)
+                  ("C-w =" . balance-windows)
+                  ("C-w |" . evil-window-set-width)
+                  ("s-}" . w3m-next-buffer)
+                  ("s-{" . w3m-previous-buffer)
+                  ("<right>" . w3m-view-next-page)
+                  ("S" . my/w3m-search-new-session)
+                  ("C-c C-t" . my/w3m-create-empty-session)
+                  ("C-t t" . my/w3m-create-empty-session)
+                  ("<S-mouse-1>" . my/w3m-open-in-external-click)
+                  ("<s-mouse-1>" . w3m-mouse-view-this-url-new-session)
+                  ("<s-return>" . (lambda () (interactive) (w3m-view-this-url nil t)))
+                  ("C-c C-e" . my/w3m-goto-new-session-url))
+      :preface
+      (defun my/w3m-goto-frame (url &rest args)
+        (interactive (list (read-string "URL: ")))
+        (let ((w3m-alive (w3m-alive-p))
+              (w3m-new-session-in-background nil))
+          (switch-to-buffer-other-frame w3m-alive)
+          (unless w3m-alive
+            (w3m))
+          (w3m-goto-url-new-session url)))
 
-    (defun my/w3m-search-frame (query &optional from to)
-      (interactive
-        (if (use-region-p)
-          (list nil (region-beginning) (region-end))
-          (list (read-string "Search phrase: "))))
-      (let ((w3m-alive (w3m-alive-p))
-             (query (if query query (buffer-substring-no-properties from to)))
-             (w3m-new-session-in-background nil))
-        (switch-to-buffer-other-frame w3m-alive)
-        (if w3m-alive
-          (progn
-            (w3m)
-            (w3m-search-new-session w3m-search-default-engine query))
-          (w3m-search w3m-search-default-engine query))))
+      (defun my/w3m-search-frame (query &optional from to)
+        (interactive
+         (if (use-region-p)
+             (list nil (region-beginning) (region-end))
+           (list (read-string "Search phrase: "))))
+        (let ((w3m-alive (w3m-alive-p))
+              (query (if query query (buffer-substring-no-properties from to)))
+              (w3m-new-session-in-background nil))
+          (switch-to-buffer-other-frame w3m-alive)
+          (if w3m-alive
+              (progn
+                (w3m)
+                (w3m-search-new-session w3m-search-default-engine query))
+            (w3m-search w3m-search-default-engine query))))
 
-    (defun my/w3m-open-other-window ()
-      (interactive)
-      (let ((w3m-alive (w3m-alive-p)))
-        (switch-to-buffer-other-frame w3m-alive)
-        (unless w3m-alive
-          (w3m))))
+      (defun my/w3m-open-other-window ()
+        (interactive)
+        (let ((w3m-alive (w3m-alive-p)))
+          (switch-to-buffer-other-frame w3m-alive)
+          (unless w3m-alive
+            (w3m))))
 
-    (defun my/w3m-open-frame ()
-      (interactive)
-      (let ((w3m-alive (w3m-alive-p)))
-        (switch-to-buffer-other-frame w3m-alive)
-        (unless w3m-alive
-          (w3m))))
-    :custom
-    (w3m-use-cookies nil)
-    (w3m-use-favicon nil)
-    (mm-text-html-renderer 'w3m)
-    (w3m-search-default-engine "duckduckgo")
-    (w3m-delete-duplicated-empty-lines t)
-    (w3m-coding-system 'utf-8)
-    (w3m-default-coding-system 'utf-8)
-    (w3m-file-coding-system 'utf-8)
-    (w3m-file-name-coding-system 'utf-8)
-    (w3m-input-coding-system 'utf-8)
-    (w3m-output-coding-system 'utf-8)
-    (w3m-terminal-coding-system 'utf-8)
-    (w3m-display-mode 'tabbed)
-    (w3m-default-display-inline-images nil)
-    (w3m-confirm-leaving-secure-page nil)
-    (w3m-new-session-in-background t)
-    (w3m-session-load-crashed-sessions t)
-    (w3m-session-load-last-sessions t)
-    (w3m-new-session-url "about:")
-    (w3m-type 'w3m-m17n)
-    (w3m-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
-    (browse-url-handlers
-      '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
+      (defun my/w3m-open-frame ()
+        (interactive)
+        (let ((w3m-alive (w3m-alive-p)))
+          (switch-to-buffer-other-frame w3m-alive)
+          (unless w3m-alive
+            (w3m))))
+      :custom
+      (w3m-use-cookies nil)
+      (w3m-use-favicon nil)
+      (mm-text-html-renderer 'w3m)
+      (w3m-search-default-engine "duckduckgo")
+      (w3m-delete-duplicated-empty-lines t)
+      (w3m-coding-system 'utf-8)
+      (w3m-default-coding-system 'utf-8)
+      (w3m-file-coding-system 'utf-8)
+      (w3m-file-name-coding-system 'utf-8)
+      (w3m-input-coding-system 'utf-8)
+      (w3m-output-coding-system 'utf-8)
+      (w3m-terminal-coding-system 'utf-8)
+      (w3m-display-mode 'tabbed)
+      (w3m-default-display-inline-images nil)
+      (w3m-confirm-leaving-secure-page nil)
+      (w3m-new-session-in-background t)
+      (w3m-session-load-crashed-sessions t)
+      (w3m-session-load-last-sessions t)
+      (w3m-new-session-url "about:")
+      (w3m-type 'w3m-m17n)
+      (w3m-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36")
+      (browse-url-handlers
+       '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
          ("." . my/w3m-goto-frame)))
-    ;; (browse-url-browser-function
-    ;;   '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
-    ;;      ("." . my/w3m-goto-frame)))
-    :config
-    (pretty-hydra-define hydra-browser
-      (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
-      ("Go to"
-        ;; ("S" my/w3m-search-frame "search in frame" :exit t)
-        (("G" w3m-goto-url-new-session "go to")
+      ;; (browse-url-browser-function
+      ;;   '(("https:\\/\\/www\\.youtu\\.*be." . my/browse-url-mpv)
+      ;;      ("." . my/w3m-goto-frame)))
+      :config
+      (pretty-hydra-define hydra-browser
+        (:hint nil :color teal :quit-key "q" :title (with-faicon "globe" "Browser" 1 -0.05))
+        ("Go to"
+         ;; ("S" my/w3m-search-frame "search in frame" :exit t)
+         (("G" w3m-goto-url-new-session "go to")
           ("g" my/w3m-goto-frame "go to in frame"))
-        "Open"
-        (("w" my/w3m-open-frame "open browser in frame")
+         "Open"
+         (("w" my/w3m-open-frame "open browser in frame")
           ("W" my/w3m-open-other-window "open browser"))
-        "Search"
-        (("s" my/w3m-search-frame "search"))
-        ;; ("s" my/w3m-search-new-session "search" :exit t)
-        ))
+         "Search"
+         (("s" my/w3m-search-frame "search"))
+         ;; ("s" my/w3m-search-new-session "search" :exit t)
+         ))
 
-    (evil-define-key 'normal global-map
-      (kbd ",w") 'my/hydra-browser/body)
+      (evil-define-key 'normal global-map
+                       (kbd ",w") 'my/hydra-browser/body)
 
-    (defun my/w3m-create-empty-session ()
-      (interactive)
-      (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
+      (defun my/w3m-create-empty-session ()
+        (interactive)
+        (let ((w3m-new-session-in-background nil)) (w3m-create-empty-session)))
 
-    (defun my/w3m-goto-new-session-url (&optional reload)
-      "Open `w3m-new-session-url' in a new session."
-      (interactive "P")
-      (if (not (eq major-mode 'w3m-mode))
-        (message "This command can be used in w3m mode only")
-        (let ((w3m-new-session-in-background nil))
-          (w3m-goto-url-new-session w3m-new-session-url reload))))
+      (defun my/w3m-goto-new-session-url (&optional reload)
+        "Open `w3m-new-session-url' in a new session."
+        (interactive "P")
+        (if (not (eq major-mode 'w3m-mode))
+            (message "This command can be used in w3m mode only")
+          (let ((w3m-new-session-in-background nil))
+            (w3m-goto-url-new-session w3m-new-session-url reload))))
 
-    (defun my/w3m-open-in-external-click (event)
-      (interactive "e")
-      (mouse-set-point event)
-      (let ((url (w3m-url-valid (w3m-anchor))))
-        (when url
-          (browse-url-generic url))))
+      (defun my/w3m-open-in-external-click (event)
+        (interactive "e")
+        (mouse-set-point event)
+        (let ((url (w3m-url-valid (w3m-anchor))))
+          (when url
+            (browse-url-generic url))))
 
-    (defun my/w3m-open-in-external (url &optional reload charset post-data referer handler
-                                     element background save-pos)
-      (interactive
-        (list (unless (w3m--buffer-busy-error)
-                (w3m-input-url "Open URL in current buffer" nil nil nil
-                  'feeling-searchy 'no-initial))
-          current-prefix-arg coding-system-for-read))
-      (let ((url (w3m-url-valid (w3m-anchor))))
-        (when url
-          (browse-url-generic url))))
+      (defun my/w3m-open-in-external (url &optional reload charset post-data referer handler
+                                          element background save-pos)
+        (interactive
+         (list (unless (w3m--buffer-busy-error)
+                 (w3m-input-url "Open URL in current buffer" nil nil nil
+                                'feeling-searchy 'no-initial))
+               current-prefix-arg coding-system-for-read))
+        (let ((url (w3m-url-valid (w3m-anchor))))
+          (when url
+            (browse-url-generic url))))
 
-    (defun my/w3m-view-image-generic-browser ()
-      (interactive)
-      (let ((url (w3m-url-valid (w3m-image))))
-        (if url
-          (browse-url-generic url)
-          (w3m-message "No image at point"))))
+      (defun my/w3m-view-image-generic-browser ()
+        (interactive)
+        (let ((url (w3m-url-valid (w3m-image))))
+          (if url
+              (browse-url-generic url)
+            (w3m-message "No image at point"))))
 
-    (defun my/w3m-history-full ()
-      (interactive)
-      (w3m-history 1))
+      (defun my/w3m-history-full ()
+        (interactive)
+        (w3m-history 1))
 
-    (defun my/w3m-open-in-external (event)
-      (interactive "e")
-      (mouse-set-point event)
-      (let ((url (w3m-url-valid (w3m-anchor))))
-        (when url
-          (browse-url-generic url))))
+      (defun my/w3m-open-in-external (event)
+        (interactive "e")
+        (mouse-set-point event)
+        (let ((url (w3m-url-valid (w3m-anchor))))
+          (when url
+            (browse-url-generic url))))
 
-    (defun my/w3m-search-new-session (query &optional from to)
-      (interactive
-        (if (use-region-p)
-          (list nil (region-beginning) (region-end))
-          (list (read-string "Search phrase: "))))
-      (let ((w3m-alive (w3m-alive-p))
-             (query (if query query (buffer-substring-no-properties from to)))
-             (w3m-new-session-in-background nil))
-        (if w3m-alive
-          (progn
-            (w3m)
-            (w3m-search-new-session w3m-search-default-engine query))
-          (w3m-search w3m-search-default-engine query))))
+      (defun my/w3m-search-new-session (query &optional from to)
+        (interactive
+         (if (use-region-p)
+             (list nil (region-beginning) (region-end))
+           (list (read-string "Search phrase: "))))
+        (let ((w3m-alive (w3m-alive-p))
+              (query (if query query (buffer-substring-no-properties from to)))
+              (w3m-new-session-in-background nil))
+          (if w3m-alive
+              (progn
+                (w3m)
+                (w3m-search-new-session w3m-search-default-engine query))
+            (w3m-search w3m-search-default-engine query))))
 
-    ;; Fix asking for confirmation before visiting URL via generic browser
-    (advice-add 'browse-url-interactive-arg :around
-      (lambda (orig-fun &rest args)
-        (let ((event (elt (this-command-keys) 0)))
-          (and (listp event) (mouse-set-point event)))
-        (list (or (and transient-mark-mode mark-active
-                    ;; rfc2396 Appendix E.
-                    (replace-regexp-in-string
-                      "[\t\r\f\n ]+" ""
-                      (buffer-substring-no-properties
-                        (region-beginning) (region-end))))
-                (browse-url-url-at-point))
-          (not (eq (null browse-url-new-window-flag)
-                 (null current-prefix-arg))))))
+      ;; Fix asking for confirmation before visiting URL via generic browser
+      (advice-add 'browse-url-interactive-arg :around
+                  (lambda (orig-fun &rest args)
+                    (let ((event (elt (this-command-keys) 0)))
+                      (and (listp event) (mouse-set-point event)))
+                    (list (or (and transient-mark-mode mark-active
+                                   ;; rfc2396 Appendix E.
+                                   (replace-regexp-in-string
+                                    "[\t\r\f\n ]+" ""
+                                    (buffer-substring-no-properties
+                                     (region-beginning) (region-end))))
+                              (browse-url-url-at-point))
+                          (not (eq (null browse-url-new-window-flag)
+                                   (null current-prefix-arg))))))
 
-    (advice-add 'w3m-goto-url-new-session :around
-      (lambda (orig-fun &rest args)
-        (if (string-prefix-p "*w3m*" (buffer-name))
-          (apply orig-fun args)
-          (if (w3m-alive-p)
-            (progn
-              (switch-to-buffer-other-window (w3m-alive-p t))
-              (apply orig-fun args))
-            (switch-to-buffer-other-window "*scratch*")
-            (w3m (car args))))))
+      (advice-add 'w3m-goto-url-new-session :around
+                  (lambda (orig-fun &rest args)
+                    (if (string-prefix-p "*w3m*" (buffer-name))
+                        (apply orig-fun args)
+                      (if (w3m-alive-p)
+                          (progn
+                            (switch-to-buffer-other-window (w3m-alive-p t))
+                            (apply orig-fun args))
+                        (switch-to-buffer-other-window "*scratch*")
+                        (w3m (car args))))))
 
-    (advice-add 'w3m-quit :around
-      (lambda (orig-fun &rest args)
-        (funcall orig-fun t))))
+      (advice-add 'w3m-quit :around
+                  (lambda (orig-fun &rest args)
+                    (funcall orig-fun t))))
   (message (concat "Executable 'w3m' not found!")))
 
 (message "WWW setup finished")
