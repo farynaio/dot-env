@@ -1818,15 +1818,15 @@ Including indent-buffer, which should not be called automatically on save."
     (:hint nil :color teal :quit-key "q" :title (with-faicon "archive" "Project" 1 -0.05))
     ("Actions"
      (("a" my/projectile-add-known-project "add")
-      ("d" projectile-remove-known-project "remove")
+      ("r" projectile-remove-known-project "remove")
       ("i" projectile-invalidate-cache "reset cache")
-      ("r" (lambda () (projectile-invalidate-cache nil) (projectile-replace-regexp) (save-some-buffers t)) "regexp replace"))
+      ("x" (lambda () (projectile-invalidate-cache nil) (projectile-replace-regexp) (save-some-buffers t)) "regexp replace"))
      "Find"
      (("p" projectile-switch-project "project")
       ("o" projectile-find-other-file "other file")
       ("t" projectile-find-tag "tag")
-      ("s" projectile-grep "search")
-      ("g" yant/occur-current-project "grep"))))
+      ("g" projectile-grep "search")
+      ("s" yant/occur-current-project "grep"))))
 
   (pretty-hydra-define hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
