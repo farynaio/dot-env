@@ -982,6 +982,7 @@ TODO:
   ;;    ("Bookmarks" . "Bookmarks:")
   ;;    ("Registers" . "Registers:")))
   (dashboard-item-shortcuts '((agenda    . "a")
+                              (projects . "p")
                               (recents   . "r")
                               (bookmarks . "b")
                               (registers . "e")))
@@ -1026,7 +1027,7 @@ TODO:
   :bind
   (("C-x C-y" . consult-yank-from-kill-ring)
    ;; Drop-in replacements
-   ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
+   ("C-x b" . my/switch-to-buffer)
    ("M-y"   . consult-yank-pop)   ; orig. yank-pop
    ("M-g g" . consult-goto-line)
    ("M-g M-g" . consult-goto-line)
@@ -1062,6 +1063,13 @@ TODO:
    "find . -not ( -wholename */.* -prune ) -not -path '*/node_modules/*'")
   (completion-in-region-function #'consult-completion-in-region)
   :config
+  (defun my/switch-to-buffer ()
+    (interactive)
+    (if (or (tramp-file-name-p (buffer-file-name)) (and (derived-mode-p 'dired-mode)
+     (file-remote-p default-directory)) (string-prefix-p "*debug tramp" (buffer-name)))
+        (call-interactively 'switch-to-buffer)
+      (consult-buffer)))
+
   (defun my/consult-line ()
     "Run `consult-line` preffiled with region or symbol-at-point."
     (interactive)
@@ -1646,16 +1654,22 @@ Including indent-buffer, which should not be called automatically on save."
   :custom
   (enable-command 'dired-find-alternate-file)
   (dired-kill-when-opening-new-dired-buffer t)
+  (dired-kill-buffer-also nil)
   (dired-dwim-target t)
   (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
 ;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
-  (dired-recursive-deletes 'always)
-  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'top)
+  (dired-recursive-copies 'top)
   (dired-deletion-confirmer 'y-or-n-p)
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
   :config
+  (add-hook 'dired-mode-hook
+          #'(lambda ()
+              (when (file-remote-p default-directory)
+                (setq-local delete-by-moving-to-trash nil))))
+
   (defun my/dired-marked-count ()
     (when (and (derived-mode-p 'dired-mode)
                (memq last-command
@@ -2778,91 +2792,99 @@ it can be passed in POS."
 #+end_src
 * Project
 #+begin_src emacs-lisp
-  (use-package projectile
-    :demand t
-    :delight
-    :custom
-    (projectile-indexing-method 'hybrid)
-    (projectile-enable-caching t)
-    (projectile-verbose nil)
-    (projectile-do-log nil)
-    (projectile-require-project-root t)
-    (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-    (projectile-track-known-projects-automatically nil)
-    (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
-    (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
-    (projectile-switch-project-action #'projectile-dired)
-    :config
-    (require 'projectile-consult)
+(use-package projectile
+  :demand t
+  :delight
+  :custom
+  (projectile-indexing-method 'hybrid)
+  (projectile-enable-caching t)
+  (projectile-verbose nil)
+  (projectile-do-log nil)
+  (projectile-require-project-root t)
+  (projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (projectile-track-known-projects-automatically nil)
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".keep"))
+  (projectile-globally-ignored-file-suffixes '(".png" ".gif" ".pdf" ".class"))
+  (projectile-switch-project-action #'projectile-dired)
+  (projectile-ignored-project-function #'file-remote-p)
+  :config
+  (require 'projectile-consult)
 
-    (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
-    (unbind-key "C-c p" projectile-mode-map)
+  (defun my/projectile-project-root (orig-fun &optional dir)
+    "Disable projectile for remote files."
+    (let ((dir (or dir default-directory)))
+      (unless (file-remote-p dir)
+        (funcall orig-fun dir))))
+  (advice-add 'projectile-project-root :around #'my/projectile-project-root)
 
-    (if (executable-find "ctags")
-        (setq projectile-tags-command "ctags -R -e .")
-      (warn "No executable 'ctags' found!"))
-    ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+  (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
+  (unbind-key "C-c p" projectile-mode-map)
 
-    (defun my/projectile-invalidate-cache (arg)
-      "Remove the current project's files from `projectile-projects-cache'.
+  (if (executable-find "ctags")
+      (setq projectile-tags-command "ctags -R -e .")
+    (warn "No executable 'ctags' found!"))
+  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
+
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
 
     With a prefix argument ARG prompts for the name of the project whose cache
     to invalidate."
-      (interactive "P")
-      (let ((project-root
-             (if arg
-                 (completing-read "Remove cache for: " projectile-projects-cache)
-               (projectile-project-root))))
-        (setq projectile-project-root-cache (make-hash-table :test 'equal))
-        (remhash project-root projectile-project-type-cache)
-        (remhash project-root projectile-projects-cache)
-        (remhash project-root projectile-projects-cache-time)
-        (projectile-serialize-cache)
-        (when projectile-verbose
-          (message "Invalidated Projectile cache for %s."
-                   (propertize project-root 'face 'font-lock-keyword-face)))))
+    (interactive "P")
+    (let ((project-root
+           (if arg
+               (completing-read "Remove cache for: " projectile-projects-cache)
+             (projectile-project-root))))
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
+        (message "Invalidated Projectile cache for %s."
+                 (propertize project-root 'face 'font-lock-keyword-face)))))
 
-    (defun my/projectile-add-known-project (project-root)
-      (interactive (list (read-directory-name "Add to known projects: ")))
-      (projectile-add-known-project project-root)
-      (projectile-cleanup-known-projects))
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
 
-    (defun my/projectile-show-relative-path ()
-      (interactive)
-      (when (projectile-project-root)
-        (message (substring buffer-file-name (length (projectile-project-root))))))
+  (defun my/projectile-show-relative-path ()
+    (interactive)
+    (when (projectile-project-root)
+      (message (substring buffer-file-name (length (projectile-project-root))))))
 
-    (defun my/projectile-add-known-project (project-root)
-      (interactive (list (read-directory-name "Add to known projects: ")))
-      (projectile-add-known-project project-root)
-      (projectile-cleanup-known-projects))
+  (defun my/projectile-add-known-project (project-root)
+    (interactive (list (read-directory-name "Add to known projects: ")))
+    (projectile-add-known-project project-root)
+    (projectile-cleanup-known-projects))
 
-    (defun my/projectile-invalidate-cache (arg)
-      "Remove the current project's files from `projectile-projects-cache'.
+  (defun my/projectile-invalidate-cache (arg)
+    "Remove the current project's files from `projectile-projects-cache'.
 
            With a prefix argument ARG prompts for the name of the project whose cache
            to invalidate."
-      (interactive "P")
-      (let ((project-root
-               (if arg
-                   (completing-read "Remove cache for: " projectile-projects-cache)
-                 (projectile-project-root))))
-        (setq projectile-project-root-cache (make-hash-table :test 'equal))
-        (remhash project-root projectile-project-type-cache)
-        (remhash project-root projectile-projects-cache)
-        (remhash project-root projectile-projects-cache-time)
-        (projectile-serialize-cache)
-        (when projectile-verbose
-            (message "Invalidated Projectile cache for %s."
-                           (propertize project-root 'face 'font-lock-keyword-face)))))
+    (interactive "P")
+    (let ((project-root
+           (if arg
+               (completing-read "Remove cache for: " projectile-projects-cache)
+             (projectile-project-root))))
+      (setq projectile-project-root-cache (make-hash-table :test 'equal))
+      (remhash project-root projectile-project-type-cache)
+      (remhash project-root projectile-projects-cache)
+      (remhash project-root projectile-projects-cache-time)
+      (projectile-serialize-cache)
+      (when projectile-verbose
+        (message "Invalidated Projectile cache for %s."
+                 (propertize project-root 'face 'font-lock-keyword-face)))))
 
-    (projectile-mode 1))
+  (projectile-mode 1))
 
-  (defun my/recentf ()
-    (interactive)
-    (if (projectile-project-root)
-        (projectile-recentf)
-      (consult-recent-file)))
+(defun my/recentf ()
+  (interactive)
+  (if (projectile-project-root)
+      (projectile-recentf)
+    (consult-recent-file)))
 
 (message "Project setup finished")
 #+end_src
@@ -4843,21 +4865,24 @@ Try:
   :defer 1
   :straight nil
   :custom
-  (tramp-verbose 0)
-  (tramp-use-ssh-controlmaster-options nil)
+  (tramp-verbose 6)
+  (tramp-use-ssh-controlmaster-options t)
   (tramp-use-scp-direct-remote-copying t)
   (tramp-copy-size-limit (* 1024 1024))
   (remote-file-name-inhibit-cache nil)
-  (tramp-completion-reread-directory-timeout nil)
-  (tramp-default-method "ssh")
+  ;; (tramp-completion-reread-directory-timeout nil)
+  (tramp-connection-timeout 20)
+  (tramp-default-method "scp") ;; or rsync
   (tramp-inline-compress-start-size 40960)
   (tramp-chunksize nil)
-  ;; (tramp-ssh-controlmaster-options "-o ControlPath=%%C -o ControlMaster=auto -o ControlPersist=no")
+  (remote-file-name-inhibit-delete-by-moving-to-trash t)
+  (vc-ignore-dir-regexp (format "%s\\|%s" vc-ignore-dir-regexp tramp-file-name-regexp)) ;; Disable on remote files
   (tramp-remote-path '("/bin" "/usr/bin"))
   (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
   :config
+  (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
   (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t)))
 
 (use-package files-x
