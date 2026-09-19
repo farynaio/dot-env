@@ -4335,7 +4335,7 @@ it can be passed in POS."
               (shr--blink-link)))))
 
         (add-hook 'kill-emacs-hook #'elfeed-db-save)
-        (add-hook 'elfeed-update-hook #'elfeed-db-save)
+        (add-hook 'elfeed-update-hook (lambda (&rest args) (elfeed-db-save)))
 
         ;; https://noonker.github.io/posts/2020-04-22-elfeed/
         ;; (defun my/elfeed-youtube-download (&optional use-generic-p)
