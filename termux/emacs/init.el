@@ -4803,7 +4803,7 @@ it can be passed in POS."
 
 (when (eq window-system 'x)
   (when (eq system-type 'android)
-    (set-face-attribute 'default nil :height 140)
+    (set-face-attribute 'default nil :height 130)
     (bind-keys
      ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
 
