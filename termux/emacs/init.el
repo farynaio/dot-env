@@ -89,13 +89,6 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-width 3)           ; Set a minimum width
 
-;; Nice line wrapping when working with text
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;; Modes to highlight the current line with
-(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
-  (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
-
 (setq calc-internal-prec 20)
 
 (setq gnutls-verify-error t)
@@ -316,7 +309,6 @@
   (mark-ring-max 4)
   (save-interprogram-paste-before-kill t) ;; preserve clipboard in kill-ring before replacing with new kill
   :config
-  (global-visual-line-mode 1)
   (column-number-mode 1)
 
   ;; Apply `visual-line-mode' only on not `org-agenda-mode' buffers.
@@ -513,6 +505,7 @@
 (use-package diff-hl
   :defer 2
   :after magit
+  :commands (diff-hl-mode diff-hl-margin-mode diff-hl-amend-mode diff-hl-show-hunk-mouse-mode)
   :bind (:map prog-mode-map
               ("C-c C-]" . diff-hl-next-hunk)
               ("C-c C-[" . diff-hl-previous-hunk)
@@ -523,10 +516,6 @@
               ("C-c C-]" . diff-hl-next-hunk)
               ("C-c C-[" . diff-hl-previous-hunk))
   :config
-  (global-diff-hl-mode 1)
-  (diff-hl-margin-mode 1)
-  (diff-hl-amend-mode 1)
-  (diff-hl-show-hunk-mouse-mode 1)
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
@@ -1128,7 +1117,6 @@
   (require 'corfu-popupinfo)
   ;; (require 'corfu-echo)
   (require 'corfu-info)
-  (global-corfu-mode 1)
   (corfu-history-mode 1)
   (corfu-popupinfo-mode 1)
   ;; (corfu-echo-mode nil)
@@ -1707,9 +1695,6 @@ Including indent-buffer, which should not be called automatically on save."
     (evil-replace-state-tag " Evil[R] ")
     (evil-motion-state-tag " Evil[M] ")
     :config
-    ;; If you use Magit, start editing in insert state
-    ;; (add-hook 'git-commit-setup-hook 'evil-insert-state)
-
     ;; Configuring initial major mode for some modes
     (evil-set-initial-state 'eat-mode 'emacs)
     (evil-set-initial-state 'vterm-mode 'emacs)
@@ -5092,6 +5077,19 @@ it can be passed in POS."
 (when (eq system-type 'android)
   (bind-keys
    ("C-x ;" . comment-line)))
+
+(defun my/typing-mode-hooks ()
+  (unless (equal (buffer-name) "COMMIT_EDITMSG")
+    (hl-line-mode 1)
+    (corfu-mode 1)
+    (diff-hl-mode 1)
+    (diff-hl-margin-mode 1)
+    (diff-hl-amend-mode 1)
+    (diff-hl-show-hunk-mouse-mode 1)
+    (visual-line-mode 1)))
+
+(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
+  (mapc (lambda (hook) (add-hook hook #'my/typing-mode-hooks)) hl-line-hooks))
 
 (unless (server-running-p)
   (server-start))
