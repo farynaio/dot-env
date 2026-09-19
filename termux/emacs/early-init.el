@@ -2,6 +2,9 @@
 ;; (setq debug-on-error t)
 
 (setq inhibit-x-resources t)
+
+(setq use-short-answers t)
+
 (setq
   package-enable-at-startup nil
   package-install-upgrade-built-in t)
@@ -25,6 +28,8 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'org)
 
 ;; Ensure use-package is available via straight
 (straight-use-package 'use-package)

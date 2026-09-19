@@ -50,7 +50,6 @@
 
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
-(setq use-short-answers t)
 (setq confirm-kill-emacs #'yes-or-no-p)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
@@ -408,6 +407,8 @@
  ("C-c C-j" . my/join-line))
 
 (defalias 'qcalc #'quick-calc)
+
+(straight-use-package '(xref :type built-in))
 
 (message "General setup finished")
 
@@ -1043,7 +1044,7 @@
     "Use 'projectile-find-file' if in git project, else 'consult-find'."
     (interactive)
     (if (and (fboundp 'projectile-project-p) (projectile-project-p))
-        (projectile-consult-find-file)
+        (projectile-find-file)
       (consult-find)))
 
   (defun my/consult-ripgrep ()
@@ -1124,11 +1125,11 @@
               ("C-n" . corfu-popupinfo-scroll-down)
               ("C-p" . corfu-previous-scroll-up))
   :custom
-  (corfu-auto t)
+  (corfu-auto nil)
   (corfu-cycle t)
   (corfu-on-exact-match nil)
   (corfu-quit-no-match t)
-  (corfu-auto-delay 0.2)
+  (corfu-auto-delay 0.4)
   (corfu-popupinfo-delay '(0.0 . 0.0))
   (corfu-popupinfo-max-height 15)
   :config
@@ -1205,7 +1206,6 @@
   :straight nil
   :config
   (delete-selection-mode 1))
-
 
 (use-package elec-pair
   :demand t
@@ -1492,7 +1492,7 @@ Including indent-buffer, which should not be called automatically on save."
 
   ;; Probably most effective for mouse and touchpads setups.
   ;; (use-package ultra-scroll)
-)
+  )
 
 (use-package ibuffer
   :straight nil
@@ -1610,7 +1610,7 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-dwim-target t)
   (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
-;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
+  ;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
   (dired-recursive-deletes 'top)
   (dired-recursive-copies 'top)
   (dired-deletion-confirmer 'y-or-n-p)
@@ -2758,16 +2758,11 @@ it can be passed in POS."
   (setq projectile-globally-ignored-directories (delete-dups (append '("node-modules" "dist" "target" "*elpa" "straight") projectile-globally-ignored-directories)))
   (unbind-key "C-c p" projectile-mode-map)
 
-  (if (executable-find "ctags")
-      (setq projectile-tags-command "ctags -R -e .")
-    (warn "No executable 'ctags' found!"))
-  ;; (add-hook 'projectile-after-switch-project-hook (lambda () (my/projectile-invalidate-cache nil)))
-
   (defun my/projectile-invalidate-cache (arg)
     "Remove the current project's files from `projectile-projects-cache'.
 
-    With a prefix argument ARG prompts for the name of the project whose cache
-    to invalidate."
+      With a prefix argument ARG prompts for the name of the project whose cache
+      to invalidate."
     (interactive "P")
     (let ((project-root
            (if arg
@@ -2850,8 +2845,6 @@ it can be passed in POS."
   (add-to-list 'eglot-ignored-server-capabilities :documentHighlightProvider)
   (add-to-list 'eglot-ignored-server-capabilities :workspace/didChangeWorkspaceFolders)
   (add-to-list 'eglot-server-programs '((html-mode html-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
-;;  (add-to-list 'eglot-server-programs '((web-mode html-mode html-ts-mode) . ("tailwindcss-language-server" "--stdio")))
-;;  (add-to-list 'eglot-server-programs '((web-mode html-mode html-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((js-mode js2-mode typescript-ts-mode) . ("rass" "--" "vscode-html-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((tsx-ts-mode rjsx-mode) . ("rass" "--" "typescript-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((python-mode python-ts-mode) . ("rass" "--" "pyright-langserver" "--stdio")))
@@ -3074,6 +3067,7 @@ it can be passed in POS."
          ("C-c \"" . my/wrap-with-quotes))
   :config
   (defun my/prog-mode-hook ()
+    (setq-local corfu-auto t)
     (modify-syntax-entry ?- "w")
     (modify-syntax-entry ?_ "w")
     (modify-syntax-entry ?$ "w"))
@@ -3359,11 +3353,24 @@ it can be passed in POS."
   ;; (use-package edit-color-stamp
   ;; :commands edit-color-stamp)
 
+  (use-package sgml-mode
+    :straight nil
+    :hook ((sgml-mode . my/sgml-mode-init))
+    :config
+    (defun my/sgml-mode-init ()
+      (setq-local corfu-auto t)))
+
   (use-package html-ts-mode
     :straight nil
     :hook ((html-ts-mode . rainbow-mode)
            (html-ts-mode . emmet-mode)
-           (html-ts-mode . my/eglot-ensure)))
+           (html-ts-mode . my/eglot-ensure))
+    :mode ("\\.html\\.twig\\'"
+           "\\.hbs\\'"
+           "\\.ejs\\'"
+           "\\.html?\\'"
+           "\\.njk\\'"
+           "\\.svg\\'"))
 
   ;; DEPRECATED no LSP support?
   (use-package mhtml-ts-mode
@@ -4812,7 +4819,6 @@ it can be passed in POS."
     (warn "Font 'Cascadia Code PL' not available!"))
 
   (use-package exwm
-    :disabled t
     :demand t
     :custom
     (exwm-workspace-number 4)
@@ -4901,8 +4907,7 @@ it can be passed in POS."
 
     ;; Auto start if EXWM_START is set
     (when (getenv "EXWM_START")
-      (my/exwm-start))
-))
+      (my/exwm-start))))
 (message "X setup finished")
 
 (use-package message
