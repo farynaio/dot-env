@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 ;; (setq debug-on-error t)
 
+(setq inhibit-x-resources t)
 (setq
   package-enable-at-startup nil
   package-install-upgrade-built-in t)
