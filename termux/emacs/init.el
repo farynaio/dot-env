@@ -1732,7 +1732,6 @@ Including indent-buffer, which should not be called automatically on save."
     (evil-set-initial-state 'epa-key-list-mode 'emacs)
     (evil-set-initial-state 'image-mode 'emacs)
     (evil-set-initial-state 'shell-mode 'emacs)
-    (evil-set-initial-state 'treemacs-mode 'emacs)
     ;; (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
     (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
     (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
@@ -1765,7 +1764,6 @@ Including indent-buffer, which should not be called automatically on save."
     (add-to-list 'evil-emacs-state-modes 'my/org-roam-side-mode)
     (add-to-list 'evil-emacs-state-modes 'deft-mode)
     (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
-    (add-to-list 'evil-emacs-state-modes 'treemacs-mode)
     (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
     (add-to-list 'evil-emacs-state-modes 'nov-mode)
     (add-to-list 'evil-emacs-state-modes 'helpful-mode)
@@ -1929,8 +1927,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("r" my/xref-find-references-at-point "find references" :exit t)
       ("t" projectile-find-tag "find tag" :exit t)
       ("g" projectile-grep "git grep" :exit t)
-      ("i" consult-imenu "imenu" :exit t)
-      ("k" my/treemacs-project-toggle "treemacs" :toggle t :exit t))))
+      ("i" consult-imenu "imenu" :exit t))))
 
   (pretty-hydra-define hydra-tab-bar
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
@@ -3141,34 +3138,6 @@ it can be passed in POS."
   ;;      (window-height   . 0.33)))
   )
 
-(use-package treemacs
-  :commands (treeemacs treemacs-current-visibility)
-  :custom
-  (treemacs-default-visit-action #'treemacs-visit-node-in-most-recently-used-window)
-  (treemacs-project-follow-cleanup t)
-  :config
-  (defun my/treemacs-project-toggle ()
-    "Toggle treemacs for current project."
-    (interactive)
-    (if (string-equal (treemacs-current-visibility) "visible")
-        (treemacs)
-      (treemacs-add-and-display-current-project-exclusively)))
-
-  (treemacs-follow-mode 1)
-  (treemacs-project-follow-mode nil)
-  (treemacs-filewatch-mode 1)
-  (treemacs-git-mode 'simple)
-  (treemacs-resize-icons 22)
-  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
-
-(use-package treemacs-projectile
-  :demand t
-  :after (treemacs projectile))
-
-(use-package treemacs-magit
-  :demand t
-  :after (treemacs magit))
-
 ;; Folding code blocks based on indentation.
 (use-package yafolding
   :hook (prog-mode . (lambda () (yafolding-mode 1)))
@@ -3786,15 +3755,6 @@ it can be passed in POS."
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-
-  ;; use the colorful treemacs theme
-  ;; (use-package doom-themes-ext-treemacs
-  ;;      :after treemacs
-  ;; :commands treemacs-mode
-  ;; :custom
-  ;; (doom-themes-treemacs-theme "doom-colors")
-  ;; :config
-  ;; (doom-themes-treemacs-config))
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
