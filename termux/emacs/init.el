@@ -618,10 +618,7 @@
          (display-buffer-reuse-window display-buffer-at-bottom)
          (window-height . 0.3)
          (reusable-frames . nil))
-        ("\\*Flycheck error messages\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
+
         ("\\*Async-native-compile-log\\*"
          (display-buffer-reuse-window display-buffer-at-bottom)
          (window-height . 0.3)
@@ -2849,13 +2846,6 @@ it can be passed in POS."
   ;; (advice-add 'eglot--error :around #'my/eglot--error-filter)
   )
 
-;; TODO needed that?
-(use-package flycheck-eglot
-  :demand t
-  :after (eglot flycheck)
-  :config
-  (global-flycheck-eglot-mode 1))
-
 ;; https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
 (if (treesit-available-p)
     (use-package treesit
@@ -3097,12 +3087,19 @@ it can be passed in POS."
   :bind (:map prog-mode-map
               ("C-c C-{" . my/fly-prev-error)
               ("C-c C-}" . my/fly-next-error))
+  :init
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc emacs-lisp html-tidy))
   :custom
   (flymake-phpcs-show-rule t)
   (flycheck-display-errors-delay .3)
   (flycheck-phpcs-standard "WordPress")
   :config
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc emacs-lisp html-tidy))
+  (add-to-list 'display-buffer-alist
+               '("\\*Flycheck errors\\*"
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 (window-height . 0.3)
+                 (reusable-frames . nil)))
+  (global-flycheck-eglot-mode 1)
   ;; (global-flycheck-mode)
   ;; (add-to-list 'display-buffer-alist
   ;;   `(,(rx bos "*Flycheck errors*" eos)
