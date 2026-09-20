@@ -2833,6 +2833,16 @@ it can be passed in POS."
 ;; Solve chicken and egg problem, when 'eglot-server-programs' is needed to configure LSPs but it's not available until lazily loaded eglot is initialized.
 (setq-default eglot-server-programs '())
 
+(use-package xref
+  :straight nil
+  :config
+  (add-to-list 'display-buffer-alist
+             '("\\*xref\\*"
+               (display-buffer-reuse-window display-buffer-in-side-window)
+               (side . bottom)
+               (window-height . 0.25)
+               (slot . 1))))
+
 (use-package eglot
   :straight nil
   :commands (eglot eglot-ensure my/eglot-ensure eglot-alternatives)
