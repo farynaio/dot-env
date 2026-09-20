@@ -11,6 +11,10 @@ export GPG_TTY=$(tty)
 # Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
 
+if [ -n "$EAT_SHELL_INTEGRATION_DIR" ]; then
+  source "$EAT_SHELL_INTEGRATION_DIR/bash"
+fi
+
 # export DISPLAY=:0 MESA_LOADER_DRIVER_OVERRIDE=zink
 # export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
 # export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/freedreno_icd.aarch64.json

@@ -7,6 +7,10 @@ export VISUAL="vim"
 # Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
 
+if status is-interactive; and test -n $EAT_SHELL_INTEGRATION_DIR
+  source $EAT_SHELL_INTEGRATION_DIR/fish
+end
+
 set -gx GPG_TTY (tty)
 
 # Optional: Update GPG agent TTY on every command (fixes tmux pane switching issues)
