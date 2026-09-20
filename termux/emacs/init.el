@@ -4666,8 +4666,10 @@ it can be passed in POS."
                          (:exclude ".dir-locals.el" "*-tests.el")))
   :bind (:map eat-semi-char-mode-map
               ("C-t" . nil)
+              ("C-f" . nil)
               :map eat-char-mode-map
-              ("C-t" . nil))
+              ("C-t" . nil)
+              ("C-f" . nil))
   :custom
   (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
   ;; Performance
