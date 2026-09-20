@@ -597,8 +597,74 @@
   (remove-hook 'magit-status-sections-hook #'magit-insert-unpushed-to-upstream-or-recent))
 (message "Git setup finished")
 
-(unbind-key "C-x <right>")
-(unbind-key "C-x <left>")
+(setq display-buffer-alist
+      '(("\\*[hH]elp.*"
+         (display-buffer-reuse-window display-buffer-below-selected)
+         (window-height . 0.4)
+         (reusable-frames . nil))
+        ("\\*grep\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Backtrace\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Warnings\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Completions\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Flycheck error messages\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Async-native-compile-log\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-byte-compilation\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*straight-process\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*chatgpt.*"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*ruby\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.1)
+         (reusable-frames . nil))
+        ("\\magit:"
+         (display-buffer-in-previous-window)
+         (reusable-frames . nil))
+        ("\\*eldoc"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*projectile-files-errors\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.2)
+         (reusable-frames . nil))
+        ("\\*Org Entity Help\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (window-height . 0.3)
+         (reusable-frames . nil))
+        ("\\*Async Shell Command\\*.*"
+         (display-buffer-no-window))
+        ("^\\*SAF"
+         (display-buffer-same-window)
+         (inhibit-same-window . nil))
+        ;; ("\\*tree-sitter"
+        ;;    (display-buffer-reuse-window display-buffer-same-window)
+        ;;    (window-parameters . ((quit-restore . delete))))
+        ))
 
 (defun my/delete-window ()
   (interactive)
@@ -668,78 +734,15 @@
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
 
-(global-set-key (kbd "C-x 0") 'my/delete-window)
-(global-set-key (kbd "C-x 2") 'my/split-window-down)
-(global-set-key (kbd "C-x 3") 'my/split-window-right)
+(unbind-key "C-x <right>")
+(unbind-key "C-x <left>")
 
-(setq display-buffer-alist
-      '(("\\*[hH]elp.*"
-         (display-buffer-reuse-window display-buffer-below-selected)
-         (window-height . 0.4)
-         (reusable-frames . nil))
-        ("\\*grep\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*Backtrace\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*Warnings\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.2)
-         (reusable-frames . nil))
-        ("\\*Completions\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*Flycheck error messages\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*Async-native-compile-log\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*straight-byte-compilation\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*straight-process\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*chatgpt.*"
-         (display-buffer-in-previous-window)
-         (reusable-frames . nil))
-        ("\\*ruby\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.1)
-         (reusable-frames . nil))
-        ("\\magit:"
-         (display-buffer-in-previous-window)
-         (reusable-frames . nil))
-        ("\\*eldoc"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.2)
-         (reusable-frames . nil))
-        ("\\*projectile-files-errors\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.2)
-         (reusable-frames . nil))
-        ("\\*Org Entity Help\\*"
-         (display-buffer-reuse-window display-buffer-at-bottom)
-         (window-height . 0.3)
-         (reusable-frames . nil))
-        ("\\*Async Shell Command\\*.*"
-         (display-buffer-no-window))
-        ("^\\*SAF"
-         (display-buffer-same-window)
-         (inhibit-same-window . nil))
-        ;; ("\\*tree-sitter"
-        ;;    (display-buffer-reuse-window display-buffer-same-window)
-        ;;    (window-parameters . ((quit-restore . delete))))
-        ))
+(bind-keys
+ ("M-'" . window-toggle-side-windows)
+ ("C-x 0" . my/delete-window)
+ ("C-x 2" . my/split-window-down)
+ ("C-x 3" . my/split-window-right))
+
 (message "Windows / Buffers / Frames setup finished")
 
 (use-package time
@@ -3547,7 +3550,7 @@ it can be passed in POS."
       (use-package python-ts-mode
         :straight nil
         :hook ((python-ts-mode . my/eglot-ensure))
-        :mode ("\\.py\\'"))
+        :mode "\\.py\\'")
     (message "tree-sitter for python not available, fallback to python-mode")
     (use-package python
       :straight nil
