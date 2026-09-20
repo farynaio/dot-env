@@ -3176,7 +3176,7 @@ it can be passed in POS."
          (nxml-mode . (lambda () (when (featurep 'emmet-mode) (emmet-mode 1))))))
 
 (use-package markdown-mode
-  :mode ((("\\.markdown\\'" "\\.mdx?\\'") . markdown-mode)
+  :mode ("\\.markdown\\'" "\\.mdx?\\'"
          ("README\\.md\\'" . gfm-mode))
   :hook (((markdown-mode gfm-mode) . my/eglot-ensure)
          (markdown-mode . abbrev-mode))
