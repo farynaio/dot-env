@@ -1677,6 +1677,12 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
   :config
+  (defun my/dired-unmark-after-copy ()
+    "Unmark all files after copy operation."
+    (when (derived-mode-p 'dired-mode)
+      (dired-unmark-all-marks)))
+  (advice-add 'dired-do-copy :after #'my/dired-unmark-after-copy)
+
   (add-hook 'dired-mode-hook
             #'(lambda ()
                 (when (file-remote-p default-directory)
