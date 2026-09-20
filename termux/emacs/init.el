@@ -504,6 +504,7 @@
 (use-package diff-hl
   :defer 2
   :after magit
+  :diminish (diff-hl-mode diff-hl-margin-mode)
   :commands (diff-hl-mode diff-hl-margin-mode diff-hl-amend-mode diff-hl-show-hunk-mouse-mode)
   :bind (:map prog-mode-map
               ("C-c C-]" . diff-hl-next-hunk)
@@ -1099,9 +1100,10 @@
     (require 'corfu-popupinfo)
     (corfu-popupinfo-mode 1))
 
-  ;; (when (display-graphic-p)
-  ;;   (require 'corfu-echo)
-  ;;   (corfu-echo-mode 1))
+  ;; because popupinfo freezes in X
+  (when (display-graphic-p)
+    (require 'corfu-echo)
+    (corfu-echo-mode 1))
 
   (defun my/popupinfo-colorize (&rest args)
     "Colourize popupinfo with 'rainbow-mode'."
@@ -1650,8 +1652,6 @@ Including indent-buffer, which should not be called automatically on save."
 (message "Dired setup finished")
 
 (straight-register-package 'evil)
-(straight-register-package 'evil-visualstar)
-(straight-register-package 'evil-multiedit)
 (when my/evil-enable
   (use-package evil
     :commands evil-mode
@@ -1744,23 +1744,7 @@ Including indent-buffer, which should not be called automatically on save."
 
     (evil-define-key 'normal 'global-map
                      (kbd "u") #'undo-fu-only-undo
-                     (kbd "C-r") #'undo-fu-only-redo))
-
-  (use-package evil-visualstar
-    :demand t
-    :after evil
-    :config
-    (global-evil-visualstar-mode))
-
-  (use-package evil-multiedit
-    :demand t
-    :after evil
-    :config
-    (evil-multiedit-default-keybinds)
-    (defun make-evil-multiedit-case-sensitive (fn &rest args)
-      (let ((case-fold-search (not iedit-case-sensitive)))
-        (apply fn args)))
-    (advice-add 'evil-multiedit-match-and-next :around #'make-evil-multiedit-case-sensitive)))
+                     (kbd "C-r") #'undo-fu-only-redo)))
 
 (message "Evil setup finished")
 
@@ -1991,7 +1975,7 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("x" hydra-exwm/body "EXWM")
       ("d" hydra-dired/body "dired")
-      ("z" shell "shell")
+      ("z" eat "shell")
       ("M" my/notmuch "notmuch")
       ("R" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
@@ -3217,12 +3201,12 @@ it can be passed in POS."
 (straight-register-package 'yaml-mode)
 (if (and (treesit-available-p) (treesit-ready-p 'yaml))
     (use-package yaml-ts-mode
-      :mode "\\.yml\\'"
+      :mode "\\.ya?ml\\'"
       :hook ((yaml-ts-mode-hook . display-line-numbers-mode)
              (yaml-ts-mode-hook . my/eglot-ensure)))
   (message "tree-sitter for YAML not available, fallback to yaml-mode")
   (use-package yaml-mode
-    :mode "\\.yml\\'"
+    :mode "\\.ya?ml\\'"
     :hook ((yaml-mode-hook . display-line-numbers-mode)
            (yaml-mode-hook . my/eglot-ensure))))
 
@@ -4669,42 +4653,42 @@ it can be passed in POS."
 
 (message "WWW setup finished")
 
-(setq shell-dirtrackp nil)
-
-(defalias 'sh #'shell)
-
-(use-package shell
-  :straight nil
-  :hook (shell-mode . my-shell-mode-hook-func)
-  :config
-  ;; Kill shell buffer when shell exits
-  (defun my-shell-mode-hook-func ()
-    (set-process-sentinel (get-buffer-process (current-buffer))
-                          'my-shell-mode-kill-buffer-on-exit))
-  (defun my-shell-mode-kill-buffer-on-exit (process state)
-    (message state)
-    (if (or
-         (string-match "exited abnormally with code.*" state)
-         (string-match "finished" state))
-        (kill-buffer (current-buffer))))
-
-  ;; default shell buffer
-  (setq explicit-shell-file-name (or (executable-find "fish") (executable-find "bash")))
-  ;; use shell-file-name for subprocesses
-  (setq shell-file-name (executable-find "bash"))
-
-  (setq sh-shell-file shell-file-name))
-
-;; untested
 ;; https://codeberg.org/akib/Emacs-eat
 (use-package eat
-  :disabled t
-  :demand t
-  :straight (:host codeberg
-                   :repo "akib/Emacs-eat"
-                   :files ("*.el" ("term" "term/*.el") "*.texi" "*.ti" ("terminfo/e" "terminfo/e/*") ("terminfo/65" "terminfo/65/*") ("integration" "integration/*") (:exclude ".dir-locals.el" "*-tests.el")))
+  :commands (eat eat-other-window eat-project eat-project-other-window)
+  :straight (eat :type git
+                 :host codeberg
+                 :repo "akib/emacs-eat"
+                 :files ("*.el" ("term" "term/*.el") "*.texi"
+                         "*.ti" ("terminfo/e" "terminfo/e/*")
+                         ("terminfo/65" "terminfo/65/*")
+                         ("integration" "integration/*")
+                         (:exclude ".dir-locals.el" "*-tests.el")))
+  :bind (:map eat-semi-char-mode-map
+              ("C-t" . nil)
+              :map eat-char-mode-map
+              ("C-t" . nil))
   :custom
-  (eat-term-name "xterm"))
+  (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
+  ;; Performance
+  (process-adaptive-read-buffering nil)   ; biggest single speedup
+  (eat-minimum-latency 0.007)
+  (eat-maximum-latency 0.05)
+  (eat-term-scrollback-size (* 64 1024))  ; in characters
+  ;; Behavior
+  (eat-kill-buffer-on-exit t)
+  (eat-query-before-killing-running-terminal 'auto)
+  (eat-term-name "xterm-256color")
+  (eat-enable-shell-prompt-annotation nil) ;; disables prompt markers
+  :config
+  (defun my/eat-speedup ()
+    (setq-local scroll-conservatively most-positive-fixnum)
+    (setq-local truncate-lines t)
+    (setq-local line-spacing 0)
+    (setq-local mode-line-format nil)
+    (buffer-disable-undo))
+  (add-hook 'eat-mode-hook 'my/eat-speedup)
+  (defalias 'sh #'eat))
 (message "Shell / Terminal setup finished")
 
 (use-package tramp
@@ -5056,8 +5040,8 @@ it can be passed in POS."
     (corfu-mode 1)
     (diff-hl-mode 1)
     (diff-hl-margin-mode 1)
-    (diff-hl-amend-mode 1)
-    (diff-hl-show-hunk-mouse-mode 1)
+;;    (diff-hl-amend-mode 1)
+;;    (diff-hl-show-hunk-mouse-mode 1)
     (visual-line-mode 1)))
 
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
