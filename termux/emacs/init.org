@@ -437,8 +437,6 @@ TODO:
 
 (defalias 'qcalc #'quick-calc)
 
-(straight-use-package '(xref :type built-in))
-
 (message "General setup finished")
 #+end_src
 * Debug

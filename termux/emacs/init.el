@@ -408,8 +408,6 @@
 
 (defalias 'qcalc #'quick-calc)
 
-(straight-use-package '(xref :type built-in))
-
 (message "General setup finished")
 
 ;; (setq backtrace-on-redisplay-error t)

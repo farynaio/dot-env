@@ -30,9 +30,10 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'org)
-
-;; Ensure use-package is available via straight
+(straight-use-package '(xref :type built-in))
 (straight-use-package 'use-package)
+
+;; Ensure use-package is available via straight-use-package
 (setq
   straight-use-package-by-default t
   straight-vc-git-default-protocol 'https
@@ -42,7 +43,6 @@
 (add-to-list 'straight-built-in-pseudo-packages 'project)
 
 ;; Load Org and org-babel support
-(straight-use-package 'org)
 (require 'org)
 (require 'ob-tangle)
 
