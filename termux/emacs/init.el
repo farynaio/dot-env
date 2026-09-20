@@ -895,66 +895,24 @@
   :demand t
   :after (embark consult))
 
-(straight-register-package 'dashboard)
 (straight-register-package 'enlight)
-(if (display-graphic-p)
-    (use-package enlight
-      :commands enlight-open
-      :after (projectile)
-      :custom
-      (enlight-content
-       (concat
-        (enlight-menu
-         '(("TODO"
-	          ("Agenda" (org-agenda nil "d") "a"))
-           ("Files"
-	          ("Projects" projectile-switch-project "p")
-	          ("Bookmarks" bookmark-jump "b")
-	          ("Recent files" recentf "r"))
-           ("Apps"
-	          ("Notmuch" my/notmuch "m")
-	          ("Elfeed" my/elfeed "e")))))))
-
-  (use-package dashboard
-    :demand t
-    :after projectile
-    :custom
-    (dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-newline dashboard-insert-init-info dashboard-insert-items))
-    (dashboard-agenda-action 'dashboard-agenda--visit-file)
-    (dashboard-icon-type 'all-the-icons)
-    (dashboard-display-icons-p (display-graphic-p))
-    (dashboard-set-heading-icons (display-graphic-p))
-    (dashboard-set-file-icons (display-graphic-p))
-    (dashboard-heading-icons
-     '((agenda . "calendar")
-       (recents . "history")
-       (bookmarks . "bookmark")
-       (registers . "database")))
-    (dashboard-week-agenda t)
-    (dashboard-agenda-sort-strategy '(time-up priority-up))
-    (dashboard-center-content t)
-    (dashboard-set-init-info t)
-    (dashboard-navigation-cycle t)
-    (dashboard-items
-     '((agenda . 5)
-       (projects . 5)
-       (recents . 5)
-       (bookmarks . 15)))
-    (dashboard-modify-heading-icons '((recents   . "file-text")
-                                      (bookmarks . "book")))
-    (dashboard-item-names
-     '(("Agenda for today:" . "Today's agenda:")
-       ("Recent Files:" . "Recent files:")
-       ("Bookmarks" . "Bookmarks:")
-       ("Registers" . "Registers:")))
-    (dashboard-item-shortcuts '((agenda    . "a")
-                                (projects . "p")
-                                (recents   . "r")
-                                (bookmarks . "b")
-                                (registers . "e")))
-    (dashboard-projects-backend 'projectile)
-    :config
-    (dashboard-setup-startup-hook)))
+(use-package enlight
+  :demand t
+  :after (projectile)
+  :hook (after-init . enlight-open)
+  :custom
+  (enlight-content
+   (concat
+    (enlight-menu
+     '(("TODO"
+	      ("Agenda" (org-agenda nil "d") "a"))
+       ("Files"
+	      ("Projects" projectile-switch-project "p")
+	      ("Bookmarks" bookmark-jump "b")
+	      ("Recent files" recentf "r"))
+       ("Apps"
+	      ("Notmuch" my/notmuch "m")
+	      ("Elfeed" my/elfeed "e")))))))
 
 (defun my/messages-close-on-end ()
   "Bind END in the *Messages* buffer to close its window."
@@ -1293,7 +1251,6 @@
 
 (use-package tab-bar
   :demand t
-  :after dashboard
   :straight nil
   :bind (("C-x <left>" . tab-bar-switch-to-prev-tab)
          ("C-x C-<left>" . tab-bar-switch-to-prev-tab)
@@ -1745,7 +1702,6 @@ Including indent-buffer, which should not be called automatically on save."
     (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
     (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
     (evil-set-initial-state 'erc-mode 'emacs)
-    (evil-set-initial-state 'dashboard-mode 'emacs)
     (evil-set-initial-state 'read-only-mode 'emacs)
     (evil-set-initial-state 'Info-mode 'emacs)
     (evil-set-initial-state 'grep-mode 'emacs)
@@ -5108,8 +5064,6 @@ it can be passed in POS."
   (message "File '%s' not exists!" my/local-post-config-file))
 
 (setq gc-cons-threshold 100000000)
-
-(enlight-open)
 
 (setq my/emacs-initiated t)
 (message "Post Config setup finished")
