@@ -2863,7 +2863,7 @@ it can be passed in POS."
   (add-to-list 'eglot-server-programs '((python-mode python-ts-mode) . ("rass" "--" "pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs '((php-mode php-ts-mode) . ("rass" "--" "vendor/felixfbecker/language-server/bin/php-language-server.php")))
   (add-to-list 'eglot-server-programs '(kotlin-mode . ("kotlin-language-server" :initializationOptions (:storagePath "/tmp"))))
-  (add-to-list 'eglot-server-programs '((markdown-mode gfm-mode) . ("vscode-markdown-language-server")))
+  (add-to-list 'eglot-server-programs '((markdown-mode gfm-mode) . ("marksman")))
   (add-to-list 'eglot-server-programs '((sh-mode fish-mode bash-ts-mode) . ("bash-language-server" "start")))
   (add-to-list 'eglot-server-programs '((dockerfile-mode dockerfile-ts-mode) . ("docker-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs '((json-mode json-ts-mode) . ("vscode-json-language-server" "--stdio")))
