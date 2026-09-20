@@ -2441,7 +2441,6 @@ should be continued."
       (org-journal-find-file 'find-file)
       (org-journal-date-format "%Y-%m-%d %A")
       (org-journal-time-prefix "*** ")
-      (org-journal-carryover-items "-TODO=\"DONE\"")
       :config
       ;; (unbind-key "C-c C-j")
 
