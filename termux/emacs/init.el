@@ -856,6 +856,7 @@
      "/tmp/"
      "?:cache"
      "eln-cache"
+     "\\.el\\.gz\\'"
      "~/dot-env/termux/emacs/init.org"
      "~/dot-env/termux/emacs/init.el"
      "~/.emacs.d/init.org"
