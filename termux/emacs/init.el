@@ -1006,12 +1006,12 @@
       (consult-find)))
 
   (defun my/consult-ripgrep ()
-    "Run `consult-line` preffiled with region or symbol-at-point."
     (interactive)
-    (let ((dir (read-directory-name "Dir: " nil)))
+    (let ((dir (if (projectile-project-p) (projectile-project-root) (read-directory-name "Dir: " nil)))
+          (symbol (thing-at-point 'symbol)))
       (if (executable-find "rg")
-          (consult-ripgrep dir)
-        (consult-grep dir)))))
+          (consult-ripgrep dir symbol)
+        (consult-grep dir symbol)))))
 
 (use-package consult-flycheck
   :demand 2
