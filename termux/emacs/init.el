@@ -2821,6 +2821,7 @@ it can be passed in POS."
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
     (unless (tramp-file-name-p (buffer-file-name))
+      (my/eglot-init-local)
       (eglot-ensure)))
 
   (defun my/eglot-init-local ()
@@ -2831,7 +2832,7 @@ it can be passed in POS."
                   #'cape-keyword
                   #'cape-file
                   #'cape-dabbrev))))
-  (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
+  ;; (add-hook 'eglot-managed-mode-hook #'my/eglot-init-local)
 
   ;; (defun my/eglot--error-filter (orig-fn &rest args)
   ;;   "Suppress annoying 'unsupported capability' warnings in echo area."
