@@ -2436,7 +2436,7 @@ should be continued."
    `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\[X\\][^\n]*"
       0 'org-checkbox-done append))
    'append)
-  (set-face-attribute 'org-checkbox-done nil :foreground "gray50" :strike-through t))
+  (set-face-attribute 'org-checkbox-done nil :foreground "gray50" :strike-through nil))
 
 (use-package org-agenda
   :demand t
