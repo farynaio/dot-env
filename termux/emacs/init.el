@@ -4688,6 +4688,8 @@ it can be passed in POS."
               ("C-[" . nil))
   :custom
   (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
+  (term-scroll-to-bottom-on-output t)
+  (term-scroll-show-maximum-output t)
   ;; Performance
   (process-adaptive-read-buffering nil)   ; biggest single speedup
   (eat-minimum-latency 0.007)
