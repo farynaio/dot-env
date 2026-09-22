@@ -4679,9 +4679,11 @@ it can be passed in POS."
   :bind (:map eat-semi-char-mode-map
               ("C-t" . nil)
               ("C-f" . nil)
+              ("C-[" . nil)
               :map eat-char-mode-map
               ("C-t" . nil)
-              ("C-f" . nil))
+              ("C-f" . nil)
+              ("C-[" . nil))
   :custom
   (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
   ;; Performance
