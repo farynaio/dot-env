@@ -3391,6 +3391,8 @@ it can be passed in POS."
     :hook ((html-ts-mode . rainbow-mode)
            (html-ts-mode . emmet-mode)
            (html-ts-mode . my/eglot-ensure))
+    :bind (:map html-mode-map
+                ("C-c C-j" . my/join-line))
     :mode ("\\.html\\.twig\\'"
            "\\.hbs\\'"
            "\\.ejs\\'"
