@@ -2815,7 +2815,7 @@ it can be passed in POS."
   (add-to-list 'eglot-server-programs '((sh-mode fish-mode bash-ts-mode) . ("bash-language-server" "start")))
   (add-to-list 'eglot-server-programs '((dockerfile-mode dockerfile-ts-mode) . ("docker-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs '((json-mode json-ts-mode) . ("vscode-json-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs '((css-mode css-ts-mode scss-mode) . ("rass" "--" "vscode-css-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((css-mode css-ts-mode scss-mode) . ("rass" "--" "some-sass-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((yaml-mode yaml-ts-mode) . ("yaml-language-server" "--stdio")))
 
   (defun my/eglot-ensure ()
@@ -3198,9 +3198,10 @@ it can be passed in POS."
 
 (use-package css-mode
   :straight nil
-  :hook ((css-ts-mode . my/eglot-ensure)
-         (css-ts-mode . rainbow-mode))
-  :mode ("\\.s?css\\'" . css-ts-mode)
+  :hook ((css-base-mode . my/eglot-ensure)
+         (css-base-mode . rainbow-mode))
+  :mode (("\\.scss\\'" . scss-mode)
+         ("\\.css\\'" . css-ts-mode))
   :custom
   (css-indent-offset tab-width))
 
