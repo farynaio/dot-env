@@ -1057,7 +1057,7 @@ TODO:
   (defun my/consult-ripgrep ()
     (interactive)
     (let ((dir (if (projectile-project-p) (projectile-project-root) (read-directory-name "Dir: " nil)))
-          (symbol (thing-at-point 'symbol)))
+          (symbol (unless (derived-mode-p 'dired-mode) (thing-at-point 'symbol))))
       (if (executable-find "rg")
           (consult-ripgrep dir symbol)
         (consult-grep dir symbol)))))
