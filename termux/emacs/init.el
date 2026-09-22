@@ -3318,7 +3318,30 @@ it can be passed in POS."
            "\\.ejs\\'"
            "\\.html?\\'"
            "\\.njk\\'"
-           "\\.svg\\'"))
+           "\\.svg\\'")
+    :config
+    (defun my/html-comment-region (beg end)
+      "Wrap region in a single <!-- --> block comment."
+      (interactive "*r")
+      (let ((in-comment (save-excursion
+                          (goto-char beg)
+                          (looking-at "<!--"))))
+        (if in-comment
+            (save-excursion
+              (goto-char beg)
+              (delete-region (point) (point-at-eol))
+              (goto-char end)
+              (beginning-of-line)
+              (delete-region (point) (point-at-bol)))
+          (save-excursion
+            (goto-char end)
+            (insert "\n-->")
+            (goto-char beg)
+            (insert "<!--\n")))))
+
+    (add-hook 'html-ts-mode-hook
+              (lambda ()
+                (local-set-key (kbd "C-x ;") 'my/html-comment-region))))
 
   ;; DEPRECATED no LSP support?
   (use-package mhtml-ts-mode
