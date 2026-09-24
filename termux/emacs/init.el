@@ -1582,9 +1582,9 @@ Including indent-buffer, which should not be called automatically on save."
   (dired-dwim-target t)
   (dired-keep-marker-copy nil)
   (dired-listing-switches "-al --group-directories-first")
-  ;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso") ;; TODO test
-  (dired-recursive-deletes 'top)
-  (dired-recursive-copies 'top)
+  ;; (dired-listing-switches "-goah --group-directories-first --time-style=long-iso")
+  (dired-recursive-deletes 'always)
+  (dired-recursive-copies 'always)
   (dired-deletion-confirmer 'y-or-n-p)
   (dired-auto-revert-buffer t)
   (dired-clean-confirm-killing-deleted-buffers nil)
