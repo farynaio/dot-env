@@ -1822,11 +1822,11 @@ Including indent-buffer, which should not be called automatically on save."
      "org-roam"
      (("c" org-roam-capture "capture" :exit t)
       ("A" org-roam-alias-add "add alias")
-      ("f" org-roam-node-find "find node")
+      ("f" org-roam-node-find "find or create")
       ("i" org-roam-node-insert "insert node link")
       ("B" consult-org-roam-backlinks "show backlinks")
       ("F" consult-org-roam-forward-links "show forward links")
-      ("S" consult-org-roam-search "search"))
+      ("g" consult-org-roam-search "grep"))
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
       ("L" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
@@ -1957,11 +1957,12 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-denote
     (:hint nil :color teal :quit-key "q" :title (with-faicon "folder-open" "Denote" 1  -0.05))
     ("Action"
-     (("n" denote "denote")
+     (("n" denote "create note")
+      ("f" denote-open-or-create "find or create")
       ("r" denote-rename-file "rename file")
       ("l" denote-link "link")
       ("b" denote-backlinks "backlinks")
-      ("d" denote-dired "dired")
+      ("d" denote-dired "view in dired")
       ("g" denote-grep "grep"))))
 
   (pretty-hydra-define hydra-base
