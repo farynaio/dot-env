@@ -1111,8 +1111,11 @@
       (unless rainbow-mode
         (rainbow-mode 1))
       (font-lock-fontify-buffer)))
+  (advice-add #'corfu-popupinfo--show :after #'my/popupinfo-colorize)
 
-  (advice-add #'corfu-popupinfo--show :after #'my/popupinfo-colorize))
+  (custom-set-faces
+   '(corfu-default   ((t :background "#383838" :foreground "#d8d8d8")))
+   '(corfu-popupinfo ((t :background "#2e2e2e" :foreground "#d8d8d8")))))
 
 (use-package cape
   :demand t
