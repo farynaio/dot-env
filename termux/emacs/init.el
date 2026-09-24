@@ -3329,21 +3329,23 @@ it can be passed in POS."
     (defun my/html-comment-region (beg end)
       "Wrap region in a single <!-- --> block comment."
       (interactive "*r")
-      (let ((in-comment (save-excursion
-                          (goto-char beg)
-                          (looking-at "<!--"))))
-        (if in-comment
-            (save-excursion
-              (goto-char beg)
-              (delete-region (point) (point-at-eol))
-              (goto-char end)
-              (beginning-of-line)
-              (delete-region (point) (point-at-bol)))
-          (save-excursion
-            (goto-char end)
-            (insert "\n-->")
-            (goto-char beg)
-            (insert "<!--\n")))))
+      (if (region-active-p)
+          (let ((in-comment (save-excursion
+                              (goto-char beg)
+                              (looking-at "<!--"))))
+            (if in-comment
+                (save-excursion
+                  (goto-char beg)
+                  (delete-region (point) (point-at-eol))
+                  (goto-char end)
+                  (beginning-of-line)
+                  (delete-region (point) (point-at-bol)))
+              (save-excursion
+                (goto-char end)
+                (insert "\n-->")
+                (goto-char beg)
+                (insert "<!--\n"))))
+        (call-interactively 'comment-line)))
 
     (add-hook 'html-ts-mode-hook
               (lambda ()
