@@ -1320,7 +1320,8 @@ TODO:
          ("C-c 6" . (lambda () (interactive) (my/tab-bar-select-or-create 6)))
          ("C-c 7" . (lambda () (interactive) (my/tab-bar-select-or-create 7)))
          ("C-c 8" . (lambda () (interactive) (my/tab-bar-select-or-create 8)))
-         ("C-c 9" . (lambda () (interactive) (my/tab-bar-select-or-create 9))))
+         ("C-c 9" . (lambda () (interactive) (my/tab-bar-select-or-create 9)))
+         ("C-c 0" . (lambda () (interactive) (my/tab-bar-select-or-create 10))))
   :custom
   (tab-bar-auto-width t)
   (tab-bar-tab-hints t)
@@ -1976,7 +1977,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("6" (my/tab-bar-select-or-create 6) "Tab 6")
       ("7" (my/tab-bar-select-or-create 7) "Tab 7")
       ("8" (my/tab-bar-select-or-create 8) "Tab 8")
-      ("9" (my/tab-bar-select-or-create 9) "Tab 9"))))
+      ("9" (my/tab-bar-select-or-create 9) "Tab 9")
+      ("0" (my/tab-bar-select-or-create 10) "Tab 10"))))
 
   (pretty-hydra-define hydra-magit
     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
