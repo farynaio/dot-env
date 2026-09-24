@@ -2464,7 +2464,8 @@ should be continued."
       (org-journal-created-property-timestamp-format "%Y-%m-%d")
       (org-journal-find-file 'find-file)
       (org-journal-date-format "%Y-%m-%d %A")
-      (org-journal-time-prefix "*** ")
+      (org-journal-time-format "")
+      (org-journal-time-prefix "")
       :config
       ;; (unbind-key "C-c C-j")
 
