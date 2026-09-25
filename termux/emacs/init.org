@@ -2055,7 +2055,7 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("x" hydra-exwm/body "EXWM")
       ("d" hydra-dired/body "dired")
-      ("z" (eat nil t) "shell")
+      ("z" my/term "shell")
       ("M" my/notmuch "notmuch")
       ("R" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
@@ -4812,48 +4812,156 @@ Try:
 * Shell / Terminal
 #+begin_src emacs-lisp
 ;; https://codeberg.org/akib/Emacs-eat
-(use-package eat
-  :commands (eat eat-other-window eat-project eat-project-other-window)
-  :straight (eat :type git
-                 :host codeberg
-                 :repo "akib/emacs-eat"
-                 :files ("*.el" ("term" "term/*.el") "*.texi"
-                         "*.ti" ("terminfo/e" "terminfo/e/*")
-                         ("terminfo/65" "terminfo/65/*")
-                         ("integration" "integration/*")
-                         (:exclude ".dir-locals.el" "*-tests.el")))
-  :bind (:map eat-semi-char-mode-map
-              ("C-t" . nil)
+(setq term-scroll-to-bottom-on-output t)
+(setq term-scroll-show-maximum-output t)
+(setq process-adaptive-read-buffering nil)   ; biggest single speedup
+(setq shell-file-name (concat (getenv "PREFIX") "/bin/bash"))
+(setq explicit-shell-file-name shell-file-name)
+
+(defalias 'sh #'my/new-shell)
+
+(use-package term
+  :straight nil
+  :commands (term my/term)
+  :bind (:map term-raw-map
+              ("M-x" . nil)
+              ("C-c" . nil)
+              ("C-x" . nil)
               ("C-f" . nil)
-              ("C-[" . nil)
-              :map eat-char-mode-map
               ("C-t" . nil)
-              ("C-f" . nil)
-              ("C-[" . nil))
-  :custom
-  (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
-  (term-scroll-to-bottom-on-output t)
-  (term-scroll-show-maximum-output t)
-  ;; Performance
-  (process-adaptive-read-buffering nil)   ; biggest single speedup
-  (eat-minimum-latency 0.007)
-  (eat-maximum-latency 0.05)
-  (eat-term-scrollback-size (* 64 1024))  ; in characters
-  ;; Behavior
-  (eat-kill-buffer-on-exit t)
-  (eat-query-before-killing-running-terminal 'auto)
-  (eat-term-name "xterm-256color")
-  (eat-enable-shell-prompt-annotation nil) ;; disables prompt markers
+              ("C-g" . nil)
+              ("C-x <left>" . nil)
+              ("C-x <right>" . nil)
+              ("C-h" . nil)
+              ("C-h k" . nil)
+              ("C-x <left>" . tab-bar-switch-to-prev-tab)
+              ("C-x C-<left>" . tab-bar-switch-to-prev-tab)
+              ("C-x <right>" . tab-bar-switch-to-next-tab)
+              ("C-x C-<right>" . tab-bar-switch-to-next-tab)
+              ("C-c 1" . (lambda () (interactive) (my/tab-bar-select-or-create 1)))
+              ("C-c 2" . (lambda () (interactive) (my/tab-bar-select-or-create 2)))
+              ("C-c 3" . (lambda () (interactive) (my/tab-bar-select-or-create 3)))
+              ("C-c 4" . (lambda () (interactive) (my/tab-bar-select-or-create 4)))
+              ("C-c 5" . (lambda () (interactive) (my/tab-bar-select-or-create 5)))
+              ("C-c 6" . (lambda () (interactive) (my/tab-bar-select-or-create 6)))
+              ("C-c 7" . (lambda () (interactive) (my/tab-bar-select-or-create 7)))
+              ("C-c 8" . (lambda () (interactive) (my/tab-bar-select-or-create 8)))
+              ("C-c 9" . (lambda () (interactive) (my/tab-bar-select-or-create 9)))
+              ("C-c 0" . (lambda () (interactive) (my/tab-bar-select-or-create 10))))
   :config
-  (defun my/eat-speedup ()
-    (setq-local scroll-conservatively most-positive-fixnum)
-    (setq-local truncate-lines t)
-    (setq-local line-spacing 0)
-    (setq-local mode-line-format nil)
-    (buffer-disable-undo))
-  (add-hook 'eat-mode-hook 'my/eat-speedup)
-  (defalias 'sh #'eat))
-(message "Shell / Terminal setup finished")
+  (defun my/term-handle-exit (&rest _)
+    (let ((kill-buffer-query-functions nil))
+      (kill-buffer (current-buffer))))
+  (advice-add 'term-handle-exit :after #'my/term-handle-exit)
+
+  (defun my/term ()
+    "Create a new term."
+    (interactive)
+    (ansi-term explicit-shell-file-name (generate-new-buffer-name "*ansi-term*"))))
+
+;; (use-package coterm
+;;   :straight nil
+;;   :commands coterm-mode
+;;   :config
+;;   (coterm-mode)
+;;   (with-eval-after-load 'comint
+;;     (define-key comint-mode-map (kbd "C-;") #'coterm-char-mode-cycle)))
+
+;; (use-package comint
+;;   :straight nil
+;;   :commands shell
+;;   :defines comint-scroll-to-bottom-on-input
+;;   comint-scroll-to-bottom-on-output
+;;   comint-prompt-read-only
+;;   comint-input-ignoredups
+;;   comint-completion-addsuffix
+;;   comint-input-ring-size
+;;   :custom
+;;   (comint-scroll-to-bottom-on-input 'other)
+;;   (comint-scroll-to-bottom-on-output nil)
+;;   (comint-prompt-read-only t)
+;;   (comint-input-ignoredups t)
+;;   (comint-completion-addsuffix t)
+;;   (comint-input-ring-size 10000)
+;;   (comint-process-echoes t) ;; fix: commands output is duplicated
+;;   (comint-terminfo-terminal "ansi")
+;;   :config
+;;   (defun my/shell-speedup ()
+;;     (setq-local comint-prompt-read-only t)
+;;     (setq-local show-trailing-whitespace nil)
+;;     (setq-local scroll-conservatively most-positive-fixnum)
+;;     (setq-local truncate-lines t)
+;;     (setq-local line-spacing 0)
+;;     (setq-local mode-line-format nil)
+;;     (setq-local comint-input-ring-file-name "~/.bash_history")
+;;     (comint-read-input-ring 'silent)
+;;     (font-lock-mode -1)
+;;     (buffer-disable-undo))
+;;   (add-hook 'shell-mode-hook 'my/shell-speedup))
+
+;; (use-package shell
+;;   :straight nil
+;;   :commands shell
+;;   :hook ((shell-mode . my/shell-mode-hook-func)
+;;          (shell-mode . ansi-color-for-comint-mode-on))
+;;   :config
+;;   (setq-default sh-shell-file explicit-shell-file-name)
+
+;;   ;; Kill shell buffer when shell exits
+;;   (defun my/shell-mode-hook-func ()
+;;     (set-process-sentinel (get-buffer-process (current-buffer))
+;;                           'my/shell-mode-kill-buffer-on-exit))
+;;   (defun my/shell-mode-kill-buffer-on-exit (process state)
+;;     (message state)
+;;     (if (or
+;;          (string-match "exited abnormally with code.*" state)
+;;          (string-match "finished" state))
+;;         (kill-buffer (current-buffer))))
+
+;;   (defun my/new-shell ()
+;;     "Always create a new shell buffer."
+;;     (interactive)
+;;     (shell (generate-new-buffer-name "*shell*"))))
+
+;; (use-package eat
+;;   :commands (eat eat-other-window eat-project eat-project-other-window)
+;;   :straight (eat :type git
+;;                  :host codeberg
+;;                  :repo "akib/emacs-eat"
+;;                  :files ("*.el" ("term" "term/*.el") "*.texi"
+;;                          "*.ti" ("terminfo/e" "terminfo/e/*")
+;;                          ("terminfo/65" "terminfo/65/*")
+;;                          ("integration" "integration/*")
+;;                          (:exclude ".dir-locals.el" "*-tests.el")))
+;;   :bind (:map eat-semi-char-mode-map
+;;               ("C-t" . nil)
+;;               ("C-f" . nil)
+;;               ("C-[" . nil)
+;;               :map eat-char-mode-map
+;;               ("C-t" . nil)
+;;               ("C-f" . nil)
+;;               ("C-[" . nil))
+;;   :custom
+;;   (eat-shell (concat (getenv "PREFIX") "/bin/bash"))
+;;   ;; Performance
+;;   ;;  (process-adaptive-read-buffering nil) ; biggest single speedup
+;;   (eat-minimum-latency 0.007)
+;;   (eat-maximum-latency 0.05)
+;;   (eat-term-scrollback-size (* 64 1024))  ; in characters
+;;   ;; Behavior
+;;   (eat-kill-buffer-on-exit t)
+;;   (eat-query-before-killing-running-terminal 'auto)
+;;   (eat-term-name "xterm-256color")
+;;   (eat-enable-shell-prompt-annotation nil) ;; disables prompt markers
+;;   :config
+;;   (defun my/eat-speedup ()
+;;     (setq-local scroll-conservatively most-positive-fixnum)
+;;     (setq-local truncate-lines t)
+;;     (setq-local line-spacing 0)
+;;     (setq-local mode-line-format nil)
+;;     (buffer-disable-undo))
+;;   (add-hook 'eat-mode-hook 'my/eat-speedup))
+;; (message "Shell / Terminal setup finished")
 #+end_src
 * SSH / Tramp
 #+begin_src emacs-lisp

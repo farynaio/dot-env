@@ -3,9 +3,20 @@ source $PREFIX/etc/fish/config.fish
 export PATH="$HOME/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
+export CLICOLOR_FORCE=1
+export GTK_THEME=Adwaita:dark
 
 # Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
+
+# For Emacs coterm + comint buffers: makes less prompt recognizable → auto char-mode works
+export LESS="FRXim"
+
+# Ensure TERM is correct inside Emacs (coterm sets it, but guard against overrides)
+if [[ -n "$INSIDE_EMACS" && "$INSIDE_EMACS" == *,comint* ]]; then
+  # export TERM="eterm-color"
+  export TERM="xterm-256color"
+fi
 
 if status is-interactive; and test -n $EAT_SHELL_INTEGRATION_DIR
   source $EAT_SHELL_INTEGRATION_DIR/fish
@@ -39,8 +50,11 @@ alias pkgd="pkg show "
 alias pkgi="pkg install "
 alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
-alias g="git"
 alias e="my_emacs_run"
+alias grep='grep --color=always'
+alias g="git --no-pager"
+alias git='git --no-pager'  # prevents pager issues
+alias ls="ls --color=always"
 
 # list ssh tunnels
 alias ssh-ls="ps -ef | grep '[s]sh'"

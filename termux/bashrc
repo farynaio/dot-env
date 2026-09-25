@@ -3,10 +3,22 @@
 source $PREFIX/etc/bash.bashrc
 
 export PS1='\W \$ '
-export PATH="$HOME/bin:$PATH"
+export PATH="${HOME}/bin:${PATH}"
 export EDITOR="vim"
 export VISUAL="vim"
+export PAGER="${PREFIX}/bin/less"
 export GPG_TTY=$(tty)
+export CLICOLOR_FORCE=1
+export GTK_THEME=Adwaita:dark
+
+# For Emacs coterm + comint buffers: makes less prompt recognizable → auto char-mode works
+export LESS="FRXim"
+
+# Ensure TERM is correct inside Emacs (coterm sets it, but guard against overrides)
+if [[ -n "$INSIDE_EMACS" && "$INSIDE_EMACS" == *,comint* ]]; then
+  # export TERM="eterm-color"
+  export TERM="xterm-256color"
+fi
 
 # Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
@@ -14,13 +26,6 @@ export NEXT_TELEMETRY_DISABLED=1
 if [ -n "$EAT_SHELL_INTEGRATION_DIR" ]; then
   source "$EAT_SHELL_INTEGRATION_DIR/bash"
 fi
-
-# export DISPLAY=:0 MESA_LOADER_DRIVER_OVERRIDE=zink
-# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/lvp_icd.aarch64.json
-# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/freedreno_icd.aarch64.json
-# export VK_ICD_FILENAMES=$PREFIX/share/vulkan/icd.d/wrapper_icd.aarch64.json
-# export ZINK_DESCRIPTORS=lazy
-# export MESA_GL_VERSION_OVERRIDE=4.3COMPAT
 
 my_emacs_run() {
   if [ -t 0 ]; then
@@ -41,8 +46,11 @@ alias pkgd="pkg show "
 alias pkgi="pkg install "
 alias pkgrm="pkg uninstall "
 alias pkglsu="apt list --upgradable"
-alias g="git"
 alias e="my_emacs_run"
+alias grep='grep --color=always'
+alias g="git --no-pager"
+alias git='git --no-pager'  # prevents pager issues
+alias ls="ls --color=always"
 
 # list ssh tunnels
 alias ssh-ls="ps -ef | grep '[s]sh'"
