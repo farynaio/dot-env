@@ -425,18 +425,18 @@
   (quit-window t))
 
 (defun my/no-messages (fun &rest args)
-    ;; (advice-add 'message :around #'ignore)
-    (let ((inhibit-message t))
-      (apply fun args))
-    ;; (advice-remove 'message #'ignore)
-)
+  ;; (advice-add 'message :around #'ignore)
+  (let ((inhibit-message t))
+    (apply fun args))
+  ;; (advice-remove 'message #'ignore)
+  )
 
 (defun my/func-call (&rest func)
   "Call `func' (function or functions) interactively."
   (interactive)
   (dolist (i func)
     (if (listp i)
-      (apply (car i) (cdr i))
+        (apply (car i) (cdr i))
       (funcall i))))
 
 (defun my/gen-process-sentinel (on-success &optional on-failure)
@@ -446,6 +446,7 @@
       (if (zerop (process-exit-status process))
           (when on-success (funcall on-success))
         (when on-failure (funcall on-failure))))))
+
 (message "Util functions setup finished")
 
 (use-package man
@@ -1289,15 +1290,15 @@
           ((or (string-prefix-p "*notmuch-" (buffer-name) t) (memq major-mode '(notmuch-show-mode notmuch-search-mode notmuch-tree-mode notmuch-hello-mode notmuch-message-mode))) my/notmuch-tab-name)
           (t (tab-bar-tab-name-current))))
 
-(defun my/tab-bar-select-or-create (n)
-  "Select tab N, or create a new tab at the end and select it."
-  (interactive "p")
-  (let ((tabs (funcall tab-bar-tabs-function)))
-    (if (<= n (length tabs))
-        (tab-bar-select-tab n)
-      (progn
-        (tab-bar-select-tab (length tabs))
-        (tab-bar-new-tab)))))
+  (defun my/tab-bar-select-or-create (n)
+    "Select tab N, or create a new tab at the end and select it."
+    (interactive "p")
+    (let ((tabs (funcall tab-bar-tabs-function)))
+      (if (<= n (length tabs))
+          (tab-bar-select-tab n)
+        (progn
+          (tab-bar-select-tab (length tabs))
+          (tab-bar-new-tab)))))
 
   (if (eq system-type 'darwin)
       (setq tab-bar-auto-width-max '(150 15))
