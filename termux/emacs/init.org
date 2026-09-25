@@ -2671,15 +2671,18 @@ it can be passed in POS."
   :hook (dired-mode . denote-dired-mode)
   :custom
   (denote-directory (expand-file-name "notes" "~/Documents"))
+  (denote-rename-confirmations nil)
   :config
   (defun my/denote-rename-on-save-based-on-front-matter ()
     "Rename the current Denote file, if needed, based on front matter, upon saving the file."
-    (let ((denote-rename-confirmations nil)
-          (denote-save-buffers t))
-      (when (and buffer-file-name (denote-file-has-denoted-filename-p buffer-file-name))
-        (ignore-errors (denote-rename-file-using-front-matter buffer-file-name))
-        (message "Buffer saved; Denote file renamed"))))
-  (add-hook 'after-save-hook #'my/denote-rename-on-save-based-on-front-matter))
+    (when (and buffer-file-name
+               (denote-file-has-denoted-filename-p buffer-file-name))
+      (ignore-errors
+        (let ((denote-rename-confirmations nil))
+          (denote-rename-file-using-front-matter buffer-file-name)))))
+  (add-hook 'before-save-hook #'my/denote-rename-on-save-based-on-front-matter))
+
+(message "Notes setup finished")
 #+end_src
 * Calendar
 #+begin_src emacs-lisp
