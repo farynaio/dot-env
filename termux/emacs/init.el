@@ -925,20 +925,26 @@
 
 (message "Commands & Navigation setup finished")
 
-(when (my/termux-p)
-  ;; Fixed tramp too long socket paths, and probably other issues
-  (setq small-temporary-file-directory (getenv "TMPDIR"))
+(if (my/termux-p)
+    (progn
+      ;; Fixed tramp too long socket paths, and probably other issues
+      (setq small-temporary-file-directory (getenv "TMPDIR"))
 
-  (use-package termux-saf
-    :commands (termux-saf-browse)
-    :straight
-    (:type git
-           :host github
-           :repo "farynaio/emacs-termux-saf"
-           :branch "master")
-    :bind
-    (:map termux-saf-mode-map
-          ("q" . kill-current-buffer))))
+      (use-package termux-saf
+        :commands (termux-saf-browse)
+        :straight
+        (:type git
+               :host github
+               :repo "farynaio/emacs-termux-saf"
+               :branch "master")
+        :bind
+        (:map termux-saf-mode-map
+              ("q" . kill-current-buffer)))
+
+      (defun my/notify (title body)
+        (start-process "termux-notify" nil "termux-notification"
+                       "--title" title "--content" body "--sound")))
+  (defun my/notify (title body) nil))
 
 (message "Termux setup finished")
 
@@ -5135,12 +5141,15 @@ it can be passed in POS."
            proc
            (my/gen-process-sentinel
             (lambda ()
-              (message "New e-mails fetched successfully!")
+              (let ((content "New e-mails fetched successfully!"))
+                (my/notify "Notmuch" content)
+                (message content))
               ;; (save-excursion
               ;;   (with-current-buffer "*notmuch-hello*"
               ;;     (call-interactively 'notmuch-refresh-this-buffer)))
               ))))))
   (warn "'notmuch' not found!"))
+
 (message "Email setup finished")
 
 (use-package ledger-mode
