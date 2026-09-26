@@ -4726,7 +4726,7 @@ it can be passed in POS."
   :commands (term my/term)
   :bind (:map term-raw-map
               ("M-x" . nil)
-              ("C-c" . nil)
+              ;; ("C-c" . nil)
               ("C-x" . nil)
               ("C-f" . nil)
               ("C-t" . nil)
