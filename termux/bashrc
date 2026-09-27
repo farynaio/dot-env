@@ -23,10 +23,6 @@ fi
 # Disable Next.js telemetry
 export NEXT_TELEMETRY_DISABLED=1
 
-if [ -n "$EAT_SHELL_INTEGRATION_DIR" ]; then
-  source "$EAT_SHELL_INTEGRATION_DIR/bash"
-fi
-
 my_emacs_run() {
   if [ -t 0 ]; then
     eval $EDITOR

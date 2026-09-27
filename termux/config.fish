@@ -13,13 +13,9 @@ export NEXT_TELEMETRY_DISABLED=1
 export LESS="FRXim"
 
 # Ensure TERM is correct inside Emacs (coterm sets it, but guard against overrides)
-if [[ -n "$INSIDE_EMACS" && "$INSIDE_EMACS" == *,comint* ]]; then
+if set -q INSIDE_EMACS; and test "$INSIDE_EMACS" = "*comint*"
   # export TERM="eterm-color"
   export TERM="xterm-256color"
-fi
-
-if status is-interactive; and test -n $EAT_SHELL_INTEGRATION_DIR
-  source $EAT_SHELL_INTEGRATION_DIR/fish
 end
 
 set -gx GPG_TTY (tty)
