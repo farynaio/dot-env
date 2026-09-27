@@ -13,7 +13,7 @@ readonly BACKUP_SAF_DIR="${EXTERNAL_DRIVE_DIR}/Backup/SAF-tmp"
 readonly DEST_DIR="${BACKUP_WORK_DIR}/${BACKUP_DIR}"
 
 # Files and directories in home dir, to be included in the backup
-DIRS_TO_BACKUP_HOME_ENCRYPTED=(".ssh" ".gnupg" ".bittytax" ".notmuch-config" ".mbsyncrc" ".msmtprc" ".bashrc" ".config/fish/config.fish" "Documents" "storage/shared/Documents")
+DIRS_TO_BACKUP_HOME_ENCRYPTED=(".ssh" ".gnupg" ".password-store" ".icewm" ".bittytax" ".notmuch-config" ".mbsyncrc" ".msmtprc" ".bashrc" ".config/fish/config.fish" "Documents" "storage/shared/Documents")
 
 # Verify jq is installed
 if ! command -v jq &> /dev/null; then
@@ -104,12 +104,10 @@ saf_folder_copy() {
 
 # excludes symbolic links
 create_encrypted_archive() {
-  local src="$1"
-  local dest="$2"
-  local output_file="${dest}/${BACKUP_NAME}.tar.gz.gpg"
+  local output_file="${DEST_DIR}/${BACKUP_NAME}.tar.gz.gpg"
   local dirs_to_backup=("${DIRS_TO_BACKUP_HOME_ENCRYPTED[@]}")
 
-  mkdir -p "$dest"
+  mkdir -p "$DEST_DIR"
 
   local cwd=`pwd`
   cd ~
@@ -132,6 +130,6 @@ saf_folder_copy "$BACKUP_SAF_PASS_URI" "Pass" "$BACKUP_PASS_FILENAME"
 saf_folder_copy "$BACKUP_SAF_VPN_URI" "VPN"
 saf_folder_copy "$BACKUP_SAF_EXPORTS_URI" "Exports"
 
-create_encrypted_archive "$HOME" "$DEST_DIR"
+create_encrypted_archive
 
 echo "Done"
