@@ -4736,6 +4736,8 @@ it can be passed in POS."
               ("C-x <right>" . nil)
               ("C-h" . nil)
               ("C-h k" . nil)
+              ("C-x 2" . my/split-window-down)
+              ("C-x 3" . my/split-window-right)
               ("C-x <left>" . tab-bar-switch-to-prev-tab)
               ("C-x C-<left>" . tab-bar-switch-to-prev-tab)
               ("C-x <right>" . tab-bar-switch-to-next-tab)
