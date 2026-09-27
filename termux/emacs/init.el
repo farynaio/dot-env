@@ -5050,7 +5050,15 @@ it can be passed in POS."
     (use-package notmuch
       :commands (notmuch my/notmuch)
       :bind
-      (:map notmuch-search-mode-map
+      (:map notmuch-hello-mode-map
+            ("i" . (lambda () (interactive) (notmuch-search "tag:inbox")))
+            ("I" . (lambda () (interactive) (notmuch-search "tag:inbox")))
+            ("d" . (lambda () (interactive) (notmuch-search "tag:draft")))
+            ("D" . (lambda () (interactive) (notmuch-search "tag:draft")))
+            ("f" . (lambda () (interactive) (notmuch-search "tag:flagged")))
+            ("F" . (lambda () (interactive) (notmuch-search "tag:flagged")))
+            ("S" . (lambda () (interactive) (notmuch-search "tag:sent")))
+            :map notmuch-search-mode-map
             ("d" . my/notmuch-search-mark-message-deleted)
             ("r" . my/notmuch-search-mark-message-read)
             :map notmuch-tree-mode-map
