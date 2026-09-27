@@ -1556,7 +1556,6 @@ Including indent-buffer, which should not be called automatically on save."
       (require 'epa-file)
       (require 'epg-config)
 
-      ;; (epa-file-enable)
       (setq epa-file-select-keys 'silent)
       (setq epa-file-encrypt-to my/epa-file-encrypt-to-default)
       ;; (setenv "GPG_AGENT_INFO" nil)
@@ -5146,7 +5145,7 @@ it can be passed in POS."
         "Asynchronously fetch new mails for notmuch."
         (interactive)
         ;; (async-shell-command "notmuch new" "*Messages*")
-        (message "Fetching new e-mails...")
+        (message "Syncing e-mails...")
         (let ((proc (start-process-shell-command "notmuch new" nil "notmuch new")))
           (set-process-sentinel
            proc
