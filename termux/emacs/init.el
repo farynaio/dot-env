@@ -5030,20 +5030,23 @@ it can be passed in POS."
       :bind
       (:map notmuch-hello-mode-map
             ("i" . (lambda () (interactive) (notmuch-search "tag:inbox")))
-            ("I" . (lambda () (interactive) (notmuch-search "tag:inbox")))
+            ;; ("I" . (lambda () (interactive) (notmuch-search "tag:inbox")))
             ("d" . (lambda () (interactive) (notmuch-search "tag:draft")))
-            ("D" . (lambda () (interactive) (notmuch-search "tag:draft")))
+            ;; ("D" . (lambda () (interactive) (notmuch-search "tag:draft")))
             ("f" . (lambda () (interactive) (notmuch-search "tag:flagged")))
-            ("F" . (lambda () (interactive) (notmuch-search "tag:flagged")))
-            ("S" . (lambda () (interactive) (notmuch-search "tag:sent")))
+            ;; ("F" . (lambda () (interactive) (notmuch-search "tag:flagged")))
+            ;; ("S" . (lambda () (interactive) (notmuch-search "tag:sent")))
             :map notmuch-search-mode-map
             ("d" . my/notmuch-search-mark-message-deleted)
-            ("r" . my/notmuch-search-mark-message-read)
+            ("D" . my/notmuch-search-mark-message-junk)
+            ;; ("r" . my/notmuch-search-mark-message-read)
             :map notmuch-tree-mode-map
             ("d" . my/notmuch-tree-mark-message-deleted)
-            ("r" . my/notmuch-tree-mark-message-read)
+            ("D" . my/notmuch-tree-mark-message-junk)
+            ;; ("r" . my/notmuch-tree-mark-message-read)
             :map notmuch-show-mode-map
-            ("d" . my/notmuch-show-mark-message-deleted))
+            ("d" . my/notmuch-show-mark-message-deleted)
+            ("D" . my/notmuch-show-mark-message-junk))
       :custom
       (notmuch-show-depth-limit 1)
       (notmuch-show-logo nil)
@@ -5079,10 +5082,16 @@ it can be passed in POS."
           (error "Sending message cancelled: empty subject.")))
       (add-hook 'message-send-hook #'my/notmuch-mua-empty-subject-check)
 
-      (defun my/notmuch-search-mark-message-deleted ()
-        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
+      (defun my/notmuch-search-mark-message-junk ()
+        "Mark the current thread as deleted by adding 'junk' and removing 'inbox', 'unread', 'flagged' and 'trash'."
         (interactive)
-        (notmuch-search-tag '("+deleted" "-inbox" "-unread" "-flagged"))
+        (notmuch-search-tag '("+junk" "-inbox" "-unread" "-flagged" "-trash"))
+        (notmuch-search-next-thread))
+
+      (defun my/notmuch-search-mark-message-deleted ()
+        "Mark the current thread as deleted by adding 'trash' and removing 'inbox', 'unread', 'flagged' and 'junk'."
+        (interactive)
+        (notmuch-search-tag '("+trash" "-inbox" "-unread" "-flagged" "-junk"))
         (notmuch-search-next-thread))
 
       (defun my/notmuch-search-mark-message-read ()
@@ -5092,9 +5101,15 @@ it can be passed in POS."
         (notmuch-search-next-thread))
 
       (defun my/notmuch-tree-mark-message-deleted ()
-        "Mark the current thread as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
+        "Mark the current thread as deleted by adding 'trash' and removing 'inbox', 'unread', 'flagged' and 'junk'."
         (interactive)
-        (notmuch-tree-tag '("+deleted" "-inbox" "-unread" "-flagged"))
+        (notmuch-tree-tag '("+trash" "-inbox" "-unread" "-flagged" "-junk"))
+        (notmuch-tree-next-thread))
+
+      (defun my/notmuch-tree-mark-message-junk ()
+        "Mark the current thread as deleted by adding 'junk' and removing 'inbox', 'unread', 'flagged' and 'trash'."
+        (interactive)
+        (notmuch-tree-tag '("+junk" "-inbox" "-unread" "-flagged" "-trash"))
         (notmuch-tree-next-thread))
 
       (defun my/notmuch-tree-mark-message-read ()
@@ -5116,9 +5131,14 @@ it can be passed in POS."
         (notmuch-tree-next-thread))
 
       (defun my/notmuch-show-mark-message-deleted ()
-        "Mark the current message as deleted by adding 'deleted' and removing 'inbox', 'unread' and 'flagged'."
+        "Mark the current message as deleted by adding 'trash' and removing 'inbox', 'unread', 'flagged' and 'junk'."
         (interactive)
-        (notmuch-show-add-tag '("+deleted" "-inbox" "-unread" "-flagged")))
+        (notmuch-show-add-tag '("+trash" "-inbox" "-unread" "-flagged" "-junk")))
+
+      (defun my/notmuch-show-mark-message-junk ()
+        "Mark the current message as deleted by adding 'junk' and removing 'inbox', 'unread', 'flagged' and 'trash'."
+        (interactive)
+        (notmuch-show-add-tag '("+junk" "-inbox" "-unread" "-flagged" "-trash")))
 
       (defun my/notmuch-fetch-async ()
         "Asynchronously fetch new mails for notmuch."
