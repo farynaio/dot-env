@@ -1974,7 +1974,7 @@ Including indent-buffer, which should not be called automatically on save."
       ;; ("g" hydra-git/body "git")
       ("o" hydra-org/body "org")
       ("n" hydra-denote/body "denote")
-      ("j" (org-journal-new-entry t) "Journal")
+      ("j" (org-journal-new-entry t) "journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write")
       ("r" revert-buffer "revert buffer"))
