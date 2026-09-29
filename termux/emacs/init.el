@@ -2033,7 +2033,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("C-M-<left>" . org-table-move-single-cell-left)
         ("C-M-<right>" . org-table-move-single-cell-right)
         ("C-c [" . nil)
-        ("C-c ]" . nil))
+        ("C-c ]" . nil)
+        ("C-c l" . org-store-link))
   :hook ((org-mode . org-sticky-header-mode)
          (org-agenda-mode . (lambda () (hl-line-mode 1)))
          (org-mode . org-indent-mode))
@@ -5161,6 +5162,12 @@ it can be passed in POS."
               ;;     (call-interactively 'notmuch-refresh-this-buffer)))
               ))))))
   (warn "'notmuch' not found!"))
+
+(use-package ol-notmuch
+  :demand t
+  :after notmuch
+  :bind (:map notmuch-show-mode-map
+              ("C-c l" . org-store-link)))
 
 (message "Email setup finished")
 
