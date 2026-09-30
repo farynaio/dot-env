@@ -227,7 +227,7 @@
   (make-directory my/tmp-dir t))
 
 ;; Backup files (~file~)
-(setq backup-directory-alist `((".*" . ,my/tmp-dir))
+(setq backup-directory-alist `((,tramp-file-name-regexp nil) (".*" . ,my/tmp-dir))
       backup-by-copying t    ; avoid symlink issues
       delete-old-versions t
       kept-new-versions 2
@@ -4871,7 +4871,6 @@ it can be passed in POS."
   (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
   :config
   (remove-hook 'tramp-cleanup-connection-hook #'tramp-recentf-cleanup)
-  (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
   (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t)))
 
 (use-package files-x
