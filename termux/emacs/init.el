@@ -1965,7 +1965,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("g" denote-grep "grep"))))
 
   (pretty-hydra-define hydra-base
-    (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Base" 1 -0.05))
+    (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "Main" 1 -0.05))
     (""
      (("p" hydra-project/body "project")
       ;; ("n" hydra-navigation/body "navigation")
