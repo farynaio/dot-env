@@ -227,7 +227,7 @@
   (make-directory my/tmp-dir t))
 
 ;; Backup files (~file~)
-(setq backup-directory-alist `((,tramp-file-name-regexp nil) (".*" . ,my/tmp-dir))
+(setq backup-directory-alist `((,tramp-file-name-regexp . ,my/tmp-dir) (".*" . ,my/tmp-dir))
       backup-by-copying t    ; avoid symlink issues
       delete-old-versions t
       kept-new-versions 2
