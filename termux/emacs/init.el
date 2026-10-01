@@ -4851,7 +4851,9 @@ it can be passed in POS."
   :defer 1
   :straight nil
   :custom
-  (tramp-verbose 6)
+  (tramp-verbose 3)
+  (tramp-show-ad-hoc-proxies t) ;; prevents issues while working with similiar file structure on separate servers
+  (enable-remote-dir-locals t)
   (tramp-use-ssh-controlmaster-options t)
   (tramp-use-scp-direct-remote-copying t)
   (tramp-copy-size-limit (* 1024 1024))
