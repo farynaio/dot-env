@@ -2040,7 +2040,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("j" (org-journal-new-entry t) "journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write")
-      ("r" revert-buffer "revert buffer"))
+      ("r" my/revert-buffer-noconfirm "revert buffer"))
      ""
      (("a" (org-agenda nil "d") "TODO")
       ("c" org-capture "org-capture")
