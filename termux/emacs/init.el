@@ -2081,9 +2081,7 @@ Including indent-buffer, which should not be called automatically on save."
 
   (org-element-use-cache nil)
 
-  (org-confirm-babel-evaluate
-   (lambda (lang body)
-     (not (member lang '("emacs-lisp")))))
+  (org-confirm-babel-evaluate nil)
 
   (org-export-babel-evaluate t)
   (org-export-preserve-breaks t)
