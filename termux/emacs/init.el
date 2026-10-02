@@ -4854,8 +4854,6 @@ it can be passed in POS."
               (when window-system
                 (set-face-attribute 'default nil :height 130)
                 (set-fringe-mode 10)
-                ;; start in fullscreen
-                (set-frame-parameter nil 'fullscreen 'fullboth)
 
                 (if (x-list-fonts "Cascadia Code PL")
                     (set-frame-font "Cascadia Code PL")
