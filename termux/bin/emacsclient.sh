@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec emacsclient -c "$@"
+exec emacsclient -a "" -c "$@"
