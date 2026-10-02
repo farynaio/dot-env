@@ -5109,7 +5109,7 @@ Try:
       (my/exwm-start))))
 (message "X setup finished")
 #+end_src
-* Email
+* Email / Notmuch
 #+begin_src emacs-lisp
 (use-package message
   :straight nil
@@ -5167,16 +5167,28 @@ Try:
             :map notmuch-show-mode-map
             ("d" . my/notmuch-show-mark-message-deleted)
             ("D" . my/notmuch-show-mark-message-junk))
+      :hook ((notmuch-hello-mode-hook . hl-line-mode))
       :custom
       (notmuch-show-depth-limit 1)
       (notmuch-show-logo nil)
       (notmuch-always-prompt-for-sender t)
       (notmuch-hello-indent 2)
+      (notmuch-hello-recent-searches-max 20)
       (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
       (notmuch-hello-sections '(notmuch-hello-insert-header
-                                ;; notmuch-hello-insert-saved-searches
-                                (notmuch-hello-insert-tags-section "All tags" :initially-hidden nil)
-                                notmuch-hello-insert-recent-searches))
+                                (notmuch-hello-insert-tags-section
+                                 "All tags"
+                                 :initially-hidden nil
+                                 :show-empty-searches nil
+                                 :hide-if-empty nil
+                                 :filter "NOT tag:trash NOT tag:junk")
+                                (notmuch-hello-insert-tags-section
+                                 "Trash & Junk"
+                                 :initially-hidden nil
+                                 :show-empty-searches nil
+                                 :hide-if-empty nil
+                                 :filter "tag:trash tag:junk")
+                                 notmuch-hello-insert-recent-searches))
       (notmuch-search-oldest-first nil)
       (mail-user-agent 'notmuch-user-agent)
       :config
