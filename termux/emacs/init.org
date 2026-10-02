@@ -106,8 +106,6 @@ TODO:
  warning-minimum-level :error
  warning-suppress-types '((comp) (bytecomp)))
 
-(when (display-graphic-p)
-  (set-fringe-mode 10))
 
 ;; Default frame configuration: full screen, good-looking title bar on macOS
 (setq frame-resize-pixelwise t)
@@ -131,10 +129,6 @@ TODO:
  indent-tabs-mode nil
  require-final-newline nil
  mode-require-final-newline nil)
-
-;; start in fullscreen
-(when (display-graphic-p)
-  (set-frame-parameter nil 'fullscreen 'fullboth))
 
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (setq default-frame-alist
@@ -248,7 +242,7 @@ TODO:
    '(read-only t cursor-intangible t face minibuffer-prompt)))
 
 ;; Make right-click do something sensible
-(context-menu-mode (display-graphic-p))
+;; (context-menu-mode (display-graphic-p))
 
 (setq font-lock-maximum-decoration t)
 
@@ -344,9 +338,6 @@ TODO:
               (lambda (orig-fun &rest args)
                 (unless (memq major-mode (list 'org-agenda-mode))
                   (apply orig-fun args)))))
-
-(when (display-graphic-p)
-  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
@@ -802,28 +793,6 @@ TODO:
 
 (message "Apperance setup finished")
 #+end_src
-* Icons
-#+begin_src emacs-lisp
-(straight-register-package 'all-the-icons)
-(when (display-graphic-p)
-  (use-package all-the-icons
-    :demand t
-    :config
-    ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
-    (unless (find-font (font-spec :name "all-the-icons"))
-      (all-the-icons-install-fonts t))))
-
-(straight-register-package 'nerd-icons)
-(when (display-graphic-p)
-  (use-package nerd-icons
-    :demand t
-    :config
-    (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
-      (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
-        (nerd-icons-install-fonts t)
-        (message "nerd-icons installed")))))
-(message "Icons setup finished")
-#+end_src
 * Commands & Navigation
 #+begin_src emacs-lisp
 ;; Show more than 4 levels when evaling expressions
@@ -1041,7 +1010,7 @@ TODO:
   (defun my/switch-to-buffer ()
     (interactive)
     (if (or (tramp-file-name-p (buffer-file-name)) (and (derived-mode-p 'dired-mode)
-     (file-remote-p default-directory)) (string-prefix-p "*debug tramp" (buffer-name)))
+                                                        (file-remote-p default-directory)) (string-prefix-p "*debug tramp" (buffer-name)))
         (call-interactively 'switch-to-buffer)
       (consult-buffer)))
 
@@ -1156,11 +1125,6 @@ TODO:
     (require 'corfu-popupinfo)
     (corfu-popupinfo-mode 1))
 
-  ;; because popupinfo freezes in X
-  (when (display-graphic-p)
-    (require 'corfu-echo)
-    (corfu-echo-mode 1))
-
   (defun my/popupinfo-colorize (&rest args)
     "Colourize popupinfo with 'rainbow-mode'."
     (with-current-buffer " *corfu-popupinfo*"
@@ -1194,14 +1158,6 @@ TODO:
   (add-to-list 'completion-at-point-functions #'cape-keyword)
   (add-to-list 'completion-at-point-functions #'cape-elisp-block)
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
-
-(straight-register-package 'nerd-icons-corfu)
-(when (display-graphic-p)
-  (use-package nerd-icons-corfu
-    :demand t
-    :after (nerd-icons corfu)
-    :config
-    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)))
 
 (message "Minibuffer Completion setup finished")
 #+end_src
@@ -1487,36 +1443,36 @@ Including indent-buffer, which should not be called automatically on save."
  hscroll-step 1
  auto-window-vscroll nil)
 
-(when (display-graphic-p)
-  ;; smooth pixel scrolling - this is resource intensive!
-  (pixel-scroll-precision-mode -1)
+;; (when (display-graphic-p)
+;; smooth pixel scrolling - this is resource intensive!
+(pixel-scroll-precision-mode -1)
 
-  ;; Configure mouse wheel to scroll by pixels
-  (setq pixel-scroll-precision-large-scroll-height 40.0) ; Height for "large" scrolls
-  (setq pixel-scroll-precision-use-momentum t) ; Optional: Adds momentum to trackpad scrolling
+;; Configure mouse wheel to scroll by pixels
+(setq pixel-scroll-precision-large-scroll-height 40.0) ; Height for "large" scrolls
+(setq pixel-scroll-precision-use-momentum t) ; Optional: Adds momentum to trackpad scrolling
 
-  ;; Disable acceleration for consistency
-  (setq mouse-wheel-progressive-speed nil)
+;; Disable acceleration for consistency
+(setq mouse-wheel-progressive-speed nil)
 
-  ;; Disable horizontal scrolling
-  (setq
-   mouse-wheel-tilt-scroll nil
-   mouse-wheel-flip-direction nil)
+;; Disable horizontal scrolling
+(setq
+ mouse-wheel-tilt-scroll nil
+ mouse-wheel-flip-direction nil)
 
-  ;; Scroll distance per wheel event
-  (setq mouse-wheel-scroll-amount '(1))
-  ;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+;; Scroll distance per wheel event
+(setq mouse-wheel-scroll-amount '(1))
+;; (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 
-  (setq redisplay-dont-pause t)
-  (setq
-   scroll-up-aggressively 0.01
-   ;; scroll-conservatively 10000
-   scroll-conservatively most-positive-fixnum ; Always scroll by one line
-   scroll-preserve-screen-position nil)
+(setq redisplay-dont-pause t)
+(setq
+ scroll-up-aggressively 0.01
+ ;; scroll-conservatively 10000
+ scroll-conservatively most-positive-fixnum ; Always scroll by one line
+ scroll-preserve-screen-position nil)
 
-  ;; Probably most effective for mouse and touchpads setups.
-  ;; (use-package ultra-scroll)
-  )
+;; Probably most effective for mouse and touchpads setups.
+;; (use-package ultra-scroll)
+;; )
 
 (use-package ibuffer
   :straight nil
@@ -1584,8 +1540,7 @@ Including indent-buffer, which should not be called automatically on save."
  ("C-M-b" . my/jump-matching)
  ("C-M-f" . my/jump-matching)
  ("M-v" .  my/scroll-up-command)
- ("C-v" .  my/scroll-down-command) ;; C-v paste doesn't work on Termux so bring back scrolling
-)
+ ("C-v" .  my/scroll-down-command)) ;; C-v paste doesn't work on Termux so bring back scrolling
 
 (message "Navigation setup finished")
 #+end_src
@@ -1713,15 +1668,6 @@ Including indent-buffer, which should not be called automatically on save."
         (let ((new-kill (concat (expand-file-name string default-directory))))
           (kill-new new-kill)
           (message "%s" new-kill))))))
-
-(straight-register-package 'all-the-icons-dired)
-(when (display-graphic-p)
-  (use-package all-the-icons-dired
-    :demand t
-    :after dired
-    :delight all-the-icons-dired-mode
-    :config
-    (add-hook 'dired-mode-hook #'all-the-icons-dired-mode)))
 
 (message "Dired setup finished")
 #+end_src
@@ -5010,108 +4956,153 @@ Try:
 #+end_src
 * X11 / EXWM
 #+BEGIN_src emacs-lisp
-(set-face-attribute 'default nil :height 130)
+(straight-register-package 'all-the-icons)
+(straight-register-package 'nerd-icons)
+(straight-register-package 'nerd-icons-corfu)
+(straight-register-package 'all-the-icons-dired)
 
 (add-hook 'after-make-frame-functions
-  (lambda (frame)
-    (with-selected-frame frame
-      (when window-system
-        (if (x-list-fonts "Cascadia Code PL")
-            (set-frame-font "Cascadia Code PL")
-          (warn "Font 'Cascadia Code PL' not available!"))))))
+          (lambda (frame)
+            (with-selected-frame frame
+              (when window-system
+                (set-face-attribute 'default nil :height 130)
+                (set-fringe-mode 10)
+                ;; start in fullscreen
+                (set-frame-parameter nil 'fullscreen 'fullboth)
 
-(when (display-graphic-p)
-  (use-package exwm
-    :disabled t
-    :demand t
-    :custom
-    (exwm-workspace-number 4)
-    (exwm-manage-force-tiling nil)
-    (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
-     '(?\C-x
-       ?\C-u ;; universal argument
-       ?\C-h
-       ?\C-f
-       ?\C-t
-       ?\C-g
-       ?\M-x
-       ?\M-`
-       ?\M-& ;; async shell command
-       S-right
-       S-left
-       S-up
-       S-down
-       ?\M-:
-       ;; ?\C-\M-j  ;; Buffer list
-       ?\C-\  ;; Ctrl+Space
-       ))
-    :preface
-    (defun my/exwm-start ()
-      (interactive)
-      (if (display-graphic-p)
-          (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
-              (message "EXWM is already running")
-            (exwm-wm-mode 1)
-            (message "EXWM started"))
-        (error "EXWM requires window system!")))
-    (defalias 'X #'my/exwm-start)
-    :config
-    (setq exwm-input-simulation-keys
-          '(([?\C-e] . [end])
-            ([?\M-v] . [prior])
-            ([?\C-v] . [next])
-            ([?\C-d] . [delete])
-            ([?\C-k] . [S-end delete])
-            ;; cut/paste.
-            ([?\C-w] . [?\C-x])
-            ([?\M-w] . [?\C-c])
-            ([?\C-y] . [?\C-v])
-            ;; search
-            ([?\C-s] . [?\C-f])))
+                (if (x-list-fonts "Cascadia Code PL")
+                    (set-frame-font "Cascadia Code PL")
+                  (warn "Font 'Cascadia Code PL' not available!"))
 
-    (setq exwm-input-global-keys
-          '(([s-left] . windmove-left)
-            ([s-right] . windmove-right)
-            ([s-up] . windmove-up)
-            ([s-down] . windmove-down)))
+                (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-    (defun my/exwm-manage-finish ()
-      (unless (eq system-type 'android)
-        (require 'exwm-systemtray)
-        (setq exwm-systemtray-height 32
-              exwm-systemtray-position 'top)
-        (exwm-systemtray-mode 1))
+                (use-package all-the-icons
+                  :demand t
+                  :config
+                  ;; (setq inhibit-compacting-font-caches t) ; uncomment on rendering performance issues
+                  (unless (find-font (font-spec :name "all-the-icons"))
+                    (all-the-icons-install-fonts t)))
 
-      (when exwm-class-name
-        (cond
-         ((member exwm-class-name '("Xfce4-terminal"))
-          (exwm-input-set-local-simulation-keys '()))
-         ((member exwm-class-name '("epiphany"))
-          (exwm-input-set-local-simulation-keys
-           '(([?\C-e] . [end])
-             ([?\M-v] . [prior])
-             ([?\C-v] . [next])
-             ([?\C-d] . [delete])
-             ([?\C-k] . [S-end delete])
-             ;; cut/paste.
-             ([?\C-w] . [?\C-x])
-             ([?\M-w] . [?\C-c])
-             ([?\C-y] . [?\C-v])
-             ;; search
-             ([?\C-s] . [?\C-f]))
-           )))))
+                (use-package nerd-icons
+                  :demand t
+                  :config
+                  (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
+                    (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+                      (nerd-icons-install-fonts t)
+                      (message "nerd-icons installed"))))
 
-    (add-hook 'exwm-manage-finish-hook #'my/exwm-manage-finish)
+                (use-package nerd-icons-corfu
+                  :demand t
+                  :after (nerd-icons corfu)
+                  :config
+                  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-    ;; Make buffer name more meaningful
-    (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+                (use-package all-the-icons-dired
+                  :demand t
+                  :after dired
+                  :delight all-the-icons-dired-mode
+                  :config
+                  (add-hook 'dired-mode-hook #'all-the-icons-dired-mode))
 
-    ;; For not Termux-X11 it may sense to use LXDE session management
-    ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
+                (use-package corfu
+                  :demand t
+                  :after (rainbow-mode)
+                  :config
+                  ;; because popupinfo freezes in X
+                  (require 'corfu-echo)
+                  (corfu-echo-mode 1))
 
-    ;; Auto start if EXWM_START is set
-    (when (getenv "EXWM_START")
-      (my/exwm-start))))
+                (use-package exwm
+                  :disabled t
+                  :demand t
+                  :custom
+                  (exwm-workspace-number 4)
+                  (exwm-manage-force-tiling nil)
+                  (exwm-input-prefix-keys ;; These keys should always pass through to Emacs
+                   '(?\C-x
+                     ?\C-u ;; universal argument
+                     ?\C-h
+                     ?\C-f
+                     ?\C-t
+                     ?\C-g
+                     ?\M-x
+                     ?\M-`
+                     ?\M-& ;; async shell command
+                     S-right
+                     S-left
+                     S-up
+                     S-down
+                     ?\M-:
+                     ;; ?\C-\M-j  ;; Buffer list
+                     ?\C-\  ;; Ctrl+Space
+                     ))
+                  :preface
+                  (defun my/exwm-start ()
+                    (interactive)
+                    (if (display-graphic-p)
+                        (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
+                            (message "EXWM is already running")
+                          (exwm-wm-mode 1)
+                          (message "EXWM started"))
+                      (error "EXWM requires window system!")))
+                  (defalias 'X #'my/exwm-start)
+                  :config
+                  (setq exwm-input-simulation-keys
+                        '(([?\C-e] . [end])
+                          ([?\M-v] . [prior])
+                          ([?\C-v] . [next])
+                          ([?\C-d] . [delete])
+                          ([?\C-k] . [S-end delete])
+                          ;; cut/paste.
+                          ([?\C-w] . [?\C-x])
+                          ([?\M-w] . [?\C-c])
+                          ([?\C-y] . [?\C-v])
+                          ;; search
+                          ([?\C-s] . [?\C-f])))
+
+                  (setq exwm-input-global-keys
+                        '(([s-left] . windmove-left)
+                          ([s-right] . windmove-right)
+                          ([s-up] . windmove-up)
+                          ([s-down] . windmove-down)))
+
+                  (defun my/exwm-manage-finish ()
+                    (unless (eq system-type 'android)
+                      (require 'exwm-systemtray)
+                      (setq exwm-systemtray-height 32
+                            exwm-systemtray-position 'top)
+                      (exwm-systemtray-mode 1))
+
+                    (when exwm-class-name
+                      (cond
+                       ((member exwm-class-name '("Xfce4-terminal"))
+                        (exwm-input-set-local-simulation-keys '()))
+                       ((member exwm-class-name '("epiphany"))
+                        (exwm-input-set-local-simulation-keys
+                         '(([?\C-e] . [end])
+                           ([?\M-v] . [prior])
+                           ([?\C-v] . [next])
+                           ([?\C-d] . [delete])
+                           ([?\C-k] . [S-end delete])
+                           ;; cut/paste.
+                           ([?\C-w] . [?\C-x])
+                           ([?\M-w] . [?\C-c])
+                           ([?\C-y] . [?\C-v])
+                           ;; search
+                           ([?\C-s] . [?\C-f]))
+                         )))))
+
+                  (add-hook 'exwm-manage-finish-hook #'my/exwm-manage-finish)
+
+                  ;; Make buffer name more meaningful
+                  (add-hook 'exwm-update-class-hook (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+
+                  ;; For not Termux-X11 it may sense to use LXDE session management
+                  ;; https://GitHub.com/Emacs-exwm/exwm/wiki#logging-out-with-lxde
+
+                  ;; Auto start if EXWM_START is set
+                  (when (getenv "EXWM_START")
+                    (my/exwm-start)))))))
 
 (message "X setup finished")
 #+end_src
