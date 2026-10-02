@@ -1528,7 +1528,9 @@ Including indent-buffer, which should not be called automatically on save."
 (bind-keys
  ("C-M-b" . my/jump-matching)
  ("C-M-f" . my/jump-matching)
- ("M-v" .  my/scroll-up-command))
+ ("M-v" .  my/scroll-up-command)
+ ("C-v" .  my/scroll-down-command) ;; C-v paste doesn't work on Termux so bring back scrolling
+)
 
 (message "Navigation setup finished")
 
@@ -4893,17 +4895,19 @@ it can be passed in POS."
   (rlogin-directory-tracking-mode -1))
 (message "SSH / Tramp setup finished")
 
-(when (eq window-system 'x)
-  (when (eq system-type 'android)
-    (set-face-attribute 'default nil :height 130)
-    (bind-keys
-     ("C-v" .  my/scroll-down-command))) ;; C-v paste doesn't work on Termux so bring back scrolling
+(set-face-attribute 'default nil :height 130)
 
-  (if (x-list-fonts "Cascadia Code PL")
-      (set-frame-font "Cascadia Code PL")
-    (warn "Font 'Cascadia Code PL' not available!"))
+(add-hook 'after-make-frame-functions
+  (lambda (frame)
+    (with-selected-frame frame
+      (when window-system
+        (if (x-list-fonts "Cascadia Code PL")
+            (set-frame-font "Cascadia Code PL")
+          (warn "Font 'Cascadia Code PL' not available!"))))))
 
+(when (display-graphic-p)
   (use-package exwm
+    :disabled t
     :demand t
     :custom
     (exwm-workspace-number 4)
@@ -4929,7 +4933,7 @@ it can be passed in POS."
     :preface
     (defun my/exwm-start ()
       (interactive)
-      (if window-system
+      (if (display-graphic-p)
           (if (and (boundp 'exwm-wm-mode) exwm-wm-mode)
               (message "EXWM is already running")
             (exwm-wm-mode 1)
@@ -4993,6 +4997,7 @@ it can be passed in POS."
     ;; Auto start if EXWM_START is set
     (when (getenv "EXWM_START")
       (my/exwm-start))))
+
 (message "X setup finished")
 
 (use-package message
@@ -5253,9 +5258,6 @@ it can be passed in POS."
 
 (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
   (mapc (lambda (hook) (add-hook hook #'my/typing-mode-hooks)) hl-line-hooks))
-
-;; (unless (server-running-p)
-;; (server-start))
 
 ;; Extra config file to run after everything else
 ;; Use to setup workspaces, tabs, windows, layout etc.
