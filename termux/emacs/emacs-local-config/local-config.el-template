@@ -35,7 +35,6 @@
 (setq my/elfeed-db-dir "~/Sync/elfeed") ; for index and data/
 
 ;; optional
-(setq my/org-roam-dir (expand-file-name "~/my-roam"))
 (setq my/org-journal-directory nil)
 (setq my/org-journal-template nil)
 (setq my/html-enable nil) ; advanced

@@ -19,7 +19,6 @@
 (defvar my/termux-saf-uri-documents nil)
 
 (defvar my/tmp-dir (expand-file-name "tmp" user-emacs-directory))
-(defvar my/org-roam-dir nil)
 (defvar my/org-journal-directory nil)
 (defvar my/org-journal-template nil)
 (defvar my/html-enable nil) ; advanced
@@ -31,10 +30,6 @@
 
 (unless (file-directory-p my/downloads-dir)
   (mkdir my/downloads-dir))
-
-(when my/org-roam-dir
-  (unless (file-directory-p my/org-roam-dir)
-    (mkdir my/org-roam-dir)))
 
 (if (file-exists-p my/local-config-file)
     (progn
@@ -1704,14 +1699,6 @@ Including indent-buffer, which should not be called automatically on save."
       ;; ("n" org-toggle-narrow-to-subtree "org-toggle-narrow-to-subtree")
       ("d" org-download-image "download image via URL")
       ("D" org-download-delete "delete image at point"))
-     "org-roam"
-     (("c" org-roam-capture "capture" :exit t)
-      ("A" org-roam-alias-add "add alias")
-      ("f" org-roam-node-find "find node")
-      ("i" org-roam-node-insert "insert node link")
-      ("B" consult-org-roam-backlinks "show backlinks")
-      ("F" consult-org-roam-forward-links "show forward links")
-      ("S" consult-org-roam-search "search"))
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
       ("L" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
@@ -2341,115 +2328,6 @@ should be continued."
   :custom
   (org-appear-delay 0.6)
   (org-hide-emphasis-markers t))
-
-(straight-register-package 'consult-org-roam)
-(straight-register-package 'org-roam)
-(if my/org-roam-dir
-    (use-package org-roam
-      :after (org emacsql)
-      :delight
-      :commands (org-roam-file-p org-roam-buffer-toggle org-roam-node-insert org-roam-find-directory org-roam-ui-open org-roam-node-find my/org-roam-node-find-other-window org-roam-switch-to-buffer org-id-get-create my/hydra-common/body consult-org-roam-search)
-      :init
-      (unless (file-directory-p my/org-roam-dir)
-        (make-directory my/org-roam-dir t))
-      :custom
-      (org-roam-directory my/org-roam-dir)
-      ;; (org-roam-graph-viewer "/usr/bin/open")
-      (org-roam-db-gc-threshold most-positive-fixnum)
-      (org-roam-tag-sources '(prop))
-      (org-roam-update-db-idle-second 60)
-      (org-roam-verbose nil)
-      (org-roam-extract-new-file-path "${slug}.org")
-      (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-      (org-roam-capture-templates '(("d" "default" plain "%?" :target
-                                     (file+head
-                                      "${slug}.org"
-                                      "#+TITLE: ${title}\n#+CREATED: [%<%Y-%m-%d %a>]\n#+LAST_MODIFIED: [%<%Y-%m-%d %a>]\n\n- tags :: \n\n\n") :kill-buffer nil)))
-      :config
-      (org-roam-db-autosync-mode 1)
-
-      ;; (define-derived-mode my/org-roam-mode org-mode "my-org-roam"
-      ;;   "Major mode for org-roam ready org buffers.")
-
-      ;; (major-mode-hydra-define+ my/org-roam-mode
-      ;;   (:hint nil :color teal :quit-key "q" :title (with-fileicon "org" "org-roam" 1 -0.05))
-      ;;   ("Edit"
-      ;;    (("n" org-id-get-create "turn heading into node")
-      ;;     ("t" org-roam-tag-add "add org-roam tag to node at point")
-      ;;     ("T" org-roam-alias-add "add org-roam alias to node at point"))
-      ;;    "Navigation"
-      ;;    (("u" org-roam-ui-open "open UI view")
-      ;;     ("z" org-roam-buffer-toggle "toggle references sidebar" :toggle t))))
-
-      (add-to-list 'display-buffer-alist
-                   '("\\*org-roam\\*"
-                     (display-buffer-in-direction)
-                     (direction . right)
-                     (window-width . 0.35)
-                     (window-height . fit-window-to-buffer)))
-
-      (add-to-list 'magit-section-initial-visibility-alist '([org-roam-node-section org-roam-backlinks org-roam] . hide))
-
-      (defun my/org-roam-file-p (&optional file)
-        (when (fboundp 'org-roam-file-p)
-          (org-roam-file-p file)))
-
-      (use-package consult-org-roam
-        :demand t
-        :delight
-        :custom
-        (consult-org-roam-grep-func (if (executable-find "rg") #'consult-ripgrep #'consult-grep))
-        ;; Configure a custom narrow key for `consult-buffer'
-        (consult-org-roam-buffer-narrow-key ?r)
-        ;; Display org-roam buffers right after non-org-roam buffers
-        ;; in consult-buffer (and not down at the bottom)
-        (consult-org-roam-buffer-after-buffers t)
-        :config
-        (consult-org-roam-mode 1)
-        ;; Eventually suppress previewing for certain functions
-        (consult-customize
-         consult-org-roam-forward-links
-         :preview-key "M-."))
-
-      (defun my/org-find-time-file-property (property &optional anywhere)
-        "Return the position of the time file PROPERTY if it exists.
-When ANYWHERE is non-nil, search beyond the preamble."
-        (save-excursion
-          (goto-char (point-min))
-          (let ((first-heading
-                 (save-excursion
-                   (re-search-forward org-outline-regexp-bol nil t))))
-            (when (re-search-forward (format "^#\\+%s:" property)
-                                     (if anywhere nil first-heading)
-                                     t)
-              (point)))))
-
-      (defun my/org-set-time-file-property (property &optional anywhere pos)
-        "Set the time file PROPERTY in the preamble.
-When ANYWHERE is non-nil, search beyond the preamble.
-If the position of the file PROPERTY has already been computed,
-it can be passed in POS."
-        (when-let ((pos (or pos
-                            (my/org-find-time-file-property property))))
-          (save-excursion
-            (goto-char pos)
-            (if (looking-at-p " ")
-                (forward-char)
-              (insert " "))
-            (delete-region (point) (line-end-position))
-            (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
-              (insert now)))))
-
-      (defun my/org-roam-set-last-modified ()
-        "Update the LAST_MODIFIED file property in the preamble of org-roam files."
-        (when (and (derived-mode-p 'org-mode) (string-prefix-p my/org-roam-dir buffer-file-name))
-          (my/org-set-time-file-property "LAST_MODIFIED")))
-
-      (add-hook 'before-save-hook 'my/org-roam-set-last-modified 50)
-
-      ;; (add-to-list 'magic-mode-alist '(my/org-roam-file-p . my/org-roam-mode))
-      (defalias 'roam #'org-roam))
-  (warn "Variable 'my/org-roam-dir' is not specified, org-roam will not be loaded!"))
 
 (use-package org-sticky-header
   :after org
