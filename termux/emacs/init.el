@@ -4009,8 +4009,6 @@ should be continued."
             (elfeed-update)
             (message "[%s] Updating feeds..." (format-time-string "%Y-%m-%d %H:%M:%S"))))
 
-        (my/elfeed-load-db-and-update)
-
         (defun my/elfeed-search-open-in-external-click (event)
           "Open link with external browser"
           (interactive "e")
