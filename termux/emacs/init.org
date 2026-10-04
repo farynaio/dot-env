@@ -49,7 +49,6 @@ TODO:
 (defvar my/org-roam-dir nil)
 (defvar my/org-journal-directory nil)
 (defvar my/org-journal-template nil)
-(defvar my/evil-enable nil)
 (defvar my/html-enable nil) ; advanced
 (defvar my/js-enable nil) ; advanced
 (defvar my/python-enable nil)
@@ -1673,100 +1672,37 @@ Including indent-buffer, which should not be called automatically on save."
 #+end_src
 * Evil
 #+begin_src emacs-lisp
-(straight-register-package 'evil)
-(when my/evil-enable
-  (use-package evil
-    :commands evil-mode
-    :bind
-    (:map evil-normal-state-map
-          ("C-f" . hydra-base/body)
-          :map evil-insert-state-map
-          ("C-f" . hydra-base/body)
-          :map evil-motion-state-map
-          ("C-f" . hydra-base/body))
-    :custom
-    (evil-respect-visual-line-mode t)
-    (evil-undo-system 'undo-fu)
-    (evil-want-C-u-scrol t)
-    (evil-want-fine-undo t)
-    (evil-want-C-i-jump nil)
-    (evil-search-module 'evil-search)
-    ;; (evil-mode-line-format "before")
-    (evil-shift-width tab-width)
-    (evil-cross-lines t)
-    (evil-mode-line-format '(before . mode-line-modes))
-    ;; (evil-mode-line-format '(before . mode-line-front-space))
-    (evil-normal-state-tag " Evil[N] ")
-    (evil-insert-state-tag " Evil[I] ")
-    (evil-visual-state-tag " Evil[V] ")
-    (evil-emacs-state-tag " Evil[E] ")
-    (evil-replace-state-tag " Evil[R] ")
-    (evil-motion-state-tag " Evil[M] ")
-    :config
-    ;; Configuring initial major mode for some modes
-    (evil-set-initial-state 'eat-mode 'emacs)
-    (evil-set-initial-state 'vterm-mode 'emacs)
-    (evil-set-initial-state 'eshell-mode 'emacs)
-    (evil-set-initial-state 'profiler-report-mode 'emacs)
-    (evil-set-initial-state 'help-mode 'emacs)
-    (evil-set-initial-state 'finder-mode 'emacs)
-    (evil-set-initial-state 'woman-mode 'emacs)
-    (evil-set-initial-state 'geben-context-mode 'emacs)
-    (evil-set-initial-state 'geben-backtrace-mode 'emacs)
-    (evil-set-initial-state 'geben-backtrace-mode 'emacs)
-    (evil-set-initial-state 'geben-breakpoint-list-mode 'emacs)
-    (evil-set-initial-state 'epa-key-list-mode 'emacs)
-    (evil-set-initial-state 'image-mode 'emacs)
-    (evil-set-initial-state 'shell-mode 'emacs)
-    ;; (evil-set-initial-state 'lsp-ui-imenu-mode 'emacs)
-    (evil-set-initial-state 'w3m-form-input-select-mode 'emacs)
-    (evil-set-initial-state 'xwidget-webkit-mode 'emacs)
-    (evil-set-initial-state 'erc-mode 'emacs)
-    (evil-set-initial-state 'read-only-mode 'emacs)
-    (evil-set-initial-state 'Info-mode 'emacs)
-    (evil-set-initial-state 'grep-mode 'emacs)
-    (evil-set-initial-state 'org-roam-mode 'emacs)
+(use-package evil
+  :commands evil-mode
+  :bind
+  (:map evil-normal-state-map
+        ("C-f" . hydra-base/body)
+        :map evil-insert-state-map
+        ("C-f" . hydra-base/body)
+        :map evil-motion-state-map
+        ("C-f" . hydra-base/body))
+  :custom
+  (evil-respect-visual-line-mode t)
+  (evil-undo-system 'undo-fu)
+  (evil-want-C-u-scrol t)
+  (evil-want-fine-undo t)
+  (evil-want-C-i-jump nil)
+  (evil-search-module 'evil-search)
+  (evil-shift-width tab-width)
+  (evil-cross-lines t)
+  (evil-mode-line-format '(before . mode-line-modes))
+  (evil-normal-state-tag " Evil[N] ")
+  (evil-insert-state-tag " Evil[I] ")
+  (evil-visual-state-tag " Evil[V] ")
+  (evil-emacs-state-tag " Evil[E] ")
+  (evil-replace-state-tag " Evil[R] ")
+  (evil-motion-state-tag " Evil[M] ")
+  :config
+  (defalias 'forward-evil-word #'forward-evil-symbol)
 
-    (add-to-list 'evil-emacs-state-modes 'shell-mode)
-    (add-to-list 'evil-emacs-state-modes 'eshell-mode)
-    (add-to-list 'evil-emacs-state-modes 'org-agenda-mode)
-    (add-to-list 'evil-emacs-state-modes 'org-toc-mode)
-    (add-to-list 'evil-emacs-state-modes 'magit-mode)
-    (add-to-list 'evil-emacs-state-modes 'magit-log-mode)
-    (add-to-list 'evil-emacs-state-modes 'magit-process-mode)
-    (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
-    (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
-    (add-to-list 'evil-emacs-state-modes 'mu4e-org-mode)
-    (add-to-list 'evil-emacs-state-modes 'debugger-mode)
-    (add-to-list 'evil-emacs-state-modes 'messages-buffer-mode)
-    (add-to-list 'evil-emacs-state-modes 'epa-key-mode)
-    (add-to-list 'evil-emacs-state-modes 'inferior-python-mode)
-    (add-to-list 'evil-emacs-state-modes 'xref--xref-buffer-mode)
-    (add-to-list 'evil-emacs-state-modes 'erc-mode)
-    (add-to-list 'evil-emacs-state-modes 'custom-mode)
-    (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-    (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-    (add-to-list 'evil-emacs-state-modes 'my/org-roam-side-mode)
-    (add-to-list 'evil-emacs-state-modes 'deft-mode)
-    (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
-    (add-to-list 'evil-emacs-state-modes 'flycheck-error-list-mode)
-    (add-to-list 'evil-emacs-state-modes 'nov-mode)
-    (add-to-list 'evil-emacs-state-modes 'helpful-mode)
-    (add-to-list 'evil-emacs-state-modes 'process-menu-mode)
-    (add-to-list 'evil-emacs-state-modes 'Info-mode)
-    (add-to-list 'evil-emacs-state-modes 'fireplace-mode)
-    (add-to-list 'evil-emacs-state-modes 'chatgpt-shell-mode)
-    (add-to-list 'evil-emacs-state-modes 'jump-tree-visualizer-mode)
-    (add-to-list 'evil-emacs-state-modes 'edebug-x-breakpoint-list-mode)
-    (add-to-list 'evil-emacs-state-modes 'edebug-x-instrumented-function-list-mode)
-    (add-to-list 'evil-emacs-state-modes 'treesit--explorer-tree-mode)
-    (add-to-list 'evil-emacs-state-modes 'special-mode)
-
-    (defalias 'forward-evil-word #'forward-evil-symbol)
-
-    (evil-define-key 'normal 'global-map
-                     (kbd "u") #'undo-fu-only-undo
-                     (kbd "C-r") #'undo-fu-only-redo)))
+  (evil-define-key 'normal 'global-map
+    (kbd "u") #'undo-fu-only-undo
+    (kbd "C-r") #'undo-fu-only-redo))
 
 (message "Evil setup finished")
 #+end_src
@@ -1996,7 +1932,6 @@ Including indent-buffer, which should not be called automatically on save."
       ("K" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
-      ("v" evil-mode "evil" :toggle t)
       ("A" abbrev-mode "abbrev-mode" :toggle t))
      ""
      (("x" hydra-exwm/body "EXWM")
@@ -3637,10 +3572,6 @@ Requires HTML
     (elpy-rpc-python-command "python")
     (elpy-rpc-timeout 2)
     :config
-    (evil-define-key '(normal motion visual) elpy-mode-map
-                     (kbd "M-.") #'xref-find-definitions
-                     (kbd "M-,") #'xref-pop-marker-stack)
-
     (setq
      elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)
      elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -4569,10 +4500,7 @@ Try:
                   (">" . end-of-buffer)
                   ("I" . my/w3m-view-image-generic-browser)
                   ("O" . my/w3m-open-in-external)
-                  ("C-w v" . evil-window-vsplit)
-                  ("C-w C-v" . evil-window-vsplit)
                   ("C-w =" . balance-windows)
-                  ("C-w |" . evil-window-set-width)
                   ("s-}" . w3m-next-buffer)
                   ("s-{" . w3m-previous-buffer)
                   ("<right>" . w3m-view-next-page)
@@ -4663,9 +4591,6 @@ Try:
          (("s" my/w3m-search-frame "search"))
          ;; ("s" my/w3m-search-new-session "search" :exit t)
          ))
-
-      (evil-define-key 'normal global-map
-                       (kbd ",w") 'my/hydra-browser/body)
 
       (defun my/w3m-create-empty-session ()
         (interactive)
