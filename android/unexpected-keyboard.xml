@@ -16,12 +16,12 @@
     <key width="1.5" c="a" nw="loc tab" se="ą"/>
     <key c="s" nw="loc accent_ring" ne="loc §" sw="loc ß" se="ś"/>
     <key c="d" nw="loc accent_grave" ne="loc £" sw="loc accent_aigu"/>
-    <key c="f" nw="loc accent_dot_above" ne="-" se="loc accent_ogonek" sw="_"/>
-    <key c="g" nw="loc accent_caron" ne="+" sw="&lt;" se="&gt;"/>
-    <key c="h" ne="=" sw="(" se=")"/>
-    <key c="j" nw="loc accent_trema" ne="loc accent_circonflexe" sw="{" se="}"/>
-    <key c="k" nw="loc accent_double_aigu" sw="[" se="]"/>
-    <key width="1.5" c="l" ne="|" sw="\\" se="ł"/>
+    <key c="f" nw="loc accent_dot_above"  se="loc accent_ogonek"/>
+    <key c="g" sw="loc accent_caron" nw="&lt;" ne="&gt;" sw="_" />
+    <key c="h" nw="{" ne="}" sw="-" />
+    <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" sw="+" />
+    <key c="k" nw="loc accent_double_aigu" nw="[" ne="]" sw="=" />
+    <key width="1.5" c="l" nw="|" ne="/" sw="\" se="ł"/>
   </row>
   <row>
     <key width="1.5" c="shift" ne="loc capslock"/>
@@ -29,9 +29,9 @@
     <key c="x" se="ź" ne="loc †"/>
     <key c="c" nw="loc accent_cedille" se="ć"/>
     <key c="v" sw="." />
-    <key c="b" ne="\?" sw="," />
-    <key c="n" nw="loc accent_tilde" ne=":" sw=";" se="ń"/>
-    <key c="m" ne="&quot;" nw="'" se="/"/>
+    <key c="b" sw="," />
+    <key c="n" nw="loc accent_tilde" ne="\?" sw=":" se="ń"/>
+    <key c="m" ne="&quot;" nw="'" sw=";"/>
     <key width="1.5" c="backspace" ne="delete"/>
   </row>
 
