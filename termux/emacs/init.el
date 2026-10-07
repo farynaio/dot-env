@@ -1691,7 +1691,8 @@ Including indent-buffer, which should not be called automatically on save."
     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
     ("Actions"
      (("a" org-agenda "agenda" :exit t)
-      ("r" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
+      ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
+      ("r" org-reveal "reveal" :exit t)
       ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
       ("t" org-toggle-timestamp-type "timestamp toggle")
       ("l" org-link-archive-at-point "link archive")
@@ -1702,8 +1703,8 @@ Including indent-buffer, which should not be called automatically on save."
      "Toggle"
      (("p" org-appear-mode "org-appear" :toggle t)
       ("L" org-table-header-line-mode "org-table-header-line-mode" :toggle t)
-      ("I" org-toggle-inline-images "org-toggle-inline-images" :toggle t)
-      ("s" my/image-slicing-mode-toggle "image-slicing-mode" :toggle image-slicing-mode))))
+      ("i" org-toggle-inline-images "org-toggle-inline-images" :toggle t)
+      ("I" my/image-slicing-mode-toggle "image-slicing-mode" :toggle image-slicing-mode))))
 
   (defun my/image-slicing-mode-toggle ()
     (interactive)
