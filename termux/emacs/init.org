@@ -1964,6 +1964,8 @@ Including indent-buffer, which should not be called automatically on save."
         ("M-[ 1 ; 3 b" . org-forward-paragraph)
         ;; ("M-[ 1 ; 3 c" . forward-word)
         ;; ("M-[ 1 ; 3 d" . backward-word)
+        ("C-n" . org-next-visible-heading)
+        ("C-p" . org-previous-visible-heading)
         ("C-M-<up>" . org-table-move-single-cell-up)
         ("C-M-<down>" . org-table-move-single-cell-down)
         ("C-M-<left>" . org-table-move-single-cell-left)
