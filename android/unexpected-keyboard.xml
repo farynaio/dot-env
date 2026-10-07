@@ -37,9 +37,9 @@
 
 <row>
 <key width="1.7" c="ctrl" nw="loc switch_greekmath" ne="loc meta" sw="loc switch_clipboard" se="loc switch_numeric"/>
-<key width="1.1" c="alt" nw="loc fn" ne="loc change_method" sw="switch_emoji"/>
+<key width="1.1" c="alt" nw="loc fn" ne="loc change_method" sw="," />
 
-<key width="1.1" c="esc"/>
+<key width="1.1" c="esc" se="switch_emoji" />
 <key width="3.3" c="space" w="cursor_left" e="cursor_right" n="cursor_up" s="cursor_down"/>
 
 <key width="1.1" c="." nw="loc home" ne="loc page_up" sw="loc end" se="loc page_down" n="loc up" s="loc down" w="loc left" e="loc right" />
