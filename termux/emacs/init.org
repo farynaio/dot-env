@@ -1605,9 +1605,9 @@ Including indent-buffer, which should not be called automatically on save."
   (advice-add 'dired-do-copy :after #'my/dired-unmark-after-copy)
 
   (add-hook 'dired-mode-hook
-            #'(lambda ()
-                (when (file-remote-p default-directory)
-                  (setq-local delete-by-moving-to-trash nil))))
+            (lambda ()
+              (when (file-remote-p default-directory)
+                (setq-local delete-by-moving-to-trash nil))))
 
   (defun my/dired-marked-count ()
     (when (and (derived-mode-p 'dired-mode)
