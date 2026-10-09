@@ -1113,7 +1113,6 @@
 (use-package undo-fu
   :commands (undo-fu-only-undo undo-fu-only-redo)
   :bind (("C-\\" . undo-fu-only-undo)
-         ("C-/" . undo-fu-only-redo)
          ("M-\\" . undo-fu-only-redo)))
 
 (message "Undo & Redo setup finished")
