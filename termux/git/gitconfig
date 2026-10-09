@@ -18,11 +18,11 @@
   autocrlf = input
   pager = less -r
   editor = emacs
-
   # Don't consider trailing space change as a cause for merge conflicts
   whitespace = -trailing-space
   filemode = false
   precomposeUnicode = true
+	hooksPath = ~/dot-env/termux/git/hooks
 
 [diff]
   tool = ediff

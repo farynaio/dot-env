@@ -1,0 +1,12 @@
+#!/bin/sh
+
+template="$(git rev-parse --show-toplevel)/.gitmessage"
+if [ -f "$template" ]; then
+  cat "$template" >> "$1"
+else
+  # Optionally pass through to local hook
+  local_hook=".git/hooks/prepare-commit-msg"
+  if [ -x "$local_hook" ]; then
+    "$local_hook" "$@"
+  fi
+fi
