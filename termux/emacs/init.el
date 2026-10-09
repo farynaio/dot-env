@@ -4432,7 +4432,7 @@ should be continued."
   (tramp-chunksize nil)
   (remote-file-name-inhibit-delete-by-moving-to-trash t)
   (vc-ignore-dir-regexp (format "%s\\|%s" vc-ignore-dir-regexp tramp-file-name-regexp)) ;; Disable on remote files
-  (tramp-remote-path '("/bin" "/usr/bin"))
+  (tramp-remote-path '("/bin" "/usr/bin" "~/.local/bin"))
   (tramp-auto-save-directory "~/.emacs.d/tramp-autosaves/")
   (tramp-persistency-file-name  "~/.emacs.d/tramp-persistency.el")
   (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
