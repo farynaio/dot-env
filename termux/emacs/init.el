@@ -1481,7 +1481,8 @@ Including indent-buffer, which should not be called automatically on save."
  ("C-M-b" . my/jump-matching)
  ("C-M-f" . my/jump-matching)
  ("M-v" .  my/scroll-up-command)
- ("C-v" .  my/scroll-down-command)) ;; C-v paste doesn't work on Termux so bring back scrolling
+ ("C-v" .  my/scroll-down-command)
+ ("C-x C-k" . kill-buffer)) ;; C-v paste doesn't work on Termux so bring back scrolling
 
 (message "Navigation setup finished")
 
@@ -1852,7 +1853,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("j" (org-journal-new-entry t) "journal")
       ("d" hydra-dev/body "dev")
       ("w" hydra-write/body "write")
-      ("r" my/revert-buffer-noconfirm "revert buffer"))
+      ("r" my/revert-buffer-noconfirm "revert buffer")
+      ("R" redraw-display "redraw"))
      ""
      (("a" (org-agenda nil "d") "TODO")
       ("c" org-capture "org-capture")
@@ -1866,7 +1868,7 @@ Including indent-buffer, which should not be called automatically on save."
       ("d" hydra-dired/body "dired")
       ("z" my/term "shell")
       ("M" my/notmuch "notmuch")
-      ("R" my/elfeed "elfeed")
+      ("E" my/elfeed "elfeed")
       ("S" hydra-saf/body "SAF")))))
 
 (message "Hydra setup finished")
@@ -4841,7 +4843,8 @@ should be continued."
 
 ;; (setq gc-cons-threshold most-positive-fixnum)
 (bind-keys
- ("C-x g" . magit-status))
+ ("C-x g" . magit-status)
+ ("C-x C-g" . magit-status))
 
 (when (eq system-type 'android)
   (bind-keys
