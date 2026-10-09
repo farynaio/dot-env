@@ -2559,6 +2559,10 @@ should be continued."
 (setq cperl-indent-level tab-width)
 (setq sgml-basic-offset tab-width)
 
+;; TODO can be better
+(setq comment-multi-line nil)
+(setq comment-style 'indent)
+
 ;; Solve chicken and egg problem, when 'eglot-server-programs' is needed to configure LSPs but it's not available until lazily loaded eglot is initialized.
 (setq-default eglot-server-programs '())
 
