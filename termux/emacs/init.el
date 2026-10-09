@@ -84,7 +84,7 @@
 
 (setq gnutls-verify-error t)
 
-(setq enable-local-eval t)
+(setq enable-local-eval 'maybe)
 
 (setq-default
  compare-ignore-case t
