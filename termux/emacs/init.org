@@ -4784,7 +4784,7 @@ Try:
       (notmuch-show-logo nil)
       (notmuch-always-prompt-for-sender t)
       (notmuch-hello-indent 2)
-      (notmuch-hello-recent-searches-max 20)
+      (notmuch-hello-recent-searches-max 25)
       (notmuch-message-headers '("Subject" "To" "Cc" "Date" "Delivered-To"))
       (notmuch-hello-sections '(notmuch-hello-insert-header
                                 (notmuch-hello-insert-tags-section
