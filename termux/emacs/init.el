@@ -4778,7 +4778,7 @@ should be continued."
            proc
            (my/gen-process-sentinel
             (lambda ()
-              (let ((content "New e-mails fetched successfully!"))
+              (let ((content "E-mails synced successfully!"))
                 (my/notify "Notmuch" content)
                 (message content))
               ;; (save-excursion
