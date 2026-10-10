@@ -18,8 +18,8 @@
     <key c="d" nw="loc accent_grave" ne="loc £" sw="loc accent_aigu"/>
     <key c="f" nw="loc accent_dot_above"  se="loc accent_ogonek"/>
     <key c="g" sw="loc accent_caron" nw="&lt;" ne="&gt;" sw="_" />
-    <key c="h" nw="{" ne="}" sw="-" />
-    <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" sw="+" />
+    <key c="h" nw="{" ne="}" sw="+" />
+    <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" sw="-" />
     <key c="k" nw="loc accent_double_aigu" nw="[" ne="]" sw="=" />
     <key width="1.5" c="l" nw="|" ne="/" sw="\" se="ł"/>
   </row>
@@ -28,10 +28,10 @@
     <key c="z" se="ż"/>
     <key c="x" se="ź" ne="loc †"/>
     <key c="c" nw="loc accent_cedille" se="ć"/>
-    <key c="v" sw="." />
-    <key c="b" sw="," />
+    <key c="v"/>
+    <key c="b" sw="." />
     <key c="n" nw="loc accent_tilde" ne="\?" sw=":" se="ń"/>
-    <key c="m" ne="&quot;" nw="'" sw=";"/>
+    <key c="m" ne="&quot;" nw="'" sw=";" se="," />
     <key width="1.5" c="backspace" ne="delete"/>
   </row>
 
