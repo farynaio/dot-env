@@ -1857,7 +1857,8 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("a" (org-agenda nil "d") "TODO")
       ("c" org-capture "org-capture")
-      ("m" hydra-magit/body "magit")
+      ("g" magit-status "magit")
+      ("G" hydra-magit/body "git")
       ("K" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
       ("e" evil-mode "evil" :toggle t)
@@ -4843,11 +4844,6 @@ should be continued."
     (warn "Native compile not available!")))
 (message "Native Compile setup finished")
 
-;; (setq gc-cons-threshold most-positive-fixnum)
-(bind-keys
- ("C-x g" . magit-status)
- ("C-x C-g" . magit-status))
-
 (when (eq system-type 'android)
   (bind-keys
    ("C-x ;" . comment-line)))
@@ -4873,7 +4869,7 @@ should be continued."
       (load my/local-post-config-file))
   (message "File '%s' not exists!" my/local-post-config-file))
 
-(setq gc-cons-threshold 100000000)
+(setq gc-cons-threshold 100000000) ;; most-positive-fixnum
 
 (setq my/emacs-initiated t)
 (message "Post Config setup finished")
