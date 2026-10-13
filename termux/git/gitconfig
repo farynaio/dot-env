@@ -36,7 +36,7 @@
   submodule = log
 
 [diff "gpg"]
-  textconv = gpg --decrypt
+  textconv = gpg --no-tty --quiet --batch --decrypt
 
 [fetch]
   recurseSubmodules = on-demand

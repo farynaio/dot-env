@@ -1,2 +1,8 @@
-*.gpg filter=gpg diff=gpg
-*.org.gpg filter=gpg diff=gpg
+# -*- mode: conf -*-
+
+# Last match wins
+
+*.gpg diff=gpg merge=gpg
+*.ledger.gpg diff=gpg merge=gpg
+*.txt.gpg diff=gpg merge=gpg
+*.org.gpg diff=gpg merge=gpg
