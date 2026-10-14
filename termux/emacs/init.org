@@ -597,6 +597,19 @@ TODO:
                 (apply orig-fun args)
                 (delete-other-windows)))
 
+  (defun my/load-history-filename-element-patch (orig-fun file-regexp)
+    (let* ((loads load-history)
+           (load-elt (and loads (car loads))))
+      (save-match-data
+        (while (and loads
+                    (or (null (car load-elt))
+                        (not (and (stringp (car load-elt))
+                                  (string-match file-regexp (car load-elt))))))
+          (setq loads (cdr loads)
+                load-elt (and loads (car loads)))))
+      load-elt))
+  (advice-add 'load-history-filename-element :around #'my/load-history-filename-element-patch)
+
   (defun my/magit-quit-session ()
     "Restores the previous window configuration and kills the magit buffer"
     (interactive)
