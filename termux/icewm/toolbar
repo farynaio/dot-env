@@ -4,7 +4,7 @@
 # Place your variants in /data/data/com.termux/files/usr/etc/icewm or in $HOME/.icewm since
 # modifications to this file will be overwritten when you reinstall icewm.
 
-prog "Emacs" emacs emacs
-prog "Terminal" xterm xfce4-terminal
-prog "Thunar" /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.xfce.thunar.svg thunar
-prog "Web browser" /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.gnome.Epiphany.svg xdg-utils-xdg-open about:blank
+prog "Terminal" ~/.icewm/terminal.svg lxterminal
+prog "File Manager" ~/.icewm/thunar.svg pcmanfm
+prog "Web browser" ~/.icewm/epiphany.svg xdg-utils-xdg-open about:blank
+prog "Emacs" emacs emacsclient -a "" -c

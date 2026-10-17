@@ -7,33 +7,26 @@
 ## mostly obsolete, fixme
 
 menu "Development" folder {
-    # prog vim vim gvim
-    prog Emacs emacs emacs
-    # prog Lyx emacs lyx
+    prog "Emacs" emacs emacsclient -a "" -c
 }
 
 menu "WWW" folder {
-     prog Epiphany /data/data/com.termux/files/usr/share/icons/hicolor/scalable/apps/org.gnome.Epiphany.svg epiphany
-#    prog Galeon galeon galeon
-#    prog Arena arena arena
-#    prog Lynx lynx xterm -e lynx
-#    prog Links lynx xterm -e links
-#}
-
-menu "Document Viewers" folder {
-     prog Ocular xdvi ocular
-#    prog "DVI Previewer" xdvi xdvi
-#    prog "Ghostview" ghostview gv
-#}
-
-menu Graphics folder {
-    prog Gimp gimp gimp
+     prog "Epiphany" ~/.icewm/epiphany.svg epiphany
 }
 
-#menu Games folder {
-#    prog Xboard xboard xboard
-#    prog "Tux Racer" tuxracer tuxracer
-#}
+menu "Document Viewers" folder {
+     prog "Ocular" ~/.icewm/okular.png ocular
+#    prog "DVI Previewer" xdvi xdvi
+#    prog "Ghostview" ghostview gv
+}
+
+menu Graphics folder {
+    prog "Gimp" gimp gimp
+}
+
+menu Music folder {
+    prog "Tenacity" ~/.icewm/tenacity.svg tenacity
+}
 
 menu System folder {
     prog "Control Panel" redhat control-panel

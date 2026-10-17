@@ -1,3 +1,4 @@
+# -*- mode: conf -*-
 # This is an example for icewm 4.1.0 hotkey definition file.
 # It will be installed as /data/data/com.termux/files/usr/share/icewm/keys.
 # Place your variants in /data/data/com.termux/files/usr/etc/icewm or in $HOME/.icewm since
@@ -8,9 +9,9 @@
 # Omit the XK_ prefixs and replace XF86XK_ prefixes by XF86.
 # Valid modifiers are Alt, AltGr, Ctrl, Shift, Meta, Super and Hyper.
 #
-key "Alt+Ctrl+t"            xterm
-key "Alt+Ctrl+b"            xdg-utils-xdg-open about:blank
-key "Alt+Ctrl+s"            xdg-utils-xdg-open https://www.google.com
+#key "Alt+Ctrl+t"            xterm
+#key "Alt+Ctrl+b"            xdg-utils-xdg-open about:blank
+#key "Alt+Ctrl+s"            xdg-utils-xdg-open https://www.google.com
 
 key "Super+KP_Subtract"     amixer sset Master 5%-
 key "Super+KP_Add"          amixer sset Master 5%+
@@ -31,4 +32,4 @@ key "XF86Search"            xdg-utils-xdg-open https://www.google.com
 key "XF86Eject"             eject
 key "XF86Calculator"        /bin/sh -c "gnome-calculator || xcalc || ( type bc >/dev/null 2>&1 && xterm -e bc -l)"
 
-switchkey "Super+p"         icewm-menu-xrandr
+#switchkey "Super+p"         icewm-menu-xrandr
