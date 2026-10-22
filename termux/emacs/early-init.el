@@ -42,6 +42,8 @@
 
 (add-to-list 'straight-built-in-pseudo-packages 'project)
 
+(setq org-mouse-1-follows-link nil)
+
 ;; Load Org and org-babel support
 (require 'org)
 (require 'ob-tangle)
