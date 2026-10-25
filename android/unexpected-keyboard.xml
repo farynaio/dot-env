@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <keyboard name="QWERTY (Polski) Emacs" script="latin" bottom_row="false">
   <row>
-    <key c="q" nw="`" ne="1" se="loc esc"/>
-    <key c="w" nw="~" ne="2" sw="\@"/>
-    <key c="e" nw="!" ne="3" sw="\#" se="ę"/>
-    <key c="r" ne="4" sw="$"/>
-    <key c="t" ne="5" sw="%"/>
-    <key c="y" ne="6" sw="^"/>
-    <key c="u" ne="7" sw="&amp;" se="loc €"/>
-    <key c="i" nw="loc accent_macron" ne="8" sw="*"/>
-    <key c="o" se="ó" ne="9" />
-    <key c="p" ne="0"/>
+    <key c="q" nw="`" ne="1" se="loc esc" sw="\@" />
+    <key c="w" nw="~" ne="2" sw="\#" />
+    <key c="e" nw="!" ne="3" se="ę" sw="$" />
+    <key c="r" ne="4" sw="%" />
+    <key c="t" ne="5" sw="^" />
+    <key c="y" ne="6" sw="&amp;" />
+    <key c="u" ne="7" se="loc €" sw="*" />
+    <key c="i" nw="loc accent_macron" ne="8" sw="+" />
+    <key c="o" se="ó" ne="9" sw="-" />
+    <key c="p" ne="0" sw="=" />
   </row>
   <row>
     <key width="1.5" c="a" nw="loc tab" se="ą"/>
     <key c="s" nw="loc accent_ring" ne="loc §" sw="loc ß" se="ś"/>
     <key c="d" nw="loc accent_grave" ne="loc £" sw="loc accent_aigu"/>
     <key c="f" nw="loc accent_dot_above"  se="loc accent_ogonek"/>
-    <key c="g" sw="loc accent_caron" nw="&lt;" ne="&gt;" sw="_" />
-    <key c="h" nw="{" ne="}" sw="+" />
-    <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" sw="-" />
-    <key c="k" nw="loc accent_double_aigu" nw="[" ne="]" sw="=" />
+    <key c="g" sw="loc accent_caron" nw="&lt;" ne="&gt;" />
+    <key c="h" nw="{" ne="}" />
+    <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" />
+    <key c="k" nw="loc accent_double_aigu" nw="[" ne="]" sw="_" />
     <key width="1.5" c="l" nw="|" ne="/" sw="\" se="ł"/>
   </row>
   <row>
@@ -29,10 +29,10 @@
     <key c="x" se="ź" ne="loc †"/>
     <key c="c" nw="loc accent_cedille" se="ć"/>
     <key c="v"/>
-    <key c="b" sw="." ne="!" />
-    <key c="n" nw="loc accent_tilde" ne="\?" sw=":" se="ń"/>
-    <key c="m" ne="&quot;" nw="'" sw=";" se="," />
-    <key width="1.5" c="backspace" ne="delete"/>
+    <key c="b" sw="," ne="\?" />
+    <key c="n" nw="loc accent_tilde" ne="!" sw="." se="ń"/>
+    <key c="m" ne="&quot;" nw="'" sw=":" se=";" />
+    <key width="1.5" c="backspace"/>
   </row>
 
 <row>
