@@ -21,17 +21,17 @@
     <key c="h" nw="{" ne="}" />
     <key c="j" nw="(" ne=")" sw="loc accent_trema" se="loc accent_circonflexe" />
     <key c="k" nw="loc accent_double_aigu" nw="[" ne="]" sw="_" />
-    <key width="1.5" c="l" nw="|" ne="/" sw="\" se="ł"/>
+    <key width="1.5" c="l" nw="|" sw="\" se="ł"/>
   </row>
   <row>
     <key width="1.5" c="shift" ne="loc capslock"/>
     <key c="z" se="ż"/>
     <key c="x" se="ź" ne="loc †"/>
     <key c="c" nw="loc accent_cedille" se="ć"/>
-    <key c="v"/>
+    <key c="v" sw="." />
     <key c="b" sw="," ne="\?" />
-    <key c="n" nw="loc accent_tilde" ne="!" sw="." se="ń"/>
-    <key c="m" ne="&quot;" nw="'" sw=":" se=";" />
+    <key c="n" nw="loc accent_tilde" ne="!" sw=":" se="ń"/>
+    <key c="m" ne="&quot;" nw="'" sw=";" se="/" />
     <key width="1.5" c="backspace"/>
   </row>
 
