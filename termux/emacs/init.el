@@ -3515,6 +3515,8 @@ should be continued."
 
 (load-theme 'modus-vivendi t)
 
+(set-face-attribute 'term-color-green nil :foreground "#00c06f" :background "#2a5045")
+
 ;; (use-package modus-themes
 ;;   :custom
 ;;   (modus-themes-italic-constructs t)
