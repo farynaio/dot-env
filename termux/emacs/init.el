@@ -2624,6 +2624,7 @@ should be continued."
   (add-to-list 'eglot-server-programs '((json-mode json-ts-mode) . ("vscode-json-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((css-mode css-ts-mode scss-mode) . ("rass" "--" "some-sass-language-server" "--stdio" "--" "tailwindcss-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((yaml-mode yaml-ts-mode) . ("yaml-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(dart-mode . ("dart" "language-server" "--protocol=lsp")))
 
   (defun my/eglot-ensure ()
     "Run eglot only for local files."
@@ -2664,6 +2665,7 @@ should be continued."
               ;; (cpp        "https://github.com/tree-sitter/tree-sitter-cpp/" "master" "src")
               ;; (cmake      "https://github.com/uyha/tree-sitter-cmake")
               (css        "https://github.com/tree-sitter/tree-sitter-css")
+              ;; (dart       "https://github.com/nielsenko/tree-sitter-dart" "main" "src")
               (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src")
               ;; (elisp      "https://github.com/Wilfred/tree-sitter-elisp")
               ;; (elixir     "https://github.com/elixir-lang/tree-sitter-elixir" "main" "src")
@@ -3038,6 +3040,9 @@ should be continued."
   (if (eq major-mode 'web-mode)
       (funcall my/native-local-major-mode)
     (web-mode)))
+
+(use-package dart-mode
+  :hook ((dart-mode . my/eglot-ensure)))
 
 (use-package mmm-mode
   :demand t
