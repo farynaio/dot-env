@@ -45,6 +45,7 @@
 (setq gc-cons-threshold (* 50 1000 1000)) ;; reduce startup GC pauses
 
 (setq confirm-kill-emacs #'yes-or-no-p)
+(setq confirm-kill-processes nil)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
