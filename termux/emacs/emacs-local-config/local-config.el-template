@@ -43,6 +43,7 @@
 (setq my/go-enable nil)
 (setq my/php-enable nil) ; requires html
 (setq my/kotlin-enabled nil)
+(setq my/ai-enabled nil)
 
 (defvar my/org-base-path "~/Documents/emacs/org")
 (setq-default org-directory (expand-file-name "orgs" my/org-base-path))

@@ -27,6 +27,7 @@
 (defvar my/go-enable nil)
 (defvar my/php-enable nil) ; requires html
 (defvar my/kotlin-enabled nil)
+(defvar my/ai-enabled nil)
 
 (unless (file-directory-p my/downloads-dir)
   (mkdir my/downloads-dir))
@@ -4814,35 +4815,37 @@ should be continued."
 
 (message "Email setup finished")
 
-(use-package pilish
-  :commands pilish
-  :custom
-  ;; (pilish-executable "/usr/local/bin/pi")
-  (pilish-project-trust-policy 'approve)
-  (pilish-thinking-display 'visible)
-  (pilish-input-window-height 0.3)
-  ;; (pilish-extra-args '("--approve"))
-  (pilish-session-inactivity-timeout nil)
-  (pilish-visit-file-other-window nil)
-  (pilish-input-window-display 'always)
-  ;; (setopt pilish-session-browser-default-scope 'all)    ;; 'this or 'all
-  ;; (setopt pilish-session-browser-default-view 'recent)  ;; 'recent, 'threaded, etc.
-  ;; (setopt pilish-session-browser-default-named-only t)
-  ;; (setopt pilish-tree-browser-default-filter 'default)
-  ;; Lines shown before tool output collapses:
-  ;; (setopt pilish-tool-preview-lines 20)
-  ;; (setopt pilish-bash-preview-lines 10)
-  ;; How many recent turns stay "hot" (full rendering, rewrapping, overlays):
-  ;; (setopt pilish-hot-tail-turn-count 5)
-  ;; Context warning/error thresholds (percent):
-  ;; (setopt pilish-context-warning-threshold 40)
-  ;; (setopt pilish-context-error-threshold 60)
-  ;; :config
-;; React to activity phase changes (thinking, replying, running, compact, idle):
-  ;; (defun my/pilish-phase-hook (chat input old new reason)
+(straight-register-package 'pilish)
+(when my/ai-enabled
+  (use-package pilish
+    :commands pilish
+    :custom
+    (pilish-executable (expand-file-name "~/bin/pi-proot.sh"))
+    (pilish-project-trust-policy 'approve)
+    (pilish-thinking-display 'visible)
+    (pilish-input-window-height 0.3)
+    ;; (pilish-extra-args '("--approve"))
+    (pilish-session-inactivity-timeout nil)
+    (pilish-visit-file-other-window nil)
+    (pilish-input-window-display 'always)
+    ;; (setopt pilish-session-browser-default-scope 'all)    ;; 'this or 'all
+    ;; (setopt pilish-session-browser-default-view 'recent)  ;; 'recent, 'threaded, etc.
+    ;; (setopt pilish-session-browser-default-named-only t)
+    ;; (setopt pilish-tree-browser-default-filter 'default)
+    ;; Lines shown before tool output collapses:
+    ;; (setopt pilish-tool-preview-lines 20)
+    ;; (setopt pilish-bash-preview-lines 10)
+    ;; How many recent turns stay "hot" (full rendering, rewrapping, overlays):
+    ;; (setopt pilish-hot-tail-turn-count 5)
+    ;; Context warning/error thresholds (percent):
+    ;; (setopt pilish-context-warning-threshold 40)
+    ;; (setopt pilish-context-error-threshold 60)
+    ;; :config
+    ;; React to activity phase changes (thinking, replying, running, compact, idle):
+    ;; (defun my/pilish-phase-hook (chat input old new reason)
     ;; (message "Pi is now: %s" new))
-  ;; (add-hook 'pilish-activity-phase-functions #'my/pilish-phase-hook)
-)
+    ;; (add-hook 'pilish-activity-phase-functions #'my/pilish-phase-hook)
+    ))
 
 (use-package ledger-mode
   :bind
