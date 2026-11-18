@@ -1514,7 +1514,7 @@ Including indent-buffer, which should not be called automatically on save."
       (require 'epa-file)
       (require 'epg-config)
 
-      (setq epa-file-select-keys 'silent)
+      (setq epa-file-select-keys nil)
       (setq epa-file-encrypt-to my/epa-file-encrypt-to-default)
       ;; (setenv "GPG_AGENT_INFO" nil)
 
