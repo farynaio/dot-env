@@ -2727,7 +2727,7 @@ should be continued."
       :straight nil
       :commands (typescript-ts-mode)
       :custom
-      (setq treesit-font-lock-level 3)  ;; 1–5, higher = more detail
+      (treesit-font-lock-level 3)  ;; 1–5, higher = more detail
       :config
       (setq treesit-language-source-alist
             '(
