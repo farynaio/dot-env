@@ -1553,7 +1553,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 (message "Navigation setup finished")
 #+end_src
-* Encryption
+* Encryption / GPG
 #+begin_src emacs-lisp
 (setq-default mml-secure-openpgp-sign-with-sender t)
 (setq-default epa-pinentry-mode 'loopback)
