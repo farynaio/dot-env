@@ -1809,7 +1809,8 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-magit
     (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Magit" 1 -0.05))
     ("Action"
-     (("b" magit-blame "blame")
+     (("c" magit-clone "clone")
+      ("b" magit-blame "blame")
       ("l" magit-log-buffer-file "commit log (current file)")
       ("L" magit-log-current "commit log (project)")
       ("s" magit-status "status"))))
@@ -1872,7 +1873,7 @@ Including indent-buffer, which should not be called automatically on save."
      ""
      (("a" (org-agenda nil "d") "TODO")
       ("c" org-capture "org-capture")
-      ("g" magit-status "magit")
+      ("g" magit-status "git status")
       ("G" hydra-magit/body "git")
       ("K" browse-kill-ring "browse kill ring")
       ("b" ibuffer "ibuffer")
