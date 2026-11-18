@@ -1934,6 +1934,9 @@ Including indent-buffer, which should not be called automatically on save."
   :diminish org-indent-mode
   :custom
   (org-modules '(ol-bbdb ol-bibtex ol-docview ol-doi ol-info))
+
+  (org-imenu-depth 5)
+
   (org-bookmark-names-plist '())
   (org-archive-reversed-order t)
   (org-tags-column 0)
