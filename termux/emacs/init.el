@@ -2368,7 +2368,7 @@ should be continued."
   (org-download-timestamp "%Y%m%d-%H%M%S_")
   (org-download-method 'directory)
   (org-download-image-dir "attachments")
-
+  (org-download-annotate-function (lambda () ""))
   ;; Drag-and-drop to `dired`
   (add-hook 'dired-mode-hook 'org-download-enable))
 
