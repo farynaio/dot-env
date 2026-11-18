@@ -4458,7 +4458,8 @@ should be continued."
   (tramp-encoding-shell (concat (getenv "PREFIX") "/bin/sh"))
   :config
   (remove-hook 'tramp-cleanup-connection-hook #'tramp-recentf-cleanup)
-  (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t)))
+  (add-to-list 'tramp-connection-properties (list "/ssh:" "direct-async" t))
+  (add-to-list 'debug-ignored-errors 'remote-file-error))
 
 (use-package files-x
   :straight nil
