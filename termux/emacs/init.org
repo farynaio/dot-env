@@ -1767,9 +1767,9 @@ Including indent-buffer, which should not be called automatically on save."
   (pretty-hydra-define hydra-org
     (:hint nil :color teal :quit-key "q" :title (with-faicon "anchor" "Org" 1 -0.05))
     ("Actions"
-     (("a" org-agenda "agenda" :exit t)
-      ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree" :exit t)
-      ("r" org-reveal "reveal" :exit t)
+     (("a" org-agenda "agenda")
+      ("c" org-reset-checkbox-state-subtree "reset checkboxes in subtree")
+      ("r" org-reveal "reveal")
       ;; ("d" my/org-remove-duplicate-lines-in-list "remove list duplicates")
       ("t" org-toggle-timestamp-type "timestamp toggle")
       ("l" org-link-archive-at-point "link archive")
@@ -1794,17 +1794,17 @@ Including indent-buffer, which should not be called automatically on save."
   ;; (pretty-hydra-define hydra-navigation
   ;;   (:hint nil :color teal :quit-key "q" :title (with-faicon "compass" "Navigation" 1 -0.05))
   ;;   (""
-  ;;    (("a" my/consult-ripgrep "ack" :exit t))))
+  ;;    (("a" my/consult-ripgrep "ack"))))
 
   (pretty-hydra-define hydra-registers
     (:hint nil :color teal :quit-key "q" :title (with-faicon "bookmark" "Registers" 1 -0.05))
     ("Registers"
-     (("rp" point-to-register "point to register" :exit t)
-      ("rj" jump-to-register "jump to register" :exit t))
+     (("rp" point-to-register "point to register")
+      ("rj" jump-to-register "jump to register"))
      "Bookmarks"
-     (("b" consult-bookmark "jump or set" :exit t)
-      ("s" bookmark-save "save bookmarks" :exit t) ; this probably happens automatically
-      ("l" list-bookmarks "list bookmarks" :exit t))))
+     (("b" consult-bookmark "jump or set")
+      ("s" bookmark-save "save bookmarks") ; this probably happens automatically
+      ("l" list-bookmarks "list bookmarks"))))
 
   ;; (pretty-hydra-define hydra-git
   ;;   (:hint nil :color teal :quit-key "q" :title (with-alltheicon "git" "Git" 1 -0.05))
@@ -1819,26 +1819,26 @@ Including indent-buffer, which should not be called automatically on save."
     ("Language"
      (("d" ispell-change-dictionary "change dictionary")
       ("s" (flyspell-mode 'toggle) "flyspell toggle")
-      ("w" my/lang-toggle "language switch" :exit t))
+      ("w" my/lang-toggle "language switch"))
      "Fix grammar"
      (("o" artbollocks-mode "artbollocks" :toggle t)
-      ("<" flyspell-correct-previous "previous")
-      (">" flyspell-correct-next "next"))))
+      ("<" flyspell-correct-previous "previous" :exit nil)
+      (">" flyspell-correct-next "next" :exit nil))))
 
   (pretty-hydra-define hydra-dev
     (:hint nil :color teal :quit-key "q" :title (with-faicon "cogs" "Dev" 1 -0.05))
     ("Action"
-     (("x" xref-find-references-and-replace "replace references" :exit t)
-      ("u" lorem-ipsum-insert-sentences "lorem ipsum" :exit t)
-      ("o" my/eglot-organize-imports "organize imports" :exit t)
+     (("x" xref-find-references-and-replace "replace references")
+      ("u" lorem-ipsum-insert-sentences "lorem ipsum")
+      ("o" my/eglot-organize-imports "organize imports")
       ("fc" flycheck-mode "flycheck" :toggle t)
       ("fm" flymake-mode "flymake" :toggle t))
      "Navigate"
-     (("d" my/xref-find-definitions-at-point "find definitions" :exit t)
-      ("r" my/xref-find-references-at-point "find references" :exit t)
-      ("t" projectile-find-tag "find tag" :exit t)
-      ("g" projectile-grep "git grep" :exit t)
-      ("i" consult-imenu "imenu" :exit t))))
+     (("d" my/xref-find-definitions-at-point "find definitions")
+      ("r" my/xref-find-references-at-point "find references")
+      ("t" projectile-find-tag "find tag")
+      ("g" projectile-grep "git grep")
+      ("i" consult-imenu "imenu"))))
 
   (pretty-hydra-define hydra-tab-bar
     (:hint nil :color teal :quit-key "q" :title (with-faicon "coffee" "tab-bar-mode" 1 -0.05))
@@ -1889,8 +1889,9 @@ Including indent-buffer, which should not be called automatically on save."
 
   (pretty-hydra-define hydra-dired
     (:hint nil :color teal :quit-key "q" :title (with-faicon "folder" "Dired" 1 -0.05))
-    (""
-     (("f" find-name-dired "find file by regexp")
+    ("Action"
+     (("c" dired-do-compress-to "compress")
+      ("f" find-name-dired "find file by regexp")
       ("g" find-grep-dired "grep")
       ("d" epa-dired-do-decrypt "decrypt file")
       ("e" epa-dired-do-encrypt "encrypt file")
@@ -1932,8 +1933,8 @@ Including indent-buffer, which should not be called automatically on save."
       ("r" my/revert-buffer-noconfirm "revert buffer")
       ("R" redraw-display "redraw"))
      ""
-     (("a" (org-agenda nil "d") "TODO")
-      ("c" org-capture "org-capture")
+     (("a" (org-agenda nil "d") "org agenda")
+      ("c" org-capture "org capture")
       ("g" magit-status "git status")
       ("G" hydra-magit/body "git")
       ("K" browse-kill-ring "browse kill ring")
